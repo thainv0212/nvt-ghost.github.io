@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu về Faas trong việc phát triển các hệ thống phân tán</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu về Faas trong việc phát triển các hệ thống phân tán" />
+    <meta property="og:description" content="I. Lời mở đầuTrước khi hiểu được FaaS là ​​gì, chúng ta cần hiểu một thuật ngữ khác rất quan trọng đó chính là serverless computing. Serverless computing là một mô hình nhằm mục đích quản lý abstract server và cơ sở hạ tầng cấp thấp. Trong mô hình này," />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-faas-trong-viec-phat-trien-cac-he-thong-phan-tan/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1e_3x2QE87MP9prkEaU5LHUR3PtCEDR4x&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-02-14T09:38:00.000Z" />
+    <meta property="article:modified_time" content="2020-02-14T09:38:00.000Z" />
+    <meta property="article:tag" content="design pattern" />
+    <meta property="article:tag" content="distributed system" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu về Faas trong việc phát triển các hệ thống phân tán" />
+    <meta name="twitter:description" content="I. Lời mở đầuTrước khi hiểu được FaaS là ​​gì, chúng ta cần hiểu một thuật ngữ khác rất quan trọng đó chính là serverless computing. Serverless computing là một mô hình nhằm mục đích quản lý abstract server và cơ sở hạ tầng cấp thấp. Trong mô hình này," />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-faas-trong-viec-phat-trien-cac-he-thong-phan-tan/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1e_3x2QE87MP9prkEaU5LHUR3PtCEDR4x&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="design pattern, distributed system" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="875" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu về Faas trong việc phát triển các hệ thống phân tán",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ve-faas-trong-viec-phat-trien-cac-he-thong-phan-tan/",
+    "datePublished": "2020-02-14T09:38:00.000Z",
+    "dateModified": "2020-02-14T09:38:00.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1e_3x2QE87MP9prkEaU5LHUR3PtCEDR4x&export=download",
+        "width": 1600,
+        "height": 875
+    },
+    "keywords": "design pattern, distributed system",
+    "description": "I. Lời mở đầu\nTrước khi hiểu được FaaS là ​​gì, chúng ta cần hiểu một thuật ngữ khác rất quan\ntrọng đó chính là serverless computing. Serverless computing là một mô hình nhằm\nmục đích quản lý abstract server và cơ sở hạ tầng cấp thấp. Trong mô hình này,\nviệc phân bổ tài nguyên được quản lý bởi nhà cung cấp dịch vụ cloud thay vì các\nlập trình viên, điều này có thể mang lại một số lợi ích rất lơn. Nói cách khác,\nmô hình serverless nhằm mục đích giúp các lập trình viên tập trung vào lập trình\nứng d",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu về Faas trong việc phát triển các hệ thống phân tán</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2020-02-14">14 Feb 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1e_3x2QE87MP9prkEaU5LHUR3PtCEDR4x&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="i-l-i-m-u">I. Lời mở đầu</h3><p>Trước khi hiểu được <code>FaaS</code> là ​​gì, chúng ta cần hiểu một thuật ngữ khác rất quan trọng đó chính là <code>serverless computing</code>. <code>Serverless computing</code> là một mô hình nhằm mục đích quản lý <code>abstract server</code> và cơ sở hạ tầng cấp thấp. Trong mô hình này, việc phân bổ tài nguyên được quản lý bởi nhà cung cấp dịch vụ cloud thay vì các lập trình viên, điều này có thể mang lại một số lợi ích rất lơn. Nói cách khác, mô hình serverless nhằm mục đích giúp các lập trình viên tập trung vào lập trình ứng dụng của mình, những gì liên quan đến server sẽ được bên cung cấp dịch vụ cloud lo hết.</p><h3 id="ii-faas">II. Faas</h3><p>FaaS là viết tắt của <code>Function as a service</code> - ​​một khái niệm tương đối mới và hiện được triển khai trong các dịch vụ như AWS Lambda, Google Cloud Function, IBM OpenWhisk và Microsoft Azure Function. Nó cung cấp phương tiện để đạt được giấc mơ <code>serverless</code> cho phép các lập trình viên viết code đáp ứng được việc khi có 1 sự kiện gì đó xảy ra thì 1 hàm mà ta cũng có thể xem là 1 service được gọi mà không cần xây dựng hoặc duy trì cơ sở hạ tầng phức tạp. Điều này có nghĩa là chúng ta chỉ có thể deploy các <code>module function</code> lên cloud và thực thi các function đó 1 cách độc lập.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1FEQ4nSjiqLxUYcRgf3ilQI9fFnRbjkCE&amp;export=download" class="kg-image" alt width="300" height="165" layout="responsive"></amp-img></figure><p>Code mà các lập trình viên viết sẽ là những function được deploy lên cloud. Sau đây là 1 function đơn giản dùng <code>HTTP Request</code> để hiển thị <code>Hello World</code> hoặc <code>Hello</code> tiếp theo là tên ai đó nếu có param <code>name</code></p><pre><code>/**
+ * HTTP Cloud Function.
+ *
+ * @param {Object} req Cloud Function request context.
+ * @param {Object} res Cloud Function response context.
+ */
+exports.helloHttp = function helloHttp (req, res) {
+  res.send(`Hello ${req.body.name || 'World'}!`);
+</code></pre>
+<p>Sau đây là 1 function khác có thể phản hồi được sự thay đổi của <code>Google Cloud Storage bucket</code> (ví dụ như khi upload file, khi xóa file, khi <code>meta data</code> bị thay đổi, ..)</p><pre><code>/**
+ * Background Cloud Function to be triggered by Cloud Storage.
+ *
+ * @param {object} event The Cloud Functions event.
+ * @param {function} callback The callback function.
+ */
+exports.helloGCS = function (event, callback) {
+  const file = event.data;
+  if (file.resourceState === 'not_exists') {
+    console.log(`File ${file.name} deleted.`);
+  } else if (file.metageneration === '1') {
+    // metageneration attribute is updated on metadata changes.
+    // on create value is 1
+    console.log(`File ${file.name} uploaded.`);
+  } else {
+    console.log(`File ${file.name} metadata updated.`);
+  }
+  callback();
+};
+</code></pre>
+<h3 id="iii-thu-n-l-i-c-a-faas">III. Thuận lợi của Faas</h3><ol>
+<li>Lập trình viên có thể tập trung vào việc phát triển ứng dụng, những thứ liên quan đến hạ tầng sẽ được bên cung cấp dụng vụ cloud lo.</li>
+<li>Nếu như không có request nào xử dụng đến function đã được deploy thì lập trình viên sẽ không cần phải trả tiền.</li>
+<li>Logic được tách thành những module nhỏ mà cụ thể là các function làm tăng tính tái sử dụng, khả năng linh hoạt, mở rộng cũng như bảo trì cả hệ thống.</li>
+</ol>
+<h3 id="iv-kh-kh-n-c-a-faas">IV. Khó khăn của Faas</h3><ol>
+<li>Làm giảm tính tường minh của cả hệ thống, có thể gây khó khăn trong việc hiểu được cả hệ thống đang làm gì.</li>
+<li>Do các function là độc lập với nhau nên nhìn chung là khó debug.</li>
+<li>Hiện vẫn chưa có giải pháp giải quyết nhu cầu <code>caching resource</code> giữa các <code>stateless requests</code></li>
+</ol>
+<h3 id="v-t-nh-hu-ng-s-d-ng-faas">V. Tình huống sử dụng Faas</h3><p>Faas thường được sử dụng để giải quyết các vấn đề liên quan đến Web apps, Backends, Data/stream processing, Chatbots, Scheduled tasks, IT Automation</p><h3 id="v-k-t-lu-n">V. Kết luận</h3><p>Faas có nhiều điểm mạnh bên cạnh đó cũng có nhiều điểm yếu, do vậy hiện tại nó không phải là 1 giải pháp toàn vẹn mà thường chỉ là 1 phần nhỏ trong 1 giải pháp lớn hơn. Điều này có nghĩa là ta sẽ dùng faas trong 1 số tình huống cố định và kết hợp với các giải pháp khác để giải quyết các tình huống còn lại. Do vậy việc xác định đúng khi nào sử dụng Faas rất quan trọng.</p><p>Ví như phát triển 1 hệ thống web, sau khi xảy ra sự kiện có người upload file lên Google Cloud bucket ta có thể dùng faas để thông báo đến các user đóng vai trò là admin của trang web đó. Hoặc tình huống sau khi xảy ra sự kiện 1 người nào đó đăng kí thành công tài khoản mới, thì ta có thể dùng faas để thực hiện chức năng gửi email chúc mừng đã đăng kí thành công, ... </p><h3 id="vi-ngu-n-tham-kh-o">VI. Nguồn tham khảo</h3><p><a href="https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2">https://medium.com/@BoweiHan/an-introduction-to-serverless-and-faas-functions-as-a-service-fb5cec0417b2</a></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

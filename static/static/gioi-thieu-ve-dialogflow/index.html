@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>DialogFlow | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DialogFlow" />
+    <meta property="og:description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-12-22T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-12-22T02:09:44.000Z" />
+    <meta property="article:tag" content="AI" />
+    <meta property="article:tag" content="DialogFlow" />
+    <meta property="article:tag" content="Chatbot" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DialogFlow" />
+    <meta name="twitter:description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Q_N.V.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="AI, DialogFlow, Chatbot" />
+    <meta property="og:image:width" content="801" />
+    <meta property="og:image:height" content="276" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_N.V.H",
+        "url": "https://blog.vietnamlab.vn/author/hungnv/",
+        "sameAs": []
+    },
+    "headline": "DialogFlow",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/",
+    "datePublished": "2017-12-22T01:00:00.000Z",
+    "dateModified": "2017-12-22T02:09:44.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&export=download",
+        "width": 801,
+        "height": 276
+    },
+    "keywords": "AI, DialogFlow, Chatbot",
+    "description": "Giới thiệu\nCó rất nhiều framework để xây dựng AI chatbot. Và Api.ai (bây giờ là DialogFlow)\nlà một trong những chatbot framework nổi tiếng.\nApi.ai là một startup về natural language conversations, đã được Google mua lại\nvà đổi tên thành DialogFlow.\nBài viết này sẽ huớng dẫn cách tạo một chatbot kiểm tra thời tiết đơn giản sử\ndụng Facebook Messenger để giao tiếp với người dùng, DialogFlow để nhận dạng các\nđặc trưng của ngôn ngữ trong tin nhắn của nguời dùng , Google Cloud Function API\nđể xây dựng",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-ai tag-dialogflow tag-chatbot nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-ai tag-dialogflow tag-chatbot js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Hướng dẫn xây dựng AI chatbot với DialogFlow</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-12-22">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 22 December 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/ai/index.html">AI</a>, <a href="../tag/dialogflow/index.html">DialogFlow</a>, <a href="../tag/chatbot/index.html">Chatbot</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" alt="Hướng dẫn xây dựng AI chatbot với DialogFlow">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/gioi-thieu-ve-dialogflow/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20x%C3%A2y%20d%E1%BB%B1ng%20AI%20chatbot%20v%E1%BB%9Bi%20DialogFlow">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3>
+Giới thiệu</h3>
+Có rất nhiều framework để xây dựng AI chatbot. Và Api.ai (bây giờ là DialogFlow) là một trong những chatbot framework nổi tiếng.<br />
+Api.ai là một startup về natural language conversations, đã được Google mua lại và đổi tên thành DialogFlow.<br />
+Bài viết này sẽ huớng dẫn cách tạo một chatbot kiểm tra thời tiết đơn giản sử dụng Facebook Messenger để giao tiếp với người dùng, DialogFlow để nhận dạng các đặc trưng của ngôn ngữ trong tin nhắn của nguời dùng , Google Cloud Function API để xây dựng webhook, Weather API của worldweatheronline để lấy thông tin về thời tiết.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-4R-tKdnNG1A/WizJF3192wI/AAAAAAAABWo/dtYSceb6jKIAQUsii6K87K7COFlvCcs6wCKgBGAs/s1600/WeatherBot.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="191" data-original-width="671" height="182" src="https://4.bp.blogspot.com/-4R-tKdnNG1A/WizJF3192wI/AAAAAAAABWo/dtYSceb6jKIAQUsii6K87K7COFlvCcs6wCKgBGAs/s640/WeatherBot.png" width="640" /></a></div>
+<h3>
+Yêu cầu</h3>
+<ul>
+<li>tài khoản Google Cloud (bạn phải có thẻ mastercard hoặc visa thì mới tạo đuợc)</li>
+<li>tài khoản Facebook và Facebook Developer</li>
+</ul>
+<h3>
+</h3>
+<h3>
+DialogFlow</h3>
+<h4>
+Tạo mới Agent </h4>
+Trước hết bạn vào <a href="http://dialogflow.com/">dialogflow.com</a> sử dụng tài khoản Google Cloud để đăng ký, sau đó vào Create Agent để tạo 1 agent. Agent sẽ xử lý tin nhắn nguời dùng để trích xuất các đặc trưng.<br />
+Các đặc trưng trong 1 tin nhắn nguời sử dụng bao gồm:<br />
+<ul>
+<li>Intent: là 'ý định' của nguời dùng khi nhắn tin đó. Dựa vào đó mà agent đưa ra các hành động tuơng ứng</li>
+<li>Entity: là các ‘thực thể’ trong tin nhắn</li>
+</ul>
+Ví dụ như khi gái nhắn tin “anh ơi tối nay đưa em đi hồ tây nhé!” thì intent là “đưa đi chơi”, còn entity bao gồm địa điểm là "hồ tây", còn thời gian là “tối nay” =))<br />
+Bạn chọn ngôn ngữ là “english” sau đó ấn Create.<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-imz9NYDawfs/Wiy2QDz57DI/AAAAAAAABTg/rVRq0HQRBjQE19Shh0J-jwFHaSVSBMtXACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B19-05-08.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://4.bp.blogspot.com/-imz9NYDawfs/Wiy2QDz57DI/AAAAAAAABTg/rVRq0HQRBjQE19Shh0J-jwFHaSVSBMtXACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B19-05-08.png" width="640" /></a></div>
+<br />
+<h4>
+Tạo mới Intent </h4>
+Bây giờ chúng ta tạo 1 intent mới. Bạn click vào mục Intent ở menu bên trái rồi chọn Create Intent. Bạn đặt tên cho intent mới là “weather” rồi ấn nút Save.<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-NJ3R8BHJ0R4/Wiy2Vn4icaI/AAAAAAAABTs/z1O2y7p633Iu6CrE7HJgOHq7SXJityJxwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B19-29-06.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-NJ3R8BHJ0R4/Wiy2Vn4icaI/AAAAAAAABTs/z1O2y7p633Iu6CrE7HJgOHq7SXJityJxwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B19-29-06.png" width="640" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br /></div>
+<br />
+<h4>
+Phần “User says”</h4>
+Bạn nhập vào những câu mà nguời dùng sẽ hỏi<br />
+<ul>
+<li>What is the weather like</li>
+<li>What is the weather supposed to be</li>
+<li>Weather forecast</li>
+<li>What is the weather today</li>
+<li>Weather for tomorrow</li>
+<li>Weather forecast in San Francisco tomorrow</li>
+</ul>
+Hiện tại thì DialogFlow chưa hỗ trợ tiếng Việt nên chúng ta dùng tạm tiếng Anh vậy<br />
+Sau khi nhập vào bạn sẽ thấy từ “today” và "tomorrow" được bôi màu vàng, còn từ “San Francisco” đuợc bôi màu đỏ. Đây là những system entity được định nghiã từ trước. Những entity này cho phép DialogFlow hiểu những thời gian và địa điểm khác mà nguời dùng nhập vào<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://3.bp.blogspot.com/-Fakzyp_YioA/WizLRkV0P6I/AAAAAAAABXA/-tnsVJF390ktBVWNKkUHZPzGkl6vjI52ACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-09-45.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://3.bp.blogspot.com/-Fakzyp_YioA/WizLRkV0P6I/AAAAAAAABXA/-tnsVJF390ktBVWNKkUHZPzGkl6vjI52ACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-09-45.png" width="640" /></a></div>
+<h4>
+Phần “Add response”</h4>
+Là những câu trả lời của hệ thống<br />
+<ul>
+<li>Sorry I don't know the weather</li>
+<li>I'm not sure about the weather on $date</li>
+<li>I don't know the weather for $date in $geo-city but I hope it's nice!</li>
+</ul>
+<br />
+$date và $geo-city sẽ tham chiếu đến thời gian và thành phố mà nguời dùng đã gửi.<br />
+<h4>
+Thay đổi các intent mặc định</h4>
+Bạn click vào phần Intent ở menu bên trái sẽ thấy có 3 intent là welcome, Default Fallback Intent và Default Welcome Intent <br />
+<h5>
+Default Fallback Intent</h5>
+Phần response kích vào biểu tuợng thùng rác để xóa hết các response mặc định<br />
+sau đó thêm 2 response mới sau:<br />
+<ul>
+<li>I didn't understand. Can you try again?</li>
+<li>I don't understand what you're saying. You can say things like "What's the weather in Paris today?" to get the weather forecast.</li>
+</ul>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<h5>
+Default Welcome Intent</h5>
+Xóa hết các response mặc định và thay bằng:<br />
+<ul>
+<li>Welcome to Weather Bot! You can say things like "What's the weather in Mountain View tomorrow?" to get the weather forecast.</li>
+</ul>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<b><i>(Nhớ click vào save để lưu các thay đổi)</i></b><br />
+<br />
+Như vậy là phần agent xử lý tin nhắn để trích xuất đặc trưng đã tạm ổn. Bây giờ chúng ta sẽ nhảy qua phần webhook<br />
+<h3>
+Webhook</h3>
+Webhook là gì? Nói cho đơn giản thì nó là một HTTP Callback lắng nghe trên một URL, chờ khi có 1 HTTP Post gọi đến thì nó sẽ đuợc kích hoạt.<br />
+Khi agent gửi request là&nbsp; tin nhắn nguời dùng cùng những đặc trưng thì webhook sẽ xử lý để trả về response. Ở đây chúng ta đang dùng DialogFlow của Google, nên cũng tận dụng xài luôn Google Cloud Functions để làm webhook.<br />
+<h4>
+Google Project</h4>
+Khi bạn tạo mới 1 agent thì DialogFlow mặc định sẽ tạo 1 Google Project cho bạn. Bạn vào setting sẽ thấy nó ở trong Project ID<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-F49N1UtJasc/Wiy2nrj4JgI/AAAAAAAABT0/Qp-zfyDtRtIhKeKJrllWWkSdh16vEpefwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-48-16.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-F49N1UtJasc/Wiy2nrj4JgI/AAAAAAAABT0/Qp-zfyDtRtIhKeKJrllWWkSdh16vEpefwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-48-16.png" width="640" /></a></div>
+<br />
+Click vào sẽ nhảy đến giao diện Console của Google Project.<br />
+<h5>
+Billing</h5>
+Click vào menu bên trái chọn mục Billing. Ở đây bạn sẽ chọn tài khoản billing để Google trừ tiền :)) (đùa thôi chứ khi mới tạo tài khoản Google Cloud thì sẽ đuợc 300$ và 1 năm sử dụng miễn phí)<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<h5>
+Cloud Functions</h5>
+&nbsp;Bạn vào Cloud Functions ở menu bên trái để enable.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-Q8GvuKn_yE0/Wiy5325cvWI/AAAAAAAABUo/7mYW40X-uF89NWvHliQVtQIg9v_W4InggCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-17-57.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="359" src="https://4.bp.blogspot.com/-Q8GvuKn_yE0/Wiy5325cvWI/AAAAAAAABUo/7mYW40X-uF89NWvHliQVtQIg9v_W4InggCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-17-57.png" width="640" /></a></div>
+<br />
+<h5>
+Cấu hình Cloud Function</h5>
+Name: weatherWebhook<br />
+Trigger: chọn HTTP trigger<br />
+Stage bucket: click vào browse để chọn bucket <br />
+Function to execute: weatherWebhook<br />
+Index.js: bạn paste phần sau vào<br />
+```
+'use strict';
+const http = require('http');
+const host = 'api.worldweatheronline.com';
+const wwoApiKey = '[YOUR_API_KEY]';
+exports.weatherWebhook = (req, res) => {
+  // Get the city and date from the request
+  let city = req.body.result.parameters['geo-city']; // city is a required param
+  // Get the date for the weather forecast (if present)
+  let date = '';
+  if (req.body.result.parameters['date']) {
+    date = req.body.result.parameters['date'];
+    console.log('Date: ' + date);
+  }
+  // Call the weather API
+  callWeatherApi(city, date).then((output) => {
+    // Return the results of the weather API to Dialogflow
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
+  }).catch((error) => {
+    // If there is an error let the user know
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
+  });
+};
+function callWeatherApi (city, date) {
+  return new Promise((resolve, reject) => {
+    // Create the path for the HTTP request to get the weather
+    let path = '/premium/v1/weather.ashx?format=json&num_of_days=1' +
+      '&q=' + encodeURIComponent(city) + '&key=' + wwoApiKey + '&date=' + date;
+    console.log('API Request: ' + host + path);
+    // Make the HTTP request to get the weather
+    http.get({host: host, path: path}, (res) => {
+      let body = ''; // var to store the response chunks
+      res.on('data', (d) => { body += d; }); // store each response chunk
+      res.on('end', () => {
+        // After all the data has been received parse the JSON for desired data
+        let response = JSON.parse(body);
+        let forecast = response['data']['weather'][0];
+        let location = response['data']['request'][0];
+        let conditions = response['data']['current_condition'][0];
+        let currentConditions = conditions['weatherDesc'][0]['value'];
+        // Create response
+        let output ='Current conditions in the ${location['type']} 
+        ${location['query']} are ${currentConditions} with a projected high of
+        ${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
+        ${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
+        ${forecast['date']}.';
+        // Resolve the promise with the output text
+        console.log(output);
+        resolve(output);
+      });
+      res.on('error', (error) => {
+        reject(error);
+      });
+    });
+  });
+}
+```
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-aF_K9DEHkCE/Wiy3X1Nw-vI/AAAAAAAABUM/EjsyCpapUS48TE8My5zsgz7svXpdOjdhQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-22-10.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-aF_K9DEHkCE/Wiy3X1Nw-vI/AAAAAAAABUM/EjsyCpapUS48TE8My5zsgz7svXpdOjdhQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-22-10.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-JVrRRIEh3mE/Wiy3X40rzZI/AAAAAAAABUM/n-noZEq1Jawp9t1cxAGYH5tSULhb5dIBwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-22-42.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-JVrRRIEh3mE/Wiy3X40rzZI/AAAAAAAABUM/n-noZEq1Jawp9t1cxAGYH5tSULhb5dIBwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-22-42.png" width="640" /></a></div>
+<br />
+<h3>
+Weather API </h3>
+Vào <a href="https://developer.worldweatheronline.com/api/">https://developer.worldweatheronline.com/api/</a> để đăng ký tài khoản mới rồi lấy API key<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://3.bp.blogspot.com/-kbmOjFbzPa8/Wiy3fR9i7lI/AAAAAAAABUQ/2w-ddSwrWOUjjwqIhPktj_DRbg3CAh5bQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-42-23.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://3.bp.blogspot.com/-kbmOjFbzPa8/Wiy3fR9i7lI/AAAAAAAABUQ/2w-ddSwrWOUjjwqIhPktj_DRbg3CAh5bQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-42-23.png" width="640" /></a></div>
+<br />
+<br />
+<h3>
+Kết nối DialogFlow và Cloud Function API</h3>
+<h4>
+Cập nhật Fullfilment trong DialogFlow</h4>
+Quay trở lại console của DialogFlow và chọn Fulfillment ở menu bên trái<br />
+Click chọn enable rồi chèn callback url của Google Cloud Function vào rồi lưu lại<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-ATJkChvWQT0/Wiy3t7mPUzI/AAAAAAAABUU/JfO_XjqkEIU8pMkeAzv2ccgAB2bRJZEIACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-47-27.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://4.bp.blogspot.com/-ATJkChvWQT0/Wiy3t7mPUzI/AAAAAAAABUU/JfO_XjqkEIU8pMkeAzv2ccgAB2bRJZEIACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-47-27.png" width="640" /></a></div>
+<br />
+Quay trở lại mục Intents chọn weather intent<br />
+Kéo xuống dưới cùng kích vào Fulfillment<br />
+check vào use webhook rồi lưu lại<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-dvxhYmGQItU/Wiy6182Xo0I/AAAAAAAABU0/nzxYP3vEce4s2Ei0nKoGLx0xMSfNYOqPwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-50-32.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-dvxhYmGQItU/Wiy6182Xo0I/AAAAAAAABU0/nzxYP3vEce4s2Ei0nKoGLx0xMSfNYOqPwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-50-32.png" width="640" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<br />
+<br />
+<h4>
+Chạy thử</h4>
+Cột&nbsp; bên phải trong console của DialogFlow là mục “try it now”<br />
+bạn thử nhập câu hỏi như “<span class="text"><span class="ng-binding" id="test-client-resolved-query">Weather forecast in hanoi tomorrow</span></span>” thì sẽ nhận đuợc câu trả lời lấy từ weather API thông qua webhook<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-s--UfjtO7Jc/Wiy36kvblkI/AAAAAAAABUc/tp0ThbWvTn8TkgulgeSF_7zCYe_IWulXQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-57-15.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-s--UfjtO7Jc/Wiy36kvblkI/AAAAAAAABUc/tp0ThbWvTn8TkgulgeSF_7zCYe_IWulXQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-57-15.png" width="640" /></a></div>
+<br />
+<h3>
+Đưa lên Facebook Messenger</h3>
+<h4>
+Tạo Facebook Fanpage</h4>
+Bạn tạo 1 fanpage có tên là “Weatherbot”<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-e1Ek-vKJps0/Wiz5UCqs0nI/AAAAAAAABZ0/qPNX3PVDcxEy3dH-USZrZ54rFXZyaU34ACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B16-01-47.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-e1Ek-vKJps0/Wiz5UCqs0nI/AAAAAAAABZ0/qPNX3PVDcxEy3dH-USZrZ54rFXZyaU34ACKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B16-01-47.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://4.bp.blogspot.com/-zYmKbhPu2TM/Wiz5UIqTl8I/AAAAAAAABZ0/ykLNWDaWxOsAvjAztuKNSJ-X3TWSuOdQgCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B16-03-39.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://4.bp.blogspot.com/-zYmKbhPu2TM/Wiz5UIqTl8I/AAAAAAAABZ0/ykLNWDaWxOsAvjAztuKNSJ-X3TWSuOdQgCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B16-03-39.png" width="640" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<h4>
+</h4>
+<h4>
+Tạo Facebook App</h4>
+Bạn tạo 1 App có tên là "Weatherbot"<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://3.bp.blogspot.com/-HqIkARxgIJA/Wiy_cDaZmDI/AAAAAAAABV8/BcK0wpfV58A_uvS9nylNuZm0RVx1e3EjACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-42-21.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://3.bp.blogspot.com/-HqIkARxgIJA/Wiy_cDaZmDI/AAAAAAAABV8/BcK0wpfV58A_uvS9nylNuZm0RVx1e3EjACKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-42-21.png" width="640" /></a></div>
+Phần ‘Add Product’ chọn Messenger rồi kick vào set up<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-yUluw60h5QE/Wiy_cL5uh3I/AAAAAAAABV8/5_lJrGoySU4drfl2n_cLG7tWHzR260CVQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-42-44.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-yUluw60h5QE/Wiy_cL5uh3I/AAAAAAAABV8/5_lJrGoySU4drfl2n_cLG7tWHzR260CVQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-42-44.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-eHXzdSjS80k/Wiy_cHDxprI/AAAAAAAABV8/af9WlZYG1QMjzdj1HVtkb6wihEz-7f6MQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-21.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-eHXzdSjS80k/Wiy_cHDxprI/AAAAAAAABV8/af9WlZYG1QMjzdj1HVtkb6wihEz-7f6MQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-21.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-vhyP5LEH7Hk/Wiy_cEJccyI/AAAAAAAABV8/PqufWAIXwugpJUhN6E1JXC-Th80wm66_wCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-27.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-vhyP5LEH7Hk/Wiy_cEJccyI/AAAAAAAABV8/PqufWAIXwugpJUhN6E1JXC-Th80wm66_wCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-27.png" width="640" /></a></div>
+<br />
+Sau khi add product xông thì bạn vào product “messenger” , phần token generation chọn fanpage “Weatherbot”<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-tWZllo8xVZw/Wiy_cNp_FgI/AAAAAAAABV8/fxEZnYzFDnYLgp7YOVAVodlHxWO5i6B8QCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-40.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-tWZllo8xVZw/Wiy_cNp_FgI/AAAAAAAABV8/fxEZnYzFDnYLgp7YOVAVodlHxWO5i6B8QCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-40.png" width="640" /></a></div>
+<h5>
+Cấu hình webhook ở DialogFlow </h5>
+<ul>
+<li>Verify Token: bất cứ cái gì cũng đuợc, chỉ cần đảm bảo là Messenger biết đuợc token này</li>
+<li>Page Access Token: là token vừa tạo ra ở messenger</li>
+</ul>
+<i><b><u>Sau đó nhớ ấn nút start =))</u></b></i><br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-rJUZ6j4Kj90/Wiy_xGQwttI/AAAAAAAABWA/0IZTG2yedsA-cr1my3bQz7G8a5E6bEXCQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-44-27.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-rJUZ6j4Kj90/Wiy_xGQwttI/AAAAAAAABWA/0IZTG2yedsA-cr1my3bQz7G8a5E6bEXCQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-44-27.png" width="640" /></a></div>
+<br />
+<br />
+<h5>
+<b>Cấu hình </b><b>Callback URL ở Messenger</b></h5>
+<ul>
+<li>Callback URL: là địa chỉ của webhook vừa đuợc tạo ra ở phía trên</li>
+<li>Verify Token: phía trên</li>
+<li>Check vào messages và messaging_postbacks </li>
+</ul>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://1.bp.blogspot.com/-hOTtZDABRZo/WizAlJWF89I/AAAAAAAABWM/sJcTdbDA3XcQajjQ6cBrzy0N2A5fZpVcwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-44-55.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://1.bp.blogspot.com/-hOTtZDABRZo/WizAlJWF89I/AAAAAAAABWM/sJcTdbDA3XcQajjQ6cBrzy0N2A5fZpVcwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-44-55.png" width="640" /></a></div>
+<br />
+Đăng ký App này cho Fanpage<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://3.bp.blogspot.com/-UTs7kIXQQTs/WizAlJAHvsI/AAAAAAAABWM/I0OeeFf0VUYVEv-3MX9iYHUHtLX8mSG1QCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-45-12.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="359" src="https://3.bp.blogspot.com/-UTs7kIXQQTs/WizAlJAHvsI/AAAAAAAABWM/I0OeeFf0VUYVEv-3MX9iYHUHtLX8mSG1QCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-45-12.png" width="640" /></a></div>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+</div>
+<h3>
+Thành quả</h3>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="https://2.bp.blogspot.com/-RTYi8Mxm4wQ/Wi0Lct503kI/AAAAAAAABag/lru8UeKbgLwDrqJMQQj5a6OV8AEXA7DpQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B17-23-02.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="768" data-original-width="1366" height="358" src="https://2.bp.blogspot.com/-RTYi8Mxm4wQ/Wi0Lct503kI/AAAAAAAABag/lru8UeKbgLwDrqJMQQj5a6OV8AEXA7DpQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B17-23-02.png" width="640" /></a></div>
+<div class="separator" style="clear: both; text-align: center;">
+<br /></div>
+<br />
+<h3>
+</h3>
+<h3>
+Kết luận</h3>
+Qua bài viết này mình đã giới thiệu qua về DialogFlow và cách sử dụng nó với Facebook Messenger.<br />
+Để làm cho con chatbot này thông minh thì cần rất nhiều dữ liệu mẫu:chat của người dùng, các thông tin được extract từ đó như intent và entity, phản hồi mẫu của chatbot. Ngoài ra DialogFlow vẫn chưa hỗ trợ tiếng Việt nên việc phát triển những chatbot tiếng Việt gặp khá nhiều khó khăn
+<h3>
+Tham khảo</h3>
+<a href="https://dialogflow.com/docs">https://dialogflow.com/docs</a><br /><!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/gioi-thieu-ve-dialogflow/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20x%C3%A2y%20d%E1%BB%B1ng%20AI%20chatbot%20v%E1%BB%9Bi%20DialogFlow">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/gioi-thieu-ve-dialogflow/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

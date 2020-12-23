@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Type system trong ngôn ngữ Dart</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Type system trong ngôn ngữ Dart" />
+    <meta property="og:description" content="I. Lời mở đầuNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu runtime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu static của biến đó, điều này đôi khi được gọi bằng thuật" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-09-17T07:10:11.000Z" />
+    <meta property="article:modified_time" content="2020-09-17T07:10:11.000Z" />
+    <meta property="article:tag" content="Dart" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Type system trong ngôn ngữ Dart" />
+    <meta name="twitter:description" content="I. Lời mở đầuNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu runtime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu static của biến đó, điều này đôi khi được gọi bằng thuật" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Dart" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Type system trong ngôn ngữ Dart",
+    "url": "https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/",
+    "datePublished": "2020-09-17T07:10:11.000Z",
+    "dateModified": "2020-09-17T07:10:11.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&export=download",
+        "width": 1000,
+        "height": 500
+    },
+    "keywords": "Dart",
+    "description": "I. Lời mở đầu\nNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu \nruntime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu \nstatic của biến đó, điều này đôi khi được gọi bằng thuật ngữ sound typing .\nTrong ngôn ngữ Dart, về bản chất một biến bắt buộc phải có kiểu dữ liệu, nhưng\nlập trình viên đôi khi không nhất thiết phải dùng type annotations để chỉ ra\nkiểu dữ liệu của biến đó vì Dart có thể tự suy luận ra kiểu dữ liệu. Ta gọi kiểu\ndữ liệu được suy",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Type system trong ngôn ngữ Dart</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2020-09-17">17 Sep 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="i-l-i-m-u">I. Lời mở đầu</h3><p>Ngôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu <code>static</code> và kiểu dữ liệu <code>runtime</code> để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu <code>static</code> của biến đó, điều này đôi khi được gọi bằng thuật ngữ <code>sound typing</code> . Trong ngôn ngữ Dart, về bản chất một biến bắt buộc phải có kiểu dữ liệu, nhưng lập trình viên đôi khi không nhất thiết phải dùng <code>type annotations</code> để chỉ ra kiểu dữ liệu của biến đó vì Dart có thể tự suy luận ra kiểu dữ liệu. Ta gọi kiểu dữ liệu được suy ra đó là <code>type inference</code>.</p><p>Một trong những lợi ích của việc kiểm tra kiểu dữ liệu đó là khả năng phát hiển bug lúc <code>compile time</code> sử dụng <code>static analyzer</code>.</p><pre><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  var list = [];
+  list.add(1);
+  list.add("2");
+  printInts(list); 
+}
+// Unhandled exception: type 'List&lt;dynamic&gt;' is not a subtype of type 'List&lt;int&gt;'
+</code></pre>
+<p>Ở đoạn code phía trên, ta thấy biến <code>list</code> không được chỉ ra kiểu dữ liệu cụ thể nên <code>type inference</code>của nó sẽ là <code>List&lt;dynamic&gt;</code>. Việc add các giá trị <code>1</code> và <code>"2"</code> vào là hoàn toàn hợp lệ. Nhưng đến khi truyền <code>list</code> vào hàm <code>printInts</code> thì sẽ bị lỗi vì hàm <code>printInts</code> trong muốn nhận vào tham số có kiểu dữ liệu là <code>List&lt;int&gt;</code>. Nhưng biến <code>list</code> lại có kiểu dữ liệu là <code>List&lt;dynamic&gt;</code> tức không phải là <code>List&lt;int&gt;</code> và cũng không phải là <code>subtype</code>của <code>List&lt;int&gt;</code>.</p><p>Để sửa lỗi, ta sẽ sử code lại thành như sau:</p><pre><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  var list = &lt;int&gt;[];
+  list.add(1);
+  list.add(2);
+  printInts(list);
+}
+</code></pre>
+<h3 id="ii-soundness-l-g-">II. Soundness là gì?</h3><p><code>Soundness</code> là 1 khái niệm nhằm thể hiện rằng mong muốn đảm bảo có chương trình không thể rơi vào trạng thái chứa các giá trị không hợp lệ. Một <code>sound type system</code> có nghĩa là chương trình không bao giờ có trạng thái mà chứ một giá trị không phù hợp với <code>static type</code> của nó. Ví dụ như một <code>expression</code> thể hiện <code>static type</code> của nó là <code>String</code> thì tại thời điểm <code>runtime</code> ta đảm bảo nó chỉ có thể thể vào giá trị là <code>String</code>.</p><p><code>Type system</code> của Dart cũng giống như <code>type system</code> trong các ngôn ngữ như Java, C#, .. chúng là <code>sound</code>. Điều này đảm bảo rằng ta kiểm tra cả dữ liệu kiểu <code>static</code> và kiểu <code>runtime</code>. Ví dụ như việc gán một <code>String</code> cho một <code>int</code> là một <code>compile-time error</code>. </p><h3 id="iii-l-i-ch-c-a-soundness-l-g-">III. Lợi ích của soundness là gì?</h3><ul>
+<li>Phát hiện bug liên quan đến kiểu dữ liệu ở thời điểm <code>compile time</code>. Một <code>sound type system</code> bắt buộc code không được mơ hồ về kiểu dữ liệu của nó. Nên một số bug mà có phát hiện ở <code>runtime</code> có thể được phát hiện từ sớm về dễ dàng ở thời điểm <code>compile time</code>.</li>
+<li>Code dễ đọc. Code sẽ trở nên dễ đọc vì ta có thể nhìn thấy kiểu dữ liệu của nó là gì.</li>
+<li>Code dễ được bảo trì. Khi ta sửa 1 phần code nhỏ. <code>type system</code> cá thể cảnh báo rằng việc thay đổi đó có thể làm ảnh hưởng hoặc hư hại để những phần code khác.</li>
+<li>Thuận lợi hơn cho <code>ahead of time (AOT) compilation</code>. Mặc dù <code>AOT compilation</code> vẫn khả thi khi không có kiểu dữ liệu, nhưng phần code được <code>generate</code> ra sẽ không tối ưu bằng code được <code>generate</code> ra khi có kiểu dữ liệu.</li>
+</ul>
+<h3 id="iv-m-t-s-tips-kh-ng-b-l-i-b-c-static-analysis">IV. Một số tips để không bị lỗi ở bước static analysis</h3><ol>
+<li>Sử dụng <code>sound return type</code> khi override phương thức:</li>
+</ol>
+<figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1KTiNR8DlRrxo6w1s3yiKbsOFU-1eUMCn&amp;export=download" class="kg-image" alt width="778" height="451" layout="responsive"></amp-img></figure><p>Kiểu dữ liệu trả về của phương thức trong <code>subclass</code> phải cùng kiểu hoặc là <code>subtype</code> của phương thức tương ứng trong <code>superclass</code>. Ta xét phương thức <code>getter</code> trong <code>Animal</code> class bên dưới:</p><pre><code>class Animal {
+  void chase(Animal a) { ... }
+  Animal get parent =&gt; ...
+}
+</code></pre>
+<p>Phương thức getter cha trả về một <code>Animal</code>. Trong lớp con <code>HoneyBadger</code>, bạn có thể thay thế kiểu trả về getter bằng <code>HoneyBadger</code> (hoặc bất kỳ kiểu con nào khác của <code>Animal</code>), nhưng không được phép sử dụng loại không liên quan.</p><pre><code>// static analysic: success
+class HoneyBadger extends Animal {
+  void chase(Animal a) { ... }
+  HoneyBadger get parent =&gt; ...
+}
+
+// static analysic: error/warning
+class HoneyBadger extends Animal {
+  void chase(Animal a) { ... }
+  Root get parent =&gt; ...
+}
+</code></pre>
+<ol start="2">
+<li>Sử dụng <code>sound parameter  type</code> khi override phương thức:</li>
+</ol>
+<p>Tham số của phương thức được bị <code>overridden</code>  phải có cùng loại hoặc là <code>supertype</code> của tham số tương ứng trong <code>superclass</code>.</p><p>Xét phương thức <code>chase (Animal)</code> bên dưới:</p><pre><code>class Animal {
+  void chase(Animal a) { ... }
+  Animal get parent =&gt; ...
+}
+</code></pre>
+<ol start="3">
+<li>Không sử dụng <code>dynamic list</code> dưới dạng <code>typed list</code>:</li>
+</ol>
+<p><code>Dynamic list</code> hữu dùng khi bạn muốn có một danh sách với các loại khác nhau trong đó. Tuy nhiên ta không thể sử dụng <code>dynamic list</code> như một <code>typed list</code></p><p>Đoạn code sau tạo một <code>Dynamic list</code> của <code>Dog</code> và gán nó vào danh sách kiểu <code>Cat</code>.</p><pre><code>// static analysic: error/warning
+class Cat extends Animal { ... }
+
+class Dog extends Animal { ... }
+
+void main() {
+  List&lt;Cat&gt; foo = &lt;dynamic&gt;[Dog()]; // Error
+  List&lt;dynamic&gt; bar = &lt;dynamic&gt;[Dog(), Cat()]; // OK
+}
+
+</code></pre>
+<p></p><h3 id="v-runtime-checks">V. Runtime checks</h3><p>Các công cụ kiểm tra kiểu dữ liệu tại thời điểm <code>runtime</code> như <code>Dart VM</code> và <code>dartdevc</code> có thể bắt được lỗi mà <code>analyzer</code> không bắt được.</p><pre><code>// runtime: error
+void main() {
+  List&lt;Animal&gt; animals = [Dog()];
+  List&lt;Cat&gt; cats = animals;
+}
+</code></pre>
+<h3 id="vi-type-inference">VI. Type inference</h3><p><code>Analyzer</code>  có thể suy ra các kiểu cho các trường, phương thức, biến cục bộ và hầu hết các <code>generic type argument</code>. Khi <code>analyzer</code> không có đủ thông tin để suy ra một loại cụ thể, nó sẽ sử dụng kiểu <code>dynamic</code>.</p><p>Sau đây là một ví dụ thể hiện cách <code>type inference</code> làm việc với <code>generic</code>. Trong ví dụ này, biến <code>arguments</code> có giá trị là <code>map</code> với key kiểu <code>String</code> và với <code>value</code> có nhiều kiểu khác nhau. Nếu ta ghi ra kiểu dữ liệu, code được viết như bên dưới:</p><pre><code>Map&lt;String, dynamic&gt; arguments = {'argA': 'hello', 'argB': 42};
+</code></pre>
+<p>Trường hợp ta không muốn phải ghi rõ kiểu dữ liệu mà muốn Dart hỗ trợ ta tự suy ra kiểu dữ liệu thì code sẽ như bên dưới:</p><pre><code>var arguments = {'argA': 'hello', 'argB': 42}; // Map&lt;String, Object&gt;
+</code></pre>
+<ol>
+<li>Field and method inference</li>
+</ol>
+<p>Một trường hoặc phương thức không có kiểu dữ liệu được chỉ định cụ thể và <code>override</code> trường hoặc phương thức của class cha sẽ kế thừa kiểu dữ liệu tương ứng từ phương thức hoặc trường của class cha</p><p>Một trường không có loại khai báo hoặc kế thừa nhưng được khai báo với giá trị ban đầu, sẽ có loại được suy ra dựa trên giá trị ban đầu đó.</p><ol start="2">
+<li>Static field inference</li>
+</ol>
+<p><code>Static field</code> và biến sẽ nhận kiểu dữ liệu từ <code>initializer</code> của chúng.</p><ol start="3">
+<li>Local variable inference</li>
+</ol>
+<p>Kiểu dữ liệu của biến cục bộ được suy ra từ <code>initializer</code> (nếu có). Các phép gán sau đó sẽ không được tính tới. Điều này có nghĩa là nếu như ta biết trước kiểu dữ liệu được suy ra không phù hợp, thì ngay từ đầu ta chỉ định rõ kiểu dữ liệu chứ không phó thác cho Dart làm.</p><pre><code>// static analysic: error/warning
+var x = 3; // x is inferred as an int
+x = 4.0;
+
+// static analysic: success
+num y = 3; // a num can be double or int
+y = 4.0;
+</code></pre>
+<p></p><ol start="4">
+<li>Type argument inference</li>
+</ol>
+<pre><code>// Inferred as if you wrote &lt;int&gt;[].
+List&lt;int&gt; listOfInt = [];
+
+// Inferred as if you wrote &lt;double&gt;[3.0].
+var listOfDouble = [3.0];
+
+// Inferred as Iterable&lt;int&gt;
+var ints = listOfDouble.map((x) =&gt; x.toInt());
+</code></pre>
+<p>Trong ví dụ trên <code>x</code> có kiểu được suy ra là <code>double</code> và <code>ints</code> có kiểu dữ liệu được suy ra là <code>Iterable&lt;int&gt;</code></p><h3 id="vii-substituting-types">VII. Substituting types</h3><p>Khi <code>override</code> một phương thức, ta thay thế một số thứ (trong phương thức cũ) thành một thứ khác (trong phương thức mới), tương tự như vậy khi ta truyền tham số cho một hàm, ta thay một thứ có kiểu dữ liệu được khai báo trong định nghĩa hàm bằng 1 thứ có kiểu dữ liệu (có thể khác) tương ứng với giá trị của tham số mà ta truyền vào. Câu hỏi là đặt ra là việc thay thế như vậy khi nào đúng khi nào sai? Kiểu dự liệu nào có thể thay thế cho kiểu dữ liệu nào?</p><p>Khi bàn về vấn đề trên, ta thường sẽ sử dụng 2 thuật ngữ là <code>consumer</code> và <code>producer</code>. <code>Consumer</code> là cái mà nhận kiểu dữ liệu và <code>producer</code> là cái mà tạo ra kiểu dữ liệu. Nguyên tắc là ta có thể thay kiểu dữ liệu của <code>comsumer</code> bằng <code>supertype</code> của nó, và có thể thay kiểu dữ liệu của <code>producer</code> bằng <code>subtype</code> của nó.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1lwHkTjV5Oxdi29NryJI5EYxH-0yYU3K3&amp;export=download" class="kg-image" alt width="797" height="453" layout="responsive"></amp-img></figure><p>Xét sơ đồ kế thừa bên trên, ta gán 1 phép gán đơn giản như sau:</p><pre><code>Cat c = Cat();
+</code></pre>
+<p><code>c</code> sẽ đóng vai trò là <code>consumer</code> và <code>Cat()</code> đóng vai trò là <code>producer</code>.</p><pre><code>// static analysic: success
+Animal c = Cat();
+// static analysic: error/warning
+MaineCoon c = Cat();
+</code></pre>
+<p>Tương tự ta có ví dụ như bên dưới:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1trNVYhvCzlh6E3BEN10PLrUa3F33ZF0j&amp;export=download" class="kg-image" alt width="303" height="399" layout="responsive"></amp-img></figure><pre><code>// static analysic: success
+List&lt;Cat&gt; myCats = List&lt;MaineCoon&gt;();
+
+</code></pre>
+<p>Chuyện gì sẽ xảy ra nên ta gán <code>List&lt;Animal&gt;</code> cho <code>List&lt;Cat&gt;</code> ?</p><pre><code>// static analysic: success
+List&lt;Cat&gt; myCats = List&lt;MaineCoon&gt;();
+</code></pre>
+<p>Ta thấy vẫn pass được <code>static analysic</code> vì nó được dịch thành code như bên dưới:</p><pre><code>List&lt;Cat&gt; myCats = List&lt;Animal&gt;() as List&lt;Cat&gt;;
+</code></pre>
+<p>Tuy nhiên đoạn code trên có thể bị fail tại thời điểm <code>runtime</code>. Để chặn việc ép kiểu ngầm ta có thể setting bằng <code>implicit-casts</code></p><h3 id="viii-ngu-n-tham-kh-o">VIII. Nguồn tham khảo</h3><p><a href="https://dart.dev/guides/language/type-system">https://dart.dev/guides/language/type-system</a></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

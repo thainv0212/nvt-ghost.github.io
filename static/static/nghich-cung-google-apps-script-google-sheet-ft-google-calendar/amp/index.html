@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar</title>
+
+    <meta name="description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar" />
+    <meta property="og:description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2018-01-25T03:21:47.000Z" />
+    <meta property="article:tag" content="Google Apps Script" />
+    <meta property="article:tag" content="GAS" />
+    <meta property="article:tag" content="Google Calendar" />
+    <meta property="article:tag" content="Google Spreadsheet" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar" />
+    <meta name="twitter:description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Google Apps Script, GAS, Google Calendar, Google Spreadsheet" />
+    <meta property="og:image:width" content="655" />
+    <meta property="og:image:height" content="437" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar",
+    "url": "https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2018-01-25T03:21:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkSXA2eU9OMWk4OWc&export=download",
+        "width": 655,
+        "height": 437
+    },
+    "keywords": "Google Apps Script, GAS, Google Calendar, Google Spreadsheet",
+    "description": "I. Mào đầu câu chuyện\nNhớ hồi còn đi học, chả phải để tâm, lo lắng đến điều gì, chỉ có đến dịp Tết là\nmình ngồi đếm lịch âm để biết số ngày nghỉ còn lại. Mỗi năm mỗi tuổi, cái tuổi\nnó đuổi xuân đi, giờ đây khi đã lập gia đình, có nhiều việc phải lo lắng suy\nnghĩ, mình dần dần để tâm đến lịch âm, đến ngày xấu, ngày đẹp nhiều hơn vì các\ncụ nhà ta từ xưa đã có câu &quot;có thờ có thiêng, có kiêng có lành&quot;. Ngẫm ra thì\nkhông phải là không có cái lý của nó.\n\nThế là mình đi tìm một ứng dụng lịch vạn niên c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google Calendar</h1>
+                <section class="post-meta">
+                    Enso -
+                    <time class="post-date" datetime="2017-09-05">05 Sep 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h4 id="imoucuchuyn">I. Mào đầu câu chuyện</h4>
+<p>Nhớ hồi còn đi học, chả phải để tâm, lo lắng đến điều gì, chỉ có đến dịp Tết là mình ngồi đếm lịch âm để biết số ngày nghỉ còn lại. Mỗi năm mỗi tuổi, cái tuổi nó đuổi xuân đi, giờ đây khi đã lập gia đình, có nhiều việc phải lo lắng suy nghĩ, mình dần dần để tâm đến lịch âm, đến ngày xấu, ngày đẹp nhiều hơn vì các cụ nhà ta từ xưa đã có câu "có thờ có thiêng, có kiêng có lành". Ngẫm ra thì không phải là không có cái lý của nó.</p>
+<p>Thế là mình đi tìm một ứng dụng lịch vạn niên cài vào điện thoại. Mình có thể xem ngày xấu, ngày đẹp qua ứng dụng, tuy nhiên các ứng dụng mình thử qua đều không có tính năng nhắc nhở sắp đến những ngày lễ âm lịch như mồng một, rằm, lễ ông công, ông táo để thắp hương. Hơn nữa, những sự kiện ngày âm lịch này, mình muốn hiển thị chúng luôn trên lịch trình hàng ngày để tiện theo dõi mà không phải sử dụng thêm một ứng dụng nữa.</p>
+<h4 id="iigiiphp">II. Giải pháp</h4>
+<p>Mình đang dùng ứng dụng Google Calendar để quản lý lịch trình hằng ngày. Google Calendar cũng có cung cấp sẵn một số bộ lịch mặc định như Ngày nghỉ lễ của Việt Nam, tuy nhiên mình lại không tìm thấy bộ lịch nào đáp ứng được nhu cầu của mình. Do vậy, mình đã quyết định tự tạo ra 4 bộ lịch "made by Enso" như sau:</p>
+<ul>
+<li>
+<p><strong>Ngày Âm Lịch</strong>: mỗi ngày dương lịch được thêm một sự kiện (full day) có tiêu đề chính là ngày âm lịch của ngày đó. Ví dụ ngày 20/7/2017 có một sự kiện với tiêu đề 27/6/2017. Thực ra Google Calendar đã có sẵn tính năng hiển thị lịch âm. Chúng ta có thể kích hoạt bằng cách vào <code>Calendar Settings &gt;&gt; General &gt;&gt; Alternate Calendar &gt;&gt; Chinese calendar (Simplified hoặc Traditional)</code>. Tuy nhiên có thể Google mặc định chỉ người Trung Quốc mới dùng lịch này nên hiển thị ngày bằng hán tự @_@.</p>
+</li>
+<li>
+<p><strong>Ngày Lễ Âm Lịch</strong>: những ngày dương lịch tương ứng với các ngày lễ âm lịch trong năm như mồng một, ngày rằm, tết nguyên đán, phật đản, ông công ông táo, giỗ tổ Hùng Vương,… thì sẽ có một sự kiện (full day) với tiêu đề là tên các ngày lễ âm lịch đó.</p>
+</li>
+<li>
+<p><strong>Tam Nương – Ly sào</strong>: những ngày dương lịch tương ứng với các ngày Tam nương hay Ly sào (ngày xấu cần tránh) trong âm lịch thì sẽ có một sự kiện (full day) với tiêu đề Tam nương hoặc Ly sào. Nếu có hứng thú các bạn có thể tìm trên Google để hiểu rõ hơn về ngày Tam Nương hay Ly sào. Đây là blog kỹ thuật nên mình xin phép không dẫn link hay nói sâu hơn :)</p>
+</li>
+<li>
+<p><strong>Xem Ngày Đẹp</strong>: mỗi ngày dương lịch được thêm một sự kiện (full day) có tiêu đề là Xem ngày, và mục mô tả (description) là thông tin về ngày đó (sao xấu, sao tốt, giờ xuất hành,…).</p>
+</li>
+</ul>
+<p>Câu hỏi bây giờ là làm thế nào để tạo ra các sự kiện cho 4 bộ lịch này. Đây chính là lúc Google App Script (GAS) thể hiện được khả năng thần thánh của mình. Chúng ta hãy cùng bỏ thời gian tìm hiểu một chút về GAS.</p>
+<h4 id="iiigaslg">III. GAS là gì?</h4>
+<p>GAS là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets hay Forms. Một số việc chúng ta có thể làm được với GAS như:</p>
+<ul>
+<li>
+<p>Thêm menu, dialog hay sidebar vào Google Doc, Sheet và Form.</p>
+</li>
+<li>
+<p>Viết function cho Google Spreadsheet.</p>
+</li>
+<li>
+<p>Tạo các ứng dụng web độc lập hay ứng dụng web nhúng trong Google Sites.</p>
+</li>
+<li>
+<p>Giao tiếp với các dịch vụ khác của Google như AdSense, Analytics, Calendar, Drive, Gmail và Maps.</p>
+</li>
+<li>
+<p>Xây dựng các add-on mở rộng cho Google Docs, Sheets, Forms và đưa chúng lên Add-on store.</p>
+</li>
+<li>
+<p>Chuyển một ứng dụng Android thành add-on Android có thể trao đổi dữ liệu với Google Doc hay Google Spreadsheet của người dùng trên thiết bị di động.</p>
+</li>
+</ul>
+<p>Những điều GAS làm được quả thật rất thú vị. Vậy bạn cần những gì để có thể sử dụng được GAS. Rất đơn giản, bạn chỉ cần một chút kiến thức lập trình cơ bản về JavaScript là có thể viết được GAS. Editor và môi trường chạy tất cả đã có Google lo :D. Google cũng cung cấp bộ tài liệu hướng dẫn khá chi tiết về GAS trên trang web của họ. Bạn có thể truy cập theo đường dẫn <a href="https://developers.google.com/apps-script/">này</a>.</p>
+<h4 id="ivthcthinhimv">IV. Thực thi nhiệm vụ</h4>
+<p>Sau khi đã có những kiến thức cơ bản về GAS, giờ thì chúng ta hãy quay lại với mục tiêu ban đầu tạo ra 4 bộ lịch về ngày âm của mình.</p>
+<h5 id="1tmngundliu">1. Tìm nguồn dữ liệu:</h5>
+<p>Theo mình, đây có lẽ là công đoạn mất công nhất. Mình phải vào Google tìm các trang web về ngày đẹp trên mạng. Để được lựa chọn, trang web phải thoả mãn hai tiêu chí sau:</p>
+<ul>
+<li>Thứ nhất, hỗ trợ tra cứu thông tin của từng ngày qua phương thức GET.</li>
+<li>Thứ hai, thông tin cung cấp phải đầy đủ, chi tiết và chính xác.</li>
+</ul>
+<p>Sau một buổi sáng đỏ mắt tìm kiếm cuối cùng mình cũng đã tìm được một trang web đáp ứng được hai tiêu chí (Cũng vì lý do đây là một blog về kỹ thuật, chúng ta hãy tạm gọi là <strong>www.trang-web-ma-ai-cung-biet-la-gi-day.com</strong>).</p>
+<h5 id="2thaotcvigooglespreadsheet">2. Thao tác với Google Spreadsheet</h5>
+<p>Thực ra, mình không tạo Google Spreadsheet này cũng không sao vì dữ liệu lấy từ trang web <strong>www.trang-web-ma-ai-cung-biet-la-gi-day.com</strong> có thể lưu trực tiếp vào Google Calendar. Tuy nhiên, để phòng lỡ mai này trang web không còn hoạt động, mình vẫn còn nơi lưu trữ thông tin mà xem lại :).</p>
+<p><strong>Bước 1</strong>: Để tạo được Google Spreadsheet thì điều đầu tiên là phải có một tài khoản Google. Bạn có thể sử dụng tài khoản hiện tại của bạn hoặc tạo một tài khoản mới tại <a href="https://accounts.google.com/SignUp">đây</a>.</p>
+<p><strong>Bước 2</strong>: Bạn truy cập vào đường dẫn <a href="https://docs.google.com/spreadsheets">https://docs.google.com/spreadsheets</a>, chọn Blank và nhập tên cho Google Spreadsheet (ví dụ <em>XemNgayDep</em>).</p>
+<p><strong>Bước 3</strong>: Tạo GAS project to Google Spreadsheet vừa tạo bằng cách truy cập <code>Tools -&gt; Script editor...</code><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd2NOeDY3R1NwZTQ&amp;export=download" alt width="1246" height="522" layout="responsive"></amp-img></p>
+<p><strong>Bước 4</strong>: Bạn hãy xoá hàm <code>myFunction()</code> mặc định và thêm vào hàm <code>createYearSheet()</code> như sau.</p>
+<pre><code>function createYearSheet() {
+  var ss = SpreadsheetApp.openById("Google-Sheet-ID");
+  var startYear = 2017;
+  var endYear = 2027;
+  for (var i = startYear; i &lt;= endYear; i++) {
+    var curYear = i.toString();
+    //Tạo sheet mới với tên là năm
+    ss.insertSheet(curYear);
+    var curSheet = ss.getSheetByName(curYear);
+
+    // Kiểm tra xem có phải năm nhuận hay không
+    var range = (i % 4 == 0) ? curSheet.getRange('A1:E366') : curSheet.getRange('A1:E365');
+
+    //Điền vào cột A, ngày của năm theo format MM/DD/YYYY
+    var start = new Date("01/01/" + curYear);
+    var end = new Date("12/31/" + curYear);
+    var cellIdx = 1;
+    while(start &lt;= end){
+      range.getCell(cellIdx,1).setValue(start);
+      var newDate = start.setDate(start.getDate() + 1);
+      start = new Date(newDate);
+      cellIdx++;
+    }
+  }
+  //Xoá sheet mặc định Sheet1
+  var defaultSheet = ss.getSheetByName("Sheet1");
+  ss.deleteSheet(defaultSheet);
+}
+</code></pre>
+<p>Hàm <code>createYearSheet()</code> sẽ tạo ra các sheet có tên là các năm trong khoảng thời gian được định nghĩa bởi 2 biến <code>startYear</code> và <code>endYear</code>.</p>
+<p>Trong dòng code <code>var ss = SpreadsheetApp.openById("Google-Sheet-ID");</code>, <strong>Google-Sheet-ID</strong> là ID của Google Spreadsheet <strong>XemNgayDep</strong> vừa tạo. Nhờ có ID này, Google mới phân biệt được Google Spreadsheet của bạn với hàng trăm triêụ tài liệu của những người dùng khác. Bạn có thể lấy ID của Google Spreadsheet trong chính URL của nó. Đó là chuỗi ký tự nằm giữa <code>d/</code> và <code>/edit</code>.</p>
+<p>Ví dụ:</p>
+<p><code>https://docs.google.com/spreadsheets/d/**4U_UZ8y2Swm6YBAZHcm9oVxiCXEs-pEzbDGNXYAjTwtY**/edit#gid=0</code></p>
+<p><strong>Bước 5</strong>: Lưu project. Khi đó Google sẽ yêu cầu bạn nhập tên project (ví dụ <em>XemNgayDep</em>).</p>
+<p><strong>Bước 6</strong>: Chạy hàm <code>createYearSheet()</code> để tạo các sheet từ Menu-bar của project <code>Run -&gt; createYearSheet</code>. Khi đó Google sẽ yêu cầu bạn cấp quyền truy cập vào Google Spreadsheet. Sau khi hàm chạy xong, bạn hãy chuyển sang Google Spreadsheet <strong>XemNgayDep</strong> để kiểm tra kết quả.</p>
+<h5 id="3toblchtrngooglecalendar">3. Tạo bộ lịch trên Google Calendar</h5>
+<p>Mục đích chính của bài viết này không phải là 4 bộ lịch "made by Enso" của mình mà là cách thức GAS tương tác với Google Spreadsheet và Google Calendar nên mình sẽ chỉ trình bày về cách tạo bộ lịch <strong>Ngày lễ âm lịch</strong>.</p>
+<p><strong>Bước 1</strong>: Truy cập <code>Calendar Settings -&gt; Calendars tab -&gt; Create new calendar</code>.</p>
+<p><strong>Bước 2</strong>: Calendar Name: NgayLeAmLich (hoặc bất cứ tên nào mà bạn thích).</p>
+<ul>
+<li>Nếu bạn muốn chia sẻ bộ lịch với tất cả mọi người, bạn có thể chọn <strong>Make this calendar public</strong>.</li>
+<li>Nếu bạn chỉ muốn chia sẻ bộ lịch với một số người, bạn có thể thêm email của người đó vào mục <strong>Share with specific people</strong>.</li>
+<li>Nếu bạn muốn giữ bộ lịch cho riêng bạn thì không cần làm gì cả. Và một ngày đẹp trời, khi bạn muốn chia sẻ bộ lịch này thì hãy yên tâm rằng những thiết lập này luôn nằm ở đó đợi bạn.</li>
+</ul>
+<p><strong>Bước 3</strong>: Lấy ID của bộ lịch. Cũng giống như Google-Sheet-ID, Google sử dụng ID này để phân biệt bộ lịch của bạn với những bộ lịch của người khác. Tuy nhiên thì ID của bộ lịch hơi lắt léo khó tìm một chút.</p>
+<ul>
+<li>Bạn truy cập vào <code>Calendar Settings</code></li>
+<li>Trong <code>Calendars tab</code> có danh sách các bộ lịch của bạn. Bạn tìm đến bộ lịch mà bạn vừa tạo bên trên, bấm vào nó.</li>
+<li>Cuối cùng tìm đến mục <code>Calendar Address</code> và copy lấy chuỗi kí tự bôi đậm như sau:</li>
+</ul>
+<p>(Calendar ID: <strong><a href="mailto:necfejcfetmd9n75on4reaq99c@group.calendar.google.com">necfejcfetmd9n75on4reaq99c@group.calendar.google.com</a></strong>)</p>
+<h5 id="4thmeventvoblch">4. Thêm event vào bộ lịch</h5>
+<p>Trong GAS project, bạn mở file <code>Code.gs</code> và thêm đoạn code dưới đây vào sau hàm <code>createYearSheet()</code></p>
+<pre><code>function createEvents() {
+  // NgayLeAmLich calendar
+  var ngayleamlichCal = CalendarApp.getOwnedCalendarById('Calendar-ID');
+  
+  // Mở sheet của từng năm trong Google Spreadsheet.
+  var ss = SpreadsheetApp.openById('Google-Sheet-ID');
+  var curYear = 2017;
+  var sheet = ss.getSheetByName(curYear.toString());
+  
+  // Kiểm tra xem có phải năm nhuận hay không
+  var range = (curYear % 4 == 0) ? sheet.getRange('A1:C366') : sheet.getRange('A1:C365');
+
+  //Chuyển format của 3 cột A, B, C sang plain text
+  range.setNumberFormat("@");
+  
+  var numRows = range.getNumRows();
+  for (var i = 1; i &lt;= numRows; i++) {
+    // Tạo request URL cho từng ngày trong năm
+    var value = range.getCell(i,1).getValue();
+    var parts = value.split('/');
+    var requestURL = "https://www.trang-web-ma-ai-cung-biet-la-gi-day.com/xem-ngay-tot-xau/" + "ngay-" + parts[1] + "-thang-" + parts[0] + "-nam-" + parts[2];
+
+    // Set link request cho cột B
+    range.getCell(i,2).setValue(requestURL);
+    
+    // Lấy về code HTML kết quả tra cứu ngày đẹp
+    var page = UrlFetchApp.fetch(requestURL);
+    var pageHTML = page.getContentText();
+    var amLich = getLunarDay(pageHTML);
+    
+    // Set ngày âm lịch cho cột C
+    range.getCell(i,3).setValue(amLich);
+  }
+}
+
+// Hàm tách lấy ngày âm lịch từ code HTML trả về.
+function getLunarDay(htmlCode) {
+  var pattern = /&lt;td&gt; &lt;b&gt;Ngày&lt;\/b&gt; (.*?) - &lt;span style="color:#990000"&gt;/
+  var match = pattern.exec(htmlCode)
+  return match[1];
+}
+</code></pre>
+<p>Dòng code <code>CalendarApp.getOwnedCalendarById('Calendar-ID');</code>, <strong>Calendar-ID</strong> là ID của bộ lịch NgayLeAmLich vừa tạo.</p>
+<p>Dòng code <code>var ss = SpreadsheetApp.openById('Google-Sheet-ID');</code>, <strong>Google-Sheet-ID</strong> là ID của Google Spreadsheet.</p>
+<p>Hàm getLunarDay() sử dụng regular expression tách đoạn xâu kí tự chứa ngày âm lịch trong mã HTML của trang web được trả về. Tiếc là GAS hỗ trợ parse HTML không được tốt nên hiện tại mình thấy regular expression là phương án khả thi nhất.</p>
+<p>Sau khi lấy được ngày âm lịch tương ứng cho ngày dương lịch, ta sẽ dựa vào ngày âm lịch này để tạo các sự kiện. Bạn hãy thêm đoạn code bên dưới này vào dưới dòng code <code>range.getCell(i,3).setValue(amLich);</code></p>
+<pre><code>    // Tạo event cac ngay le am lich
+    var lunarDay = parseInt(amLich.split('/')[0]);
+    var lunarMonth = parseInt(amLich.split('/')[1]);
+    
+    var leamlichEvent = null;
+    if (lunarDay == 1) {
+      if (lunarMonth == 1) leamlichEvent = ngayleamlichCal.createAllDayEvent("Tết Nguyên Đán", new Date(value));
+      else leamlichEvent = ngayleamlichCal.createAllDayEvent("Mồng một", new Date(value));
+    }
+    
+    if (lunarDay == 15) {
+      if (lunarMonth == 8) leamlichEvent = ngayleamlichCal.createAllDayEvent("Trung thu", new Date(value));
+      else if (lunarMonth == 7) leamlichEvent = ngayleamlichCal.createAllDayEvent("Vu Lan", new Date(value));
+      else if (lunarMonth == 1) leamlichEvent = ngayleamlichCal.createAllDayEvent("Rằm tháng giêng", new Date(value));
+      else if (lunarMonth == 4) leamlichEvent = ngayleamlichCal.createAllDayEvent("Rằm - Phật đản", new Date(value));
+      else leamlichEvent = ngayleamlichCal.createAllDayEvent("Rằm", new Date(value));
+    }
+    
+    if (lunarDay == 23 &amp;&amp; lunarMonth == 12) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent("Ông công ông táo", new Date(value));
+    }
+    
+    if (lunarDay == 5 &amp;&amp; lunarMonth == 5) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent("Tết Đoan Ngọ", new Date(value));
+    }
+    
+    if (lunarDay == 10 &amp;&amp; lunarMonth == 3) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent("Giỗ tổ Hùng Vương", new Date(value));
+    }
+
+    // Reminder bằng email trước 6 tiếng (có nghĩa là 18h00 của ngày hôm trước)
+    if (leamlichEvent) leamlichEvent.addEmailReminder(360);
+</code></pre>
+<p>Để tạo event cho bộ lịch, chỉ cần chạy hàm <code>createEvents()</code> qua Menu-bar của project <code>Run -&gt; createEvents</code> và chờ đợi kết quả.</p>
+<p>Chỉ có một chú ý nho nhỏ đó là ở đây mình tạo event cho từng năm một dựa vào biến <code>curYear</code>. Thực tế mình không chỉ tạo event cho 1 bộ lịch mà cho hẳn 4 bộ lịch (trong đó bộ lịch Ngày lễ âm lịch ít sự kiến nhất). Trong một lần chạy do Google hạn chế số query tạo event, mình chỉ tạo được sự kiện cho khoảng 9 tháng mà thôi. Nếu muốn bạn có thể tạo thêm một vòng lặp bên ngoài để tạo event cho tất cả các năm :D</p>
+<p>Sau khi hàm <code>createEvents()</code> chạy xong, bạn có thể kiểm tra kết quả trong Google Spreadsheet và google calendar.</p>
+<h4 id="vktlun">V. Kết luận</h4>
+<p>Có lẽ đến đây, bạn đã phần nào thấy được sự tiện dụng của GAS. Nó có thể làm được rất nhiều thứ, tất cả phụ thuộc vào sự phong phú của trí tưởng tượng của bạn. Mình xin được kết thúc bài viết tại đây. Trong phần tiếp theo, mình sẽ trình bày về sự giao lưu và kết hợp giữa GAS và Slack bot. Hẹn gặp lại các bạn trong một tương lai không xa :D.</p>
+<p><strong>P/S</strong>:</p>
+<ul>
+<li>Các ID của Google Spreadsheet hay Google Calendar đều là ID không có thật. Mình chỉ sử dụng như ví dụ mà thôi.</li>
+<li>Cuối cùng mình xin chia sẻ một số hình ảnh về ứng dụng Google Calendar sau khi thêm 4 bộ lịch "made by Enso".<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSkxtTkQxR3FsNkU&amp;export=download" alt width="360" height="640" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZjlpTExyejZkMFU&amp;export=download" alt width="360" height="640" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbHVFb0NCVDE5eUE&amp;export=download" alt width="360" height="640" layout="responsive"></amp-img></li>
+</ul>
+<hr></hr>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<ul>
+<li><a href="https://developers.google.com/apps-script/overview">https://developers.google.com/apps-script/overview</a></li>
+<li><a href="https://developers.google.com/apps-script/reference/calendar/">https://developers.google.com/apps-script/reference/calendar/</a></li>
+<li><a href="https://developers.google.com/apps-script/reference/spreadsheet/">https://developers.google.com/apps-script/reference/spreadsheet/</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

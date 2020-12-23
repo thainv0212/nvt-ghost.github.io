@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tìm hiểu về Docker Storage | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tìm hiểu về Docker Storage" />
+    <meta property="og:description" content="Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-02-14T09:38:47.000Z" />
+    <meta property="article:modified_time" content="2020-02-14T09:38:47.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="docker-storage" />
+    <meta property="article:tag" content="volumes" />
+    <meta property="article:tag" content="bind mounts" />
+    <meta property="article:tag" content="tmpfs" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tìm hiểu về Docker Storage" />
+    <meta name="twitter:description" content="Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.Đ.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, docker-storage, volumes, bind mounts, tmpfs" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="694" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tìm hiểu về Docker Storage",
+    "url": "https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/",
+    "datePublished": "2020-02-14T09:38:47.000Z",
+    "dateModified": "2020-02-14T09:38:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&export=download",
+        "width": 1400,
+        "height": 694
+    },
+    "keywords": "docker, docker-storage, volumes, bind mounts, tmpfs",
+    "description": "Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu\nbasic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker\nNetwork, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker\nStorage nên nay mạo muội viết một bài blog chia sẻ cho các bạn khái quát về\nStorage - một thành phần vô cùng quan trọng trong kiến trúc Docker.\n\nVấn đề với Storage trong Docker\nMặc định tất cả các file được tạo ra trong container được chứa ở một lớp gọi là \nwrita",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-docker tag-docker-storage tag-volumes tag-bind-mounts tag-tmpfs nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-docker tag-docker-storage tag-volumes tag-bind-mounts tag-tmpfs js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tìm hiểu về Docker Storage</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-02-14">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 14 February 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/docker/index.html">docker</a>, <a href="../tag/docker-storage/index.html">docker-storage</a>, <a href="../tag/volumes/index.html">volumes</a>, <a href="../tag/bind-mounts/index.html">bind mounts</a>, <a href="../tag/tmpfs/index.html">tmpfs</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" alt="Tìm hiểu về Docker Storage">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tim-hieu-ve-docker-storage/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%C3%ACm%20hi%E1%BB%83u%20v%E1%BB%81%20Docker%20Storage">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một bài blog chia sẻ cho các bạn khái quát về Storage - một thành phần vô cùng quan trọng trong kiến trúc Docker.</p><h3 id="v-n-v-i-storage-trong-docker">Vấn đề với Storage trong Docker</h3><p>Mặc định tất cả các file được tạo ra trong container được chứa ở một lớp gọi là <strong>writable container layer</strong> . Điều đó có nghĩa rằng:</p><ul><li>Khi container bị xoá đi, mọi dữ liệu sẽ bốc hơi.</li><li>Khó có thể lấy data ra khỏi container ra dùng cho các process khác.</li><li>Khi container chạy, <strong>writable layer</strong> gắn chặt với máy host nên khó có thể di chuyển data trong lẫn ngoài container.</li><li><strong>writable layer</strong> cần có storage driver để quản lý các file hệ thống, mà các storage driver này cung cấp các filesystem sử dụng Linux kernel. =&gt; Làm giảm performance  hệ thống.</li></ul><h3 id="kh-i-qu-t-v-docker-storage">Khái quát về Docker Storage</h3><p>Như các bạn thấy ở trên, rất nhiều vấn đề nhức nhối khi sử dụng storage. Để giải quyết các vấn đề này, Docker đã nghiên cứu và đưa ra một cơ chế tương đối đầy đủ để quản lý data của các container đó là Docker Storage.</p><p>Bản chất của Docker Storage là cơ chế cho phép lưu trữ data của các container vào máy host bằng cách mount một folder từ container vào máy host. Điều này giải quyết được các vấn đề nêu trên, đồng thời một số các folder chứa setting hay log có thể được đọc dễ dàng hơn trong quá trình troubleshoot.</p><h3 id="syntax-khai-b-o">Syntax khai báo</h3><ul><li><strong>-v(--volume)</strong>: syntax này thường được sử dụng cho các container đơn lẻ, tất cả các tuỳ chọn trong một trường, ngăn cách bởi dấu <code>:</code>.</li></ul><p>Ví dụ:</p><pre><code>docker run -d --name=nginxtest -v nginx-vol:/usr/share/nginx/html nginx:latest</code></pre><ul><li><strong>--mount</strong>: thường được dùng cho swarm service, chia các tuỳ chọn ra theo các cặp <code>&lt;key&gt;=&lt;value&gt;</code> và ngăn cách nhau bởi dấu <code>,</code> .</li></ul><p>Ví dụ:</p><pre><code>docker run -d --name=nginxtest --mount source=nginx-vol,destination=/usr/share/nginx/html nginx:latest</code></pre><p>Ban đầu -v hoặc –volume flag được dùng cho standalone container và –mount flag được dùng cho swarm services. Tuy nhiên từ phiên bản Docker 17.06 bạn có thể sử dụng –mount flag cho standalone container. Nói chung điểm khác biệt duy nhất chính là là cú pháp và  sở thích :v . Trong khi  <strong>-v</strong> yêu cầu phải khai báo đúng thứ tự, thì <strong>--mount</strong> lại linh hoạt, không cần thứ tự. Tuy nhiên cú pháp của <strong>--mount</strong> lại tương đối dài dòng, gõ khá mệt.</p><h3 id="c-c-ki-u-mount-c-a-docker-storage">Các kiểu mount của Docker Storage</h3><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1Tf2FK0Juiu9aIHu1ktPaP4TpZXrbf_lE&amp;export=download" class="kg-image" alt></figure><p>Có 3 kiểu mount chính đó là:</p><ul><li><strong>volumes</strong>: data được chứa trong filesystem của máy host quản lý bởi Docker.</li><li><strong>bind mounts</strong>: data có thể nằm ở bất kỳ đâu trên máy host, không được quản lý bởi Docker.</li><li><strong>tmpfs</strong>: data được chứa ở memory của máy host, không được lưu trữ ở  hệ thống file của máy chủ. Data sẽ mất đi khi container bị dừng hay xoá đi.</li></ul><p>Mặc dù chúng ta có chọn kiểu mount nào đi chăng nữa, data trong container vẫn không bị biến đổi, tồn tại dưới dang file và thư mục trong filesystem của container. Giờ chúng ta cùng tìm hiểu chi tiết hơn đối với từng kiểu mount nhé.</p><h4 id="bind-mounts">bind mounts</h4><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=12KUCtHfOUi-oVx8wQqpKkApxJV7YNOyD&amp;export=download" class="kg-image" alt></figure><p><strong>bind mounts</strong> xuất hiện rất sớm cùng với Docker, nó có hiệu năng tốt do phụ thuộc vào cấu trúc filesystem của máy host. Với <strong>bind mounts</strong>, file và thư mục được mount từ máy host vào container, sử dụng đường dẫn tuyệt đối và data có thể được lưu trữ bất cứ ở đâu trên máy chủ. Chúng ta không bắt buộc phải mount với một thư mục không tồn tại. Nếu mount dữ liệu tới một thư mục không tồn tại, nó sẽ tự động được tạo ra theo yêu cầu.</p><p>Có một số điểm cần lưu ý khi sử dụng với <strong>bind mounts</strong> như sau:</p><ul><li>Khi mount từ host với một folder có chứa dữ liệu trong container, dữ liệu trong container hiện có sẽ bị ẩn đi cho tới khi liên kết này bị unmount.</li><li>Một điều không biết là tốt hay xấu khi sử dụng <strong>bind mounts</strong>, đó là chúng ta có thể chỉnh sửa, thêm mới, xoá các system files và directories trong quá trình sử dụng container. Đây là một tính năng liên quan đến bảo mật, liên quan đến tác động của các Docker non-process tới các file hệ thống. Vì vậy các bạn nên hết sức cẩn thận khi mount folder là một directory hay file quan trọng.</li></ul><p>Với các tính năng trên, <strong>bind mounts</strong> rất phù hợp, tiện lợi khi:</p><ul><li>Chia sẻ các file cấu hình từ docker host tới container.</li><li>Chia sẻ các thư mục source code hoặc môi trường từ docker host với container.</li><li>Chia sẻ dữ liệu khi cấu trúc filesystem của docker host là rõ ràng và phù hợp với các yêu cầu của <strong>bind mount</strong>.</li></ul><p>Tuy nhiên, <strong>bind mounts</strong> không phải là không có các điểm yếu. Cùng kể ra một vài điểm yếu nào:</p><ul><li><strong>bind mounts</strong> chỉ dừng lại ở việc synced folder.</li><li>Sử dụng đường dẫn tuyệt đối khiến cho việc di chuyển dữ liệu khó khăn và ảnh hưởng tới container khi muốn di rời data.</li><li>Không sử dụng được Docker CLI.</li><li>Có thể chỉnh sửa System file, như mình đã nói ở trên :D.</li></ul><h4 id="volumes">volumes</h4><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1GKfCpsq0mzcaRBQX2gkiycHle7jhRQcS&amp;export=download" class="kg-image" alt></figure><p><strong>Volumes</strong> là phiên bản cải tiến cho <strong>bind mounts</strong>, và bản chất của nó cũng tương tự so với bind mounts, nhưng được quản lý Docker. Vì vậy, chỉ những process của Docker mới có thể can thiệp được vào thư mục mount này. Mount giữa host và container được gọi là một <strong>volume</strong>. Và data được lưu trữ tại Docker area ( trên Linnux là <code>/var/lib/docker/volumes/</code> ) Chúng ta có thể tạo volume tronng lúc tạo container hoặc service hoặc sử dụng câu lệnh <code>docker volume create</code> bằng Docker CLI.</p><p>Có thể kể ra rất nhiều điểm vượt trội của <strong>volumes</strong> so với <strong>bind mounts</strong>:</p><ul><li>Dễ backup, restore và migrate.</li><li>Chúng ta có thể quản lý thêm, sửa, xoá volume sử dụng Docker CLI  hoặc Docker API.</li><li>Sử dụng được trên cả Linux và Windows.</li><li>Do được quản lý bằng CLI nên dễ quản lý  hơn và dễ dàng chia sẻ volume cho các container khác.</li><li>Một ưu điểm vượt trội đó là thay vì store volumes trong  <code>/var/lib/docker/volumes/</code> , ta có thể store thẳng volume lên remote host hoặc cloud.</li><li>Sử dụng volume không làm tăng dung lượng của container sử dụng vì nó nằm ngoài lifecycle của container.</li></ul><p>Một số chú ý khi sử dụng <strong>volumes</strong>:</p><ul><li>Nếu mount một volume vào trong một thư mục của container, mà thư mục của container này đã có dữ liệu thì dữ liệu từ container sẽ được copy vào volume của docker host.</li><li>Thông thường nếu không tạo volume từ trước mà chạy container với volume mount thì Docker sẽ tự động tạo một volume và dữ liệu sẽ vẫn tồn tại ngoài vòng đời của container.</li><li>Khi container bị xoá đi thì volume vẫn tồn tại.</li></ul><p>Với những tiện lợi kể trên, <strong>volumes</strong> được sử dụng rất nhiều và được Docker recommend sử dụng thay thế cho <strong>bind mounts</strong>.  Volumes được sử dụng trong việc:</p><ul><li>Chia sẻ data giữa các container (rõ ràng).</li><li>Lưu dữ liệu tới một remote server hoặc cloud để chia sẻ với các host khác.</li><li>Khi cần backup, restore hoặc migrate dữ liệu từ docker host này sang docker host khác.</li><li>Làm những thứ mà <strong>bind mounts</strong> không thể làm được :D.</li></ul><h4 id="tmpfs">tmpfs</h4><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1Kp5dIV34F0H5IlmvRxQOsbLyEEgT_5Tw&amp;export=download" class="kg-image" alt></figure><p>Nếu <strong>volumes</strong> và <strong>bind mounts</strong> giúp bạn chia sẻ file giữa host và container thì tmpfs khá là dị biệt. Khi sử dụng container với kiểu mount là tmpfs, data sẽ không được lưu vào lớp writable layer, cũng không được lưu vào filesystem của máy host, mà được lưu thẳng vào memory. Và khi container chỉ cần ngừng thôi, thì data cũng sẽ mất luôn.</p><p>Với <strong>tmpfs</strong>, có một vài chú ý sau:</p><ul><li>Mang tính chất tạm thời, không thể share mount giữa các container.</li><li>Chỉ sử dụng được khi host là Linux.</li></ul><p>Với tính cách khá "dị" của mình, <strong>tmpfs</strong> được sử dụng để: </p><ul><li>Tạm thời chứa các file "nhạy cảm" mà bạn không muốn duy trì trong máy host hoặc container layer.</li><li>Khi bạn muốn bảo mật, hoặc muốn đảm bảo hiệu suất container khi ứng dụng cần ghi một số lượng lớn dữ liệu không liên tục.</li></ul><h3 id="l-i-k-t">Lời kết</h3><p>Bài viết trên mình đã nói khái quát về Docker Storage cũng như về 3 kiểu mount của nó. Hy vọng bài viết giúp bạn tóm lược lại các đặc điểm chính về storage trong Docker. Hẹn gặp lại các bạn trong các bài viết sau!</p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tim-hieu-ve-docker-storage/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%C3%ACm%20hi%E1%BB%83u%20v%E1%BB%81%20Docker%20Storage">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tim-hieu-ve-docker-storage/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

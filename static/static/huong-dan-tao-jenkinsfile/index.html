@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>How to creating Jenkinsfile in Pipeline | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to creating Jenkinsfile in Pipeline" />
+    <meta property="og:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-11-22T01:14:00.000Z" />
+    <meta property="article:modified_time" content="2017-11-27T09:31:02.000Z" />
+    <meta property="article:tag" content="Jenkins" />
+    <meta property="article:tag" content="Pipeline" />
+    <meta property="article:tag" content="CI" />
+    <meta property="article:tag" content="CD" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How to creating Jenkinsfile in Pipeline" />
+    <meta name="twitter:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Jenkins, Pipeline, CI, CD" />
+    <meta property="og:image:width" content="2560" />
+    <meta property="og:image:height" content="1441" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "How to creating Jenkinsfile in Pipeline",
+    "url": "https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/",
+    "datePublished": "2017-11-22T01:14:00.000Z",
+    "dateModified": "2017-11-27T09:31:02.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&export=download",
+        "width": 2560,
+        "height": 1441
+    },
+    "keywords": "Jenkins, Pipeline, CI, CD",
+    "description": "Chuỗi bài về Jenkins\n\n1. Pipeline trong jenkins\n[https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/]\n\n2. Hướng dẫn tạo Jenkinsfile\n\n3. Pipeline CI/CD hoàn chỉnh với Laravel Framework\n[https://vietnamlab.vn/blog/pipeline-ci-cd-hoan-chinh-voi-laravel-framework]\n\nMục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:\n\n * Docker: sử dụng nền tảng container để triển khai\n * Laravel: framework PHP để làm website\n * Unit testing: Unit test cho PHP\n * Feature testing: test chức ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-jenkins tag-pipeline tag-ci tag-cd nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-jenkins tag-pipeline tag-ci tag-cd js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Hướng dẫn tạo Jenkinsfile</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-11-22">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 22 November 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/jenkins/index.html">Jenkins</a>, <a href="../tag/pipeline/index.html">Pipeline</a>, <a href="../tag/ci/index.html">CI</a>, <a href="../tag/cd/index.html">CD</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" alt="Hướng dẫn tạo Jenkinsfile">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/huong-dan-tao-jenkinsfile/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20t%E1%BA%A1o%20Jenkinsfile">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p><strong>Chuỗi bài về Jenkins</strong></p>
+<p><em>1. <a href="https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/">Pipeline trong jenkins</a></em></p>
+<p><em><strong>2. Hướng dẫn tạo Jenkinsfile</strong></em></p>
+<p><em>3. <a href="https://vietnamlab.vn/blog/pipeline-ci-cd-hoan-chinh-voi-laravel-framework">Pipeline CI/CD hoàn chỉnh với Laravel Framework</a></em></p>
+<p><strong>Mục đích cuối cùng của chuỗi bài</strong>: xây dựng 1 CI/CD hoàn chỉnh bao gồm:</p>
+<ul>
+<li>Docker: sử dụng nền tảng container để triển khai</li>
+<li>Laravel: framework PHP để làm website</li>
+<li>Unit testing: Unit test cho PHP</li>
+<li>Feature testing: test chức năng cho service</li>
+<li>Deploy: CD deploy container bằng Pipeline</li>
+</ul>
+<hr>
+<h3 id="mu">Mở đầu</h3>
+<p>Ở <a href="https://vietnamlab.vn/blog/pipeline-voi-jenkins">bài trước</a> ta đã làm quen với Pipeline trong Jenkins, tuy nhiên chỉ là cách thiết lập cực kỳ đơn giản, bài viết này sẽ giải thích cách tạo ra file cấu hình Pipeline là Jenkinsfile.</p>
+<h3 id="jenkinsfile">Jenkinsfile</h3>
+<p><em><strong>Pipeline as a code</strong></em>: thiết lập pipeline như là lập trình bằng script vậy. Ở trong <a href="http://">bài viết trước </a> mình đã giới thiệu có 2 cách để tạo file Jenkinsfile là file để thiết lập Pipeline cho project dạng Pipeline:</p>
+<ol>
+<li><strong><code>WebUI</code></strong>: thiết lập trực tiếp trên WebUI của project Pipeline.</li>
+<li><strong><code>Jenkinsfile</code></strong> trong git repo: thiết lập Pipeline trong file Jenkinsfile của project.<br>
+Về script Pipeline Jenkinsfile thì có 2 loại:
+<ul>
+<li><strong>Declarative Pipeline</strong>(<em>mới có</em>): sử dụng những syntax đơn giản hơn. Dựa trên các methods / functions dựng sẵn, việc của chúng ta sử dụng và tuân thủ theo các rule và syntax được định nghĩa sẵn theo các steps và funtions như vậy để implement theo các stages (từng đoạn trong pipeline)</li>
+<li><strong>Scripted Pipeline</strong>: <code>top of the underlying Pipeline sub-system</code>. Sử dụng Groovy script là kỹ thuật nâng cao hơn khi cần sử dụng code để implement vài tasks nào đó hoặc logic phức tạp tùy thuộc bài toán.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>Ví dụ script Jenkinsfile:</p>
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+<th>Declarative Pipeline</th>
+<th>Scripted Pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre><code class="hljs groovy">pipeline {
+  agent {
+      docker { image <span class="hljs-string">'node:7-alpine'</span> }
+  }
+  stages {
+      stage(<span class="hljs-string">'Test'</span>) {
+          steps {
+              sh <span class="hljs-string">'node --version'</span>
+          }
+      }
+  }
+}
+</code></pre>
+</td>
+<td>
+<pre><code class="hljs groovy">node {
+  stage(<span class="hljs-string">'Example'</span>) {
+      <span class="hljs-keyword">if</span> (env.BRANCH_NAME == <span class="hljs-string">'master'</span>) {
+          <span class="hljs-keyword">echo</span> <span class="hljs-string">'I only execute on the master branch'</span>
+      } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">echo</span> <span class="hljs-string">'I execute elsewhere'</span>
+      }
+  }
+}
+<p></code></pre></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Một vài so sánh giữa syntax của Declarative Pipeline và Scripted Pipeline</p>
+<table>
+<thead>
+<tr>
+<th>Declarative Pipeline</th>
+<th>Scripted Pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block ngoài cùng là <code>pipeline {...}</code></td>
+<td>Block ngoài cùng ko có quy định bắt buộc, nhưng thường là cùng là <code>node {...}</code></td>
+</tr>
+<tr>
+<td>Bắt buộc phải có block <code>stages { ... }</code> cha để khai báo các <code>stage { ... }</code> con</td>
+<td>Không bắt buộc</td>
+</tr>
+<tr>
+<td>Các Groovy khi muốn sử dụng phải add vào trong block <code>scrip { ... }</code></td>
+<td>Có thể viết bất kì đâu</td>
+</tr>
+<tr>
+<td><strong>Mục đích:</strong> sử dụng các methods/functions định nghĩa sẵn để viết script đơn giản nhất</td>
+<td><strong>Mục đích:</strong> có thể sử dụng code Groovy thoải mái, áp dụng cho viết các script có logic phức tạp hơn, mang lại cho ta sự linh hoạt hơn</td>
+</tr>
+</tbody>
+</table>
+</br>
+</br>
+*** 
+<h3 id="hngdnquasyntaxcajenkinsfile">Hướng dẫn qua Syntax của Jenkinsfile</h3>
+<p>Cấu tạo Jenkinsfile sẽ gồm những thành phần sau</p>
+<h4 id="declarativepipeline">Declarative Pipeline</h4>
+<ul>
+<li>Sections: Các phân đoạn, phạm vi thực thi, bao gồm các block sau
+<ul>
+<li><code>agent</code> : chỉ định môi trường sẽ thực thi các thao tác trong <code>steps </code></li>
+<li><code>post</code> : các action sẽ được chạy sau cùng, ví dụ gửi mail thông báo kết quả, xóa các resource sử dụng,...</li>
+<li><code>stages</code> : là block cha của block <code>stage</code>, block <code>stage</code> chứa khâu, giai đoạn trong Pipeline (là Pipe trong Pipeline)</li>
+<li><code>steps</code> : là block con bên trong block <code>stage</code> là các action thực thi các công việc cần thiết cho mỗi state</li>
+</ul>
+</li>
+</ul>
+<p>Tìm hiểu thêm tại <a href="https://viblo.asia/p/jenkins-pipeline-for-beginners-Qbq5QgJJZD8#declarative-pipeline-5">link sau</a></p>
+<ul>
+<li>Directives: Nhóm các khai báo chỉ đạo, điều hướng thực thi
+<ul>
+<li><code>environment</code> : được khai báo trong block <code>pipeline</code> hoặc <code>stage</code>, là 1 chuỗi các cặp Key-Val định nghĩa các biến môi trường cho toàn bộ (global - nếu để tại scope <code>pipeline</code>) hoặc cho 1 stage riêng ( nếu được khai báo trong block <code>stage</code> đấy ). Có hàm <code>credentials()</code> để lấy thông tin xác thực nhạy cảm (biến định nghĩa ra sẽ ko thể xem được raw text của nó mà chỉ thấy được <code>****</code> nhưng có thể sử dụng để xác thực được. Ví dụ</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-groovy">pipeline {
+    agent any
+    environment { // Định nghĩa global
+        DB_ENGINE    = 'sqlite'
+    }
+    stages {
+        stage('Build') {
+            environment { // Định nghĩa riêng cho stage Build thôi
+                AN_ACCESS_KEY = credentials('longta-hoho') 
+            }
+            steps {
+                //sh 'printenv'
+                echo &quot;DB Engige : ${DB_ENGINE}&quot;
+                echo &quot;DB Engige : ${AN_ACCESS_KEY_USR}&quot;
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích</strong>: Jenkinsfile trên định nghĩa biến global DB_ENGINE và biến local AN_ACCESS_KEY cho riêng stage Build, trong stage Build sẽ in ra nội dung của 2 biến đó.<br>
+Lúc chạy Pipeline trên ta sẽ được kết quả như sau nếu xem ở Console Log của lượt build đó (xem ở dưới sẽ thấy nội dung biến <strong>AN_ACCESS_KEY_USR</strong> đã bị che mờ đi)</p>
+<pre><code>[Pipeline] echo
+DB Engige : sqlite
+[Pipeline] echo
+DB Engige : ****
+</code></pre>
+<p><strong>Lưu ý:</strong> : Đối với Credentials là dạng &quot;Standard username and password&quot; thì sẽ có 2 biến được định nghĩa là <strong>MYVARNAME_USR</strong> và <strong>MYVARNAME_PSW</strong></p>
+<pre><code>* `options` : Chỉ được đặt trong block `pipeline`, định nghĩa các option config cho Pipeline, bao gồm các option được hỗ trợ sẵn và các options của các Plugin được cài đặt thêm. Ví dụ như `buildDiscarder` là được Pipeline hỗ trợ sẵn còn `timestamps` là option của Plugin.
+* `parameters` :  Chỉ được đặt trong block `pipeline`, định nghĩa các parameters mà user phải cung cấp để chạy Pipeline. Ví dụ
+</code></pre>
+<pre><code>pipeline {
+    agent any
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo &quot;Hello ${params.PERSON}&quot; // chỗ này sẽ in ra console là &quot;Hello anh Long&quot; nếu ta truyền biến PERSON=anh Long vào
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích</strong>: định nghĩa param tên PERSON với default value là <strong>Mr Jenkins</strong>, lúc ở WebUI của Jenkins ta chọn build Pipeline này thì sẽ hiện ra form input nhập các param đã được định nghĩa, xem hình dưới đây:<br>
+<img src="https://drive.google.com/uc?id=18q-hXcX4YlwsAQJiMBHBoAP4eG5RN4jy&amp;export=download" alt=""><br>
+* <code>triggers</code> : Chỉ được đặt trong block <code>pipeline</code>, định nghĩa Pipeline được trigger để chạy như thế nào, hỗ trợ 3 kiểu là<br>
+* <code>cron</code>: chạy Pipeline định kỳ, cú pháp là cú pháp của cron linux ( <code>0 * * * *</code> : là chạy mỗi giờ đúng chẳng hạn)<br>
+* <code>pollSCM</code>: định lỳ check source trên repo xem có j thay đổi ko, ví dụ <code>triggers { pollSCM('H */4 * * 1-5') }</code> là kiểm tra vào phút 0,15,30,45 mỗi giờ từ thứ 2-&gt;6<br>
+* <code>upstream</code>: được trigger chạy Pipeline khi 1 project khác được build xong. Ví dụ <code>triggers { upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) }</code> là khi 1 trong 2 job1,job2 chạy xong mà thành công thì sẽ chạy Pipeline.<br>
+* <code>stage</code> : block con của block <code>stages</code> chứa block <code>steps</code> là các action, thực thi sẽ thực hiện trong stage đó.<br>
+* <code>tools</code> : được đặt trong block <code>pipeline</code> hoặc block <code>stage</code>, định nghĩa các tool (version) được chạy trong Pipeline hay stage và khai báo đường dẫn chạy binary vào biến môi trường <code>PATH</code>, <code>tools</code> sẽ ko sử dụng được khi ta khai báo <code>agent none</code>. Các tool được hỗ trợ sẵn là <strong>maven, jdk</strong> và <strong>gradle</strong>. Các tool này sẽ được tự động cài đặt bởi Jenkins. Ví dụ</p>
+<pre><code class="language-groovy">pipeline {
+    agent any
+    tools {
+        maven 'apache-maven-3.0.1' // khai báo sử dụng maven 3.0.1
+    }
+    stages {
+        stage('Example') {
+            steps {
+                sh 'mvn --version' // kiểm tra version của maven
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code>* `when` : chỉ được đặt trong block `stage`, định nghĩa điều kiện (condition) để thực hiện các thực thi stage đó, có thể có 1 hoặc nhiều điều kiện, với nhiều điều kiện thì phải thỏa mãn tất cả . Hỗ trợ các điều liện lồng nhau (nested) bằng các cú pháp `not`- ko thỏa mãn điều kiện , `allOf` - thỏa mãn tất cả điều kiện, và `anyOf` - thỏa mãn 1 trong các điều kiện. Ví dụ:
+</code></pre>
+<pre><code>pipeline {
+    agent any
+    environment { 
+        DEPLOY_CON_1 = 'condition1'
+        DEPLOY_CON_2 = 'condition2'
+    }
+    stages {
+        stage('Example Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when { // phải thỏa mãn cả 2 điều kiện mới chạy stage này
+                allOf {
+                    environment name: 'DEPLOY_CON_1', value: 'condition1'
+                    environment name: 'DEPLOY_CON_2', value: 'condition2'
+                }
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích:</strong> Jenkinsfile trên định nghĩa 2 biến môi trường là DEPLOY_CON_1 và DEPLOY_CON_2, trong stage <code>Example Deploy</code> ta khai báo 1 condition allOf(phải thỏa mãn tất cả điều kiện) của 2 biến môi trường đó thì mới thực hiện chạy stage này.<br>
+* Các điều kiện hỗ trợ là <code>branch</code>, <code>environment</code>, <code>expression</code></p>
+<ul>
+<li>Parallel: được đặt trong block <code>stages</code>, thiết lập các stage được chạy đồng thời với nhau, ta có thể thiết lập <code>failFast true</code> sẽ cho Jenkins biết là nếu có 1 stage fail thì nó sẽ hủy việc chạy các stage khác nếu các stage khác chưa kết thúc. Ví dụ:</li>
+</ul>
+<pre><code>pipeline {
+    agent any
+    stages {
+        stage('Non-Parallel Stage') {
+            steps {
+                echo 'This stage will be executed first.'
+            }
+        }
+        stage('Parallel Stage') {
+            failFast true
+            parallel {
+                stage('Stage-Parallel 01') {
+                    steps {
+                        echo &quot;Stage-Parallel 01&quot;
+                    }
+                }
+                stage('Stage-Parallel 02') {
+                    steps {
+                        echo &quot;Stage-Parallel 02&quot;
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>Nếu sử dụng Plugin <strong>Blue Ocean</strong> ta có thể xem trực quan các stage được chạy như thế nào trong hình dưới đây ( stage <code>Stage-Parallel 01</code> và <code>Stage-Parallel 02</code> đã được chạy song song)<br>
+<img src="https://drive.google.com/uc?id=1PorQlHib0GX7Qghgc_L3Md0bDzkAyBtX&amp;export=download" alt=""></p>
+<ul>
+<li>Steps: các lệnh thực thi được liệt kê tại <a href="https://jenkins.io/doc/pipeline/steps/">link</a></li>
+</ul>
+<p><strong>Sections</strong> : giải thích thêm một chút về Sections<br>
+các block trong Sections là các block lồng nhau dạng như sau</p>
+<pre><code class="language-groovy">pipeline{
+    agent ...
+    // quan trọng nhất, là khai báo các công đoạn trong quá trính CI/CD
+    stages {
+        stage ('stage_name') {
+        agent {...} // chỉ có khi agent ngoài chùng thiết lập là none 
+            steps {
+            ...
+            }
+        {
+    }
+    // những action, xử lý chạy sau cùng
+    post {
+    ...
+    }
+}
+</code></pre>
+<p><strong>Chú ý:</strong> Về Syntax của Jenkinsfile các bạn có thể xem thêm chi tiết hơn tại <a href="https://jenkins.io/doc/book/pipeline/syntax/#post">link</a></p>
+<h4 id="scriptedpipeline">Scripted Pipeline</h4>
+<p>Scripted sử dụng những khối block sau:</p>
+<ul>
+<li><code>node</code> : giống với <code>agent</code> trong <strong>Declarative</strong></li>
+<li><code>stage</code> : giống vs <code>stage</code> trong <strong>Declarative</strong></li>
+<li><code>label</code> : giống vs <code>label</code> trong <strong>Declarative</strong></li>
+</ul>
+<p>Trong <strong>Scripted Pipeline</strong> ta có thể sử dụng thoải mái Groovy cũng như thiết lập logic 1 cách linh hoạt hơn. Trong <strong>Scripted Pipeline</strong> ta chủ yếu sử dụng các module Groovy được cung cắp sẵn hoặc thông qua các Plugin để khai báo các nội dung thực thi của Pipeline. Ví dụ:</p>
+<pre><code>node {
+    stage('Example') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
+        }
+    }
+}
+</code></pre>
+<p>Ví dụ trên sử dụng <code>if-else</code> condition trong Groovy để điều khiển logic thực thi</p>
+<hr>
+<h3 id="jenkinsfilevidocker">Jenkinsfile với docker</h3>
+<p>Theo sát sự phát triển bùng nổ của docker (container thay cho VM), Jenkins cũng hỗ trợ rất nhiều cho việc sử dụng docker trên Pipeline, Pipeline trên Jenkins hỗ trợ build inside (thiết lập agent trong <strong>Declarative Pipeline</strong>, hoặc sử dụng phương thức <code>docker.image('xxx').inside { ... }</code> trong <strong>Scripted Pipeline</strong>) docker container, hỗ trợ build image bằng Dockerfile, hỗ trợ tương tác với remote docker daemon,...</p>
+<h4 id="thchinbuildinsidedockercontainer">Thực hiện build inside docker container</h4>
+<p>Bằng việc thiết lập agent trong <strong>Declarative Pipeline</strong>, hoặc sử dụng phương thức <code>docker.image('xxx').inside { ... }</code> trong <strong>Scripted Pipeline</strong> ta có thể thực thi trên các docker container thay vì server thực tế. Ví dụ</p>
+<ul>
+<li>Với <strong>Declarative Pipeline</strong>:</li>
+</ul>
+<pre><code>pipeline {
+    agent {
+        docker { image 'node:7-alpine' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>Với <strong>Scripted Pipeline</strong>:</li>
+</ul>
+<pre><code>node {
+    /* Requires the Docker Pipeline plugin to be installed */
+    docker.image('node:7-alpine').inside {
+        stage('Test') {
+            sh 'node --version'
+        }
+    }
+}
+</code></pre>
+<h4 id="dockerfile">Dockerfile</h4>
+<p>Ta có thể sử dụng luôn Dockerfile để build image rồi thực thi trên container được tạo bởi image đó. Lúc sử dụng Dockerfile ta thiết lập <code>agent { dockerfile true }</code>. Ví dụ:</p>
+<pre><code>pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="builddockerimagevpushlnregistry">Build docker image và push lên registry</h4>
+<p>Ta có thể khai báo trong Jenkinsfile để build docker image và push lên registry như sau:</p>
+<pre><code>node {
+    checkout scm
+    def customImage = docker.build(&quot;my-image:${env.BUILD_ID}&quot;)
+    customImage.push()
+
+    customImage.push('latest')
+}
+</code></pre>
+<h4 id="remotedockerdaemon">Remote docker daemon</h4>
+<p>Mặc định thì Jenkins sẽ tương tác với docker daemon trên local ( máy cài Jenkins ), nếu ta muốn tương tác với remote docker daemon ( docker daemon chạy trên máy khác với máy Jenkins ), ví dụ như tương tác vs swarm cluster chẳng hạn. Ta có thể sử dụng method <code>withServer</code> trong <strong>Scripted Pipeline</strong> để khai báo tương tác vs remote docker daemon. Lưu ý là có thể phải khai báo Credentials ID của <strong>Docker Server Certificate Authentication</strong> được config trước trong Jenkins. Ví dụ</p>
+<pre><code class="language-groovy">node {
+    checkout scm
+
+    docker.withServer('tcp://swarm.example.com:2376', 'swarm-certs') {
+        docker.image('mysql:5').withRun('-p 3306:3306') {
+            ...
+        }
+    }
+}
+</code></pre>
+<h4 id="sdngdockercustomregistry">Sử dụng docker custom registry</h4>
+<p>Custom registry là ko phải <a href="https://hub.docker.com/">docker hub</a> -&gt; ta phải khai báo registry URL và có thể là Credentials ID của registry đó nếu cần. Ví dụ</p>
+<pre><code>node {
+    checkout scm
+
+    docker.withRegistry('https://registry.example.com') {
+
+        docker.image('my-custom-image').inside {
+            sh 'make test'
+        }
+    }
+}
+</code></pre>
+<p>Với registry yêu cầu authen thì ta khai báo như sau <code>docker.image('my-custom-image', 'credentials-id').inside {...}</code></p>
+<hr>
+<p><strong>Chú ý:</strong> Xem thêm về sử dụng docker trong Pipeline tại <a href="https://jenkins.io/doc/book/pipeline/docker/#using-a-remote-docker-server">đây</a></p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Bài viết hy vọng sẽ giúp cho các bạn hiểu được các thành phần trong quá trình tạo file Jenkinsfile, hiểu được sẽ giúp ta hình dung được giải pháp trong quá trình triển khai thực tế.</li>
+<li>Có 2 kiểu Jenkinsfile là <strong>Declarative</strong> và <strong>Scripted</strong>, ta tùy vào tình trạng của project để lựa chọn cho phù hợp.</li>
+<li>Bài viết cũng cung cấp cách thao tác Pipeline với docker container, hy vọng bạn đọc thấy hấp dẫn.</li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/huong-dan-tao-jenkinsfile/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20t%E1%BA%A1o%20Jenkinsfile">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/huong-dan-tao-jenkinsfile/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

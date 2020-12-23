@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost" />
+    <meta property="og:description" content="Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/su-dung-google-cloud-function-de-gui/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1YUzflim6OS2c_E1JWlPjxeV1Es_zVrgN&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-04-07T01:19:19.000Z" />
+    <meta property="article:modified_time" content="2020-04-07T01:19:19.000Z" />
+    <meta property="article:tag" content="gcloud" />
+    <meta property="article:tag" content="cloud function" />
+    <meta property="article:tag" content="serverless" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost" />
+    <meta name="twitter:description" content="Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/su-dung-google-cloud-function-de-gui/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1YUzflim6OS2c_E1JWlPjxeV1Es_zVrgN&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="gcloud, cloud function, serverless" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost",
+    "url": "https://blog.vietnamlab.vn/su-dung-google-cloud-function-de-gui/",
+    "datePublished": "2020-04-07T01:19:19.000Z",
+    "dateModified": "2020-04-07T01:19:19.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1YUzflim6OS2c_E1JWlPjxeV1Es_zVrgN&export=download",
+        "width": 1280,
+        "height": 720
+    },
+    "keywords": "gcloud, cloud function, serverless",
+    "description": "Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Sử dụng Google Cloud Function để gửi thông báo từ Cloud Monitoring đến Mattermost</h1>
+                <section class="post-meta">
+                    T.M.L -
+                    <time class="post-date" datetime="2020-04-07">07 Apr 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1YUzflim6OS2c_E1JWlPjxeV1Es_zVrgN&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="ligiithiuu">Lời giới thiệu đầu</h3>
+<p>Thời gian gần đây, Serverless là một trong những từ khoá hot nhất trong cộng đồng phát triển phần mềm. Serverless là gì? Đúng như cái tên của nó, nghĩa là người lập trình khi phát triển ứng dụng của mình sẽ "không còn cần" đến Server nữa. Thật ra thì "không còn cần" ở đây có nghĩa là "không cần quan tâm", thay vì phải tìm hiểu, thiết kế, setup server, quy trình deploy các kiểu thì giờ đây ta chỉ cần push code lên là xong. Các việc khác đã có dịch vụ Serverless của các nhà cung cấp Cloud lo cho hộ rồi. Hiện tại thì 3 đại gia cloud AWS, Azure, Google Cloud đều cung cấp các dịch vụ Serverless của mình. Bài viết hôm nay sẽ tìm hiểu sơ qua về Cloud Function và tạo một ứng dụng đơn giản với dịch vụ này</p>
+<h3 id="googlecloudfunction">Google Cloud Function</h3>
+<p>Hiện tại thì Google đang cung cấp 3 dịch vụ Serverless là Google Cloud Run, App Engine và Cloud Function. Để hình dùng sự khác biệt giữa 3 dịch vụ này, ta có thể tham khảo hình ảnh sau (được cung cấp chính hãng bởi Google)</p>
+<p><amp-img src="https://drive.google.com/uc?id=1d4vwI7kkBT0t3J9b91BNL5RxpAS7ysVM&amp;export=download" alt="uc?id=1d4vwI7kkBT0t3J9b91BNL5RxpAS7ysVM&amp;export=download" width="1060" height="909.85" layout="responsive"></amp-img></p>
+<p>Như vậy ta có thể thấy trong 3 lựa chọn, Gcloud Function là lựa chọn đơn giản nhất, thích hợp cho việc xử lý event với đơn vị deploy là <strong>Function</strong>. Nói một cách đơn giản là bạn viết một function, function đó được deploy và GCloud Function sẽ thực thi function đó giúp bạn.</p>
+<p>Hiện tại GCloud Function support 3 runtime để xử lý Function là Go, Node.JS và Python. Việc viết code và deploy thì vô cùng đơn giản, ta có thể tham khảo ví dụ Hello World từ chính Google.</p>
+<p>Trước hết, ta cần cài đặt Cloud SDK của Google và khởi tạo 1 project để có thể test GCloud Function. Phần này thì là thủ tục phải có rồi nên mình sẽ không ghi chi tiết ở đây.</p>
+<p>Tạo 1 folder <code>helloworld</code> với 1 file <code>helloworld.go</code> với nội dung như sau:</p>
+<pre><code class="language-go">// Package helloworld provides a set of Cloud Functions samples.
+package helloworld
+
+import (
+        "encoding/json"
+        "fmt"
+        "html"
+        "net/http"
+)
+
+// HelloHTTP is an HTTP Cloud Function with a request parameter.
+func HelloHTTP(w http.ResponseWriter, r *http.Request) {
+        var d struct {
+                Name string `json:"name"`
+        }
+        if err := json.NewDecoder(r.Body).Decode(&amp;d); err != nil {
+                fmt.Fprint(w, "Hello, World!")
+                return
+        }
+        if d.Name == "" {
+                fmt.Fprint(w, "Hello, World!")
+                return
+        }
+        fmt.Fprintf(w, "Hello, %s!", html.EscapeString(d.Name))
+}
+</code></pre>
+<p>Function HelloHTTP có thể được deploy 1 cách vô cùng đơn giản lên GCloud bằng câu lệnh sau:</p>
+<pre><code class="language-sh">$ gcloud functions deploy HelloHTTP --runtime go113 --trigger-http --allow-unauthenticated
+</code></pre>
+<p>Ở đây, runtime được chọn cho function là go 1.13 và trigger cho function sẽ là HTTP, tức là function này sẽ xử lý 1 request HTTP gửi đến. Sau khi deploy xong Fucntion sẽ có 1 HTTP endpoint dưới dạng</p>
+<pre><code>https://GCP_REGION-PROJECT_ID.cloudfunctions.net/HelloHTTP
+</code></pre>
+<p>Ta có thể test bằng cách gửi request đến endpoint này</p>
+<pre><code class="language-sh">curl -X POST https://GCP_REGION-PROJECT_ID.cloudfunctions.net/HelloHTTP -H "Content-Type:application/json"  -d '{"name":"Dep Trai"}'
+</code></pre>
+<h3 id="sdnggooglecloudfunctionnhnvgithngtin">Sử dụng Google Cloud Function để nhận và gửi thông tin</h3>
+<p>Nếu các bạn đã sử dụng Google Cloud thì chắc chắn sẽ phải sử dụng Cloud Monitoring, dịch vụ theo dõi tình hình sức khoẻ hệ thông của Google. Dịch vụ này có thể giúp chúng ta theo dõi trạng thái hệ thống, đồng thời tạo thông báo khi một điều kiện nào đó được thoả mãn (như là tổng cpu, memory bị chiếm hữu vượt 1 ngưỡng nhất định). Tuy nhiên hiện tại liên kết kênh thông báo chỉ hỗ trợ 1 số kênh nhất định và không support Webhook của Mattermost (chương trình chat free, siêu việt mà công ty mình tự host để dùng). Do vậy mình quyết tâm tạo một webhook dùng Google Cloud, sau đó dùng webhook này post lên Mattermost</p>
+<p>Trước tiên, cứ phải tạo một Incomming Webhook trên Mattermost đã. <amp-img src="https://drive.google.com/uc?id=1Jube4Ya-_BAZgH19-uQYp5llhhpEL5la&amp;export=download" alt="uc?id=1Jube4Ya-_BAZgH19-uQYp5llhhpEL5la&amp;export=download" width="2478" height="716" layout="responsive"></amp-img></p>
+<p>Sau đó ta bắt đầu tạo Function của mình. Để tăng thêm chút bảo mật thì ta thêm một param token để check quyền truy cập</p>
+<pre><code class="language-go">// alert_webhook.go
+func AlertFunc(w http.ResponseWriter, r *http.Request) {
+	token := r.URL.Query().Get("auth_token")
+	if token != os.Getenv("AUTH_TOKEN") {
+		log.Printf("Unauthorized Access with Token: %s\n", token)
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
+    
+    ...
+}
+</code></pre>
+<h4 id="parserequesttocloudmonitoring">Parse request to Cloud Monitoring</h4>
+<p>Request từ Cloud Monitoring gửi đến webhook sẽ có định dạng như sau</p>
+<pre><code class="language-json">{
+		"incident": {
+		  "incident_id": "f2e08c333dc64cb09f75eaab355393bz",
+		  "resource_id": "i-4a266a2d",
+		  "resource_name": "webserver-85",
+		  "state": "open",
+		  "started_at": 1385085727,
+		  "ended_at": null,
+		  "policy_name": "Webserver Health",
+		  "condition_name": "CPU usage",
+		  "url": "https://console.cloud.google.com/monitoring/alerting/incidents?project=PROJECT_ID",
+		  "summary": "CPU for webserver-85 is above the threshold of 1% with a value of 28.5%"
+		},
+        "version": "1.1"
+}
+</code></pre>
+<p>Do vậy ta cũng phải định nghĩa struct tương tự để parse data</p>
+<pre><code class="language-go">// alert_webhook.go
+
+type StackDriveIncident struct {
+	IncidentID    string `json:"incident_id"`
+	ResourceID    string `json:"resource_id"`
+	ResourceName  string `json:"resource_name"`
+	State         string `json:"state"`
+	StartedAt     Time   `json:"started_at"`
+	EndedAt       Time   `json:"ended_at"`
+	PolicyName    string `json:"policy_name"`
+	ConditionName string `json:"condition_name"`
+	URL           string `json:"url"`
+	Summary       string `json:"summary"`
+}
+
+type StackDriveAlert struct {
+	Incident StackDriveIncident `json:"incident"`
+	Version  string             `json:"version"`
+}
+</code></pre>
+<p>Quay lại hàm <code>AlertFunc</code>, việc parse request gửi đến từ Cloud Monitoring cũng rất đơn giản.</p>
+<pre><code class="language-go">// alert_webhook.go
+...
+func AlertFunc(w http.ResponseWriter, r *http.Request) {	
+    ...
+    var alert StackDriveAlert
+	if err := json.NewDecoder(r.Body).Decode(&amp;alert); err != nil {
+		log.Printf("%+v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+    
+    ...
+</code></pre>
+<h4 id="gidatanmattermost">Gửi data đến Mattermost</h4>
+<p>Gửi data đến Webhook của Mattermost cũng vô cùng đơn giản ta chỉ cần gửi một request với data json có định dạng như dưới đây là Mattermost sẻ post message theo account và config đã thiết lập cho webhook này</p>
+<pre><code class="language-json">{ "text": "Test test test" }
+</code></pre>
+<p>Đoạn code để gửi data trong <code>AlertFunc</code> sẽ như sau:</p>
+<pre><code class="language-go">// alert_webhook.go
+
+...
+type WebhookRequest struct {
+	Text string `json:"text"`
+}
+
+func AlertFunc(w http.ResponseWriter, r *http.Request) {	
+    ...
+	webhookReq := WebhookRequest{
+		Text: fmt.Sprintf("##### %s\n%s\n%s\n_%s_", alert.Incident.PolicyName,
+			alert.Incident.Summary, alert.Incident.URL,
+			alert.Incident.StartedAt.Time().Format(time.RFC1123Z)),
+	}
+
+	reqBody, err := json.Marshal(webhookReq)
+	if err != nil {
+		log.Printf("%+v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	_, err = http.Post(os.Getenv("WEBHOOK_URL"), "application/json", bytes.NewBuffer(reqBody))
+	if err != nil {
+		log.Printf("%+v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+    w.Write(([]byte("OK")))
+ }</code></pre>
+<p>Sau đó chỉ cần tạo 1 file <code>.env.yaml</code> để chứa các biến môi trường cần thiết như sau:</p>
+<pre><code class="language-yaml">AUTH_TOKEN: xxxxxxx
+WEBHOOK_URL: https://webhook.url
+BASE_URL: https://base.ur
+</code></pre>
+<p>Là ta đã có thể sẵn sàng deploy function của mình lên Google Cloud rồi (yêu cầu đã download SDK, tạo project):</p>
+<pre><code>$ gcloud functions deploy AlertFunc --region asia-northeast1 --env-vars-file .env.yaml --runtime go113 --trigger-http --allow-unauthenticated
+</code></pre>
+<p>Vì option trigger là HTTP nên function sẽ được deploy ở địa chỉ như sau</p>
+<pre><code>https://{REGION}-{PROJECT_ID}.cloudfunctions.net/AlertFunc
+</code></pre>
+<h4 id="setupcloudmonitoringvthnhqu">Setup ở Cloud Monitoring và thành quả</h4>
+<p>Từ màn hình quản lý của Google Cloud truy cập vào phần <code>Monitoring -&gt; Alert -&gt; Edit Notification Channel</code> (<a href="https://console.cloud.google.com/monitoring/alerting/notifications">https://console.cloud.google.com/monitoring/alerting/notifications</a>), ta có thể tạo một Webhook Notification Channel sử dụng function đã deploy của mình.<br />
+<amp-img src="https://drive.google.com/uc?id=1RPKcNlMMGtr2t-cjhtpxt_AAEfSfm2UN&amp;export=download" alt="uc?id=1RPKcNlMMGtr2t-cjhtpxt_AAEfSfm2UN&amp;export=download" width="1370" height="780" layout="responsive"></amp-img></p>
+<p>Khi có alert thì Mattermost sẽ push alert dưới dạng text message vào channel đã được thiết lập, ví dụ như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=10rim8gyjToETYopss8LSovDNJlGK5rT4&amp;export=download" alt="uc?id=10rim8gyjToETYopss8LSovDNJlGK5rT4&amp;export=download" width="1262" height="272" layout="responsive"></amp-img></p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Rất đơn giản và dễ dàng, ta đã có thể sử dụng Google Cloud Function để tạo một webhook nhận và gửi data. Với các bài toán xử lý event đơn giản và stateless  thì Google Cloud Function hoàn toàn là giải pháp hợp lý và có nhiều ưu điểm hơn so với các lựa chọn deploy truyền thống. Với các bài toán phức tạp hơn thì Google Cloud Run và App Engine có lẽ sẽ là các lựa chọn Serverless phù hợp hơn.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://cloud.google.com/functions/docs/first-go#deploying_the_function">https://cloud.google.com/functions/docs/first-go#deploying_the_function</a></li>
+<li><a href="https://cloud.google.com/monitoring/support/notification-options">https://cloud.google.com/monitoring/support/notification-options</a></li>
+<li><a href="https://github.com/linhmtran168/gcloud_alert_func">https://github.com/linhmtran168/gcloud_alert_func</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

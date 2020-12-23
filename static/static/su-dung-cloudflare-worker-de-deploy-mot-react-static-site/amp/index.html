@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Sử dụng Cloudflare Worker để deploy một Gatsby site</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sử dụng Cloudflare Worker để deploy một Gatsby site" />
+    <meta property="og:description" content="Sử dụng Cloudflare Worker để deploy một static site đơn giản được generate bởi Gatsby, một công cu chuyên để tạo static site với React" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/su-dung-cloudflare-worker-de-deploy-mot-react-static-site/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1Dcj5o-ZWzZ2vQRaGoQijXxfyAEZfFgbA&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-06-23T15:05:31.000Z" />
+    <meta property="article:modified_time" content="2020-06-23T15:05:31.000Z" />
+    <meta property="article:tag" content="cloudflare" />
+    <meta property="article:tag" content="serverless" />
+    <meta property="article:tag" content="gatsby" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sử dụng Cloudflare Worker để deploy một Gatsby site" />
+    <meta name="twitter:description" content="Sử dụng Cloudflare Worker để deploy một static site đơn giản được generate bởi Gatsby, một công cu chuyên để tạo static site với React" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/su-dung-cloudflare-worker-de-deploy-mot-react-static-site/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1Dcj5o-ZWzZ2vQRaGoQijXxfyAEZfFgbA&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="cloudflare, serverless, gatsby" />
+    <meta property="og:image:width" content="1210" />
+    <meta property="og:image:height" content="821" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Sử dụng Cloudflare Worker để deploy một Gatsby site",
+    "url": "https://blog.vietnamlab.vn/su-dung-cloudflare-worker-de-deploy-mot-react-static-site/",
+    "datePublished": "2020-06-23T15:05:31.000Z",
+    "dateModified": "2020-06-23T15:05:31.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1Dcj5o-ZWzZ2vQRaGoQijXxfyAEZfFgbA&export=download",
+        "width": 1210,
+        "height": 821
+    },
+    "keywords": "cloudflare, serverless, gatsby",
+    "description": "Sử dụng Cloudflare Worker để deploy một static site đơn giản được generate bởi Gatsby, một công cu chuyên để tạo static site với React",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Sử dụng Cloudflare Worker để deploy một Gatsby site</h1>
+                <section class="post-meta">
+                    T.M.L -
+                    <time class="post-date" datetime="2020-06-23">23 Jun 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1Dcj5o-ZWzZ2vQRaGoQijXxfyAEZfFgbA&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="limu">Lời mở đầu</h3>
+<p>Ở bài viết <a href="https://blog.vietnamlab.vn/2020/04/07/su-dung-google-cloud-function-de-gui/">trước</a>, mình đã giới thiệu về dịch vụ Serverless Cloud Function của Google. Ở bài viết này, mình tiếp tục giới thiệu qua về một dịch vụ Serverless khác, Cloudflare Worker và sử dụng dịch vụ này để deploy một static site đơn giản được generate bởi Gatsby, một công cu chuyên để tạo static site với React.</p>
+<h3 id="cloudflareworker">Cloudflare Worker</h3>
+<h4 id="giithiucbn">Giới thiệu cơ bản</h4>
+<p>Cũng giống như các dịch vụ serverless khác, Cloudflare Worker giúp cuộc sống của developer của chúng ta nhẹ nhàng hơn rất nhiều. Developer chỉ tập trung vào viết code, suy nghĩ business logic, còn việc deploy, scale trên môi trường thật thế nào thì cứ để Cloudflare Worker xử lý. Vậy tại sao lại chọn Cloudflare Worker thay vì các dịch vụ khác như Google Cloud Function. Worker giờ mới chỉ support có Javascript, C, C++, Rust, hơi ít ngôn ngữ phổ biến so với Cloud Function (Javascript, Python, Go, Java). Và trong trường hợp, bạn đang sử dụng các dịch vụ khác của Gcloud, thì việc lựa chọn Cloud Function có lẽ là việc đương nhiên. Mình cũng chưa tìm hiểu đủ sâu về Cloudflare Worker để có thể đưa ra những đánh giá chi tiết, tuy nhiên chỉ cần nhìn vào hình ảnh dưới, chúng ta có thể thấy được sự hấp dẫn của Cloudflare Worker</p>
+<p><amp-img src="https://drive.google.com/uc?id=1xK7QS69u6Uyt6CH3wP701MWg81ZFhzQO&amp;export=download" alt="uc?id=1xK7QS69u6Uyt6CH3wP701MWg81ZFhzQO&amp;export=download" width="966" height="1057" layout="responsive"></amp-img></p>
+<p>Giá cả của Cloudflare Worker thật sự rất hấp dẫn kèm theo Free Plan vô cùng rộng rãi, hoàn toàn đủ cho nhu cầu cá nhân sử dụng. Ngoài ra, môi trường chạy code của Cloudflare Worker theo lời quảng cáo, không gặp phải vấn đề <strong>cold start</strong>, sẽ giảm thời gian thực hiện code đi đáng kể (code deploy nên trước khi được chạy thì thông thường môi trường để chạy code cần phải được sẵn sàng, thời gian để chuẩn bị môi trường này thường được gọi là <strong>code start</strong>). Ngoài ra, Cloudflare có rất nhiều data center trên thế giới nên các vấn đề latency hay scale theo mình cũng sẽ được hỗ trợ khá ngon lành.</p>
+<h4 id="quickstartvicloudflareworker">Quickstart với Cloudflare Worker</h4>
+<p>Việc đăng ký sử dụng Cloudflare Worker thật sử rất nhanh gọn so với dịch vụ khác. Từ lúc đăng ký cho tới lúc test dòng code đầu tiên chỉ tốn vài nốt nhạc.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1JQNJ8VSFEHUQgZhSA99Pad4-PP2cEiXc&amp;export=download" alt="uc?id=1JQNJ8VSFEHUQgZhSA99Pad4-PP2cEiXc&amp;export=download" width="1905" height="1115" layout="responsive"></amp-img><br />
+Sau khi đã có subdomain free được setup theo setting ở hình ở trên, từ màn hình dashboard, ta đã có thể khởi tạo và test ngay ứng dụng serverless của mình với màn hình scripting rất trực quan<br />
+<amp-img src="https://drive.google.com/uc?id=1J5-9Z1XOobF48VrKoivU-klthyITVkHB&amp;export=download" alt="uc?id=1J5-9Z1XOobF48VrKoivU-klthyITVkHB&amp;export=download" width="1905" height="930" layout="responsive"></amp-img></p>
+<p>Tuy nhiên, công cụ scripting này chỉ phục vụ cho những script đơn giản, với những ứng dụng phức tạp hơn, ta dùng công cụ dòng lệnh <code>wrangler</code>. Để cài đặt công cụ này, thực hiện câu lệnh sau (yêu cầu đã có nodejs được cài đặt):</p>
+<pre><code>$ npm install -g @cloudflare/wrangler
+</code></pre>
+<p>Sử dụng wrangler thế nào thì mình sẽ tìm hiểu rõ hơn ở phần tiếp theo</p>
+<p>Ngoài ra, để có thể deploy được 1 static site thì ta cần phải sử dụng thêm 1 tính năng riêng của Cloudflare Worker là <a href="https://workers.cloudflare.com/sites">Worker Sites</a> và tính năng này yêu cầu ta cần có tài khoản Worker Unlimited (5$/tháng). Vậy nên muốn làm theo bài viết này của mình thì bạn đọc chịu khó chi tiền một chút :D</p>
+<h3 id="deploymtwebsitegatsbylncloudflareworker">Deploy một website Gatsby lên Cloudflare Worker</h3>
+<h4 id="setupgatsby">Setup Gatsby</h4>
+<p>Ở đây mình sẽ không đi chi tiết vào tìm hiểu Gatsby mà chỉ đơn giản cài đặt Gátby và khởi tạo 1 project dưới local.</p>
+<pre><code>$ npm install -g gatsby-cli
+$ gatsby new cloudflare-test
+</code></pre>
+<p>Ta có thể preview website mới khởi tạo bằng câu lệnh sau:</p>
+<pre><code>$ cd cloudflare-test
+$ gatsby develop
+</code></pre>
+<p>Truy cập vào địa chỉ <code>http://localhost:8000/</code>, ta sẽ thấy giao diện như ở hình dưới.<br />
+<amp-img src="https://drive.google.com/uc?id=1p0nE2lDDGEYlzdqSKppb61BkUmatXLan&amp;export=download" alt="uc?id=1p0nE2lDDGEYlzdqSKppb61BkUmatXLan&amp;export=download" width="1905" height="930" layout="responsive"></amp-img></p>
+<p>Để chuẩn bị sẵn cho việc publish static , thì ta cần build code với câu lệnh sau:</p>
+<pre><code>$ gatsby build
+</code></pre>
+<p>Code cho static site được build và optimize cho production sẽ được lưu vào</p>
+<h4 id="setupwrangler">Setup Wrangler</h4>
+<p>Thiết lập Wrangler với tài khoản Cloudflare.</p>
+<pre><code>$ wrangler config
+</code></pre>
+<p>Wrangler sẽ yêu cầu ta nhập API Token, chỉ vào địa chỉ <a href="https://dash.cloudflare.com/profile/api-tokens">https://dash.cloudflare.com/profile/api-tokens</a>, tạo token theo hướng dẫn của Wrangler rồi copy/paste trở lại là xong</p>
+<p>Khởi tạo một project Worker Sites trong folder project Gatsby đã được tạo ở trên</p>
+<pre><code>$ wrangler init --site
+</code></pre>
+<p>File setting  cùng với folder chứa code cho Worker Site như ở dưới đây sẽ được khởi tạo:</p>
+<pre><code>- ...
+- workers-site/
+  - index.js # Logic code chính cho worker 
+  - node-modules/
+  - package-lock.json
+  - package.json
+  - worker/ 
+- wrangler.toml # File setting cho Wrangler
+</code></pre>
+<p>Để có thể deploy và test static site, ta cần phải chỉnh sửa lại file setting như sau</p>
+<pre><code># wrangler.toml
+name = "cloudflare-worker-test"
+type = "webpack"
+account_id = "&lt;ID của tài khoản Cloudflare&gt;"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = "./public" # Folder chứa code đã được build của static site
+entry-point = "workers-site"
+</code></pre>
+<p>Sử dụng Worker Site, wrangler đã config sẵn để logic trong file <code>workers-site/index.js</code> có thể xử lý code của các thể loại static site, nên ta không cần sửa gì cả mà có thể sẵn sàng để test và deploy</p>
+<p>Trước tiên ta sẽ preview static site của mình</p>
+<pre><code>$ wrangler preview
+</code></pre>
+<p>Giao diện preview của Cloudflare sẽ mở trên browser<br />
+<amp-img src="https://drive.google.com/uc?id=1TrFbeoGu5e-WJpdLaPDACHNC0YWR9wio&amp;export=download" alt="uc?id=1TrFbeoGu5e-WJpdLaPDACHNC0YWR9wio&amp;export=download" width="1905" height="978" layout="responsive"></amp-img></p>
+<p>Có vẻ như không có vấn đề gì, chúng ta chỉ còn cách trang static site được deploy thực tế đúng 1 câu lệnh</p>
+<pre><code>$ wrangler publish
+✨  Built successfully, built project size is 11 KiB.
+🌀  Created namespace for Workers Site "__cloudflare-worker-test-workers_sites_assets"
+✨  Success
+🌀  Uploading site files
+✨  Successfully published your script to https://cloudflare-test.xxxxxx.workers.dev
+</code></pre>
+<p>Truy cập vào địa chỉ trên, ta có thể thấy static site của mình đã được deploy và chạy 1 cách ngon lành.</p>
+<h3 id="ktbi">Kết bài</h3>
+<p>Dù có tốn 5$/1 tháng, nhưng với trải nghiệm deploy dễ dàng, cùng với hạn mức sử dụng khá là rộng rãi, việc sử dụng Cloudflare Worker để deploy các thể loại static site như blog cá nhân, trang web công ty quả thật là một lựa chọn hấp dẫn. Ngoài ra, Worker còn rất nhiều tính năng và ứng dụng khác như routing hay Key-Value storage phục vụ cho việc xây dựng các ứng dụng phức tạp hơn mà người viết chưa có thời gian trải nghiệm. Xin hẹn bạn đọc vào một dịp gần nhất.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

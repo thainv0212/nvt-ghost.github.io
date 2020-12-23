@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2 | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2" />
+    <meta property="og:description" content="■ Gợi nhớ Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-09-04T01:24:21.000Z" />
+    <meta property="article:modified_time" content="2018-09-04T01:24:21.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="PoW" />
+    <meta property="article:tag" content="Proof-of-Work" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2" />
+    <meta name="twitter:description" content="■ Gợi nhớ Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, javascript, PoW, Proof-of-Work" />
+    <meta property="og:image:width" content="780" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2",
+    "url": "https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/",
+    "datePublished": "2018-09-04T01:24:21.000Z",
+    "dateModified": "2018-09-04T01:24:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&export=download",
+        "width": 780,
+        "height": 500
+    },
+    "keywords": "blockchain, javascript, PoW, Proof-of-Work",
+    "description": "■ Gợi nhớ\nTrong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một\nBlockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu\nthành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với\nnhau. Mỗi Block sẽ chứa những thông tin cơ bản như index, prevHash, timestamp,\ndata, hash. Như vậy, để tạo một Block mới gắn vào tiếp chuỗi Blockchain, thì\nchúng ta chỉ cần tạo 1 block gồm như thông tin như trên, trong đó, hash được tạo\nra bằng thuật toán SHA. Sa",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-blockchain tag-javascript tag-pow tag-proof-of-work-2 nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-blockchain tag-javascript tag-pow tag-proof-of-work-2 js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-09-04">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 04 September 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/blockchain/index.html">blockchain</a>, <a href="../tag/javascript/index.html">javascript</a>, <a href="../tag/pow/index.html">PoW</a>, <a href="../tag/proof-of-work-2/index.html">Proof-of-Work</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" alt="Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ki%E1%BA%BFn%20tr%C3%BAc%20Blockchain%20%E2%80%93%20T%E1%BA%A1o%20blockchain%20v%E1%BB%9Bi%20b%C3%A0i%20to%C3%A1n%20PoW%20b%E1%BA%B1ng%20javascript%20%E2%80%93%20Ph%E1%BA%A7n%202">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="goi-nho"><strong>■ Gợi nhớ</strong></h3>
+Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block sẽ chứa những thông tin cơ bản như index, prevHash, timestamp, data, hash. Như vậy, để tạo một Block mới gắn vào tiếp chuỗi Blockchain, thì chúng ta chỉ cần tạo 1 block gồm như thông tin như trên, trong đó, hash được tạo ra bằng thuật toán SHA. Sau đó, gắn block mới tạo vào chuỗi blockchain. Thật là đơn giản phải không ^^.
+<p><img src="https://drive.google.com/uc?id=1PEg4OXHoycEiLz-bI50yQQPtjtSqm56l" alt="drawing"></p>
+<p><a href="https://blog.vietnamlab.vn/2018/06/29/kien-truc-blockchain-tao-blockchain-voi-javascript-phan-1/">Bạn có thể xem lại phần 1 ở đây</a>.</p>
+<p>Nhưng đi sâu hơn một xíu trong thị trường tiền điện tử, điển hình như Bitcoin, chắc hẳn bạn cũng nghe loáng thoáng về máy đào coin, những máy đó phải giải thuật toán để xác nhận các transaction, giải xong bài toàn thì sẽ được thưởng bitcoin, độ khó đào coin ngày càng khó nên việc giải thuật toán cũng càng khó, v.v… Vậy với cái Blockchain cơ bản ở trong phần một mình đã trình bày, thì độ khó nằm đâu? phần thưởng cho máy đào nằm đâu? Cứ bình tĩnh, đọc tiếp phần dưới này nhé.</p>
+<h3 id="blockchain-voi-thuat-toan-proof-of-work"><strong>■ Blockchain với thuật toán Proof-of-Work</strong></h3>
+<p>Trước tiên mình muốn đưa ra bài toán đơn giản cho dễ hiểu như vầy:<br>
+<strong>● Bài toán dạng 1: A bằng bao nhiêu?</strong></p>
+<pre class="language-bash" style="padding:5px">1 + 2 + 3 + 4 + 5 = A
+
+111 + 222 + 333 + 444 + 555 = A</pre>
+<br>
+<p><strong>● Bài toán dạng 2: A bằng bao nhiêu?</strong></p>
+<pre class="language-bash" style="padding:5px">1 + 2 + 3 + 4 + A = 111
+
+222 + A + 333 + 444 + 555 = 9999</pre>
+<br>
+<p><strong>● Bài toán dạng 3: A bằng bao nhiêu? Trong đó, B là một số tuỳ ý nhưng phải thoả điều kiện</strong></p>
+<pre class="language-bash" style="padding:5px">4 + 5 + 8 + 9 + A  = B | với điều kiện B phải chia hết cho 3
+
+11 + 22 + 33 + 44 + A  = B | với điều kiện chữ số đầu của B phải bằng 3</pre>
+<br>
+<p>Trong 3 dạng toán trên, bạn có cảm nhận độ khó tăng dần không. Bài toán dạng một là một bài toàn dạng xuôi khá đơn giản. Nhưng đến bài toán thứ hai, thì bạn phải truy ngược lại để tìm số A. Đến dạng toán thứ 3 thì không những phải truy ngược lại mà còn kèm theo điều kiện. Vì vậy ai giải nhanh nhất sẽ là người chiến thắng và sẽ được thưởng.</p>
+<p>Trong Blockchain có áp dụng thuật toán <a href="https://en.wikipedia.org/wiki/Proof-of-work_system">Proof-of-Work</a> cũng vậy. Nhìn vào hình vẽ bên dưới, bạn sẽ thấy trong cấu trúc có thêm một param nonce. Nonce là một con số tuỳ ý, giống như số A trong bài toán ví dụ. Để hiểu rõ hơn bạn nhìn vào hình bên dưới nhé.<br>
+<img src="https://drive.google.com/uc?id=1MVAvJTfBs8z5shabcN-J6pABom13HZPt&amp;export=download" alt="drawing"><br>
+Khi có một Block mới muốn add vào Blockchain, Block đó sẽ được tạo ra với những tham số cơ bản và một số nonce. Lúc này, nonce và hash vẫn là ẩn số. Hash sẽ có công thức tính như sau:</p>
+<pre class="language-javascript"><code>hash = SHA256(index + prevHash + timestamp + JSON.stringify(data) + nonce); </code></pre>
+<p>và hash tìm được phải thoả kiều kiện 2 chữ số đầu của hash phải bằng 00. Điều điện đó ta gọi nó là độ khó. Độ khó càng tăng khi ta thay đổi điều kiện thoả càng phức tạp.</p>
+<p>Vd:</p>
+<p><strong><code>2 chữ số đầu</code> của hash phải bằng <code>dc</code> =&gt; độ khó <code>*</code></strong></p>
+<p><strong><code>5 chữ số đầu</code> của hash phải bằng <code>dc48e</code> =&gt; độ khó <code>**</code></strong></p>
+<p><strong><code>5 chữ số đầu</code> của hash phải bằng <code>dc48e</code> và <code>2 chữ số cuối</code> của hash phải bằng <code>00</code> =&gt; độ khó <code>n*</code> ^^</strong></p>
+<p>Để tìm ra hash thoả điều kiện, máy tính sẽ chạy liên tục công thức tính hash bằng SHA256 như trên với con số nonce nào đó. Nếu hash tìm ra không thoả, máy tính sẽ thay đổi số nonce khác rồi tính lại công thức cho đến khi hash tìm được thoả điều kiện. Sẽ có nhiều máy tính tham gia giải bài toán này. Máy tính nào tìm thấy con số nonce tạo ra hash thoả điều kiện đầu tiên sẽ là máy tính tính chiến thằng và sẽ được thưởng.</p>
+<h3 id="blockchain-voi-demo"><strong>■ Blockchain với Demo</strong></h3>
+Viết thử cái demo để chạy xem nhé, cho dễ hình dung hơn.
+<p>Code toàn bộ ở đây nhé.</p>
+<p>Dựa vào demo ở phần 1, chúng ta chỉnh sửa lại chút xíu nhé. Đầu tiên xem flowchart để  hình dung code chạy như thế nào nhé.</p>
+<p><img src="https://drive.google.com/uc?id=1adT7EaMl-h2foodLvLXRjbujoeELdpIl&amp;export=download" alt="drawing"></p>
+<p>Đầu tiên, ví dụ có</p>
+<p><strong><code>address_1</code> gửi đến <code>address_2</code> 100 coin =&gt; là 1 transaction</strong></p>
+<p><strong><code>address_3</code> gửi đến <code>address_4</code> 100 coin =&gt; là 1 transaction khác</strong></p>
+<p>những transaction sẽ vào hàng đợi, khi block mới được tạo, các transaction sẽ được bỏ vào block đóng vai trò là tham số data. Sau đó miner sẽ bắt đầu giải toán cho block mới đó bằng cách thay đổi con số nonce cho phù hợp để hash thoả điều kiện. Sau khi giải toán thành công, block đó sẽ đuọc add vào blockchain và 1 transaction mới được tạo để chuyển tiền thưởng cho miner.</p>
+<p>Dựa vào code ở phần 1, code của chúng ta sẽ thêm như sau:</p>
+<p>Định nghĩa thêm <code>class Transaction</code></p>
+<pre class="language-javascript"><code>// định nghĩa thêm class transaction
+// gồm các thông tin cần thiết:
+// địa chỉ gửi, địa chỉ đến, số tiền, phí giao dịch
+class Transaction{
+    constructor(fromAddress, toAddress, amount, fee){
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
+        this.amount = amount;
+        this.fee = fee;
+    }
+}</code></pre>
+<p>Trong <code>class Block</code>, chúng ta thêm một tẹo như sau:</p>
+<pre class="language-javascript"><code>class Block {
+    constructor(timestamp, transactions, previousHash = '') {
+        this.previousHash = previousHash;
+        this.timestamp = timestamp;
+        this.transactions = transactions;
+        this.hash = this.calculateHash();
+        this.nonce = 0;        // <------- thêm nonce
+    }
+    //
+    //
+    calculateHash() {
+        return SHA256(
+            this.previousHash + 
+            this.timestamp + 
+            JSON.stringify(this.transactions) + 
+            this.nonce        // <------- thêm nonce
+        ).toString();
+    }
+    //
+    //
+    // hàm này sẽ chạy loop tìm con số nonce để tạo hash thoả độ khó
+    mineBlock(difficulty) {
+        while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+            this.nonce++;
+            this.hash = this.calculateHash();
+        }
+    }
+}</code></pre>
+<p>Trong <code>class Blockchain</code>, sẽ thêm như sau:</p>
+<pre class="language-javascript"><code>class Blockchain{
+    constructor() {
+        this.chain = [this.createGenesisBlock()];
+        // độ khó là 2 chữ số đầu của hash == 00 this.difficulty = 2;
+        // list transaction đang chờ xác nhận
+        this.pendingTransactions = [];  
+        // phần thưởng
+        this.miningReward;
+    }
+    //
+    // sau khi giải được nonce cho block
+    // miner sẽ được thưởng dựa vào fee chuyển của các transaction
+    // trong block đã mine thành công
+    getminingReward() {
+      let reward = 0;
+      for(const trans of this.pendingTransactions){
+          reward += trans.fee;
+      }
+      return reward;
+    }
+    //
+    minePendingTransactions(miningRewardAddress){
+        // tạo block mới và mine tìm số nonce phù hợp
+        let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+        block.mineBlock(this.difficulty);
+        console.log('Block successfully mined!');
+        this.chain.push(block);
+        // tạo 1 transaction chuyển tiền thưởng 
+        //cho address đã tham gia mine thành công
+        var miningReward = Number(this.getminingReward())*0.8;
+        this.pendingTransactions = [
+            new Transaction(null, miningRewardAddress, miningReward, miningReward*0.1)
+        ];
+    }
+    //
+    // add transaction muốn xác nhận vào hàng đợi
+    createTransaction(transaction){
+        this.pendingTransactions.push(transaction);
+    }
+    //
+    // đọc lại lịch sử các block trong chuỗi blockchain
+    // tính toán số tiền hiện tại của address đó
+    getBalanceOfAddress(address){
+        let balance = 0;
+        for(const block of this.chain){
+            for(const trans of block.transactions){
+                if(trans.fromAddress === address){
+                    balance -= trans.amount;
+                }
+                if(trans.toAddress === address){
+                    balance += trans.amount;
+                }
+            }
+        }
+        return balance;
+    }
+}</code></pre>
+<p>Còn lại giữ nguyên như code ở phần một nhé.</p>
+<p>Chạy thử xem nhé</p>
+<pre class="language-javascript"><code>let landthCoin = new Blockchain();
+landthCoin.createTransaction(new Transaction('address1', 'address2', 100, 10));
+landthCoin.createTransaction(new Transaction('address2', 'address1', 50, 5));
+
+console.log('\n Starting the miner...');
+landthCoin.minePendingTransactions('landth-address');
+
+console.log('\nBalance of landth is', landthCoin.getBalanceOfAddress('landth-address'));
+
+console.log('\n Starting the miner again...');
+landthCoin.minePendingTransactions('xaviers-address');
+
+console.log('\nBalance of landth is', landthCoin.getBalanceOfAddress('landth-address'));</code></pre>
+<p>Kết quả sau khi chạy console sẽ in ra như sau:</p>
+<pre class="language-javascript"><code> Starting the miner...
+BLOCK MINED: 008b274d75d856de3911f9066b97e587c2d02b4b8b1a86fc4c7a13eca8739060
+Block successfully mined!
+
+Balance of landth is 0
+
+ Starting the miner again...
+BLOCK MINED: 00d687f3c63bfecc871217494e807306eb2d73e952087399a81820dfbd252504
+Block successfully mined!
+
+Balance of landth is 12</code></pre>
+<h3 id="tam-tu"><strong> ■ Tâm tư</strong></h3>
+Thật thú vị phải không? Nhưng hiện nay, độ khó để mine Bitcoin như các bạn cũng đã biết, ngày càng khó. Đòi hỏi các máy tính chạy để giải bài toán phải thật mạnh mẽ và phải chạy suốt ngày đêm. Chính vì điều đó đã gây ra vấn đề môi trường cho nhân loại. Điện tiêu thụ cho các máy đào ngốn không ít. Vì vậy cần tìm ra một cách giải toán mới mà đỡ tốn tiền chạy máy đào nhĩ. Và có lẽ thuật toán Proof-of-Stake (PoS) đang được cân nhắc và thay thế. Hiện nay, Bitcoin với PoS vẫn đang được chạy thí nghiệm. Bên cạnh đó, cũng có những Network mới ra đời sau này đã áp dụng PoS. Nhưng tất cả chỉ đang trong giai đoạn phân tích và test. Liệu PoS có thay thế PoW được không, chúng ta chờ đợi xem nhé.
+<p></p>
+<p></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ki%E1%BA%BFn%20tr%C3%BAc%20Blockchain%20%E2%80%93%20T%E1%BA%A1o%20blockchain%20v%E1%BB%9Bi%20b%C3%A0i%20to%C3%A1n%20PoW%20b%E1%BA%B1ng%20javascript%20%E2%80%93%20Ph%E1%BA%A7n%202">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

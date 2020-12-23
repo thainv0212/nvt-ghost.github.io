@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Cách viết unit test cho REST API trong Golang</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Cách viết unit test cho REST API trong Golang" />
+    <meta property="og:description" content="I. Mô tả bài toánGiả sử ta đã có 1 REST API và API này có các endpoint là GetGetEntries, GetEntryByID, CreateEntry, UpdateEntry và DeleteEntry. Tương ứng với chúng là các đường dẫn như bên dưới: GetEntries -&amp;gt; &quot;/entries&quot; -&amp;gt; Method GET GetEntryByID -&amp;gt; &quot;/entry?id&#x3D;1234&quot;" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cach-viet-unit-test-cho-rest-api-trong-golang/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1gkXtdMTkX2S3QwMRC8k0J0cZ4N-A2ha2&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-08-04T02:31:47.000Z" />
+    <meta property="article:modified_time" content="2019-08-04T02:31:47.000Z" />
+    <meta property="article:tag" content="golang" />
+    <meta property="article:tag" content="testing" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cách viết unit test cho REST API trong Golang" />
+    <meta name="twitter:description" content="I. Mô tả bài toánGiả sử ta đã có 1 REST API và API này có các endpoint là GetGetEntries, GetEntryByID, CreateEntry, UpdateEntry và DeleteEntry. Tương ứng với chúng là các đường dẫn như bên dưới: GetEntries -&amp;gt; &quot;/entries&quot; -&amp;gt; Method GET GetEntryByID -&amp;gt; &quot;/entry?id&#x3D;1234&quot;" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cach-viet-unit-test-cho-rest-api-trong-golang/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1gkXtdMTkX2S3QwMRC8k0J0cZ4N-A2ha2&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="golang, testing" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="923" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Cách viết unit test cho REST API trong Golang",
+    "url": "https://blog.vietnamlab.vn/cach-viet-unit-test-cho-rest-api-trong-golang/",
+    "datePublished": "2019-08-04T02:31:47.000Z",
+    "dateModified": "2019-08-04T02:31:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1gkXtdMTkX2S3QwMRC8k0J0cZ4N-A2ha2&export=download",
+        "width": 2000,
+        "height": 923
+    },
+    "keywords": "golang, testing",
+    "description": "I. Mô tả bài toán\nGiả sử ta đã có 1 REST API và API này có các endpoint là GetGetEntries, \nGetEntryByID, CreateEntry, UpdateEntry và DeleteEntry. Tương ứng với chúng là\ncác đường dẫn như bên dưới:\n\nGetEntries -&gt; &quot;/entries&quot; -&gt; Method GET\n\nGetEntryByID -&gt; &quot;/entry?id&#x3D;1234&quot; -&gt; Method GET\n\nCreateEntry -&gt; &quot;/entry&quot; -&gt; Method POST\n\nUpdateEntry -&gt; &quot;/entry&quot; -&gt; Method PUT\n\nDeleteEntry -&gt; &quot;/entry&quot; -&gt; Method DELETE\n\nNhững endpoint này sẽ giúp ta tương tác với 1 struct có tên là entry\n\ntype entry struct {\n\tID",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Cách viết unit test cho REST API trong Golang</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2019-08-04">04 Aug 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1gkXtdMTkX2S3QwMRC8k0J0cZ4N-A2ha2&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="i-m-t-b-i-to-n">I. Mô tả bài toán</h3><p>Giả sử ta đã có 1 REST API và API này có các endpoint là <code>GetGetEntries</code>, <code>GetEntryByID</code>, <code>CreateEntry</code>, <code>UpdateEntry</code> và <code>DeleteEntry</code>. Tương ứng với chúng là các đường dẫn như bên dưới:</p><p><code>GetEntries -&gt; "/entries" -&gt; Method GET</code></p><p><code>GetEntryByID -&gt; "/entry?id=1234" -&gt; Method GET</code></p><p><code>CreateEntry -&gt; "/entry" -&gt; Method POST</code></p><p><code>UpdateEntry -&gt; "/entry" -&gt; Method PUT</code></p><p><code>DeleteEntry -&gt; "/entry" -&gt; Method DELETE</code></p><p>Những endpoint này sẽ giúp ta tương tác với 1 struct có tên là <code>entry</code></p><pre><code>type entry struct {
+	ID           int    `json:"id,omitempty"`
+	FirstName    string `json:"first_name,omitempty"`
+	LastName     string `json:"last_name,omitempty"`
+	EmailAddress string `json:"email_address,omitempty"`
+	PhoneNumber  string `json:"phone_number,omitempty"`
+}
+</code></pre>
+<p>Vậy thì trong trường hợp sử dụng ngôn ngữ Golang, làm thế nào để biết Unit test cho API này ?</p><h3 id="ii-gi-i-quy-t-b-i-to-n">II. Giải quyết bài toán</h3><p>Để giải quyết bài toán này ta sẽ sử dụng 2 package sau:</p><ul>
+<li><code>testing</code>: là 1 built-in package được dùng để implement và run test. Ta sẽ sử dụng câu lệnh <code>go test</code> kết hợp với 1 số tham số tùy chọn để chạy test.</li>
+<li><code>net/http/httptest</code>: cũng là 1 built-in package khác. Dùng để test những thứ liên quan đến HTTP.</li>
+</ul>
+<p>File test có thể cùng hoặc khác package với file cần test. Tiếp theo là quy tắc đặt tên hết sức quan trọng. Chỉ khi ta đặt đúng theo quy tắc thì thì package <code>testing</code> mới hiểu được đâu là file unit test mà nó cần phải test:</p><ul>
+<li>Tên file test phải kết thúc bằng <code>_test</code>. Ví dụ ta cần test file <code>endpoints.go</code> thì file test của chúng ta sẽ tên là <code>endpoints_test.go</code></li>
+<li>Tên của phương thức test phải bắt đầu bằng <code>Test</code>. Ví dụ ta cần test phương thức <code>GetEntries</code> thì phương thức test của chúng ta sẽ tên là <code>TestGetEntries</code></li>
+</ul>
+<pre><code>package example
+
+import (
+     "test"
+     "net/http/httptest"
+)
+
+func TestGetEntries(t *testing.T) {
+	
+}
+func TestGetEntryByID(t *testing.T) {
+	
+}
+func TestGetEntryByIDNotFound(t *testing.T) {
+	
+}
+func TestCreateEntry(t *testing.T) {
+	
+}
+func TestEditEntry(t *testing.T) {
+	
+}
+func TestDeleteEntry(t *testing.T) {
+	
+}
+</code></pre>
+<p>Phương thức test trong Golang sẽ nhận vào tham số và có thể sẽ sử dụng 1 số phương thức như bên dưới:</p>
+<ul>
+<li>Tham số đầu tiên và duy nhất phải là <code>t *testing.T</code></li>
+<li><code>t.Log</code> có thể được dùng nếu ta có nhu cầu in ra thông tin, sau đó tiếp tục chạy tiếp</li>
+<li><code>t.Fail</code> được dùng để đánh dấu là hàm test đã bị fail nhưng vẫn tiếp tục chạy tiếp.</li>
+<li><code>t.Error</code> là cách viết gọn, nó tương đương với việc gọi <code>t.Log</code>, sau đó gọi thêm <code>t.Fail</code>. Nếu hàm này được dùng khi ta muốn chạy tiếp để debug thêm thông tin. <code>t.Errorf</code> cũng tương tự như <code>t.Error</code> nhưng được hỗ trợ thêm fomart khi log thông tin.</li>
+<li><code>t.Fatal</code> được dùng khi log thông tin ra, đánh dấu là test đã bị fail và dừng luôn tại đó vì nếu có chạy tiếp thì không có gì đáng quan tâm cả.</li>
+</ul>
+<h4 id="1testcasechogetentries">1. Testcase cho GetEntries</h4>
+<pre><code>func TestGetEntries(t *testing.T) {
+	req, err := http.NewRequest("GET", "/entries", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetEntries)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Check the response body is what we expect.
+	expected := `[{"id":1,"first_name":"Krish","last_name":"Bhanushali","email_address":"krishsb@g.com","phone_number":"0987654321"},{"id":2,"first_name":"xyz","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"},{"id":6,"first_name":"FirstNameSample","last_name":"LastNameSample","email_address":"lr@gmail.com","phone_number":"1111111111"}]`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+</code></pre>
+<ul>
+<li>Khởi tạo 1 request mới sử dụng phương thức GET và đường dẫn là <code>/entries</code></li>
+<li>Kiểm tra xem  việc đó lỗi xảy ra hay không? Nếu có thì gọi <code>t.Fatal</code> vì ngay cả việc new request còn bị lỗi thì những thông tin phía sau không có gì đáng quan tâm.</li>
+<li>Gọi phương thức cần test. Lúc này sẽ có thể phát sinh lỗi do nhiều nguyên nhân khác nhau và ta quan tâm nguyên nhân đó là gì nên sử dụng <code>Errorf</code>.</li>
+<li>So sánh status thực tế nhận được và status mong muốn. Nếu khác nhau thì gọi <code>Errorf</code></li>
+<li>So sánh response thực tế và response mong muốn. Nếu khác nhau thì gọi <code>Errorf</code></li>
+</ul>
+<h4 id="2testcasechogetentrybyid">2. Testcase cho GetEntryByID</h4>
+<pre><code>func TestGetEntryByID(t *testing.T) {
+
+	req, err := http.NewRequest("GET", "/entry", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	q := req.URL.Query()
+	q.Add("id", "1")
+	req.URL.RawQuery = q.Encode()
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetEntryByID)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+
+	// Check the response body is what we expect.
+	expected := `{"id":1,"first_name":"Krish","last_name":"Bhanushali","email_address":"krishsb2405@gmail.com","phone_number":"0987654321"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+</code></pre>
+<h4 id="2testcasechogetentrybyidnotfound">2. Testcase cho GetEntryByIDNotFound</h4>
+<pre><code>func TestGetEntryByIDNotFound(t *testing.T) {
+	req, err := http.NewRequest("GET", "/entry", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	q := req.URL.Query()
+	q.Add("id", "123")
+	req.URL.RawQuery = q.Encode()
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(GetEntryByID)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status == http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusBadRequest)
+	}
+}
+</code></pre>
+<h4 id="3testcasechocreateentry">3. Testcase cho CreateEntry</h4>
+<pre><code>func TestCreateEntry(t *testing.T) {
+
+	var jsonStr = []byte(`{"id":4,"first_name":"xyz","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"}`)
+
+	req, err := http.NewRequest("POST", "/entry", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(CreateEntry)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+	expected := `{"id":4,"first_name":"xyz","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+</code></pre>
+<ul>
+<li><code>jsonStr</code> là data mà ta cần post đi.</li>
+<li>Khởi tạo 1 request mới để post đi dữ liệu là <code>jsonStr</code>. Nếu có lỗi gọi <code>Fatal</code></li>
+<li>Sau đó sau khi thực hiện request đó. Tương tự, từ giờ có nhiều nguyên nhân gây ra lỗi khác nhau và ta quan tâm là có thể gặp phải những lỗi gì nên sẽ dùng <code>Errorf</code>.</li>
+<li>Nếu status khác với mong đợi. In ra lỗi bằng <code>Errorf</code>.</li>
+<li>Nếu body khác với mong đợi. In ra lỗi bằng <code>Errorf</code>.</li>
+</ul>
+<h4 id="4testcasechoeditentry">4. Testcase cho EditEntry</h4>
+<pre><code>func TestEditEntry(t *testing.T) {
+
+	var jsonStr = []byte(`{"id":4,"first_name":"xyz change","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"}`)
+
+	req, err := http.NewRequest("PUT", "/entry", bytes.NewBuffer(jsonStr))
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.Header.Set("Content-Type", "application/json")
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(UpdateEntry)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+	expected := `{"id":4,"first_name":"xyz change","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+</code></pre>
+<p>Logic test tương tự như CreateEntry nhưng lần này phương thức là PUT</p>
+<h4 id="5testcasechodeleteentry">5. Testcase cho DeleteEntry</h4>
+<pre><code>func TestDeleteEntry(t *testing.T) {
+	req, err := http.NewRequest("DELETE", "/entry", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	q := req.URL.Query()
+	q.Add("id", "4")
+	req.URL.RawQuery = q.Encode()
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(DeleteEntry)
+	handler.ServeHTTP(rr, req)
+	if status := rr.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+	expected := `{"id":4,"first_name":"xyz change","last_name":"pqr","email_address":"xyz@pqr.com","phone_number":"1234567890"}`
+	if rr.Body.String() != expected {
+		t.Errorf("handler returned unexpected body: got %v want %v",
+			rr.Body.String(), expected)
+	}
+}
+</code></pre>
+<p>Logic test tương tự như GetEntryByID nhưng lần này method là DELETE</p>
+<h4 id="6thcthicctestcasevavit">6. Thực thi các testcase vừa viết</h4>
+<p>Ta thực hiện lệnh <code>go test -v</code> để chạy toàn bộ các testcase.<br />
+<amp-img src="https://drive.google.com/uc?id=16qtOu0R3Me1WjxJoxUB4BAFxZXtzhD8W&amp;export=download" alt="uc?id=16qtOu0R3Me1WjxJoxUB4BAFxZXtzhD8W&amp;export=download" width="1350" height="452" layout="responsive"></amp-img><br />
+Hoặc sử dụng lệnh <code>go test -v -run &lt;Test Function Name&gt;</code> để chạy 1 testcase cụ thể<br />
+<amp-img src="https://drive.google.com/uc?id=1p6hLFggIEhPWB06e8dvaebVaa2CzET3o&amp;export=download" alt="uc?id=1p6hLFggIEhPWB06e8dvaebVaa2CzET3o&amp;export=download" width="1171" height="203" layout="responsive"></amp-img></p>
+<h3 id="iii-ngu-n-tham-kh-o">III. Nguồn tham khảo</h3><p><a href="https://golang.org/pkg/testing/">https://golang.org/pkg/testing/</a><br />
+<a href="https://golang.org/pkg/net/http/httptest/">https://golang.org/pkg/net/http/httptest/</a><br />
+<a href="https://blog.alexellis.io/golang-writing-unit-tests/">https://blog.alexellis.io/golang-writing-unit-tests/</a><br />
+<a href="https://codeburst.io/unit-testing-for-rest-apis-in-go-86c70dada52d">https://codeburst.io/unit-testing-for-rest-apis-in-go-86c70dada52d</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

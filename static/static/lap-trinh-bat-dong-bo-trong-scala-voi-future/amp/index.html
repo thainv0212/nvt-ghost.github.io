@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Lập trình bất đồng bộ trong Scala với Future</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lập trình bất đồng bộ trong Scala với Future" />
+    <meta property="og:description" content="Scala có thể sử dụng được tất cả các thư viện của Java nên ta hoàn toàn có thể sử dụng các tính năng về lập trình song song của Java (Thread, Runnable…) để phục vụ cho việc xử lý bất đồng bộ khi code Scala. Tuy nhiên, bản thân" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/lap-trinh-bat-dong-bo-trong-scala-voi-future/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZ1AzRVB6SGhjd0E&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-06-19T16:27:03.000Z" />
+    <meta property="article:modified_time" content="2017-03-12T03:48:22.000Z" />
+    <meta property="article:tag" content="asynchronous" />
+    <meta property="article:tag" content="future" />
+    <meta property="article:tag" content="scala" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lập trình bất đồng bộ trong Scala với Future" />
+    <meta name="twitter:description" content="Scala có thể sử dụng được tất cả các thư viện của Java nên ta hoàn toàn có thể sử dụng các tính năng về lập trình song song của Java (Thread, Runnable…) để phục vụ cho việc xử lý bất đồng bộ khi code Scala. Tuy nhiên, bản thân" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/lap-trinh-bat-dong-bo-trong-scala-voi-future/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZ1AzRVB6SGhjd0E&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="asynchronous, future, scala" />
+    <meta property="og:image:width" content="1826" />
+    <meta property="og:image:height" content="816" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Lập trình bất đồng bộ trong Scala với Future",
+    "url": "https://blog.vietnamlab.vn/lap-trinh-bat-dong-bo-trong-scala-voi-future/",
+    "datePublished": "2016-06-19T16:27:03.000Z",
+    "dateModified": "2017-03-12T03:48:22.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkZ1AzRVB6SGhjd0E&export=download",
+        "width": 1826,
+        "height": 816
+    },
+    "keywords": "asynchronous, future, scala",
+    "description": "Scala có thể sử dụng được tất cả các thư viện của Java nên ta hoàn toàn có thể\nsử dụng các tính năng về lập trình song song của Java (Thread, Runnable…) để\nphục vụ cho việc xử lý bất đồng bộ khi code Scala. Tuy nhiên, bản thân Scala\ncũng có những tính năng phục vụ riêng cho việc lập trình bất đối xứng với API ở\nmức abstract hơn, đồng thời dễ dàng tích hợp với các API mà Scala cung cấp.\n\nMột tính năng có sẵn trong standard library của Scala là Future, ngoài ra còn có\nAsync, thư viện cung cấp tính",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Lập trình bất đồng bộ trong Scala với Future</h1>
+                <section class="post-meta">
+                    T.M.L -
+                    <time class="post-date" datetime="2016-06-19">19 Jun 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZ1AzRVB6SGhjd0E&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Scala có thể sử dụng được tất cả các thư viện của Java nên ta hoàn toàn có thể sử dụng các tính năng về lập trình song song của Java (Thread, Runnable…) để phục vụ cho việc xử lý bất đồng bộ khi code Scala. Tuy nhiên, bản thân Scala cũng có những tính năng phục vụ riêng cho việc lập trình bất đối xứng với API ở mức abstract hơn, đồng thời dễ dàng tích hợp với các API mà Scala cung cấp.</p>
+<p>Một tính năng có sẵn trong standard library của Scala là Future, ngoài ra còn có Async, thư viện cung cấp tính năng bổ trợ cho Future, và Akka, một thư viện rất mạnh phục vụ cho việc lập trình song song. Vì Akka khá phức tạp, xứng đáng có một bài viết riêng về nó, còn Async thì mới chỉ ở dưới dạng SIP (Scala Improvement Process) và chỉ ở dạng optional module,  nên nội dùng bài viết này sẽ chỉ tập trung giới thiệu về Future.</p>
+<h3 id="futurelg">Future là gì?</h3>
+<p>Future là gì? Một object Future là một object mà giá trị của nó sẽ được khỏi tại tại một thời điểm nào đó trong tương lại. Giá trị này thường là kết quả của một quá trình tính toán nào đó.</p>
+<p>Quá trình tính toán này nếu trả về giá trị kết quả thì ta nói là object Future này đã hoàn thành với giá trị đó, còn ngược lại nếu một Exception được trả về thì object Future được gọi là đã thất bại với Exception kia. Một đặc tính của Future là khi một Future khi đã hoàn thành dù là thành công hay thất bại thì nó sẽ không thể thay đổi được nữa (trở nên immutable).</p>
+<p>Việc khởi tạo một Future cũng khá đơn giản như sau.</p>
+<pre><code>import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
+val f: Future[Int] = Future {
+  16 * 8
+}
+</code></pre>
+<p>Ở đây ta đã đóng gọi một phép nhân đơn giản vào trong một object Future với type Future[Int], dù trong thực tế không ai đóng gói một phép tính đơn giản như vậy mà thường là một quá trình tính toán mất thời gian như IO, network… Để sử dụng Future thì chúng ta cần có một ExecutionContext.</p>
+<p>Ở đây ExecutionContext.global đã được sử dụng, ExecutionContext này sử dụng <code>java.util.concurrent.ForkJoinPool</code> để quản lý một thread pool thực hiện những công việc tính toán được đóng gói trong Future. Với một số tinh chỉnh, ta có thể sử dụng ExecutionContext.global trong hầu hết các trường hợp. Một số trường hợp đặc biệt (như là long running blocking code trong Future) thì một Execution Context tuỳ biến (wrapper cho Java Executor) có thể được sử dụng.</p>
+<h3 id="futureinaction">Future in Action</h3>
+<p>Ta hãy cùng xem một ví dụ đơn giản về Future:</p>
+<pre><code>import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
+
+def factorial(n: BigInt): BigInt = {
+  if (n &lt;= 1) 1
+  else n * factorial(n - 1)
+}
+
+val futures = (0 to 9) map {
+  i =&gt; Future {
+    println(s"Input: $i")
+    val s = factorial(i)
+    println(s"Result for $i: $s")
+    s.toString()
+  }
+}
+
+
+val f = Future.reduce(futures) { (s1, s2) =&gt; s1 + ',' + s2 }
+
+val n = Await.result(f, Duration.Inf)
+
+println(n)
+</code></pre>
+<p>Đoạn code trên sẽ cho ra kết quả như sau:</p>
+<pre><code class="language-sh">Input: 1
+Input: 0
+Result for 0: 1
+Result for 1: 1
+Input: 2
+Result for 2: 2
+Input: 4
+Input: 3
+Result for 3: 6
+Input: 5
+Result for 4: 24
+Result for 5: 120
+Input: 6
+Result for 6: 720
+Input: 8
+Result for 8: 40320
+Input: 9
+Result for 9: 362880
+Input: 7
+Result for 7: 5040
+1,1,2,6,24,120,720,5040,40320,362880
+</code></pre>
+<p>Ở đây ta đã dùng 10 Future để thực hiện tính factorial cho mười số từ 0 đến 9. Quá trình tính cho mỗi số đều được chạy bất đồng bộ, như đã thấy ở output ở trên. Mỗi lần chạy thứ tự các dòng Input và Result sẽ là khác nhau, chỉ có thứ tự in của kết quả cuối là không đổi do hàm reduce xét lần lượt thứ tự các phần tử của chuỗi futures theo thứ tự khởi tạo. Ngoài ra, ta còn sử dụng <code>Await.result</code>  để block tiến trình chính cho đến khi Future f hoàn thành.</p>
+<p>Tuy nhiên việc block tiến trình chính trong nhiều trường hợp có thể làm ảnh hưởng đến chương trình. Trong những trường hợp như vậy, ta có thể sử dụng callback.</p>
+<h3 id="callbackvifuture">Callback với Future</h3>
+<p>Để có thể xử lý kết quả của Future một cách bất đồng bộ (không làm block tiến trình chính) ta có thể đăng ký callback với Future. Khi Future hoàn thành thì hàm callback này sẽ được gọi một cách bất đồng bộ. Cách đăng ký callback thông dụng nhất là cung cấp một function với type <code>Try[T] =&gt; Unit</code> cho method <code>onComplete</code> của Future.</p>
+<p>Dưới đây là một ví dụ về calback với <code>onComplete</code>:</p>
+<pre><code>import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.{Failure, Success, Try}
+
+def factorial(n: BigInt): BigInt = {
+  if (n &lt;= 1) 1
+  else n * factorial(n - 1)
+}
+
+val futures = (0 to 9) map {
+  i =&gt; Future { factorial(i) }
+}
+
+val fs = futures map {
+  _ flatMap { x =&gt;
+    if (x &lt;= 10000) Future.successful(x)
+    else Future.failed(new RuntimeException(s"$x &gt; 10000"))
+  }
+}
+
+def doComplete: Function[Try[BigInt], Unit] = {
+  case s @ Success(_) =&gt; println(s)
+  case f @ Failure(_) =&gt; println(f)
+}
+
+fs map (_ onComplete doComplete)
+</code></pre>
+<p>Kết quả của đoạn code trên sẽ là như sau (mỗi lần thứ tự các dòng kết quá sẽ khác nhau do tính chất bất đồng bộ của Future).</p>
+<pre><code class="language-sh">Success(1)
+Success(2)
+Success(6)
+Success(24)
+Success(120)
+Success(720)
+Success(5040)
+Failure(java.lang.RuntimeException: 40320 &gt; 10000)
+Failure(java.lang.RuntimeException: 362880 &gt; 10000)
+Success(1)
+</code></pre>
+<p>Ở đây ta sử dụng lại đoạn code tính factorial cho 10 số dùng Future, tuy nhiên có thêm phần check kết quả nếu như lớn hơn 10000 thì ta sẽ cho kết quả của Future là thất bại (đóng gói một Exception rồi trả về). Trong đoạn code ở trên, với mỗi Future trong chuỗi fs, chúng ta đều đăng ký một callback cho method <code>onComplete</code> là hàm <code>doComplete</code>. Ngoài ra, ta cũng thấy Future, tương tự như Option, Try, Either... hay các collection như List... là một cấu trúc dữ liệu mang tính chất Monad nên Future cung cấp những hàm như flatMap, filter...; một Future cũng thể được sử dụng với cấu trúc <em>for comprehension</em> của Scala.</p>
+<p>Ngoài method <code>onComplete</code> sử dụng để đăng ký callback xử lý cả 2 trường hợp Future thành công lẫn thất bại, Future còn cung cấp 2 method <code>onSuccess</code> và <code>onFailure</code> để đăng ký callback xử lý riêng cho từng trường hợp. Sử dụng <code>onSuccess</code> và <code>onFailure</code> thì đoạn code ở trên sẽ trở thành như sau:</p>
+<pre><code>import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
+def factorial(n: BigInt): BigInt = {
+  if (n &lt;= 1) 1
+  else n * factorial(n - 1)
+}
+
+val futures = (0 to 9) map {
+  i =&gt; Future { factorial(i) }
+}
+
+val fs = futures map {
+  _ flatMap { x =&gt;
+    if (x &lt;= 10000) Future.successful(x)
+    else Future.failed(new RuntimeException(s"$x &gt; 10000"))
+  }
+}
+
+fs map { f =&gt;
+  f.onSuccess { case res =&gt; println(res) }
+  f.onFailure { case err =&gt; println("Error: " + err.getMessage) }
+}
+</code></pre>
+<p>Và do <code>onSuccess</code> và <code>onFailure</code> khác với <code>onComplete</code> sẽ lấy trực tiếp các kết quả và exception được đóng gói trong <code>Success(...)</code> và <code>Failure(...)</code> nên ta sẽ có kết quả như sau:</p>
+<pre><code class="language-sh">1
+2
+6
+24
+120
+720
+5040
+Error: 40320 &gt; 10000
+Error: 362880 &gt; 10000
+1
+</code></pre>
+<h3 id="ktlun">Kết luận</h3>
+<p>Với API dễ sử dụng, Future là một tính năng rất hữu dụng khi lập trình song song, bất đồng bộ trong Scala. Tuy nhiên do thiếu những công cụ để quản lý các tiến trình bất đồng bộ, xử lý Exception một cách hiệu quả... nên Future không thích hợp với những hệ thống song song lớn. Với những hệ thống này, Akka là một lựa chọn tốt hơn.</p>
+<p>Bài viết đã giới thiệu các tính năng cơ bản về Future, tuy nhiên còn một số tính năng chưa được đề cập đến như sử dụng Promise với Future, optimize global Execution Context hay blocking code trong Future... Bạn đọc có thể tìm hiểu thêm ở các đường link reference đi kèm với bài viết này.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="http://docs.scala-lang.org/overviews/core/futures.html">http://docs.scala-lang.org/overviews/core/futures.html</a></li>
+<li><a href="https://www.amazon.com/Programming-Scala-Scalability-Functional-Objects/dp/1491949856/ref=dp_ob_title_bk">https://www.amazon.com/Programming-Scala-Scalability-Functional-Objects/dp/1491949856/ref=dp_ob_title_bk</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

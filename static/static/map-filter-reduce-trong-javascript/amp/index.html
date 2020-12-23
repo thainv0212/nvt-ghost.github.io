@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Map, filter, reduce trong JavaScript</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Map, filter, reduce trong JavaScript" />
+    <meta property="og:description" content="Ngay cả khi bạn không phải một lập trình viên sử dụng ngôn ngữ JavaScript thì cũng có thể bạn đã sử dụng 3 hàm map, filter, reduce ở những ngôn ngữ khác. Lý do đơn giản là vì 3 hàm này cực kỳ hữu dụng và giúp code do" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/map-filter-reduce-trong-javascript/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1qHdA7IekeKgChZodjIXUxKDVYgwwHylf&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T09:53:45.000Z" />
+    <meta property="article:modified_time" content="2018-06-29T09:53:45.000Z" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Map, filter, reduce trong JavaScript" />
+    <meta name="twitter:description" content="Ngay cả khi bạn không phải một lập trình viên sử dụng ngôn ngữ JavaScript thì cũng có thể bạn đã sử dụng 3 hàm map, filter, reduce ở những ngôn ngữ khác. Lý do đơn giản là vì 3 hàm này cực kỳ hữu dụng và giúp code do" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/map-filter-reduce-trong-javascript/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1qHdA7IekeKgChZodjIXUxKDVYgwwHylf&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Map, filter, reduce trong JavaScript",
+    "url": "https://blog.vietnamlab.vn/map-filter-reduce-trong-javascript/",
+    "datePublished": "2018-06-29T09:53:45.000Z",
+    "dateModified": "2018-06-29T09:53:45.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1qHdA7IekeKgChZodjIXUxKDVYgwwHylf&export=download",
+        "width": 1600,
+        "height": 500
+    },
+    "keywords": "javascript",
+    "description": "Ngay cả khi bạn không phải một lập trình viên sử dụng ngôn ngữ JavaScript thì\ncũng có thể bạn đã sử dụng 3 hàm map, filter, reduce ở những ngôn ngữ khác. Lý\ndo đơn giản là vì 3 hàm này cực kỳ hữu dụng và giúp code do bạn viết ra được\nclean hơn. Giờ ta hãy đi vào cụ thể trong JavaScript chúng được dùng như thế nào\nvà mang lại lợi ích gì.\n\n1. Map\n\n\n1.1 Mô tả\nHàm map tạo ra 1 mảng mới. Mảng mới này là kết quả của việc xử lý từng phần tử\ncủa mảng cũ bằng cùng 1 phương thức xử lí mà ta quy định.\n\n1.2",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Map, filter, reduce trong JavaScript</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1qHdA7IekeKgChZodjIXUxKDVYgwwHylf&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Ngay cả khi bạn không phải một lập trình viên sử dụng ngôn ngữ JavaScript thì cũng có thể bạn đã sử dụng 3 hàm map, filter, reduce ở những ngôn ngữ khác. Lý do đơn giản là vì 3 hàm này cực kỳ hữu dụng và giúp code do bạn viết ra được clean hơn. Giờ ta hãy đi vào cụ thể trong JavaScript chúng được dùng như thế nào và mang lại lợi ích gì.</p>
+<h3 id="1map">1. Map</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1entCik1fV4WUHVfXomXyAmhQW39Nedjq&amp;export=download" alt="alt" width="761" height="315" layout="responsive"></amp-img></p>
+<h4 id="11mt">1.1 Mô tả</h4>
+<p>Hàm map tạo ra 1 mảng mới. Mảng mới này là kết quả của việc xử lý từng phần tử của mảng cũ bằng cùng 1  phương thức xử lí mà ta quy định.</p>
+<h4 id="12cphp">1.2 Cú pháp</h4>
+<pre><code class="language-js">var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+    // Return element for new_array
+}[, thisArg])
+</code></pre>
+<h5 id="121ccthams">1.2.1 Các tham số</h5>
+<p>callback là hàm tạo ra một phần tử của mảng mới, lấy ba đối số:</p>
+<ul>
+<li>currentValue: phần tử hiện tại đang được xử lý trong mảng.</li>
+<li>index (không bắt buộc): chỉ mục của phần tử hiện tại đang được xử lý trong mảng.</li>
+<li>array (không bắt buộc): mảng được dùng để map.<br />
+thisArg (không bắt buộc): Giá trị để sử dụng khi thực hiện callback.</li>
+</ul>
+<h5 id="122gitrtrv">1.2.2 Giá trị trả về</h5>
+<p>Giá trị trả về là một mảng mới với mỗi phần tử là kết quả của hàm callback.</p>
+<h4 id="13vd">1.3 Ví dụ</h4>
+<h5 id="131nhxmtmngccstimtmngcccnbchai">1.3.1 Ánh xạ một mảng các số tới một mảng các căn bậc hai</h5>
+<p>Đoạn mã sau nhận một mảng các số và tạo một mảng mới chứa các căn bậc hai của các số trong mảng đầu tiên.</p>
+<pre><code class="language-js">var numbers = [1, 4, 9];
+var roots = numbers.map(Math.sqrt);
+// roots is now [1, 2, 3]
+// numbers is still [1, 4, 9]
+</code></pre>
+<h5 id="132sdngmapnhdngitngtrongmtmng">1.3.2 Sử dụng map để định dạng đối tượng trong một mảng</h5>
+<p>Đoạn mã sau nhận một mảng các đối tượng và tạo một mảng mới chứa các đối tượng mới được định dạng lại.</p>
+<pre><code class="language-js">var kvArray = [{key: 1, value: 10}, 
+               {key: 2, value: 20}, 
+               {key: 3, value: 30}];
+
+var reformattedArray = kvArray.map(obj =&gt;{ 
+   var rObj = {};
+   rObj[obj.key] = obj.value;
+   return rObj;
+});
+// reformattedArray is now [{1: 10}, {2: 20}, {3: 30}], 
+
+// kvArray is still: 
+// [{key: 1, value: 10}, 
+//  {key: 2, value: 20}, 
+//  {key: 3, value: 30}]
+</code></pre>
+<h5 id="133nhxmtmngccsbngcchsdnghmchais">1.3.3 Ánh xạ một mảng các số bằng cách sử dụng hàm chứa đối số</h5>
+<p>Đoạn mã sau đây cho thấy map hoạt động như thế nào khi một hàm yêu cầu một đối số được sử dụng với nó.</p>
+<pre><code class="language-js">var numbers = [1, 4, 9];
+var doubles = numbers.map(function(num) {
+  return num * 2;
+});
+
+// doubles is now [2, 8, 18]
+// numbers is still [1, 4, 9]
+</code></pre>
+<h5 id="134sdngmapmtcchtngqut">1.3.4 Sử dụng map một cách tổng quát</h5>
+<p>Ví dụ này cho thấy cách lặp qua một tập hợp các đối tượng được thu thập bởi querySelectorAll. Trong trường hợp này, ta nhận được tất cả các tùy chọn đã chọn trên màn hình và được in ra console:</p>
+<pre><code class="language-js">var elems = document.querySelectorAll('select option:checked');
+var values = Array.prototype.map.call(elems, function(obj) {
+  return obj.value;
+});
+</code></pre>
+<h3 id="2filter">2. Filter</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1zoVuOxn2TR-xn6j9tDmS4HFEnGAAtnez&amp;export=download" alt="alt" width="400" height="400" layout="responsive"></amp-img></p>
+<h4 id="21mt">2.1 Mô tả</h4>
+<p>Hàm filter là cũng tạo ra 1 mảng mới. Mảng mới này là kết quả của việc lọc tất cả các phần tử của mảng cũ để chọn ra những phần tử thỏa mảng 1 điều kiện gì đó. Điều kiện này được kiểm tra bằng 1 phương thức mà ta quy định.</p>
+<h4 id="22cphp">2.2 Cú pháp</h4>
+<pre><code class="language-js">var newArray = arr.filter(callback(element[, index[, array]])[, thisArg])
+</code></pre>
+<h5 id="221ccthams">2.2.1 Các tham số</h5>
+<p>callback dùng để kiểm tra từng phần tử của mảng. Trả về true để giữ nguyên tố, sai nếu không. Nó chấp nhận ba đối số:</p>
+<ul>
+<li>element: Phần tử hiện tại đang được xử lý trong mảng.</li>
+<li>index (không bắt buộc): chỉ mục của phần tử hiện tại đang được xử lý trong mảng.</li>
+<li>array (không bắt buộc): mảng được filter gọi.<br />
+thisArg (không bắt buộc): giá trị được dùng khi thực hiện callback.</li>
+</ul>
+<h5 id="222gitrtrv">2.2.2 Giá trị trả về</h5>
+<p>Một mảng mới với các phần tử vượt qua bài kiểm tra.Nếu không có phần tử nào vượt qua bài kiểm tra, một mảng trống sẽ được trả về.</p>
+<h4 id="23vd">2.3 Ví dụ</h4>
+<h5 id="231lcrattcccgitrnh">2.3.1 Lọc ra tất cả các giá trị nhỏ</h5>
+<p>Ví dụ sau sử dụng filter để tạo một mảng đã lọc có tất cả các phần tử có giá trị nhỏ hơn 10 bị loại bỏ.</p>
+<pre><code class="language-js">function isBigEnough(value) {
+  return value &gt;= 10;
+}
+
+var filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+// filtered is [12, 130, 44]
+</code></pre>
+<h5 id="232lcccmckhnghpltjson">2.3.2 Lọc các mục không hợp lệ từ JSON</h5>
+<p>Ví dụ sau sử dụng filter để tạo một json được lọc với bài kiểm tra là các id phải là số và có giá trị khác 0.</p>
+<pre><code class="language-js">var arr = [
+  { id: 15 },
+  { id: -1 },
+  { id: 0 },
+  { id: 3 },
+  { id: 12.2 },
+  { },
+  { id: null },
+  { id: NaN },
+  { id: 'undefined' }
+];
+
+var invalidEntries = 0;
+
+function isNumber(obj) {
+  return obj !== undefined &amp;&amp; typeof(obj) === 'number' &amp;&amp; !isNaN(obj);
+}
+
+function filterByID(item) {
+  if (isNumber(item.id) &amp;&amp; item.id !== 0) {
+    return true;
+  } 
+  invalidEntries++;
+  return false; 
+}
+
+var arrByID = arr.filter(filterByID);
+
+console.log('Filtered Array\n', arrByID); 
+// Filtered Array
+// [{ id: 15 }, { id: -1 }, { id: 3 }, { id: 12.2 }]
+
+console.log('Number of Invalid Entries = ', invalidEntries); 
+// Number of Invalid Entries = 5
+</code></pre>
+<h5 id="233tmkimtrongmng">2.3.3 Tìm kiếm trong mảng</h5>
+<p>Ví dụ sau sử dụng filter để lọc nội dung mảng dựa trên tiêu chí tìm kiếm</p>
+<pre><code class="language-js">var fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+
+/**
+ * Array filters items based on search criteria (query)
+ */
+function filterItems(query) {
+  return fruits.filter(function(el) {
+      return el.toLowerCase().indexOf(query.toLowerCase()) &gt; -1;
+  })
+}
+
+console.log(filterItems('ap')); // ['apple', 'grapes']
+console.log(filterItems('an')); // ['banana', 'mango', 'orange']
+</code></pre>
+<h5 id="234implementationcaes2015">2.3.4 Implementation của ES2015</h5>
+<pre><code class="language-js">const fruits = ['apple', 'banana', 'grapes', 'mango', 'orange'];
+
+/**
+ * Array filters items based on search criteria (query)
+ */
+const filterItems = (query) =&gt; {
+  return fruits.filter((el) =&gt;
+    el.toLowerCase().indexOf(query.toLowerCase()) &gt; -1
+  );
+}
+
+console.log(filterItems('ap')); // ['apple', 'grapes']
+console.log(filterItems('an')); // ['banana', 'mango', 'orange']
+</code></pre>
+<h3 id="3reduce">3. Reduce</h3>
+<p>Bây giờ chúng ta đến với phần thú vị nhất chính là reduce. Nếu bạn biết đôi chút về reduce và nghĩ nó được dùng trong kịch bản để tính tổng của các phần tử kiểu là number trong mảng  thì bạn ... cũng đúng nhưng thật đáng tiếc! Thật ra reduce cực kì đa năng và linh hoạt, nó có thể được dùng trong nhiều kịch bản khác nữa.<br />
+<amp-img src="https://drive.google.com/uc?id=1C89A8uI2CMIOrQ0biltHBcbo9QMNANXx&amp;export=download" alt="alt" width="615" height="291" layout="responsive"></amp-img></p>
+<h4 id="31mt">3.1 Mô tả</h4>
+<p>Hàm reduce áp dụng một phương thức lên accumulator (vật chứa) và từng phần tử trong mảng (từ trái sang phải) để từ input là 1 mảng (thường có nhiều phần tử), ta có được output là 1 giá trị đơn.</p>
+<h4 id="32cphp">3.2 Cú pháp</h4>
+<pre><code class="language-js">arr.reduce(callback[, initialValue])
+</code></pre>
+<h5 id="321ccthamsuvo">3.2.1 Các tham số đầu vào</h5>
+<p>callback là hàm để thực hiện trên mỗi phần tử trong mảng, lấy bốn đối số:</p>
+<ul>
+<li>accumulator: tích lũy giá trị trả về cuộc gọi lại trong lần gọi lại cuối cùng của cuộc gọi lại hoặc giá trị ban đầu, nếu được cung cấp</li>
+<li>currentValue: phần tử hiện tại đang được xử lý trong mảng.</li>
+<li>currentIndex (không bắt buộc): bắt đầu tại chỉ mục 0, nếu giá trị initialValue được cung cấp và nếu không được cung cấp thì bắt đầu ở chỉ mục 1.</li>
+<li>array: mảng được phương thức reduce() gọi.<br />
+initialValue: Giá trị để sử dụng làm đối số đầu tiên cho cuộc gọi đầu tiên của cuộc gọi lại. Nếu không có giá trị ban đầu nào được cung cấp, phần tử đầu tiên trong mảng sẽ được sử dụng. Việc gọi hàm reduce() trên một mảng trống không có giá trị ban đầu là một lỗi.</li>
+</ul>
+<h5 id="322gitrtrv">3.2.2 Giá trị trả về</h5>
+<p>Giá trị kết quả từ việc gọi hàm reduce().</p>
+<h4 id="32vd">3.2 Ví dụ</h4>
+<h5 id="321tnghpttcccgitrcamtmng">3.2.1 Tổng hợp tất cả các giá trị của một mảng</h5>
+<pre><code class="language-js">var sum = [0, 1, 2, 3].reduce(function (accumulator, currentValue) {
+  return accumulator + currentValue;
+}, 0);
+// sum is 6
+</code></pre>
+<p>Hoặc ta cũng có thể viết kết hợp với việc sử dụng arrow function</p>
+<pre><code class="language-js">var total = [ 0, 1, 2, 3 ].reduce(
+  ( accumulator, currentValue ) =&gt; accumulator + currentValue,
+  0
+);
+</code></pre>
+<h5 id="322tngccgitrtrongmtmngitng">3.2.2 Tổng các giá trị trong một mảng đối tượng</h5>
+<p>Để tổng hợp các giá trị chứa trong một mảng các đối tượng, bạn phải cung cấp một giá trị ban đầu để mỗi mục đi qua hàm của bạn.</p>
+<pre><code class="language-js">var initialValue = 0;
+var sum = [{x: 1}, {x:2}, {x:3}].reduce(function (accumulator, currentValue) {
+    return accumulator + currentValue.x;
+},initialValue)
+
+console.log(sum) // logs 6
+</code></pre>
+<p>Hoặc ta cũng có thể viết kết hợp với việc sử dụng arrow function</p>
+<pre><code class="language-js">var initialValue = 0;
+var sum = [{x: 1}, {x:2}, {x:3}].reduce(
+    (accumulator, currentValue) =&gt; accumulator + currentValue.x
+    ,initialValue
+);
+
+console.log(sum) // logs 6
+</code></pre>
+<h5 id="323lmphngmng">3.2.3 Làm phẳng mảng</h5>
+<pre><code class="language-js">var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+  function(accumulator, currentValue) {
+    return accumulator.concat(currentValue);
+  },
+  []
+);
+// flattened is [0, 1, 2, 3, 4, 5]
+</code></pre>
+<p>Hoặc ta cũng có thể viết kết hợp với việc sử dụng arrow function</p>
+<pre><code class="language-js">var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+  ( accumulator, currentValue ) =&gt; accumulator.concat(currentValue),
+  []
+);
+</code></pre>
+<h5 id="324mccinstancescaccgitrtrongmtitng">3.2.4 Đếm các instances của các giá trị trong một đối tượng</h5>
+<pre><code class="language-js">var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+
+var countedNames = names.reduce(function (allNames, name) { 
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+// countedNames is:
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+</code></pre>
+<h5 id="324nhmitngtheothuctnh">3.2.4 Nhóm đối tượng theo thuộc tính</h5>
+<pre><code class="language-js">var people = [
+  { name: 'Alice', age: 21 },
+  { name: 'Max', age: 20 },
+  { name: 'Jane', age: 20 }
+];
+
+function groupBy(objectArray, property) {
+  return objectArray.reduce(function (acc, obj) {
+    var key = obj[property];
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(obj);
+    return acc;
+  }, {});
+}
+
+var groupedPeople = groupBy(people, 'age');
+// groupedPeople is:
+// { 
+//   20: [
+//     { name: 'Max', age: 20 }, 
+//     { name: 'Jane', age: 20 }
+//   ], 
+//   21: [{ name: 'Alice', age: 21 }] 
+// }
+</code></pre>
+<h5 id="325ccmnglinktchatrongmtmngccitngsdngtontspreadvinitialvalue">3.2.5 Các mảng liên kết chứa trong một mảng các đối tượng sử dụng toán tử spread và initialValue</h5>
+<pre><code class="language-js">// friends - an array of objects 
+// where object field "books" - list of favorite books 
+var friends = [{
+  name: 'Anna',
+  books: ['Bible', 'Harry Potter'],
+  age: 21
+}, {
+  name: 'Bob',
+  books: ['War and peace', 'Romeo and Juliet'],
+  age: 26
+}, {
+  name: 'Alice',
+  books: ['The Lord of the Rings', 'The Shining'],
+  age: 18
+}];
+
+// allbooks - list which will contain all friends' books +  
+// additional list contained in initialValue
+var allbooks = friends.reduce(function(accumulator, currentValue) {
+  return [...accumulator, ...currentValue.books];
+}, ['Alphabet']);
+
+// allbooks = [
+//   'Alphabet', 'Bible', 'Harry Potter', 'War and peace', 
+//   'Romeo and Juliet', 'The Lord of the Rings',
+//   'The Shining'
+// ]
+</code></pre>
+<h5 id="325xaccmctrnglptrongmng">3.2.5 Xóa các mục trùng lặp trong mảng</h5>
+<pre><code class="language-js">let arr = [1, 2, 1, 2, 3, 5, 4, 5, 3, 4, 4, 4, 4];
+let result = arr.sort().reduce((accumulator, current) =&gt; {
+    const length = accumulator.length
+    if (length === 0 || accumulator[length - 1] !== current) {
+        accumulator.push(current);
+    }
+    return accumulator;
+}, []);
+console.log(result); //[1,2,3,4,5]
+</code></pre>
+<h5 id="326thcthipromisetheotunt">3.2.6 Thực thi promise theo tuần tự</h5>
+<p>Reduce truyền kết quả của việc gọi 1 callback function tới 1 callback function tiếp theo. Điều này cho phép ta đạt được những thứ hay ho như là <b>Chaining Promises</b>. Ta xét đoạn code dưới đây:</p>
+<pre><code class="language-js">let itemIDs = [1, 2, 3, 4, 5]; 
+itemIDs.reduce((promise, itemID) =&gt; {
+  return promise.then(_ =&gt; api.deleteItem(itemID));
+}, Promise.resolve());
+</code></pre>
+<p>Đoạn code trên có thể được dịch thành như sau:</p>
+<pre><code class="language-js">Promise.resolve()
+.then(_ =&gt; api.deleteItem(1))
+.then(_ =&gt; api.deleteItem(2))
+.then(_ =&gt; api.deleteItem(3))
+.then(_ =&gt; api.deleteItem(4))
+.then(_ =&gt; api.deleteItem(5));
+</code></pre>
+<p>Viết cách sử dụng reduce, code của bạn ở trên dễ nhìn và clean hơn rất nhiều. Hãy thử tưởng tượng trường hợp mảng itemIDs không phải chỉ có 5 phần tử mà có 40 phần tử thì bạn sẽ cảm nhận được viết theo cách sử dụng reduce thì code sẽ clean như thế nào.</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<p><a href="https://medium.com/jsguru/javascript-functional-programming-map-filter-and-reduce-846ff9ba492d">https://medium.com/jsguru/javascript-functional-programming-map-filter-and-reduce-846ff9ba492d</a><br />
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

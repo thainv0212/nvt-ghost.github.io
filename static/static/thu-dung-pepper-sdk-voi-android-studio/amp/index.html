@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Pepper SDK for Android Studio</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Pepper SDK for Android Studio" />
+    <meta property="og:description" content="Pepper là gì? Pepper là một robot màu trắng, cao 121 cm và nặng 28 kg với đầy đủ hai tay (nhưng không có chân) có khả năng thể hiện cảm xúc giống như người và được thiết kế để trở thành một thành viên thực thụ trong gia đình." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/thu-dung-pepper-sdk-voi-android-studio/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbHl3QXdQS3JXZ2s&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-06-30T01:49:32.000Z" />
+    <meta property="article:tag" content="android" />
+    <meta property="article:tag" content="pepper" />
+    <meta property="article:tag" content="gmo" />
+    <meta property="article:tag" content="android studio" />
+    <meta property="article:tag" content="pepper sdk" />
+    <meta property="article:tag" content="sdk" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pepper SDK for Android Studio" />
+    <meta name="twitter:description" content="Pepper là gì? Pepper là một robot màu trắng, cao 121 cm và nặng 28 kg với đầy đủ hai tay (nhưng không có chân) có khả năng thể hiện cảm xúc giống như người và được thiết kế để trở thành một thành viên thực thụ trong gia đình." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/thu-dung-pepper-sdk-voi-android-studio/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbHl3QXdQS3JXZ2s&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="android, pepper, gmo, android studio, pepper sdk, sdk" />
+    <meta property="og:image:width" content="960" />
+    <meta property="og:image:height" content="360" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Pepper SDK for Android Studio",
+    "url": "https://blog.vietnamlab.vn/thu-dung-pepper-sdk-voi-android-studio/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2017-06-30T01:49:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkbHl3QXdQS3JXZ2s&export=download",
+        "width": 960,
+        "height": 360
+    },
+    "keywords": "android, pepper, gmo, android studio, pepper sdk, sdk",
+    "description": "Pepper là gì? [http://www.softbank.jp/robot/products/]\nPepper là một robot màu trắng, cao 121 cm và nặng 28 kg với đầy đủ hai tay\n(nhưng không có chân) có khả năng thể hiện cảm xúc giống như người và được thiết\nkế để trở thành một thành viên thực thụ trong gia đình.\n\nHiện tại, chú robot này đang được công ty SoftBank Corp (công ty sản xuất ra\nPepper) bán ra tại Nhật Bản. Các nhà mạng Nhật đã tiết lộ có khoảng 1000 robot\nPepper được bán ra trong vòng 1 phút khi nó chính thức được bán ra. Phòng GM",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Thử dùng Pepper SDK với Android Studio</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2017-06-30">30 Jun 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbHl3QXdQS3JXZ2s&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="pepperlg"><a href="http://www.softbank.jp/robot/products/">Pepper là gì?</a></h3>
+<p>Pepper là một robot màu trắng, cao 121 cm và nặng 28 kg với đầy đủ hai tay (nhưng không có chân) có khả năng thể hiện cảm xúc giống như người và được thiết kế để trở thành một thành viên thực thụ trong gia đình.</p>
+<p>Hiện tại, chú robot này đang được công ty SoftBank Corp (công ty sản xuất ra Pepper) bán ra tại Nhật Bản. Các nhà mạng Nhật đã tiết lộ có khoảng 1000 robot Pepper được bán ra trong vòng 1 phút khi nó chính thức được bán ra. Phòng <a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper_was_coming/">GMO 時勢大研究システム</a> hiện nay cũng có một con để nghiên cứu từ năm 2015. Pepper của GMO không thể làm việc nhà nhưng bù lại nó có thể trò chuyện, nhận ra cảm xúc của người đối diện và có khả năng học hỏi để phát triển "cảm xúc" của mình. Ngoài ra, Pepper cũng biết thu thập các thông tin từ internet như tin nhắn hay dữ liệu dự báo thời tiết.</p>
+<h3 id="phttrintnhnngmrngchopepper">Phát triển tính năng mở rộng cho Pepper</h3>
+<p>Sẽ có 2 cách chủ yếu để develop cho Pepper</p>
+<ul>
+<li>
+<p>Sử dụng <a href="http://doc.aldebaran.com/2-1/software/choregraphe/tutos/index.html">Choregraphe</a>: Đây là cách truyền thống, có thể viết bằng Python, C++, hay Java. Tuy nhiên sẽ khá phức tạp trong lập trình. Mặc dù mình không tập trung vào cách này nhưng nếu ai quan tâm có thể tham khảo một số link ở dưới:</p>
+</li>
+<li>
+<p><a href="http://doc.aldebaran.com/2-1/software/choregraphe/tutos/index.html">http://doc.aldebaran.com/2-1/software/choregraphe/tutos/index.html</a></p>
+</li>
+<li>
+<p><a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper_was_coming/">http://recruit.gmo.jp/engineer/jisedai/blog/pepper_was_coming/</a></p>
+</li>
+<li>
+<p><a href="http://qiita.com/tdaiku/items/3ffe124cfff5f892f9f7">http://qiita.com/tdaiku/items/3ffe124cfff5f892f9f7</a></p>
+</li>
+<li>
+<p>Sử dụng Pepper SDK với Android Studio: Đây là SDK mới được Softbank cung cấp giúp phát triển nhanh, hơn đơn giản hơn rất nhiều, đặc biệt với các lập trình viên Android. Và đây sẽ là cách sẽ được giới thiệu trong bài viết này.</p>
+</li>
+</ul>
+<h3 id="sdngpeppersdk">Sử dụng Pepper SDK</h3>
+<h4 id="citmitrng">Cài đặt môi trường</h4>
+<p>Hãy chắc chắn rằng JDK, Android Studio (1.5 hoặc cao hơn), Android SDK đã được cài đặt.</p>
+<h5 id="citandroidsdkvbuildtools">Cài đặt Android SDK và Build-Tools</h5>
+<p>Để có thể phát triển theo hướng Android Application, cần phải cài đặt Android SDK và Build-Tools chuẩn như sau:</p>
+<ul>
+<li>Bước 1: Từ thanh <strong>Menu Bar</strong> click vào SDK Manager <amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTE5wNFpfZmEyUVk&amp;export=download" alt="sdk manager" width="36" height="38" layout="fixed"></amp-img></li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkOGFFWURaQUE2QUU&amp;export=download" alt width="531" height="427" layout="responsive"></amp-img></p>
+<ul>
+<li>Bước 2: Download và cài đặt Android SDK version 5.1.1 (API 22, Lollipop)</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTE9RTzRZdUVsbm8&amp;export=download" alt width="560" height="446" layout="responsive"></amp-img></p>
+<ul>
+<li>Bước 3: Download và cài đặt SDK Buil-Tools</li>
+</ul>
+<p>SDK Build-Tools như là Emulator/Android Debug Bridge cần được cài đặt tương ứng với Android SDK version.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkM2RkUXdZZEpIYmM&amp;export=download" alt width="557" height="450" layout="responsive"></amp-img></p>
+<h5 id="citpeppersdkplugin">Cài đặt Pepper SDK Plugin</h5>
+<p>Từ Setting: Preferences... &gt; Plugins &gt; Browse repositries... sẽ hiện lên dialog tìm kiếm plugin. Hãy nhập <code>pepper</code> để tìm kiếm Pugin</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkX1lrTVI1aEI2Tzg&amp;export=download" alt width="561" height="458" layout="responsive"></amp-img></p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkaUFQR1loMm9SeGc&amp;export=download" alt width="526" height="453" layout="responsive"></amp-img></p>
+<p>Sau khi khởi động lại Android Studio. Vào File &gt; New , sẽ thấy biểu tượng robot.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSGIzelBMNEFMUmc&amp;export=download" alt width="542" height="346" layout="responsive"></amp-img></p>
+<h5 id="citrobotsdk">Cài đặt Robot SDK</h5>
+<p>Đây là bước cuối cùng để cài thêm công cụ cũng như Emulator cho Robot</p>
+<p>Từ thanh Menu bar click vào biểu tượng <strong>Robot SDK Manager</strong> <amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSVZjd2Rtb1FaVDA&amp;export=download" alt width="37" height="42" layout="fixed"></amp-img> Sau đó check vào API version muốn cài đặt(hiện tại chỉ có 1 version 0.9)</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkODZGX0RiRXF2TWs&amp;export=download" alt width="403" height="387" layout="responsive"></amp-img></p>
+<h4 id="ktqu">Kết quả</h4>
+<p>Tổng hợp lại sau khi cài đặt chung ta sẽ có được các công cụ phát triển gồm:</p>
+<ul>
+<li><strong>ADV</strong>: Máy ảo Android dành cho tablet được gắn trên Pepper</li>
+<li>Các công cụ khác dành riêng cho robot: <strong>Robot Viewer, Robots Browser, Trajectory</strong></li>
+</ul>
+<h3 id="thtomtrobotapplication">Thử tạo một Robot Application</h3>
+<p>Với cách làm truyền thống sẽ sử dụng Python sau đó kết nối với IP Address của Robot rồi build vào trong robot. Ứng dụng như này sẽ kết nối với tablet và các bộ phận của robot. Nhưng với các sử dụng Android Studio, ứng dụng sẽ được build vào trong Tablet của robot, Tablet này sẽ gọi các API bên trong của robot</p>
+<h4 id="toprojectmi">Tạo Project mới</h4>
+<p>Từ Android studio, chọn <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>New Project</strong>. Vì tạo ứng dụng cho tablet nên cần phải chọn <strong>Phone and Tablet</strong>, Android version la 5.1 (Lollipop)</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUFpVSEQzNG82WkU&amp;export=download" alt width="543" height="381" layout="responsive"></amp-img></p>
+<p>Sau khi tạo Project, cần tao thêm một Robot Application, chọn <strong>File</strong> &gt; <strong>New</strong> &gt; <strong>Robot Application</strong></p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTmlIbnFvMEYzcDg&amp;export=download" alt width="530" height="414" layout="responsive"></amp-img></p>
+<p>Tạo xong <strong>Robot Application</strong> một số icon và tính năng trong menu sẽ được kích hoạt<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdWVlbzU3SzRtWEE&amp;export=download" alt width="557" height="505" layout="responsive"></amp-img></p>
+<p>Cấu trúc của Project sẽ như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkREg2RnBJRmN1b0k&amp;export=download" alt width="229" height="551" layout="fixed"></amp-img></p>
+<p>Thêm các thư viện để có thể tương tác, liên kết với Robot.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVm5IbFpxeUdyM3M&amp;export=download" alt width="775" height="494" layout="responsive"></amp-img></p>
+<p>Ngoài các file resource dành cho Robot còn có các file resource dành riêng cho robot:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkLWxZMWhUYmZ4UjQ&amp;export=download" alt width="258" height="527" layout="fixed"></amp-img></p>
+<ul>
+<li>File .anim định nghĩa animation cho robot, hay định nghĩa các cử động cho robot rất đơn giản.</li>
+<li>File .pmt định nghĩa sự di chuyển của Ropot</li>
+<li>File .top định nghĩa việc tự động trả lời chat bằng giọng nói của Robot(khá giống với chatbot nhưng nhận diện giọng nói và trả nời bằng tiếng nói). Đươc đặt trong các thư mục như là <code>raw-en</code> hay <code>raw-fr</code> tương ứng với ngôn ngữ cần định nghĩa.</li>
+<li>File config của Project robotsdk.xml</li>
+</ul>
+<blockquote>
+<p>Chi tiết cách thực hiện với các file này sẽ được giới thiệu trong bài khác</p>
+</blockquote>
+<p>Cuối cùng là thêm dòng dưới vào AndroidManifest</p>
+<pre><code>&lt;uses-feature android:name=”com.softbank.hardware.pepper” /&gt;
+</code></pre>
+<p>Thử một đoạn code để chạy "Hello word!" cho Pepper</p>
+<pre><code>import android.app.Activity;
+import android.os.Bundle;
+
+import com.aldebaran.qi.sdk.object.interaction.Say;
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Say say = new Say(this);
+        say.run("Hello world!");
+
+    }
+
+}
+</code></pre>
+<p>Ngoài ví dụ "Hello world!" ở trên hãy thử với một vài ví dụ đơn giản như di chuyển robot, bật nhạc hay cử động chân tay <a href="https://android.aldebaran.com/doc/tutorials.html">ở đây</a></p>
+<h4 id="robotemulator">Robot Emulator</h4>
+<p>Khi Run, Robot Emulator sẽ tự động được bật lên hoặc kích vào biểu tượng <amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNVJBamR6MXpqSm8&amp;export=download" alt width="25" height="37" layout="fixed"></amp-img> trên thanh menu.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkM1BmaUs1NkllNlU&amp;export=download" alt width="573" height="314" layout="responsive"></amp-img></p>
+<p>Robot Emulator sẽ gồm 3 thành phần chính:</p>
+<ul>
+<li>ADV: Là Máy ảo Android cho tablet trên robot</li>
+<li>Robot viewer: là mô hình giống như robot thật giúp mô phỏng được dễ dàng</li>
+<li>NAOqi: Robot engine giống như robot thật chính nó sẽ làm cho robot ảo cử động di chuyển như robot thật</li>
+</ul>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Tương lai co Pepper sẽ còn rất nhiều hướng đi khác nhau. Nó sẽ được nâng cấp trí tuệ nhân tạo thông minh hơn, sử dụng trong IoT hay thậm chí là VR</p>
+<ul>
+<li><a href="https://iotnews.jp/archives/tag/pepper">https://iotnews.jp/archives/tag/pepper</a></li>
+<li><a href="https://robotstart.info/2015/12/21/kozaki_shogeki-no1.html">https://robotstart.info/2015/12/21/kozaki_shogeki-no1.html</a></li>
+</ul>
+<p>Và để tạo ứng dụng robot đơn giản hơn, trực quan hơn rõ ràng Softbank đã tạo ra SDK cho Android Studio vô cùng tiện lợi.<br />
+Tuy nhiên hiện nay giá thành của Pepper còn khá cao chỉ có một số công ty mạnh như GMO Internet mua làm vị trí lễ tân có nhiệm vụ đón, giúp đỡ đưa ra địa điểm họp, thời gian họp cho khách và gọi tới các CBNV có liên quan khi có lịch họp. Đặc biệt, lễ tân robot này có khả năng nhận diện hình ảnh khách từng đến công ty để gửi lời chào khi gặp lại.</p>
+<p><strong>Tài liệu tham khảo</strong></p>
+<ul>
+<li><a href="https://android.aldebaran.com/doc/index.html">https://android.aldebaran.com/doc/index.html</a></li>
+<li><a href="https://github.com/ohwada/Pepper_Android_Tutorial">https://github.com/ohwada/Pepper_Android_Tutorial</a></li>
+<li><a href="http://doc.aldebaran.com/2-4/family/pepper_technical/index_dev_pepper.html">http://doc.aldebaran.com/2-4/family/pepper_technical/index_dev_pepper.html</a></li>
+<li><a href="https://developer.softbankrobotics.com/jp-ja/documents/faq">https://developer.softbankrobotics.com/jp-ja/documents/faq</a></li>
+<li><a href="http://doc.aldebaran.com/2-4/index_dev_guide.html">http://doc.aldebaran.com/2-4/index_dev_guide.html</a></li>
+<li><a href="http://qiita.com/enta0701/items/a6217bb07d56421a3a03">http://qiita.com/enta0701/items/a6217bb07d56421a3a03</a></li>
+<li><a href="https://developer.softbankrobotics.com/jp-ja/downloads/pepper">https://developer.softbankrobotics.com/jp-ja/downloads/pepper</a></li>
+<li><a href="http://qiita.com/chibi929/items/4f8aa53e5f9ad2668b1e#_reference-b7db910da10675aa8914">http://qiita.com/chibi929/items/4f8aa53e5f9ad2668b1e#_reference-b7db910da10675aa8914</a></li>
+<li><a href="http://qiita.com/Suna/items/235708f9833a92dd598d#_reference-5673892dc16a3e26be02">http://qiita.com/Suna/items/235708f9833a92dd598d#_reference-5673892dc16a3e26be02</a></li>
+<li><a href="http://doc.aldebaran.com/2-1/software/choregraphe/tutos/index.html">http://doc.aldebaran.com/2-1/software/choregraphe/tutos/index.html</a></li>
+<li><a href="http://qiita.com/tdaiku/items/3ffe124cfff5f892f9f7">http://qiita.com/tdaiku/items/3ffe124cfff5f892f9f7</a></li>
+<li><a href="http://qiita.com/Atelier-Akihabara/items/4162192129f366da1240">http://qiita.com/Atelier-Akihabara/items/4162192129f366da1240</a></li>
+<li><a href="https://www.softbank.jp/corp/set/data/group/sbm/news/conference/pdf/material/20160519_01.pdf">https://www.softbank.jp/corp/set/data/group/sbm/news/conference/pdf/material/20160519_01.pdf</a></li>
+<li><a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper_was_coming/">http://recruit.gmo.jp/engineer/jisedai/blog/pepper_was_coming/</a></li>
+<li><a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper_tablet/">http://recruit.gmo.jp/engineer/jisedai/blog/pepper_tablet/</a></li>
+<li><a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper_event_operation/">http://recruit.gmo.jp/engineer/jisedai/blog/pepper_event_operation/</a></li>
+<li><a href="http://recruit.gmo.jp/engineer/jisedai/blog/pepper-alredballdetection/">http://recruit.gmo.jp/engineer/jisedai/blog/pepper-alredballdetection/</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

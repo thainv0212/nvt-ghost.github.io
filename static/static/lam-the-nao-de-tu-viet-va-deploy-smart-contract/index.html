@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Làm thế nào để tự viết và deploy Smart Contract? | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Giới thiệu về Smart Contract và quan trọng hơn là làm thế nào để viết và deploy 1 Smart Contract" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Giới thiệu về Smart Contract và quan trọng hơn là làm thế nào để viết và deploy 1 Smart Contract" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/lam-the-nao-de-tu-viet-va-deploy-smart-contract/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Làm thế nào để tự viết và deploy Smart Contract?" />
+    <meta property="og:description" content="Giới thiệu về Smart Contract và quan trọng hơn là làm thế nào để viết và deploy 1 Smart Contract" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/lam-the-nao-de-tu-viet-va-deploy-smart-contract/" />
+    <meta property="og:image" content="https://s3.vietnamlab.vn/static/smartContract.jpg" />
+    <meta property="article:published_time" content="2018-11-30T02:30:38.000Z" />
+    <meta property="article:modified_time" content="2018-11-30T02:30:38.000Z" />
+    <meta property="article:tag" content="Smart Contract" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Làm thế nào để tự viết và deploy Smart Contract?" />
+    <meta name="twitter:description" content="Giới thiệu về Smart Contract và quan trọng hơn là làm thế nào để viết và deploy 1 Smart Contract" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/lam-the-nao-de-tu-viet-va-deploy-smart-contract/" />
+    <meta name="twitter:image" content="https://s3.vietnamlab.vn/static/smartContract.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Smart Contract" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Làm thế nào để tự viết và deploy Smart Contract?",
+    "url": "https://blog.vietnamlab.vn/lam-the-nao-de-tu-viet-va-deploy-smart-contract/",
+    "datePublished": "2018-11-30T02:30:38.000Z",
+    "dateModified": "2018-11-30T02:30:38.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://s3.vietnamlab.vn/static/smartContract.jpg"
+    },
+    "keywords": "Smart Contract",
+    "description": "I. Smart Contract là gì?\nSmart contract là một giao thức máy tính, được dùng để số hoá những việc như xác\nnhận,  thực hiện sự thoả thuận hoặc việc thi hành hợp đồng. Các Smart Contract\ncó khả năng thực hiện các giao dịch mà không cần bên trung gian thứ ba. Những\ngiao dịch này có thể dễ dàng được theo dõi và không thể bị thay đổi.\n\nNhững người ủng hộ cho rằng có rất nhiều điều khoản hợp đồng có thể áp dụng\nSmart Contract vào một phần hay toàn bộ để chúng có thể được thực hiện một cách\nbán tự động",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-smart-contract nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-smart-contract js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Làm thế nào để tự viết và deploy Smart Contract?</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-11-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 November 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/smart-contract/index.html">Smart Contract</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://s3.vietnamlab.vn/static/smartContract.jpg" alt="Làm thế nào để tự viết và deploy Smart Contract?">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/lam-the-nao-de-tu-viet-va-deploy-smart-contract/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=L%C3%A0m%20th%E1%BA%BF%20n%C3%A0o%20%C4%91%E1%BB%83%20t%E1%BB%B1%20vi%E1%BA%BFt%20v%C3%A0%20deploy%20Smart%20Contract%3F">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <h3 id="i-smart-contract-l-g-">I. Smart Contract là gì?</h3><p>Smart contract là một giao thức máy tính, được dùng để số hoá những việc như xác nhận,  thực hiện sự thoả thuận hoặc việc thi hành hợp đồng. Các Smart Contract có khả năng thực hiện các giao dịch mà không cần bên trung gian thứ ba. Những giao dịch này có thể dễ dàng được theo dõi và không thể bị thay đổi.</p><p>Những người ủng hộ cho rằng có rất nhiều điều khoản hợp đồng có thể áp dụng Smart Contract vào một phần hay toàn bộ để chúng có thể được thực hiện một cách bán tự động hay hoàn toàn tự động. Mục tiêu của Smart Contract là cung cấp được sự an toàn tốt hơn và giảm thiểu những chi phí giao dịch phát sinh hơn so với các loại hợp đồng truyền thống.</p><p>Có nhiều loại tiền điện tử có thể được dùng để phát triển các Smart Contract. Ở đây chúng ta sẽ sử dụng loại tiền ảo có tên là Ethereum.</p><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/sm2.png" class="kg-image" alt></figure><h3 id="ii-ethererum-platform">II. Ethererum platform</h3><p>Trước khi đi vào phần chính là viết 1 Smart Contract. Chúng ta cần hiểu được cách Ethereum platform thực thi Smart Contract như thế nào. Để hiểu rõ được điều này ta sẽ bắt đầu từ phần thấp nhất đó chính là môi trường để thực thi được Smart Contract.</p><!--kg-card-begin: markdown--><h5 id="1ethereumvirtualmachineevm">1. Ethereum Virtual Machine (EVM)</h5>
+<!--kg-card-end: markdown--><p>Ethereum dùng EVM - một loại máy ảo đặc biệt để biên dịch code assembly. Việc bắt lập trình viên phải code ngôn ngữ assembly thì nghe có vẻ không được tiện dụng lắm. Nên chúng ta còn sẽ cần một ngôn ngữ lập trình để viết code cho Smart Contract.</p><!--kg-card-begin: markdown--><h4 id="2solidity">2. Solidity</h4>
+<!--kg-card-end: markdown--><p> Solidity là một trong những ngôn ngữ chuyên dụng để viết Smart Contract. Mục đích chính của Solidity là giúp lập trình viên giải quyết vấn đề đề bất tiện ở trên. Không cần phải trực tiếp viết ra code assembly nhưng vẫn có thể thể tương tác được với EVM. Solidity là một ngôn ngữ hướng đối tượng, cú pháp còn phần tương tự JavaScript, C++, Python nên những lập trình viên đã có kinh nghiệm về những ngôn ngữ đó có thể học là sử dụng được ngôn ngữ Solidity một cách khá dễ dàng.</p><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/solidity.png" class="kg-image" alt></figure><p> Trong mạng Ethereum, mỗi Smart Contract sẽ được thực thi bởi một miner và kết quả là một block sẽ được thêm vào mạng Ethereum đó. Miner tốn công thực hiện việc đó vậy nên nó xứng đáng được thưởng đúng không nào? Do vậy khi thực thi bất kì Smart Contract nào trên EVM thì đều tiêu tốn 1 lượng tiền ảo nhất định được gọi là gas. Phần tiền ảo đó dùng để thưởng cho miner. Smart Contract càng phức tạp thì lượng gas yêu cầu càng cao.</p><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/gas.png" class="kg-image" alt></figure><h3 id="ii-case-study-s-d-ng-smart-contract"> II. Case study sử dụng Smart Contract</h3><p>Khi đã hiểu được 1 số khái niệm cơ bản. Giờ là lúc để chúng ta bắt đầu vào phần chính. Dưới đây ta sẽ xét 1 trường hợp cụ thể và dùng Smart Contract để giải quyết bài toán đó. Đương nhiên trên thực tế, Smart Contract không chỉ dùng để giải quyết mỗi trường hợp này mà sẽ còn rất nhiều trường hợp khác nữa. Sau khi đọc xong bài viết này, bạn có thể để trí tưởng tượng của mình bay xa và ứng dụng Smart Contract trong vô vàng tình huống khác!</p><!--kg-card-begin: markdown--><h4 id="1blockchainmarketplace">1. Blockchain marketplace</h4>
+<!--kg-card-end: markdown--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Screen%20Shot%202018-11-18%20at%2019.25.56.png" class="kg-image" alt></figure><p> Ta có 1 blockchain marketplace - 1 hệ thống chứa nhiều Smart Contract để phục vụ cho việc thoả thuận giữa những người chủ và những người cần tìm việc. Alice là người chủ. Trước sân nhà của cô ấy có rất nhiều cỏ nên đã tìm đến blockchain marketplace để tìm người dọn cỏ với mức giá thấp nhất có thể. Trong khi đó Bob là người tìm đến blockchain marketplace với vai trò là người cần tìm việc gì đó để kiếm tiền. </p><!--kg-card-begin: markdown--><h4 id="2alicevbobclikhithothunvinhaubngsmartcontract">2. Alice và Bob được lợi khi thoả thuận với nhau bằng Smart Contract?</h4>
+<!--kg-card-end: markdown--><h4></h4><ul><li>Smart Contract căn cứ vào các điều khoản và thực hiện 1 cách tự động các đều khoản đó.</li><li>Các điều khoản của Smart Contract được công bố minh bạch. Tất cả mọi người trên blockchain đều có thể thấy nội dung các điều khoản đó.</li><li>Alice và Bob không thể tự ý thay đổi điều khoản của Smart Contract nên họ hoàn toàn có thể tin tưởng nhau.</li><li>Chi phí để thực hiện transaction rất thấp so với các hệ thống thanh toán truyền thống.</li></ul><h3 id="iii-h-ng-d-n-vi-t-smart-contract-gi-i-quy-t-b-i-to-n-b-n-tr-n"> III. Hướng dẫn viết Smart Contract giải quyết bài toán bên trên</h3><p> Với bài toán trong case study bên trên. Ta chia phần nghiệp vụ thành 6 bước như hình bên dưới.</p><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Screen%20Shot%202018-11-18%20at%2022.06.45.png" class="kg-image" alt></figure><!--kg-card-begin: markdown--><h4 id="1giithiuvaitrcaalicevbobtrongsmartcontract">1. Giới thiệu vai trò của Alice và Bob trong Smart Contract</h4>
+<!--kg-card-end: markdown--><p> Sau khi phân tích nghiệp vụ, chúng ta sẽ viết 1 Smart Contract có tên gọi là OddjobPayContract, trong Smart Contract này ta có:</p><ul><li>Client: chính là Alice - người chủ có việc cần thuê.</li><li>Tasker: chính là Bob - người cần làm việc để kiếm tiền.</li><li>PayAmount: là lượng tiền ảo mà Alice sẽ phải trả cho Bob khi Bob dọn xong cỏ ở sân nhà của Alice.</li></ul><!--kg-card-begin: markdown--><pre><code class="language-js">pragma solidity ^0.4.4;
+
+contract OddjobPayContract {
+  address public client;
+  address public tasker;
+
+  uint256 public payAmount;
+
+  constructor (address _client, address _tasker) public {
+    client = _client;
+    tasker = _tasker;
+
+    payAmount = 0;
+  }
+}
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><h4 id="2chophpclientcthchuyntinochotasker">2. Cho phép Client có thể chuyển tiền ảo cho Tasker</h4>
+<!--kg-card-end: markdown--><p> Tiếp theo chúng ta bổ sung phương thức payable để Alice có thể chuyển tiền ảo cho Smart Contract.</p><!--kg-card-begin: markdown--><pre><code class="language-js">pragma solidity ^0.4.4;
+
+contract OddjobPayContract {
+  address public client;
+  address public tasker;
+
+  uint256 public payAmount;
+
+  constructor (address _client, address _tasker) public {
+    client = _client;
+    tasker = _tasker;
+
+    payAmount = 0;
+  }
+
+  function () public payable {
+    require(client == msg.sender);
+    payAmount += msg.value;
+  }
+}
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><h4 id="3chophpsmartcontractcthchuyntinchotaskerbob">3. Cho phép Smart Contract có thể chuyển tiền cho Tasker (Bob)</h4>
+<!--kg-card-end: markdown--><p>Tương tự, ta viết thêm phương thức sendPayAmountToTasker để cho phép Smart Contract có thể chuyển tiền ảo cho Bob khi anh ấy làm xong việc.</p><!--kg-card-begin: markdown--><pre><code class="language-js">pragma solidity ^0.4.4;
+
+contract OddjobPayContract {
+  address public deployer;
+
+  address public client;
+  address public tasker;
+
+  uint256 public payAmount;
+
+  constructor (address _client, address _tasker) public {
+    deployer = msg.sender;
+
+    client = _client;
+    tasker = _tasker;
+
+    payAmount = 0;
+  }
+
+  function () public payable {
+    require(client == msg.sender);
+    payAmount += msg.value;
+  }
+
+  function sendPayAmountToTasker() public {
+    require(deployer == msg.sender);
+
+    // transfer pay amount to tasker
+    tasker.transfer(payAmount);
+
+    // nullify pay amount manually
+    payAmount = 0;
+  }
+}
+</code></pre>
+<!--kg-card-end: markdown--><h3 id="iv-deploy-smart-contract"> IV. Deploy Smart Contract</h3><p> Vậy là chúng ta đã viết xong Smart Contract!  Công đoạn tiếp theo là deploy nó lên Ethereum blockchain để dùng.</p><!--kg-card-begin: markdown--><h4 id="1ganache">1. Ganache</h4>
+<!--kg-card-end: markdown--><p> Chúng ta có thể sử dụng 1 mạng public blockchain hoặc một mạng blockchain cá nhân. Để phục vụ cho mục đích có sẵn 1 mạng blockchain 1 cách nhanh chóng và dễ dàng sử dụng cho mục đích deploy để test thực Smart Contract như thế này thì Ganache là 1 sự lựa chọn lý tưởng. </p><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Screen%20Shot%202018-11-18%20at%2023.51.49.png" class="kg-image" alt></figure><p>Ganache là 1  blockchain cá nhân dùng cho mục đích test và phát triển trên nền tảng Ethereum. Chỉ cần download Ganache về và double click để cài là bạn chúng ta đã có sẵn 1 blockchain với mặc định 10 tài khoản, mỗi tài có 100 ETH (đương nhiên chúng chỉ dùng được trong nội bộ). Minner cũng đã sẵn có. Ngoài ra còn rất nhiều thứ khác để được thiết lập sẵn.</p><p>Trong blockchain cá nhân mà Ganache đã thiết lập sẵn, chúng ta cần hiểu 1 số khái niệm sau:</p><ul><li>Account: ở đây ta cần tối thiểu 1 account cho Alice, 1 account cho Bob và 1 account dùng để deploy contract. Mỗi account sẽ có 1 address tương ứng.</li><li>Balance: balance của 1 account là lượng tiền ảo mà account đó sở hữu ở thời điểm hiện tại. Mặc định Ganache thiết lập 1 account sở hữu 100 ETH.</li><li>Minner: đóng vai trò thực hiện transaction.</li></ul><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Screen%20Shot%202018-11-18%20at%2023.53.40.png" class="kg-image" alt></figure><!--kg-card-begin: markdown--><h4 id="2truffle">2. Truffle</h4>
+<!--kg-card-end: markdown--><p>Trufle là 1 framework giúp chúng ta compile và deploy Smart Contract. Truffle có thể dễ dàng được cài đặt thông qua npm.</p><!--kg-card-begin: markdown--><pre><code class="language-js">npm install -g truffle
+</code></pre>
+<!--kg-card-end: markdown--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/truffle.PNG" class="kg-image" alt></figure><!--kg-card-begin: markdown--><h4 id="3dngjavasciptvitphncodedeploy">3. Dùng Javascipt để viết phần code deploy</h4>
+<!--kg-card-end: markdown--><p>Như vậy chúng ta đã viết xong Smart Contract, chuẩn bị xong môi trường. Thứ còn thiếu duy nhất đó chính là phần code để mô tả deploy như thế nào. Phần code này ta sẽ chỉ định blockchain mà ta sử dụng là blockchain nào, sử dụng những account nào trong blockchain đó. Ở đây ta sử dụng Ganache nên ta sẽ trỏ đến RPC Server mà Ganache đang dùng.</p><!--kg-card-begin: markdown--><pre><code class="language-js">const Web3 = require('web3')
+const contract = require('truffle-contract')
+const SmartContract = contract(require('./build/contracts/OddjobPayContract'))
+
+const deployer = '0x11A533F09D7AFea2A333FE6E0Ff558a937c7D186'
+const client   = '0x92b0Ec8AAb0c69EE8500aaf471237d27fF7dF053'
+const tasker   = '0x11eF75EFDE91353d89065981ff88908133Fae1D5'
+
+const web3Provider = new Web3.providers.HttpProvider(
+  'HTTP://127.0.0.1:7545' // address of RPC server
+)
+
+const web3 = new Web3(web3Provider)
+
+web3.eth.getAccounts(error =&gt; {
+  if (error) {
+    throw new Error(`
+      Error while fetching accounts from RPC!
+      Check RPC address! The problem may be there!
+    `)
+  }
+})
+
+const fetchBalanceByAddress = async address =&gt; {
+  return new Promise(resolve =&gt; {
+    web3.eth.getBalance(address, (_, balance) =&gt; {
+      resolve(web3.fromWei(balance, 'ether').toString())
+    })
+  })
+}
+
+const printBalancesToConsole = async () =&gt; {
+  const deployerBalance = await fetchBalanceByAddress(deployer)
+  const clientBalance   = await fetchBalanceByAddress(client)
+  const taskerBalance   = await fetchBalanceByAddress(tasker)
+
+  console.log(`Deployer: ${deployerBalance}; Client: ${clientBalance}; Tasker: ${taskerBalance}`)
+}
+
+const run = async () =&gt; {
+  await printBalancesToConsole()
+
+  SmartContract.setProvider(web3Provider)
+
+  const smartContract = await SmartContract.new(
+    client, tasker, { gas: 1000000, from: deployer }
+  )
+
+  await printBalancesToConsole()
+
+  await smartContract.sendTransaction({ from: client, value: web3.toWei(0.1, 'ether') })
+
+  await printBalancesToConsole()
+
+  await smartContract.sendPayAmountToTasker({ from: deployer })
+
+  await printBalancesToConsole()
+}
+</code></pre>
+<!--kg-card-end: markdown--><p>Sau đó ta dùng câu lệnh bên dưới là có thể deploy được Smart Contract mà chúng ta vừa viết lên mạng blockchain của Ganache.</p><!--kg-card-begin: markdown--><pre><code class="language-js">truffle migrate
+</code></pre>
+<!--kg-card-end: markdown--><p>Như vậy là chúng ta đã hoàn thành được mục tiêu là viết và deploy thành công Smart Contract lên mạng blockchain. Tuy nhiên vẫn còn nhiều phần kiến thức mà phạm vi bài viết chưa giới thiệu. Ví dụ ở code của phần deploy chúng ta sử dụng thư viện web3, thư viện này có chứa nhiều phương thức, ý nghĩa của những phương thức đó là gì? Smart Contract được thực thi như thế nào? Chúng ta có thể tự tạo ra 1 loại tiền ảo của chính mình hay không? Những nội dung đó chúng ta sẽ tìm hiểu trong những loạt bài sắp tới.</p><h3 id="v-link-tham-kh-o"> V. Link tham khảo</h3><p><a href="https://solidity.readthedocs.io/en/v0.5.0/">https://solidity.readthedocs.io/en/v0.5.0/</a></p><p><a href="https://truffleframework.com/">https://truffleframework.com/</a></p><p><a href="https://truffleframework.com/ganache">https://truffleframework.com/ganache</a></p><p><a href="https://en.wikipedia.org/wiki/Smart_contract">https://en.wikipedia.org/wiki/Smart_contract</a></p><p><a href="https://www.ethereum.org/">https://www.ethereum.org/</a></p><p><a href="https://github.com/sparrow/smart-contract-tutorial">https://github.com/sparrow/smart-contract-tutorial</a></p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/lam-the-nao-de-tu-viet-va-deploy-smart-contract/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=L%C3%A0m%20th%E1%BA%BF%20n%C3%A0o%20%C4%91%E1%BB%83%20t%E1%BB%B1%20vi%E1%BA%BFt%20v%C3%A0%20deploy%20Smart%20Contract%3F">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/lam-the-nao-de-tu-viet-va-deploy-smart-contract/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/lam-the-nao-de-tu-viet-va-deploy-smart-contract/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

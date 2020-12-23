@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Lightning network, Plasma and Plasma Cash</title>
+
+    <meta name="description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lightning network, Plasma and Plasma Cash" />
+    <meta property="og:description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-03-21T08:36:25.000Z" />
+    <meta property="article:modified_time" content="2018-03-21T08:36:25.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="Bitcoin" />
+    <meta property="article:tag" content="ethereum" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lightning network, Plasma and Plasma Cash" />
+    <meta name="twitter:description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, Bitcoin, ethereum" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="512" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Lightning network, Plasma and Plasma Cash",
+    "url": "https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/",
+    "datePublished": "2018-03-21T08:36:25.000Z",
+    "dateModified": "2018-03-21T08:36:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&export=download",
+        "width": 1024,
+        "height": 512
+    },
+    "keywords": "blockchain, Bitcoin, ethereum",
+    "description": "Nội dung\nMục tiêu:  cung cấp khái niệm về giải pháp giảm tải cho mạng Blockchain\n\n 1. Vấn đề của các mạng Blockchain\n 2. Công nghệ Lightning Network của Bitcoin\n 3. Raiden network, Plasma, Plasma Cash trên Ethereum\n 4. Kết luận\n\nVấn đề của các mạng Blockchain\nNhờ các đặc tính của Blockchain như là phí giao dịch rẻ, tính bảo mật cao, đảm\nbảo tính riêng tư,... mà Blockchain được ứng dụng rộng rãi nhất là những lĩnh\nvực liên quan đến tiền tệ. Tuy nhiên để được sử dụng 1 cách rộng rãi hơn\n(scaling) ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Lightning network, Plasma và Plasma Cash</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2018-03-21">21 Mar 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h2 id="nidung">Nội dung</h2>
+<p><strong>Mục tiêu:</strong> <em>cung cấp khái niệm về giải pháp giảm tải cho mạng Blockchain</em></p>
+<ol>
+<li>Vấn đề của các mạng Blockchain</li>
+<li>Công nghệ Lightning Network của Bitcoin</li>
+<li>Raiden network, Plasma, Plasma Cash trên Ethereum</li>
+<li>Kết luận</li>
+</ol>
+<h3 id="vncaccmngblockchain">Vấn đề của các mạng Blockchain</h3>
+<p>Nhờ các đặc tính của Blockchain như là phí giao dịch rẻ, tính bảo mật cao, đảm bảo tính riêng tư,... mà Blockchain được ứng dụng rộng rãi nhất là những lĩnh vực liên quan đến tiền tệ. Tuy nhiên để được sử dụng 1 cách rộng rãi hơn (scaling) thì các mạng lưới Blockchain đang gặp phải một số khó khắn như là:</p>
+<ul>
+<li>Đối với các giao dịch nhỏ nhưng tần suất lớn (micropayment) thì phí giao dịch vẫn còn cao và thời gian để hoàn tất giao dịch chậm.</li>
+<li>Để xác thực 1 giao dịch rất tốn tài nguyên, thời gian để xác thực thì tất cả các node đều phải xác thực giao dịch. Lượng giao dịch càng nhiều thì càng khiến cho mạng Blockchain thêm nặng nề hơn.</li>
+<li>Lượng dữ liệu của các Blockchain sẽ tăng lên theo thời gian, đòi hỏi các node trong network phải đủ năng lực để có thể phân tích lại lược sử tất cả các giao dịch trong quá khứ của người dùng cũng như state hiện tại để có thể xác thực các giao dịch mới. Điều này khiến cho theo thời gian sẽ chỉ có các node siêu mạnh mới có thể đảm đương được những công việc như vậy, mạng lưới Blockchain sẽ trở nên quá tải.</li>
+</ul>
+<p>Hiện tại, mạng Bitcoin có khả năng thực hiện được 7 giao dịch/giây, Ethereum thì là 15 giao dịch/giây trong khi Visa có khả năng thực hiện được 65.000 giao dịch/giây =&gt; đây là vấn đề thực sự to lớn khi ta muốn đưa Blockchain vào thay thế cho các nền tảng thanh toán hiện tại.</p>
+<p>Giải pháp đề ra là gì? =&gt; Giảm tải, giảm tải và giảm tải :D</p>
+<p>Có 2 phương pháp được đề cập phổ biến nhất là:</p>
+<ol>
+<li>Sharding: chia dữ liệu Blockchain thành cách khối dữ liệu nhỏ hơn và xử lý phân tán.</li>
+<li>Off-chain transactions: giao dịch ngoại chuỗi để giảm tải cho Blockchain.</li>
+</ol>
+<h4 id="sharding">Sharding</h4>
+<p>Shard là mảnh, Sharding ám chỉ chia 1 khối lượng lúc đầu thành các mảnh nhỏ hơn và áp dụng các phương pháp quản lý, tính toán phân tán để giúp hệ thống có thể đáp ứng được khối lượng xử lý lớn hơn, hiệu quả hơn.<br />
+<amp-img src="https://drive.google.com/uc?id=1lXrB1hSpWnYmf2yMK4D7js8vK99Y3LSi&amp;export=download" alt width="700" height="671" layout="responsive"></amp-img><br />
+Sharding là 1 kỹ thuật được sử dụng trong Database, được ứng dụng vào trong Blockchain để giảm tải cho Blockchain network. Các full-node trong mạng Blockchain phải lưu tất cả dữ liệu lược sử transactions của mọi account trong mạng sẽ chuyển sang lưu từng mảnh một ( các shard) và node nào thì xác thực transaction nào mà nó chứa dữ liệu thôi, khi việc xác thực cần tham chiếu từ transaction ở node khác thì cần connect tới node khác để lấy dữ liệu.</p>
+<p><strong>Chú ý:</strong> Sharding vẫn còn một số khó khăn, tiêu biểu nhất là đảm bảo việc cung cấp thông tin giữa các node sao cho thật bảo mật.</p>
+<h4 id="offchaintransactions">Off-chain transactions:</h4>
+<p>Đây là giải pháp khả thi nhất, hướng đến giải quyết các micropayment diễn ra tần suất lớn. Điển hình là Lightning Network của Bitcoin và Raiden Network của Ethereum.<br />
+Tư tưởng chính của giải pháp này là: <em><strong>Mở các kênh(channel) thanh toán riêng để thực hiện các micropayment ngoài Blockchain Network và chỉ khi kênh thanh toán được đóng lại thì mới lưu lại trong Blockchain dưới dạng chỉ 1 giao dịch thôi.</strong></em> Khi giao dịch micropayment được tách khỏi Blockchain network thì thời gian thực hiện giao dịch trở nên nhanh gọn, cũng như trên kênh thanh toán đó ta có thể mở bao nhiêu giao dịch tùy ý mà lúc lưu lại trên Blockchain cũng chỉ là 1 giao dịch thôi =&gt; nghe thật hấp dẫn đúng ko!</p>
+<p>Bài viết này chủ yếu giới thiệu giải pháp Off-chain nên chi tiết mời các bạn đọc tiếp bên dưới nhé.</p>
+<h3 id="cngnghlightningnetworkcabitcoin">Công nghệ Lightning Network của Bitcoin</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1qh3AT0Ti1Rvj91zc8ElEtiATc-BSdj3p&amp;export=download" alt width="1600" height="879" layout="responsive"></amp-img></p>
+<ul>
+<li>
+<p>Lightning network (mạng chớp): ý là giao dịch xử lý nhanh như chớp. Như đã nói ở trên, mạng Lightning network sử dụng giải pháp Off-chain để giải quyết các vấn đề về scaling của Bitcoin. Lightning network hoạt động dựa trên Smart Contract, là 1 tầng phía trên mạng Blockchain của Bitcoin. Hiện tại mới chỉ release bản beta trên mainnet.</p>
+</li>
+<li>
+<p>Nguyên lý hoạt động:</p>
+<ul>
+<li>Một multi-signature wallet (ví đa chữ ký) được tạo ra giữa 2 bên, ví này có chứa 1 lượng tiền được nạp vào từ ít nhất 1 trong số các bên tham gia. =&gt; đây chính là kênh giao dịch riêng của Lightning network</li>
+<li>Địa chỉ ví sẽ được lưu vào trong mạng Bitcoint bao gồm cả balance sheet (Smart Contract) để chứng minh là ví có bao nhiêu Bitcoin + thuộc về ai.</li>
+<li>Khi ví đã được thiết lập -&gt; kênh thanh toán đã sẵn sàng, các bên có thể giao dịch bao nhiêu tùy tích mà không hề động chạm gì tới mạng blockchain của Bitcoin.</li>
+<li>Với mỗi giao dịch, cả 2 bên cùng ký vào những balance sheet cập nhật theo thứ tự -&gt; giúp ta biết được mỗi bên sở hữu bao nhiêu Bitcoin trong ví.</li>
+<li>Balance sheet sau khi được cập nhật sẽ không được lưu vào mạng Blockchain của Bitcoin mà mỗi bên sẽ giữ 1 bản copy.</li>
+<li>Khi xảy ra tranh chấp hoặc kênh thanh toán bị đóng, cả 2 bên đều có thể sử dụng bản balance sheet được cùng ký mới nhất để chốt lại số tiền của mình trong ví đa chữ ký.</li>
+</ul>
+</li>
+</ul>
+<p>(Balance sheet: bản quyết toán, ta hiểu là như một sổ cái riêng cho kênh thanh toán đó)</p>
+<p><br />
+Hình trên mô tả quá trình giao dịch giữa Xan và Yelena thông qua Lightning Network. Bạn có thể đọc thêm tại <a href="https://btcnews.vn/lightning-network-la-gi/">link</a> sau để hiểu rõ hơn.</p>
+<p>Một tính năng rất hay của Lightning network là nằm trong chữ network (mạng) của nó, khi bất kì ai mở 1 kênh thanh toán trên Lightning network thì người đó thành 1 node trong mạng lưới của Lightning network, giúp cho người đó có thể không nhất thiết mở kênh thanh toán riêng đến 1 bên khác nếu bên kia có join vào mạng và 2 bên nhìn thấy nhau được (nhìn thấy nhau được nghĩa là có liên kết giữa 2 bên) thì 2 bên vẫn giao dịch bình thường. Ví dụ: anh A mở kênh vs anh B, anh B mở kênh vs anh C thì anh A có thể giao dịch với anh C thông qua anh B trung gian. Ta sẽ hình dung giao dịch như sau: A chuyển 1 Bitcoin cho C -&gt; thực tế là A chuyển 1 Bitcoint cho B, B chuyển 1 Bitcoint cho C (giao dịch bắc cầu)</p>
+<h4 id="lichcalightningnetworkmangli">Lợi ích của Lightning network mang lại</h4>
+<ul>
+<li>Thanh toán lượng tiền nhỏ là khả thi: phí giao dịch chỉ tính khi chốt lại kênh, không liên quan trên kênh đó đã giao dịch bao nhiêu lần và bao nhiêu tiền nên người dùng thoải mái giao dịch micropayment.</li>
+<li>Giao dịch diễn ra nhanh: gần như ngay lập tức vì quá trình này xảy ra ngoài Blockchain network.</li>
+<li>Tăng tính riêng tư: Các giao dịch trong Lightning network không lưu lại trên Blockchain nên đảm bảo tính riêng tư cho các bên tham gia.</li>
+</ul>
+<h4 id="mtsvncntnti">Một số vấn đề còn tồn tại</h4>
+<ul>
+<li>Không thể thanh toán ngoại tuyến (lúc người kia không online)</li>
+<li>Không thể chốt ví (close a payment channel) khi người kia không phản hồi</li>
+<li>Có thể khó khăn trong các giao dịch số tiền lớn: vì lúc tạo ví đa chữ ký đã không nạp tiền đủ</li>
+<li>Lightning network là có xu hướng xử lý tập trung -&gt; ngược với nguyên tắc phân tán của Blockchain</li>
+</ul>
+<p>Bạn đọc xem thêm video này sẽ hiểu rõ hơn về Lightning network:</p>
+<amp-youtube width="560" height="315" data-videoid="rrr_zPmEiME" layout="responsive"></amp-youtube>
+<p>Lightning network đã đc release bản beta trên mainnet, hy vọng sẽ sẵn sàng sử dụng trong 1 ngày không xa</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Big day for bitcoin, Lightning goes live on mainnet! ⚡ <br /><br />Announcing the first Lightning beta release for the live bitcoin network, lnd 0.4. Read about it here: <a href="https://t.co/aaYec7Orsj">https://t.co/aaYec7Orsj</a> ??‍???‍??</p>— Lightning⚡️ (@lightning) <a href="https://twitter.com/lightning/status/974299189076148224?ref_src=twsrc%5Etfw">March 15, 2018</a></blockquote>
+
+<h3 id="raidennetworkplasmaplasmacashtrnethereum">Raiden network, Plasma, Plasma Cash trên Ethereum</h3>
+<p>Phần này ta cùng tìm hiểu xem trên Ethereum sẽ có những giải pháp gì để giảm tải cho Blockchain network nhé.</p>
+<h4 id="raidennetwork">Raiden network</h4>
+<p>Bên Ethereum có giải pháp là Raiden network giống với Lightning network nhưng cao cấp hơn 1 chút. Raiden network về bản chất rất giống với Lightning network nhưng vì phát triển trên nền tảng Ethereum nên nó thừa hưởng được những tính năng về Dapps (decentralized applications : ứng dụng phân tán) và Smart Contract, khiến cho tính ứng dụng thực tế của Raiden network cao hơn Lightning network.</p>
+<p><amp-img src="https://cdn-images-1.medium.com/max/2000/1*8_7HeUPykEavgyQHB2VbUQ.jpeg" alt width="2000" height="1125" layout="responsive"></amp-img></p>
+<p>Raiden network có thể được ứng dụng trên:</p>
+<ul>
+<li><strong>Daaps</strong>: Ứng dụng micropayment trên các Daaps, ví dụ như đối vơi <a href="https://d.tube/">dTube</a> (một Daaps về chia sẻ video) hiện tại đăng video sẽ nhận được tiền khi người xem vote (upvote hoặc downvote) thì khi ứng dụng công nghệ Raiden network, người đăng video có thể nhận được tiền trên từng giây người xem xem.</li>
+<li><strong>DEXs (decentralized exchanges)</strong>: trên IoT, nơi có hàng tỉ tỉ thiết bị có thể thực hiện các giao dịch một cách nhanh chóng.</li>
+<li><strong>ERC20(Ethereum Request for Comments)</strong>: Trên Raiden network ta có thể thực hiện chuyển đổi các token ERC20 qua lại với nhau.</li>
+</ul>
+<h4 id="plasmaplasmacash">Plasma, Plasma Cash</h4>
+<p><strong>CÁC VẤN ĐỀ CỦA LIGHTNING NETWORK VÀ RAIDEN NETWORK</strong></p>
+<p>Lightning network và Raiden network thực tế vẫn chưa release chính thức, ngoài ra vẫn còn một số vấn đề gây tranh cãi, có thể khiến chúng không thực sự khả thi, bạn có thể tham khảo thêm trong các link sau để hiểu rõ hơn:</p>
+<ul>
+<li><a href="https://medium.com/failsafe/why-lightning-and-raiden-networks-will-not-work-d1880e4bc294">https://medium.com/failsafe/why-lightning-and-raiden-networks-will-not-work-d1880e4bc294</a></li>
+<li><a href="https://medium.com/@jonaldfyookball/continued-discussion-on-why-lightning-network-cannot-scale-883c17b2ef5b">https://medium.com/@jonaldfyookball/continued-discussion-on-why-lightning-network-cannot-scale-883c17b2ef5b</a></li>
+<li><a href="https://medium.com/@jonaldfyookball/mathematical-proof-that-the-lightning-network-cannot-be-a-decentralized-bitcoin-scaling-solution-1b8147650800">https://medium.com/@jonaldfyookball/mathematical-proof-that-the-lightning-network-cannot-be-a-decentralized-bitcoin-scaling-solution-1b8147650800</a></li>
+</ul>
+<p>Các vấn đề lớn là:</p>
+<ul>
+<li>Mục tiêu chính của Blockchain là xây dựng nền tảng phi tập trung, không có ai kiểm soát. Nhưng giải pháp Lightning network và Raiden network lại hướng tới tập trung, phải xây dựng các Hub (các node trung tâm) để giúp các kênh thanh toán có thể liên kết với nhau.</li>
+<li>Khi được ứng dụng rộng rãi, có hàng trăm nghìn người tham gia vào network (kênh thanh toán ngoại chuỗi) thì network lúc đó trở nên rối rắm, quá lớn để tìm một chuỗi kênh thanh toán giữa 2 bên đang giao dịch =&gt; trở ngại về tính toán trên mạng lưới thanh toán ngoại chuỗi.</li>
+<li>Để gửi 1 số tiền lớn từ A -&gt; B qua chuỗi kênh thanh toán thì các node trung gian phải bắt buộc có đủ số tiền lớn đó thì mới giao dịch được =&gt; có thể là bất khả thi khi số tiền quá lớn. Thực tế là Lightning network và Raiden network vẫn chỉ hướng tới giải quyết thanh toán micropayment có xu hướng liên tục (mua coffe, bánh,... hàng ngày)</li>
+</ul>
+<p><strong>PLASMA</strong></p>
+<p>Tháng 8/2017 Vitalik Buterin (người tạo ra Ethereum) và Joseph Poon (đồng sáng lập Lightning network) đã giới thiệu 1 giải pháp mới là Plasma (paper xem tại <a href="http://plasma.io/plasma.pdf">link</a>), mô tả ngắn gọn về Plasma thì nó được gọi là "Blockchains in Blockchains".</p>
+<ul>
+<li>Plasma là hàng loạt các Smart Contract ở layer trên cùng của root Blockchains. Hợp đồng chính trên root Blockchain chỉ thực hiện 1 số lượng nhỏ cam kết(commitment) từ child Blockchains (Blockchain con), các cam kết này được broadcast định kỳ từ child Blockchain lên root Blockchain.</li>
+<li>Plasma sử dụng "Fraud proofs"(chứng minh gian lận) để đảm bảo các giao dịch chuyển đổi trạng thái đều hợp lệ.</li>
+<li>Plasma là hội tụ của các yếu tố sau:
+<ol>
+<li>Một lớp khuyến khích cho phép việc tính toán hợp đồng hiệu quả hơn.</li>
+<li>Một khuôn khổ cho việc sắp xếp child-chain (chuỗi con) ở dạng cây nhằm tối đa hóa hiệu quả chi phí thấp và giải quyết các giao dịch trên network.</li>
+<li>Tích hợp một khuôn khổ máy tính MapReduce để xây dựng quá trình chuyển đổi proof-of-state trong các chuỗi lồng nhau, nhằm cho phép tương thích với cấu trúc cây, trong khi sắp xếp lại các trạng thái chuyển tiếp cho khả năng mở rộng.</li>
+<li>Một cơ chế đồng thuận, phụ thuộc vào Blockchain gốc, cố gắng tái tạo, khuyến khích đồng thuận Nakamoto (proof-of-work).</li>
+<li>Một cấu trúc cam kết bitmap-UTXO đảm bảo quá trình chuyển đổi trạng thái chính xác khỏi Blockchain gốc, đồng thời giảm thiểu chi phí. Cho phép thu hồi khi không có Block hoặc nếu hành vi Byzantine khác ngăn cản khi ra khỏi chuỗi, là một trong những điểm thiết kế chính trong hoạt động của Plasma.</li>
+</ol>
+</li>
+<li>Plasma có tổ chức phân cấp cây, giống như một hệ thống tư pháp phân cấp, giảm thiểu chi phí với những giao dịch non-Byzantine<br />
+<amp-img src="https://tiendientu.org/wp-content/uploads/2017/08/plaas4-08-10-2017.png" alt width="30" height="29.9537750385208" layout="fixed"></amp-img></li>
+</ul>
+<p><strong>PLASMA CASH</strong></p>
+<p>Mới đây 9/03/2018, tại hội nghị EthCC tổ chức ở Paris, Vitalik Buterin giới thiệu Plasma Cash, 1 phiên bản nâng cấp của Plasma. Trên Plasma người dùng phải download toàn bộ các khối Plasma về để xác thực tất cả các khổi Plasma đó -&gt; tốn công sức của người dùng. Plasma Cash đã đưa ra 1 giải pháp đơn giản là người dùng chỉ phải chú ý tới những khối Plasma chứa đồng tiền mà họ mong muốn. Plasma Cash sẽ có đồng tiền riêng với unique ID và không thể bị chia ra.</p>
+<p>Plasma Cash cũng có cơ chế chống hack, mỗi đồng tiền thuộc về sở hữu của 1 tài khoản và nó không thể bị chuyển sang người khác nếu không có sự đồng ý của chủ sở hữu.</p>
+<p>Những thông tin về Plasma Cash vẫn còn rất mơ hồ, nhưng Buterin tin tưởng nó sẽ thành công và đưa vào sử dụng 1 ngày không xa.</p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Nguyên tắc giảm tải cho Blockchain sẽ bao gồm có 2 phương pháp chính : chia dữ liệu của Blockchain thành các khối nhỏ hơn và lưu tại các server khác nhau (sharding) và chuyển qua thanh toán ngoại chuỗi (off-blockchains) để giảm tải cho chuỗi Blockchains chính.</li>
+<li>Các giải pháp off-blockchains vẫn chưa thực sự sẵn sàng để sử dụng thực tế, nếu thành công thì đã đến lúc công nghệ Blockchain có thể được ứng dụng rộng rãi trong thực tế rồi.</li>
+</ul>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://btcnews.vn/lightning-network-la-gi/">https://btcnews.vn/lightning-network-la-gi/</a></li>
+<li><a href="https://medium.com/@argongroup/bitcoin-lightning-network-7-things-you-should-know-604ef687af5a">https://medium.com/@argongroup/bitcoin-lightning-network-7-things-you-should-know-604ef687af5a</a></li>
+<li><a href="https://lightning.network/">https://lightning.network/</a></li>
+<li><a href="https://steemit.com/bitcoin/@mooncryption/scaling-cryptos-bitcoin-lightning-network-vs-ethereum-raiden-network">https://steemit.com/bitcoin/@mooncryption/scaling-cryptos-bitcoin-lightning-network-vs-ethereum-raiden-network</a></li>
+<li><a href="https://medium.com/chain-cloud-company-blog/plasma-in-10-minutes-c856da94e339">https://medium.com/chain-cloud-company-blog/plasma-in-10-minutes-c856da94e339</a></li>
+<li><a href="https://bitcoinexchangeguide.com/vitalik-buterin-presents-plasma-cash-blockchain-scaling-solution/">https://bitcoinexchangeguide.com/vitalik-buterin-presents-plasma-cash-blockchain-scaling-solution/</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

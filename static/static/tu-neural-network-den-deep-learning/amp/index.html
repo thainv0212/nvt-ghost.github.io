@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Từ Neural Network đến Deep Learning</title>
+
+    <meta name="description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Từ Neural Network đến Deep Learning" />
+    <meta property="og:description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EahFzWEnKQLoYZk2dAoPmPkkdJFZm0K-&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T10:02:31.000Z" />
+    <meta property="article:modified_time" content="2018-09-24T14:46:28.000Z" />
+    <meta property="article:tag" content="deep learning" />
+    <meta property="article:tag" content="perceptron" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="neural network" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Từ Neural Network đến Deep Learning" />
+    <meta name="twitter:description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="deep learning, perceptron, machine learning, neural network" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Từ Neural Network đến Deep Learning",
+    "url": "https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/",
+    "datePublished": "2018-06-29T10:02:31.000Z",
+    "dateModified": "2018-09-24T14:46:28.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "deep learning, perceptron, machine learning, neural network",
+    "description": "Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Từ Neural Network đến Deep Learning</h1>
+                <section class="post-meta">
+                    T.T.T -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Chào các bạn, hôm nay đẹp trời lại có thời gian rảnh mình sẽ viết tiếp chuỗi bài về Deep Learning. Như bài trước mình đã giới thiệu với các bạn về Perceptron, nếu bạn chưa biết thì bạn có thể xem lại <a href="https://codetudau.com/deeplearning-perceptron-la-gi/">tại đây</a>.<br />
+Và bài này mình sẽ giới thiệu về Neural Network (NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường.</p>
+<p>Mục tiêu chính của bài viết:</p>
+<ul>
+<li>Hiểu được Neuron Network là gì</li>
+<li>Deep Learning là gì</li>
+<li>Khác nhau giữa Deep Learning và Machine Learning thông thường</li>
+</ul>
+<h3 id="neuralnetworklg">Neural Network là gì ?</h3>
+<h4 id="khiuvinron">Khởi đầu với nơron</h4>
+<p>Một cách ngắn gọn nhất thì Neural là mô hình toán học mô phỏng nơron trong hệ thống thần kinh con người. Model đó biểu hiện cho một số chức năng của nơron (neuron) thần kinh con người.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1l_RGG_pfR6QWLse_rA6zlOSYJira_Yjx&amp;export=download" alt="uc?id=1l_RGG_pfR6QWLse_rA6zlOSYJira_Yjx&amp;export=download" width="744" height="245" layout="responsive"></amp-img></p>
+<p>Đầu tiên, nhìn hình thôi các bạn đã thấy có sự tương đồng rồi đúng không ^^. Tuy nhiên mục đích bài viết là giúp các bạn hiểu gốc rễ vấn đề, biết ý nghĩa từng tham số, chắc chắn sẽ giúp bạn hiểu rõ hơn về cái mà mình đang làm, đang tìm hiểu. Với phần gốc rễ đã chắc thì chắc chắn sẽ dễ dàng hơn khi tiếp cận những bài báo mới hiện nay.</p>
+<p>Đầu tiên là tính chất truyền đi của thông tin trên neuron, khi neuron nhận tín hiệu đầu vào từ các dendrite, khi tín hiệu vượt qua một ngưỡng(threshold) thì tín hiệu sẽ được truyền đi sang neuron khác (Neurons Fire) theo sợi trục (axon). Neural của model toán học ở đây cũng được mô phỏng tương tự như vậy. Công thức tính output y sẽ như sau:</p>
+<p>$$ y= a( w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3} -  \theta ) (1) $$</p>
+<p><em>Ái chà, cái gì vậy trời, từ đâu lòi ra công thức loằng ngoằng vậy.</em></p>
+<p>Không phải vội từ từ mình sẽ giải thích.</p>
+<p>Việc <strong>Neurons Fire</strong> khi nhận tín hiệu từ các neuron khác được tính phép cộng thông thường ( $ x_{1} + x_{2} $ ). Tuy nhiên lại không chỉ đơn giản như thế. Tại sao ?</p>
+<p><em>Ví dụ như này:</em></p>
+<p><em>Bạn đang tham gia 1 trận đấu tennis, não của bạn sẽ nhận các tín hiệu từ các giác quan như hình ảnh từ mắt, âm thanh từ tai, cảm giác từ các tế bào ở tứ chi, thậm chí là cả mùi vị từ mũi ... Và bạn đang thi đấu, bạn sẽ tập trung vào điều gì, bạn có dễ bị phân tâm từ mùi hôi hôi từ chính đôi tất 2 bữa nay chưa giặt không, hay bạn đang chỉ chú tâm tới từng động tác của đối thủ ?<br />
+Tại sao lại thế nhỉ, rõ ràng thông tin não bộ nhận được là đầy đủ... Đó, bạn đã mường tượng ra vấn đề gì chưa. Đó chính là nhờ cấu trúc phức tạp của từng neuron của hệ thần kinh.<br />
+Cụ thể là từ input nhận được, việc xử lý từng thông tin đó được gắn với 1 trọng số (weight), mấy thông tin không quan trọng sẽ có weight thấp hơn, cái ta cần là các thông tin có ích cho trận đấu</em></p>
+<p>Trong neural, weight (ký hiệu: w) cũng mang ý nghĩa như vậy.</p>
+<p>Và  $\theta$ chính là ngưỡng (threshold) như mình đề cập ở trên.</p>
+<p><strong>a</strong> là một function mà người tạo ra model ký hiệu, có tên trên giấy khai sinh là <strong>activation function</strong>, có nhiệm vụ là chuẩn hoá output. Bạn thử tưởng tượng công thức trên bỏ đi activation function thì output y sẽ là 1 giá trị không có giới hạn (-inf -&gt; inf), vậy làm sao biết khi nào fired hoặc không. Ở điểm này, đã chứng minh được bộ não con người quá siêu việt, mặc dù không có activation function nhưng cũng đã quản lý được trạng thái fired hoặc not fire. Activation Function có các đại diện tiêu biểu như:</p>
+<ul>
+<li>Step function</li>
+<li>Linear function</li>
+<li>Sigmoid function</li>
+<li>Tanh function</li>
+<li>ReLu</li>
+</ul>
+<p>Trong phạm vi bài viết này, bạn chỉ cần hiểu Activation Function có nhiệm vụ là chuẩn hoá output của neural là được. Có lẽ mình sẽ viết 1 bài riêng nói về chi tiết về các Activation Function nêu trên (nếu nhận được sự ủng hộ nhiệt tình từ các bạn ^^).</p>
+<p>Từ công thức (1), thực tế threshold trong phạm vi toán học có thể mang cả dấu (-) và (+) nên các bác đầu to hơn bình thường 1 chút đã đưa vào thuật ngữ <strong>bias</strong>: $ bias = b = - \theta$ . Đơn giản ta sẽ có công thức sau:<br />
+$$ y= a( w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3} + b ) (2) $$</p>
+<p>Đến đây chắc hẳn bạn đã thấy sự liên quan với Perceptron mà mình đã giới thiệu ở bài trước. Nếu chưa, chắc hẳn bạn chưa đọc hoặc đã quên mất rồi, xin mời bạn đọc lại bài đó <a href="https://codetudau.com/deeplearning-perceptron-la-gi/">tại đây</a> nhé.</p>
+<h4 id="inneuralnetwork">Đi đến Neural Network</h4>
+<p>Ở trên là công thức tính output của 1 unit trong một mạng lưới neural (Neural Network). Vậy rốt cục Neural Network có mặt mũi ra sao ?</p>
+<p><amp-img src="https://drive.google.com/uc?id=1Too689kFxosm2LBJFj-GKtqw8VXirXID&amp;export=download" alt="uc?id=1Too689kFxosm2LBJFj-GKtqw8VXirXID&amp;export=download" width="1100" height="682" layout="responsive"></amp-img></p>
+<p>Ồ, thì ra là sự kết hợp từ nhiều unit. Và tín hiệu sẽ được xử lý theo từng tầng (layer), như trên hình, tầng ở giữa được gọi là tầng ẩn (hidden layer), còn lại là tầng input và output.<br />
+Tầng sau sẽ nhận giá trị output của tầng trước để tiến hành xử lý. Còn xử lý ra sao là một chuyện khác, phụ thuộc vào từng bài toán mà công việc xử lý sẽ khác nhau. Và số lượng Hidden layer là không giới hạn, việc lựa chọn số tầng ẩn và cách xử lý ở mỗi tầng là chuyện không hề đơn giản. Nhưng đều có công thức cơ bản như (2) chỉ khác là thay đổi <strong>Activation function</strong>, <strong>Input</strong> Nói chung công thức ở trên là công thức tổng quát.</p>
+<h3 id="deeplearning">Deep Learning</h3>
+<p>Cái tên <strong>Deep Learning</strong> ra đời với mục đích nhấn mạnh các <strong>Hidden layers</strong> của Neural Network. Có thể hiểu Deep Learning chính là Neural Network với nhiều <strong>Hidden layers</strong>.</p>
+<p><amp-img src="https://drive.google.com/uc?id=19ZKP7DWvJh9PjsCvGACHMZsW2xzD9wfj&amp;export=download" alt="uc?id=19ZKP7DWvJh9PjsCvGACHMZsW2xzD9wfj&amp;export=download" width="780" height="578" layout="responsive"></amp-img></p>
+<p>À thế sao lại cần nhiều <strong>Hidden layers</strong> làm gì ?</p>
+<p>Ví dụ như quá trình trưởng thành của "bướm". Mà bạn đang nghĩ đi đâu đấy... nhưng mình thích cách suy nghĩ của bạn. ^^ Thôi nghiêm túc, quá trình trưởng thành gồm các bước:</p>
+<ul>
+<li>Đầu tiên là trạng thái trong trứng</li>
+<li>Sau đó nở thành sâu</li>
+<li>Sâu ăn rất nhiều và đóng kén thành nhộng</li>
+<li>Và tada.. nở thành bướm</li>
+</ul>
+<p>Ở Deep Learning cũng vậy, không có cách nào đi tắt đón đầu, mỗi Hidden layers sẽ có một nhiệm vụ, output của tầng này sẽ là input của tầng sau. Ở các bài viết sau (về CNN chẳng hạn) mình sẽ cho các bạn thấy rõ điều này.</p>
+<h3 id="ngdngcadeeplearning">Ứng dụng của Deep Learning</h3>
+<p>Không thể phủ nhận được những thành công ngoài mong đợi của Deep Learning ở khắp các lĩnh vực phổ biến.</p>
+<ul>
+<li>Self-driving cars</li>
+<li>Voice Search &amp; Voice-Activated Assistants</li>
+<li>Automatic Machine Translation</li>
+<li>Automatic Text Generation</li>
+<li>Nhận dạng ảnh (Image Recognition)</li>
+<li>...</li>
+</ul>
+<p>Bạn có thể tham khảo trend hiện nay <a href="https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01">tại đây</a>.</p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Tiếp nối bài trước về Perceptron, ở bài này mình đã giới thiệu với các bạn về Neural Network từ ví dụ đầy sinh động về chính bộ não con người. ^^ Và đưa đến khái niệm về Deep Learning. Mong những kiến thức trên sẽ có ích cho bạn. Và hẹn gặp lại các bạn ở các bài viết sau tiếp tục đi sâu và rộng hơn về Deep Learning.</p>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01">https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01</a></li>
+<li><a href="http://neuralnetworksanddeeplearning.com/chap1.html">http://neuralnetworksanddeeplearning.com/chap1.html</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

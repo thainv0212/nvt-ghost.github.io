@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tạo Skype Bot với Microsoft Bot Framework</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo Skype Bot với Microsoft Bot Framework" />
+    <meta property="og:description" content="Bài viết này sẽ gồm có những mục sau:  - Microsoft bot framework: giới thiệu Microsoft bot framework cùng các công cụ đi kèm  - Bot Builder SDK: giới thiệu bộ SDK dùng để phát triển bot web service  Tạo bot nhắc nhở TODO cho ae trong công ty: Giới" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-skype-bot-voi-microsoft-bot-framework/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZEJjVi01MU9QaFk&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-02-02T15:03:57.000Z" />
+    <meta property="article:modified_time" content="2017-02-27T04:18:30.000Z" />
+    <meta property="article:tag" content="bot" />
+    <meta property="article:tag" content="skype" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo Skype Bot với Microsoft Bot Framework" />
+    <meta name="twitter:description" content="Bài viết này sẽ gồm có những mục sau:  - Microsoft bot framework: giới thiệu Microsoft bot framework cùng các công cụ đi kèm  - Bot Builder SDK: giới thiệu bộ SDK dùng để phát triển bot web service  Tạo bot nhắc nhở TODO cho ae trong công ty: Giới" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-skype-bot-voi-microsoft-bot-framework/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZEJjVi01MU9QaFk&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="bot, skype" />
+    <meta property="og:image:width" content="954" />
+    <meta property="og:image:height" content="584" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Tạo Skype Bot với Microsoft Bot Framework",
+    "url": "https://blog.vietnamlab.vn/tao-skype-bot-voi-microsoft-bot-framework/",
+    "datePublished": "2017-02-02T15:03:57.000Z",
+    "dateModified": "2017-02-27T04:18:30.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkZEJjVi01MU9QaFk&export=download",
+        "width": 954,
+        "height": 584
+    },
+    "keywords": "bot, skype",
+    "description": "Bài viết này sẽ gồm có những mục sau:\n\n-Microsoft bot framework: giới thiệu Microsoft bot framework cùng các công cụ đi\nkèm\n-Bot Builder SDK: giới thiệu bộ SDK dùng để phát triển bot web service\n\n * Tạo bot nhắc nhở TODO cho ae trong công ty: Giới thiệu hướng phát triển con\n   bot sử dụng trong công ty\n * Kết luận và link tham khảo\n\nMicrosoft Bot Framework\nFramework bao gồm:\n\n * Bot Builder SDK: SDK .NET hoặc NodeJS để phát triển tính năng cho bot.\n * Bot Connector: service giúp cho bạn kết nối ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tạo Skype Bot với Microsoft Bot Framework</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2017-02-02">02 Feb 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZEJjVi01MU9QaFk&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Bài viết này sẽ gồm có những mục sau:</p>
+<p>- <strong>Microsoft bot framework</strong>: <em>giới thiệu Microsoft bot framework cùng các công cụ đi kèm</em><br />
+- <strong>Bot Builder SDK</strong>: <em>giới thiệu bộ SDK dùng để phát triển bot web service</em></p>
+<ul>
+<li><strong>Tạo bot nhắc nhở TODO cho ae trong công ty</strong>: <em>Giới thiệu hướng phát triển con bot sử dụng trong công ty</em></li>
+<li><strong>Kết luận và link tham khảo</strong></li>
+</ul>
+<h3 id="microsoftbotframework">Microsoft Bot Framework</h3>
+<p>Framework bao gồm:</p>
+<ul>
+<li>Bot Builder SDK: SDK .NET hoặc NodeJS để phát triển tính năng cho bot.</li>
+<li>Bot Connector: service giúp cho bạn kết nối được với bot của bạn thông qua việc thiết lập các channel. Đóng vai trò trung gian - Forward message của bot tới user</li>
+<li>Send back message của user tới bot</li>
+<li>Developer Portal: <a href="https://dev.botframework.com">https://dev.botframework.com</a>, config bot của bạn</li>
+<li>Bot Directory: chung cấp các con bot đã được phát triển rồi để ta có thể lấy về dùng.</li>
+<li>Bot Emulator: để test bot trong quá trình dev</li>
+</ul>
+<h3 id="botlg">Bot là gì?</h3>
+<p>Bot vốn dĩ là web service tương tác với user qua các cuộc hội thoại thông qua các chanel được thiết lập sẵn (ext/SMS, Skype, Slack, Facebook Messenger,…).</p>
+<ul>
+<li>Thiết lập các cuộc hội thoại một các tự do, cũng có thể sử dụng tương tác ngôn ngữ tự nhiên hay những tương tác former hơn thông qua các user choices hay actions.</li>
+<li>Cuộc hội thoại có thể là simple text strings hoặc những công cụ phức tạp hơn như là  rich cards chứa text, images, và action buttons (hero card, thumb card,...).</li>
+</ul>
+<p>Microsoft cung cấp SDK cho .NET và NodeJS, với các ngôn ngữ khác thì sử dụng RESTAPI để tương tác với Bot Connector.</p>
+<ul>
+<li>SDK cho bot là open source, bạn có thể xem tại <a href="https://github.com/Microsoft/BotBuilder">BotBuilder</a>.</li>
+<li>Các ví dụ có thể xem tại <a href="https://github.com/Microsoft/BotBuilder-Samples">BotBuilder-Samples</a>.</li>
+</ul>
+<h4 id="cchhotngcabot">Cơ chế hoạt động của bot</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ0VKdDdQcVFJaGs&amp;export=download" alt="Mô hình cơ chế hoạt động" width="750" height="378" layout="responsive"></amp-img></p>
+<p><strong>Bots</strong>: là con bot chúng ta sẽ phát triển, thực ra là 1 web service trong Developer Portal của Microsoft có yêu cầu web service này phải là HTTPS.</p>
+<p><strong>Bot Connector</strong>: sẽ route các message giữa user và bot thông qua các channel như là Skype, Slack, Facebook Messager,… Các channel được config trên Developer Portal.</p>
+<h4 id="logichotngcabot">Logic hoạt động của bot</h4>
+<p>Logic đơn giản chỉ có:</p>
+<ul>
+<li>Automation todo messaging: vào 8h sáng và 17h hàng ngày gửi list todo vào group skype của công ty (sử dụng node cron để lập lịch)</li>
+<li>Khi member trong group muốn biết list todo hiện tại thì sẽ gõ <code>@&lt;tên_bot&gt; todo</code> -&gt; bot sẽ post list todo ra</li>
+</ul>
+<h3 id="botbuildersdk">Bot Builder SDK</h3>
+<p>Trong bài viết này tôi sẽ giới thiệu SDK của NodeJS, để sử dụng được SDK của NodeJS thì đâu tiên ta phải cài NodeJS đã.</p>
+<h4 id="installnodejsaddthvinbotbuildercentos">Install NodeJS + Add thư viện Bot Builder (CentOS)</h4>
+<p>Cài node:</p>
+<pre><code class="language-sh">$ sudo yum install nodejs npm
+</code></pre>
+<p>Cài package của Bot Builder:</p>
+<pre><code class="language-sh">$ npm init
+$ npm install --save botbuilder restify
+</code></pre>
+<ul>
+<li>botbuilder: SDK của Microsoft Bot Framework.</li>
+<li>restify: package làm web service.</li>
+</ul>
+<p>Thử làm "Hello World":</p>
+<pre><code class="language-javascript">var restify = require('restify');
+var builder = require('botbuilder');
+
+//=========================================================
+// Bot Setup
+//=========================================================
+
+// Setup Restify Server
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+  
+// Create chat bot
+var connector = new builder.ChatConnector({
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
+});
+var bot = new builder.UniversalBot(connector);
+server.post('/api/messages', connector.listen());
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+
+bot.dialog('/', function (session) {
+    session.send("Hello World");
+});
+</code></pre>
+<p>Khởi động bot:</p>
+<pre><code class="language-sh">$ node app.js
+</code></pre>
+<p>Cài Bot Emulator để test: <a href="https://docs.botframework.com/en-us/tools/bot-framework-emulator/">hướng dẫn</a>.</p>
+<p>Khởi động Bot Emulator và thiết lập:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjka21qM3NPTzdGMU0&amp;export=download" alt="Bot Emulator" width="1558" height="610" layout="responsive"></amp-img></p>
+<ul>
+<li>URL của web service bot.</li>
+<li>Ấn connect.</li>
+</ul>
+<p>Chat và sẽ thấy Hello World hiện ra.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTGh2Ul9IWUtXN0k&amp;export=download" alt="Hello World" width="1854" height="1186" layout="responsive"></amp-img></p>
+<ul>
+<li>Phần <strong>Details</strong> bên cạnh sẽ có lược sử các request + response và nội dung của request để giúp ta debug cho bot.</li>
+</ul>
+<h4 id="giithchvdhelloworld">Giải thích ví dụ Hello World</h4>
+<p>Khởi tạo bot:</p>
+<ul>
+<li>Khởi tạo web server:</li>
+</ul>
+<pre><code class="language-javascript">// Setup Restify Server
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+...
+server.post('/api/messages', connector.listen());
+</code></pre>
+<p>Sử dụng restify để tạo web server để xử lý tương tác với user.</p>
+<ul>
+<li>Thiết lập connector: có 2 loại là ConsoleConnector (tương tác với bot thông qua console, sẽ ko cần web server như trên) và ChatConnector (tương tác với bot trông qua emulator hoặc các channel)</li>
+</ul>
+<pre><code class="language-javascript">// Setup Restify Server
+var server = restify.createServer();
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+});
+...
+server.post('/api/messages', connector.listen());
+</code></pre>
+<p>process.env.MICROSOFT_APP_ID, appPassword: process.env.MICROSOFT_APP_PASSWORD là thông tin App tạo trên Microsoft Developer Portal, cần thiết khi chạy trên production, emulator ko cần.</p>
+<ul>
+<li>Thiết lập bot:</li>
+</ul>
+<pre><code class="language-javascript">var bot = new builder.UniversalBot(connector);
+
+//=========================================================
+// Bots Dialogs
+//=========================================================
+bot.dialog('/', function (session) {
+    session.send("Hello World");
+});
+</code></pre>
+<p>UniversalBot là bộ não của con bot, quản lý các cuộc hội thoại của bot và user qua việc định nghĩa các dialogs.</p>
+<p>Quản lý các Dialogs để tương tác với users.</p>
+<h4 id="messagetype">Message Type</h4>
+<p>Bot Builder SDK hỗ trợ 2 loại message:</p>
+<ul>
+<li><strong>Reactive Messages</strong> (message phản ứng)**: **response message  của bot cho user khi nhận được message từ user, thông thường sẽ được gửi qua method <code>session.send()</code>.</li>
+<li><strong>Proactive Messages</strong> (message chủ động)**: **message tự động gửi từ bot đến user mà không cần user tương tác với bot, ví dụ như con bot skype sẽ gửi list todo hàng ngày vào 8h sáng.</li>
+</ul>
+<p>Proactive Messages được send thông qua 1 trong 2 phương thức <code>bot.send()</code> và <code>bot.beginDialog()</code> của lớp <code>UniversalBot</code>, để gửi message chủ động thì ta cần thông tin address của nơi mà ta muốn bot gửi message đến. Ta có thể lấy dữ liệu address thông qua <code>session.message.address</code>. Sẽ có dạng như sau:</p>
+<pre><code class="language-json">  address:
+   { id: '1485306--------',
+     channelId: 'skype',
+     user:
+      { id: '29:10ZkF7DJz3CCiwAQKdodDjaoFlXJGS16----------',
+        name: '【GMO】VNLAB Hieu Tran' },
+     conversation:
+      { isGroup: true,
+        id: '19:e9b1e1da29a9473e990353354ebbd393@thread.skype' },
+     bot:
+      { id: '28:a23cbb4d-61e8-4143-8f5f-------------',
+        name: 'jarvis' },
+     serviceUrl: 'https://skype.botframework.com',
+     useAuth: true }
+</code></pre>
+<p>Trong đó:</p>
+<ul>
+<li><code>address.channelId</code>: kênh mà ta thiết lập trên Developer Portal</li>
+<li><code>address.user</code>: chứa thông tin của user tương tác với ta</li>
+<li><code>address.conversation</code>: thông tin quan trọng nhất để gửi message chủ động chưa conversation id để gửi message</li>
+<li><code>address.bot</code>: thông tin của bot</li>
+<li><code>address.serviceUrl</code>: url của channel</li>
+</ul>
+<p>Đoạn code sau là đoạn code gửi message chủ động thông qua request lên web server</p>
+<pre><code class="language-javascript">server.post('/api/notify', function (req, res) {
+    // Process posted notification
+    var address = JSON.parse(req.body.address);
+    var notification = req.body.notification;
+
+    // Send notification as a proactive message
+    var msg = new builder.Message()
+        .address(address)
+        .text(notification);
+    bot.send(msg, function (err) {
+        // Return success/failure
+        res.status(err ? 500 : 200);
+        res.end();
+    });
+});
+</code></pre>
+<p>Trong đó:</p>
+<ul>
+<li><code>var address = JSON.parse(req.body.address);</code>: lấy thông tin address từ boby của request ( tức là trong http request sẽ chứa thông tin conversation mà muốn bot gửi message tới)</li>
+<li>Sau khi có được thông tin address thì ta chỉ cần sử dụng method <code>bot.send()</code> để gửi message.</li>
+</ul>
+<h4 id="cardsvbuttons">Cards và Buttons</h4>
+<p>Trong skype ta có thể tạo các Card hay Button thay cho text message.</p>
+<p>Các loại card hỗ trợ:</p>
+<ul>
+<li>Hero card</li>
+<li>Thumbnail card</li>
+<li>Video card</li>
+<li>Audio card</li>
+<li>Animated GIF card</li>
+<li>Carousel card (with hero or thumbnail images)</li>
+<li>Sign in card</li>
+<li>Receipt card</li>
+</ul>
+<p>Các card và button này giúp người dùng tương tác thêm sinh động với bot. Các bạn có thể xem thêm tại <a href="https://docs.botframework.com/en-us/skype/getting-started/#cards-and-buttons">link</a></p>
+<h3 id="tobotnhcnhtodo">Tạo bot nhắc nhở TODO</h3>
+<h4 id="yucu">Yêu cầu</h4>
+<p>Quản lý lịch TODO của công ty, bao gồm:</p>
+<ul>
+<li>List task</li>
+<li>Người chịu trách nhiệm</li>
+<li>Hạn phải hoàn thành</li>
+</ul>
+<p>Tương lai:</p>
+<ul>
+<li>Alert những task gấp</li>
+<li>Tăng tính tương tác
+<ul>
+<li>Vote</li>
+<li>Tra cứu thông tin cần thiết.</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+<p>Nếu ai đang làm trong cty của Nhật hoặc liên quan tới Nhật sẽ thấu hiểu tình cảnh có rất nhiều việc lặt vặt, không mang lại giá trị cho công ty, cá nhân nhưng ta vẫn phải làm hàng ngày, và tốt nhất để giải quyết nó một cách đơn giản, ko bị ảnh hưởng tới những việc có giá trị cao của chúng ta là ta phải tự động hoá những việc vặt vãnh đấy. Con bot này cũng cùng với mục đích đẩy để giảm bớt gánh nặng cho mấy ae trong công ty.</p>
+<h4 id="hnggiiquyt">Hướng giải quyết</h4>
+<p>Sử dụng Microsoft Bot làm 1 chú bot thông qua skype để mỗi ngày vào 8h sáng (giờ cty bắt đầu làm việc) nhắc nhở todo list cho anh em trong cty.</p>
+<p>Data source: sử dụng <a href="https://trello.com">Trello</a> (tool trực quan hoá công việc bằng các thẻ card), lý do tôi dùng trello làm data source vì độ trực quan cao, thao tác dễ, tương tác = API cũng rất đơn giản.</p>
+<p>Vấn đề Scheduling: sử dụng <a href="https://github.com/kelektiv/node-cron">node cron</a></p>
+<p>Quản lý nodejs service: PM2</p>
+<h4 id="trnhtthcthi">Trình tự thực thi</h4>
+<ol>
+<li>Tạo app trên Application Registration Portal của Microsoft</li>
+<li>Lấy AppId và App Secret để config cho bot</li>
+<li>Tạo bot trên Developer Portal: <a href="https://dev.botframework.com/bots/">link</a></li>
+<li>Config AppId và App Secret tạo ra ở trên</li>
+<li>Config các thông tin sau của bot</li>
+</ol>
+<ul>
+<li>Messaging endpoint: phải là https (trong TH của tôi là <a href="https://longkyo.com/api/messages">https://longkyo.com/api/messages</a>)</li>
+<li>Name</li>
+<li>Icon</li>
+</ul>
+<ol start="6">
+<li>Add Skype Channel trong Developer Portal</li>
+<li>Edit Skype Channel và enable group Group messaging để bot có thể tương tác với group trong skype</li>
+<li>Add bot vào skype của mình trên Developer Portal</li>
+<li>Add bot vào group trong skype</li>
+<li>Config cho bot các thông số:</li>
+</ol>
+<ul>
+<li>Skype conversation id</li>
+<li>Trello list id</li>
+</ul>
+<h4 id="cchhotng">Cơ chế hoạt động</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZEJjVi01MU9QaFk&amp;export=download" alt="Tổng quan" width="954" height="584" layout="responsive"></amp-img></p>
+<div class="caption">Tổng quan sơ đồ hoạt động</div>
+<p>List todo được lấy từ 1 list của Trello:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkaHhJUHhOeEY0dlk&amp;export=download" alt="List TODO" width="562" height="664" layout="responsive"></amp-img></p>
+<p>Nội dung của 1 todo sẽ bao gồm:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSzRxazVBS3ZIODQ&amp;export=download" alt="Nội dung TODO" width="1488" height="682" layout="responsive"></amp-img></p>
+<ul>
+<li>Tên task: title của card</li>
+<li>Member: member được assign trên card</li>
+<li>Due date: due date của card</li>
+<li>Note: lấy từ description của card ( theo json format )</li>
+</ul>
+<h3 id="ktlun">Kết luận</h3>
+<p>Đặc điểm nổi bật:</p>
+<ul>
+<li>Sử dụng Microsoft Bot Framework giúp ta linh động hơn trong việc lựa chọn các channel để tương tác với người dùng.</li>
+<li>Sử dụng trello làm data source giúp trực quan hoá tối đa task todo của công ty.</li>
+<li>Giảm được thời gian quản lý task todo cũng nhưng giúp ae quên những task todo phải làm.</li>
+</ul>
+<p>Hướng phát triển cho trương lai:</p>
+<ul>
+<li>Phát triển AI cho bot hoặc xử lý ngôn ngữ tự nhiên (natural language processing)</li>
+<li>Phát triển thêm nhiều tính năng tự động như là:
+<ul>
+<li>Alert liên tục những task khẩn cấp</li>
+<li>Alert cuối tháng nhập time cho redmine</li>
+<li>Chúc mừng sinh nhật ae trong cty</li>
+<li>...</li>
+</ul>
+</li>
+<li>Notify trên các channel như là Facebook messager (hiện tại chưa hỗ trợ add bot vào group)</li>
+<li>...</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://docs.botframework.com/en-us/">https://docs.botframework.com/en-us/</a></li>
+<li><a href="https://developers.trello.com/advanced-reference">https://developers.trello.com/advanced-reference</a></li>
+<li>Các bạn thuộc VNLAB có thể xem source tại <a href="https://gitlab.com/vnlab/skype-bot">GitLab</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

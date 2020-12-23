@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tạo todo list app đơn giản với gRPC golang</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo todo list app đơn giản với gRPC golang" />
+    <meta property="og:description" content="Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:29:44.000Z" />
+    <meta property="article:modified_time" content="2019-10-09T01:29:44.000Z" />
+    <meta property="article:tag" content="golang" />
+    <meta property="article:tag" content="microservice" />
+    <meta property="article:tag" content="grpc" />
+    <meta property="article:tag" content="api" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo todo list app đơn giản với gRPC golang" />
+    <meta name="twitter:description" content="Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="golang, microservice, grpc, api" />
+    <meta property="og:image:width" content="1754" />
+    <meta property="og:image:height" content="824" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Tạo todo list app đơn giản với gRPC golang",
+    "url": "https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/",
+    "datePublished": "2019-10-09T01:29:44.000Z",
+    "dateModified": "2019-10-09T01:29:44.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&export=download",
+        "width": 1754,
+        "height": 824
+    },
+    "keywords": "golang, microservice, grpc, api",
+    "description": "Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường\nmicroservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ\ntrễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ trình\nbày nội dung cơ bản liên quan đến gRPC và làm một todo list app demo để chúng ta\nbiết cách sử dụng gRPC trong thực tế nhé.\n\n1. gRPC là gì\ngRPC là một RPC platform được phát triển bởi Google nhằm tối ưu hoá và tăng tốc\nviệc giao tiếp giữa các service với nhau t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tạo todo list app đơn giản với gRPC golang</h1>
+                <section class="post-meta">
+                    T.P.H -
+                    <time class="post-date" datetime="2019-10-09">09 Oct 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ trình bày nội dung cơ bản liên quan đến gRPC và làm một todo list app demo để chúng ta biết cách sử dụng gRPC trong thực tế nhé.</p><h3 id="1grpclg">1. gRPC là gì</h3>
+<p>gRPC là một RPC platform được phát triển bởi Google nhằm tối ưu hoá và tăng tốc việc giao tiếp giữa các service với nhau trong kiến trúc microservice.</p>
+<p>gRPC dùng Protocal Buffer giảm kích thước request và response data, RPC để đơn giản hoá trong việc tạo ra các giao tiếp giữa các service với nhau, HTTP/2 để tăng tốc gửi/nhận HTTP request.</p>
+<p>Để hiểu rõ hơn về gRPC bạn có thể tham khảo link sau: <a href="https://github.com/thenguyenit/blogs/wiki/D%C3%B9ng-l%C3%BD-thuy%E1%BA%BFt-c%E1%BB%A7-h%C3%A0nh-%C4%91%E1%BB%83-t%C3%ACm-hi%E1%BB%83u-gRPC">Dùng lý thuyết củ hành để tìm hiểu gRPC</a></p>
+<p>Có thể hiểu nôm na gRPC là tương tự như REST dùng để giao tiếp giữa các service, tuy nhiên tốc độ gRPC nhanh hơn REST rất nhiều, bù lại gRPC khó sử dụng và rườm rà hơn. Bạn chỉ nên sử dụng gRPC khi có vấn đề về độ trễ trong việc giao tiếp giữa các service trong kiến trúc microservice.</p>
+<p>Chúng ta sẽ bắt đầu làm một todo list app để biết gRPC sử dụng ra sao nhé.</p>
+<h3 id="2yucu">2. Yêu cầu:</h3>
+<p>Để hiểu nội dung blog này bạn cần phải có những kiến thức sau:</p>
+<ul>
+<li>Golang (ver 1.11 trở lên để sử dụng Go module)</li>
+<li>SQL cơ bản (ở đây mình dùng v8, nếu dùng thấp hơn bạn hãy tự convert sql của mình sang sql thích hợp).</li>
+<li>Web client mình sử dụng beego nên cần phải biết chút ít về Beego.</li>
+</ul>
+<h3 id="3togrpccrudservice">3. Tạo gRPC CRUD service</h3>
+<p>Trong phần này mình sẽ tạo một gRPC CRUD service (gRPC server) và một test-client để test nó.</p>
+<p>Phần này mình tham khảo một bài blog trên medium, bạn có thể truy cập link bài viết gốc:<br />
+<a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.<br />
+</a><br />
+Các hướng dẫn sau là dành cho môi trường windows sử dụng git bash, nếu bạn dùng linux hoặc mac thì hãy tự convert sang lệnh tương tự.</p>
+<h4 id="nhnghaapi">Định nghĩa api</h4>
+<p>Đầu tiên tại một nơi ngoài GOPATH, tạo thư mục project và dùng Go module để init.</p>
+<pre><code class="language-sh">mkdir todo-grpc
+cd todo-grpc
+go mod init github.com/hieuvecto/todo-grpc
+</code></pre>
+<p>Tạo folder cho phần định nghĩa api</p>
+<pre><code class="language-sh">mkdir -p api/proto/v1
+</code></pre>
+<p>Tiếp theo tạo file todo-service.proto bên trong thư mục api/proto/v1 và thêm các định nghĩa của các phương thức CRUD:</p>
+<pre><code class="language-go">// todo-service.proto
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/timestamp.proto";
+
+// Taks we have to do
+message ToDo {
+    // Unique integer identifier of the todo task
+    int64 id = 1;
+
+    // Title of the task
+    string title = 2;
+
+    // Detail description of the todo task
+    string description = 3;
+
+    google.protobuf.Timestamp insert_at = 4;
+
+    google.protobuf.Timestamp update_at = 5;
+}
+
+// Request data to create new todo task
+message CreateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity to add
+    ToDo toDo = 2;
+}
+
+// Contains data of created todo task
+message CreateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // ID of created task
+    int64 id = 2;
+}
+
+// Request data to read todo task
+message ReadRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of the todo task
+    int64 id = 2;
+}
+
+// Contains todo task data specified in by ID request
+message ReadResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity read by ID
+    ToDo toDo = 2;
+}
+
+// Request data to update todo task
+message UpdateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity to update
+    ToDo toDo = 2;
+}
+
+// Contains status of update operation
+message UpdateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Contains number of entities have beed updated
+    // Equals 1 in case of succesfull update
+    int64 updated = 2;
+}
+
+// Request data to delete todo task
+message DeleteRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of the todo task to delete
+    int64 id = 2;
+}
+
+// Contains status of delete operation
+message DeleteResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Contains number of entities have beed deleted
+    // Equals 1 in case of succesfull delete
+    int64 deleted = 2;
+}
+
+// Request data to read all todo task
+message ReadAllRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+}
+
+// Contains list of all todo tasks
+message ReadAllResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // List of all todo tasks
+    repeated ToDo toDos = 2;
+}
+
+// Service to manage list of todo tasks
+service ToDoService {
+    // Create new todo task
+    rpc Create(CreateRequest) returns (CreateResponse);
+
+    // Read todo task
+    rpc Read(ReadRequest) returns (ReadResponse);
+
+    // Update todo task
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+
+    // Delete todo task
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+    // Read all todo tasks
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+}
+</code></pre>
+<p>Về chi tiết cú pháp và ngôn ngữ của .proto, bạn có thể tham khảo bài viết sau: <a href="https://developers.google.com/protocol-buffers/docs/proto3?source=post_page-----daebb36a97e9----------------------">Chi tiết cú pháp proto</a></p>
+<p>Để compile file Proto, chúng ta cần phải cài một số tool và package cần thiết sau.</p>
+<ul>
+<li>Tải proto compiler binary ở đây: <a href="https://github.com/protocolbuffers/protobuf/releases?source=post_page-----daebb36a97e9----------------------">Protocolbuffers/Protobuf</a> (Lưu ý là tải file platform-x64-.zip nhé)</li>
+<li>Giải nén file zip đến bất kì thư mục trên máy và thêm đường dẫn thư mục "bin" trong thư mục đã giải nén vào biến PATH môi trường windows.</li>
+<li>Tạo thư mục "third_party"  trong thư mục root của project (todo-grpc)</li>
+<li>Copy tất cả từ thư mục "include" của Proto compiler đến thư mục "third_party"</li>
+</ul>
+<p>Cài đặt code generator plugin của golang cho Proto compiler.</p>
+<pre><code class="language-sh">go get -u github.com/golang/protobuf/protoc-gen-go 
+</code></pre>
+<p>Tạo file protoc-gen.sh trong thư mục "third_party":</p>
+<pre><code class="language-sh">// protoc-gen.sh
+protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 todo-service.proto
+</code></pre>
+<p>Tạo thư mục ouput cho file go được generate từ file .proto</p>
+<pre><code class="language-sh">mkdir -p pkg/api/v1
+</code></pre>
+<p>Đảm bảo lệnh sau được chạy trong thư mục root (todo-grpc) của project để compile file .proto</p>
+<pre><code class="language-sh">sh ./third_party/protoc-gen.sh   
+</code></pre>
+<p>Nó sẽ tạo ra (generate) file go từ file .proto và nằm trong thư mục "pkg/model/v1":<br />
+Cấu trúc của file sẽ như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=10kef8a2UsPCsKBIR-62kkDEU_GDT5b3C&amp;export=download" alt="uc?id=10kef8a2UsPCsKBIR-62kkDEU_GDT5b3C&amp;export=download" width="410" height="424" layout="responsive"></amp-img></p>
+<h4 id="trinkhaiapi">Triển khai api</h4>
+<p>Tiếp theo chúng ta sẽ triển khai grpc api bằng golang như sau:<br />
+Chúng ta cần một database để lưu trữ data của todo, ở đây mình dùng mysql.<br />
+Tạo bảng ToDo với cú pháp sau:</p>
+<pre><code class="language-sql">CREATE TABLE `ToDo` (
+  `ID` int(6) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(200) NOT NULL,
+  `Description` varchar(1024) DEFAULT NULL,
+  `InsertAt` timestamp NOT NULL,
+  `UpdateAt` timestamp NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+);
+</code></pre>
+<p>Tạo file "pkg/service/v1/todo-service.go" với nội dung sau:</p>
+<pre><code class="language-go">package v1
+
+import (
+	"context"
+	"database/sql"
+	"fmt"
+	"time"
+
+	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
+	"github.com/hieuvecto/todo-grpc/pkg/api/v1"
+)
+
+const (
+	// apiVersion is version of API is provided by server
+	apiVersion = "v1"
+)
+
+// toDoServiceServer is implementation of v1.ToDoServiceServer proto interface
+type toDoServiceServer struct {
+	db *sql.DB
+}
+
+// NewToDoServiceServer creates ToDo service
+func NewToDoServiceServer(db *sql.DB) v1.ToDoServiceServer {
+	return &amp;toDoServiceServer{db: db}
+}
+
+// checkAPI checks if the API version requested by client is supported by server
+func (s *toDoServiceServer) checkAPI(api string) error {
+	// API version is "" means use current version of the service
+	if len(api) &gt; 0 {
+		if apiVersion != api {
+			return status.Errorf(codes.Unimplemented,
+				"unsupported API version: service implements API version '%s', but asked for '%s'", apiVersion, api)
+		}
+	}
+	return nil
+}
+
+// connect returns SQL database connection from the pool
+func (s *toDoServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
+	c, err := s.db.Conn(ctx)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to connect to database-&gt; "+err.Error())
+	}
+	return c, nil
+}
+
+// Create new todo task
+func (s *toDoServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*v1.CreateResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	insert_at, err := ptypes.Timestamp(req.ToDo.InsertAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, "insert_at field has invalid format-&gt; "+err.Error())
+	}
+
+	update_at, err := ptypes.Timestamp(req.ToDo.UpdateAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, "update_at field has invalid format-&gt; "+err.Error())
+	}
+
+	// insert ToDo entity data
+	res, err := c.ExecContext(ctx, "INSERT INTO ToDo(`Title`, `Description`, `InsertAt`, `UpdateAt`) VALUES(?, ?, ?, ?)",
+		req.ToDo.Title, req.ToDo.Description, insert_at, update_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to insert into ToDo-&gt; "+err.Error())
+	}
+
+	// get ID of creates ToDo
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created ToDo-&gt; "+err.Error())
+	}
+
+	return &amp;v1.CreateResponse{
+		Api: apiVersion,
+		Id:  id,
+	}, nil
+}
+
+// Read todo task
+func (s *toDoServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.ReadResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// query ToDo by ID
+	rows, err := c.QueryContext(ctx, "SELECT * FROM ToDo WHERE `ID`=?",
+		req.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from ToDo-&gt; "+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve data from ToDo-&gt; "+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("ToDo with ID='%d' is not found",
+			req.Id))
+	}
+
+	// get ToDo data
+	var td v1.ToDo
+	var insert_at time.Time
+	var update_at time.Time
+	if err := rows.Scan(&amp;td.Id, &amp;td.Title, &amp;td.Description, &amp;insert_at, &amp;update_at); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve field values from ToDo row-&gt; "+err.Error())
+	}
+	td.InsertAt, err = ptypes.TimestampProto(insert_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "insert_at field has invalid format-&gt; "+err.Error())
+	}
+	td.UpdateAt, err = ptypes.TimestampProto(update_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "update_at field has invalid format-&gt; "+err.Error())
+	}
+
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf("found multiple ToDo rows with ID='%d'",
+			req.Id))
+	}
+
+	return &amp;v1.ReadResponse{
+		Api:  apiVersion,
+		ToDo: &amp;td,
+	}, nil
+
+}
+
+// Update todo task
+func (s *toDoServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	update_at, err := ptypes.Timestamp(req.ToDo.UpdateAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, "update_at field has invalid format-&gt; "+err.Error())
+	}
+
+	// update ToDo
+	res, err := c.ExecContext(ctx, "UPDATE ToDo SET `Title`=?, `Description`=?, `UpdateAt`=? WHERE `ID`=?",
+		req.ToDo.Title, req.ToDo.Description, update_at, req.ToDo.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to update ToDo-&gt; "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-&gt; "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("ToDo with ID='%d' is not found",
+			req.ToDo.Id))
+	}
+
+	return &amp;v1.UpdateResponse{
+		Api:     apiVersion,
+		Updated: rows,
+	}, nil
+}
+
+// Delete todo task
+func (s *toDoServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// delete ToDo
+	res, err := c.ExecContext(ctx, "DELETE FROM ToDo WHERE `ID`=?", req.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to delete ToDo-&gt; "+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve rows affected value-&gt; "+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("ToDo with ID='%d' is not found",
+			req.Id))
+	}
+
+	return &amp;v1.DeleteResponse{
+		Api:     apiVersion,
+		Deleted: rows,
+	}, nil
+}
+
+// Read all todo tasks
+func (s *toDoServiceServer) ReadAll(ctx context.Context, req *v1.ReadAllRequest) (*v1.ReadAllResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// get ToDo list
+	rows, err := c.QueryContext(ctx, "SELECT * FROM ToDo")
+	if err != nil {
+		return nil, status.Error(codes.Unknown, "failed to select from ToDo-&gt; "+err.Error())
+	}
+	defer rows.Close()
+
+	var insert_at time.Time
+	var update_at time.Time
+	list := []*v1.ToDo{}
+	for rows.Next() {
+		td := new(v1.ToDo)
+		if err := rows.Scan(&amp;td.Id, &amp;td.Title, &amp;td.Description, &amp;insert_at, &amp;update_at); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve field values from ToDo row-&gt; "+err.Error())
+		}
+		td.InsertAt, err = ptypes.TimestampProto(insert_at)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "insert_at field has invalid format-&gt; "+err.Error())
+		}
+		td.UpdateAt, err = ptypes.TimestampProto(update_at)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "update_at field has invalid format-&gt; "+err.Error())
+		}
+		list = append(list, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from ToDo-&gt; "+err.Error())
+	}
+
+	return &amp;v1.ReadAllResponse{
+		Api:   apiVersion,
+		ToDos: list,
+	}, nil
+}    
+</code></pre>
+<p>Vậy là đã xong phần triển khai api</p>
+<h4 id="tovkhinggrpcserver">Tạo và khởi động gRPC server</h4>
+<p>Tạo file "pkg/protocol/grpc/server.go" với nội dung sau:</p>
+<pre><code class="language-go">    
+package grpc
+
+import (
+	"context"
+	"log"
+	"net"
+	"os"
+	"os/signal"
+
+	"google.golang.org/grpc"
+
+	"github.com/hieuvecto/todo-grpc/pkg/api/v1"
+)
+
+// RunServer runs gRPC service to publish ToDo service
+func RunServer(ctx context.Context, v1API v1.ToDoServiceServer, port string) error {
+	listen, err := net.Listen("tcp", ":"+port)
+	if err != nil {
+		return err
+	}
+
+	// register service
+	server := grpc.NewServer()
+	v1.RegisterToDoServiceServer(server, v1API)
+
+	// graceful shutdown
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		for range c {
+			// sig is a ^C, handle it
+			log.Println("shutting down gRPC server...")
+
+			server.GracefulStop()
+
+			&lt;-ctx.Done()
+		}
+	}()
+
+	// start gRPC server
+	log.Println("starting gRPC server...")
+	return server.Serve(listen)
+}
+                         
+</code></pre>
+<p>Hàm RunServer sẽ register ToDo service và khởi động gRPC server.</p>
+<p>Tiếp theo tạo file "pkg/cmd/server/server.go" với nội dung sau:</p>
+<pre><code class="language-go">package cmd
+
+import (
+	"context"
+	"database/sql"
+	"flag"
+	"fmt"
+
+	// mysql driver
+	_ "github.com/go-sql-driver/mysql"
+
+	"github.com/hieuvecto/todo-grpc/pkg/protocol/grpc"
+	"github.com/hieuvecto/todo-grpc/pkg/service/v1"
+)
+
+// Config is configuration for Server
+type Config struct {
+	// gRPC server start parameters section
+	// gRPC is TCP port to listen by gRPC server
+	GRPCPort string
+
+	// DB Datastore parameters section
+	// DatastoreDBHost is host of database
+	DatastoreDBHost string
+	// DatastoreDBUser is username to connect to database
+	DatastoreDBUser string
+	// DatastoreDBPassword password to connect to database
+	DatastoreDBPassword string
+	// DatastoreDBSchema is schema of database
+	DatastoreDBSchema string
+}
+
+// RunServer runs gRPC server and HTTP gateway
+func RunServer() error {
+	ctx := context.Background()
+
+	// get configuration
+	var cfg Config
+	flag.StringVar(&amp;cfg.GRPCPort, "grpc-port", "", "gRPC port to bind")
+	flag.StringVar(&amp;cfg.DatastoreDBHost, "db-host", "", "Database host")
+	flag.StringVar(&amp;cfg.DatastoreDBUser, "db-user", "", "Database user")
+	flag.StringVar(&amp;cfg.DatastoreDBPassword, "db-password", "", "Database password")
+	flag.StringVar(&amp;cfg.DatastoreDBSchema, "db-schema", "", "Database schema")
+	flag.Parse()
+
+	if len(cfg.GRPCPort) == 0 {
+		return fmt.Errorf("invalid TCP port for gRPC server: '%s'", cfg.GRPCPort)
+	}
+
+	// add MySQL driver specific parameter to parse date/time
+	// Drop it for another database
+	param := "parseTime=true"
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?%s",
+		cfg.DatastoreDBUser,
+		cfg.DatastoreDBPassword,
+		cfg.DatastoreDBHost,
+		cfg.DatastoreDBSchema,
+		param)
+
+	db, err := sql.Open("mysql", dsn)
+	if err != nil {
+		return fmt.Errorf("failed to open database: %v", err)
+	}
+	defer db.Close()
+
+	v1API := v1.NewToDoServiceServer(db)
+
+	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
+}
+</code></pre>
+<p>Hàm RunServer sẽ đọc các tham số từ command line, tạo SQL database connection pool, tạo ToDo service instance và gọi hàm RunServer trước đó của gRPC server.</p>
+<p>Cuối cùng thì tạo file "cmd/server/main.go" với các nội dung sau:</p>
+<pre><code class="language-go">package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/hieuvecto/todo-grpc/pkg/cmd"
+)
+
+func main() {
+	if err := cmd.RunServer(); err != nil {
+		fmt.Fprintf(os.Stderr, "%v\n", err)
+		os.Exit(1)
+	}
+}
+</code></pre>
+<p>Vậy là xong phần server. Cấu trúc thư mục sẽ như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1HZ0Jz1mr-sezUqIXHEDqQU_BdyDL_QsA&amp;export=download" alt="uc?id=1HZ0Jz1mr-sezUqIXHEDqQU_BdyDL_QsA&amp;export=download" width="392" height="686" layout="responsive"></amp-img></p>
+<h4 id="totestclienttestgrpcserverthcoicchyokko">Tạo test-client để test gRPC server thử coi có chạy ok ko</h4>
+<p>Tạo file "cmd/test-client/main.go" với nội dung sau:</p>
+<pre><code class="language-go">package main
+
+import (
+	"context"
+	"flag"
+	"log"
+	"time"
+
+	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/grpc"
+
+	"github.com/hieuvecto/todo-grpc/pkg/api/v1"
+)
+
+const (
+	// apiVersion is version of API is provided by server
+	apiVersion = "v1"
+)
+
+func main() {
+	// get configuration
+	address := flag.String("server", "", "gRPC server in format host:port")
+	flag.Parse()
+
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(*address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+	}
+	defer conn.Close()
+
+	c := v1.NewToDoServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	t := time.Now().In(time.UTC)
+	insert_at, _ := ptypes.TimestampProto(t)
+	pfx := t.Format(time.RFC3339Nano)
+
+	// Call Create
+	req1 := v1.CreateRequest{
+		Api: apiVersion,
+		ToDo: &amp;v1.ToDo{
+			Title:       "title (" + pfx + ")",
+			Description: "description (" + pfx + ")",
+			InsertAt:    insert_at,
+			UpdateAt: insert_at,
+		},
+	}
+	res1, err := c.Create(ctx, &amp;req1)
+	if err != nil {
+		log.Fatalf("Create failed: %v", err)
+	}
+	log.Printf("Create result: &lt;%+v&gt;\n\n", res1)
+
+	id := res1.Id
+
+	// Read
+	req2 := v1.ReadRequest{
+		Api: apiVersion,
+		Id:  id,
+	}
+	res2, err := c.Read(ctx, &amp;req2)
+	if err != nil {
+		log.Fatalf("Read failed: %v", err)
+	}
+	log.Printf("Read result: &lt;%+v&gt;\n\n", res2)
+
+	// Update
+	req3 := v1.UpdateRequest{
+		Api: apiVersion,
+		ToDo: &amp;v1.ToDo{
+			Id:          res2.ToDo.Id,
+			Title:       res2.ToDo.Title,
+			Description: res2.ToDo.Description + " + updated",
+			UpdateAt:    res2.ToDo.UpdateAt,
+		},
+	}
+	res3, err := c.Update(ctx, &amp;req3)
+	if err != nil {
+		log.Fatalf("Update failed: %v", err)
+	}
+	log.Printf("Update result: &lt;%+v&gt;\n\n", res3)
+
+	// Call ReadAll
+	req4 := v1.ReadAllRequest{
+		Api: apiVersion,
+	}
+	res4, err := c.ReadAll(ctx, &amp;req4)
+	if err != nil {
+		log.Fatalf("ReadAll failed: %v", err)
+	}
+	log.Printf("ReadAll result: &lt;%+v&gt;\n\n", res4)
+
+	// Delete
+	req5 := v1.DeleteRequest{
+		Api: apiVersion,
+		Id:  id,
+	}
+	res5, err := c.Delete(ctx, &amp;req5)
+	if err != nil {
+		log.Fatalf("Delete failed: %v", err)
+	}
+	log.Printf("Delete result: &lt;%+v&gt;\n\n", res5)
+}
+</code></pre>
+<h4 id="chythgrpcserverdngtestclienttest">Chạy thử gRPC server dùng test-client để test</h4>
+<p>Ta sẽ đảm bảo rằng gRPC server sẽ hoạt động bình thường.<br />
+Mở terminal mới để build và run gRPC server (thay thế các tham số để phù hợp với môi trường của bạn):</p>
+<pre><code class="language-sh">cd cmd/server
+go build .
+server.exe -grpc-port=9090 -db-host=&lt;HOST&gt;:3306 -db-user=&lt;USER&gt; -db-password=&lt;PASSWORD&gt; -db-schema=&lt;SCHEMA&gt;
+</code></pre>
+<p>Hiện tại code trên chưa bắn lỗi khi ko kết nối được với database nên nó sẽ luôn luôn chạy nếu build được :))</p>
+<p>Mở terminal khác để build và run phần test-client:</p>
+<pre><code class="language-sh">cd cmd/test-client
+go build .
+test-client.exe -server=localhost:9090
+</code></pre>
+<p>Nếu ko gặp lỗi nào, ta sẽ thấy như thế này</p>
+<pre><code class="language-sh">2018/09/09 09:16:01 Create result: &lt;api:"v1" id:13 &gt;
+2018/09/09 09:16:01 Read result: &lt;api:"v1" toDo:&lt;id:13 title:"title (2018-09-09T06:16:01.5755011Z)" description:"description (2018-09-09T06:16:01.5755011Z)" reminder:&lt;seconds:1536473762 &gt; &gt; &gt;
+2018/09/09 09:16:01 Update result: &lt;api:"v1" updated:1 &gt;
+2018/09/09 09:16:01 ReadAll result: &lt;api:"v1" toDos:&lt;id:9 title:"title (2018-09-09T04:45:16.3693282Z)" description:"description (2018-09-09T04:45:16.3693282Z)" reminder:&lt;seconds:1536468316 &gt; &gt; toDos:&lt;id:10 title:"title (2018-09-09T04:46:00.7490565Z)" description:"description (2018-09-09T04:46:00.7490565Z)" reminder:&lt;seconds:1536468362 &gt; &gt; toDos:&lt;id:13 title:"title (2018-09-09T06:16:01.5755011Z)" description:"description (2018-09-09T06:16:01.5755011Z) + updated" reminder:&lt;seconds:1536473762 &gt; &gt; &gt;
+2018/09/09 09:16:01 Delete result: &lt;api:"v1" deleted:1 &gt;
+</code></pre>
+<p>Tức là gRPC hoạt động bình thường.</p>
+<h3 id="4tiptheochngtastowebclientchotodolistapp">4. Tiếp theo chúng ta sẽ tạo web client cho todo list app.</h3>
+<p>Phần này chỉ dùng beego để tạo 1 web app cơ bản thôi, khi cần lấy data thì web client sẽ gọi đến gRPC server được viết tương tự như phần test-client. Mình sẽ để mẫu một hàm controller như sau:</p>
+<pre><code class="language-go">func (c *TodoController) ReadTodo() {
+
+	address := beego.AppConfig.String("grpc-server")
+	apiVersion := beego.AppConfig.String("apiVersion")
+	id := c.Ctx.Input.Param(":id")
+
+	id_int, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		c.Abort("500")
+	}
+
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("cannot connect to grpc server: %v", err)
+		c.Abort("500")
+	}
+	defer conn.Close()
+
+	client := v1.NewToDoServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	req := v1.ReadRequest{
+		Api: apiVersion,
+		Id:  id_int,
+	}
+	res, err := client.Read(ctx, &amp;req)
+	if err != nil {
+		log.Fatalf("Read failed: %v", err)
+		c.Abort("500")
+	}
+	log.Printf("Read result: &lt;%+v&gt;\n\n", res)
+
+	c.Data["ToDo"] = res.ToDo
+
+	c.TplName = "read.tpl"
+}
+    
+</code></pre>
+<p>Các bạn chỉ việc dùng thư viện mở rồi đóng kết nối gRPC khi sử dụng xong như bình thường.</p>
+<p>Phần này thì các bạn cần phải biết Beego thì mới hiểu được, nên mình sẽ đưa toàn bộ source code để các bạn xem. Code đơn giản thôi nên khi bạn biết beego sẽ dễ dàng hiểu được code.<br />
+<a href="https://github.com/hieuvecto/todo-grpc">https://github.com/hieuvecto/todo-grpc</a></p>
+<p>Hoặc nếu các bạn muốn triển khai nhanh mà ko cần phải cài đặt gì (chỉ yêu cầu cài đặt duy nhất vagrant và virtual box), mình có làm sẵn phần deployment cho project này:<br />
+<a href="https://github.com/hieuvecto/todo-grpc-deployment">https://github.com/hieuvecto/todo-grpc-deployment</a></p>
+<p>Đây là giao diện todo list đơn giản<br />
+<amp-img src="https://drive.google.com/uc?id=1jXBFq9W3lfEQPVijvZu3h-Scgzdvx7NE&amp;export=download" alt="uc?id=1jXBFq9W3lfEQPVijvZu3h-Scgzdvx7NE&amp;export=download" width="1895" height="939" layout="responsive"></amp-img></p>
+<h3 id="5tnghplinkt">5. Tổng hợp liên kết:</h3>
+<p><a href="https://github.com/thenguyenit/blogs/wiki/D%C3%B9ng-l%C3%BD-thuy%E1%BA%BFt-c%E1%BB%A7-h%C3%A0nh-%C4%91%E1%BB%83-t%C3%ACm-hi%E1%BB%83u-gRPC">Dùng lý thuyết củ hành để tìm hiểu gRPC</a><br />
+<a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.</a><br />
+<a href="https://developers.google.com/protocol-buffers/docs/proto3?source=post_page-----daebb36a97e9----------------------">Chi tiết cú pháp proto</a><br />
+<a href="https://github.com/hieuvecto/todo-grpc">Source code todo-grpc</a><br />
+<a href="https://github.com/hieuvecto/todo-grpc-deployment">Deployment source code của todo-grpc</a></p>
+<h3 id="6thamkho">6. Tham khảo:</h3>
+<p><a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.<br />
+</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế</title>
+
+    <meta name="description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế" />
+    <meta property="og:description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/unit-test-voi-jest/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-11-05T01:15:48.000Z" />
+    <meta property="article:modified_time" content="2019-11-05T01:15:48.000Z" />
+    <meta property="article:tag" content="jest" />
+    <meta property="article:tag" content="unittest" />
+    <meta property="article:tag" content="reactnative" />
+    <meta property="article:tag" content="testing" />
+    <meta property="article:tag" content="unit test" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế" />
+    <meta name="twitter:description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/unit-test-voi-jest/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.B.D" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="jest, unittest, reactnative, testing, unit test" />
+    <meta property="og:image:width" content="796" />
+    <meta property="og:image:height" content="416" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.B.D",
+        "url": "https://blog.vietnamlab.vn/author/duynb/",
+        "sameAs": []
+    },
+    "headline": "Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế",
+    "url": "https://blog.vietnamlab.vn/unit-test-voi-jest/",
+    "datePublished": "2019-11-05T01:15:48.000Z",
+    "dateModified": "2019-11-05T01:15:48.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&export=download",
+        "width": 796,
+        "height": 416
+    },
+    "keywords": "jest, unittest, reactnative, testing, unit test",
+    "description": "Mở đầu\nUnit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Hãy xem mô hình\ndưới đây để thấy được tầm quan trọng của Unit tests. Khi càng tăng test ở unit\ntests sẽ càng giảm test ở các tầng trên. \n\nTesting TriangleTrong unit test ta sẽ kiểm tra từng phần nhỏ trong code, đó có\nthể là các method, function trong class, thậm chí là phần nhỏ hơn trong\nfunction.\n\nHôm nay tôi sẽ giới thiệu với các bạn framework của React Native giúp thực hiện\ncông việc test đó chính là Jest.\n\n1.Configure Jest\n",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Test ứng dụng React Native với Jest (Phần 1)</h1>
+                <section class="post-meta">
+                    N.B.D -
+                    <time class="post-date" datetime="2019-11-05">05 Nov 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="m-u">Mở đầu</h3><p>Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Hãy xem mô hình dưới đây để thấy được tầm quan trọng của Unit tests. Khi càng tăng test ở unit tests sẽ càng giảm test ở các tầng trên. </p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1A4pFOJ3tNqlJgoUYFa3YjKQ-9I3pXZ5d&amp;export=download" class="kg-image" alt width="300" height="233" layout="responsive"></amp-img><figcaption><strong><strong><em><em>Testing Triangle</em></em></strong></strong></figcaption></figure><p>Trong unit test ta sẽ kiểm tra từng phần nhỏ trong code, đó có thể là các method, function trong class, thậm chí là phần nhỏ hơn trong function.</p><p>Hôm nay tôi sẽ giới thiệu với các bạn framework của React Native giúp thực hiện công việc test đó chính là Jest.</p><h3 id="1-configure-jest">1.Configure Jest</h3><p><em> Từ phiên bản RN 0.38 trở lên, Jest đã được tích hợp sẵn khi bạn tạo project bằng <code>react-native init</code>, vì thế việc setup này đối với bạn có thể đã có sẵn và ko cần setup thêm nữa. Tham khảo cách thêm cách cài đặt tại <a href="https://jestjs.io/docs/en/getting-started"><strong>đây</strong></a></em></p><p>Kiểm tra file <code>package.json</code></p><pre><code>{
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-jest": "24.9.0",
+    "jest": "24.9.0",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}</code></pre><h3 id="2-snapshot-testing-l-g-">2.Snapshot testing📸 là gì?</h3><p>Với Jest chúng ta có thể dễ dàng test các component khi có sự thay đổi props và state.</p><blockquote>Snapshot test là công cụ rất hữu ích trong trường hợp bạn muốn chắc chắn rằng UI không bị thay đổi ngoài ý muốn.</blockquote><blockquote>Trong react native , snapshot testing là việc tạo ra 1 file snapshot, sau đó trong những lần test sau, các component sẽ tiếp tục tạo ra các rendered output khác để so sánh với file snapshot ban đầu, nếu có sự thay đổi thì kết quả test sẽ fail.</blockquote><h3 id="3-ng-d-ng-snapshot-test-v-o-project">3.Ứng dụng snapshot test vào project</h3><p>Sau khi tạo project bằng câu lệnh <code>react-native init</code> ta  được cấu trúc thư mục sau:</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1SusRns_UnOuLjfg5_ssbfS0VcsP5IJtV&amp;export=download" class="kg-image" alt width="296" height="450" layout="fixed"></amp-img><figcaption>Cấu trúc thư mục</figcaption></figure><p>Ở đây tôi đã thêm thư mục <code>src</code> dùng để chứa file source trong project. Trong thư mục này, tôi sẽ tạo thêm 1 file <code>Button.js</code></p><pre><code class="language-javascript">import React, { Component } from 'react';
+import { Text, TouchableOpacity, Linking } from 'react-native';
+// 1. Changed to a class based component
+class Button extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    // 2. Custom function called onPress TouchableOpacity
+    onPressHandler = () =&gt; {
+        const { onPress, url } = this.props
+        if (url) {
+            Linking.openURL(url)
+        }
+        onPress();
+    }
+
+    render() {
+        const { buttonStyle, textStyle } = styles;
+        const { label } = this.props;
+
+        return (
+            &lt;TouchableOpacity onPress={this.onPressHandler} style={newButtonStyle}&gt;
+                &lt;Text style={textStyle}&gt;
+                    {label}
+                &lt;/Text&gt;
+            &lt;/TouchableOpacity&gt;
+        );
+    }
+};
+
+const styles = {
+    textStyle: {
+        alignSelf: 'center',
+        color: '#fff',
+        fontSize: 16
+    },
+    buttonStyle: {
+        height: 45,
+        justifyContent: 'center',
+        backgroundColor: '#38ba7d',
+        borderBottomWidth: 6,
+        borderBottomColor: '#1e6343',
+        borderWidth: 1,
+        marginLeft: 10,
+        marginRight: 10
+    }
+};
+
+export default Button;
+</code></pre>
+<p>Kết quả Button sẽ giống như thế này:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1A0GnCs_PxmOWwfJm09djxS_zeGf2KJCX&amp;export=download" class="kg-image" alt width="285" height="46" layout="fixed"></amp-img></figure><p>Như vậy đã xong phần chuẩn bị, bây giờ chúng ta bắt đầu viết test.</p><p>Đầu tiên tạo file <code>Button-test.js</code> trong thư mục <code>_tests_</code></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1wHDncnn2JisnskLRFEjHL9nKJlovQOHR&amp;export=download" class="kg-image" alt width="233" height="72" layout="fixed"></amp-img></figure><pre><code>import 'react-native';
+import React from 'react';
+import Button from '../src/Button';
+
+// Note: test renderer must be required after react-native.
+import renderer from 'react-test-renderer';
+
+describe('Button', () =&gt; {
+  describe('Rendering', () =&gt; {
+      it('should match to snapshot', () =&gt; {
+        const component = renderer.create(
+          &lt;Button label={'Click me!'}/&gt;
+        ).toJSON();
+        expect(component).toMatchSnapshot()
+      });
+  });
+});
+</code></pre><p>Ở đây cần chú ý đến <strong>react-test-renderer</strong>. </p><blockquote><code>'react-test-renderer'</code> là một thư viện giúp chúng ta có thể tạo ra một snapshot của <strong>DOM tree</strong> được render bởi  React DOM or React Native component mà không cần sử dụng browser hoặc <a href="https://github.com/tmpvar/jsdom" rel="nofollow noopener noreferrer">jsdom</a>. </blockquote><blockquote>Thay vì phải render ra các object thật thì nó render ra các JS object để có thể thực hiện test trực tiếp trên Node.</blockquote><p>Cấu trúc hàm test:</p><pre><code>describe('Button', () =&gt; {
+	// test stuff
+}</code></pre><p>Method <code>describe</code> chứa một hoặc nhiều test liên quan. Mỗi lần viết một test mới hãy bọc nó trong <strong>describe block</strong>.</p><pre><code>it('should match to snapshot', () =&gt; {
+	// actual test
+});</code></pre><p>Hàm test được truyền vào callback như một tham số trong hàm <code>it</code>. Ngoài ra ta truyền thêm phần mô tả mong muốn hàm thực hiện.</p><p>Để có thể test được chúng ta cần chuẩn bị dữ liệu đầu vào(<strong>input</strong>), dữ liệu đầu ra(<strong>output</strong>) và hàm so sánh(<strong>function</strong>) 2 kết quả có trùng khớp nhau không.</p><p>Ở ví dụ trên ta có <code>component</code> đóng vai trò là <strong>input data (snapshot của DOM tree).</strong></p><p>Hàm <code>expect</code> cho phép chúng ta truy cập vào các phương thức <code>matcher</code> để phát hiện ra những sự sai khác. Ở đây chúng ta sử dụng <code>toMatchSnapshot</code> để đảm bảo rằng nó trùng với snapshot gần đây nhất.</p><p><strong>Running test</strong>: <code>npm test</code> để xem điều gì xảy ra.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1WCHDAuK0m1CryktEjrnZt1klW2p1ofVT&amp;export=download" class="kg-image" alt width="384" height="332" layout="responsive"></amp-img></figure><p>Khi chạy snapshot test lần đầu, Jest sẽ tạo một snapshot file trong thư mục <code>_snapshots_</code></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1XBJQFZcsv-NOoYdfU24FteUnqLeJKUWA&amp;export=download" class="kg-image" alt width="167" height="92" layout="fixed"></amp-img></figure><p></p><p>Khi mở file snapshot sẽ thấy nó convert view của chúng ta sang object để tiện so sánh cũng như test.</p><p><strong>Điều gì xảy ra nếu chúng ta thay đổi UI</strong></p><p>Thay đổi màu nền button <code>backgroundColor: '#0000FF'</code> trong <code>buttonStyle</code>, và chạy lại test <code>npm test　</code></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1EUr5FRovhDzVYnjC83-zb8kP9S3CDu75&amp;export=download" class="kg-image" alt width="650" height="516" layout="responsive"></amp-img></figure><p>Ngay lập tức jest báo kết quả test bị <code>FAIL</code>, như đã trình bày ở trên việc thay đổi code dẫn đến bản <code>snapshot</code> mới khác so với bản cũ. Jest còn chỉ ra chỗ thay đổi, thật sự rất tiện lợi.</p><p>Vậy nếu muốn cập nhật bản <code>snapshot</code> mới thì sao. Rất đơn giản sử dụng lệnh sau:</p><p><code>npm test -- -u</code></p><p>Kết quả <code>snapshot</code> đã được update lại. Lời khuyên nên <code>commit</code> lên git mỗi khi update lại <code>snapshot</code>.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1_VNHQOhIzSJ045r61FiGHe_WBhOkkcRh&amp;export=download" class="kg-image" alt width="331" height="257" layout="responsive"></amp-img></figure><p>Ngoài ra còn có các option khác:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1ERFlxRZQ8TAp_6qvTUSeQq0BSIJb1RiP&amp;export=download" class="kg-image" alt width="736" height="298" layout="responsive"></amp-img></figure><h3 id="4-matchers-trong-jest">4. Matchers trong Jest</h3><pre><code>expect(2 + 2).toBe(4);</code></pre><p><code>.toBe()</code> là một matcher, dùng để so sánh kết quả thực hiện với kết quả mong muốn.</p><p><code>.toBe()</code> sử dụng <code>Object.is</code> để test. Khi muốn kiểm tra giá trị của object hãy sử dụng <code>toEqual</code>. Ví dụ:</p><pre><code>it('object assignment', () =&gt; {
+  const data = {one: 1};
+  data['two'] = 2;
+  expect(data).toEqual({one: 1, two: 2});
+});</code></pre><p>Nếu muốn so sánh kết quả trái với mong đợi sử dụng <code>.not.toBe()</code></p><pre><code>it('adding positive numbers is not zero', () =&gt; {
+  for (let a = 1; a &lt; 10; a++) {
+    for (let b = 1; b &lt; 10; b++) {
+      expect(a + b).not.toBe(0);
+    }
+  }
+});</code></pre><p>Ngoài ra còn có các matches khác.</p><p><strong>Truthiness</strong></p><ul>
+<li><code>toBeNull</code> so sánh với giá trị <code>null</code></li>
+<li><code>toBeUndefined</code> so sánh với giá trị <code>undefined</code></li>
+<li><code>toBeDefined</code> là hàm cho kết quả ngược lại <code>toBeUndefined</code>.</li>
+<li><code>toBeTruthy</code> so sánh với giá trị <code>true</code>.</li>
+<li><code>toBeFalsy</code> so sánh với giá trị <code>false</code>.</li>
+</ul>
+<p><strong>Numbers</strong></p><pre><code>it('two plus two', () =&gt; {
+  const value = 2 + 2;
+  expect(value).toBeGreaterThan(3);
+  expect(value).toBeGreaterThanOrEqual(3.5);
+  expect(value).toBeLessThan(5);
+  expect(value).toBeLessThanOrEqual(4.5);
+
+  // cả toBe và toEqual đều có thể sử dụng cho numbers
+  expect(value).toBe(4);
+  expect(value).toEqual(4);
+});</code></pre><p>Đối với số thực sử dụng <code>toBeCloseTo</code> thay vì <code>toEqual</code></p><pre><code>it('adding floating point numbers', () =&gt; {
+  const value = 0.1 + 0.2;
+  //expect(value).toBe(0.3);           This won't work because of rounding error
+  expect(value).toBeCloseTo(0.3); // This works.
+});</code></pre><p><strong>Strings</strong></p><p>Có thể kiểm tra strings  với regular expressions bằng<code>toMatch</code></p><pre><code>it('there is no I in team', () =&gt; {
+  expect('team').not.toMatch(/I/);
+});
+
+it('but there is a "stop" in Christoph', () =&gt; {
+  expect('Christoph').toMatch(/stop/);
+});</code></pre><p><strong>Arrays và Iterables</strong></p><p>Kiểm tra một giá trị có trong Array hay Iterable không bằng cách <code>toContain</code></p><pre><code>const shoppingList = [
+  'diapers',
+  'kleenex',
+  'trash bags',
+  'paper towels',
+  'beer',
+];
+
+it('the shopping list has beer on it', () =&gt; {
+  expect(shoppingList).toContain('beer');
+  expect(new Set(shoppingList)).toContain('beer');
+});</code></pre><p><strong>Exceptions</strong></p><p>Để kiểm tra một lỗi có thể xảy ra bạn có thể sử dụng <code>toThrow</code>:</p><pre><code>function compileAndroidCode() {
+  throw new Error('you are using the wrong JDK');
+}
+
+it('compiling android goes as expected', () =&gt; {
+  expect(compileAndroidCode).toThrow();
+  expect(compileAndroidCode).toThrow(Error);
+
+  // You can also use the exact error message or a regexp
+  expect(compileAndroidCode).toThrow('you are using the wrong JDK');
+  expect(compileAndroidCode).toThrow(/JDK/);
+});</code></pre><h3 id="5-mock-functions">5. Mock Functions</h3><p>Mock giúp bạn mô phỏng các tính chất và hành vi giống hệt như đối tượng thực nhằm kiểm tra tính đúng đắn của các hoạt động bên trong.</p><p>Quay lại với ví dụ button, bây giờ chúng ta sẽ test xem sự kiện button có được kích hoạt không</p><pre><code>describe('onPressHandler', () =&gt; {
+      it('should call onPress', () =&gt; {
+        const mockOnPress = jest.fn();   // 1. mock function
+        const component = renderer.create(&lt;Button 
+            label= "test label" 
+            onPress={mockOnPress}           // 2. passing in mock function as props
+        /&gt;)
+        const instance = component.getInstance(); // 3. getting an instance of component
+        instance.onPressHandler();  // 4. manually triggering onPressHandler()
+        // Act
+        expect(mockOnPress).toHaveBeenCalled();
+      });
+    });
+});</code></pre><p>Chạy lại lệnh <code>npm test</code> để xem kết quả:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1XTT3ufskOAwnPk9cMFFeE0hGU_blzFLj&amp;export=download" class="kg-image" alt width="321" height="237" layout="responsive"></amp-img></figure><p>Bài viết sau tôi sẽ giới thiệu chi tiết hơn về Mock( mock function, class mock, mock modules, ...)</p><h2 id="tham-kh-o">Tham khảo</h2><p><a href="https://jestjs.io/docs/en/getting-started">https://jestjs.io/docs/en/getting-started</a></p><p><a href="https://callstack.com/blog/testing-react-native-with-the-new-jest-part-1-snapshots-come-into-play/#.12zbnbgwc">https://callstack.com/blog/testing-react-native-with-the-new-jest-part-1-snapshots-come-into-play/#.12zbnbgwc</a></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

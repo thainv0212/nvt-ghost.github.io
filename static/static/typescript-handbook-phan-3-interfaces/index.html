@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>TypeScript Handbook (Phần 3) - Interfaces | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="TypeScript Handbook (Phần 3) - Interfaces" />
+    <meta property="og:description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/" />
+    <meta property="og:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-06-30T01:55:06.000Z" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="TypeScript Handbook" />
+    <meta property="article:tag" content="Interfaces" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TypeScript Handbook (Phần 3) - Interfaces" />
+    <meta name="twitter:description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/" />
+    <meta name="twitter:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="typescript, javascript, TypeScript Handbook, Interfaces" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "TypeScript Handbook (Phần 3) - Interfaces",
+    "url": "https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2017-06-30T01:55:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg"
+    },
+    "keywords": "typescript, javascript, TypeScript Handbook, Interfaces",
+    "description": "Nội dung được giới thiệu trong bài viết này\nĐây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/]. Nối\ntiếp thành công vài bài viết thứ hai giới thiệu về Variable Declarations\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-2-variable-declarations/] \n lần này mình sẽ tổng hộp lại Interfaces\n[https://www.typescriptlang.org/docs/handbook/interfaces.html]  trong TypeScript\n\nOur First Interface\nDưới đây",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-typescript tag-javascript tag-typescript-handbook tag-interfaces nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-typescript tag-javascript tag-typescript-handbook tag-interfaces js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">TypeScript Handbook (Phần 3) - Interfaces</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-06-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 June 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/typescript/index.html">typescript</a>, <a href="../tag/javascript/index.html">javascript</a>, <a href="../tag/typescript-handbook/index.html">TypeScript Handbook</a>, <a href="../tag/interfaces/index.html">Interfaces</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" alt="TypeScript Handbook (Phần 3) - Interfaces">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/typescript-handbook-phan-3-interfaces/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=TypeScript%20Handbook%20(Ph%E1%BA%A7n%203)%20-%20Interfaces">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h1 id="nidungcgiithiutrongbivitny">Nội dung được giới thiệu trong bài viết này</h1>
+<p>Đây là bài viết thứ 3 trong loạt bài giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/">TypeScript</a>. Nối tiếp thành công vài bài viết thứ hai giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-2-variable-declarations/">Variable Declarations</a> lần này mình sẽ tổng hộp lại <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">Interfaces</a> trong TypeScript</p>
+<h3 id="ourfirstinterface">Our First Interface</h3>
+<p>Dưới đây là một số ví dụ về cách bạn có thể áp dụng Interfaces một các đơn giản:</p>
+<p>Compiler sẽ kiểm tra xem trong tham số chuyền vào của hàm <code>printLabel</code> có thuộc tính <code>label</code> không. Những thuộc tính khác của Object nó sẽ bỏ qua.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function printLabel(labelledObj: { label: string }) {
+    console.log(labelledObj.label);
+}
+;
+let myObj = {size: 10, label: &quot;Size 10 Object&quot;};
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function printLabel(labelledObj) {
+    console.log(labelledObj.label);
+}
+;
+var myObj = { size: 10, label: &quot;Size 10 Object&quot; };
+printLabel(myObj);
+</code></pre>
+<p>Thay vào đó giờ hãy thử sủ dụng Interfaces</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">interface LabelledValue {
+    label: string;
+}
+;
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+;
+let myObj = {size: 10, label: &quot;Size 10 Object&quot;};
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function printLabel(labelledObj) {
+    console.log(labelledObj.label);
+}
+;
+var myObj = { size: 10, label: &quot;Size 10 Object&quot; };
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Interfaces này chủ yểu để kiểm tra đầu vào. Sau khi compile nó sẽ bi xóa đi</p>
+</blockquote>
+<p>Không cần quan tâm đến thứ tự thuộc tính khai báo trong interface.</p>
+<h3 id="optionalproperties">Optional Properties</h3>
+<p>Đôi khi chúng ta không nhất thiết phải bắt buộc phải có tất cả thuộc tính vả để thể hiện những thuộc tính không bắt buộc cần thêm <code>?</code> vào cuối biến đó.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+;
+function createSquare(config: SquareConfig): {color: string; area: number} {
+    let newSquare = {color: &quot;white&quot;, area: 100};
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+;
+let mySquare = createSquare({color: &quot;black&quot;});
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function createSquare(config) {
+    var newSquare = { color: &quot;white&quot;, area: 100 };
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+;
+var mySquare = createSquare({ color: &quot;black&quot; });
+</code></pre>
+<blockquote>
+<p>Mặc dù được chỉ định thuộc tính không bắt buộc trong Interface rồi nhưng JavaScript code được compile vẫn không thay đổi?</p>
+</blockquote>
+<p>Điểm tiện lợi của việc định nghĩa tất cả các kiểu không bắt buộc là có thể check được có sự dụng nhầm biến không được khai báo không</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    let newSquare = {color: &quot;white&quot;, area: 100};
+    if (config.color) {
+        // Lỗi. Biến 'clor' không tồn tại trong 'SquareConfig'
+        newSquare.color = config.clor;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+
+let mySquare = createSquare({color: &quot;black&quot;});
+</code></pre>
+<h3 id="readonlyproperties">Readonly Properties</h3>
+<p>Những thuộc tính mà chỉ dùng để đọc thì thêm <code>readonly</code> vào trước tên thuộc tính đó.</p>
+<pre><code>interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+</code></pre>
+<p>Trường hợp này có thể khởi tạo object chứa các giá trị thuộc tính của nó được nhưng không thể thay đổi</p>
+<pre><code>let p1: Point = { x: 10, y: 20 };
+p1.x = 5; // Lỗi!
+</code></pre>
+<p>TypeScript còn hỗ trợ class <code>ReadonlyArray&lt;T&gt;</code>. Class này giống với Array<T> nhưng loại bỏ hết tất cả các hàm thay đổi Object</p>
+<pre><code>let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray&lt;number&gt; = a;
+ro[0] = 12; // Lỗi!
+ro.push(5); // Lỗi!
+ro.length = 100; // Lỗi!
+a = ro; // Lỗi!
+</code></pre>
+<p>Object của <code>ReadonlyArray</code> không thể thay đổi trẳng hạn như trong các thuật toán sắp xếp nhưng có thể sử dụng để ép kiểu.</p>
+<pre><code>a = ro as number[];
+</code></pre>
+<h4 id="readonlyvsconst"><code>readonly</code> vs <code>const</code></h4>
+<p>Sử phân chia cách sử dụng của <code>readonly</code> và <code>const</code> hết sức đơn giản. <code>const</code> sử dụng cho biến còn <code>readonly</code> sử dụng cho thuộc tính(property).</p>
+<h3 id="excesspropertychecks">Excess Property Checks</h3>
+<p>Khi kết hợp giữa Interface và thuộc tính không bắt buộc có thể sẽ xảy ra một vài cạm bẫy như sau</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    // ...
+}
+
+let mySquare = createSquare({ colour: &quot;red&quot;, width: 100 }); // :o định dùng là 'color' nhưng giờ bị nhầm thành 'colour'
+</code></pre>
+<p>Vì <code>'color'</code> không bắt buộc nên trường hợp này Object truyền vào sẽ chỉ có thuộc tính là <code>'width'</code><br>
+Để tranh những nhầm lẫn này xẩy ra TypeScript sẽ thực hiện check riêng object được viết ra. Cụ thể khi gán cho biến khác hoặc khi đã chuyền tham số vào hàm sẽ xẩy ra lỗi không tồn tại thuộc tính có kiểu của đối tượng</p>
+<pre><code>// Lỗi,　'colour' không nằm trong 'SquareConfig'
+let mySquare = createSquare({ colour: &quot;red&quot;, width: 100 });
+</code></pre>
+<p>Để bỏ qua check như trên chỉ cần ép kiểu là được</p>
+<pre><code>// 'opacity' không có trong 'SquareConfig' nhưng vẫn không vấn đề gì
+let mySquare = createSquare({ width: 100, opacity: 0.5 } as SquareConfig);
+</code></pre>
+<p>Còn một cách làm tốt hơn nữa để nhận được thuộc tính ngoài là thêm index là một biến kiểu chuỗi như sau:</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+}
+</code></pre>
+<ul>
+<li>Mặc dù đang được chỉ định thêm propName nhưng không hản có thể truy cập đến những thuộc tích khác nữa. Sẽ được nói rõ hơn ở phần <strong>Indexable Types</strong> phía dưới</li>
+</ul>
+<p>Nếu chúng ta thi chỉ gán biến 1 lần sẽ chỉ mất 2 dòng code.</p>
+<pre><code>let squareOptions = { colour: &quot;red&quot;, width: 100 };
+let mySquare = createSquare(squareOptions);
+</code></pre>
+<p>Có thể bạn nghĩ viết thế này đơn giản hơn rất nhiều nhưng khi code trở lên phức tạp hơn chúng ta cần phải sử dụng kỹ thật trên. Tức là trong nhiều trường hợp chúng ta phải ý thức trước được là sẽ có những thuộc tính dư thừa nữa.</p>
+<h3 id="functiontypes">Function Types</h3>
+<p>Interface ngoài việc thể hiện các Object có những thuộc tính đặc trung ra cỏn có thể thể hiện được cả method.<br>
+Dưới đây là ví dụ biểu thị khai báo một hàm bao gồm cả tham số chuyển vào và giá trị trả về. Danh sách tham số chuyền vào sẽ cần định nghĩa tên và kiểu dự liệu</p>
+<pre><code>interface SearchFunc {
+    (source: string, subString: string): boolean;
+}
+</code></pre>
+<p>Sau đó sẽ sử dụng sao cho giống với interface trên</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(source: string, subString: string) {
+    let result = source.search(subString);
+    return result &gt; -1;
+}
+</code></pre>
+<p>Lúc này không cần phải để tên tham số chuyền vào chùng khớp với interface của hàm.</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(src: string, sub: string): boolean {
+    let result = src.search(sub);
+    return result &gt; -1;
+}
+</code></pre>
+<p>Còn kiểu của tham số nếu không khai báo sẽ tự lấy kiểu theo như interface của hàm.</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(src, sub) {
+    let result = src.search(sub);
+    return result &gt; -1;
+}
+</code></pre>
+<ul>
+<li>Mặc dù như vậy nhưng mình nghĩ định nghĩa kiểu tham số tại hàm càng nhiều càng tốt</li>
+</ul>
+<h3 id="indexabletypes">Indexable Types</h3>
+<p>Trong TypeScript cũng thể hiện cả việc có thể truy cập vao mang như là <code>a[10]</code> hoặc <code>ageMap[&quot;daniel&quot;]</code>. Indexble Types có 1 <code>index signature</code> mà nó có thể được định nghĩa kiểu và nó có thể được sử đụng trong Object</p>
+<pre><code>interface StringArray {
+    [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = [&quot;Bob&quot;, &quot;Fred&quot;];
+
+let myStr: string = myArray[0];
+</code></pre>
+<p><code>index signature</code> được support 2 kiểu dữ liệu là kiểu chuỗi và kiểu số. Có thể hỗ trợ cả 2 loại này nhưng trường hợp dưới đây, kiểu giá trị trả về của index signature có kiểu số và kiểu giá trị tra về của index signature có kiểu chuỗi cần phỉ có subclass. Bởi vì trong javascript khi truy cập với index là kiếu số nó sẽ chuyển thành kiểu string</p>
+<pre><code>class Animal {
+    name: string;
+}
+class Dog extends Animal {
+    breed: string;
+}
+
+// Lỗi. Khi truy cập với index là kiểu chuỗi sẽ trả về Dog
+interface NotOkay {
+    [x: number]: Animal;
+    [x: string]: Dog;
+}
+</code></pre>
+<p>Ngoài ra index signature cho phép đồng nhất về một kết quả</p>
+<pre><code>interface NumberDictionary {
+    [index: string]: number;
+    length: number;    // OK. length là kiểu số
+    name: string;      // Lỗi. name không phải kiểu số cũng không phải subclass
+}
+</code></pre>
+<p>Cuối cùng, bằng việc chỉ định <code>readonly</code> cho index signature sẽ không thể gán lại biến</p>
+<pre><code>interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+
+let myArray: ReadonlyStringArray = [&quot;Alice&quot;, &quot;Bob&quot;];
+myArray[2] = &quot;Mallory&quot;; // Lỗi!
+</code></pre>
+<h3 id="classtypes">Class Types</h3>
+<h4 id="implementinganinterface">Implementing an interface</h4>
+<p>Cũng giống ngôn ngữ khác sử dụng Interface cho class còn thông dụng hơn rất nhiều.</p>
+<pre><code>interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<p>Trong các class sẽ định nghĩa các hàm trong interface giống như trên đã nói.</p>
+<pre><code>interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<h4 id="differencebetweenthestaticandinstancesidesofclasses">Difference between the static and instance sides of classes</h4>
+<p>Trong khi sử dụng interface với class cần phải ý thức trước được rằng có 2 loại thành viên static va instance.<br>
+Như ví dụ dưới đây sẽ xẩy ra lỗi:</p>
+<pre><code>interface ClockConstructor {
+    new (hour: number, minute: number);
+}
+
+class Clock implements ClockConstructor {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<p>Bởi vì khí thực hiện interface sẽ chỉ check những thành viên instance, nó sẽ bỏ qua thành viên static như là constructor.<br>
+Thay vào đó cần sử dụng interface vào trực tiếp các thanh phần static. Ví dụ dưới đây có <code>ClockConstructor</code> là interface riêng cho hàm khởi tạo</p>
+<pre><code>interface ClockConstructor {
+    new (hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log(&quot;beep beep&quot;);
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log(&quot;tick tock&quot;);
+    }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+</code></pre>
+<h3 id="extendinginterfaces">Extending Interfaces</h3>
+<p>Kế thừa của interface cũng giống như kế thừa của class</p>
+<pre><code>interface Shape {
+    color: string;
+}
+
+interface Square extends Shape {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = &quot;blue&quot;;
+square.sideLength = 10;
+</code></pre>
+<p>Thậm chí có thể kế thừa nhiều interface</p>
+<pre><code>interface Shape {
+    color: string;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = &quot;blue&quot;;
+square.sideLength = 10;
+square.penWidth = 5.0;
+</code></pre>
+<h3 id="hybridtypes">Hybrid Types</h3>
+<p>Trong interface, cho đến bây giờ có thể kết hợp nhiều cách sử dụng lại với nhau</p>
+<pre><code>interface Counter {
+    (start: number): string;
+    interval: number;
+    reset(): void;
+}
+
+function getCounter(): Counter {
+    let counter = &lt;Counter&gt;function (start: number) { }; //Interface chưa được thực hiện hến, chưa định nghĩa là 1 kiểu'Counter'
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter; // 'Counter' Tất cả các thuộc tính và function đã được chuẩn bị rồi nên có thể trả về kiểu 'Counter'
+}
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+</code></pre>
+<h3 id="interfacesextendingclasses">Interfaces Extending Classes</h3>
+<p>Trường hợp interface đã kế thừa, thì trong class tất cả thành phần private/protected đêu được ghi đè.</p>
+<p>Trong ví dụ dưới đây, class <code>SelectableControl</code> cũng sẽ chứa thuộc tính <code>state</code>, class <code>Control</code> lúc này sẽ bao gồm tất cả các thành phần. class <code>Button</code> (được kế thừa từ <code>Control</code>) sẽ chứa thuộc tính <code>state</code> và hàm <code>select</code> nên có thể xem như là class <code>SelectableControl</code>. Mặt khác, class <code>Image</code> chỉ chứa hàm <code>select</code> nên không thể coi như là class <code>SelectableControl</code>.</p>
+<pre><code>class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control {
+    select() { }
+}
+
+class Image {
+    select() { }
+}
+</code></pre>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/typescript-handbook-phan-3-interfaces/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=TypeScript%20Handbook%20(Ph%E1%BA%A7n%203)%20-%20Interfaces">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/typescript-handbook-phan-3-interfaces/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

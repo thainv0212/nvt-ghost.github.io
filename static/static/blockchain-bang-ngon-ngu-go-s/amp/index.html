@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Blockhain bằng Go, Bước 2: Proof of Work</title>
+
+    <meta name="description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Blockhain bằng Go, Bước 2: Proof of Work" />
+    <meta property="og:description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T09:48:32.000Z" />
+    <meta property="article:modified_time" content="2018-06-29T09:48:32.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="golang" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blockhain bằng Go, Bước 2: Proof of Work" />
+    <meta name="twitter:description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, golang" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Blockhain bằng Go, Bước 2: Proof of Work",
+    "url": "https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/",
+    "datePublished": "2018-06-29T09:48:32.000Z",
+    "dateModified": "2018-06-29T09:48:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "blockchain, golang",
+    "description": "Series lập trình blockchain với Go\n\n 1. Block và blockchain sơ khai\n    [https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/]\n\nLời mở đầu\nTrong bài viết đầu tiên\n[https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/] \n của series về lập trình blockchain sử dụng ngôn ngữ Go, ta đã tạo được một data\nstructure cơ bản cho blockchain của mình, đồng thời cũng implement các tính năng\nđể các block mới ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Blockchain bằng ngôn ngữ Go - 2nd Step: Proof of Work</h1>
+                <section class="post-meta">
+                    T.M.L -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><em>Series lập trình blockchain với Go</em></p>
+<ol>
+<li><a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">Block và blockchain sơ khai</a></li>
+</ol>
+<h3 id="limu">Lời mở đầu</h3>
+<p>Trong bài viết <a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">đầu tiên</a> của series về lập trình blockchain sử dụng ngôn ngữ Go, ta đã tạo được một data structure cơ bản cho blockchain của mình, đồng thời cũng implement các tính năng để các block mới có thể được add thêm vào chain. Tuy nhiên, khác với các blockchain hoàn chỉnh, hiện tại ở blockchain của chúng ta, các block được thêm vào 1 cách quá dễ dàng, không tốn công sức gì cả. Bài viết này sẽ giới thiệu bước tiếp theo để giải quyết vấn đề trên: implement Proof-of-Work (PoW), cơ chế hiện tại được dùng trong hầu hết các blockchain của các đồng tiền ảo (Bitcoin, Ethereum...).</p>
+<h3 id="proofofworklg">Proof-of-Work là gì?</h3>
+<p>Trong cuộc sống mưu sinh hàng ngày của các nhân viên làm công ăn lương (như tác giả bài viết này), hầu hết chúng ta cày cuốc làm việc để đến cuối tháng có thể nghe tiếng ting ting báo hiệu tiền về tài khoản. Tuy nhiên, để công ty trả cho chúng ta khoản lương (có thể kèm phụ cấp) đó, các công sức và đóng góp của chúng ta trong vòng 1 tháng phải đã được ghi nhận và kiểm chứng là tương ứng với mức lương như vậy bởi các tầng lớp lãnh đạo bằng một cách nào đó. Trừ 1 số trường hợp đặc biệt, một nhân viên trình độ yếu, không đóng góp gì đáng kể nhưng lại nhận được lương cao chắc chắn báo hiệu một công ty có vấn đề.</p>
+<p>Đối với 1 blockchain thì cũng tương tự như vậy. Một số thành viên tham gia blockchain (miners) phải tốn công sức (điện năng, thời gian) để thêm data vào blockchain (mining -&gt; tạo block mới), khi hoàn thành sẽ chứng minh với hệ thống công sức (hard-work) mình bỏ ra và nhận được phần thưởng tương tứng (coin, token). Cơ chế "cày cuốc bỏ công sức và chứng minh" này được gọi chung là Proof-of-Work. Có thể nói việc đảm bảo một bài toán để khiến việc mining không quá dễ dàng, phải tốn công sức và cung cấp một cơ chế để miner có thể chứng minh công sức mình bỏ ra và nhận phần thưởng có thể nói là vấn đề quyết định sự sống còn của một blockchain.</p>
+<p>Như vậy các thuật toán Proof-of-Work phải giải quyết được hai vấn đề: (1) bài toán phải khó, tiêu tốn nhiều tài nguyên thời gian, (2) bài toán tuy khó, nhưng việc kiểm chứng là bài toán đã giải quyết (công sức giải toán là đúng) phải nhanh và dễ dàng. Trong blockchain của Bitcoin, thì bài toán đó là việc tìm hash của một block và hash này phải đáp ứng một số yêu cầu nhất định, độ khó của việc tìm hash này sẽ thay đổi sao cho tốc độ mining ~ 6 blocks/hour.</p>
+<h3 id="hashcash">Hashcash</h3>
+<p>Trước tiên, mình sẽ nói qua hash là gì? Các hàm hash là các hàm dùng để biểu diễn data bất kì về một chuỗi với độ dài cố định. Chuỗi này được gọi là hash và có các đặc tính sau:</p>
+<ul>
+<li>Từ hash không thể phục hồi lại được data</li>
+<li>Với một data nhất định sẽ chỉ có 1 hash</li>
+<li>Một thay đổi nhỏ nhất của data ban đầu cũng sẽ sinh ra một hash hoàn toàn khác</li>
+</ul>
+<p>Các thuật toán hash hay được dùng có thể kể đến MD5, SHA1, SHA256...</p>
+<p><amp-img src="https://drive.google.com/uc?id=1rTX6BwE7pdLudxchF9wOvHEPIP29jCVg&amp;export=download" alt="uc?id=1rTX6BwE7pdLudxchF9wOvHEPIP29jCVg&amp;export=download" width="1200" height="812" layout="responsive"></amp-img></p>
+<p>Hiện tại Bitcoin đang sử dụng thuật toán <a href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a>, một thuật toán sinh ra với mục đích để chống spam email, làm thuật toán Proof-of-Work của mình. Hashcash có thể chia ra làm những bước sau:</p>
+<ol>
+<li>Lấy một data mà ai cũng có thể kiểm chứng được (với email thì là email người nhận, với Bitcoin thì là block header)</li>
+<li>Tạo ra một con đếm bắt đầu từ 0</li>
+<li>Tạo ra chuỗi hash của data kết hợp với con đếm đã tạo ra ở trên.</li>
+<li>Kiểm tra xem hash tạo ra có đáp ứng các yêu cầu nhất định hay không.
+<ul>
+<li>Nếu có thì công việc đã hoàn thành .</li>
+<li>Nếu chưa thì tăng con đếm và lặp lại bước 3 và 4.</li>
+</ul>
+</li>
+</ol>
+<p>Ta có thể thấy Hashcash là một thuật toán trâu bò (brute-force): tăng con đếm -&gt; tạo hash -&gt; kiểm tra, lặp đi lặp lại đến khi nào thoả mãn điều kiện thì thôi. Công việc tạo hash lặp đi lặp lại tùy theo điều kiện đưa ra sẽ tốn thời gian và đòi hỏi sức mạnh tính toán của máy tính, đây chính là phần Work mà các miner phải thực hiện. Tuy nhiên do đặc tính của thuật toán hash, việc chứng minh mảng hash tạo ra đã thỏa mãn điều kiện (Proof)  sẽ dễ dàng và tốn ít thời gian.</p>
+<p>Với thuật toán Hashcash nguyên thuỷ thì điều kiện sẽ là chuỗi hash phải có 20 bit đầu là 0. Tuy nhiên, trong Bitcoin thì số lượng bit là 0 này sẽ thay đổi tuỳ theo tình trạng hiện tại của chuỗi blockchain để đảm bảo tốc độ tạo block mới ~ 6 blocks/hour.</p>
+<h3 id="implementation">Implementation</h3>
+<p>Trong folder code đã tạo từ <a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">phần 1</a>. Ta tạo thêm một file mới cho việc implement Proof-of-Work và add đoạn code ban đầu sau:</p>
+<pre><code class="language-go">// pow.go
+const targetBits = 16
+</code></pre>
+<p><code>targetBits</code> ở đây chính là độ dài của chuỗi bit 0 dùng để làm điều kiện trong thuật toán Hashcash. Với Bitcoin thì nó sẽ là một block header chứa độ khó mà block đã được đào ra. Trong phạm vi bài viết này, ta sẽ không thực hiện việc tự điều chỉnh độ khó, nên độ dài chuỗi bit 0 ở đây là cố định. Folder code của chúng ta giờ sẽ như sau:</p>
+<pre><code class="language-go">gochain
+ |-- .gitignore	
+ |-- Gopkg.lock	
+ |-- Gopkg.toml	
+ |-- block.go
+ |-- blockchain.goo
+ |-- gochain
+ |-- main.go
+ |-- pow.go
+ |-- util.go
+</code></pre>
+<p>Tiếp theo cũng trong file <code>pow.go</code>, ta sẽ implement cấu trúc dữ liệu và code khởi tạo thuật toán Proof-of-Work:</p>
+<pre><code class="language-go">// pow.go
+type ProofOfWork struct {
+	block  *Block
+	target *big.Int
+}
+
+// InitProofOfWork Create new POW
+func InitProofOfWork(b *Block) *ProofOfWork {
+	target := big.NewInt(1)
+	target.Lsh(target, uint(256-targetBits))
+
+	pow := &amp;ProofOfWork{b, target}
+
+	return pow
+}
+</code></pre>
+<p>Struct Proof-of-Work có 2 trường, một trường là pointer trỏ đến 1 block, trường <code>target</code> là pointer trỏ đến một số lớn Integer. Số này sẽ dùng để so sánh điều kiện sau khi hashing và như trong hàm khởi tạo Proof-of-Work được tạo thành từ số <code>targetBits</code> ở trên. Biểu diễn của số này dưới dạng HEX sẽ là như sau:</p>
+<pre><code>0x0000100000000000000000000000000000000000000000000000000000000000
+</code></pre>
+<p>Tiếp theo là đoạn code chuẩn bị data cho việc hashing</p>
+<pre><code class="language-go">// pow.go
+func (pow *ProofOfWork) prepareData(nonce int) []byte {
+	data := bytes.Join(
+		[][]byte{
+			pow.block.PrevBlockHash,
+			pow.block.Data,
+			IntToBytes(pow.block.Timestamp),
+			IntToBytes(int64(targetBits)),
+			IntToBytes(int64(nonce)),
+		},
+		[]byte{},
+	)
+
+	return data
+}
+</code></pre>
+<p>Đoạn code này khá đơn giản, gộp thông tin của block với độ khó <code>targetBits</code> và <code>nonce</code>. <code>nonce</code> chính là con đếm trong thuật toán Hashcash, <code>nonce</code> cũng là một thuật ngữ cryptogaphic.</p>
+<p>Sau khi mọi đoạn code chuẩn bị đã hoàn tất thì là đoạn code để chạy Proof-of-Code:</p>
+<pre><code class="language-go">// pow.go
+const maxNonce = math.MaxInt64
+func (pow *ProofOfWork) Run() (int, []byte) {
+	var hashInt big.Int
+	var hash [32]byte
+
+	nonce := 0
+
+	fmt.Printf("Mining the block containing \"%s\"\n", pow.block.Data)
+
+	for nonce &lt; maxNonce {
+		data := pow.prepareData(nonce)
+
+		hash = sha256.Sum256(data)
+		fmt.Printf("\r%x", hash)
+		hashInt.SetBytes(hash[:])
+
+		if hashInt.Cmp(pow.target) == -1 {
+			break
+		} else {
+			nonce++
+		}
+	}
+
+	fmt.Print("\n\n")
+
+	return nonce, hash[:]
+}
+</code></pre>
+<p><code>hashInt</code> là biểu diễn dưới dạng Integer của chuỗi hash, còn <code>maxNonce</code> là giá trị (lấy bằng số Integer lớn nhất) để đề phòng trường hợp <code>nonce</code> bị overflow (khó mà xảy ra với setting độ khó hiện tại). Còn đoạn code trong vòng loop thì tương ứng với thuật toán Hashcash:</p>
+<ol>
+<li>Chuẩn bị data</li>
+<li>Hash với thuật toán SHA256</li>
+<li>Đổi Hash sang dạng Integer</li>
+<li>So sánh với target, nếu nhỏ hơn thì thoả mãn điều kiện -&gt; xong, còn không thì tăng <code>nonce</code> và lặp lại 1-&gt;4</li>
+</ol>
+<p>Với code chạy Proof-of-Work đã sẵn sàng, ta sửa lại code hiện có để sử dụng nó trong việc khởi tạo block.</p>
+<pre><code class="language-go">// block.go
+type Block struct {
+	Timestamp     int64
+	Data          []byte
+	PrevBlockHash []byte
+	Hash          []byte
+	Nonce         int
+}
+
+// SetHash Calculate hash of current block
+func (b *Block) SetHash() {
+	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
+	hash := sha256.Sum256(headers)
+
+	b.Hash = hash[:]
+}
+
+// NewBlock Create a new block
+func NewBlock(data string, prevBlockHash []byte) *Block {
+	block := &amp;Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	pow := InitProofOfWork(block)
+
+	// Run proof of work
+	nonce, hash := pow.Run()
+
+	block.Hash = hash
+	block.Nonce = nonce
+
+	return block
+}
+</code></pre>
+<p>Hash của block mới được tạo sẽ là kết quả của việc chạy Proof-of-Work, đồng thời giá trị <code>nonce</code> thoả mãn điều kiện cũng sẽ được lưu thành một trường của block mới. Vì giá trị này sẽ cần đến khi kiểm chứng xem hash này có đúng là đã được sinh ra từ data của block và thoả mãn điều kiện hay không (chứng minh công sức bỏ ra).</p>
+<p>Cuối cùng là hàm để kiểm chứng hash, thực hiện chức năng như nói ở trên:</p>
+<pre><code>// pow.go
+func (pow *ProofOfWork) Validate() bool {
+	var hashInt big.Int
+
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	hashInt.SetBytes(hash[:])
+
+	isValid := hashInt.Cmp(pow.target) == -1
+
+	return isValid
+}
+</code></pre>
+<p>Hàm này khá đơn giản, chỉ cần tạo lại hash của thông tin của block kết hợp với giá trị <code>nonce</code> được chọn và check xem có đúng nó thoả mãn điều kiện nhỏ hơn <code>target</code> hay không.</p>
+<p>Vậy là ta đã hoàn tất việc thêm Proof-of-Work vào blockchain đơn giản của mình. Chạy thử thôi, vì giờ có Proof-of-Work rồi nên sẽ tốn thời gian chút:</p>
+<pre><code class="language-go">./gochain                                                                                                                  
+Mining the block containing "Genesis Block"
+0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+
+Mining the block containing "Linh Dep Trai"
+000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+
+Mining the block containing "Linh Dep Trai x2"
+0000c6f30d1b0db83810e01a6db9e319220c3482ef2e074962d79924dcaa202d
+
+Prev block's hash:
+Current block's hash: 0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+Current block's data: Genesis Block
+PoW: true
+
+Prev block's hash: 0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+Current block's hash: 000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+Current block's data: Linh Dep Trai
+PoW: true
+
+Prev block's hash: 000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+Current block's hash: 0000c6f30d1b0db83810e01a6db9e319220c3482ef2e074962d79924dcaa202d
+Current block's data: Linh Dep Trai x2
+PoW: true
+</code></pre>
+<h3 id="kt">Kết</h3>
+<p>Vậy là blockchain tối giản của chúng ta đã có thêm tính năng Proof-of-Work, bắt đầu giống một blockchain đầy đủ hơn một chút, tuy còn thiếu rất nhiều các tính năng khác như network, lưu thông tin transaction... Các tính năng này sẽ được giới thiệu và thêm vào ở các phần sau của series.</p>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://jeiwan.cc/posts/building-blockchain-in-go-part-2/">https://jeiwan.cc/posts/building-blockchain-in-go-part-2/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hashcash">https://en.wikipedia.org/wiki/Hashcash</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Proof-of-work_system">https://en.wikipedia.org/wiki/Proof-of-work_system</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

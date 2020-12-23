@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Thiết lập môi trường development trên Windows 10 với WSL và Docker</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Thiết lập môi trường development trên Windows 10 với WSL và Docker" />
+    <meta property="og:description" content="WSL và DockerDocker là gì thì các bài blog trước trên blog của VietnamLab đã giải thích khá khá (bạn đọc có thể search keyword docker trên blog của Vietnam Lab). Một trong những lợi ích của việc sử dụng Docker là giúp cho việc xây dựng môi trường phát" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/thiet-lap-moi-truong-development-tren-windows-10-voi-docker/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1roiB-WHSH7Gdy9VLrE0QsoJBPokXYL0r&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-06-28T10:15:36.000Z" />
+    <meta property="article:modified_time" content="2019-06-28T10:15:35.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="windows" />
+    <meta property="article:tag" content="wsl" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thiết lập môi trường development trên Windows 10 với WSL và Docker" />
+    <meta name="twitter:description" content="WSL và DockerDocker là gì thì các bài blog trước trên blog của VietnamLab đã giải thích khá khá (bạn đọc có thể search keyword docker trên blog của Vietnam Lab). Một trong những lợi ích của việc sử dụng Docker là giúp cho việc xây dựng môi trường phát" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/thiet-lap-moi-truong-development-tren-windows-10-voi-docker/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1roiB-WHSH7Gdy9VLrE0QsoJBPokXYL0r&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, windows, wsl" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="422" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Thiết lập môi trường development trên Windows 10 với WSL và Docker",
+    "url": "https://blog.vietnamlab.vn/thiet-lap-moi-truong-development-tren-windows-10-voi-docker/",
+    "datePublished": "2019-06-28T10:15:36.000Z",
+    "dateModified": "2019-06-28T10:15:35.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1roiB-WHSH7Gdy9VLrE0QsoJBPokXYL0r&export=download",
+        "width": 750,
+        "height": 422
+    },
+    "keywords": "docker, windows, wsl",
+    "description": "WSL và Docker\nDocker là gì thì các bài blog trước trên blog của VietnamLab đã giải thích khá\nkhá (bạn đọc có thể search keyword docker trên blog của Vietnam Lab). Một trong\nnhững lợi ích của việc sử dụng Docker là giúp cho việc xây dựng môi trường phát\ntriển trên local environment trở nên dễ dàng và đồng nhất giữa các môi trường và\nmáy tính khác nhau. Tuy nhiên, trước đây người dùng Windows muốn sử dụng Docker\nthì thường phải cài đặt máy ảo Linux trên Virtual Box hoặc các công cụ ảo hóa\nkhác, sa",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Thiết lập môi trường development trên Windows 10 với WSL và Docker</h1>
+                <section class="post-meta">
+                    T.M.L -
+                    <time class="post-date" datetime="2019-06-28">28 Jun 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1roiB-WHSH7Gdy9VLrE0QsoJBPokXYL0r&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="wsl-v-docker">WSL và Docker</h3><p>Docker là gì thì các bài blog trước trên blog của VietnamLab đã giải thích khá khá (bạn đọc có thể search keyword docker trên blog của Vietnam Lab). Một trong những lợi ích của việc sử dụng Docker là giúp cho việc xây dựng môi trường phát triển trên local environment trở nên dễ dàng và đồng nhất giữa các môi trường và máy tính khác nhau. Tuy nhiên, trước đây người dùng Windows muốn sử dụng Docker thì thường phải cài đặt máy ảo Linux trên Virtual Box hoặc các công cụ ảo hóa khác, sau đó mới cài Docker trên máy ảo đó. Hiện tại thì Docker cũng đã cung cấp bộ cài Docker cho Windows, tuy nhiên do Docker trên Windows sử dụng máy ảo Hyper-V nên các ứng dụng ảo hóa khác sẽ không sử dụng được nữa. Do đó nếu sử dụng Docker trên Windows trực tiếp thì người dùng sẽ không còn một môi trường ảo hóa Linux nào để sử dụng nữa (trừ sử dụng Hyper-V).</p><p>WSL (Windows Subsystem for Linux) là một công cụ của Windows 10 giúp chúng ta có thể chạy được các hệ điều hành Linux trực tiếp trên Windows mà không cần phải thông qua một tầng ảo hóa. Vì sao Microsoft làm được điều kì diệu này thì là một topic riêng dành cho các chuyên gia hệ điều hành, chúng ta ở đây sẽ tập trung vào mục tiêu chính của WSL là giúp cho trải nghiệm development trên Windows trở nên tốt hơn và hấp dẫn hơn với developer. Hầu hết các hệ thống web hay service hiện tại đều chạy trên Linux server (trừ những hệ thống sử dụng .Net), do vậy việc có thể sử dụng môi trường tương tự để phát triển trên local là một điều khá quan trọng và  có thể có tính quyết định với developer trong việc lựa chọn nền tảng cho chiếc máy tính của mình. Đó cũng chính là lí do mà Microsoft quyết định phát triển WSL.</p><p>Nếu bạn đã từng làm việc với Docker thì chắc sẽ có cùng cảm nhận như mình, Docker dùng tiện và cảm thấy ngon nhất khi chạy trên Linux. Dùng Docker trên máy ảo Linux Virtualbox thì performance không được ổn lắm, dùng Docker riêng cho Windows (dù cũng là thông qua một máy ảo Hyper-V) thì ổn hơn, nhưng sử dụng trực tiếp trên Windows thì trải nghiệm không thể được như Linux. Vậy tại sao không kết hợp Docker với WSL, một mũi tên trúng 2 đích, đem lại trải nghiệm tốt nhất cho developer chúng ta.</p><h3 id="c-i-t-wsl-v-docker">Cài đặt WSL và Docker</h3><h4 id="wsl">WSL</h4><p>Trước hết ta cần phải enable WSL và cài đặt 1 hệ điều hành Linux trên Windows 10. </p><p>Để enable WSL, vào <code>Control Panel -&gt; Turn Windows features on or off</code> rồi select option <code>Windows Subsystem for Linux</code> như ở hình dưới.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1dy2GtBS0R4lTyndhl8B_JhCNa5kkglwy&amp;export=download" class="kg-image" alt width="415" height="368" layout="responsive"></amp-img></figure><p>Nếu không có option này thì bạn chịu khó update Windows 10 lên bản mới nhất :D Sau đó Windows sẽ restart, sau đó chỉ cần vào Microsoft Store, tìm một hệ điều hành Linux và cài đặt thôi, như ví dụ ở dưới là Ubuntu</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1avROGiXaMhE4crlb0K5mD3qvC9nwxOC5&amp;export=download" class="kg-image" alt width="1200" height="932" layout="responsive"></amp-img></figure><p>Sau khi cài đặt thành công, từ <code>Start Menu</code> chỉ cần tìm ứng dụng Ubuntu, chạy ứng dụng sau đó cài đặt user ban đầu là xong. Ta đã có một hệ điều hành Ubuntu chạy trên Windows với hầu hết các tính năng như khi chạy trên máy ảo hay máy vật lý</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1733RnTHAFW3aT0hNBYjNxIsFEXKG8WPR&amp;export=download" class="kg-image" alt width="750" height="182" layout="responsive"></amp-img></figure><h4 id="docker">Docker</h4><p>Docker thì quá đơn giản chỉ việc down bộ bài Docker for Windows từ trang chủ của Docker về cài đặt (<a href="https://docs.docker.com/docker-for-windows/install/">https://docs.docker.com/docker-for-windows/install/</a>). Ở trang chủ của Docker có hướng dẫn đầy đủ từ A -&gt; Z. Lần đầu chạy docker, nếu Windows của bạn chưa enable Hyper-V, thì docker sẽ thông báo để enable Hyper-V, sau đó mở cmd lên là bạn có thể test thử docker được rồi.</p><h3 id="thi-t-l-p-wsl-v-docker">Thiết lập WSL và Docker </h3><h4 id="docker-1">Docker</h4><p>Đầu tiên ta phải thiết lập để Docker daemon cung cấp một endpoint cho chúng ta kết nối đến mà không cần thông qua TLS (chống chỉ định nếu máy tính của bạn có thể access được từ public network, còn trong các trường hợp khác thì không lo vì endpoint này chỉ access được từ localhost).</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1BwUUHkmV1g168rpDe7ejhE_GBVoYa6Jp&amp;export=download" class="kg-image" alt width="832" height="573" layout="responsive"></amp-img></figure><p>End point này sẽ giúp Docker Client ở trong WSL có thể connect được với Docker daemon chạy trên Windows.</p><p>Tiếp theo sẽ là thiếp lập shared driver để container có thể access được dữ liệu trên ổ cứng. Về bản chất thì Docker trên Windows vẫn chạy thông qua máy ảo Hyper-V, nên ta vẫn cần có bước này.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1x64G7z1APQnIlEOMVM2QIOmHwbvyW-d-&amp;export=download" class="kg-image" alt width="832" height="573" layout="responsive"></amp-img></figure><p>Trong trường hợp bạn gặp thông báo lỗi <code>Error: A firewall is blocking file sharing between Windows and the containers</code> khi share folder thì hãy check lại xem firewall rules của mình nhé. Docker sử dụng một internal virtual network tên là DockerNat để thực hiện việc share folder này nên cần setup để cho 2 IP <code>10.0.75.1</code> (host Windows) và  <code>10.0.75.2</code> (máy ảo) có thể kết nối được với nhau thông qua các cổng TCP: 139, 445, UDP:  137, 138.</p><h4 id="wsl-1">WSL</h4><p>Đăng nhập vào Ubuntu với WSL sau đó cài đặt Docker trên Ubuntu theo hướng dẫn ở trang chủ Docker (<a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a>).</p><p>Sau đó cài đặt docker-compose sử dụng pip</p><pre><code># Install Python and PIP.
+sudo apt-get install -y python python-pip
+
+# Install Docker Compose into your user's home directory.
+pip install --user docker-compose</code></pre><p>Vì docker-compose sẽ được cài đặt vào folder <code>$HOME/.local/bin</code> nên cần add folder này vào <code>$PATH</code></p><pre><code class="language-sh"># .bashrc or .profile
+export PATH="$PATH:$HOME/.local/bin"
+</code></pre>
+<p>Sau đó để Docker client có thể connect được với Docker daemon chạy trên windows ta cần config để Docker client kết nối với endpoint ta thiết lập ở setting của Docker. Dưới đây là câu lệnh cho bạn nào sử dụng bash, với các shell khác thì cần sửa đổi chút:</p><pre><code class="language-sh">echo "export DOCKER_HOST=tcp://localhost:2375" &gt;&gt; ~/.bashrc &amp;&amp; source ~/.bashrc
+</code></pre>
+<p>Giờ thì ta đã có thể chạy thử và kiểm tra xem Docker đã chạy ngon ở trên WSL chưa</p><pre><code class="language-sh">docker info
+
+docker run -it hello-world
+</code></pre>
+<p>Tuy nhiên vẫn còn một vấn đề ta cần phải giải quyết. Khi sử dụng volume mount  cho container ở trên WSL thì Docker cho windows sẽ yêu cầu sử dụng đường dẫn full path theo filesystem trên windows, ví dụ như là: <code>/c/Users/linhtm/Dev/abczyz</code> (do các drive của Windows như <code>C:\</code> hay <code>D:\</code> sẽ được mount trực tiếp vào path <code>/c</code> hay <code>/d</code> trên máy ảo Hyper-V)</p><pre><code>docker run --rm -v /c/Users/linhtm/Dev/abcxyz:/data alpine ls /data
+</code></pre>
+<p>Trên WSL, các drive của Windows lại được mount ở <code>/mnt/</code> folder do vậy câu lệnh trên phải trở thành như dưới đâyy và sẽ xảy ra lỗi vì Docker trên Windows sẽ không nhận ra được đường dẫn mnt ở trong WSL</p><pre><code>docker run --rm -v /mnt/c/Users/linhtm/Dev/abcxyz:/data alpine ls /data</code></pre><p>Cách xử lý thì ta có thể dùng bind mount để mount <code>/mnt/c</code> vào <code>/c</code></p><pre><code>sudo mkdir /c
+sudo mount --bind /mnt/c /c</code></pre><p>Ta có thể add dòng lệnh trên vào file <code>.profile</code> hay <code>.bashrc</code> để việc mount sẽ được tự động thực hiện mỗi lần access vào WSL</p><p>Ngoài ra ta có thể setting lại WSL để tự động mount các drive Windows vào <code>/</code>. Tạo file <code>/etc/wsl.conf</code> với nội dung như ở dưới đây. </p><pre><code># /etc/wsl.conf
+
+[automount]
+root = /
+options = "metadata"</code></pre><p>Sau đó sign out và sign in windows để restart WSL và thế là ta đã có Docker hoạt động ngon nghẻ trên WSL</p><h3 id="k-t-lu-n">Kết luận</h3><p>Chỉ tốn một chút thời gian và công sức là ta đã có một môi trường Linux với Docker phục vụ đầy đủ các nhu cầu phát triển thông thường. Tất nhiên do Docker trên Windows vẫn chạy thông qua máy ảo Hyper-V nên performance không thể ngang bằng chạy trực tiếp trên Linux, nhưng cũng khá ổn cho việc phát triển trên môi trường local. Theo thông báo của Microsoft thì WSL 2 sắp tới sẽ kèm luôn theo một kernel Linux do đó có thể cài trực tiếp Docker trên WSL không cần phải thông qua các bước setup như trên. Tuy nhiên, từ đây đến lúc đó thì chúng ta có thể tạm hài lòng với sự kết hợp giữa WSL và Docker trên Windows.</p><h3 id="tham-kh-o">Tham khảo</h3><ul><li><a href="https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly">https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly</a></li><li><a href="https://docs.docker.com/docker-for-windows/">https://docs.docker.com/docker-for-windows/</a></li></ul>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

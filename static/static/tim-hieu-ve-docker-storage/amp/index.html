@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tìm hiểu về Docker Storage</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tìm hiểu về Docker Storage" />
+    <meta property="og:description" content="Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-02-14T09:38:47.000Z" />
+    <meta property="article:modified_time" content="2020-02-14T09:38:47.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="docker-storage" />
+    <meta property="article:tag" content="volumes" />
+    <meta property="article:tag" content="bind mounts" />
+    <meta property="article:tag" content="tmpfs" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tìm hiểu về Docker Storage" />
+    <meta name="twitter:description" content="Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.Đ.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, docker-storage, volumes, bind mounts, tmpfs" />
+    <meta property="og:image:width" content="1400" />
+    <meta property="og:image:height" content="694" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tìm hiểu về Docker Storage",
+    "url": "https://blog.vietnamlab.vn/tim-hieu-ve-docker-storage/",
+    "datePublished": "2020-02-14T09:38:47.000Z",
+    "dateModified": "2020-02-14T09:38:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&export=download",
+        "width": 1400,
+        "height": 694
+    },
+    "keywords": "docker, docker-storage, volumes, bind mounts, tmpfs",
+    "description": "Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu\nbasic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker\nNetwork, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker\nStorage nên nay mạo muội viết một bài blog chia sẻ cho các bạn khái quát về\nStorage - một thành phần vô cùng quan trọng trong kiến trúc Docker.\n\nVấn đề với Storage trong Docker\nMặc định tất cả các file được tạo ra trong container được chứa ở một lớp gọi là \nwrita",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tìm hiểu về Docker Storage</h1>
+                <section class="post-meta">
+                    L.Đ.T -
+                    <time class="post-date" datetime="2020-02-14">14 Feb 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1EQeoMQjmiBRl9ElfMDYHA6BVBh9KeLNX&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Xin chào! Trong đợt nghiên cứu vừa rồi tại công ty, nhóm mình có được tìm hiểu basic về Docker bao gồm: Docker Daemon, Docker Container, Docker Image, Docker Network, Docker Storage... Riêng mình thì được tìm hiểu sâu hơn về phần Docker Storage nên nay mạo muội viết một bài blog chia sẻ cho các bạn khái quát về Storage - một thành phần vô cùng quan trọng trong kiến trúc Docker.</p><h3 id="v-n-v-i-storage-trong-docker">Vấn đề với Storage trong Docker</h3><p>Mặc định tất cả các file được tạo ra trong container được chứa ở một lớp gọi là <strong>writable container layer</strong> . Điều đó có nghĩa rằng:</p><ul><li>Khi container bị xoá đi, mọi dữ liệu sẽ bốc hơi.</li><li>Khó có thể lấy data ra khỏi container ra dùng cho các process khác.</li><li>Khi container chạy, <strong>writable layer</strong> gắn chặt với máy host nên khó có thể di chuyển data trong lẫn ngoài container.</li><li><strong>writable layer</strong> cần có storage driver để quản lý các file hệ thống, mà các storage driver này cung cấp các filesystem sử dụng Linux kernel. =&gt; Làm giảm performance  hệ thống.</li></ul><h3 id="kh-i-qu-t-v-docker-storage">Khái quát về Docker Storage</h3><p>Như các bạn thấy ở trên, rất nhiều vấn đề nhức nhối khi sử dụng storage. Để giải quyết các vấn đề này, Docker đã nghiên cứu và đưa ra một cơ chế tương đối đầy đủ để quản lý data của các container đó là Docker Storage.</p><p>Bản chất của Docker Storage là cơ chế cho phép lưu trữ data của các container vào máy host bằng cách mount một folder từ container vào máy host. Điều này giải quyết được các vấn đề nêu trên, đồng thời một số các folder chứa setting hay log có thể được đọc dễ dàng hơn trong quá trình troubleshoot.</p><h3 id="syntax-khai-b-o">Syntax khai báo</h3><ul><li><strong>-v(--volume)</strong>: syntax này thường được sử dụng cho các container đơn lẻ, tất cả các tuỳ chọn trong một trường, ngăn cách bởi dấu <code>:</code>.</li></ul><p>Ví dụ:</p><pre><code>docker run -d --name=nginxtest -v nginx-vol:/usr/share/nginx/html nginx:latest</code></pre><ul><li><strong>--mount</strong>: thường được dùng cho swarm service, chia các tuỳ chọn ra theo các cặp <code>&lt;key&gt;=&lt;value&gt;</code> và ngăn cách nhau bởi dấu <code>,</code> .</li></ul><p>Ví dụ:</p><pre><code>docker run -d --name=nginxtest --mount source=nginx-vol,destination=/usr/share/nginx/html nginx:latest</code></pre><p>Ban đầu -v hoặc –volume flag được dùng cho standalone container và –mount flag được dùng cho swarm services. Tuy nhiên từ phiên bản Docker 17.06 bạn có thể sử dụng –mount flag cho standalone container. Nói chung điểm khác biệt duy nhất chính là là cú pháp và  sở thích :v . Trong khi  <strong>-v</strong> yêu cầu phải khai báo đúng thứ tự, thì <strong>--mount</strong> lại linh hoạt, không cần thứ tự. Tuy nhiên cú pháp của <strong>--mount</strong> lại tương đối dài dòng, gõ khá mệt.</p><h3 id="c-c-ki-u-mount-c-a-docker-storage">Các kiểu mount của Docker Storage</h3><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Tf2FK0Juiu9aIHu1ktPaP4TpZXrbf_lE&amp;export=download" class="kg-image" alt width="501" height="255" layout="responsive"></amp-img></figure><p>Có 3 kiểu mount chính đó là:</p><ul><li><strong>volumes</strong>: data được chứa trong filesystem của máy host quản lý bởi Docker.</li><li><strong>bind mounts</strong>: data có thể nằm ở bất kỳ đâu trên máy host, không được quản lý bởi Docker.</li><li><strong>tmpfs</strong>: data được chứa ở memory của máy host, không được lưu trữ ở  hệ thống file của máy chủ. Data sẽ mất đi khi container bị dừng hay xoá đi.</li></ul><p>Mặc dù chúng ta có chọn kiểu mount nào đi chăng nữa, data trong container vẫn không bị biến đổi, tồn tại dưới dang file và thư mục trong filesystem của container. Giờ chúng ta cùng tìm hiểu chi tiết hơn đối với từng kiểu mount nhé.</p><h4 id="bind-mounts">bind mounts</h4><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=12KUCtHfOUi-oVx8wQqpKkApxJV7YNOyD&amp;export=download" class="kg-image" alt width="502" height="256" layout="responsive"></amp-img></figure><p><strong>bind mounts</strong> xuất hiện rất sớm cùng với Docker, nó có hiệu năng tốt do phụ thuộc vào cấu trúc filesystem của máy host. Với <strong>bind mounts</strong>, file và thư mục được mount từ máy host vào container, sử dụng đường dẫn tuyệt đối và data có thể được lưu trữ bất cứ ở đâu trên máy chủ. Chúng ta không bắt buộc phải mount với một thư mục không tồn tại. Nếu mount dữ liệu tới một thư mục không tồn tại, nó sẽ tự động được tạo ra theo yêu cầu.</p><p>Có một số điểm cần lưu ý khi sử dụng với <strong>bind mounts</strong> như sau:</p><ul><li>Khi mount từ host với một folder có chứa dữ liệu trong container, dữ liệu trong container hiện có sẽ bị ẩn đi cho tới khi liên kết này bị unmount.</li><li>Một điều không biết là tốt hay xấu khi sử dụng <strong>bind mounts</strong>, đó là chúng ta có thể chỉnh sửa, thêm mới, xoá các system files và directories trong quá trình sử dụng container. Đây là một tính năng liên quan đến bảo mật, liên quan đến tác động của các Docker non-process tới các file hệ thống. Vì vậy các bạn nên hết sức cẩn thận khi mount folder là một directory hay file quan trọng.</li></ul><p>Với các tính năng trên, <strong>bind mounts</strong> rất phù hợp, tiện lợi khi:</p><ul><li>Chia sẻ các file cấu hình từ docker host tới container.</li><li>Chia sẻ các thư mục source code hoặc môi trường từ docker host với container.</li><li>Chia sẻ dữ liệu khi cấu trúc filesystem của docker host là rõ ràng và phù hợp với các yêu cầu của <strong>bind mount</strong>.</li></ul><p>Tuy nhiên, <strong>bind mounts</strong> không phải là không có các điểm yếu. Cùng kể ra một vài điểm yếu nào:</p><ul><li><strong>bind mounts</strong> chỉ dừng lại ở việc synced folder.</li><li>Sử dụng đường dẫn tuyệt đối khiến cho việc di chuyển dữ liệu khó khăn và ảnh hưởng tới container khi muốn di rời data.</li><li>Không sử dụng được Docker CLI.</li><li>Có thể chỉnh sửa System file, như mình đã nói ở trên :D.</li></ul><h4 id="volumes">volumes</h4><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1GKfCpsq0mzcaRBQX2gkiycHle7jhRQcS&amp;export=download" class="kg-image" alt width="502" height="255" layout="responsive"></amp-img></figure><p><strong>Volumes</strong> là phiên bản cải tiến cho <strong>bind mounts</strong>, và bản chất của nó cũng tương tự so với bind mounts, nhưng được quản lý Docker. Vì vậy, chỉ những process của Docker mới có thể can thiệp được vào thư mục mount này. Mount giữa host và container được gọi là một <strong>volume</strong>. Và data được lưu trữ tại Docker area ( trên Linnux là <code>/var/lib/docker/volumes/</code> ) Chúng ta có thể tạo volume tronng lúc tạo container hoặc service hoặc sử dụng câu lệnh <code>docker volume create</code> bằng Docker CLI.</p><p>Có thể kể ra rất nhiều điểm vượt trội của <strong>volumes</strong> so với <strong>bind mounts</strong>:</p><ul><li>Dễ backup, restore và migrate.</li><li>Chúng ta có thể quản lý thêm, sửa, xoá volume sử dụng Docker CLI  hoặc Docker API.</li><li>Sử dụng được trên cả Linux và Windows.</li><li>Do được quản lý bằng CLI nên dễ quản lý  hơn và dễ dàng chia sẻ volume cho các container khác.</li><li>Một ưu điểm vượt trội đó là thay vì store volumes trong  <code>/var/lib/docker/volumes/</code> , ta có thể store thẳng volume lên remote host hoặc cloud.</li><li>Sử dụng volume không làm tăng dung lượng của container sử dụng vì nó nằm ngoài lifecycle của container.</li></ul><p>Một số chú ý khi sử dụng <strong>volumes</strong>:</p><ul><li>Nếu mount một volume vào trong một thư mục của container, mà thư mục của container này đã có dữ liệu thì dữ liệu từ container sẽ được copy vào volume của docker host.</li><li>Thông thường nếu không tạo volume từ trước mà chạy container với volume mount thì Docker sẽ tự động tạo một volume và dữ liệu sẽ vẫn tồn tại ngoài vòng đời của container.</li><li>Khi container bị xoá đi thì volume vẫn tồn tại.</li></ul><p>Với những tiện lợi kể trên, <strong>volumes</strong> được sử dụng rất nhiều và được Docker recommend sử dụng thay thế cho <strong>bind mounts</strong>.  Volumes được sử dụng trong việc:</p><ul><li>Chia sẻ data giữa các container (rõ ràng).</li><li>Lưu dữ liệu tới một remote server hoặc cloud để chia sẻ với các host khác.</li><li>Khi cần backup, restore hoặc migrate dữ liệu từ docker host này sang docker host khác.</li><li>Làm những thứ mà <strong>bind mounts</strong> không thể làm được :D.</li></ul><h4 id="tmpfs">tmpfs</h4><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Kp5dIV34F0H5IlmvRxQOsbLyEEgT_5Tw&amp;export=download" class="kg-image" alt width="501" height="259" layout="responsive"></amp-img></figure><p>Nếu <strong>volumes</strong> và <strong>bind mounts</strong> giúp bạn chia sẻ file giữa host và container thì tmpfs khá là dị biệt. Khi sử dụng container với kiểu mount là tmpfs, data sẽ không được lưu vào lớp writable layer, cũng không được lưu vào filesystem của máy host, mà được lưu thẳng vào memory. Và khi container chỉ cần ngừng thôi, thì data cũng sẽ mất luôn.</p><p>Với <strong>tmpfs</strong>, có một vài chú ý sau:</p><ul><li>Mang tính chất tạm thời, không thể share mount giữa các container.</li><li>Chỉ sử dụng được khi host là Linux.</li></ul><p>Với tính cách khá "dị" của mình, <strong>tmpfs</strong> được sử dụng để: </p><ul><li>Tạm thời chứa các file "nhạy cảm" mà bạn không muốn duy trì trong máy host hoặc container layer.</li><li>Khi bạn muốn bảo mật, hoặc muốn đảm bảo hiệu suất container khi ứng dụng cần ghi một số lượng lớn dữ liệu không liên tục.</li></ul><h3 id="l-i-k-t">Lời kết</h3><p>Bài viết trên mình đã nói khái quát về Docker Storage cũng như về 3 kiểu mount của nó. Hy vọng bài viết giúp bạn tóm lược lại các đặc điểm chính về storage trong Docker. Hẹn gặp lại các bạn trong các bài viết sau!</p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

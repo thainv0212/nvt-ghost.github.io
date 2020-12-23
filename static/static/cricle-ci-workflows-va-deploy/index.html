@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cricle CI - Workflows và Deploy | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Cricle CI - Workflows và Deploy" />
+    <meta property="og:description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:18:00.000Z" />
+    <meta property="article:modified_time" content="2018-01-24T04:18:39.000Z" />
+    <meta property="article:tag" content="CricleCI" />
+    <meta property="article:tag" content="Deploy" />
+    <meta property="article:tag" content="Workflows" />
+    <meta property="article:tag" content="CI" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cricle CI - Workflows và Deploy" />
+    <meta name="twitter:description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="CricleCI, Deploy, Workflows, CI" />
+    <meta property="og:image:width" content="1884" />
+    <meta property="og:image:height" content="928" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Cricle CI - Workflows và Deploy",
+    "url": "https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/",
+    "datePublished": "2018-01-24T04:18:00.000Z",
+    "dateModified": "2018-01-24T04:18:39.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&export=download",
+        "width": 1884,
+        "height": 928
+    },
+    "keywords": "CricleCI, Deploy, Workflows, CI",
+    "description": "Ở bài trước [Test tự động với CircleCI và thông báo kết quả lên Slack]\n[https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/] \n , ta đã tìm hiểu về khả năng tự động test và thông báo kết quả lên Slack.\n\nTrong bài này, ta sẽ tiếp tục tìm hiểu về\n\n * Workflows\n * Deploy\n\nvới CricleCI\n\nWorkflows\nĐầu tiên là Workflows.\n\nỞ ví dụ bài trước, ta đã gộp rất nhiều công việc trong 1 job build như sau:\n\n 1. Checkout code\n 2. Download and cache dependencies\n 3. Buil",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-cricleci tag-deploy tag-workflows tag-ci nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-cricleci tag-deploy tag-workflows tag-ci js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Cricle CI - Workflows và Deploy</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-01-24">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 24 January 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/cricleci/index.html">CricleCI</a>, <a href="../tag/deploy/index.html">Deploy</a>, <a href="../tag/workflows/index.html">Workflows</a>, <a href="../tag/ci/index.html">CI</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" alt="Cricle CI - Workflows và Deploy">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/cricle-ci-workflows-va-deploy/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Cricle%20CI%20-%20Workflows%20v%C3%A0%20Deploy">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Ở bài trước <a href="https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" target="_blank">[Test tự động với CircleCI và thông báo kết quả lên Slack]</a> , ta đã tìm hiểu về khả năng tự động test và thông báo kết quả lên Slack.</p>
+<p>Trong bài này, ta sẽ tiếp tục tìm hiểu về</p>
+<ul>
+<li>Workflows</li>
+<li>Deploy</li>
+</ul>
+<p>với CricleCI</p>
+<h3 id="workflows">Workflows</h3>
+<p>Đầu tiên là <code>Workflows</code>.</p>
+<p>Ở ví dụ bài trước, ta đã gộp rất nhiều công việc trong 1 job build như sau:</p>
+<ol>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+</ol>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/cricle-test
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - cricle-test-{{ checksum &quot;pom.xml&quot; }}
+          # fallback to using the latest cache if no exact match is found
+          - cricle-test-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: cricle-test-{{ checksum &quot;pom.xml&quot; }}
+
+      # run tests!
+      - run: mvn integration-test
+
+      - store_test_results:
+          path: target/junit
+</code></pre>
+<p>Nhìn qua thì ta thấy có vẻ ổn? Tuy nhiên, để tăng tốc độ phát triển phần mềm thông qua việc CI phản hồi nhanh hơn, thời gian chạy ngắn hơn, và sử dụng hiệu quả hơn các nguồn lực, thì <code>Workflows</code> sẽ giúp ích rất lớn trong việc định nghĩa các job và thứ tự chạy của chúng.</p>
+<h4 id="workflowslg">Workflows là gì?</h4>
+<p><code>Workflows</code> là tập hợp các quy tắc định nghĩa tập hợp các công việc và trật tự chạy của chúng, nhằm rút ngắn vòng lặp phản hồi.</p>
+<p>Ví dụ, nếu có một công việc trong <code>workflows</code> của bạn không thành công, bạn sẽ biết ngay chỗ lỗi theo thời gian thực và bạn chỉ phải chạy lại công việc không thành công. Thay vì, lãng phí thời gian và tài nguyên để chờ toàn bộ công việc build thất bại hoặc phải chạy lại toàn bộ công việc.</p>
+<h4 id="workflowsconfiguration">Workflows Configuration</h4>
+<p>Với ví dụ ở trên, ta sẽ tạo workflows với 4 jobs, thay vì gộp tất cả vào 1 job như trước</p>
+<ol>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+</ol>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  checkout_code: # job1
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      - checkout
+      # Lưu thư file, thư mục để sử dụng ở job khác trong workflows
+      - persist_to_workspace:
+          root: /home/circleci
+          paths: circleci-demo-workflows/*
+
+  get_dependencies: # job2
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys:
+          - cricle-test-{{ checksum &quot;pom.xml&quot; }}
+          # fallback to using the latest cache if no exact match is found
+          - cricle-test-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: cricle-test-{{ checksum &quot;pom.xml&quot; }}
+
+  build: # job3
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+      - run: mvn compile
+
+  test: #job4
+    docker:
+      - image: circleci/openjdk:8-jdk
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+
+      # run tests!
+      - run: |
+          mvn integration-test
+          mkdir target/junit
+      - store_test_results:
+          path: target/junit
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - get_dependencies: # get_dependencies chạy sau checkout_code 
+          requires:
+            - checkout_code
+      - build: # xong get_dependencies mới build
+          requires:
+            - get_dependencies
+      - test: # xong get_dependencies mới test
+          requires:
+            - get_dependencies
+</code></pre>
+<p>Ở đây ta kết hợp giữa các job tuần tự và song song</p>
+<ul>
+<li>Tuần tự: thực hiện xong <code>checkout_code</code> rồi mới thực hiện <code>get_dependencies</code>, sau đó mới thực hiện <code>build</code> và <code>test</code></li>
+<li>Song song: Sau khi xong <code>get_dependencies</code> thì <code>build</code> và <code>test</code> có thể chạy đồng thời</li>
+</ul>
+<p>Ví dụ, nếu <code>get_dependencies</code> lỗi thì build và test sẽ không được chạy</p>
+<p><img src="https://drive.google.com/uc?id=1635Wb4UN7q2MrkL0xHZWeXa7dDrmJBwK&amp;export=download" alt=""></p>
+<p><code>build</code> và <code>test</code> có thể chạy đồng thời như sau</p>
+<p><img src="https://drive.google.com/uc?id=1dhNh9FYJ_ZhXhGPW43j_Tm50vimcuUfJ&amp;export=download" alt=""></p>
+<p>Kết quả</p>
+<p><img src="https://drive.google.com/uc?id=1YgFvyU6e2GL7YcQm_AgR4nec2Odik-Vd&amp;export=download" alt=""></p>
+<p>Với trường hợp chạy lỗi 1 job, ta có thể chọn chỉ chạy lại job bị fail (tuy nhiên trong ví dụ của bài viết, do fail test nên ta phải sửa lại code, và các bước checkout_code cũng như get_dependencies sẽ phải chạy lại)</p>
+<p><img src="https://drive.google.com/uc?id=1mENun30scyKKNpXnusJvkG1zwd7VBKE7&amp;export=download" alt=""></p>
+<p>Ngoài ra, còn có rất nhiều config khác như</p>
+<ul>
+<li>Giữ 1 job pending và chỉ chạy khi được approval job bằng tay. Ví dụ, với job deploy, sau khi test xong, workflow sẽ chờ ta đồng ý có deploy hay không, chứ không tự chạy ngay.</li>
+<li>Ta cũng có thể thiết lập lịch chạy cho workflow bằng cron</li>
+<li>Hay set Branch-Level cho job</li>
+<li>...</li>
+</ul>
+<p>Có thể tìm hiểu chi tiết thêm các thiết lập và 1 số vấn đề hay gặp với workflows tại <a href="https://circleci.com/docs/2.0/workflows/" target="_blank">[CricleCI - Orchestrating Workflows]</a></p>
+<h3 id="deploy">Deploy</h3>
+<p>Tiếp theo ta sẽ tìm hiểu về việc deploy tự động với CricleCI.</p>
+<p>CricleCI có thể deploy với các server như</p>
+<ul>
+<li>AWS</li>
+<li>Azure</li>
+<li>Heroku</li>
+<li>Google Cloud</li>
+<li>Firebase</li>
+</ul>
+<p>Việc đăng ký tài khoản free với Heroku khá đơn giản, nên ta sẽ thử với Heroku như sau</p>
+<ol>
+<li>Tự động deploy 1 Java App sau khi build và test thành công, chỉ với branch master với các bước như sau</li>
+</ol>
+<ul>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+<li>Deploy app lên server Heroku</li>
+</ul>
+<ol start="2">
+<li>Thử chức năng <strong>Holding a Workflow for a Manual Approval</strong> cho việc deploy</li>
+</ol>
+<h4 id="deploylnheroku">Deploy lên Heroku</h4>
+<p>Để deploy 1 app (trong ví dụ là Java App) lên server Heroku ta cần phải setting các bước như sau:</p>
+<p><strong>Bước 0</strong>: Cài Heroku CLI và tạo app trên Heroku</p>
+<pre><code>minhnc@minhnc:~/vnlab/cricleci-test (master)$ heroku create
+Creating app... done, ⬢ fathomless-inlet-82408
+https://fathomless-inlet-82408.herokuapp.com/ | https://git.heroku.com/fathomless-inlet-82408.git
+minhnc@minhnc:~/vnlab/cricleci-test (master)$ 
+minhnc@minhnc:~/vnlab/cricleci-test (master)$ git push heroku master
+</code></pre>
+<p>Với <code>https://fathomless-inlet-82408.herokuapp.com/</code> là page của app. Và <code>fathomless-inlet-82408</code> là tên app ta sẽ dùng đến ở thiết lập ở phía sau</p>
+<p><strong>Bước 1</strong>: Tạo script <code>setup-heroku.sh</code> cài đặt những thứ cần thiết trên CircleCI để deploy với Heroku trong thư mục <code>.circleci</code></p>
+<pre><code>#!/bin/bash
+git remote add heroku https://git.heroku.com/fathomless-inlet-82408.git
+wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+sudo mkdir -p /usr/local/lib /usr/local/bin
+sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
+sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+
+cat &gt; ~/.netrc &lt;&lt; EOF
+machine api.heroku.com
+  login $HEROKU_LOGIN
+  password $HEROKU_API_KEY
+machine git.heroku.com
+  login $HEROKU_LOGIN
+  password $HEROKU_API_KEY
+EOF
+
+mkdir ~/.ssh
+touch ~/.ssh/config
+cat &gt;&gt; ~/.ssh/config &lt;&lt; EOF
+  VerifyHostKeyDNS yes
+  StrictHostKeyChecking no
+EOF
+</code></pre>
+<p><strong>Bước 2</strong> : Tạo biến môi trường <code>HEROKU_LOGIN </code> và <code>HEROKU_API_KEY </code> sử dụng trong script trên ở trang Project &gt; Settings &gt; Environment Variables</p>
+<p>Để lấy Heroku API key ta dùng lệnh sau</p>
+<pre><code>heroku auth:token
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1iXxovRY1_8ndwtghCjY_YnyPkFeOlq0Z&amp;export=download" alt=""></p>
+<p><strong>Bước 3</strong>: Tạo SSH key (without a passphrase) để connect tới Heroku từ CricleCI ở mục SSH Permissions với hostname là git.heroku.com</p>
+<pre><code>minhnc@minhnc:~/vnlab$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/minhnc/.ssh/id_rsa): /Users/minhnc/vnlab/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/minhnc/vnlab/id_rsa.
+Your public key has been saved in /Users/minhnc/vnlab/id_rsa.pub.
+The key fingerprint is:
+SHA256:oeVHB5BCF/HZFMqYbZLfIJ0EFY7xoLaDTa5iOrs8wm4 minhnc@minhnc.local
+The key's randomart image is:
++---[RSA 2048]----+
+|     .. OB=.o.   |
+|      .o./ B     |
+|      +.X # o    |
+|     * = B +     |
+|    . * S o .    |
+|     . . .       |
+|. o .            |
+|+E .             |
+|B*.              |
++----[SHA256]-----+
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1tXfBpHM1KPGtJuW2hJT7aEEaEsdf3yEI&amp;export=download" alt=""></p>
+<p>Chú ý ghi lại <code>Fingerprint</code> để phần setting sau dùng.</p>
+<p><strong>Bước 4</strong>: Thêm public key vào Heroku ở màn hình sau <a href="https://dashboard.heroku.com/account" target="_blank">https://dashboard.heroku.com/account</a>.</p>
+<p><img src="https://drive.google.com/uc?id=1jecGgEHkkTggAErIP4KfcVYt1dQM4Si3&amp;export=download" alt=""></p>
+<p><strong>Bước 5</strong>: Chỉnh sửa <code>config.yml</code> như sau</p>
+<pre><code>...
+
+  deploy: # Job mới
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Run setup script
+          command: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+            - &quot;a1:5d:48:05:92:d2:b4:82:87:41:46:b0:8c:29:3b:46&quot;
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push --force git@heroku.com:fathomless-inlet-82408.git HEAD:refs/heads/master
+            heroku run python manage.py deploy
+            heroku restart
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - get_dependencies: # get_dependencies chạy sau checkout_code
+          requires:
+            - checkout_code
+      - build: # xong get_dependencies mới build
+          requires:
+            - get_dependencies
+      - test: # xong get_dependencies mới test
+          requires:
+            - get_dependencies
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+</code></pre>
+<p>Ta thêm job deploy như trên</p>
+<ul>
+<li>Đầu tiên thực hiện script <code>.circleci/setup-heroku.sh</code> để cài đặt những thứ cần thiết để deploy lên Heroku</li>
+<li><code>add_ssh_keys</code> dùng <code>fingerprints</code> ở bước 3</li>
+<li>Rồi deploy bằng các câu lệnh của Heroku</li>
+<li>Ở <code>workflows</code> ta thiết lập việc deploy chỉ được thực hiện khi <code>build</code> và <code>test</code> thành công với filter là branch master</li>
+</ul>
+<p>Ta có kết quả deploy thành công như sau (Do code thử nghiệm không có nội dung nên ta không thể xem app từ page của app ở bước 0)</p>
+<p><img src="https://drive.google.com/uc?id=18QwvkuTNo0hneJnphgF_b2JgcMOIwRDN&amp;export=download" alt=""></p>
+<p>Với trường hợp <code>test</code> bị lỗi, <code>deploy</code> sẽ không được chạy như hình</p>
+<p><img src="https://drive.google.com/uc?id=1SAbqRHfLMBZd0H6qmz1va-BIGw5irGXO&amp;export=download" alt=""></p>
+<h4 id="manualapprovaldeploy">Manual Approval Deploy</h4>
+<p>Như đã giới thiệu ở phần Workflows, ta có thể thiết lập để 1 job sẽ chỉ chạy khi ta Approval bằng tay trên màn hình CricleCI.</p>
+<p>Ở đây ta sẽ thử nghiệm với job <code>deploy</code></p>
+<pre><code>      - deploy:
+          type: approval
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+</code></pre>
+<p>Sau khi <code>test</code> và <code>build</code> chạy xong, job <code>deploy</code> sẽ không chạy mà ở trạng thái hold như sau</p>
+<p><img src="https://drive.google.com/uc?id=1siZrTaVxMBdNGNo8Wf_cWa3PyXOJA5qT&amp;export=download" alt=""></p>
+<p>Khi click vào <code>deploy</code> sẽ xuất hiện popup cho phép ta thực hiện deploy</p>
+<p><img src="https://drive.google.com/uc?id=1uC3mFNcWxdaiDyinIQPYsWYA7H2DCDzC&amp;export=download" alt=""></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>CricleCI là một công cụ mạnh mẽ, đang được rất nhiều công ty lớn sử dụng. Kết hợp với bài trước <a href="https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" target="_blank">[Test tự động với CircleCI và thông báo kết quả lên Slack]</a>, cùng với những tiện ích Workflows và deploy trong bài này, mong sẽ giúp mọi người có thể tích hợp CricleCI vào dự án của mình 1 cách nhanh chóng dễ dàng, nhằm nâng cao chất lượng sản phẩm và rút ngắn thời gian phát triển sản phẩm.</p>
+<p>Các setting trong bài viết mọi người có thể tham khảo ở trên GitHub: <a href="https://github.com/minhnc91/cricleci-test" target="_blank">https://github.com/minhnc91/cricleci-test</a></p>
+<h3 id="thamkho">Tham khảo</h3>
+<ol>
+<li><a href="https://circleci.com/docs/2.0/workflows/" target="_blank">CricleCI - Orchestrating Workflows</a></li>
+<li><a href="https://circleci.com/docs/2.0/deployment_integrations/" target="_blank">CricleCI - Deployment </a></li>
+<li><a href="https://circleci.com/docs/2.0/configuration-reference/" target="_blank">CricleCI - Configuration Reference</a></li>
+<li><a href="https://devcenter.heroku.com/articles/getting-started-with-java#introduction" target="_blank">Getting Started on Heroku with Java</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/cricle-ci-workflows-va-deploy/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Cricle%20CI%20-%20Workflows%20v%C3%A0%20Deploy">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/cricle-ci-workflows-va-deploy/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

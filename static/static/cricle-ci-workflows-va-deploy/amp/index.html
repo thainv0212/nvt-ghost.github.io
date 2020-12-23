@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Cricle CI - Workflows và Deploy</title>
+
+    <meta name="description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Cricle CI - Workflows và Deploy" />
+    <meta property="og:description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:18:00.000Z" />
+    <meta property="article:modified_time" content="2018-01-24T04:18:39.000Z" />
+    <meta property="article:tag" content="CricleCI" />
+    <meta property="article:tag" content="Deploy" />
+    <meta property="article:tag" content="Workflows" />
+    <meta property="article:tag" content="CI" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cricle CI - Workflows và Deploy" />
+    <meta name="twitter:description" content="Tiếp tục tìm hiểu về Workflows và Auto Deploy với CricleCI, kết hợp với Auto Test ở phần trước, rồi thông báo kết quả lên Slack ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="CricleCI, Deploy, Workflows, CI" />
+    <meta property="og:image:width" content="1884" />
+    <meta property="og:image:height" content="928" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Cricle CI - Workflows và Deploy",
+    "url": "https://blog.vietnamlab.vn/cricle-ci-workflows-va-deploy/",
+    "datePublished": "2018-01-24T04:18:00.000Z",
+    "dateModified": "2018-01-24T04:18:39.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&export=download",
+        "width": 1884,
+        "height": 928
+    },
+    "keywords": "CricleCI, Deploy, Workflows, CI",
+    "description": "Ở bài trước [Test tự động với CircleCI và thông báo kết quả lên Slack]\n[https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/] \n , ta đã tìm hiểu về khả năng tự động test và thông báo kết quả lên Slack.\n\nTrong bài này, ta sẽ tiếp tục tìm hiểu về\n\n * Workflows\n * Deploy\n\nvới CricleCI\n\nWorkflows\nĐầu tiên là Workflows.\n\nỞ ví dụ bài trước, ta đã gộp rất nhiều công việc trong 1 job build như sau:\n\n 1. Checkout code\n 2. Download and cache dependencies\n 3. Buil",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Cricle CI - Workflows và Deploy</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2018-01-24">24 Jan 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1UJ-UwWU-16i4OWoDCS9cB1um9IBFIZxr&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Ở bài trước <a href="https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" target="_blank">[Test tự động với CircleCI và thông báo kết quả lên Slack]</a> , ta đã tìm hiểu về khả năng tự động test và thông báo kết quả lên Slack.</p>
+<p>Trong bài này, ta sẽ tiếp tục tìm hiểu về</p>
+<ul>
+<li>Workflows</li>
+<li>Deploy</li>
+</ul>
+<p>với CricleCI</p>
+<h3 id="workflows">Workflows</h3>
+<p>Đầu tiên là <code>Workflows</code>.</p>
+<p>Ở ví dụ bài trước, ta đã gộp rất nhiều công việc trong 1 job build như sau:</p>
+<ol>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+</ol>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/cricle-test
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - cricle-test-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - cricle-test-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: cricle-test-{{ checksum "pom.xml" }}
+
+      # run tests!
+      - run: mvn integration-test
+
+      - store_test_results:
+          path: target/junit
+</code></pre>
+<p>Nhìn qua thì ta thấy có vẻ ổn? Tuy nhiên, để tăng tốc độ phát triển phần mềm thông qua việc CI phản hồi nhanh hơn, thời gian chạy ngắn hơn, và sử dụng hiệu quả hơn các nguồn lực, thì <code>Workflows</code> sẽ giúp ích rất lớn trong việc định nghĩa các job và thứ tự chạy của chúng.</p>
+<h4 id="workflowslg">Workflows là gì?</h4>
+<p><code>Workflows</code> là tập hợp các quy tắc định nghĩa tập hợp các công việc và trật tự chạy của chúng, nhằm rút ngắn vòng lặp phản hồi.</p>
+<p>Ví dụ, nếu có một công việc trong <code>workflows</code> của bạn không thành công, bạn sẽ biết ngay chỗ lỗi theo thời gian thực và bạn chỉ phải chạy lại công việc không thành công. Thay vì, lãng phí thời gian và tài nguyên để chờ toàn bộ công việc build thất bại hoặc phải chạy lại toàn bộ công việc.</p>
+<h4 id="workflowsconfiguration">Workflows Configuration</h4>
+<p>Với ví dụ ở trên, ta sẽ tạo workflows với 4 jobs, thay vì gộp tất cả vào 1 job như trước</p>
+<ol>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+</ol>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  checkout_code: # job1
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      - checkout
+      # Lưu thư file, thư mục để sử dụng ở job khác trong workflows
+      - persist_to_workspace:
+          root: /home/circleci
+          paths: circleci-demo-workflows/*
+
+  get_dependencies: # job2
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+      - restore_cache:
+          keys:
+          - cricle-test-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - cricle-test-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: cricle-test-{{ checksum "pom.xml" }}
+
+  build: # job3
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+      - run: mvn compile
+
+  test: #job4
+    docker:
+      - image: circleci/openjdk:8-jdk
+    environment:
+      MAVEN_OPTS: -Xmx3200m
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      # Lấy lại file đã lưu ở job1
+      - attach_workspace:
+          at: ~/
+
+      # run tests!
+      - run: |
+          mvn integration-test
+          mkdir target/junit
+      - store_test_results:
+          path: target/junit
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - get_dependencies: # get_dependencies chạy sau checkout_code 
+          requires:
+            - checkout_code
+      - build: # xong get_dependencies mới build
+          requires:
+            - get_dependencies
+      - test: # xong get_dependencies mới test
+          requires:
+            - get_dependencies
+</code></pre>
+<p>Ở đây ta kết hợp giữa các job tuần tự và song song</p>
+<ul>
+<li>Tuần tự: thực hiện xong <code>checkout_code</code> rồi mới thực hiện <code>get_dependencies</code>, sau đó mới thực hiện <code>build</code> và <code>test</code></li>
+<li>Song song: Sau khi xong <code>get_dependencies</code> thì <code>build</code> và <code>test</code> có thể chạy đồng thời</li>
+</ul>
+<p>Ví dụ, nếu <code>get_dependencies</code> lỗi thì build và test sẽ không được chạy</p>
+<p><amp-img src="https://drive.google.com/uc?id=1635Wb4UN7q2MrkL0xHZWeXa7dDrmJBwK&amp;export=download" alt width="2394" height="852" layout="responsive"></amp-img></p>
+<p><code>build</code> và <code>test</code> có thể chạy đồng thời như sau</p>
+<p><amp-img src="https://drive.google.com/uc?id=1dhNh9FYJ_ZhXhGPW43j_Tm50vimcuUfJ&amp;export=download" alt width="2406" height="850" layout="responsive"></amp-img></p>
+<p>Kết quả</p>
+<p><amp-img src="https://drive.google.com/uc?id=1YgFvyU6e2GL7YcQm_AgR4nec2Odik-Vd&amp;export=download" alt width="2410" height="822" layout="responsive"></amp-img></p>
+<p>Với trường hợp chạy lỗi 1 job, ta có thể chọn chỉ chạy lại job bị fail (tuy nhiên trong ví dụ của bài viết, do fail test nên ta phải sửa lại code, và các bước checkout_code cũng như get_dependencies sẽ phải chạy lại)</p>
+<p><amp-img src="https://drive.google.com/uc?id=1mENun30scyKKNpXnusJvkG1zwd7VBKE7&amp;export=download" alt width="2388" height="804" layout="responsive"></amp-img></p>
+<p>Ngoài ra, còn có rất nhiều config khác như</p>
+<ul>
+<li>Giữ 1 job pending và chỉ chạy khi được approval job bằng tay. Ví dụ, với job deploy, sau khi test xong, workflow sẽ chờ ta đồng ý có deploy hay không, chứ không tự chạy ngay.</li>
+<li>Ta cũng có thể thiết lập lịch chạy cho workflow bằng cron</li>
+<li>Hay set Branch-Level cho job</li>
+<li>...</li>
+</ul>
+<p>Có thể tìm hiểu chi tiết thêm các thiết lập và 1 số vấn đề hay gặp với workflows tại <a href="https://circleci.com/docs/2.0/workflows/" target="_blank">[CricleCI - Orchestrating Workflows]</a></p>
+<h3 id="deploy">Deploy</h3>
+<p>Tiếp theo ta sẽ tìm hiểu về việc deploy tự động với CricleCI.</p>
+<p>CricleCI có thể deploy với các server như</p>
+<ul>
+<li>AWS</li>
+<li>Azure</li>
+<li>Heroku</li>
+<li>Google Cloud</li>
+<li>Firebase</li>
+</ul>
+<p>Việc đăng ký tài khoản free với Heroku khá đơn giản, nên ta sẽ thử với Heroku như sau</p>
+<ol>
+<li>Tự động deploy 1 Java App sau khi build và test thành công, chỉ với branch master với các bước như sau</li>
+</ol>
+<ul>
+<li>Checkout code</li>
+<li>Download and cache dependencies</li>
+<li>Build</li>
+<li>Test</li>
+<li>Deploy app lên server Heroku</li>
+</ul>
+<ol start="2">
+<li>Thử chức năng <strong>Holding a Workflow for a Manual Approval</strong> cho việc deploy</li>
+</ol>
+<h4 id="deploylnheroku">Deploy lên Heroku</h4>
+<p>Để deploy 1 app (trong ví dụ là Java App) lên server Heroku ta cần phải setting các bước như sau:</p>
+<p><strong>Bước 0</strong>: Cài Heroku CLI và tạo app trên Heroku</p>
+<pre><code>minhnc@minhnc:~/vnlab/cricleci-test (master)$ heroku create
+Creating app... done, ⬢ fathomless-inlet-82408
+https://fathomless-inlet-82408.herokuapp.com/ | https://git.heroku.com/fathomless-inlet-82408.git
+minhnc@minhnc:~/vnlab/cricleci-test (master)$ 
+minhnc@minhnc:~/vnlab/cricleci-test (master)$ git push heroku master
+</code></pre>
+<p>Với <code>https://fathomless-inlet-82408.herokuapp.com/</code> là page của app. Và <code>fathomless-inlet-82408</code> là tên app ta sẽ dùng đến ở thiết lập ở phía sau</p>
+<p><strong>Bước 1</strong>: Tạo script <code>setup-heroku.sh</code> cài đặt những thứ cần thiết trên CircleCI để deploy với Heroku trong thư mục <code>.circleci</code></p>
+<pre><code>#!/bin/bash
+git remote add heroku https://git.heroku.com/fathomless-inlet-82408.git
+wget https://cli-assets.heroku.com/branches/stable/heroku-linux-amd64.tar.gz
+sudo mkdir -p /usr/local/lib /usr/local/bin
+sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
+sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
+
+cat &gt; ~/.netrc &lt;&lt; EOF
+machine api.heroku.com
+  login $HEROKU_LOGIN
+  password $HEROKU_API_KEY
+machine git.heroku.com
+  login $HEROKU_LOGIN
+  password $HEROKU_API_KEY
+EOF
+
+mkdir ~/.ssh
+touch ~/.ssh/config
+cat &gt;&gt; ~/.ssh/config &lt;&lt; EOF
+  VerifyHostKeyDNS yes
+  StrictHostKeyChecking no
+EOF
+</code></pre>
+<p><strong>Bước 2</strong> : Tạo biến môi trường <code>HEROKU_LOGIN </code> và <code>HEROKU_API_KEY </code> sử dụng trong script trên ở trang Project &gt; Settings &gt; Environment Variables</p>
+<p>Để lấy Heroku API key ta dùng lệnh sau</p>
+<pre><code>heroku auth:token
+</code></pre>
+<p><amp-img src="https://drive.google.com/uc?id=1iXxovRY1_8ndwtghCjY_YnyPkFeOlq0Z&amp;export=download" alt width="2558" height="1050" layout="responsive"></amp-img></p>
+<p><strong>Bước 3</strong>: Tạo SSH key (without a passphrase) để connect tới Heroku từ CricleCI ở mục SSH Permissions với hostname là git.heroku.com</p>
+<pre><code>minhnc@minhnc:~/vnlab$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/minhnc/.ssh/id_rsa): /Users/minhnc/vnlab/id_rsa
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/minhnc/vnlab/id_rsa.
+Your public key has been saved in /Users/minhnc/vnlab/id_rsa.pub.
+The key fingerprint is:
+SHA256:oeVHB5BCF/HZFMqYbZLfIJ0EFY7xoLaDTa5iOrs8wm4 minhnc@minhnc.local
+The key's randomart image is:
++---[RSA 2048]----+
+|     .. OB=.o.   |
+|      .o./ B     |
+|      +.X # o    |
+|     * = B +     |
+|    . * S o .    |
+|     . . .       |
+|. o .            |
+|+E .             |
+|B*.              |
++----[SHA256]-----+
+</code></pre>
+<p><amp-img src="https://drive.google.com/uc?id=1tXfBpHM1KPGtJuW2hJT7aEEaEsdf3yEI&amp;export=download" alt width="2556" height="894" layout="responsive"></amp-img></p>
+<p>Chú ý ghi lại <code>Fingerprint</code> để phần setting sau dùng.</p>
+<p><strong>Bước 4</strong>: Thêm public key vào Heroku ở màn hình sau <a href="https://dashboard.heroku.com/account" target="_blank">https://dashboard.heroku.com/account</a>.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1jecGgEHkkTggAErIP4KfcVYt1dQM4Si3&amp;export=download" alt width="2556" height="842" layout="responsive"></amp-img></p>
+<p><strong>Bước 5</strong>: Chỉnh sửa <code>config.yml</code> như sau</p>
+<pre><code>...
+
+  deploy: # Job mới
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Run setup script
+          command: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "a1:5d:48:05:92:d2:b4:82:87:41:46:b0:8c:29:3b:46"
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push --force git@heroku.com:fathomless-inlet-82408.git HEAD:refs/heads/master
+            heroku run python manage.py deploy
+            heroku restart
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout_code
+      - get_dependencies: # get_dependencies chạy sau checkout_code
+          requires:
+            - checkout_code
+      - build: # xong get_dependencies mới build
+          requires:
+            - get_dependencies
+      - test: # xong get_dependencies mới test
+          requires:
+            - get_dependencies
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+</code></pre>
+<p>Ta thêm job deploy như trên</p>
+<ul>
+<li>Đầu tiên thực hiện script <code>.circleci/setup-heroku.sh</code> để cài đặt những thứ cần thiết để deploy lên Heroku</li>
+<li><code>add_ssh_keys</code> dùng <code>fingerprints</code> ở bước 3</li>
+<li>Rồi deploy bằng các câu lệnh của Heroku</li>
+<li>Ở <code>workflows</code> ta thiết lập việc deploy chỉ được thực hiện khi <code>build</code> và <code>test</code> thành công với filter là branch master</li>
+</ul>
+<p>Ta có kết quả deploy thành công như sau (Do code thử nghiệm không có nội dung nên ta không thể xem app từ page của app ở bước 0)</p>
+<p><amp-img src="https://drive.google.com/uc?id=18QwvkuTNo0hneJnphgF_b2JgcMOIwRDN&amp;export=download" alt width="2546" height="936" layout="responsive"></amp-img></p>
+<p>Với trường hợp <code>test</code> bị lỗi, <code>deploy</code> sẽ không được chạy như hình</p>
+<p><amp-img src="https://drive.google.com/uc?id=1SAbqRHfLMBZd0H6qmz1va-BIGw5irGXO&amp;export=download" alt width="2552" height="942" layout="responsive"></amp-img></p>
+<h4 id="manualapprovaldeploy">Manual Approval Deploy</h4>
+<p>Như đã giới thiệu ở phần Workflows, ta có thể thiết lập để 1 job sẽ chỉ chạy khi ta Approval bằng tay trên màn hình CricleCI.</p>
+<p>Ở đây ta sẽ thử nghiệm với job <code>deploy</code></p>
+<pre><code>      - deploy:
+          type: approval
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
+</code></pre>
+<p>Sau khi <code>test</code> và <code>build</code> chạy xong, job <code>deploy</code> sẽ không chạy mà ở trạng thái hold như sau</p>
+<p><amp-img src="https://drive.google.com/uc?id=1siZrTaVxMBdNGNo8Wf_cWa3PyXOJA5qT&amp;export=download" alt width="2550" height="968" layout="responsive"></amp-img></p>
+<p>Khi click vào <code>deploy</code> sẽ xuất hiện popup cho phép ta thực hiện deploy</p>
+<p><amp-img src="https://drive.google.com/uc?id=1uC3mFNcWxdaiDyinIQPYsWYA7H2DCDzC&amp;export=download" alt width="2552" height="942" layout="responsive"></amp-img></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>CricleCI là một công cụ mạnh mẽ, đang được rất nhiều công ty lớn sử dụng. Kết hợp với bài trước <a href="https://vietnamlab.vn/blog/2017/09/05/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" target="_blank">[Test tự động với CircleCI và thông báo kết quả lên Slack]</a>, cùng với những tiện ích Workflows và deploy trong bài này, mong sẽ giúp mọi người có thể tích hợp CricleCI vào dự án của mình 1 cách nhanh chóng dễ dàng, nhằm nâng cao chất lượng sản phẩm và rút ngắn thời gian phát triển sản phẩm.</p>
+<p>Các setting trong bài viết mọi người có thể tham khảo ở trên GitHub: <a href="https://github.com/minhnc91/cricleci-test" target="_blank">https://github.com/minhnc91/cricleci-test</a></p>
+<h3 id="thamkho">Tham khảo</h3>
+<ol>
+<li><a href="https://circleci.com/docs/2.0/workflows/" target="_blank">CricleCI - Orchestrating Workflows</a></li>
+<li><a href="https://circleci.com/docs/2.0/deployment_integrations/" target="_blank">CricleCI - Deployment </a></li>
+<li><a href="https://circleci.com/docs/2.0/configuration-reference/" target="_blank">CricleCI - Configuration Reference</a></li>
+<li><a href="https://devcenter.heroku.com/articles/getting-started-with-java#introduction" target="_blank">Getting Started on Heroku with Java</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

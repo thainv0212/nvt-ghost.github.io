@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Face clustering với DBSCAN và Chinese Whispers</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Face clustering với DBSCAN và Chinese Whispers" />
+    <meta property="og:description" content="Thế gian ngày nay, công nghệ phát triển, kĩ thuật tiến bộ. Học được kinh Kaizen của GMO, ghi lại triết lí cải tiến sản xuất, có thể giúp GMO đạt mục tiêu 55 năm, hùng bá thiên hạ. Mình đã về nước tận lực cống hiến nhưng cho đến" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/face-clustering-voi-dbscan-va/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1YrmWGLgGWdzvLZa6FJSsumJVWjvCUnvT&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-03-22T01:35:16.000Z" />
+    <meta property="article:modified_time" content="2019-03-22T01:35:16.000Z" />
+    <meta property="article:tag" content="OpenCV" />
+    <meta property="article:tag" content="Xử lý ảnh" />
+    <meta property="article:tag" content="cluster" />
+    <meta property="article:tag" content="Python" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Face clustering với DBSCAN và Chinese Whispers" />
+    <meta name="twitter:description" content="Thế gian ngày nay, công nghệ phát triển, kĩ thuật tiến bộ. Học được kinh Kaizen của GMO, ghi lại triết lí cải tiến sản xuất, có thể giúp GMO đạt mục tiêu 55 năm, hùng bá thiên hạ. Mình đã về nước tận lực cống hiến nhưng cho đến" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/face-clustering-voi-dbscan-va/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1YrmWGLgGWdzvLZa6FJSsumJVWjvCUnvT&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OpenCV, Xử lý ảnh, cluster, Python" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="900" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Face clustering với DBSCAN và Chinese Whispers",
+    "url": "https://blog.vietnamlab.vn/face-clustering-voi-dbscan-va/",
+    "datePublished": "2019-03-22T01:35:16.000Z",
+    "dateModified": "2019-03-22T01:35:16.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1YrmWGLgGWdzvLZa6FJSsumJVWjvCUnvT&export=download",
+        "width": 1600,
+        "height": 900
+    },
+    "keywords": "OpenCV, Xử lý ảnh, cluster, Python",
+    "description": "Thế gian ngày nay, công nghệ phát triển, kĩ thuật tiến bộ. Học được kinh Kaizen\ncủa GMO, ghi lại triết lí cải tiến sản xuất, có thể giúp GMO đạt mục tiêu 55\nnăm, hùng bá thiên hạ. Mình đã về nước tận lực cống hiến nhưng cho đến nay mãi\nvẫn chỉ biết làm Web. Mình quyết định tu luyện OpenCV, nhưng vì không có data\nnên mãi vẫn không biết con yêu tinh này yêu nữa này tên gì nguồn gốc ở đâu. \n\nQuay tay lại ngay với chủ để chính thôi thì không biết nó là ai ít nhất phân\nbiệt các diễn viên hay dở còn x",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Face clustering với DBSCAN và Chinese Whispers</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2019-03-22">22 Mar 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1YrmWGLgGWdzvLZa6FJSsumJVWjvCUnvT&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Thế gian ngày nay, công nghệ phát triển, kĩ thuật tiến bộ. Học được kinh Kaizen của GMO, ghi lại triết lí cải tiến sản xuất, có thể giúp GMO đạt mục tiêu 55 năm, hùng bá thiên hạ. Mình đã về nước tận lực cống hiến nhưng cho đến nay mãi vẫn chỉ biết làm Web. Mình quyết định tu luyện OpenCV, nhưng vì không có data nên mãi vẫn không biết con yêu tinh này yêu nữa này tên gì nguồn gốc ở đâu. </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1CPPZLdxWPg8f-J9C6xYOjQNW02NdS_xe&amp;export=download" class="kg-image" alt width="677" height="413" layout="responsive"></amp-img></figure><p>Quay tay lại ngay với chủ để chính thôi thì không biết nó là ai ít nhất phân biệt các diễn viên hay dở còn xem lại.<br />Bài toán cụ thể như sau: Có rất nhiều bộ phim cúa các diễn viên khác nhau nhưng thường các bộ phim không được nhóm hay sắp sếp hoặc chia nhóm theo tên diễn viên mà tên các file phim thì thường được đăt tên rất phức tạp nên cần phải chia nhóm theo các diên dựa vào khuôn mặt diễn viên xuất hiện trong phim.</p><p>Nhận dạng khuôn mặt và phân cụm khuôn mặt là các khái niệm khác nhau, nhưng có liên quan cao. Khi thực hiện nhận dạng khuôn mặt, chúng ta đang áp dụng phương pháp <strong><strong>học có giám sát</strong></strong> trong đó chúng tôi có cả (1) hình ảnh ví dụ về khuôn mặt mà chúng ta muốn nhận ra cùng với (2) tên tương ứng với mỗi khuôn mặt (gán nhãn).</p><p>Nhưng trong <em>phân nhóm mặt</em> chúng ta cần phải thực hiện <strong><strong>việc học không có giám sát</strong></strong> - chúng ta chỉ có những <em>khuôn mặt mình</em> với <em>không tên / nhãn. </em>Từ đó chúng ta cần <em>xác định</em> và <em>đếm</em> số lượng người duy nhất trong một tập dữ liệu.</p><p>Để làm được điều này chúng ta cần 2 bước:</p><ol><li>Một để <em>trích xuất và định lượng</em> các khuôn mặt trong bộ dữ liệu (encoding)</li><li>Từ bộ dữ liệu đó chia thành các cụm với mỗi cụm ứng với 1 người duy nhất</li></ol><h3 id="c-i-t-m-i-tr-ng">Cài đặt môi trường</h3><p>Ngôn ngữ sử dụng là python, nếu bạn có GPU hãy cài thêm CUDA.</p><p>Các thư viện cần thiết:</p><ul><li><a href="https://www.pyimagesearch.com/opencv-tutorials-resources-guides/" rel="noopener">OpenCV</a></li><li><a href="http://dlib.net/" rel="noopener">dlib</a></li><li><a href="https://github.com/ageitgey/face_recognition" rel="noopener">face_recognition</a></li><li><a href="https://github.com/jrosebr1/imutils" rel="noopener">imutils</a></li><li><a href="http://scikit-learn.org/" rel="noopener">scikit-learn</a></li></ul><p>Dataset dùng để chạy thuật toán</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1q-2lW3tRFIjNRFv9Bvd5JeR3xCBMHrhL&amp;export=download" class="kg-image" alt width="600" height="352" layout="responsive"></amp-img></figure><ul><li><a href="https://en.wikipedia.org/wiki/Mohamed_Salah" rel="noopener">Mohamed Salah</a></li><li><a href="https://en.wikipedia.org/wiki/Neymar" rel="noopener">Neymar Jr.</a></li><li><a href="https://en.wikipedia.org/wiki/Cristiano_Ronaldo" rel="noopener">Cristiano Ronaldo</a></li><li><a href="https://en.wikipedia.org/wiki/Lionel_Messi" rel="noopener">Lionel Messi</a></li><li><a href="https://en.wikipedia.org/wiki/Luis_Su%C3%A1rez" rel="noopener">Luis Suarez</a></li></ul><p>Năm cầu thủ mình đã tìm 129 bức ảnh làm dataset</p><h3 id="c-u-tr-c-source-code">Cấu trúc source code</h3><p>Gồm 1 thư mục và 3 file</p><pre><code>$ tree --dirsfirst
+.
+├── dataset [129 entries]
+│   ├── 00000000.jpg
+│   ├── 00000001.jpg
+│   ├── 00000002.jpg
+│   ├── ...
+│   ├── 00000126.jpg
+│   ├── 00000127.jpg
+│   └── 00000128.jpg
+├── encode_faces.py
+├── encodings.pickle
+└── cluster_faces.py
+
+1 directory, 132 files</code></pre><ul><li><code>dataset</code>: Chứa 129 hình ảnh của năm cầu thủ bóng đá ở trên. Lưu ý ở đầu ra ở trên rằng không có thông tin nhận dạng trong tên tệp hoặc tệp khác xác định ai là người trong mỗi hình ảnh. Không thể biết cầu thủ bóng đá nào trong hình ảnh chỉ dựa trên tên tập tin. Mình sẽ sử dụng một thuật toán phân cụm khuôn mặt để xác định các khuôn mặt tương tự và duy nhất trong bộ dữ liệu.</li><li><code>encode_faces.py</code>: Đây là tập lệnh trong bước đầu tiên - nó encode khuôn mặt và lư ra file <code>encodings.pickle</code></li><li><code>encodings.pickle</code>: File lưu trữ encodings của ảnh</li><li><code>cluster_faces.py</code>: nơi chúng ta sẽ phân cụm các khuôn mặt tương tự</li></ul><h3 id="encoding-faces-v-i-deep-learning"><strong>Encoding faces với deep learning</strong></h3><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1xxrvKH3w3zP0Fu307jA6FF8G_flWEVTr&amp;export=download" class="kg-image" alt width="514" height="300" layout="responsive"></amp-img></figure><p>Trước khi chúng ta có thể phân cụm một tập hợp các khuôn mặt, trước tiên chúng ta cần encode chúng. Quá trình encode khuôn mặt này sẽ được thực hiện bằng cách sử deep learning và xuất ra một vectơ 128 chiều </p><p>Viết code chó quá trình encoding</p><pre><code># loop over the image paths
+for (i, imagePath) in enumerate(imagePaths):
+	# Đọc bức ảnh đầu vào và chuyển nó thành rgb
+	# vì dlib chỉ sử dụng (RGB)
+	print("[INFO] processing image {}/{}".format(i + 1,
+		len(imagePaths)))
+	print(imagePath)
+	image = cv2.imread(imagePath)
+	rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+	# Lấy vị trí khuôn mặt trong bức ảnh to
+	boxes = face_recognition.face_locations(rgb, model="cnn")</code></pre><p><strong>Lưu ý: </strong><em>Mình đang sử dụng trình phát hiện khuôn mặt CNN để có độ chính xác cao hơn, nhưng sẽ mất nhiều thời gian hơn để chạy nếu bạn đang sử dụng CPU thay vì GPU. Nếu bạn muốn encoding chạy nhanh hơn hoặc hệ thống của bạn và hệ thống của bạn không có đủ RAM hoặc sức mạnh CPU cho quá trình phát hiện khuôn mặt CNN, thay vào đó, hãy sử dụng phương pháp HOG + </em>Linear <em> SVM.</em></p><pre><code>	# Chậy encoding từ vị trí khuông mặt đã thu đc
+	encodings = face_recognition.face_encodings(rgb, boxes)
+ 
+	# format dư liêu
+	d = [{"imagePath": imagePath, "loc": box, "encoding": enc}
+		for (box, enc) in zip(boxes, encodings)]
+	data.extend(d)
+
+# ghi ra file
+f.write(pickle.dumps(data))</code></pre><p>Kết quả chạy encoding</p><pre><code>$ python encode_faces.py --dataset dataset --encodings encodings.pickle
+[INFO] quantifying faces...
+[INFO] processing image 1/129
+dataset/00000038.jpg
+[INFO] processing image 2/129
+dataset/00000010.jpg
+[INFO] processing image 3/129
+dataset/00000004.jpg
+...
+[INFO] processing image 127/129
+dataset/00000009.jpg
+[INFO] processing image 128/129
+dataset/00000021.jpg
+[INFO] processing image 129/129
+dataset/00000035.jpg
+[INFO] serializing encodings...</code></pre><p>Nếu chạy bằng GPU có thể mất 1-2 phút nhưng nếu chạy bằng CPU se mất 20-30 phút</p><h3 id="clustering-faces"><strong>Clustering faces</strong></h3><p>Bây giờ chúng ta đã có dữ liệu encoding của cac bức ảnh được biểu diễn dưới dạng vector 128 chiều. Tiếp theo từ các vector này sẽ phân cụm cho các bức ảnh.</p><p>Trong ví dụ này, chúng ta biết chỉ có năm cầu thủ bóng đá - nhưng trong các ứng dụng trong thế giới thực, bạn có thể <em>không</em> biết <em>có</em> bao nhiêu cá nhân duy nhất có trong một tập dữ liệu.</p><p>Do đó, chúng ta cần sử dụng <strong><strong>thuật toán phân cụm dựa trên mật độ hoặc dựa trên biểu đồ</strong></strong> để không chỉ <em>phân cụm</em> các điểm dữ liệu mà còn có thể <em>xác định số lượng cụm</em> cũng dựa trên mật độ của dữ liệu. Chính về thế nhiều thuật toán phân cụm như K-mean không thể dử dụng được trong trường hợp này vì cần phải biết trước số cụm.</p><p>Đối với phân cụm khuôn mặt, tôi muốn giới thiệu hai thuật toán:</p><ol><li>Phân cụm dựa trên mật độ của các ứng dụng có nhiễu <a href="https://en.wikipedia.org/wiki/DBSCAN" rel="noopener">DBSCAN</a>(<em><strong>Density-based spatial clustering of applications with noise</strong></em>)</li><li>Chinese Whispers</li></ol><p>Chúng tôi sẽ sử dụng DBSCAN cho hướng dẫn này vì tập dữ liệu của chúng tôi tương đối nhỏ. Đối với các bộ dữ liệu thực sự lớn, bạn nên xem xét sử dụng thuật toán thì Chinese Whispers theo thời gian tuyến tính.</p><p>Thuật toán DBSCAN hoạt động bằng cách nhóm các điểm lại với nhau mà được đóng gói chặt chẽ trong một không gian N chiều. Các điểm nằm gần nhau sẽ được nhóm lại trong một cụm.</p><p>DBSCAN cũng tự nhiên xử lý các noise, đánh dấu chúng là nhiễu nếu chúng rơi vào các khu vực mật độ thấp.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1tiwxrYXiYhvXsLgbviDpPJhBuXEAkzuq&amp;export=download" class="kg-image" alt width="640" height="480" layout="responsive"></amp-img></figure><p>Ví dụ như hinh trên được chia thành 3 cụm và mật độ các điểm trong cum rất cao. Những điểm mầu đen được đánh dấu là nhiễu</p><p>DBSCAN có thể phân cụm với các cụm lông nhau</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1EKgK_BPaW580GjpBVYMlr9B_cojZdI99&amp;export=download" class="kg-image" alt width="227" height="405" layout="fixed"></amp-img></figure><p>DBSCAN phụ thuộc vào 2 tham số Eps(bán kính) và minPts (số điểm lân cận tối thiểu). Cơ chế của DBSCAN có thể hiểu đơn giản là trong phạm vi Eps có số điểm xung quanh lớn hơn minPts thì điểm đó làm trong cụm, những điểm lân cận nhỏ hơn minPts thì được coi là nhiễu. Chi tiết thuật toán có thể xem trong tài liệu tham khảo.</p><p>Hãy tiếp tục và triển khai phân cụm khuôn mặt bằng DBSCAN.</p><pre><code># import the necessary packages
+from sklearn.cluster import DBSCAN
+
+# Lấy dữ lệu đã được encoding
+data = pickle.loads(open(args["encodings"], "rb").read())
+data = np.array(data)
+encodings = [d["encoding"] for d in data]
+
+# cluster the embeddings
+print("[INFO] clustering...")
+clt = DBSCAN(metric="euclidean", n_jobs=args["jobs"])
+clt.fit(encodings)
+
+# ouput label đã được phân cụm
+labelIDs = np.unique(clt.labels_)
+numUniqueFaces = len(np.where(labelIDs &gt; -1)[0])
+
+# Tách face theo từng cụm
+for labelID in labelIDs:
+	# find all indexes into the `data` array that belong to the
+	# current label ID, then randomly sample a maximum of 25 indexes
+	# from the set
+	print("[INFO] faces for face ID: {}".format(labelID))
+	idxs = np.where(clt.labels_ == labelID)[0]
+	idxs = np.random.choice(idxs, size=min(25, len(idxs)),
+		replace=False)
+ 
+	# initialize the list of faces to include in the montage
+	faces = []
+	# loop over the sampled indexes
+	for i in idxs:
+		# load the input image and extract the face ROI
+		image = cv2.imread(data[i]["imagePath"])
+		(top, right, bottom, left) = data[i]["loc"]
+		face = image[top:bottom, left:right]
+ 
+		# force resize the face ROI to 96x96 and then add it to the
+		# faces montage list
+		face = cv2.resize(face, (96, 96))
+		faces.append(face)</code></pre><p>Kết quả chạy phân cụm</p><pre><code>$ python cluster_faces.py --encodings encodings.pickle
+[INFO] loading encodings...
+[INFO] clustering...
+[INFO] # unique faces: 5
+[INFO] faces for face ID: -1
+[INFO] faces for face ID: 0
+[INFO] faces for face ID: 1
+[INFO] faces for face ID: 2
+[INFO] faces for face ID: 3
+[INFO] faces for face ID: 4</code></pre><p><code>faceID = - 1</code> tức là nhiễu</p><p>Tổng hợp các khuôn mặt đã được phần cụm</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1XnSwfPwGr_y6nuMMQXSSgDKZLxkJrKC3&amp;export=download" class="kg-image" alt width="500" height="519" layout="responsive"></amp-img></figure><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1TvkndnO9YAGIuCvMaAkdETzKjHfHCb8I&amp;export=download" class="kg-image" alt width="500" height="519" layout="responsive"></amp-img></figure><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1y_sa2U_GqZvKET2alTXxltOLKfZvBZCE&amp;export=download" class="kg-image" alt width="500" height="519" layout="responsive"></amp-img></figure><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1VMkCy57G-83N-0ApQQAk5ToycwpB7zcK&amp;export=download" class="kg-image" alt width="500" height="519" layout="responsive"></amp-img></figure><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Sbi5d2Q3Eo1EbWu8y2NGqQ3LDoCawXOU&amp;export=download" class="kg-image" alt width="500" height="519" layout="responsive"></amp-img></figure><p>Trường hợp  nhiễu</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1jRx7PmyDHr_oG_ZRM8_RtmuU2tD8071B&amp;export=download" class="kg-image" alt width="500" height="518" layout="responsive"></amp-img></figure><h3 id="th-v-i-chinese-whispers">Thử với Chinese Whispers</h3><p>Chinese Whispers là một trò chơi nói thầm lan truyền thông tin từ người này sang người khác. Thuật toán Chinese Whispers Clustering cũng tương tư như vậy.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1iAsdkx8M9NTlgUfRi3cts_L5XCDkU2ll&amp;export=download" class="kg-image" alt width="1920" height="1080" layout="responsive"></amp-img></figure><p>Các node sẻ được đánh các mầu ngâu nhiên khác nhau và tư một node sẽ chia se trạng thái cho các node bên cạch</p><p><a href="https://en.wikipedia.org/wiki/Chinese_Whispers_(clustering_method)">https://en.wikipedia.org/wiki/Chinese_Whispers_(clustering_method)</a></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1g2LRQRxVlcCbXZr0mj4ezNxWwUeRRWdP&amp;export=download" class="kg-image" alt width="510" height="395" layout="responsive"></amp-img></figure><p>Sức mạnh chính của Chinese Whispers là tốc độ, mình chạy thử với bộ dataset trên thì mất khoản gần 1 phút và không phải encoding. Chính vì thế Chinese Whispers mà một công cụ tốt để phân tích các cấu trúc cộng đồng trong biểu đồ với số lượng nút rất cao.</p><p>Để chạy thuật toán này có thể dung trực tiếp hàm <code>chinese_whispers_clustering</code> của <code>dlib</code> ngay trên trang chủ của dlib cũng có code dành cho face cluster</p><p><a href="http://dlib.net/face_clustering.py.html">http://dlib.net/face_clustering.py.html</a></p><p>Về kết quả của Chinese Whispers chính xác không kém gì DBSCAN với dataset của mình tuy nhiên nhưng điểm nhiễu Chinese Whispers sẽ chia thành 1 cụm riêng.</p><h3 id="t-ng-h-p">Tổng hợp</h3><p>Trong bài đăng trên blog này, bạn đã học cách thực hiện phân cụm khuôn mặt bằng Python và học sâu.</p><p>Không giống như nhận diện khuôn mặt, là một nhiệm vụ <strong><strong>học tập có giám sát</strong></strong> , phân cụm khuôn mặt là một nhiệm vụ <strong><strong>học tập không giám sát</strong></strong> .</p><p>Với nhận dạng khuôn mặt, chúng ta có cả hai:</p><ol><li>Các <em>khuôn mặt</em> người</li><li>Và <em>tên</em> của họ (nghĩa là nhãn lớp)</li></ol><p>Nhưng trong cụm mặt, chúng ta chỉ có các mặt - chúng ta cũng không có tên tương ứng của chúng. Thiếu tên / nhãn lớp, chúng tôi chỉ có thể tận dụng các thuật toán học tập không giám sát, trong trường hợp này là các kỹ thuật phân cụm.</p><p>Để phân cụm các khuôn mặt thực tế thành các nhóm cá nhân, mình đã dùng <a href="https://en.wikipedia.org/wiki/DBSCAN" rel="noopener">thuật toán DBSCAN</a> . Các thuật toán phân cụm khác cũng có thể được sử dụng - Davis King (người tạo ra dlib) đề nghị sử dụng Chinese Whispers .</p><p>Tôi hy vọng bạn thích bài viết này!</p><p><strong>Tài liệu tham khảo:</strong></p><ul>
+<li><a href="https://www.youtube.com/watch?v=XKtsja3Kl34">https://www.youtube.com/watch?v=XKtsja3Kl34</a></li>
+<li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html">https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html</a></li>
+<li><a href="https://en.wikipedia.org/wiki/DBSCAN">https://en.wikipedia.org/wiki/DBSCAN</a></li>
+<li><a href="http://www.cit.ctu.edu.vn/~dtnghi/rech/dir_0/Duy-et-al-New.pdf">http://www.cit.ctu.edu.vn/~dtnghi/rech/dir_0/Duy-et-al-New.pdf</a></li>
+<li><a href="https://github.com/nlpub/chinese-whispers-python">https://github.com/nlpub/chinese-whispers-python</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Chinese_Whispers_(clustering_method)">https://en.wikipedia.org/wiki/Chinese_Whispers_(clustering_method)</a></li>
+<li><a href="https://www.pyimagesearch.com/2018/07/09/face-clustering-with-python/">https://www.pyimagesearch.com/2018/07/09/face-clustering-with-python/</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Viết test cho RESTful API bằng Mocha và Chai | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Viết test cho RESTful API bằng Mocha và Chai" />
+    <meta property="og:description" content="Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-09-04T01:24:53.000Z" />
+    <meta property="article:modified_time" content="2018-09-04T01:24:53.000Z" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="testing" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Viết test cho RESTful API bằng Mocha và Chai" />
+    <meta name="twitter:description" content="Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript, testing" />
+    <meta property="og:image:width" content="730" />
+    <meta property="og:image:height" content="356" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Viết test cho RESTful API bằng Mocha và Chai",
+    "url": "https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/",
+    "datePublished": "2018-09-04T01:24:53.000Z",
+    "dateModified": "2018-09-04T01:24:53.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&export=download",
+        "width": 730,
+        "height": 356
+    },
+    "keywords": "javascript, testing",
+    "description": "Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của\nAPI mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó\ndễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha và Chai,\nmà được trình bày theo case study là ta viết 1 RESTful API bằng nodejs, sau đó\náp dụng Mocha và Chai để viết test cho API mà ta vừa viết, đồng thời giải thích\ný nghĩa của những hàm hay phương thức mà ta vừa sử dụng. Để biết đầy đủ những gì\nMocha và Chai hỗ trợ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-javascript tag-testing nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-javascript tag-testing js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Viết test cho RESTful API bằng Mocha và Chai</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-09-04">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 04 September 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/javascript/index.html">javascript</a>, <a href="../tag/testing/index.html">testing</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" alt="Viết test cho RESTful API bằng Mocha và Chai">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/viet-test-cho-restful-api-bang-mocha-va-chai/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Vi%E1%BA%BFt%20test%20cho%20RESTful%20API%20b%E1%BA%B1ng%20Mocha%20v%C3%A0%20Chai">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha và Chai, mà được trình bày theo case study là ta viết 1 RESTful API bằng nodejs, sau đó áp dụng Mocha và Chai để viết test cho API mà ta vừa viết, đồng thời giải thích ý nghĩa của những hàm hay phương thức mà ta vừa sử dụng. Để biết đầy đủ những gì Mocha và Chai hỗ trợ, bạn có thể link ở mục tài liệu tham khảo.</p>
+<h3 id="mochatestingenvironment">Mocha: Testing Environment</h3>
+<p>Mocha là một framework cho phép ta viết test cho code NodeJS không đồng bộ. Nó cung cấp môi trường mà trong đó ta có thể sử dụng các thư viện assertion mà ta ưu thích để viết test.<br>
+<img src="https://drive.google.com/uc?id=1GuKsUvhQkztQK0Lqk4M1THrmmIDU1Llv&amp;export=download" alt="uc?id=1GuKsUvhQkztQK0Lqk4M1THrmmIDU1Llv&amp;export=download"><br>
+Mocha có rất nhiều tính năng tuyệt vời, bên dưới là 1 số tính năng mà ta thường dùng:</p>
+<ul>
+<li>Hỗ trợ viết test cho code bất đồng bộ 1 cách đơn giản, bao gồm việc sử dụng promise.</li>
+<li>Hỗ trợ viết test timeout cho cho code bất đồng bộ.</li>
+<li>Sử dụng các thuật ngữ như before, after, before each, after each hooks: rất hữu dụng trong việc chuẩn bị môi trường test.</li>
+<li>Cho phép sử dụng thư việc assertion bên ngoài (mà trong trường hợp này viết này, chúng ta sử dụng thư viện Chai).</li>
+</ul>
+<h3 id="chaiassertionlibrary">Chai: Assertion Library</h3>
+<p>Với Mocha, chúng ta có môi trường để thực hiện các test của mình, nhưng làm cách nào để chúng ta test các HTTP call chẳng hạn? Hơn nữa, làm thế nào để chúng ta test xem liệu một GET request với input mà ra truyền vào có thực sự trả về JSON đúng như mong đợi của chúng hay không? Với nhu cầu đó, chúng ta cần một thư viện assertion.<br>
+<img src="https://drive.google.com/uc?id=1R8myFDb6zCwN_6FHhiB0QEJvloi19znW&amp;export=download" alt="uc?id=1R8myFDb6zCwN_6FHhiB0QEJvloi19znW&amp;export=download"></p>
+<h3 id="projectsetup">Project setup</h3>
+<h4 id="cutrcproject">Cấu trúc project</h4>
+<p><img src="https://drive.google.com/uc?id=1tU-6pCjFL7IcnMtPXrF0gEeGiCttpNZ9&amp;export=download" alt="uc?id=1tU-6pCjFL7IcnMtPXrF0gEeGiCttpNZ9&amp;export=download"></p>
+<p>Chú ý là thư mục config chứa 3 file JSON, chúng được đặt tên và config theo những mục đích nhất định. Trong bài viết này ta sẽ sử dụng 2 databases, 1 cho mục đích phát triển và database còn lại cho mục đích test. Việc dùng 2 databases giúp ta hạn chế lỗi phát sinh do dùng cùng 1 database cho cả mục đích phát triển và mục đích test. Lỗi này thường phát sinh khi ta chuẩn bị dữ liệu test, dẫn đến xóa hoặc thay đổi dữ liệu mà ta dùng cho mục đích phát triển.</p>
+<ul>
+<li>default.json</li>
+</ul>
+<pre><code class="language-js">{
+	&quot;DBHost&quot; : &quot;YOUR_DB_URI&quot;
+}
+</code></pre>
+<ul>
+<li>dev.json</li>
+</ul>
+<pre><code class="language-js">{
+	&quot;DBHost&quot;: &quot;YOUR_DB_URI&quot;
+}
+</code></pre>
+<ul>
+<li>test.json</li>
+</ul>
+<pre><code class="language-js">{
+	&quot;DBHost&quot;: &quot;YOUR_TEST_DB_URI&quot;
+}
+</code></pre>
+<h4 id="packagejson">Package.json</h4>
+<p>Ta tạo file package.json với nội dung như bên dưới</p>
+<pre><code class="language-js">{
+  &quot;name&quot;: &quot;bookstore&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;A bookstore API&quot;,
+  &quot;main&quot;: &quot;server.js&quot;,
+  &quot;author&quot;: &quot;Sam&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;body-parser&quot;: &quot;^1.15.1&quot;,
+    &quot;config&quot;: &quot;^1.20.1&quot;,
+    &quot;express&quot;: &quot;^4.13.4&quot;,
+    &quot;mongoose&quot;: &quot;^4.4.15&quot;,
+    &quot;morgan&quot;: &quot;^1.7.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;chai&quot;: &quot;^3.5.0&quot;,
+    &quot;chai-http&quot;: &quot;^2.0.1&quot;,
+    &quot;mocha&quot;: &quot;^2.4.5&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;SET NODE_ENV=dev &amp;&amp; node server.js&quot;,
+    &quot;test&quot;: &quot;mocha --timeout 10000&quot;
+  }
+}
+</code></pre>
+<p>mocha, chai, chai-http được lưu trong devDependencies (flag --save-dev từ command line)<br>
+Ta thêm flag --timeout 10000 vì dữ liệu fetch từ mongodb mặc định là 2 giây thì có thể không đủ. Bây giờ ta có thể tiến hành viết code cho server và viết test cho nó.</p>
+<h3 id="phaserver">Phía server</h3>
+<h4 id="main">Main</h4>
+<p>Ta tạo file server.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let express = require('express');
+let app = express();
+let mongoose = require('mongoose');
+let morgan = require('morgan');
+let bodyParser = require('body-parser');
+let port = 8080;
+let book = require('./app/routes/book');
+let config = require('config'); //we load the db location from the JSON files
+//db options
+let options = { 
+				server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
+              }; 
+
+//db connection      
+mongoose.connect(config.DBHost, options);
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+	//use morgan to log at command line
+	app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
+
+//parse application/json and look for raw text                                        
+app.use(bodyParser.json());                                     
+app.use(bodyParser.urlencoded({extended: true}));               
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));  
+
+app.get(&quot;/&quot;, (req, res) =&gt; res.json({message: &quot;Welcome to our Bookstore!&quot;}));
+
+app.route(&quot;/book&quot;)
+	.get(book.getBooks)
+	.post(book.postBook);
+app.route(&quot;/book/:id&quot;)
+	.get(book.getBook)
+	.delete(book.deleteBook)
+	.put(book.updateBook);
+
+
+app.listen(port);
+console.log(&quot;Listening on port &quot; + port);
+
+module.exports = app; // for testing
+</code></pre>
+<p>Lưu ý:</p>
+<ul>
+<li>Như đã đề cập bên trên, tùy vào môi trường ta đang sử dụng là gì, ta sẽ sử dụng database tương ứng được quy định trong file mà ta đã config. Khi viết test ta sẽ sử dụng &quot;datase test&quot; từ đó giữ &quot;real database&quot; được clean.</li>
+<li>Dòng cuối cùng, ta export server ra để sử dụng.</li>
+</ul>
+<h4 id="modelvroutes">Model và Routes</h4>
+<p>Trong như mục /app/model. Ta tạo file book.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+
+//book schema definition
+let BookSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    year: { type: Number, required: true },
+    pages: { type: Number, required: true, min: 1 },
+    createdAt: { type: Date, default: Date.now },    
+  }, 
+  { 
+    versionKey: false 
+  }
+);
+
+// Sets the createdAt parameter equal to the current time
+BookSchema.pre('save', next =&gt; {
+  now = new Date();
+  if(!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
+
+//Exports the BookSchema for use elsewhere.
+module.exports = mongoose.model('book', BookSchema);
+</code></pre>
+<p>Trong như mục /app/routes. Ta tạo file book.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let mongoose = require('mongoose');
+let Book = require('../models/book');
+
+/*
+ * GET /book route to retrieve all the books.
+ */
+function getBooks(req, res) {
+	//Query the DB and if no errors, send all the books
+	let query = Book.find({});
+	query.exec((err, books) =&gt; {
+		if(err) res.send(err);
+		//If no errors, send them back to the client
+		res.json(books);
+	});
+}
+
+/*
+ * POST /book to save a new book.
+ */
+function postBook(req, res) {
+	//Creates a new book
+	var newBook = new Book(req.body);
+	//Save it into the DB.
+	newBook.save((err,book) =&gt; {
+		if(err) {
+			res.send(err);
+		}
+		else { //If no errors, send it back to the client
+			res.json({message: &quot;Book successfully added!&quot;, book });
+		}
+	});
+}
+
+/*
+ * GET /book/:id route to retrieve a book given its id.
+ */
+function getBook(req, res) {
+	Book.findById(req.params.id, (err, book) =&gt; {
+		if(err) res.send(err);
+		//If no errors, send it back to the client
+		res.json(book);
+	});		
+}
+
+/*
+ * DELETE /book/:id to delete a book given its id.
+ */
+function deleteBook(req, res) {
+	Book.remove({_id : req.params.id}, (err, result) =&gt; {
+		res.json({ message: &quot;Book successfully deleted!&quot;, result });
+	});
+}
+
+/*
+ * PUT /book/:id to updatea a book given its id
+ */
+function updateBook(req, res) {
+	Book.findById({_id: req.params.id}, (err, book) =&gt; {
+		if(err) res.send(err);
+		Object.assign(book, req.body).save((err, book) =&gt; {
+			if(err) res.send(err);
+			res.json({ message: 'Book updated!', book });
+		});	
+	});
+}
+
+//export all the functions
+module.exports = { getBooks, postBook, getBook, deleteBook, updateBook };
+</code></pre>
+<p>Sau đây là 1 số khái niệm cơ bản:</p>
+<ul>
+<li>Route sẽ phụ trách điều hướng để thực hiện các thao tác  GET, POST, DELETE, PUT.</li>
+<li>Trong hàm updateBook (), chúng ta sử dụng Object.assign, một hàm mới được giới thiệu trong ES6, trong trường hợp này, ghi đè các thuộc tính chung của sách với req.body.</li>
+<li>Cuối cùng, chúng ta export đối tượng bằng cách sử dụng cú pháp nhanh với cặp khóa và giá trị để tránh lặp lại vô ích.</li>
+</ul>
+<h3 id="tinhnhvittest">Tiến hành viết test</h3>
+<p>Trong đường dẫn /test, ta tạo file book.js vào dán vào nội dung như bên dưới</p>
+<pre><code class="language-js">//During the test the env variable is set to test
+process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+//Require the dev-dependencies
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+//Our parent block
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; { //Before each test we empty the database
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+/*
+  * Test the /GET route
+  */
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+
+});
+</code></pre>
+<p>Ở đây có 1 số thứ mới ta cần chú ý:</p>
+<ul>
+<li>Ta set giá trị cho NODE_ENV là test. Khi đó server sẽ connect vào test database.</li>
+<li>Ta định nghĩa should bằng việc set giá trị cho nó bằng chai.should(). should ở đây có nghĩ là &quot;sẽ&quot;, dùng để ta so sánh giá trị thực và giá trị mà ta mong muốn. Ví dụ dòng 'res.should.have.status(200);' có nghĩ là ta mong muốn res sẽ có status bằng giá trị mà ta mong muốn là 200.</li>
+<li>describe sẽ giúp ta mô ta là ta đang test cái gì. Ví dụ ở đoạn code phía trên, ta đang test link '/GET book'</li>
+<li>beforeEach là block code sẽ được chạy trước mỗi describe block ở cùng level.</li>
+</ul>
+<h4 id="testphnget">Test phần GET</h4>
+<p>Chai sẽ thực hiện một yêu cầu GET đến máy chủ và các xác nhận trên biến res trong it block có thỏa mãn các giá trị mà ta mong đợi hay không. Ở phần describe ta sẽ mô tả là ta đang viết test cho đường link '/GET book'. Trong đó mỗi it là case của thao tác test đường link '/GET book'. Có thể có 1 hoặc nhiều it tương ứng với có bao nhiêu case. Những gì mà ta mong đợi sẽ là:</p>
+<ul>
+<li>Trạng thái 200.</li>
+<li>Kết quả phải là một mảng.</li>
+<li>Vì cửa hàng không có sách nào nên ta cho length = 0.</li>
+</ul>
+<p>Bây giờ, từ command line, ta chạy lệnh</p>
+<pre><code class="language-js">npm test
+</code></pre>
+<p>Và đây là output:<br>
+<img src="https://drive.google.com/uc?id=1_Fx0VFHqh578URgLUKXZ3P31gm8pYDOB&amp;export=download" alt="uc?id=1_Fx0VFHqh578URgLUKXZ3P31gm8pYDOB&amp;export=download"></p>
+<h4 id="testphnpost">Test phần POST</h4>
+<p>Giả sử chúng ta đang cố gắng thêm một cuốn sách có field bị thiếu đến máy chủ. Khi đó ta sẽ phải viết các assertion sau:</p>
+<ul>
+<li>Trạng thái là 200.</li>
+<li>response body là một đối tượng.<br>
+Một trong những properties của body là errors.</li>
+<li>Errors có thuộc tính là các trang trường bị thiếu.</li>
+<li>pages có propertiy là kind và kind =  required.</li>
+</ul>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  /*
+  * Test the /POST route
+  */
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+
+  });
+});
+</code></pre>
+<p>Run command line và ta có được output như sau:<br>
+<img src="https://drive.google.com/uc?id=1aIeURIz0oMtMIKG9SB-uZmMw7dSKQvm7&amp;export=download" alt="uc?id=1aIeURIz0oMtMIKG9SB-uZmMw7dSKQvm7&amp;export=download"></p>
+<p>Bây giờ ta viết test cho POST request với nội dung đầy đủ các field</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  /*
+  * Test the /POST route
+  */
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954,
+            pages: 1170
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+});
+</code></pre>
+<p>Lần này ta mọng đợi message trả về với nội dung ta đã thành công trong việc add quyển sách.</p>
+<p><img src="https://drive.google.com/uc?id=1toLLsgg_9FwHmGRvjR2ckDpKjyHuMUjZ&amp;export=download" alt="uc?id=1toLLsgg_9FwHmGRvjR2ckDpKjyHuMUjZ&amp;export=download"></p>
+<h4 id="testphngetid">Test phần /GET/:id</h4>
+<p>Ta tạo 1 quyển sách, lưu nó lại. Sau đó get quyển sách vừa lưu bằng id.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+ /*
+  * Test the /GET/:id route
+  */
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: &quot;The Lord of the Rings&quot;, author: &quot;J.R.R. Tolkien&quot;, year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+});
+</code></pre>
+<p>Lần này ta assert status là 200, body là object và có chứa đầy đủ các thuộc tính.</p>
+<p>Run command line và ta được output như hình bên dưới.</p>
+<p><img src="https://drive.google.com/uc?id=1HNN_ME0ueDzPrLugsftgBema0DP5a7qE&amp;export=download" alt="uc?id=1HNN_ME0ueDzPrLugsftgBema0DP5a7qE&amp;export=download"></p>
+<h4 id="testphnputidroute">Test phần /PUT/:id Route</h4>
+<p>Giờ là lúc để update. Đầu tiên ta save book, sau đó update năm xuất bản dựa trên id.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: &quot;The Lord of the Rings&quot;, author: &quot;J.R.R. Tolkien&quot;, year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+ /*
+  * Test the /PUT/:id route
+  */
+  describe('/PUT/:id book', () =&gt; {
+      it('it should UPDATE a book given the id', (done) =&gt; {
+        let book = new Book({title: &quot;The Chronicles of Narnia&quot;, author: &quot;C.S. Lewis&quot;, year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .put('/book/' + book.id)
+                .send({title: &quot;The Chronicles of Narnia&quot;, author: &quot;C.S. Lewis&quot;, year: 1950, pages: 778})
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book updated!');
+                    res.body.book.should.have.property('year').eql(1950);
+                  done();
+                });
+          });
+      });
+  });
+});
+</code></pre>
+<p>Ta assert phần message xem có đúng như mong đợi là &quot;Book updated!&quot; và năm xuất bản có được cập nhật đúng hay không.</p>
+<p><img src="https://drive.google.com/uc?id=1h6sr6zCVx_IDjvnbf7OoVGKjAPW_OZ4j&amp;export=download" alt="uc?id=1h6sr6zCVx_IDjvnbf7OoVGKjAPW_OZ4j&amp;export=download"></p>
+<h4 id="testphndeleteidroute">Test phần /DELETE/:id Route</h4>
+<p>Quy trình cũng tương tự: save book, sau đó delete book và ta vừa save và check response.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require(&quot;mongoose&quot;);
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: &quot;The Lord of the Rings&quot;,
+            author: &quot;J.R.R. Tolkien&quot;,
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: &quot;The Lord of the Rings&quot;, author: &quot;J.R.R. Tolkien&quot;, year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+  describe('/PUT/:id book', () =&gt; {
+      it('it should UPDATE a book given the id', (done) =&gt; {
+        let book = new Book({title: &quot;The Chronicles of Narnia&quot;, author: &quot;C.S. Lewis&quot;, year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .put('/book/' + book.id)
+                .send({title: &quot;The Chronicles of Narnia&quot;, author: &quot;C.S. Lewis&quot;, year: 1950, pages: 778})
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book updated!');
+                    res.body.book.should.have.property('year').eql(1950);
+                  done();
+                });
+          });
+      });
+  });
+ /*
+  * Test the /DELETE/:id route
+  */
+  describe('/DELETE/:id book', () =&gt; {
+      it('it should DELETE a book given the id', (done) =&gt; {
+        let book = new Book({title: &quot;The Chronicles of Narnia&quot;, author: &quot;C.S. Lewis&quot;, year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .delete('/book/' + book.id)
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book successfully deleted!');
+                    res.body.result.should.have.property('ok').eql(1);
+                    res.body.result.should.have.property('n').eql(1);
+                  done();
+                });
+          });
+      });
+  });
+});
+</code></pre>
+<p>Trong phần assertion, ta cũng check giá trị của response xem có đúng các giá trị mà ta mong đợi hay không. Sau đó run và được kết quả như bên dưới:</p>
+<p><img src="https://drive.google.com/uc?id=19x30_uKiCifLvgw3BdAbrw8f78TnHNw7&amp;export=download" alt="uc?id=19x30_uKiCifLvgw3BdAbrw8f78TnHNw7&amp;export=download"></p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<p><a href="https://mochajs.org/">https://mochajs.org/</a><br>
+<a href="http://www.chaijs.com/">http://www.chaijs.com/</a><br>
+<a href="https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai">https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/viet-test-cho-restful-api-bang-mocha-va-chai/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Vi%E1%BA%BFt%20test%20cho%20RESTful%20API%20b%E1%BA%B1ng%20Mocha%20v%C3%A0%20Chai">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/viet-test-cho-restful-api-bang-mocha-va-chai/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

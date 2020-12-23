@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[Typescript] Phần 1 - Giới thiệu | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Typescript] Phần 1 - Giới thiệu" />
+    <meta property="og:description" content="Hiện nay, c&amp;oacute; nhiều dự &amp;aacute;n đang chuyển qua viết bằng Angular2. &amp;nbsp;B&amp;agrave;i viết n&amp;agrave;y m&amp;igrave;nh kh&amp;ocirc;ng n&amp;oacute;i về&amp;nbsp;Angular2, nhưng sẽ giới thiệu đến c&amp;aacute;c bạn một ng&amp;ocirc;n ngữ mới m&amp;" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-05-09T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-09T02:26:08.000Z" />
+    <meta property="article:tag" content="angular2" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="ES6" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Typescript] Phần 1 - Giới thiệu" />
+    <meta name="twitter:description" content="Hiện nay, c&amp;oacute; nhiều dự &amp;aacute;n đang chuyển qua viết bằng Angular2. &amp;nbsp;B&amp;agrave;i viết n&amp;agrave;y m&amp;igrave;nh kh&amp;ocirc;ng n&amp;oacute;i về&amp;nbsp;Angular2, nhưng sẽ giới thiệu đến c&amp;aacute;c bạn một ng&amp;ocirc;n ngữ mới m&amp;" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="angular2, typescript, ES6" />
+    <meta property="og:image:width" content="1556" />
+    <meta property="og:image:height" content="498" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "[Typescript] Phần 1 - Giới thiệu",
+    "url": "https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/",
+    "datePublished": "2017-05-09T01:00:00.000Z",
+    "dateModified": "2017-05-09T02:26:08.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdDlKUDJpZlN0X0k&export=download",
+        "width": 1556,
+        "height": 498
+    },
+    "keywords": "angular2, typescript, ES6",
+    "description": "Hiện nay, có nhiều dự án đang chuyển qua viết bằng Angular2.  Bài viết này mình\nkhông nói về Angular2, nhưng sẽ giới thiệu đến các bạn một ngôn ngữ mới mà\nAngular2 sử dụng. Đó là Typescript.\n\nBài viết gồm các mục:\n\n 1. Lịch sử Javascript\n 2. ES6 là gì?\n 3. Typescript là gì?\n 4. Tính năng mới\n 5. Kết luận\n\n 1LỊCH SỬ JAVASCRIPT\nLướt sơ qua về các cột mốc lịch sử Javascript 1 tẹo nhé.\n\n * 1995: Ngôn ngữ Javascript đầu tiên ra đời, được tích hợp trên trình\n   duyệt Netscape.\n * 1996: Trình duyệt IE ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-angular2 tag-typescript tag-es6 nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-angular2 tag-typescript tag-es6 js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">[Typescript] Phần 1 - Giới thiệu</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-05-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 May 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/angular2/index.html">angular2</a>, <a href="../tag/typescript/index.html">typescript</a>, <a href="../tag/es6/index.html">ES6</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" alt="[Typescript] Phần 1 - Giới thiệu">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/typescript-phan-1-gioi-thieu/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BTypescript%5D%20Ph%E1%BA%A7n%201%20-%20Gi%E1%BB%9Bi%20thi%E1%BB%87u">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p><span style="color: #000000;">Hiện nay, c&oacute; nhiều dự &aacute;n đang chuyển qua viết bằng Angular2. &nbsp;B&agrave;i viết n&agrave;y m&igrave;nh kh&ocirc;ng n&oacute;i về&nbsp;Angular2, nhưng sẽ giới thiệu đến c&aacute;c bạn một ng&ocirc;n ngữ mới m&agrave; Angular2 sử dụng. Đ&oacute; l&agrave; <strong><span style="color: #000080;">Typescript</span></strong>.&nbsp;</span></p>
+<p><span style="color: #000000;">B&agrave;i viết gồm c&aacute;c mục:</span></p>
+<ol>
+<li><span style="color: #000000;">Lịch sử Javascript</span></li>
+<li><span style="color: #000000;">ES6 l&agrave; g&igrave;?</span></li>
+<li><span style="color: #000000;">Typescript l&agrave; g&igrave;?</span></li>
+<li><span style="color: #000000;">T&iacute;nh năng mới</span></li>
+<li><span style="color: #000000;">Kết luận</span></li>
+</ol>
+<h3 id="mcetoc_1bcenu0v80"><strong><span style="background-color: #333399; color: #ffffff;">&nbsp;1&nbsp;</span>&nbsp;<span style="color: #333399;">LỊCH SỬ JAVASCRIPT</span></strong></h3>
+<p><span style="color: #000000;">Lướt sơ qua về c&aacute;c cột mốc lịch sử Javascript 1 tẹo nh&eacute;.</span></p>
+<ul>
+<li><span style="color: #000000;">1995: Ng&ocirc;n ngữ Javascript đầu ti&ecirc;n ra đời, được t&iacute;ch hợp tr&ecirc;n tr&igrave;nh duyệt&nbsp;Netscape.</span></li>
+<li><span style="color: #000000;">1996: Tr&igrave;nh duyệt IE 3.0 cũng trang bị cho m&igrave;nh 1 bộ script kh&aacute;c c&oacute; t&ecirc;n l&agrave; JScript. L&uacute;c n&agrave;y nhiều tr&igrave;nh duyệt kh&aacute;c cũng đang rục rịch ra đời. Từ đ&oacute;, để một website c&oacute; thể chạy ok hết tr&ecirc;n c&aacute;c tr&igrave;nh duyệt cũng trở n&ecirc;n kh&oacute; khăn, v&igrave; mỗi tr&igrave;nh duyệt l&agrave; sử dụng bộ bi&ecirc;n dịch script kh&aacute;c nhau. N&ecirc;n ECMA Inernational (hiệp hội c&aacute;c nh&agrave; sản xuất m&aacute;y t&iacute;nh Ch&acirc;u &Acirc;u) ngồi lại với nhau v&agrave; cho ra đời ECMAScript để l&agrave;m ti&ecirc;u của cho Javascript.</span></li>
+<li><span style="color: #000000;">2006: Jquery ra đời bởi John Resig<em>.</em></span></li>
+<li><span style="color: #000000;">2009: Ryan Dahi cho ra đời Nodejs.</span></li>
+<li><span style="color: #000000;">2013: Typescript lần đầu ti&ecirc;n xuất hiện.</span></li>
+<li><span style="color: #000000;">2015: ES6 ra đời</span></li>
+<li><span style="color: #000000;">2016: Angular2 sử dụng Typescript được tung ra thị trường.</span></li>
+</ul>
+<p><img src="https://lh3.googleusercontent.com/LcPIe7xHo6B8u-DbaDrj6h2RjtBjQxUCn-SlbNL_I1lDYsnKOF73Hc6JYzq7aFNj2TMEaCysvHFc5mPOE0NEJgb-hj17-l8xlYiCrGDUGPsGGqN7cFy53CPGw4EfTwWvXH87shPIWX7jKvFsYpsQZGlALbaHzsTkeCH1N6HoWy2CIqBs7qC0Z0fJ_d-mBtwFZ0XKQg5GL4cFqTpBrZuy63bE7Nhozh5FRnWsrYvORtw9pPk31-OMx7M3EQ7PIgbFbGiDVhqZWkdLUl4gV5AszmoZa5_Jn1GfFTA9zSXGpFwRy7oh2NADpsVV1xRPe4tzDwLmExFhOYyCcS1ZEacb8sZMsx37o18HbiH67K4ZnYbKIQCCh27IAv9WBvl1vTUX-NBjNqDe_4Y3_kUehxl0AARK1DxYv1fdQdA31-UYnlxSo-KAgS_38-00TB2wYPe_P_KXQ-YkHJ3p2nrCi7e0PUuBrpAftF3VY15XJBIChhExgI_gvAmR7-Jp4T8lh0QHuGSrTdPkfGlkEJ8KEy1cmV-qoAy55-dSGH6rHcdlZtDzUytdcrxE4GXMT4EHtUKLgmAUHwhGZ9h1wP7BdnXS-GFbnHKJZNSTgjlNOGSy-hYojEaCZsiQ=w1514-h662-no" alt="" width="961" height="420" /></p>
+<h3 id="mcetoc_1bcenu0v81"><strong><span style="color: #0000ff;"><span style="background-color: #333399; color: #ffffff;">&nbsp;2 </span>&nbsp;<span style="color: #333399;">ES6 L&Agrave; G&Igrave;?</span></span></strong></h3>
+<p><span style="color: #000000;">ES6 l&agrave; c&aacute;ch gọi ngắn gọn của ng&ocirc;n ngữ ECMAScript 2015. ES6 l&agrave; phần mở rộng của Javascript. Thật ra n&oacute; cũng l&agrave; Javascript c&ugrave;ng chung một cha (cũng được tạo bởi hiện hội Ecma International), nhưng được mở rộng th&ecirc;m với những c&uacute; ph&aacute;p ho&agrave;n thiện hơn, ngắn gọn hơn, dễ lập t&igrave;nh hơn, hỗ trợ nhiều từ kh&oacute;a, thậm ch&iacute; kiểu dữ liệu cũng được cải tiến, nhằm&nbsp;hỗ trợ cho c&aacute;c ứng dụng lớn với quy m&ocirc; thư viện lớn. Hiện tại n&oacute; tập hợp c&aacute;c kỹ thuật cao của Javascript v&agrave; đang l&agrave; chuẩn mới nhất của chuẩn ECMAScript.</span></p>
+<p><span style="color: #000000;">ES7 cũng đang rục rịch sắp ra mắt, v&agrave; sẽ c&oacute; những t&iacute;nh năng nổi trội hơn như Sync.</span></p>
+<h3 id="mcetoc_1bcenu0v82"><span style="color: #0000ff;"><strong><span style="background-color: #333399; color: #ffffff;">&nbsp;3 </span>&nbsp;<span style="color: #333399;">TYPESCRIPT L&Agrave; G&Igrave;?</span></strong></span></h3>
+<p><span style="color: #000000;">Trước ti&ecirc;n, Typescript l&agrave; dự &aacute;n k&eacute;o d&agrave;i hơn 3 năm của Microsoft, nhằm tạo ra một ng&ocirc;n ngữ mở rộng cho Javascript v&agrave; hỗ trợ c&aacute;c dự &aacute;n lớn x&acirc;y dựng dễ d&agrave;ng hơn. Thủ l&atilde;nh của dự &aacute;n Typescript l&agrave; &ocirc;ng Anders. &Ocirc;ng cũng từng tham gia c&aacute;c dự &aacute;n t&ecirc;n tuổi như Pascal, Delphi, C#. Với bề dầy kinh nghiệm của &ocirc;ng, ch&uacute;ng ta cũng cảm nhận được độ mạnh của dự &aacute;n Typescript nhỉ.</span></p>
+<p><span style="color: #000000;">Trước Typescript cũng c&oacute; v&agrave;i đ&agrave;n anh như Coffescript hay Dart của Google. Nhưng những ng&ocirc;n ngữ n&agrave;y kh&ocirc;ng được ưa chuộng l&acirc;u d&agrave;i bởi c&uacute; ph&aacute;p của n&oacute; qu&aacute; kh&aacute;c với Javascript, n&ecirc;n việc chuyển code từ Javascript sang Coffescript thật sự l&agrave; một cực h&igrave;nh với c&aacute;c dev. Thấy được vết xe đổ đ&oacute;, Typescript đ&atilde; kh&ocirc;n ngoan hơn khi dựa v&agrave;o Javascript l&agrave;m n&ecirc;n tảng. Bạn c&oacute; thể copy code Javascript v&agrave;o trong file Typescript rồi chạy m&agrave; kh&ocirc;ng cần chỉnh sửa g&igrave; th&ecirc;m. Bởi v&igrave; n&oacute; l&agrave; phần mở rộng của ES6, m&agrave; ES6 lại mở rộng từ Javascript.</span></p>
+<p><span style="color: #000000;">Hiện tại, do chưa c&oacute; nhiều tr&igrave;nh duyệt hỗ sợ đủ t&iacute;nh năng của ES6, n&ecirc;n để đảm bảo code của bạn c&oacute; thể chạy được tr&ecirc;n c&aacute;c tr&igrave;nh duyệt, th&igrave; n&ecirc;n bi&ecirc;n dịch về Javascript chuẩn.</span></p>
+<p style="color: #333399;"><span style="color: #000000;">L&agrave;m sao để c&oacute; thể bi&ecirc;n dịch ES6 về Javascript?</span></p>
+<p><span style="color: #000000;">Vấn đề n&agrave;y bạn kh&ocirc;ng cần phải qu&aacute; lo lắng, v&igrave; c&aacute;c IDE sẽ l&agrave;m gi&uacute;p bạn.</span></p>
+<p><span style="color: #000000;">Nếu bạn viết script bằng ES6, th&igrave; bạn cần bộ bi&ecirc;n dịch&nbsp;Babel để bi&ecirc;n dịch về Javascript.</span></p>
+<p><span style="color: #000000;">Nếu bạn viết script bằng Typescript, th&igrave; c&oacute; rất nhiều IDE đ&atilde; hỗ trợ sẵn cho bạn như&nbsp;Visual Studio, Sublime Text, Eclipse, Vim, v.v...</span></p>
+<p><span style="color: #000000;">M&atilde; Javascript được sinh ra vừa nhỏ gọn, vừa đ&uacute;ng chuẩn, n&ecirc;n c&oacute; thể y&ecirc;n t&acirc;m chạy m&agrave; kh&ocirc;ng sợ bị lỗi.</span></p>
+<p><img src="https://lh3.googleusercontent.com/o8w90pC48ZYkC9qGgM7DkfUoPbP4PlovHEaM3-xPG4qkTJi98dAIE3fHlcO8e_m5U7wvoeEWpH7z_KHYYgfJy3KEBvzhYQFkr-RtiyU09ao8Te82-VDPsLNF1TIJSehkVgWnOn1qPB15DQ1F5XXz75wAXDJ0GJQAz3-Y5uCDvIi8h6VVyjJeGLfTiCgGUzXc9KG-l51WJnsIwigmBE-IbNCM8pOBlejmGfsg5lV8NpBkiKq-HVq4FnZgQsl8Avx5JGrCqUolsDals43bzHy5B6Dbzq4T1SNcK2Gwq-VPSoWy8JYBfKcwnXidHyCL9lgHcyixe0yaI7URvibN4khQVorV7nG8oujt4lK9SxGPdoHKon4ZFLEM3ZqoBe0wNz0ZDAJrnw0fXJfs2C8jgOZFK6tF7CfYgHGX-KB8B4GZ55LOtj1aokJSk4JPKcYR4emRHzOk4D7U-ymHtNZyiXsAPvovPr3N9885uyYC6VEcx0V4pcOouNrTzO00xg3qJo6s45n9XixwDG1cmizbDVAW9pUUIfnJu82k0HbHyG1CcP5gfaNHxDfQs002cicegggRp9CbO6oPmHgpn3Ei8D4Bu7p8gr5mvHDNXlhv8camEn6Zz4j2Q3--=w1514-h662-no" alt="" width="958" height="419" /></p>
+<h3 id="mcetoc_1bcenu0v83"><span style="color: #333399;"><strong><span style="background-color: #333399; color: #ffffff;">&nbsp;4 </span>&nbsp;T&Iacute;NH NĂNG MỚI</strong></span></h3>
+<p><span style="color: #000000;">Như đ&atilde; giới thiệu tr&ecirc;n, th&igrave; ES6 c&oacute; kh&aacute; nhiều t&iacute;nh năng mới. Lưu &yacute; đ&acirc;y chỉ mới l&agrave; b&agrave;i giới thiệu, n&ecirc;n m&igrave;nh chỉ liệt k&ecirc; t&iacute;nh năng m&agrave; ES6 hỗ trợ v&agrave; giải th&iacute;ch 1 t&iacute;nh năng đầu ti&ecirc;n th&ocirc;i nh&eacute;. Loạt b&agrave;i sau m&igrave;nh sẽ tr&igrave;nh b&agrave;y cụ thể hơn.</span></p>
+<p><span style="color: #000000;">Dưới đ&acirc;y l&agrave; danh s&aacute;ch c&aacute;c keywork. Keywork t&ocirc; m&agrave;u xanh l&agrave; những keywork mới của ES6.</span></p>
+<table>
+<tbody>
+<tr>
+<td>break</td>
+<td>&nbsp;default</td>
+<td>&nbsp;for</td>
+<td>&nbsp;new</td>
+<td>&nbsp;typeof</td>
+</tr>
+<tr>
+<td>&nbsp;case</td>
+<td>&nbsp;delete</td>
+<td>function&nbsp;</td>
+<td>return&nbsp;</td>
+<td>var&nbsp;</td>
+</tr>
+<tr>
+<td><strong><span style="color: #333399;">class&nbsp;</span></strong></td>
+<td>do&nbsp;</td>
+<td>if&nbsp;</td>
+<td><strong><span style="color: #333399;">super&nbsp;</span></strong></td>
+<td>void&nbsp;</td>
+</tr>
+<tr>
+<td>catch&nbsp;</td>
+<td>else&nbsp;</td>
+<td><span style="color: #333399;"><strong>import&nbsp;</strong></span></td>
+<td>switch&nbsp;</td>
+<td>while&nbsp;</td>
+</tr>
+<tr>
+<td><strong><span style="color: #333399;">const&nbsp;</span></strong></td>
+<td><strong><span style="color: #333399;">export&nbsp;</span></strong></td>
+<td>in&nbsp;</td>
+<td>this&nbsp;</td>
+<td>with&nbsp;</td>
+</tr>
+<tr>
+<td>continue&nbsp;</td>
+<td><strong><span style="color: #333399;">extends</span>&nbsp;</strong></td>
+<td>instanceof&nbsp;</td>
+<td>throw&nbsp;</td>
+<td><strong><span style="color: #333399;">yield&nbsp;</span></strong></td>
+</tr>
+<tr>
+<td>debugger&nbsp;</td>
+<td>finally&nbsp;</td>
+<td><span style="color: #333399;"><strong>let&nbsp;</strong></span></td>
+<td>try&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><span style="color: #000000;">Tiếp theo l&agrave; t&iacute;nh năng mới của ES6</span></p>
+<table>
+<tbody>
+<tr>
+<td>Arrow Function</td>
+<td>iterators + for..of</td>
+<td>Symbols</td>
+</tr>
+<tr>
+<td>Classes</td>
+<td>Generators</td>
+<td>Subclassable built-ins</td>
+</tr>
+<tr>
+<td>Enhanced object literals</td>
+<td>Unicode</td>
+<td>Promises</td>
+</tr>
+<tr>
+<td>Template strings</td>
+<td>Modules</td>
+<td>math + number + string + array + object APIs</td>
+</tr>
+<tr>
+<td>Destructuring</td>
+<td>Module loaders</td>
+<td>Binary and Octal literals</td>
+</tr>
+<tr>
+<td>default + rest + spread</td>
+<td>Map + set + weakmap + weakset</td>
+<td>Reflect API</td>
+</tr>
+<tr>
+<td>let + const</td>
+<td>Proxies</td>
+<td>Tail calls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyword_let"><strong><span style="color: #333399;">Từ kh&oacute;a Let</span></strong></h3>
+<p>Let l&agrave; từ kh&oacute;a để khai b&aacute;o một biến. N&oacute; cũng giống như var, nhưng kh&aacute;c với var ở tầm vực sử dụng v&agrave; gi&aacute; trị của biến được khai b&aacute;o bằng let sẽ tường minh hơn var. Xem thử demo sau:</p>
+<table>
+<tbody>
+<tr>
+<td style="text-align: center;"><span style="color: #333399;"><strong>let</strong></span></td>
+<td style="text-align: center;"><span style="color: #333399;"><strong>var</strong></span></td>
+</tr>
+<tr>
+<td>
+<pre class="language-javascript"><code>function letTest() {
+  let x = 1;
+  if (true) {
+    let x = 2;  // different variable
+    console.log(x);  // 2
+  }
+  console.log(x);  // 1
+}</code></pre>
+</td>
+<td>
+<pre class="language-javascript"><code>function varTest() {
+  var x = 1;
+  if (true) {
+    var x = 2;  // same variable!
+    console.log(x);  // 2
+  }
+  console.log(x);  // 2
+}</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyword_arrow"><span style="color: #333399;"><strong>Arrow</strong></span></h3>
+<p>Arrow l&agrave; c&aacute;ch viết ngắn để khai b&aacute;o một h&agrave;m bằng c&uacute; ph&aacute;p <strong><span style="background-color: #333399; color: #ffffff;">=&gt;</span></strong> thay v&igrave; d&ugrave;ng function.&nbsp;</p>
+<table style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td rowspan="2"><span style="color: #333399;"><strong>Javascript</strong></span></td>
+<td>
+<pre class="language-javascript"><code>var helloWorld = function (message) {&hellip;}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Từ kh&oacute;a function l&agrave; c&aacute;ch khao b&aacute;o một h&agrave;m quen thuộc trong javascript.</td>
+</tr>
+<tr>
+<td rowspan="2"><span style="color: #333399;"><strong>ES6</strong></span></td>
+<td>
+<pre class="language-javascript"><code>let helloWorld = (message)  =&gt; {&hellip;}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Ở ES6, thay thế từ kh&oacute;a function bằng <strong><span style="background-color: #333399; color: #ffffff;">=&gt;</span></strong> , v&agrave; param message đặt trước <span style="color: #ffffff; background-color: #333399;"><strong>=&gt;</strong></span></td>
+</tr>
+<tr>
+<td rowspan="2"><span style="color: #333399;"><strong>Typescript</strong></span></td>
+<td>
+<pre class="language-javascript"><code>let helloWorld = (message: string)  =&gt; {&hellip;}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Ở Typescript, th&igrave; y&ecirc;u cầu cao hơn một tẹo, l&agrave; biến message của bạn phải được khai b&aacute;o k&egrave;m với kiểu dữ liệu. Việc khai b&aacute;o kiểu dữ liệu giống thế n&agrave;y cũng kh&aacute; quen thuộc khi ở c&aacute;c ng&ocirc;n ngữ kh&aacute;c như C#, Java, v.v...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mcetoc_1bcenu0v84"><span style="color: #333399;"><strong><span style="background-color: #333399; color: #ffffff;">&nbsp;5 </span>&nbsp;KẾT LUẬN</strong></span></h3>
+<p><span style="color: #000000;">Hiện nay, kh&ocirc;ng chỉ Angular2 sử dụng Typescript, m&agrave; c&aacute;c framework JS kh&aacute;c cũng đang n&acirc;ng cấp từ JS sang Typescript, như framework Dojo Toolkit, Ember, v.v... &nbsp;Với những kĩ thuật mới v&agrave; lập tr&igrave;nh hướng đối tượng, n&ecirc;n Typescript cũng gi&uacute;p ch&uacute;ng ta x&acirc;y dựng dự &aacute;n lớn dễ d&agrave;ng hơn. &nbsp;</span></p>
+<p><span style="color: #000000;">Bản chất của Typescript l&agrave; Javascript, bạn vẫn c&oacute; thể viết js trong file typescript, nhưng để viết js nhẹ nh&agrave;ng hơn, n&ecirc;n khai th&aacute;c c&aacute;c t&iacute;nh năng m&agrave; Typescript cung cấp.</span></p>
+<h3 id="referent"><strong><span style="color: #333399;">Tham khảo</span></strong></h3>
+<p>https://www.typescriptlang.org/</p>
+<p>&nbsp;</p><!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/typescript-phan-1-gioi-thieu/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BTypescript%5D%20Ph%E1%BA%A7n%201%20-%20Gi%E1%BB%9Bi%20thi%E1%BB%87u">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/typescript-phan-1-gioi-thieu/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

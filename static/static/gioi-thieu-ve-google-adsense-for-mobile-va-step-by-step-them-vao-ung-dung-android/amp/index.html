@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu về Google Adsense for Mobile và ứng dụng trong Android</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu về Google Adsense for Mobile và ứng dụng trong Android" />
+    <meta property="og:description" content="Google AdMob thực chất là quảng cáo Adsense, nó là nền tảng quảng cáo trên thiết bị di động nên được gọi là AdMob (viết tắt Adsense for Mobile).  Khi người dùng có ứng dụng sẽ đăng ký tài khoản Google Adsense và chọn mục** AdMob** để tham gia và" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-google-adsense-for-mobile-va-step-by-step-them-vao-ung-dung-android/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkU1pNcXEwQllfQk0&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-09-28T17:58:19.000Z" />
+    <meta property="article:modified_time" content="2017-03-12T03:24:27.000Z" />
+    <meta property="article:tag" content="android" />
+    <meta property="article:tag" content="adsense" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu về Google Adsense for Mobile và ứng dụng trong Android" />
+    <meta name="twitter:description" content="Google AdMob thực chất là quảng cáo Adsense, nó là nền tảng quảng cáo trên thiết bị di động nên được gọi là AdMob (viết tắt Adsense for Mobile).  Khi người dùng có ứng dụng sẽ đăng ký tài khoản Google Adsense và chọn mục** AdMob** để tham gia và" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-google-adsense-for-mobile-va-step-by-step-them-vao-ung-dung-android/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkU1pNcXEwQllfQk0&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.92" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="android, adsense" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.92",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkclJsTEtLTVF0UDA&export=download",
+            "width": 259,
+            "height": 194
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt92/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu về Google Adsense for Mobile và ứng dụng trong Android",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ve-google-adsense-for-mobile-va-step-by-step-them-vao-ung-dung-android/",
+    "datePublished": "2016-09-28T17:58:19.000Z",
+    "dateModified": "2017-03-12T03:24:27.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkU1pNcXEwQllfQk0&export=download",
+        "width": 1280,
+        "height": 720
+    },
+    "keywords": "android, adsense",
+    "description": "Google AdMob  thực chất là quảng cáo Adsense, nó là nền tảng quảng cáo trên\nthiết bị di động nên được gọi là AdMob (viết tắt Adsense for Mobile).\n\nKhi người dùng có ứng dụng sẽ đăng ký tài khoản Google Adsense  và chọn mục**\nAdMob** để tham gia và nhúng vào phần mềm của mình. Nó rất hữu ích khi bạn\npublish một ứng dụng free và vẫn muốn có thu nhập từ ứng dụng đó. Trong bài viết\nnày, chúng ta sẽ tìm hiểu làm cách nào để tích hợp được AdMob vào ứng dụng\nAndroid của bạn.\n\nTrước tiên vào vấn đề chín",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu về Google Adsense for Mobile và ứng dụng trong Android</h1>
+                <section class="post-meta">
+                    N.T.A.92 -
+                    <time class="post-date" datetime="2016-09-29">29 Sep 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkU1pNcXEwQllfQk0&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><strong>Google AdMob</strong> thực chất là quảng cáo Adsense, nó là nền tảng quảng cáo trên thiết bị di động nên được gọi là AdMob (viết tắt <strong>Adsense for Mobile</strong>).</p>
+<p>Khi người dùng có ứng dụng sẽ đăng ký tài khoản <strong>Google Adsense</strong> và chọn mục** AdMob** để tham gia và nhúng vào phần mềm của mình. Nó rất hữu ích khi bạn publish một ứng dụng free và vẫn muốn có thu nhập từ ứng dụng đó. Trong bài viết này, chúng ta sẽ tìm hiểu làm cách nào để tích hợp được <strong>AdMob</strong> vào ứng dụng Android của bạn.</p>
+<p>Trước tiên vào vấn đề chính, chúng ta cần phải tìm hiểu một vài khái niệm và cách thức quảng cáo của <strong>Google AdMob</strong>.</p>
+<ul>
+<li><strong>Advertiser</strong>: Người hay công ty muốn đăng quảng cáo.</li>
+<li><strong>Publisher</strong>: bản thân chúng ta – những người hay đội ngũ xây dựng ứng dụng.</li>
+<li><strong>Admob</strong>: Chính là của <strong>Google</strong>, một tổ chức uy tín giúp đảm bảo sự công bằng giữa người cần quảng cáo và người muốn có thu nhập chính đáng từ quảng cáo đó.</li>
+</ul>
+<p>Quảng cáo của <strong>AdMob</strong> dùng** CPC** (Cost-Per-Click), tức là chi phí cho mỗi lần click chuột. 0.2 USD là mức giá trung bình thấp của các nước cho 1 click.</p>
+<p>Riêng tại Việt Nam, những nhà phát triển game chỉ nhận được 1/10 trong tổng 0.2 USD. Một ví dụ rất rõ ràng gần đây có thể nhận thấy việc thu nhập khủng khiếp từ quảng cáo, chính là game Flappy Bird. Theo thống kê, Flappy Bird đã có trên 50 triệu lượt tải về, 47.000 lượt nhận xét trên App Store.</p>
+<p>Điều này đồng nghĩa với mỗi ngày tác giả của game này sẽ có khoảng 10 triệu người dùng kích hoạt chơi game của anh. Một con số đáng ngưỡng mộ!!!</p>
+<h3 id="1ccloiqungcobannervinterstitial">1. Các loại quảng cáo – <strong>Banner</strong> và <strong>Interstitial</strong></h3>
+<p><strong>Banner</strong>: là loại quảng cáo sẽ chiếm 1 phần nhỏ của màn hình ứng dụng của bạn, nó thường được đặt ở dưới cùng hoặc trên cùng của ứng dụng</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkOTc1d0xQNUQwUUE&amp;export=download" alt="Adsense Banner" width="183" height="275" layout="fixed"></amp-img></p>
+<p><strong>Interstitial</strong>: là loại quảng cáo sẽ chiếm toàn bộ màn hình của ứng dụng, Interstitial sẽ block toàn bộ ứng dụng của bạn, và đặt quảng cáo bao phủ lên ứng dụng.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWWhMMzZ3SGhnMTQ&amp;export=download" alt="Adsense Interstitial" width="175" height="288" layout="fixed"></amp-img></p>
+<h3 id="2lyidadmob">2. Lấy ID AdMob</h3>
+<p><strong>Bước 1</strong>: Đăng nhập Google AdMob bằng tài khoản Google của bạn.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTC1xb01qQkNKYU0&amp;export=download" alt="B1" width="553" height="729" layout="responsive"></amp-img></p>
+<p><strong>Bước 2</strong>: Click vào tab Kiếm Tiền</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZmd1S2hfMzZDY0E&amp;export=download" alt="B2" width="763" height="686" layout="responsive"></amp-img></p>
+<p><strong>Bước 3</strong>: Lựa chọn App hoặc tạo 1 app mới và lựa chọn nền tảng cho APP (có <strong>Android, IOS, Windows Phone 8</strong>).</p>
+<p><strong>Bước 4</strong>: Lựa chọn các kiểu hiển thị quảng cáo.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSkNMRWRHTExVY28&amp;export=download" alt="B4" width="906" height="541" layout="responsive"></amp-img></p>
+<p><strong>Bước 5</strong>: Một đơn vị quảng cáo đã được tạo, bạn có thể nhận thấy Ad unit ID hiện ở thanh dashboard. Lúc đó đã thành công.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbU9Id0FIb0NiazQ&amp;export=download" alt="B5" width="493" height="57" layout="responsive"></amp-img></p>
+<h3 id="3gnadmobvongdngandroid">3. Gắn AdMob vào ứng dụng Android</h3>
+<p><strong>Bước 1</strong>: Tạo 1 project mới trong Android Studio từ File =&gt; New Project. Ta chọn mặc định Empty Activity và thực hiện next.</p>
+<p><strong>Bước 2</strong>: Mở build.gradle và thêm dependency play services AdMob</p>
+<pre><code>dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+}
+</code></pre>
+<p><strong>Bước 3</strong>: Mở file <code>string.xml</code> ở <code>res/values</code> và add 2 loại quảng cáo của chúng ta:  Banner and Interstitial.</p>
+<pre><code class="language-xml">&lt;resources&gt;
+    &lt;string name="app_name"&gt;AdMob&lt;/string&gt;
+    &lt;string name="title_activity_second_activiy"&gt;Interstitial&lt;/string&gt;
+    &lt;string name="msg_welcome"&gt;Welcome to Admob. Click on the below button to launch the Interstitial ad.&lt;/string&gt;
+    &lt;string name="btn_fullscreen_ad"&gt;Show Fullscreen Ad&lt;/string&gt;
+    &lt;string name="banner_home_footer"&gt;ca-app-pub-3385728256506859&lt;/string&gt;
+    &lt;string name="interstitial_full_screen"&gt;ca-app-pub-3385728256506859&lt;/string&gt;
+&lt;/resources&gt;
+</code></pre>
+<p><strong>Bước 4</strong>: Mở <code>AndroidManifest.xml</code> và thêm các quyền như bên dưới.</p>
+<ul>
+<li>Add INTERNET &amp; ACCESS_NETWORK_STATE permissions.</li>
+<li>Add google play services version meta-data.</li>
+<li>Add the AdActivity adding configChanges and theme attributes.</li>
+</ul>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="anhtbok.vnlab.admob"&gt;
+ 
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;
+ 
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"&gt;
+ 
+        &lt;meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" /&gt;
+ 
+        &lt;activity android:name=".MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+ 
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+ 
+        &lt;activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" /&gt;
+    &lt;/application&gt;
+ 
+&lt;/manifest&gt;
+</code></pre>
+<h4 id="11thmbanneradchongdng">1.1. Thêm Banner Ad cho ứng dụng</h4>
+<p>Banner Ad sẽ chiếm 1 phần của màn hình. Mình sẽ add thêm 1 banner ad vào trong phía dưới cùng của main activity.</p>
+<p>Ngoài ra, bạn cần thêm <code>com.google.android.gms.ads.AdView</code> tới XML Layout của bạn.</p>
+<pre><code class="language-xml">&lt;com.google.android.gms.ads.AdView
+    android:id="@+id/adView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    ads:adSize="BANNER"
+    ads:adUnitId="@string/banner_home_footer"&gt;
+&lt;/com.google.android.gms.ads.AdView&gt;
+</code></pre>
+<p>Mở file <code>main_activity</code> &lt;layout chính của ứng dụng&gt; và thêm phần code XML cho AdView. Bạn nên để nó cuối cùng sau các thành phần khác vì nó sẽ hiển thị dưới cùng của màn hình chính.</p>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="anhtbok.vnlab.admob.MainActivity"&gt;
+ 
+    &lt;TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/msg_welcome" /&gt;
+ 
+    &lt;Button android:id="@+id/btn_fullscreen_ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/btn_fullscreen_ad"/&gt;
+ 
+    &lt;com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_home_footer"&gt;
+    &lt;/com.google.android.gms.ads.AdView&gt;
+&lt;/RelativeLayout&gt;
+</code></pre>
+<p>Mở file <code>MainActivity.java</code> và thêm như sau:</p>
+<pre><code class="language-java">protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    mAdView = (AdView) findViewById(R.id.adView);
+    AdRequest adRequest = new AdRequest.Builder()
+            .build();
+    mAdView.loadAd(adRequest);
+
+    btnFullscreenAd = (Button) findViewById(R.id.btn_fullscreen_ad);
+    btnFullscreenAd.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+        }
+    });
+}
+</code></pre>
+<p>Chạy app và thấy ứng dụng hiển thị quảng cáo?</p>
+<h4 id="12thminterstitialadqungcofullscreenchongdng">1.2. Thêm Interstitial Ad (Quảng cáo fullscreen) cho ứng dụng.</h4>
+<p>Interstitial sẽ chiếm toàn bộ màn hình của ứng dụng. Thêm Interstitial không yêu cầu AdView ở XML Layout. Chúng ta sẽ load nó từ <code>MainActivity</code>.</p>
+<p>Tạo 1 activity mới.</p>
+<pre><code class="language-java">package anhtbok.vnlab.admob;
+ 
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+ 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+ 
+public class SecondActivity extends AppCompatActivity {
+    private String TAG = SecondActivity.class.getSimpleName();
+    InterstitialAd mInterstitialAd;
+ 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+ 
+        mInterstitialAd = new InterstitialAd(this);
+ 
+        // set the ad unit ID
+        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_full_screen));
+ 
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+ 
+        // Load ads into Interstitial Ads
+        mInterstitialAd.loadAd(adRequest);
+ 
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+    }
+ 
+    private void showInterstitial() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
+}
+</code></pre>
+<p>Chạy app và bạn sẽ thấy interstitial ad xuất hiện.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Hy vọng với những chia sẻ về Google AdMob và các hướng dẫn đăng ký và cách gắn quảng cáo vào ứng dụng của bạn, bạn sẽ kiếm được tiền từ những ứng dụng free của bản thân :).</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

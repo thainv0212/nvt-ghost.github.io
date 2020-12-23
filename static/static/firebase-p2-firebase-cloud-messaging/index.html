@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Firebase: (P2) Firebase Cloud Messaging | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Firebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho phép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí..." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Firebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho phép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí..." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/firebase-p2-firebase-cloud-messaging/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Firebase: (P2) Firebase Cloud Messaging" />
+    <meta property="og:description" content="Firebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho phép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/firebase-p2-firebase-cloud-messaging/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQS1CQWQwQ21tRGc&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2019-10-28T03:08:34.000Z" />
+    <meta property="article:tag" content="firebase" />
+    <meta property="article:tag" content="Firebase Cloud Messaging" />
+    <meta property="article:tag" content="FCM" />
+    <meta property="article:tag" content="Google Firebase" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Firebase: (P2) Firebase Cloud Messaging" />
+    <meta name="twitter:description" content="Firebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho phép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/firebase-p2-firebase-cloud-messaging/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQS1CQWQwQ21tRGc&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="firebase, Firebase Cloud Messaging, FCM, Google Firebase" />
+    <meta property="og:image:width" content="960" />
+    <meta property="og:image:height" content="540" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Firebase: (P2) Firebase Cloud Messaging",
+    "url": "https://blog.vietnamlab.vn/firebase-p2-firebase-cloud-messaging/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2019-10-28T03:08:34.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQS1CQWQwQ21tRGc&export=download",
+        "width": 960,
+        "height": 540
+    },
+    "keywords": "firebase, Firebase Cloud Messaging, FCM, Google Firebase",
+    "description": "Nội dung:\n * Giới thiệu Firebase Cloud Messaging\n * Tích hợp Firebase Cloud Messaging trên ứng dụng Android\n * Chạy ứng dụng\n * Kết luận\n * Tài liệu tham khảo\n\nI. Giới thiệu Firebase Cloud Messaging\nFirebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho\nphép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí.\n\nFCM là một API được sử dụng để chuyển tải thông điệp cho nhiều nền tảng như\nAndroid, iOS. Sử dụng FCM, ứng dụng có thể gửi thông báo đến người sử dụng ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-firebase tag-firebase-cloud-messaging tag-fcm tag-google-firebase nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-firebase tag-firebase-cloud-messaging tag-fcm tag-google-firebase js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Firebase: (P2) Firebase Cloud Messaging</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-06-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 June 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/firebase/index.html">firebase</a>, <a href="../tag/firebase-cloud-messaging/index.html">Firebase Cloud Messaging</a>, <a href="../tag/fcm/index.html">FCM</a>, <a href="../tag/google-firebase/index.html">Google Firebase</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQS1CQWQwQ21tRGc&amp;export&#x3D;download" alt="Firebase: (P2) Firebase Cloud Messaging">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/firebase-p2-firebase-cloud-messaging/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Firebase%3A%20(P2)%20Firebase%20Cloud%20Messaging">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="nidung">Nội dung:</h3>
+<ul>
+<li><em>Giới thiệu Firebase Cloud Messaging</em></li>
+<li><em>Tích hợp Firebase Cloud Messaging trên ứng dụng Android</em></li>
+<li><em>Chạy ứng dụng</em></li>
+<li><em>Kết luận</em></li>
+<li><em>Tài liệu tham khảo</em></li>
+</ul>
+<h3 id="igiithiufirebasecloudmessaging">I. Giới thiệu Firebase Cloud Messaging</h3>
+<p>Firebase Cloud Messaging (FCM) là một giải pháp cross-platform messaging cho phép bạn thực hiện gửi tin nhắn một cách đang tín cậy và không mất phí.</p>
+<p>FCM là một API được sử dụng để chuyển tải thông điệp cho nhiều nền tảng như Android, iOS. Sử dụng FCM, ứng dụng có thể gửi thông báo đến người sử dụng mỗi khi có thông tin mới và điều này thật hữu ích cho những tin nhắn tiếp thị như cửa hàng thời trang thông báo đến khách hàng khi có sản phẩm mới, …</p>
+<h4 id="1firebasemessagetypes">1. Firebase message types</h4>
+<p>Sử dụng FCM bạn có thể gửi ba loại thông điệp tức là Notification Message, Data Message và tin nhắn với Notification &amp; Data Payload.</p>
+<h5 id="11notificationmessage">1.1 Notification Message:</h5>
+<p>Các Notification messages được xử lý bởi chính bản thân SDK. Thông thường các thông báo có chứa tiêu đề, tin nhắn, biểu tượng vv, Các tin nhắn có thể được gửi từ firebase console UI. Bằng cách gửi loại thông báo này, bạn sẽ không kiểm soát được nhiều thông báo. Thông báo sẽ được hiển thị tự động khi ứng dụng ở chế độ nền.</p>
+<p>Để send notification message, bạn cần sử dụng notification key trong dữ liệu json. Một ví dụ về notification message được đưa ra dưới đây.</p>
+<pre><code>{
+    &quot;to&quot;: &quot;e1w6hEbZn-8:APA91bEUIb2JewYCIiApsMu5JfI5Ak...&quot;,
+    &quot;notification&quot;: {
+        &quot;body&quot;: &quot;Cool offers. Get them before expiring!&quot;,
+        &quot;title&quot;: &quot;Flat 80% discount&quot;,
+        &quot;icon&quot;: &quot;appicon&quot;
+    }
+}
+</code></pre>
+<h5 id="12datamessage">1.2 Data Message:</h5>
+<p>Data messages phải được xử lý bởi ứng dụng android. Bạn có thể thêm loại thông báo này nếu bạn muốn gửi một số dữ liệu bổ sung cùng với thông báo. Tuy nhiên, việc gửi các thông báo này qua firebase console là không thể. Bạn cần phải có một server side logic để gửi thông báo bằng cách sử dụng Firebase API. Bạn cần phải sử dụng data key khi gửi tin nhắn loại này.</p>
+<p>Một ví dụ về data message json được đưa ra dưới đây.</p>
+<pre><code>{
+   &quot;to&quot; : &quot;e1w6hEbZn-8:APA91bEUIb2JewYCIiApsMu5JfI5Ak...&quot;,
+   &quot;data&quot; : {
+     &quot;name&quot; : &quot;LG LED TV S15&quot;,
+     &quot;product_id&quot; : &quot;123&quot;,
+     &quot;final_price&quot; : &quot;2500&quot;
+   }
+ }
+</code></pre>
+<h5 id="13messageswithbothnotificationanddatapayload">1.3 Messages with both notification and data payload:</h5>
+<p>Một thông báo cũng có thể chứa cả notification và data payload. Khi loại tin nhắn này được gửi, nó sẽ được xử lý trong hai kịch bản tùy thuộc vào trạng thái ứng dụng (background / foreground). Đối với loại thông báo này chúng ta có thể sử dụng cả notification và data keys.</p>
+<p>Khi ở chế độ nền - Ứng dụng nhận được thông báo trong khay thông báo và chỉ xử lý data payload khi người dùng chạm vào thông báo.</p>
+<p>Khi ở chế độ foreground - App nhận được một đối tượng tin nhắn với cả payloads.</p>
+<p>Một ví dụ về notification &amp; data payload message.</p>
+<pre><code>{
+    &quot;to&quot; : &quot;e1w6hEbZn-8:APA91bEUIb2JewYCIiApsMu5JfI5Ak...&quot;,
+    &quot;notification&quot;: {
+        &quot;body&quot;: &quot;Cool offers. Get them before expiring!&quot;,
+        &quot;title&quot;: &quot;Flat 80% discount&quot;,
+        &quot;icon&quot;: &quot;appicon&quot;
+    },
+    &quot;data&quot; : {
+     &quot;name&quot; : &quot;LG LED TV S15&quot;,
+     &quot;product_id&quot; : &quot;123&quot;,
+     &quot;final_price&quot; : &quot;2500&quot;
+   }
+}
+</code></pre>
+<h4 id="2messagetargeting">2. Message Targeting</h4>
+<p>Trong khi gửi tin nhắn bằng cách sử dụng firebase, bạn có thể chọn đối tượng được gửi tin nhắn. Bạn có thể gửi cho một người dùng hoặc nhóm người dùng bằng cách sử dụng tên topic. bạn cũng có thể gửi cho tất cả các ứng dụng.</p>
+<h5 id="21sendingtosingleuser">2.1 Sending to Single User</h5>
+<p>Khi gửi tin nhắn loại này, bạn phải có thông tin token của thiết bị. Khi thiết bị Android cài đặt app của bạn, một token sẽ được gửi đến server, bạn sẽ sử dụng token này cho mục đích gửi tin nhắn cho từng cá nhân.</p>
+<pre><code>{
+  &quot;to&quot;: &quot;e1w6hEbZn-8:APA91bEUIb2JewYCIiApsMu5JfI5Ak...&quot;,
+  &quot;data&quot;: {
+    &quot;message&quot;: &quot;This is a Firebase Cloud Messaging Topic Message!&quot;,
+   }
+}
+</code></pre>
+<h5 id="22topicmessaging">2.2 Topic Messaging</h5>
+<p>Topic messaging rất hữu ích khi phân đoạn người dùng được gửi tin nhắn. Với việc này tất cả người dùng phải subscribe một chủ đề firebase. Ví dụ: Khi bạn muốn gửi tin nhắn cho tất cả người dùng tham gia vào nhóm tin tức, bạn có thể tạo một topic có tên là news và gửi thông báo cho topic news .</p>
+<p>Định dạng yêu cầu của tin nhắn chủ đề được đưa ra dưới đây. Trong trường hợp bạn cần đề cập đến tên chủ đề.</p>
+<pre><code>{
+  &quot;to&quot;: &quot;/topics/news&quot;,
+  &quot;data&quot;: {
+    &quot;message&quot;: &quot;This is a Firebase Cloud Messaging Topic Message!&quot;,
+   }
+}
+</code></pre>
+<h3 id="iitchhpfirebasecloudmessagingtrnngdngandroid">II. Tích hợp Firebase Cloud Messaging trên ứng dụng Android</h3>
+<p>Để viết một ứng dụng Firebase Cloud Messaging trên thiết bị Android, sử dụng FirebaseMessaging API and Android Studio 1.4 trở lên. Ứng dụng FCM yêu cầu thiết bị chạy Android 4.0 trở lên.<br>
+Trước khi đi vào phần tích hợp một Firebase Cloud Messaging trên thiết bị Android, chúng ta sẽ cài đặt Android studio và chạy ứng dụng android đầu tiên.<br>
+Các bạn có thể tham khảo ở đây: (dành cho người chưa biết về lập trình Android)<br>
+<a href="http://o7planning.org/vi/10415/huong-dan-lap-trinh-android-cho-nguoi-moi-bat-dau-hello-android" target="_blank">http://o7planning.org/vi/10415/huong-dan-lap-trinh-android-cho-nguoi-moi-bat-dau-hello-android</a><br>
+Sau khi cài đặt xong và chạy được ứng dụng Android đầu tiên, chúng ta bắt đầu cài đặt để gửi và nhận message trên ứng dụng vừa rồi.</p>
+<h4 id="1tofirebaseproject">1. Tạo Firebase project</h4>
+<p>Bây giờ tôi sẽ tạo một Project đơn giản để demo tính năng gửi và nhận message. Các bạn vào trang <a href="https://console.firebase.google.com">https://console.firebase.google.com</a> và tạo một tài khoản firebase, sau đó login vào. Click Add Project, Tại đây ta có giao diện như bên dưới<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZkEzVE1LYnNiYWM&amp;export=download" alt=""><br>
+Tiếp theo chọn nền tảng ứng dụng Android, điền vào tên package của ứng dụng android của chúng ta và Create Project.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ25HVkpfeUM3QVk&amp;export=download" alt=""><br>
+Đến đây chúng ta download file json về và bỏ vào thư mục app của Project như hình nhé.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZEd0b0NYdDJ2dTA&amp;export=download" alt=""><br>
+Trong Android Studio, thêm FCM dependency vào Project-level build.gradle (project/build.gradle):</p>
+<pre><code>buildscript {
+  dependencies {
+    // Add this line
+    classpath 'com.google.gms:google-services:3.1.0'
+  }
+}
+</code></pre>
+<p>App-level build.gradle (project/app-module/build.gradle):</p>
+<pre><code>...
+dependencies {
+    compile 'com.google.firebase:firebase-messaging:10.0.0'
+}
+// Add to the bottom of the file
+apply plugin: 'com.google.gms.google-services'
+</code></pre>
+<p>Cuối cùng nhấn sync now xuất hiện khi bạn thay đổi code ở menu bar phía dưới. Vậy chúng ta đã xong phần thiết lập cơ bản giữa firebase project vớ ứng dụng của chúng ta. Về thiết lập kết nối đến Firebase, Ở các android studio version mới, cũng cũng cấp Firebase Assistant để hỗ trợ các config một cách nhanh chóng, các bạn có thể tham khảo tại đây:<br>
+<a href="https://developer.android.com/studio/write/firebase.html">https://developer.android.com/studio/write/firebase.html</a></p>
+<h4 id="2toappandroiddemo">2. Tạo App Android demo</h4>
+<p>Create 2 class sau:<br>
+MyFirebaseInstanceIdService:</p>
+<pre><code>package com.phongnx.testapp;
+
+import android.util.Log;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
+
+/**
+ * Created by usr0102382 on 2017/05/17.
+ */
+
+public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
+    private static final String REG_TOKEN = &quot;REG_TOKEN&quot;;
+
+    @Override
+    public void onTokenRefresh() {
+        String recent_token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(REG_TOKEN, recent_token);
+
+        sendRegistrationToServer(recent_token);
+    }
+
+    /**
+     * Persist token to third-party servers.
+     * &lt;p&gt;
+     * Modify this method to associate the user's FCM InstanceID token with any server-side account
+     * maintained by your application.
+     *
+     * @param token The new token.
+     */
+    private void sendRegistrationToServer(String token) {
+        // Add custom implementation, as needed.
+    }
+}
+</code></pre>
+<p>Create class MyFirebaseMessagingService:</p>
+<pre><code>package com.phongnx.testapp;
+
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+/**
+ * Created by usr0102382 on 2017/05/17.
+ */
+
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    private static final String TAG = &quot;MessagingService&quot;;
+    public MyFirebaseMessagingService() {
+        super();
+    }
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+
+        //Log data to Log Cat
+        Log.d(TAG, &quot;From: &quot; + remoteMessage.getFrom());
+
+        // Process for display message
+        if(remoteMessage.getNotification() != null){
+            Log.d(TAG, &quot;Notification Message: &quot; + remoteMessage.getNotification());
+            createNotification(remoteMessage.getNotification().getTitle() ,remoteMessage.getNotification().getBody());
+
+        }
+
+        // Process for data message
+        if(remoteMessage.getData() != null){
+            Log.d(TAG, &quot;Notification Data: &quot; + remoteMessage.getData());
+            String body = &quot;code: &quot; + remoteMessage.getData().get(&quot;code&quot;) + &quot; message: &quot; + remoteMessage.getData().get(&quot;message&quot;) + &quot; id: &quot; + remoteMessage.getData().get(&quot;id&quot;);
+            String title = &quot;DATA Message&quot;;
+            createNotification(title, body);
+        }
+    }
+
+    private void createNotification(String title, String body) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this);
+        notificationBuilder.setContentTitle(title);
+        notificationBuilder.setContentText(body);
+        notificationBuilder.setAutoCancel(true);
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+}
+</code></pre>
+<p>Thêm config vào file AndroidManifest.xml</p>
+<pre><code>    &lt;application
+    ...
+        &lt;service android:name=&quot;.MyFirebaseInstanceIdService&quot; android:exported=&quot;false&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.google.firebase.INSTANCE_ID_EVENT&quot;/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/service&gt;
+        &lt;service android:name=&quot;.MyFirebaseMessagingService&quot; android:exported=&quot;false&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.google.firebase.MESSAGING_EVENT&quot;/&gt;
+            &lt;/intent-filter&gt;
+        &lt;/service&gt;
+    ...
+    &lt;/application&gt;
+</code></pre>
+<h3 id="iiichyngdng">III. Chạy ứng dụng</h3>
+<h4 id="1gimessagethngquagiaodinfirebaseconsole">1. Gửi message thông qua giao diện Firebase console</h4>
+<h5 id="11gimessagensingleapp">1.1 Gửi message đến single app</h5>
+<p>Đầu tiên chúng ta chạy app để lấy token. hàm onTokenRefresh() dùng để sinh token mỗi lần chúng ta cài app, khi áp chạy lần thứ 2 trở đi, token sẽ không sinh ra nữa. Để sinh ra token mới, bạn phải gỡ cài đặt app và install lại. Trong thực tế token sinh ra sẽ gửi lên server để quản lý. trong ví dụ này, mình thực hiên lấy token ở console và dùng Firebase console để gửi message.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbWJNbXJiYTRURjA&amp;export=download" alt=""><br>
+Copy token nhân được, bước tiếp theo là vào project trên Firebase để gửi message.<br>
+Chọn Project đã tạp trên firebase -&gt; chọn vào App đã đăng ký -&gt; chọn New message:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd0EyM1dydzk3Wlk&amp;export=download" alt=""><br>
+Và kết quả:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTmFfd09fbzJYVE0&amp;export=download" alt=""></p>
+<h5 id="12gimessagentonbapp">1.2 Gửi message đến toàn bộ app</h5>
+<p>Tương tự như gửi message đến single device, để gửi đến tát cả các device đang cài app của chúng ta, tại Giao diện Firebase console, chúng ta chọn mục Target là User segment và  chọn packge name của app:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkOThWYXFCazBTd3c&amp;export=download" alt=""></p>
+<h5 id="13gimessagentontopic">1.3 Gửi message đến toàn Topic</h5>
+<p>Tính năng gửi message theo Topic rất thuận tiên khi ra chỉ muốn gửi đến nhưng đối tượng cùng quan tâm đến một chủ đề nào đó, chẳng chạn như người sử dụng app chọn theo dõi chủ đề sport, vậy khi chủ đề này có những thông báo mới, chúng ta chỉ gửi cho nhưng đối tượng quan tâm đến chủ đề này, việc này sẽ không ảnh hướng đến những người khác.<br>
+Cách gửi message theo chủ để cũng có tại Firebase console, chẳng hạn ở đây tôi gán mặc định cho app tho dõi topic là New, chúng ta sẽ thêm đoạn code FirebaseMessaging.getInstance().subscribeToTopic(&quot;news&quot;); vào hàm onCreate:</p>
+<pre><code>    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Create topic
+        FirebaseMessaging.getInstance().subscribeToTopic(&quot;news&quot;);
+        Log.d(TAG, &quot;Topic: News&quot; );
+    }
+</code></pre>
+<h4 id="2gimessagethngquafirebaseapi">2. Gửi message thông qua Firebase API</h4>
+<p>Vậy là chúng ta đã tìm hiểu 3 cách gửi message thông qua giao diện Firebase console. Trên thực tế, các message không phải lúc nào cũng chỉ có dạng văn bản, như đã đề cập ở mục các loại message, Các data message khi gửi đến app, app sẽ xử lý nhưng parameter nhận được để thực hiện một công việc nào đó. Bây giờ chúng ta tìm hiểu về cách gửi data message thông qua Firebase API như thế nào. Thay cho việc tạo một giao diện chuyện nghiệp để gửi message, việc này mất nhiều thời gian, để demo, tôi sử dụng công cụ Postman để call API của Firebase.<br>
+Đầu tiên chúng ta cần lấy Web API Key của firebase project, tạo mục Setting của ứng dụng được tạo trên firebase.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQjlSSXNMWmlGaUU&amp;export=download" alt=""><br>
+Tiếp theo setting Postman để call API của firebase để gửi masage đến app.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUkY4bUZiVFE3VDA&amp;export=download" alt=""><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMjlhcm5RZUNEOE0&amp;export=download" alt=""><br>
+Và nhấn send, chúng ta có được kết quả:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbHkwM1FleGdyM2c&amp;export=download" alt=""><br>
+Bằng việc gọi Firebase API, chúng ta có thể gửi được cả 3 loại message. chi tiết có thể xem thêm ở phần tài liệu tham khảo.</p>
+<h3 id="ivktlun">IV. Kết luận</h3>
+<p>Như vậy, đến đây chúng ta đã tìm hiểu được Khái niệm về firebase, các dịch vụ của firebase, các tiện ích v.v.. còn nhiều thứ được Firabse hỗ trợ giúp chúng ta có thể nhanh chóng phát triển ứng dụng. Kết thúc bài viết này, hy vọng các bạn có cái nhìn tổng quát về firebase, là tiền đề đi sâu nghiên cứu các dịch vụ khác mà firebase cũng cấp. Bài viết này cũng đã demo được cách thức gửi nhận message của Firebase Cloud Messaging, các loại message, đối tượng nhận message, và gửi messge thông qua API như thế nào. Hẹn gặp lại ở một chuyên đề khác của Firebase mà sắp đến mình sẽ viết, đó là Firebase Realtime Database.</p>
+<h3 id="vtiliuthamkho">V. Tài liệu tham khảo</h3>
+<ol>
+<li><a href="http://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/" target="_blank">http://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/</a></li>
+<li><a href="https://firebase.google.com/docs/cloud-messaging/" target="_blank">https://firebase.google.com/docs/cloud-messaging/</a></li>
+<li><a href="https://firebase.google.com/docs/cloud-messaging/admin/send-messages" target="_blank">https://firebase.google.com/docs/cloud-messaging/admin/send-messages</a></li>
+<li><a href="https://blog.pusher.com/send-push-notifications-over-firebase-cloud-messaging-fcm-with-pushers-mobile-push-notifications-api/" target="_blank">https://blog.pusher.com/send-push-notifications-over-firebase-cloud-messaging-fcm-with-pushers-mobile-push-notifications-api/</a></li>
+<li><a href="https://viblo.asia/hungbaby/posts/ymwGXVZ4R4p1" target="_blank">https://viblo.asia/hungbaby/posts/ymwGXVZ4R4p1</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/firebase-p2-firebase-cloud-messaging/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Firebase%3A%20(P2)%20Firebase%20Cloud%20Messaging">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/firebase-p2-firebase-cloud-messaging/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/firebase-p2-firebase-cloud-messaging/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tìm hiểu Hive Complex Types | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tìm hiểu Hive Complex Types" />
+    <meta property="og:description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-11-08T08:59:35.000Z" />
+    <meta property="article:modified_time" content="2017-05-19T07:08:57.000Z" />
+    <meta property="article:tag" content="apache" />
+    <meta property="article:tag" content="Apache Hive" />
+    <meta property="article:tag" content="complex types" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tìm hiểu Hive Complex Types" />
+    <meta name="twitter:description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="apache, Apache Hive, complex types" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="159" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Tìm hiểu Hive Complex Types",
+    "url": "https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/",
+    "datePublished": "2016-11-08T08:59:35.000Z",
+    "dateModified": "2017-05-19T07:08:57.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkUGlNbTFLXzVONG8&export=download",
+        "width": 300,
+        "height": 159
+    },
+    "keywords": "apache, Apache Hive, complex types",
+    "description": "Mở đầu\nApache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ\nliệu lớn lưu trữ phân tán trên nền tảng Hadoop. Hive dùng SQL nên dễ tiếp cận\nvới đa số mọi người (đã quá quen thuộc với SQL).\n\nTrong quá trình làm việc với Hive, chủ yếu mình thường dùng các kiểu dữ liệu cơ\nbản như\n\n * Numeric Types\n * Date/Time Types\n * String Types\n * Boolean Types\n\nNhưng, trong dự án gần đây thì mình có dùng đến Complex Types của Hive. Sau đây\nlà 1 vài tóm tắt về nó.\n\nI. Complex Types\nComple",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-apache tag-apache-hive tag-complex-types nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-apache tag-apache-hive tag-complex-types js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tìm hiểu Hive Complex Types</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2016-11-08">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 08 November 2016
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/apache/index.html">apache</a>, <a href="../tag/apache-hive/index.html">Apache Hive</a>, <a href="../tag/complex-types/index.html">complex types</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" alt="Tìm hiểu Hive Complex Types">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tim-hieu-hive-complex-types/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%C3%ACm%20hi%E1%BB%83u%20Hive%20Complex%20Types">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="mu">Mở đầu</h3>
+<p>Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop. Hive dùng SQL nên dễ tiếp cận với đa số mọi người (đã quá quen thuộc với SQL).</p>
+<p>Trong quá trình làm việc với Hive, chủ yếu mình thường dùng các kiểu dữ liệu cơ bản như</p>
+<ul>
+<li>Numeric Types</li>
+<li>Date/Time Types</li>
+<li>String Types</li>
+<li>Boolean Types</li>
+</ul>
+<p>Nhưng, trong dự án gần đây thì mình có dùng đến Complex Types của Hive. Sau đây là 1 vài tóm tắt về nó.</p>
+<h3 id="icomplextypes">I. Complex Types</h3>
+<p>Complex Types của Hive bao gồm các kiểu dữ liệu sau</p>
+<ul>
+<li>arrays: <code>ARRAY&lt;data_type&gt;</code></li>
+<li>maps: <code>MAP&lt;primitive_type, data_type&gt;</code></li>
+<li>structs: <code>STRUCT&lt;col_name : data_type [COMMENT col_comment],...&gt;</code></li>
+<li>union: <code>UNIONTYPE&lt;data_type, data_type,...&gt;</code></li>
+</ul>
+<h4 id="1array">1. Array</h4>
+<h5 id="builtinoperators">Built-in Operators</h5>
+<p>Đầu tiên ta sẽ thử với kiểu Array. Ta tạo 1 table để test với kiểu dữ liệu của các phần tử là 4 kiểu cơ bản. Constructor Function của array có dạng <code>array(val1, val2,...)</code> sẽ tạo 1 array với các phần tử truyền vào. Dùng nó để chèn dữ liệu test vào.</p>
+<pre><code class="language-sql">CREATE TABLE array_test(
+  col_a array&lt;int&gt;
+  ,col_b array&lt;string&gt;
+  ,col_c array&lt;timestamp&gt;
+  ,col_d array&lt;boolean&gt;
+);
+
+INSERT INTO TABLE array_test
+VALUES (
+  array(1,2,3)
+  ,array(&quot;c&quot;, &quot;b&quot;, &quot;a&quot;)
+  ,array(current_timestamp)
+  ,array(true, false)
+);
+</code></pre>
+<p><strong>Lỗi !!!</strong></p>
+<pre><code class="language-sh">FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values 
+Expression of type TOK_FUNCTION not supported in insert/values
+</code></pre>
+<p>Nguyên nhân là do ta không thể chèn trực tiếp Complex Types trực tiếp vào 1 bảng Hive. Ngoài các chèn trực tiếp bằng cách dùng insert/values ta còn có thể dùng chèn thông qua insert/select dữ liệu từ một bảng khác</p>
+<pre><code class="language-sql">INSERT INTO TABLE tablename VALUES values_row [, values_row ...]
+INSERT INTO TABLE tablename select_statement FROM from_statement
+</code></pre>
+<p>Ta sẽ tạo 1 dummy table cho mục đích này. Và thử lại việc chèn dữ liệu</p>
+<pre><code class="language-sql">CREATE TABLE dummy(a string);
+
+# Cần chèn 1 row dữ liệu cho dummy table này
+INSERT INTO TABLE dummy VALUES ('a');
+
+# Nếu không select_statement FROM dummy ở câu querry phía dưới sẽ không hoạt động như mong muốn
+INSERT INTO TABLE array_test
+SELECT
+  array(1,2,3)
+  ,array(&quot;c&quot;, &quot;b&quot;, &quot;a&quot;)
+  ,array(current_timestamp)
+  , array(true, false)
+FROM dummy;
+
+Query ID = mendy_20161106225212_b82ff420-e431-43b9-b283-1ef0d4db1a8a
+Total jobs = 1
+Launching Job 1 out of 1
+
+Status: Running (Executing on YARN cluster with App id application_1472439789844_24559)
+
+--------------------------------------------------------------------------------
+        VERTICES      STATUS  TOTAL  COMPLETED  RUNNING  PENDING  FAILED  KILLED
+--------------------------------------------------------------------------------
+Map 1 ..........   SUCCEEDED      1          1        0        0       0       0
+--------------------------------------------------------------------------------
+VERTICES: 01/01  [==========================&gt;&gt;] 100%  ELAPSED TIME: 0.61 s
+--------------------------------------------------------------------------------
+Loading data to table test_db.array_test
+Table test_db.array_test stats: [numFiles=1, numRows=1, totalSize=47, rawDataSize=46]
+OK
+Time taken: 1.356 seconds
+</code></pre>
+<pre><code class="language-sh"># Kiểm tra lại
+hive&gt; select * from array_test;
+OK
+[1,2,3] [&quot;c&quot;,&quot;b&quot;,&quot;a&quot;]   [&quot;2016-11-06 22:52:12.393&quot;]     [true,false]
+Time taken: 0.68 seconds, Fetched: 1 row(s)
+</code></pre>
+<p>Vậy truy cập các element trong array như thế nào? Toán tử <strong>A[n]</strong> trả về phần tử thứ n trong array. Phần tử đầu tiên có index là 0.</p>
+<pre><code class="language-sh">hive&gt; select col_a[1], col_b[2], col_c[3], col_d[0] from array_test;
+OK
+2       a       NULL    true
+
+# Nếu index &gt; size của array thì giá trị trả về là NULL
+</code></pre>
+<h5 id="builtinfunctions">Built-in Functions</h5>
+<p>Dưới đây là 1 số hàm được Hive hỗ trợ</p>
+<ul>
+<li><code>size</code>: Trả về số phần tử của array</li>
+<li><code>array_contains</code>: Kiểm tra xem array có chứa giá trị truyền vào không</li>
+<li><code>sort_array</code>: Sắp xếp array theo thứ tự tăng dần</li>
+</ul>
+<pre><code class="language-sql"># Test size
+&gt; select size(col_a), size(col_b), size(col_c), size(col_d) from array_test;
+OK
+3       3       1       2
+
+# Test array_contains
+&gt; select array_contains(col_a, 1), array_contains(col_b, &quot;d&quot;) from array_test;
+OK
+true    false
+
+# Test sort_array
+&gt; select sort_array(col_a), sort_array(col_b) from array_test;
+OK
+[1,2,3] [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]
+</code></pre>
+<h4 id="2map">2. Map</h4>
+<h5 id="builtinoperators">Built-in Operators</h5>
+<p>Tương tự ta sẽ tạo table và thử constructor của Map: <code>map(key1, value1, key2, value2,...)</code> và cách truy cập phần tử của map bằng toán tử <code>M[key]</code></p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE map_test(
+  col_a map&lt;string, string&gt;
+  ,col_b map&lt;string, string&gt;
+);
+
+# Chèn dữ liệu test
+INSERT INTO TABLE map_test
+SELECT
+  map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;, &quot;c_key&quot;, &quot;c_val&quot;)
+  ,map(&quot;3_key&quot;, &quot;3_val&quot;, &quot;2_key&quot;, &quot;2_val&quot;, &quot;1_key&quot;, &quot;1_val&quot;)
+FROM dummy;
+
+# Check
+&gt; select * from map_test;
+OK
+{&quot;a_key&quot;:&quot;a_val&quot;,&quot;b_key&quot;:&quot;b_val&quot;,&quot;c_key&quot;:&quot;c_val&quot;}     {&quot;3_key&quot;:&quot;3_val&quot;,&quot;4_key&quot;:&quot;4_val&quot;,&quot;2_key&quot;:&quot;2_val&quot;,&quot;1_key&quot;:&quot;1_val&quot;}
+
+# Truy cập phần tử của map
+# Nếu map không chứa key đó thì sẽ trả về NULL
+&gt;  select col_a[&quot;a_key&quot;], col_b[&quot;1_key&quot;], col_b[&quot;a_key&quot;] from map_test;
+OK
+a_val   1_val   NULL
+</code></pre>
+<h5 id="builtinfunctions">Built-in Functions</h5>
+<p>Dưới đây là 1 số hàm của Map</p>
+<ul>
+<li><code>size</code>: Trả về số phần tử của Map</li>
+<li><code>map_key</code>: Trả về array gồm các key của Map</li>
+<li><code>map_values</code>: Trả về array gồm các value của Map</li>
+</ul>
+<pre><code class="language-sql"># Test size
+&gt; select size(col_a), size(col_b) from map_test;
+OK
+3       4
+
+# Test map_keys
+&gt; select map_keys(col_a), map_keys(col_b) from map_test;
+OK
+[&quot;a_key&quot;,&quot;b_key&quot;,&quot;c_key&quot;]       [&quot;3_key&quot;,&quot;4_key&quot;,&quot;2_key&quot;,&quot;1_key&quot;]
+
+# Test map_values
+&gt; select map_values(col_a), map_values(col_b) from map_test;
+OK
+[&quot;a_val&quot;,&quot;b_val&quot;,&quot;c_val&quot;]       [&quot;3_val&quot;,&quot;4_val&quot;,&quot;2_val&quot;,&quot;1_val&quot;]
+</code></pre>
+<h4 id="3struct">3. Struct</h4>
+<p>Với struct thì các hàm built-in của nó không có nhiều. Ít hơn hẳn so với map và array.</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE struct_test(
+  col_a struct&lt;a: string, b: string&gt;
+  ,col_b struct&lt;c: int, d: int&gt;
+);
+
+# Chèn dữ liệu test
+# Có 2 constructor:
+# 1. struct(val1, val2, val3, ...) -&gt; tên của các trường sẽ là col1, col2, ....
+# 2. named_struct(name1, val1, name2, val2, ...)
+INSERT INTO TABLE struct_test
+SELECT
+  named_struct(&quot;a&quot;, &quot;a_val&quot;, &quot;b&quot;, &quot;b_val&quot;)
+  ,named_struct(&quot;c&quot;, 1, &quot;d&quot;, 2)
+FROM dummy;
+
+&gt; SELECT struct(&quot;a_val&quot;, &quot;b_val&quot;) FROM dummy;
+OK
+{&quot;col1&quot;:&quot;a_val&quot;,&quot;col2&quot;:&quot;b_val&quot;}
+
+# Check
+&gt; select * from struct_test;
+OK
+{&quot;a&quot;:&quot;a_val&quot;,&quot;b&quot;:&quot;b_val&quot;}       {&quot;c&quot;:1,&quot;d&quot;:2}
+
+# Truy cập phần tử của struct
+&gt; select col_a.a, col_b.d from struct_test;
+OK
+a_val   2
+</code></pre>
+<h4 id="4union">4. Union</h4>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE union_test(
+  col_a UNIONTYPE&lt;int, boolean, array&lt;string&gt;, map&lt;string, string&gt;&gt;
+)
+
+# Chèn dữ liệu test
+# create_union(tag, val1, val2, ...)
+# tag nhằm chỉ định phần dữ liệu của union, bắt đầu từ 0
+# Ví dụ: tag=0 -&gt; int, tag=2 -&gt; array&lt;string&gt;
+INSERT INTO TABLE union_test
+SELECT
+  create_union(0, 1, true, array(&quot;a&quot;, &quot;b&quot;), map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(1, 1, true, array(&quot;a&quot;, &quot;b&quot;), map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(2, 1, true, array(&quot;a&quot;, &quot;b&quot;), map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(3, 1, true, array(&quot;a&quot;, &quot;b&quot;), map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;))
+FROM dummy;
+
+# Check
+hive&gt; select * from union_test;
+OK
+{0:1}
+{1:true}
+{2:[&quot;a&quot;,&quot;b&quot;]}
+{3:{&quot;a_key&quot;:&quot;a_val&quot;,&quot;b_key&quot;:&quot;b_val&quot;}}
+</code></pre>
+<p>Việc dùng create_union để chèn dữ liệu như trên không hiệu quả cho lắm. Tuy nhiên trên thực tế, với union việc load dữ liệu từ file vào thì rất dễ dàng. Tuy nhiên, với các Complex Types thì union chưa được như mong muốn.</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE union_test(
+  col_a UNIONTYPE&lt;int, boolean, array&lt;string&gt;, map&lt;string, string&gt;&gt;
+)
+row format delimited
+fields terminated by ','
+COLLECTION ITEMS TERMINATED BY '|'
+map keys terminated by '#'
+LINES TERMINATED BY '\n';
+
+# Tạo file dữ liệu
+&gt; vi unionfile
+0|1
+1|true
+2|a|b|c
+3|a_key#a_val|b_key#b_val,
+0|2
+1|false
+
+# Load dữ liệu từ file
+load data local inpath 'unionfile' overwrite into table union_test2;
+
+# Check
+hive&gt; select * from union_test2;
+OK
+{0:1}
+{1:true}
+{2:[&quot;a|b|c&quot;]}
+{3:{&quot;a_key&quot;:null,&quot;a_val|b_key&quot;:null,&quot;b_val&quot;:null}}
+{0:2}
+{1:false}
+</code></pre>
+<h3 id="iivncacomplextypes">II. Vấn đề của Complex Types</h3>
+<p>Complex Types hiện tại đang khá ít Built-in Operators và Built-in Functions được hỗ trợ từ Hive. Do đó sẽ gặp khó khăn khi xử lý các dữ liệu kiểu này. Ví dụ trong dự án hiện tại, với kiểu dữ liệu Map&lt;String, String&gt; khi ta muốn thay đổi 1 key trong các key của Map đó, thì Hive chưa có hàm hỗ trợ việc này.</p>
+<p>Ta có thể thay đổi bằng cách hard coding key như sau:</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE map_change_key(
+  col_a map&lt;string, string&gt;
+);
+ 
+# Chèn dữ liệu test
+INSERT INTO TABLE map_change_key
+SELECT
+  map(&quot;a_key&quot;, &quot;a_val&quot;, &quot;b_key&quot;, &quot;b_val&quot;, &quot;c_key&quot;, &quot;c_val&quot;)
+FROM dummy;
+
+# List danh sách key
+SELECT sort_array(map_keys(col_a)) FROM map_change_key;
+
+OK
+[&quot;a_key&quot;,&quot;b_key&quot;,&quot;c_key&quot;]
+Time taken: 0.17 seconds, Fetched: 1 row(s)
+
+# Thay đổi key bằng cách hard coding key
+INSERT OVERWRITE TABLE map_change_key
+SELECT
+  map(
+    &quot;a_key&quot;, col_a[&quot;a_key&quot;],
+    &quot;b_key&quot;, col_a[&quot;b_key&quot;],
+    &quot;c_key_changed&quot;, col_a[&quot;c_key&quot;]
+  )
+FROM map_change_key;
+
+# Check
+SELECT sort_array(map_keys(col_a)) FROM map_change_key;
+
+OK
+[&quot;a_key&quot;,&quot;b_key&quot;,&quot;c_key_changed&quot;]
+Time taken: 0.171 seconds, Fetched: 1 row(s)
+
+# =&gt; đã thay đổi
+</code></pre>
+<p>Tuy nhiên, trong dữ liệu thực tế thì số lượng key của Map có thể rất nhiều, từ vài chục đến hơn 1 trăm key hoặc hơn. Lúc đó thì việc thay đổi key bằng cách hard coding như trên sẽ rất mất thời gian cho việc viết script và kiểm tra kết quả. Script cũng sẽ rất dài và dễ dàng gặp sai sót.</p>
+<p>Thay vì chờ Hive hỗ trợ các hàm mới, ta có thể tự viết UDF (User-Defined Functions) để thực hiện các xử lý mong muốn. Đón đọc blog sắp tới của anh <a href="https://blog.vietnamlab.vn/blog/author/linhtm/">Linh Trần</a> để biết thêm chi tiết.</p>
+<p>Ngoài ra, cũng có thể tham khảo các UDF đã được chia sẻ và nhiều người dùng như</p>
+<ul>
+<li><a href="https://github.com/klout/brickhouse/wiki">brickhouse</a></li>
+<li>...</li>
+</ul>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Hiểu rõ các Complex Type của Hive giúp ta có nhiều lựa chọn hơn khi thiết kế</li>
+<li>Hive chưa hỗ trợ nhiều các hàm built-in cho Complex Type</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://hive.apache.org/">https://hive.apache.org/</a></li>
+<li><a href="https://community.hortonworks.com/questions/22262/insert-values-in-array-data-type-hive.html">Insert values in Array data type</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Types">Hive Data Types</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF">Hive Operators and User-Defined Functions</a></li>
+<li><a href="http://blog.matthewrathbone.com/2013/08/10/guide-to-writing-hive-udfs.html">http://blog.matthewrathbone.com/2013/08/10/guide-to-writing-hive-udfs.html</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tim-hieu-hive-complex-types/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%C3%ACm%20hi%E1%BB%83u%20Hive%20Complex%20Types">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tim-hieu-hive-complex-types/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

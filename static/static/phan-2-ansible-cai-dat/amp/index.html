@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Phần 2] Ansible - Cài đặt LAMP với Playbooks và Roles</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Phần 2] Ansible - Cài đặt LAMP với Playbooks và Roles" />
+    <meta property="og:description" content="Trong bài viết trước, mình đã giới thiệu một số khái niệm cơ bản trong Ansible. Phần này chúng ta đi vào thực hành demo cài đặt một web server cơ bản với PHP, Apache và sau đó hiện ra màn hình &quot;Hello World&quot;. Playbooks Tạo một file playbook và" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/phan-2-ansible-cai-dat/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1PrcRzFvOYhCP7sO_gS9uc9dfu3L1P09R&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-04T01:27:11.000Z" />
+    <meta property="article:modified_time" content="2019-12-25T02:37:42.000Z" />
+    <meta property="article:tag" content="Ansible" />
+    <meta property="article:tag" content="playbook" />
+    <meta property="article:tag" content="role" />
+    <meta property="article:tag" content="LAMP" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Phần 2] Ansible - Cài đặt LAMP với Playbooks và Roles" />
+    <meta name="twitter:description" content="Trong bài viết trước, mình đã giới thiệu một số khái niệm cơ bản trong Ansible. Phần này chúng ta đi vào thực hành demo cài đặt một web server cơ bản với PHP, Apache và sau đó hiện ra màn hình &quot;Hello World&quot;. Playbooks Tạo một file playbook và" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/phan-2-ansible-cai-dat/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1PrcRzFvOYhCP7sO_gS9uc9dfu3L1P09R&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Ansible, playbook, role, LAMP" />
+    <meta property="og:image:width" content="940" />
+    <meta property="og:image:height" content="400" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "[Phần 2] Ansible - Cài đặt LAMP với Playbooks và Roles",
+    "url": "https://blog.vietnamlab.vn/phan-2-ansible-cai-dat/",
+    "datePublished": "2019-01-04T01:27:11.000Z",
+    "dateModified": "2019-12-25T02:37:42.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1PrcRzFvOYhCP7sO_gS9uc9dfu3L1P09R&export=download",
+        "width": 940,
+        "height": 400
+    },
+    "keywords": "Ansible, playbook, role, LAMP",
+    "description": "Trong bài viết trước, mình đã giới thiệu một số khái niệm cơ bản trong Ansible.\nPhần này chúng ta đi vào thực hành demo cài đặt một web server cơ bản với PHP,\nApache và sau đó hiện ra màn hình &quot;Hello World&quot;.Playbooks\nTạo một file playbook và viết vào đấy những việc cần làm sau: 1. Install Apache\n 2. Install PHP\n 3. Start Apache\n 4. Show &quot;Hello\n    World!&quot;\n\nCụ thể trong file playbook.yml sẽ được viết như sau:# playbook.yml\n---\n- hosts: all\n  tasks:\n    - name: 1. install Apache\n      apt: name&#x3D;ap",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Phần 2] Ansible - Cài đặt LAMP với Playbooks và Roles</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2019-01-04">04 Jan 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1PrcRzFvOYhCP7sO_gS9uc9dfu3L1P09R&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <div class="span11 blog-post">
+
+Trong bài viết trước, mình đã giới thiệu một số khái niệm cơ bản trong Ansible. Phần này chúng ta đi vào thực hành demo cài đặt một web server cơ bản với PHP, Apache và sau đó hiện ra màn hình "Hello World".
+<h2 id="playbooks">Playbooks</h2>
+Tạo một file playbook và viết vào đấy những việc cần làm sau:
+<ol>
+	<li>Install Apache</li>
+	<li>Install PHP</li>
+	<li>Start Apache</li>
+	<li>Show "Hello World!"</li>
+</ol>
+Cụ thể trong file playbook.yml sẽ được viết như sau:
+<pre><code class="yml applescript"><span class="comment"># playbook.yml</span>
+<span class="comment">---</span>
+- hosts: all
+  tasks:
+    - <span class="property">name</span>: <span class="number">1.</span> install Apache
+      apt: <span class="property">name</span>=apache2 state=present
+
+    - <span class="property">name</span>: <span class="number">2.</span> install PHP module <span class="keyword">for</span> Apache
+      apt: <span class="property">name</span>=libapache2-<span class="keyword">mod</span>-php5 state=present
+
+    - <span class="property">name</span>: <span class="number">3.</span> start Apache
+      service: <span class="property">name</span>=apache2 state=<span class="property">running</span> enabled=yes
+
+    - <span class="property">name</span>: <span class="number">4.</span> install Hello World PHP <span class="keyword">script</span>
+      <span class="keyword">copy</span>: src=index.php dest=/var/www/index.php mode=<span class="number">0664</span></code></pre>
+</div>
+ 
+
+Các phần thục vào là cách viết trong file có định dạng là YAML nhé. Nếu chưa nắm rõ bạn xem lại phần YAML trong bài viết trước.
+
+Trong bài viết trước bạn chỉ thấy module yum chứ không nghe nhắc gì đề module apt. Apt cũng giống như yum, giúp bạn cài đặt hay gỡ bỏ service nào đó. Nhưng do mình đang viết cho linux nên mình dùng apt. Yum sẽ dùng cho server centos nhé.
+
+Task đầu tiền ta sẽ cài đặt apache. Tiếp đến task 2 cũng vậy, cài đặt service php để có thể chạy được các file php. Sau khi cài xong, đến task 3 là start dịch vụ apache lên. Sau cùng ở task 4 là copy file index.php đã được chuẩn bị sẵn vào thư mục www của apache.
+
+Trong file index.php đơn giản bạn có thể viết vài dòng lệnh php như sau:
+<div class="span11 blog-post">
+<pre><code class="php"><span class="preprocessor">
+<span class="keyword">echo</span> <span class="string">"Hello World!"</span>;
+</span></code></pre>
+</div>
+ 
+
+Tiếp đến là chuẩn bị file inventory chứa thông tin server. Ở đây mình đặt tên là hosts.txt:
+<div class="span11 blog-post">
+<pre><code class="bash"><span class="comment">#hosts.txt</span>
+10.0.0.10    ansible_ssh_user=vagrant    ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key
+</code></pre>
+</div>
+ 
+
+Bây giờ bạn thử run file playbook cùng với file inventory:
+<div class="span11 blog-post">
+<pre><code class="bash">$ ansible-playbook --inventory-file=hosts playbook.yml --sudo --verbose
+</code></pre>
+</div><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Cb757PyZeyvbJGXOIlgB7djkDA_S_g2a&amp;export=download" class="kg-image" alt width="939" height="406" layout="responsive"></amp-img></figure>Mở browser lên và truy cập vào ip server đã cài đặt, bạn sẽ thấy "Hello World!"<h2 id="roles">Roles</h2>
+OK, webserver đã chạy, bây giờ cần cái thêm database. Nếu bây giờ viết install vào tiếp file playbook trên thì cũng được, nhưng cách viết đó không hay, trong khi ansible đã cung cấp sẵn tính năng roles. Nên chúng ta sẽ sử dụng triệt để những tính năng mạnh mẽ mà ansible đã cung cấp.
+
+Bạn còn nhớ cấu trúc thư mục trong roles ở bài trước không. Không nhớ cũng không sao ^^. Vì mình sẽ giúp các bạn tạo ngay đây. Nhìn vào hình bên dưới và tạo một cấu trúc thư mục đơn giản giống như vậy nhé:<figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1utiqIBFNOKTx-5qKOJ8u8PtULmtoapH_&amp;export=download" class="kg-image" alt width="498" height="183" layout="responsive"></amp-img></figure>Đầu tiên chúng ta sẽ tạo role cho webserver trước. Vì ta đã có code viết sẵn ở trên rồi, nên giờ chỉ cần phân tách và cho vào những file có chức năng riêng như sau:<br /><br />
+
+Trước tiên là roles/webserver/tasks/main.yml sẽ chứa đoạn script mô tả tasks cần thực hiện trong việc cài đặt và chạy webserver.<br /><br />
+
+Trong thư mục roles/webserver/files chúng ta để file mẫu index.php vào.<br /><br />
+
+Và sau cùng là ở file playbook.yml chính ta sẽ khai báo webserver trong thuộc tính roles.
+<pre><code class="bash"><span class="comment"># roles/webserver/tasks/main.yml</span>
+---
+- name: 1. install Apache
+  apt: name=apache2 state=present
+
+- name: 2. install PHP module <span class="keyword">for</span> Apache
+  apt: name=libapache2-mod-php5 state=present
+
+- name: 3. start Apache
+  service: name=apache2 state=running enabled=yes
+
+- name: 4. install Hello World PHP script
+  copy: src=index.php dest=/var/www/index.php mode=0664
+</code></pre><br />
+<pre><code class="bash"><span class="comment"># playbook.yml</span>
+---
+- hosts: all
+  roles:
+    - webserver
+</code></pre>
+<br />
+ <span>Chạy file playbook.yml với câu lệnh như ban đầu đã chạy và xem kết quả.</span><br />
+<div class="span11 blog-post">
+<h2 id="adding-the-m-to-the-lamp">Cài đặt Database</h2>
+Tiếp theo chúng ta sẽ cài đặt database. Dưới đây là những việc cần phải làm:
+<ol>
+	<li>Install MariaDB package</li>
+	<li>Start MariaDB service</li>
+	<li>Create database</li>
+	<li>Create database user</li>
+	<li>Import database</li>
+	<li>Install MySQL extension for PHP</li>
+	<li>Copy PHP script to query the database</li>
+</ol>
+Trước tiên, ta tạo thêm roles database với cấu trúc thư mục như sau:<br /><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1a-cIrMAk71E68fIRwbfUtWfGdDr_5Rdf&amp;export=download" class="kg-image" alt width="484" height="289" layout="responsive"></amp-img></figure>Giống như việc tạo webserver như trên, ta sẽ viết file main.yml trong thư mục roles/database/tasks. Sau đó là câu lệnh sql tạo table, file sql này sẽ đặt trong thư mục files. Cuối cùng là viết một file php kết nối với mysql và lấy dữ liệu lên.
+<pre><code class="bash"><span class="comment"># roles/database/tasks/main.yml</span>
+---
+- name: 1a. Add APT GPG signing key
+  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0xCBCB082A1BB943DB state=present
+
+- name: 1b. Add APT repository
+  apt_repository: repo=<span class="string">'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu $ansible_distribution_release main'</span> state=present update_cache=yes
+
+- name: 1c. Install MariaDB server package
+  apt: name=mariadb-server state=present
+
+- name: 2. Start Mysql Service
+  service: name=mysql state=started enabled=<span class="literal">true</span>
+
+- name: Install python Mysql package <span class="comment">#required for mysql_db tasks</span>
+  apt: name=python-mysqldb state=present
+
+- name: 3. Create a new database
+  mysql_db: name=demo state=present collation=utf8_general_ci
+
+- name: 4. Create a database user
+  mysql_user: name=demo password=demo priv=*.*:ALL host=localhost state=present
+
+- name: 5a. Copy sample data
+  copy: src=dump.sql dest=/tmp/dump.sql
+
+- name: 5b. Insert sample data
+  shell: cat /tmp/dump.sql | mysql -u demo -pdemo demo
+
+- name: 6. Install MySQL extension <span class="keyword">for</span> PHP
+  apt: name=php5-mysql state=present
+</code></pre><br />
+<pre><code class="sql"># roles/database/files/dump.sql
+<span class="operator"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> demo (
+  message <span class="keyword">varchar</span>(<span class="number">255</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>
+) ENGINE=MyISAM <span class="keyword">DEFAULT</span> CHARSET=utf8;</span>
+
+<span class="operator"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> demo (message) <span class="keyword">VALUES</span>(<span class="string">'Hello World!'</span>);</span></code></pre><br />
+<pre><code class="php"><span class="comment"># roles/database/files/db.php</span>
+<span class="preprocessor">
+
+<span class="variable">$connection</span> = <span class="keyword">new</span> PDO(<span class="string">'mysql:host=localhost;dbname=demo'</span>, <span class="string">'demo'</span>, <span class="string">'demo'</span>);
+<span class="variable">$statement</span>  = <span class="variable">$connection</span>-&gt;query(<span class="string">'SELECT message FROM demo'</span>);
+
+<span class="keyword">echo</span> <span class="variable">$statement</span>-&gt;fetchColumn();
+</span></code></pre><br />
+ 
+
+Bây giờ chạy file playbook rồi xem kết quả:
+<pre><code class="bash">ansible-playbook -i hosts playbook.yml --sudo
+</code></pre>
+
+ <br />
+
+Mở trình duyện và truy cập vào link http://10.0.0.10/db.php, lúc này chứ "Hello World" đó được lấy từ trong db và hiển thị lên.
+<div class="span11 blog-post">
+<h2 id="conclusion">Kết luận</h2>
+Ansible làm cho việc quản lý cấu hình thực sự dễ dàng bằng các chức năng đơn giản như playbooks và vai trò. Ngoài ra cú pháp YAML thật sự rất đơn giản và dễ viết, điều này giúp các developer tiếp cận với ansible nhanh chóng.
+
+</div></div>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

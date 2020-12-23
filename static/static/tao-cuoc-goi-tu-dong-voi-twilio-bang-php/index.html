@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tạo cuộc gọi tự động với Twilio bằng PHP | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo cuộc gọi tự động với Twilio bằng PHP" />
+    <meta property="og:description" content="|1| Giới thiệu Twilio là dịch vụ cho phép bạn xây dựng ứng dụng liên quan đến việc gửi và nhận các tin nhắn và cuộc gọi trên điện thoại một cách tự động.  Bài viết này sẽ demo cách tạo cuộc gọi tự động đến số điện thoại của" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;17G2Yykd9bOH-bYe0v1DinqZuEt_iLa1B&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-10-09T23:57:07.000Z" />
+    <meta property="article:modified_time" content="2020-10-09T23:57:07.000Z" />
+    <meta property="article:tag" content="twilio" />
+    <meta property="article:tag" content="php" />
+    <meta property="article:tag" content="gather" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo cuộc gọi tự động với Twilio bằng PHP" />
+    <meta name="twitter:description" content="|1| Giới thiệu Twilio là dịch vụ cho phép bạn xây dựng ứng dụng liên quan đến việc gửi và nhận các tin nhắn và cuộc gọi trên điện thoại một cách tự động.  Bài viết này sẽ demo cách tạo cuộc gọi tự động đến số điện thoại của" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;17G2Yykd9bOH-bYe0v1DinqZuEt_iLa1B&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="twilio, php, gather" />
+    <meta property="og:image:width" content="572" />
+    <meta property="og:image:height" content="320" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Tạo cuộc gọi tự động với Twilio bằng PHP",
+    "url": "https://blog.vietnamlab.vn/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/",
+    "datePublished": "2020-10-09T23:57:07.000Z",
+    "dateModified": "2020-10-09T23:57:07.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=17G2Yykd9bOH-bYe0v1DinqZuEt_iLa1B&export=download",
+        "width": 572,
+        "height": 320
+    },
+    "keywords": "twilio, php, gather",
+    "description": "|1| Giới thiệu\nTwilio là dịch vụ cho phép bạn xây dựng ứng dụng liên quan đến việc gửi và nhận\ncác tin nhắn và cuộc gọi trên điện thoại một cách tự động.\nBài viết này sẽ demo cách tạo cuộc gọi tự động đến số điện thoại của khách hàng\nbằng PHP. Sau khi khách hàng nhận cuộc gọi, sẽ nghe thông tin và lựa chọn các\noptions bằng cách nhấn số 1 hoặc 2 hoặc 3 (tuỳ vào bạn setup).\n\n|2| Tạo tài khoản Twilio dùng thử\nBạn vào trang https://www.twilio.com và đang ký một tài khoản. Sau đó sẽ vào màn\nhình cons",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-twilio tag-php tag-gather nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-twilio tag-php tag-gather js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tạo cuộc gọi tự động với Twilio bằng PHP</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-10-10">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 10 October 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/twilio/index.html">twilio</a>, <a href="../tag/php/index.html">php</a>, <a href="../tag/gather/index.html">gather</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;17G2Yykd9bOH-bYe0v1DinqZuEt_iLa1B&amp;export&#x3D;download" alt="Tạo cuộc gọi tự động với Twilio bằng PHP">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20cu%E1%BB%99c%20g%E1%BB%8Di%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%E1%BB%9Bi%20Twilio%20b%E1%BA%B1ng%20PHP">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="1giithiu">|1| Giới thiệu</h3>
+<p>Twilio là dịch vụ cho phép bạn xây dựng ứng dụng liên quan đến việc gửi và nhận các tin nhắn và cuộc gọi trên điện thoại một cách tự động.<br>
+Bài viết này sẽ demo cách tạo cuộc gọi tự động đến số điện thoại của khách hàng bằng PHP. Sau khi khách hàng nhận cuộc gọi, sẽ nghe thông tin và lựa chọn các options bằng cách nhấn số 1 hoặc 2 hoặc 3 (tuỳ vào bạn setup).</p>
+<h3 id="2totikhontwiliodngth">|2| Tạo tài khoản Twilio dùng thử</h3>
+<p>Bạn vào trang <a href="https://www.twilio.com">https://www.twilio.com</a> và đang ký một tài khoản. Sau đó sẽ vào màn hình console <a href="https://www.twilio.com/console">https://www.twilio.com/console</a>. Tại đây bạn đăng ký để được được cấp một số điện thoại trial với tài khoản $15. Bạn sẽ setup số điện thoại này để gọi đến số của khách hàng.</p>
+<p><img src="https://drive.google.com/uc?id=11wZY5pbaLhhFOjJCGRQ75km3QPQ0L7tQ&amp;export=download" alt="uc?id=11wZY5pbaLhhFOjJCGRQ75km3QPQ0L7tQ&amp;export=download"></p>
+<p>Như hình trên, bạn sẽ có 3 thông tin cần thiết cho việc setup TRIAL NUMBER, ACCOUNT SID, AUTH TOKEN.</p>
+<p>Bạn cũng đừng quên kiểm tra xem giới hạn khu vực ở Việt Nam đã được check chưa. Kiểm tra và check ở <a href="https://www.twilio.com/console/voice/calls/geo-permissions/low-risk">https://www.twilio.com/console/voice/calls/geo-permissions/low-risk</a></p>
+<p><img src="https://drive.google.com/uc?id=17pjEvNNKK6_HhYxqF7KQbRe_n9XTncCF&amp;export=download" alt="uc?id=17pjEvNNKK6_HhYxqF7KQbRe_n9XTncCF&amp;export=download"></p>
+<h3 id="3codeviphp">|3| Code với PHP</h3>
+<p>Chương trình của chúng ta ở đây là sẽ gọi điện đến số của khách hàng, sau đó chờ input trả về từ khách hàng. Nó sẽ có những bước sau:</p>
+<ol>
+<li>Gọi đến khách hàng và phát thông tin.</li>
+<li>Chờ nhận input trả về từ khách hàng.</li>
+<li>Nếu khách không input gì thì lặp lại câu phát thông tin ở bước 1.</li>
+<li>Nếu khách đã input thì cám ơn rồi thoát.</li>
+</ol>
+<p>Ở bước 2, việc chờ input từ khách thì ta sẽ sử dụng module Gather mà Twilio cung cấp. Tham khảo <a href="https://www.twilio.com/docs/voice/twiml/gather">tại đây</a></p>
+<h5 id="citwiliosdk">① Cài Twilio SDK</h5>
+<pre><code>composer require twilio/sdk
+</code></pre>
+<h5 id="cingrok">② Cài ngrok</h5>
+<p><code>Ngrok</code> là một dịch vụ xịn xò dùng để public ip local. Có thể tham khảo thêm <a href="https://www.twilio.com/docs/usage/tutorials/how-to-set-up-your-php-development-environment#install-ngrok">tại đây</a>.</p>
+<p>Sau khi download về, bạn mở CMD di chuyển vào thư mục chứa file ngrok vừa down về và chạy lệnh sau:</p>
+<pre><code class="language-bash">ngrok http 3000
+</code></pre>
+<p>3000 là port bạn đang mở ở local khi chạy ứng dụng php của bạn (localhost:3000)</p>
+<p>Sau khi chạy lệnh trên xong, <code>ngrok</code> sẽ tạo cho bạn 1 link mới. Link này tương đương vs <a href="http://localhost:3000">http://localhost:3000</a>. Bạn sẽ dùng link đó để sử dụng trong twilio.</p>
+<p><img src="https://drive.google.com/uc?id=1cwD1gn5J_s8Y78EnQ8rmSjNMGXqANpfw&amp;export=download" alt="uc?id=1cwD1gn5J_s8Y78EnQ8rmSjNMGXqANpfw&amp;export=download"></p>
+<h5 id="tofile1outboundcallphpkchhotcucgi">③ Tạo file 1-outbound-call.php để kích hoạt cuộc gọi</h5>
+<pre><code class="language-php">&lt;?php
+require_once '/path/to/vendor/autoload.php'; // Loads the library
+use Twilio\Rest\Client;
+
+const SERVICE_SSL_URL = &quot;http://70a04428.ngrok.io&quot;
+
+$sid    = &quot;YOU_ACCOUNT_SID&quot;;
+$token  = &quot;YOUR_AUTH_TOKEN&quot;;
+$client = new Client($sid, $token);
+
+$to     = &quot;+84901234567&quot;;    // YOUR CUSTOMER'S NUMBER
+$from   = &quot;+12029463870&quot;;  // TRIAL NUMBER
+$params = [
+            'url' =&gt; SERVICE_SSL_URL.'/2-call-answered-gather.php'
+        ];
+
+$call = $client-&gt;calls-&gt;create($to, $from, $params);
+
+</code></pre>
+<p>Sau khi <code>create()</code> được thực thi, dịch vụ Twilio sẽ được kích hoạt. Twilio sẽ gọi lại đường dẫn url mà bạn đã khai báo bên trên để lấy thông tin sẽ phát thoại.</p>
+<h5 id="tofile2callansweredgatherphp">④ Tạo file 2-call-answered-gather.php</h5>
+<pre><code class="language-php">&lt;?php
+require_once '/path/to/vendor/autoload.php';
+use Twilio\Twiml;
+
+const SERVICE_SSL_URL = &quot;http://70a04428.ngrok.io&quot;
+
+// Use the Twilio PHP SDK to build an XML response
+$response = new Twiml();
+
+// Use the &lt;Gather&gt; verb to collect user input
+$params = [
+            'method' =&gt; 'POST',
+            'numDigits' =&gt; 1,  // limit number input
+            'action' =&gt; SERVICE_SSL_URL.'/3-gather.php' // called after input
+        ];
+$gather = $response-&gt;gather($params);
+
+// use the &lt;Say&gt; verb to request input from the user
+$gather-&gt;say('Press 1 to take a survey. Press 2 to hear a joke.');
+
+// If the user doesn't enter input, loop
+$response-&gt;redirect(SERVICE_SSL_URL.'/2-call-answered-gather.php');
+
+// Render the response as XML in reply to the webhook request
+header('Content-Type: text/xml');
+echo $response;
+</code></pre>
+<p>Sau khi câu lệnh <code>$gather-&gt;say(...)</code> được thực hiện, thì khách hàng sẽ nghe lời thoại bạn đã định nghĩa và dừng chờ khách hàng nhập số. Nếu khách nhập số thì ngay lập tức sẽ được chuyển đến file dưới đây để xử lý. Nếu khách không input gì thì sẽ nhảy xuống câu lệnh bên dưới là lệnh <code>$response-&gt;redirect()</code></p>
+<h5 id="tofile3gatherphpxlinputtuser">⑤ Tạo file 3-gather.php để xử lý input từ user</h5>
+<pre><code class="language-php">&lt;?php
+require_once '/path/to/vendor/autoload.php';
+use Twilio\Twiml;
+
+const SERVICE_SSL_URL = &quot;http://70a04428.ngrok.io&quot;
+
+// Use the Twilio PHP SDK to build an XML response
+$response = new Twiml();
+
+// If the user entered digits, process their request
+if (array_key_exists('Digits', $_POST)) {
+    switch ($_POST['Digits']) {
+    case 1:
+        $response-&gt;say('You selected to take the survey. Thank you!');
+        break;
+    case 2:
+        $response-&gt;say('You selected to her a joke! Why did the robot cross the road? Because it was carbon bonded to the chicken!');
+        break;
+    default:
+        $response-&gt;say('Sorry, I don\'t understand that choice.');
+        $response-&gt;redirect(SERVICE_SSL_URL.'/2-call-answered-gather.php');
+    }
+} else {
+    // If no input was sent, redirect to the /voice route
+    $response-&gt;redirect(SERVICE_SSL_URL.'/2-call-answered-gather.php');
+}
+
+// Render the response as XML in reply to the webhook request
+header('Content-Type: text/xml');
+echo $response;
+</code></pre>
+<p>Ở bước này, Twilio sẽ trả về thông tin khách hàng đã input qua <code>Digits</code>. Dữ liệu response theo phương thức <code>POST</code> là do ở bước thứ 4 ta đã định nghĩa <code>method</code> là <code>POST</code>. Bây giờ bạn đã có con số mà khách hàng input, lúc này bạn sẽ xử lý tuỳ vào chương trình của bạn.</p>
+<p>Vậy quy trình thực thi giữa app của bạn vs Twilio là như thế nào?</p>
+<ol>
+<li>Từ app kích hoạt cuộc gọi đến dịch vụ Twilio. Twilio thực hiện cuộc gọi đến số điện thoại đã khai báo.</li>
+<li>Khách hàng bắt máy.</li>
+<li>Twilio redirect về app lấy message (cái mà Twilio sẽ phát thoại cho số điện thoại gọi đi)</li>
+<li>App trả lại cho Twilio message</li>
+<li>Twilio phát message qua điện thoại cho khách hàng nghe</li>
+<li>Twilio chờ khách hàng input.</li>
+<li>Khách hàng input.</li>
+<li>Twilio gửi về lại cho app.</li>
+<li>App xử lý rồi phản hồi Twilio.</li>
+<li>Twilio phát thoại tin nhắn mà app đã phản hồi.</li>
+<li>Kết thúc.</li>
+</ol>
+<h3 id="4chtbi">|4| Chốt bài</h3>
+<p>Demo nho nhỏ đã được hoàn thành. Twilio còn cung cấp các tính năng xịn xò khác như đa ngôn ngữ, giọng nam/nữ, v.v... Các bạn tham khảo thêm trên trang document của Twilio nhé.</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20cu%E1%BB%99c%20g%E1%BB%8Di%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%E1%BB%9Bi%20Twilio%20b%E1%BA%B1ng%20PHP">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tao-cuoc-goi-tu-dong-voi-twilio-bang-php/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

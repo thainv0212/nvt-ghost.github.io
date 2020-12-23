@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dlib - Xác định facial landmark với dlib và python | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Facial landmark là gì? Và cách sử dụng dlib để xác định facial landmark như thế nào? Hai câu hỏi sẽ được giải đáp trong bài blog này. Hãy cùng tìm hiểu..." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Facial landmark là gì? Và cách sử dụng dlib để xác định facial landmark như thế nào? Hai câu hỏi sẽ được giải đáp trong bài blog này. Hãy cùng tìm hiểu..." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Dlib - Xác định facial landmark với dlib và python" />
+    <meta property="og:description" content="Facial landmark là gì? Và cách sử dụng dlib để xác định facial landmark như thế nào? Hai câu hỏi sẽ được giải đáp trong bài blog này. Hãy cùng tìm hiểu..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;15waZoy9Wqpcc2ewPEriZaXMYZQKIv-Aj&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-04-24T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2018-04-24T01:00:00.000Z" />
+    <meta property="article:tag" content="dlib" />
+    <meta property="article:tag" content="facial landmark" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dlib - Xác định facial landmark với dlib và python" />
+    <meta name="twitter:description" content="Facial landmark là gì? Và cách sử dụng dlib để xác định facial landmark như thế nào? Hai câu hỏi sẽ được giải đáp trong bài blog này. Hãy cùng tìm hiểu..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;12_xyh9bk0wTyC5nMRrGMBXrtw0Ln2kou&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="dlib, facial landmark" />
+    <meta property="og:image:width" content="559" />
+    <meta property="og:image:height" content="357" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "Dlib - Xác định facial landmark với dlib và python",
+    "url": "https://blog.vietnamlab.vn/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/",
+    "datePublished": "2018-04-24T01:00:00.000Z",
+    "dateModified": "2018-04-24T01:00:00.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1B93xAqcE9HXGYptGKZV6OTyA7tj3qlCk&export=download",
+        "width": 610,
+        "height": 423
+    },
+    "keywords": "dlib, facial landmark",
+    "description": "* Dlib: Phần 1 - Cài đặt dlib trên Ubuntu\n   [https://vietnamlab.vn/blog/2018/01/24/dlib-phan-1-cai-dat-dlib-tren-ubuntu/]\n\nQua Phần 1\n[https://vietnamlab.vn/blog/2018/01/24/dlib-phan-1-cai-dat-dlib-tren-ubuntu/],\nchúng ta đã cài đặt được dlib trên Ubuntu, sang phần 2 này, chúng ta sẽ tìm hiểu\ncách sử dụng dlib để xác định facial landmark.\n\n1. Facial landmark là gì?\nXác định facial landmark là một bài toán con của bài toán dự đoán hình dạng\n(shape prediction). Vậy bài toán dự đoán hình dạng là g",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-dlib tag-facial-landmark nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-dlib tag-facial-landmark js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Dlib: Phần 2 - Xác định facial landmark với dlib và python</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-04-24">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 24 April 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/dlib/index.html">dlib</a>, <a href="../tag/facial-landmark/index.html">facial landmark</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1B93xAqcE9HXGYptGKZV6OTyA7tj3qlCk&amp;export&#x3D;download" alt="Dlib: Phần 2 - Xác định facial landmark với dlib và python">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Dlib%3A%20Ph%E1%BA%A7n%202%20-%20X%C3%A1c%20%C4%91%E1%BB%8Bnh%20facial%20landmark%20v%E1%BB%9Bi%20dlib%20v%C3%A0%20python">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><ul>
+<li><a href="https://vietnamlab.vn/blog/2018/01/24/dlib-phan-1-cai-dat-dlib-tren-ubuntu/">Dlib: Phần 1 - Cài đặt dlib trên Ubuntu</a></li>
+</ul>
+<p>Qua <a href="https://vietnamlab.vn/blog/2018/01/24/dlib-phan-1-cai-dat-dlib-tren-ubuntu/">Phần 1</a>, chúng ta đã cài đặt được dlib trên Ubuntu, sang phần 2 này, chúng ta sẽ tìm hiểu cách sử dụng dlib để xác định facial landmark.</p>
+<h4 id="1faciallandmarklg">1. Facial landmark là gì?</h4>
+<p>Xác định facial landmark là một bài toán con của bài toán dự đoán hình dạng (shape prediction). Vậy bài toán dự đoán hình dạng là gì? Đó chính là việc chúng ta phải xác định được những điểm chính tạo nên hình dạng của đối tượng trong một bức ảnh. Trong bài toán xác định facial landmark, chúng ta sẽ phải xác định được những điểm chính trong bức ảnh tạo nên hình dạng khuôn mặt người. Facial landmark là đầu vào cho nhiều bài toán khác như dự đoán tư thế đầu, tráo đổi khuôn mặt, phát hiện nháy mắt, xoay chỉnh lại khuôn mặt và điển hình là công nghệ nhận dạng khuôn mặt FaceID được Apple trang bị trên iphone X.</p>
+<p><img src="https://drive.google.com/uc?id=1IvIEuy_Y0AgHlwIf_SeMQy-zz3NtAQWh&amp;export=download" alt="alt"></p>
+<p>Việc xác định facial landmark gồm có hai bước:</p>
+<ul>
+<li>Bước 1: Xác định được vị trí khuôn mặt trong bức ảnh</li>
+<li>Bước 2: Xác định được các điểm tạo nên cấu trúc của khuôn mặt</li>
+</ul>
+<p>Việc xác định vị trí khuôn mặt có thể được thực hiện bằng nhiều cách từ đơn giản như thuật toán Haar cascades đến phức tạp như các thuật toán dựa trên deep-learning. Tuy nhiên dù sử dụng thuật toán nào, mục đích cuối cùng là ta sẽ thu được một vùng (thường là hình vuông) được xác định bởi tọa độ (x,y) bao quanh khuôn mặt trong bức ảnh.</p>
+<p>Sau khi xác định được khuôn mặt trong bức ảnh, chúng ta sẽ xác định cấu trúc của khuôn mặt. Có rất nhiều kiểu cấu trúc khuôn mặt khác nhau nhưng về cơ bản, chúng ta sẽ phải xác định được những phần sau:</p>
+<ul>
+<li>Miệng</li>
+<li>Lông mày phải</li>
+<li>Lông mày trái</li>
+<li>Mắt phải</li>
+<li>Mắt trái</li>
+<li>Mũi</li>
+<li>Hàm</li>
+</ul>
+<h4 id="2tmhiubxcnhfaciallandmarkcadlib">2. Tìm hiểu bộ xác định facial landmark của dlib</h4>
+<p>Bộ xác định facial landmark của dlib là cài đặt của thuật toán được mô tả trong bài báo <a href="https://pdfs.semanticscholar.org/d78b/6a5b0dcaa81b1faea5fb0000045a62513567.pdf">One Millisecond Face Alignment with an Ensemble of Regression Trees</a> của Kazemi và Sullivan (2014).</p>
+<p>Bộ xác định facial landmark này sẽ xác định 68 điểm chính theo tọa độ (x,y) cấu tạo nên khuôn mặt người như hình bên dưới.</p>
+<p><img src="https://drive.google.com/uc?id=1BXBBEVPwDgs_m65kMzMKHoW23fb_rm5o&amp;export=download" alt="alt"></p>
+<p>Để có thể xác định được 68 điểm này trên khuôn mặt người, bộ xác định facial landmark của dlib được huấn luyện với bộ dữ liệu <a href="https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/">iBUG 300-W</a></p>
+<p>Xác định được càng nhiều điểm landmark thì khuôn mặt người càng cụ thể, rõ ràng và chính xác hơn. Ví dụ FaceID đã sử dụng bộ cảm biến hồng ngoại với 30 triệu điểm để dựng lên cấu trúc khuôn mặt 3D của người sử dụng điện thoại.</p>
+<h4 id="3cchsdngbxcnhfaciallandmarkcadlib">3. Cách sử dụng bộ xác định facial landmark của dlib</h4>
+<h5 id="31xcnhkhunmtfacedetector">3.1 Xác định khuôn mặt (face detector)</h5>
+<p>Như đã giới thiệu ở mục trên, bài toán xác định khuôn mặt có thể giải quyết bằng nhiều thuật toán từ đơn giản đến phức tạp ứng với yêu cầu sử dụng trong thực tế. Ở đây với mục đích demo đơn giản cho blog, chúng ta sẽ sử dụng bộ xác định khuôn mặt của dlib. Bộ xác định khuôn mặt này chỉ hoạt động chính xác với những khuôn mặt hướng về phía trước, mắt nhìn vào máy ảnh (như khi chụp ảnh chân dung hồ sơ). Nó sử dụng HOG (Histogram of Oriented Gradients) feature và bộ phân loại Linear SVM.</p>
+<p>Và tất nhiên ở mọi bài toán computer vision, việc đầu tiên ta phải đọc và biểu diễn lại bức ảnh thành một ma trận lưu các thông tin của từng pixel của bức ảnh (sẽ có một bài viết chi tiết hơn về vấn đề này). Có rất nhiều thư viện python hỗ trợ bởi đây là thao tác cơ bản nhất của computer-vison như OpenCV, Scipy, Pillow và thư viện scikit-image mà chúng ta sẽ sử dụng.</p>
+<p>Để sử dụng được thư viện scikit-image, trước hết ta cần phải cài đặt nó bằng công cụ quản lý package của Python - pip:</p>
+<pre><code>pip install scikit-image
+</code></pre>
+<p>hoặc có thể tải về và cài đặt thủ công từ <a href="http://scikit-image.org/download.html">trang chủ của thư viện</a>.</p>
+<p>Và cách sử dụng thì thật đơn giản với method <code>io.imread</code> như sau:</p>
+<pre><code>import sys
+from skimage import io
+image_path = sys.argv[1] //input parameter của script
+img = io.imread(image_path)
+win = dlib.image_window()
+win.clear_overlay()
+win.set_image(img)
+</code></pre>
+<p>Tất nhiên đây là cách sử dụng cơ bản nhất của <code>io.imread</code>, bạn có thể tham khảo thêm về các cách sử dụng khác của <code>io.imread</code> với nhiều parameter hơn trong <a href="https://www.programcreek.com/python/example/92521/skimage.io.imread">bài tổng hợp 50 python code-snippet từ các project khác nhau</a>.</p>
+<p>Và thành quả của đoạn code trên là một cửa sổ với bức ảnh về một thánh nữ được hiển thị. Chú ý khi bạn chạy đoạn code trên rất có thể xảy ra lỗi sau</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+AttributeError: 'module' object has no attribute 'image_window'
+</code></pre>
+<p>Đó là do máy tính của bạn thiếu thư viện hỗ trợ GUI component (libX11). Để giải quyết lỗi này bạn cần phải xóa dlib đi, cài thư viện hỗ trợ GUI component (X11) và cài đặt lại dlib (<a href="https://stackoverflow.com/questions/44312729/anaconda-dlib-and-x11">Link stackoverflow</a>)</p>
+<p>Sau khi đã load bức ảnh của thánh nữ, ta dùng face detector của dlib để xác định khuôn mặt thiên thần của thánh nữ như sau:</p>
+<pre><code>import dlib
+detector = dlib.get_frontal_face_detector() //Load face detector
+dets = detector(img, 1)  //Xác định vị trí khuôn mặt trong bức ảnh
+win.add_overlay(dets) //Vẽ khung hình bao quanh khuôn mặt
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1LmIO_eMFa9rOLZZNqh8vYTFNVpu1qjOC&amp;export=download" alt="thanhnu-2"></p>
+<p>Có hai chú ý nho nhỏ ở đây:</p>
+<ul>
+<li>Thứ nhất: tọa độ khung hình bao quanh khuôn mặt của dlib gồm 4 giá trị <code>(top, left, bottom, right)</code> tương ứng với điểm trên-bên trái và điểm dưới-bên phải đối nhau của khung hình. Khác với dlib, OpenCV không sử dụng cách biểu diễn này mà sử dụng cách biểu diễn <code>(x, y, width, height)</code> tương ứng với tọa độ điểm trên-bên trái <code>(x, y)</code> và chiều rộng (<code>width</code>) và chiều cao (<code>height</code>) của khung hình. Do đó khi sử dụng kết hợp dlib và OpenCV, bạn cần phải chuyển đổi hai cách biểu diễn này với nhau để đảm bảo sự tương thích. Và cách chuyển đổi rất đơn giản như sau:</li>
+</ul>
+<pre><code>// Chuyển đổi từ (top, left, bottom, right) sang (x, y, w, h)
+def dlib_to_opencv(rect):
+	x = rect.left()
+	y = rect.top()
+	w = rect.right() - x
+	h = rect.bottom() - y
+ 
+	# return a tuple of (x, y, w, h)
+	return (x, y, w, h)
+</code></pre>
+<ul>
+<li>Thứ hai: ở dòng code <code>dets = detector(img, 1)</code>, parameter thứ hai là số lần áp dụng upscaling với factor là 2 (tăng kích thước của bức ảnh lên 2 lần) trước khi áp dụng bộ xác định khuôn mặt. Lợi điểm của việc làm này là làm cho mọi thứ trong bức ảnh to lên, giúp cho chúng ta có thể xác định được nhiều khuôn mặt (nhỏ) hơn nếu có. Nhưng cũng đồng thời khiến cho việc tính toán nhiều hơn, mất thời gian hơn. Do đó giá trị của parameter thứ hai này cần phải được điều chỉnh sao cho phù hợp với bài toán trong thực tế.</li>
+</ul>
+<h5 id="32xcnhfaciallandmark">3.2 Xác định facial landmark</h5>
+<p>Sau khi đã xác định được khuôn mặt trong bức ảnh, công việc tiếp theo là xác định các facial landmark của khuôn mặt đó. Và để làm được điều đó thì ta cần phải có model đã được huấn luyện. Trên trang dlib.net có cung cấp sẵn 2 model</p>
+<ul>
+<li><a href="http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2">shape-predictor-5-face-landmarks</a>: xác định 5 facial landmark</li>
+<li><a href="http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2">shape-predictor-68_face-landmarks</a>: xác định 68 facial landmark. Như đã giới thiệu ở mục trên, model này được huấn luyện với bộ dữ liệu <a href="https://ibug.doc.ic.ac.uk/resources/facial-point-annotations/">iBUG 300-W</a> và là model được dùng phổ biến nhất với dlib (chú ý nếu bạn dùng bộ dữ liệu iBUG 300-W cho các sản phẩm thương mại, bạn cần liên hệ với iBUG để xin phép)</li>
+</ul>
+<p>Bên cạnh đó dlib cũng cho phép chúng ta tự xây dựng model riêng (cần tùy chỉnh parameter cho phù hợp) với bộ dữ liệu riêng (ví dụ <a href="http://www.ifp.illinois.edu/~vuongle2/helen/">bộ dữ liệu Helen</a> với 194 facial landmark) - Tham khảo <a href="http://dlib.net/train_shape_predictor.py.html">train-shape-predictor</a></p>
+<p>Trong bài blog này, chúng ta sẽ tải về và sử dụng <code>shape-predictor-68_face-landmarks</code> sẵn có của dlib. Rất đơn giản như sau:</p>
+<pre><code>predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
+for k, d in enumerate(dets):
+    # Xác định facial landmark trên khuôn mặt thánh nữ
+    shape = predictor(img, d)
+    # Vẽ facial landmark lên bức ảnh
+    win.add_overlay(shape)
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1n_nS55irXZF1LUOcGJAHbx5lRNQgBz6T&amp;export=download" alt="thanhnu-3"></p>
+<p>Nhìn vào facial landmark được vẽ lên khuôn mặt của thánh nữ, ta có thể thấy bộ xác định facial landmark của dlib hoạt động tốt, xác định được khá chính xác vị trí của lông mày, mắt, mũi, miệng và hàm của thánh nữ. <code>So beautiful :X</code></p>
+<h4 id="4ktlun">4. Kết luận</h4>
+<p>Qua bài blog này, chúng ta đã nắm được facial landmark là gì và làm thế nào để xác định được chúng bằng dlib và python. Và quan trọng hơn là có dịp ngắm nhìn lại thánh nữ một thời của chúng ta ^_^ Trong bài blog tiếp theo của se-ri về dlib (nếu có) chúng ta sẽ tìm hiểu thêm nhiều ứng dụng hơn nữa của dlib.</p>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<ul>
+<li><a href="http://blog.dlib.net/2014/08/real-time-face-pose-estimation.html">http://blog.dlib.net/2014/08/real-time-face-pose-estimation.html</a></li>
+<li><a href="https://pdfs.semanticscholar.org/d78b/6a5b0dcaa81b1faea5fb0000045a62513567.pdf">https://pdfs.semanticscholar.org/d78b/6a5b0dcaa81b1faea5fb0000045a62513567.pdf</a></li>
+<li><a href="http://dlib.net/face_landmark_detection.py.html">http://dlib.net/face-landmark-detection.py</a></li>
+<li><a href="https://www.giassa.net/?page_id=200">https://www.giassa.net/?page_id=200</a></li>
+</ul>
+<p>Enso.</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Dlib%3A%20Ph%E1%BA%A7n%202%20-%20X%C3%A1c%20%C4%91%E1%BB%8Bnh%20facial%20landmark%20v%E1%BB%9Bi%20dlib%20v%C3%A0%20python">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/dlib-phan-2-xac-dinh-facial-landmark-voi-dlib-va-python-2/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

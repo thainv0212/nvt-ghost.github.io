@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết" />
+    <meta property="og:description" content="Serial blog Nhập môn Kubernetes  Nội dung Mở đầu Lịch sử kubernetes Các khái niệm trong kubernetes. Kubernetes làm được những gì Kết luận Tài liệu tham khảo Mở đầu Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-08-08T06:39:40.000Z" />
+    <meta property="article:modified_time" content="2018-09-25T02:32:23.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="Container orchestration" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết" />
+    <meta name="twitter:description" content="Serial blog Nhập môn Kubernetes  Nội dung Mở đầu Lịch sử kubernetes Các khái niệm trong kubernetes. Kubernetes làm được những gì Kết luận Tài liệu tham khảo Mở đầu Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, kubernetes, k8s, Container orchestration" />
+    <meta property="og:image:width" content="2688" />
+    <meta property="og:image:height" content="1272" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết",
+    "url": "https://blog.vietnamlab.vn/nhap-mon-kubernetes/",
+    "datePublished": "2018-08-08T06:39:40.000Z",
+    "dateModified": "2018-09-25T02:32:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&export=download",
+        "width": 2688,
+        "height": 1272
+    },
+    "keywords": "docker, kubernetes, k8s, Container orchestration",
+    "description": "Serial blog Nhập môn Kubernetes\n[https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/]\n\nNội dung\n * Mở đầu\n * Lịch sử kubernetes\n * Các khái niệm trong kubernetes.\n * Kubernetes làm được những gì\n * Kết luận\n * Tài liệu tham khảo\n\nMở đầu\nKubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển\nkhai ứng dụng dưới dạng container hoá, Kubernetes còn gọi là Container\norchestration engine. Trong serial bài viết về kubernetes này, mục tiêu là cho",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Nhập môn Kubernetes P1] - Tại sao Kubernetes là cần thiết?</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2018-08-08">08 Aug 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><a href="https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/">Serial blog Nhập môn Kubernetes</a></p>
+<h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Mở đầu</li>
+<li>Lịch sử kubernetes</li>
+<li>Các khái niệm trong kubernetes.</li>
+<li>Kubernetes làm được những gì</li>
+<li>Kết luận</li>
+<li>Tài liệu tham khảo</li>
+</ul>
+<h3 id="mu">Mở đầu</h3>
+<p>Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng container hoá, Kubernetes còn gọi là Container orchestration engine. Trong serial bài viết về kubernetes này, mục tiêu là cho dù bạn là người chưa từng đụng đến kubernestes đi nữa thì cũng có thể hiểu được khái niệm k8s, và có thể tự mình triển khai k8s trên một ứng dụng thực tế.<br />
+Trong những năm gần đây, nhiều ứng dụng đã thực hiện container hoá bằng cách sử dụng docker. Trên thực tế nhiều ứng dụng sử dụng docker chạy trên môi trường production ngày càng tăng lên. Trên môi trường production, Vì việc cấu trúc hệ thống chạy bằng container chỉ sử dụng docker là rất khó khăn. Cho nên việc sử dụng một Platform gọi là Container orchestration engine như là k8s thì khá phổ biến hiện nay.<br />
+Ngoài K8s thì còn có docker swarm, DC/OS, tuy nhiên loạt bài viết này tôi chỉ đề cập về k8s, vì mấy cái kia tôi chưa đụng đến :D.<br />
+<amp-img src="https://drive.google.com/uc?id=1UhmdvzQ2Yunp1T3lvZMMLPjOULFyeGHP&amp;export=download" alt="uc?id=1UhmdvzQ2Yunp1T3lvZMMLPjOULFyeGHP&amp;export=download" width="327" height="273" layout="responsive"></amp-img></p>
+<h3 id="lchscakubernetes">Lịch sử của kubernetes</h3>
+<p>Dựa theo website của Kubernetes thì chúng được định nghĩ như sau:<br />
+<em>“Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.”</em><br />
+Kubernetes là một hệ thống mã nguồn mở để tự động triển khai, scaling, quản lý các container. Kubernetes được xây dựng bởi Google dựa trên kinh nghiệm quản lý sử dụng các container trong khi triển khai một hệ thống quản lý gọi là Borg ( nhiều lúc gọi là Omega).<br />
+Nó được phát hành vào tháng 6 năm 2014, và thời điểm ra mắt phiên bản 1.0 vào tháng 7/2015 thì nó được chuyển giao cho Cloud Native Computing Foundation (CNCF).<br />
+Trong bối cảnh có thể nói là K8s đã trở thành De facto standard thì có sự đối ứng phù hợp của những nhà cung cấp dịch vụ Cloud. Trong khoảng tháng 11/2014 Google Cloud Platform（GCP）đã bắt đầu cung cấp dịch vụ Google Container Engine (GKE, sau này là Google Kubernetes Engine). Để sử dụng k8s đã được quản lý, GKE là một lựa chọn, tuy nhiên tháng 2/2017 Microsoft Azure cũng đã release Azure Container Service (AKS), Tháng 11/2017 Amazon Web Service（AWS）cũng cho ra đời Amazon Elastic Container Service for Kubernetes（Amazon EKS）.<br />
+Kubernetes được quản lý bởi những nhà cung cấp dịch vụ Cloud hàng đầu đã ra đời.</p>
+<h3 id="cckhinimtrongkubernetes">Các khái niệm trong Kubernetes.</h3>
+<h4 id="nhclivkintrccadocker">Nhắc lại về kiến trúc của docker</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1YIf4OwtVNb4f5-XdkiICIdMOn0plBj5A&amp;export=download" alt="uc?id=1YIf4OwtVNb4f5-XdkiICIdMOn0plBj5A&amp;export=download" width="945" height="494" layout="responsive"></amp-img><br />
+Link tham khảo: <a href="https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/">[Docker] – Part 2 – Cấu trúc và quy trình hoạt động của Docker.</a></p>
+<p>Nếu cái hình phía trên có nhiều thứ bạn chưa hiểu thì mình sẽ rút gọn nó như ở ví dụ sau: Giả sử mình có 1 ứng dụng chạy bằng docker trên 1 máy. Ứng dụng web bao gồm Nginx, Mysql, php-fpm. Mình dùng docker nên mình có được kiến trúc như hình dưới đây:<br />
+<amp-img src="https://drive.google.com/uc?id=1fRlYKAK5jENdOpdW0D963q1fv_IJ89lL&amp;export=download" alt="uc?id=1fRlYKAK5jENdOpdW0D963q1fv_IJ89lL&amp;export=download" width="227" height="256" layout="fixed"></amp-img></p>
+<h4 id="kubernetesarchitecture">Kubernetes Architecture</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1X8MR70R-MOY6UgTbAq_9iBN0nOtFeqFL&amp;export=download" alt="uc?id=1X8MR70R-MOY6UgTbAq_9iBN0nOtFeqFL&amp;export=download" width="1600" height="1067" layout="responsive"></amp-img><br />
+Link tham khảo: <a href="https://thenewstack.io/kubernetes-an-overview/">https://thenewstack.io/kubernetes-an-overview/</a><br />
+Là người mới nên bạn chưa thể hiểu được cái hình phía trên, không sao, mình sẽ đi từng khái niệm một.</p>
+<h5 id="kubernetescluster">Kubernetes Cluster.</h5>
+<p>Cluster có nghĩa là cụm, vậy Kubernetes Cluster có nghĩa là cụm các máy chạy docker có phải vậy không? không đơn giản thế đâu, nhưng trước tiên cứ hãy xem như vậy đã.<br />
+Một cluster là một tập các máy vật lý hay máy ảo được sử dụng bởi Kubernetes để chạy các ứng dụng.<br />
+Kubernetes Cluster bao gồm Nodes(master) và Nodes(worker).<br />
+<amp-img src="https://drive.google.com/uc?id=1S_jqz8wkHt9n_o7_uOSmJekqnwf45jeR&amp;export=download" alt="uc?id=1S_jqz8wkHt9n_o7_uOSmJekqnwf45jeR&amp;export=download" width="446" height="315" layout="responsive"></amp-img><br />
+Đến đây các bạn sẽ hỏi Nodes là gì, Nodes master và Nodes worker có nhiệm vụ gì. OK, Mình sẽ trình bày ngay sau đây.</p>
+<h5 id="nodes">Nodes</h5>
+<p>Một node là một máy ảo hoặc máy vật lý chạy Kubernetes. Nodes hay còn gọi là docker host. Để cho không bị rối, mình tạm thời chưa nhắc đến vai trò của Nodes Master (Kubernetes master) hay Nodes worker (nodes).<br />
+Bạn hiểu Nodes như hình sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1Yyxcvqtc3Ex-_e_f0_mcLx6RXpWyrJNu&amp;export=download" alt="uc?id=1Yyxcvqtc3Ex-_e_f0_mcLx6RXpWyrJNu&amp;export=download" width="1600" height="1393" layout="responsive"></amp-img><br />
+Link tham khảo:<a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">Kubernetes 101: Pods, Nodes, Containers, and Clusters</a></p>
+<p>Khi làm việc chỉ với một máy, sẽ gặp các vấn đề như không đủ tài nguyên, không thể backup khi sự cố xảy ra, vv. Ta nghĩ đến vấn đề join các máy tính riêng lẽ tạo thành 1 cụm, ta có Kubernetes Cluster như hình dưới đây:<br />
+<amp-img src="https://drive.google.com/uc?id=1qz2-BQ0rRJqxP8t37FRSwsWYHM1b1AdF&amp;export=download" alt="uc?id=1qz2-BQ0rRJqxP8t37FRSwsWYHM1b1AdF&amp;export=download" width="1600" height="1077" layout="responsive"></amp-img><br />
+Link tham khảo:<a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">Kubernetes 101: Pods, Nodes, Containers, and Clusters</a></p>
+<h5 id="pods">Pods</h5>
+<p>Bây giờ đến khái niệm Pods, nó là gì? đầu tiên các bạn chắc chắn đã biết đến khái niệm container rồi.<br />
+Pod là 1 nhóm (1 trở lên) các container thực hiện một mục đích nào đó, như là chạy software nào đó. Nhóm này chia sẻ không gian lưu trữ, địa chỉ IP với nhau. Pod thì được tạo ra hoặc xóa tùy thuộc vào yêu cầu của dự án.<br />
+Đơn vị nhỏ nhất của ứng dụng chạy Kubernetes đó là container, nhưng đơn vị quản lý cơ bản nhất thì là Pods.<br />
+Ví dụ cho dễ hiểu:<br />
+Mình có 2 ứng dụng sau:</p>
+<ul>
+<li>backend: có 3 container: backend (chứa code php backend), nginx(cấu hình dành cho backend), fluentd (tool gửi log)</li>
+<li>frontend: có 2 container: frontend (chứa code php frontend), nginx (cấu hình dành cho frontend), fluentd (tool gửi log)</li>
+</ul>
+<p>Mình sẽ thiết kế theo Kubernetes là sẽ chia làm 2 pods.</p>
+<ul>
+<li>backend-pod</li>
+<li>frontend-pod<br />
+Cụ thể các bạn theo dõi hình sau.<br />
+<amp-img src="https://drive.google.com/uc?id=1iaXmbIkefOU2PfPCg5Ec2W7R65Yl3Wsf&amp;export=download" alt="uc?id=1iaXmbIkefOU2PfPCg5Ec2W7R65Yl3Wsf&amp;export=download" width="915" height="491" layout="responsive"></amp-img></li>
+</ul>
+<p>Ở đây các bạn có thể hỏi 2 Pods này có thể nằm cùng trên 1 Node được không? Dĩ nhiên là được vì chúng là 2 ứng dụng độc lập, có địa chỉ IP riêng. Không gian lưu trữ cho mỗi ứng dụng (pod) thì sao? Như các bạn đã biết về khái niệm Volume ở docker rồi. Vậy thì chỉ cần chỉ định vùng lưu trữ riêng thì mỗi Pods đều không ảnh hưởng gì đến nhau.</p>
+<h5 id="deployment">Deployment</h5>
+<p>Đến đây thì các bạn cũng chưa thấy có gì hay ở Kubernetes cả, chỉ mới là nhóm cụm các container có liên quan với nhau thành 1 Pod. Tiếp theo mình muốn nói đến khái niệm Deployment trong Kubernetes, nó dùng để phân phối các pods cho các nodes cụ thể, mang tính dự phòng. Ví dụ như hình trên, nếu lỡ Node 1 bị die (chết server) thì ứng dụng backend coi như xong.<br />
+Đầu tiên mình muốn nói đến <strong>Replica Set</strong>. Replica Set đảm nhận vai trò tạo ra số lượng Pods giống nhau dựa vào yêu cầu và luôn luôn duy trì số lượng đó.<br />
+Giả sử quy định replicas: 3 thì nó sẽ tạo ra 3 Pods giống nhau, giả sử 1 pod ở Node (server) nào đó bị sự cố, nó sẽ tạo ra 1 Pod mới để duy trì số lượng là 3 như yêu cầu lúc đầu.<br />
+Vậy Deployment là việc định nghĩa policy update/phân phối của Replica Set. Nghĩa là sao, là nó sẽ quy định Pods gồm những container nào, các Pods được tạo ra sẽ phân phối đến các Nodes nào trong Kubernetes.<br />
+<amp-img src="https://drive.google.com/uc?id=1070PbXntD2Gr_duND5QlrE12Huts4y5U&amp;export=download" alt="uc?id=1070PbXntD2Gr_duND5QlrE12Huts4y5U&amp;export=download" width="788" height="335" layout="responsive"></amp-img></p>
+<p>Đến đây mình đã giới thiệu qua 1 vài khái niệm lớn trong Kubernetes. Tổng kết lại:</p>
+<ul>
+<li>Kubernetes Cluster là 1 cụm các Nodes: Master Nodes và Worker Nodes</li>
+<li>Nodes là một máy vật lý hoặc máy ảo, mỗi Node bao gồm 1 hoặc nhiều Pods</li>
+<li>Pods là đơn vị quản lý container, mỗi Pod có thể có 1 hoặc nhiều container.</li>
+<li>Replica Set Dùng để tạp ra nhiều Pods giống nhau</li>
+<li>Deployment dùng để quản lý việc tạo Pod và phân bổ các Pod vào các Node quy định.</li>
+</ul>
+<p>Kubernetes còn hàng đống các khái niệm mà mình không thể trình bày hết trong bài viết này. Như đã nói, mình sẽ viết một series blog về Kubernetes, nên mình sẽ nói về cơ chế hoạt động cùng hình ảnh minh hoạ cụ thể ở các phần sau.</p>
+<h3 id="kuberneteslmcnhngg">Kubernetes làm được những gì</h3>
+<p>Bằng việc sử dụng docker, trên 1 host bạn có thể tạo ra nhiều container, tuy nhiên nếu bạn có ý định sử dụng trên môi trường production thì phải bắt buộc phải nghĩ đến những vấn đề dưới đây:</p>
+<ul>
+<li>Việc quản lý hàng loạt docket host</li>
+<li>Container Scheduling</li>
+<li>Rolling update</li>
+<li>Scaling/Auto Scaling</li>
+<li>Monitor vòng đời và tình trạng sống chết của container.</li>
+<li>Self-hearing trong trường hợp có lỗi xãy ra. (Có khả năng phát hiện và tự correct lỗi)</li>
+<li>Service discovery</li>
+<li>Load balancing</li>
+<li>Quản lý data</li>
+<li>Quản lý work node</li>
+<li>Quản lý log</li>
+<li>Infrastructure as Code</li>
+<li>Sự liên kết và mở rộng với các hệ thống khác</li>
+</ul>
+<p>Bằng việc sử dụng một Container orchestration engine như K8s có thể giải quyết được nhưng vấn đề trên đây. Trong trường hợp không sử dụng k8s, Thì sẽ phải cần thiết tạo ra cơ chế tự động hoá cho những cái kể trên, theo tôi thì không có tính khả thi lắm. Trong trường hợp sử dụng máy ảo thông thường VMs Thì nó chính là việc thực hiện tự động hoá một phần bằng việc sử dụng AWS CloudFormation hay OpenStack Heat. K8s cũng quản lý thực thi các container sử dụng YAML để viết các Manifest.<br />
+Dưới đây là một ví dụ:</p>
+<pre><code>apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-server
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx-server
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                  - develop
+      containers:
+      - name: nginx
+        image: "nginx:latest"
+        imagePullPolicy: "Always"
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx
+          name: nginx-conf
+        - mountPath: /var/log/nginx
+          name: nginx-log
+</code></pre>
+<p>Kubernetes quản lý các docker host và cấu trúc container cluster. Thêm nữa, khi thực thi các container trên K8s, Bằng cách thực hiện replicas (tạo ra nhiều container giống nhau) làm cho hệ thống có sức chịu lỗi cao và tự động thực hiện load balancing.<br />
+Thêm nữa, thông qua cơ chế load balancing, chúng ta có thể tăng giảm số lượng container replica (auto scaling).<br />
+<amp-img src="https://drive.google.com/uc?id=1WCu3JDEOeYp4MapPt5VGYZk_pFiMptJh&amp;export=download" alt="uc?id=1WCu3JDEOeYp4MapPt5VGYZk_pFiMptJh&amp;export=download" width="1752" height="764" layout="responsive"></amp-img><br />
+<em>Image: scaling/auto scaling</em></p>
+<p>Khi thực hiện phân bổ container vào các Node (docker host), dựa trên các loại docker host kiểu như "Disk SSD" hay "số lượng clock của CPU cao" v.v Hoặc dựa trên loại Workload kiểu như "Disk I/O quá nhiều", "Băng thông đến một container chỉ định quá nhiều" v.v, K8s sẽ ý thực được việc affinity hay anti-affinity và thực hiện Scheduling một cách hợp lý cho chúng ta.<br />
+<amp-img src="https://drive.google.com/uc?id=1NRbNu-FRp26rAfH_j23SQ79FjVDoYqDh&amp;export=download" alt="uc?id=1NRbNu-FRp26rAfH_j23SQ79FjVDoYqDh&amp;export=download" width="1800" height="828" layout="responsive"></amp-img><br />
+<em>Image: Scheduling</em></p>
+<p>Trong trường hợp không được chỉ định host cụ thể, K8s sẽ thực thực hiện scheduling tuỳ thuộc vào tình trạng CPU, memmory của docker host có trống hay không, chính vì vậy, chúng ta không cần thiết quan tâm đến việc quản lý bố trí container vào các docker host như thế nào. Hơn nữa, trường hợp resource không đủ, thì việc auto scheduling của K8s cluster cũng sẽ được thực hiện tự động.<br />
+<amp-img src="https://drive.google.com/uc?id=1jwVxqEla5jPLiGhpOA73I-QzsBk6PXkS&amp;export=download" alt="uc?id=1jwVxqEla5jPLiGhpOA73I-QzsBk6PXkS&amp;export=download" width="1796" height="1012" layout="responsive"></amp-img><br />
+<em>Image: k8s resource management</em></p>
+<p>Trên quan điểm tính chịu lỗi cao, K8s thực hiện monitor các container theo tiêu chuẩn. Trong trường hợp hi hữu nào đó, khi một container process bị stop, K8s sẽ thực hiện Self-hearing bằng cách scheduling một container nữa. Self-hearing là một khái niệm khá quan trọng trong k8s, trong trường hợp có một node nào đó trong cluster xảy ra vấn đề (có thể là bị die, hay node đó được move đi). Cơ chế self-hearing sẽ sẽ tự động phục hồi mà không ảnh hưởng đến service.<br />
+Thêm nữa, ngoài việc monitor hệ thống, k8s còn có khả năng thiết lập helth check bằng HTTP/TCP script.<br />
+<amp-img src="https://drive.google.com/uc?id=1oSfYJe3gwF35a0gRARlPzHMIvYRvPg1B&amp;export=download" alt="uc?id=1oSfYJe3gwF35a0gRARlPzHMIvYRvPg1B&amp;export=download" width="1534" height="802" layout="responsive"></amp-img><br />
+<em>Image: auto hearing.</em></p>
+<p>Trường hợp sau khi auto scaling, phát sinh một vấn đề của endpoint đến container. Trong trường hợp sử dụng máy ảo, bằng việc setting load balancing endpoint sẽ được sử dụng như một VIP. K8s cũng có một chức năng tương tự như vậy đó là Service.  Service của k8s cung cấp chức năng load balancing cho hàng loạt các container được chỉ định. Việc tự động thêm, xoá container thời điểm scale là điều đương nhiên, khi một container xảy ra sự cố thì tự động cách ly. Khi thực hiện rolling update container thì việc đầu tiên k8s sẽ làm là cách ly container cho chúng ta, vì vậy k8s có thể đảm nhận việc quản lý các endpoint ở mức SLA cao.<br />
+Thêm nữa, trường hợp cấu trúc một hệ thống sử dụng docker, tôi nghĩ rằng nên phân tách nhỏ các chức năng trong Microservice architecture. Trong Microservice architecture, để sử dụng các image container được tạo ra tương ứng với từng chức năng và deploy chúng thì chức năng Service discovery thực sự cần thiết.<br />
+<amp-img src="https://drive.google.com/uc?id=11DaKIuULFmeYM8X65ssExezc2RpSVO-v&amp;export=download" alt="uc?id=11DaKIuULFmeYM8X65ssExezc2RpSVO-v&amp;export=download" width="1538" height="1028" layout="responsive"></amp-img></p>
+<p>K8s là một Platform nhưng có khả năng liên kết tốt với các hệ sinh thái bên ngoài, có nhiều middleware chạy trên các service của k8s, trong tương lai chắc chắn sẽ còn nhiều hơn nữa.</p>
+<ul>
+<li>Ansible: Deploy container tới Kubernetes</li>
+<li>Apache Ignite: Sử dụng Service Discovery của Kubernetes, tự động tạo và scaling k8s clkuster</li>
+<li>Fluentd: gửi log của container trong Kubernetes</li>
+<li>Jenkins: Deploy container đến Kubernetes</li>
+<li>OpenStack：Cấu trúc k8s liên kết với Cloud</li>
+<li>Prometheus: Monitor Kubernetes</li>
+<li>Spark: Thực thi native job trên Kubernetes(thay thế cho YARN)</li>
+<li>Spinnaker：Deploy container đến Kubernetes</li>
+<li>v.v</li>
+</ul>
+<p>Thêm nữa, K8s chuẩn bị một vài cơ thế để có thể mở rộng, thực thi chức năng độc lập, nó có thể sử dụng platform như là một framework. Bằng cách sử dụng khả năng mở rộng, chúng ta có thể thực hiện release một ReplicaSet mà k8s cung cấp.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Bài viết này tôi đã giới thiệu đến các bạn khái lược về k8s, không biết các bạn cảm nhận thế nào.<br />
+Việc sử dụng docker trên môi trường Production mà không sử dụng Container orchestration engine như K8s, Thì những tính năng tôi sẽ dự định viết tới thời điểm này là cần thiết cho bạn. Nếu sử dụng k8s, bạn có thể sử dụng cơ chế tự động hoá Borg được nghĩ ra bởi những người tiền nhiệm. Để thực hiện được những công việc tự động hoá như vậy với VMs thông thường, chúng ta cần thiết phải chuẩn bị những thứ như là: Sử dụng CloudFormation, tạo ra cơ chế load balancing, cơ chế update application. Nhưng với việc sử dụng k8s, bạn có thể tận dụng được tính portability và Light weight của container và phát triển hệ thống mức High cycle.</p>
+<p>Bài viết tiếp theo, tôi sẽ trình bày về [Lựa chọn môi trường Kubernetes].</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://thenewstack.io/kubernetes-an-overview/">https://thenewstack.io/kubernetes-an-overview/</a></li>
+<li><a href="https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/">https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/</a></li>
+<li><a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16</a></li>
+<li><a href="https://thinkit.co.jp/article/13289">https://thinkit.co.jp/article/13289</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

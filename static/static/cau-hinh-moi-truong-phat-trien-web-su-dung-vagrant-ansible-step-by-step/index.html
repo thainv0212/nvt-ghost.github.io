@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cấu hình môi trường sử dụng Vagrant, Ansible - Step by Step | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Các bạn đã biết về Vagrant, Ansible? 
+Nếu là 1 developer, hoặc thậm chí là 1 tester hay designer, chắc hẳn sẽ thích công cụ này." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Các bạn đã biết về Vagrant, Ansible? 
+Nếu là 1 developer, hoặc thậm chí là 1 tester hay designer, chắc hẳn sẽ thích công cụ này." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Cấu hình môi trường sử dụng Vagrant, Ansible - Step by Step" />
+    <meta property="og:description" content="Các bạn đã biết về Vagrant, Ansible? 
+Nếu là 1 developer, hoặc thậm chí là 1 tester hay designer, chắc hẳn sẽ thích công cụ này." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1NCUy-3aVGjoZMnv196fnVYbUbQSfRkNS&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:06:00.000Z" />
+    <meta property="article:modified_time" content="2018-02-22T11:20:00.000Z" />
+    <meta property="article:tag" content="Vagrant" />
+    <meta property="article:tag" content="Ansible" />
+    <meta property="article:tag" content="cấu hình môi trường" />
+    <meta property="article:tag" content="sử dụng ansible nâng cao" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cấu hình môi trường sử dụng Vagrant, Ansible - Step by Step" />
+    <meta name="twitter:description" content="Các bạn đã biết về Vagrant, Ansible? 
+Nếu là 1 developer, hoặc thậm chí là 1 tester hay designer, chắc hẳn sẽ thích công cụ này." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1NCUy-3aVGjoZMnv196fnVYbUbQSfRkNS&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Vagrant, Ansible, cấu hình môi trường, sử dụng ansible nâng cao" />
+    <meta property="og:image:width" content="1677" />
+    <meta property="og:image:height" content="498" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Cấu hình môi trường sử dụng Vagrant, Ansible - Step by Step",
+    "url": "https://blog.vietnamlab.vn/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/",
+    "datePublished": "2018-01-24T04:06:00.000Z",
+    "dateModified": "2018-02-22T11:20:00.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1NCUy-3aVGjoZMnv196fnVYbUbQSfRkNS&export=download",
+        "width": 1677,
+        "height": 498
+    },
+    "keywords": "Vagrant, Ansible, cấu hình môi trường, sử dụng ansible nâng cao",
+    "description": "Nội dung:\n * Mở đầu\n * Giới thiệu về Vagrant, Ansible\n * Cấu hình môi trường local step by step\n * Cấu hình các server thật\n * Kết luận\n * Tài liệu tham khảo\n\nMở đầu\nTrước hết mình muốn đề cập đến đối tượng đọc bài viết này: Là nhưng bạn đã có\nchút kiến thức về vagrant, ansible, Nếu đã là Master rồi thì không cần đọc cũng\nđược :D. Hoặc là những bạn đang tìm hiểu về công nghệ này, hoặc là bạn đang làm\nviệc với một môi trường đã được thiết lập bởi vagrant, ansible nhưng ai đó đã\nlàm hết những thứ ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-vagrant tag-ansible tag-cau-hinh-moi-truong tag-su-dung-ansible-nang-cao nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-vagrant tag-ansible tag-cau-hinh-moi-truong tag-su-dung-ansible-nang-cao js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Cấu hình môi trường phát triển web sử dụng Vagrant, Ansible - Step by Step</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-01-24">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 24 January 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/vagrant/index.html">Vagrant</a>, <a href="../tag/ansible/index.html">Ansible</a>, <a href="../tag/cau-hinh-moi-truong/index.html">cấu hình môi trường</a>, <a href="../tag/su-dung-ansible-nang-cao/index.html">sử dụng ansible nâng cao</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1NCUy-3aVGjoZMnv196fnVYbUbQSfRkNS&amp;export&#x3D;download" alt="Cấu hình môi trường phát triển web sử dụng Vagrant, Ansible - Step by Step">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=C%E1%BA%A5u%20h%C3%ACnh%20m%C3%B4i%20tr%C6%B0%E1%BB%9Dng%20ph%C3%A1t%20tri%E1%BB%83n%20web%20s%E1%BB%AD%20d%E1%BB%A5ng%20Vagrant%2C%20Ansible%20-%20Step%20by%20Step">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3>Nội dung:</h3>
+<ul>
+<li><em>Mở đầu</em></li>
+<li><em>Giới thiệu về Vagrant, Ansible</em></li>
+<li><em>Cấu hình môi trường local step by step</em></li>
+<li><em>Cấu hình các server thật</em></li>
+<li><em>Kết luận</em></li>
+<li><em>Tài liệu tham khảo</em></li>
+</ul>
+<h3>Mở đầu</h3>
+<p>Trước hết mình muốn đề cập đến đối tượng đọc bài viết này: Là nhưng bạn đã có chút kiến thức về vagrant, ansible, Nếu đã là Master rồi thì không cần đọc cũng được :D. Hoặc là những bạn đang tìm hiểu về công nghệ này, hoặc là bạn đang làm việc với một môi trường đã được thiết lập bởi vagrant, ansible nhưng ai đó đã làm hết những thứ đó cho bạn, bạn chỉ việc xài nó và chưa biết cách để có thể tự cấu hình cho 1 dự án riêng của mình.</p>
+<h4>Bài toán</h4>
+<p>Ví dụ chúng ta cần thiết lập một môi trường phát triển web, đơn giản mà nói thì cần thiết sẽ có một DB (oracle, mysql .v.v), Ngôn ngữ lập trình web php, java, v.v. Một web server như apache, nginx. Chúng có thể dc cài đặt chung vào 1 máy hoặc phân tách thành các server riêng lẻ để dễ quản lý.</p>
+<p>Sau khi các bạn có chút kiến thức về Vagrant và Ansible rồi, chúng ta xem xét bài toán sau:</p>
+<p>Đầu tiên chúng ta thiết lập môi trường local theo câu trúc như bên dưới:</p>
+<p><img src="https://drive.google.com/uc?id=1c52FG0X5kB4ibPbSpS2GvY_ex9mcTq41&amp;export=download" alt=""></p>
+<p>**CI server: ** Nơi chứa các script để cài đặt môi trường cho các server khác, chứa script deploy source code v.v. Tóm lại CI server là nơi chứa code Ansible playbook, các sự thay đổi về cấu hình, về deploy đều được thực hiện tại đây, rất linh hoạt và nhanh chóng.</p>
+<p>**DB: **ở đây chúng ta có cấu trúc Master-Slave, thật ra trong bài viết này mình nói về vấn đề này, các bạn có thể tìm hiểu ở 1 bài viết khác. Ở đây chỉ là 1 ví dụ.</p>
+<p>**Web: **Chúng ta sử dụng php, phpfpm và web server Nginx</p>
+<p>Sau khi đã cấu hình xong môi trường local, tiếp theo chúng ta sẽ thiết lập môi trường thật (production). Môi trường thật sẽ có kiến trúc như bên dưới:</p>
+<p><img src="https://drive.google.com/uc?id=1Fynuq7bpwfR34K0BQjCRMFy93fqnPwHL&amp;export=download" alt=""></p>
+<p>**CI server: ** Không có gì thay đổi với môi trường local, chứa source ansible playbook, được cài đặt git và ansible để chạy command.</p>
+<p>**Web: ** Chúng ta sử dụng 2 server, ở đây mô phỏng cho giống thật một chút chứ cũng không đề cập đến vấn đề load banlancer gì hết.</p>
+<p>**DB: ** Vẫn kiến trúc như local</p>
+<h3>1. Giới thiệu về Vagrant, Ansible</h3>
+<p><strong>Vagrant</strong></p>
+<p>Các bạn có thể tham khảo các bài viết sau:</p>
+<ol>
+<li><a href="https://viblo.asia/p/gioi-thieu-ve-vagrant-aRBeXnExvWE" target="_blank">https://viblo.asia/p/gioi-thieu-ve-vagrant-aRBeXnExvWE</a></li>
+<li><a href="https://viblo.asia/p/tim-hieu-vagrant-phan-1-1l0rvmDQGyqA" target="_blank">https://viblo.asia/p/tim-hieu-vagrant-phan-1-1l0rvmDQGyqA</a></li>
+<li><a href="https://viblo.asia/p/tim-hieu-vagrant-phan-2-vagrant-chef-wznVGLqQvZOe" target="_blank">https://viblo.asia/p/tim-hieu-vagrant-phan-2-vagrant-chef-wznVGLqQvZOe</a></li>
+</ol>
+<blockquote>
+<p>Rõ ràng chúng ta thấy được những điểm mạnh rất lớn của Vagrant, và nếu tiếp tục tìm hiểu thì chúng ta sẽ còn thấy được nhiều hơn. Tuy nhiên dưới góc độ của 1 developer, tôi cho rằng có 1 vấn đề khá lớn đối với Vagrant.</p>
+</blockquote>
+<blockquote>
+<p>Thường thì trong team, leader sẽ đảm nhiệm việc config vagrant từ đầu đến cuối, điều này giúp ích rất nhiều cho members. Tuy nhiên, nếu trong team có nhiều người mới làm quen với công việc, và tiếp tục sử dụng Vagrant, họ sẽ không thể có cơ hội thực hành config server thực tế. Điều này có thể cản trở việc cải thiện khả năng của họ. Do vậy, chúng ta cần sử dụng Vagrant 1 cách linh hoạt kết hợp với nâng cao khả năng của các members trong team.</p>
+</blockquote>
+<p><strong>Ansible</strong></p>
+<ol>
+<li><a href="https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM" target="_blank">https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM</a></li>
+<li><a href="https://tech.vccloud.vn/sys-ops/ansible-phan-2-playbook/" target="_blank">https://tech.vccloud.vn/sys-ops/ansible-phan-2-playbook/</a></li>
+</ol>
+<h3>2. Cấu hình môi trường local step by step</h3>
+<p>Chúng ta bắt đầu tiến hành cấu hình cho local:</p>
+<h4>2.1 File Vagrant</h4>
+<p>Tạo thư mục Ansible_Example chứa file Vagrantfile với nội dung như sau:</p>
+<pre><code>Vagrant.configure(2) do |config|
+  config.vm.box = &quot;bento/centos-6.7&quot;
+  config.vm.box_url = &quot;https://atlas.hashicorp.com/bento/boxes/centos-6.7&quot;
+
+  server_configs = [
+    {&quot;hostname&quot; =&gt; &quot;web&quot;,       &quot;ip&quot; =&gt; &quot;192.168.33.31&quot;, &quot;port&quot; =&gt; 2221, &quot;memory_size&quot; =&gt; &quot;512&quot;},
+    {&quot;hostname&quot; =&gt; &quot;db-master&quot;, &quot;ip&quot; =&gt; &quot;192.168.33.32&quot;, &quot;port&quot; =&gt; 2222, &quot;memory_size&quot; =&gt; &quot;512&quot;},
+    {&quot;hostname&quot; =&gt; &quot;db-slave&quot;,  &quot;ip&quot; =&gt; &quot;192.168.33.33&quot;, &quot;port&quot; =&gt; 2223, &quot;memory_size&quot; =&gt; &quot;512&quot;},
+  ]
+
+  script = &quot;
+sudo yum update -y --disablerepo=\* --enablerepo=base,updates ca-certificates
+sudo yum install -y epel-release
+sudo yum install -y --enablerepo=epel sshpass git
+sudo yum install -y --enablerepo=epel-testing ansible
+cd ansible-playbook
+cp vagrant/insecure_private_key /home/vagrant/.ssh/id_rsa
+cp vagrant/ssh_config /home/vagrant/.ssh/config
+chmod -R og-rwx /home/vagrant/.ssh
+chown -R vagrant.vagrant /home/vagrant/.ssh
+cp vagrant/ansible.cfg /etc/ansible/ansible.cfg
+#sudo -u vagrant ansible-galaxy --ignore-errors install -p roles -r requirements.yml
+&quot;
+
+  config.vm.define :ci do |ci|
+    ci.vm.hostname = &quot;ci&quot;
+    ci.vm.box = &quot;bento/centos-6.7&quot;
+    ci.vm.network :private_network, ip: &quot;192.168.33.30&quot;
+    ci.vm.network :forwarded_port, guest: 22, host: 2220, id: &quot;ssh&quot;
+    ci.vm.provider &quot;virtualbox&quot; do |v|
+      v.customize [&quot;modifyvm&quot;, :id, &quot;--memory&quot;, &quot;256&quot;]
+      v.customize [&quot;modifyvm&quot;, :id, &quot;--natdnshostresolver1&quot;, &quot;on&quot;]
+    end
+    ci.vm.synced_folder &quot;.&quot;, &quot;/home/vagrant/ansible-playbook&quot;, owner: &quot;vagrant&quot;, group: &quot;vagrant&quot;, :create =&gt; true, :mount_options =&gt; [&quot;fmode=700&quot;]
+    ci.vm.provision :shell, inline: script
+    ci.ssh.private_key_path = &quot;./vagrant/insecure_private_key&quot;
+    ci.ssh.insert_key = false
+  end
+
+  server_configs.each do |server_config|
+    config.vm.define &quot;#{server_config['hostname']}&quot; do |server|
+      server.vm.hostname = server_config['hostname']
+      server.vm.box = &quot;bento/centos-6.7&quot;
+      server.vm.network :private_network, ip: server_config['ip']
+      server.vm.network :forwarded_port, guest: 22, host: server_config['port'], id: &quot;ssh&quot;
+      server.vm.provider &quot;virtualbox&quot; do |v|
+        v.customize [&quot;modifyvm&quot;, :id, &quot;--memory&quot;, server_config['memory_size']]
+        v.customize [&quot;modifyvm&quot;, :id, &quot;--natdnshostresolver1&quot;, &quot;on&quot;]
+      end
+      server.ssh.private_key_path = &quot;./vagrant/insecure_private_key&quot;
+      server.ssh.insert_key = false
+    end
+  end
+end
+</code></pre>
+<pre><code>Vagrant up
+</code></pre>
+<p>Kết quả chúng ta có 4 máy ảo centos-6.7.</p>
+<p>Nội dung file Vagrantfile cũng khá dễ hiểu, chỉ lưu ý 1 chổ là sau khi vagrant up xong, tại ci server có thể ssh đến bất kỳ server nào thông qua ssh, vì chúng ta đã chuẩn bị sẵn private key và config trong Vagrantfile.</p>
+<pre><code>server.ssh.private_key_path = &quot;./vagrant/insecure_private_key&quot;
+</code></pre>
+<p>Tham khảo config ssh tại:</p>
+<p><a href="https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html">https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html</a></p>
+<h4>2.2 Chuẩn bị Roles</h4>
+<p><a href="http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html">http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html</a></p>
+<p>Đầu tiên nói về Roles trong  ansible là gì: Có thể hiểu nôm na roles chứa các tác vụ để thực thi một nhiệm vụ cụ thể gì đó, ví dụ như role dùng để cài đặt nginx, role dùng để cài đặt mysl, roles dùng để thực thi một số lệnh cụ thể mà mình có thể tự định nghĩa hoặc tải về từ Ansible Galaxy, github v.v.</p>
+<p>Chúng ta chuẩn bị file requirements.yml trong cùng thư mục với Vagrantfile với nọi dung như sau:</p>
+<pre><code># ansible-galaxy
+- src: geerlingguy.repo-epel
+  version: 1.1.2
+- src: geerlingguy.repo-remi
+  version: 1.2.0
+- src: jdauphant.nginx
+  version: v2.3.1
+- src: geerlingguy.mysql
+  version: 2.2.3
+- src: geerlingguy.php
+  version: 3.2.2
+  
+# jiken-ansible-role
+- src: git+ssh://git@gitlab.example.com:10022/jiken-ansible/ansible-role-libselinux-python.git
+  name: jiken.libselinux-python
+
+- src: git+ssh://git@gitlab.example.com:10022/jiken-ansible/ansible-role-ca-certificates.git
+  name: jiken.ca-certificates
+
+- src: git+ssh://git@gitlab.example.com:10022/jiken-ansible/ansible-role-ulimit.git
+  name: jiken.ulimit
+
+- src: git+ssh://git@gitlab.example.com:10022/jiken-ansible/ansible-role-sysctl.git
+  name: jiken.sysctl
+</code></pre>
+<p>Thực hiện ssh vào server ci</p>
+<pre><code>$cd ansible-playbook/
+$ansible-galaxy --ignore-errors install -p roles -r requirements.yml
+</code></pre>
+<p>Sau khi chạy lệnh trên xong, các roles sẽ được tải về.<br>
+<img src="https://drive.google.com/uc?id=1s25A5CETtMoWeQEhWNLzmkX8ENm-W99s&amp;export=download" alt=""></p>
+<p>Tất nhiên ban đầu, chúng ta chưa xác định được cần thiết sẽ có nhưng role gì (cần setting, cài đặt nhưng gì). Trong quá trình cấu trúc server, mỗi khi cần cài đặt thêm gì thì có thể tải roles có sẵn bằng cách thêm vào file requirements.yml và chạy lệnh trên để tải về, hoặc có thể tự mình viết role. Cách viết roles thế nào thì các bạn google nhé.</p>
+<h4>2.3 Cấu hình môi trường cho các server</h4>
+<p>Đến đây chúng ta cơ bản đã xong bước chuẩn bị các roles. Tiếp theo chúng ta sẽ đi cấu hình, sử dụng các roles đã có áp vào các server: ci, web, DB_Master, DB_Slave.</p>
+<p>Để thực hiện công việc này chúng ta cần 2 file: local.host và file provision.yml có nội dung sau:</p>
+<p><strong>local.host</strong></p>
+<pre><code>[local_ci]
+192.168.33.30
+
+[local_web]
+192.168.33.31
+
+[local_db]
+192.168.33.32
+192.168.33.33
+
+
+[local:children]
+local_ci
+local_web
+local_db
+</code></pre>
+<p><strong>provision.yml</strong></p>
+<pre><code># local ci
+- hosts:
+    - local_ci
+  connection: local
+  remote_user: vagrant
+  roles:
+    - { role: app.patch-geerlingguy.mysql, tags: ['patch'] }
+    - jiken.libselinux-python
+    - app.account
+
+# local_web
+- hosts:
+    - local_web
+  remote_user: vagrant
+  roles:
+    - jiken.libselinux-python
+    - jiken.ca-certificates
+    - jiken.ulimit
+    - jiken.sysctl
+    - app.account
+    - geerlingguy.repo-epel
+    - geerlingguy.repo-remi
+    - jdauphant.nginx
+    # only for local env because nginx_user is vagrant
+    - geerlingguy.php
+    - app.pdo_mysql
+
+# local MySQL
+- hosts:
+    - local_db
+  remote_user: vagrant
+  roles:
+    - jiken.libselinux-python
+    - jiken.ca-certificates
+    - jiken.ulimit
+    - jiken.sysctl
+    - app.account
+    - geerlingguy.repo-epel
+    - geerlingguy.repo-remi 
+    - app.mysql-repo
+    - geerlingguy.mysql
+</code></pre>
+<p>File provision.yml rất dễ hiểu phải không. cần cài đặt cái gì cho môi trường nào.</p>
+<p>Có thể các bạn cũng có thắc mắc chổ này:</p>
+<pre><code>[local:children]
+local_ci
+local_web
+local_db
+</code></pre>
+<p>Chúng ta có 3 hostname như trên, và mình đặt nó vô 1 group là local, để làm gì? Giải thích 1 chút là các roles này dùng để cấu hình cho các môi trường như local, dev, stg, product v.v. Nếu như muốn không muốn áp dụng 100% các thiết lập của roles thì mình có thể modify một tý cho từng môi trường:</p>
+<p>Ví dụ như roles: jdauphant.nginx (role để cài đặt nginx)</p>
+<p>Default: chạy cổng 80, root: /usr/share/nginx/html và index page: index.html</p>
+<p>Nếu chúng ta cài roles này cho các môi trường, thì các môi trường đều có chung cấu hình default là như vậy, Xong để đối ứng mềm dẻo cho các môi trường cần có các cấu hình khác nhau thì chúng ta phải sửa lại config một tý. Sửa ở đâu? Không sửa trực tiếp trên roles mà định nghĩa ra các file cho  từng môi trường trong folder group_vars.</p>
+<p>Ở các bước tiếp theo mình sẽ chỉnh sửa cấu hình cho từng môi trường khác nhau bằng cách tạo ra các file như: all, local, prod .v.v trong thư mục group_vars.</p>
+<p>Bây giờ chạy lệnh sau:</p>
+<pre><code>$vagrant ssh ci
+$cd cd ansible-playbook/
+$ansible-playbook -i hosts.local provision.yml --user=vagrant --become
+</code></pre>
+<p>Quá trình cài đặt sẽ mất chút thời gian.</p>
+<p><img src="https://drive.google.com/uc?id=1sQKgyiDPfbyLQvSf3P4HDNOhu5OExuDM&amp;export=download" alt=""></p>
+<h4>2.4 Thay đổi cấu hình môi trường sử dụng group_vars</h4>
+<p>Truy cập địa chỉ web: <a href="http://192.168.33.31/">http://192.168.33.31/</a><br>
+<img src="https://drive.google.com/uc?id=1c7CUdVpjsN_cA3f8vTSp2BzH_dIyhGn3&amp;export=download" alt=""></p>
+<p>Nginx đã hoạt động, Bây giờ ta thử chỉnh sửa 1 tý cấu hình cho môi trường local, bằng cách tạo file có tên local, all trong thư mục group_vars</p>
+<p><strong>group_vars/all</strong></p>
+<pre><code>example_gui_deploy_path: /var/www/gmo/example-gui/current
+
+# app.account
+system_accounts:
+  - { name: example, uid: 12121, group: wheel }
+
+# geerlingguy.mysql
+mysql_packages:
+  - mysql-community-client-5.7.20-1.el6
+  - mysql-community-common-5.7.20-1.el6
+  - mysql-community-libs-5.7.20-1.el6
+  - mysql-community-libs-compat-5.7.20-1.el6
+  - mysql-community-server-5.7.20-1.el6
+mysql_root_password: &quot;{{ vault_mysql_root_password }}&quot;
+mysql_datadir: &quot;{{ _mysql_datadir }}&quot;
+mysql_databases:
+  - name: example
+    collation: utf8_general_ci
+    encoding: utf8
+    replicate: 1
+mysql_users:
+  - name: example
+    host: 'localhost'
+    password: &quot;{{ mysql_password }}&quot;
+    priv: 'example.*:ALL'
+  - name: example
+    host: '{{ _mysql_allow_hosts }}'
+    password: &quot;{{ mysql_password }}&quot;
+    priv: 'example.*:ALL'
+mysql_server_id: &quot;{{ ansible_play_hosts.index(inventory_hostname) + 1 }}&quot;
+mysql_replication_role: &quot;{{ _mysql_replication_role }}&quot;
+mysql_replication_master: &quot;{{ _mysql_replication_master }}&quot;
+mysql_replication_user: &quot;{{ _mysql_replication_user }}&quot;
+
+# geerlingguy.php
+php_packages:
+  - php
+  - php-fpm
+  - php-opcache
+  - php-devel
+  - php-mbstring
+  - php-mcrypt
+  - php-pecl-memcached
+  - php-phpunit-PHPUnit
+  - php-pdo
+  - php-gd
+php_enablerepo: &quot;remi-php70&quot;
+php_date_timezone: &quot;Asia/Tokyo&quot;
+php_enable_apc: false
+php_enable_webserver: true
+php_enable_php_fpm: true
+php_fpm_pool_user: &quot;{{ process_execution_user }}&quot;
+php_fpm_pool_group: &quot;{{ process_execution_user }}&quot;
+php_webserver_daemon: nginx
+php_fpm_pm_max_children: 200
+php_fpm_pm_start_servers: 20
+php_fpm_pm_min_spare_servers: 20
+php_fpm_pm_max_spare_servers: 20
+</code></pre>
+<p><strong>group_vars/local</strong></p>
+<pre><code>nginx_sites:
+  default:
+    - listen 82 default_server
+    - server_name _
+    - root &quot;/usr/share/nginx/html&quot;
+    - set $yii_bootstrap &quot;example.php&quot;
+	- index example.php
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    - location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index  example.php;
+        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+      }
+vault_mysql_root_password: example!234
+vault_mysql_password: example!234
+
+# env variables
+execution_env: local
+
+server_name_example: local-id.gmo.jp
+
+process_execution_user: vagrant
+ansible_execution_user: vagrant
+
+_ci_server: &quot;{{ groups.local_ci[0] }}&quot;
+
+mysql_user: example
+mysql_password: &quot;{{ vault_mysql_password }}&quot;
+mysql_port: 3306
+mysql_database: example
+mysql_hosts: &quot;{{ groups.local_db }}&quot;
+_mysql_datadir: /var/lib/mysql
+_mysql_allow_hosts: 192.168.33.%
+_mysql_replication_master: &quot;{{ mysql_hosts[0] }}&quot;
+_mysql_replication_role: &quot;{{ 'master' if ansible_play_hosts.index(inventory_hostname) == 0 else 'slave' }}&quot;
+_mysql_replication_user: {
+  name: replica,
+  host: '{{ _mysql_allow_hosts }}',
+  password: &quot;{{ mysql_password }}&quot;,
+  priv: '*.*:REPLICATION SLAVE',
+}
+mysql_backup_server: &quot;{{ groups.local_admin[0] }}&quot;
+</code></pre>
+<p>Như đã nói phía trên, file all giúp ta modify các roles, áp dụng cho tất cả các môi trường. File local chứa những thay đổi chỉ dành cho các server trong group local.</p>
+<h4>2.5 Kiểm tra kết nối web server đến mysql</h4>
+<p>Tại web server, trong đường dẫn root: /usr/share/nginx/html Tạo file có tên example.php với nội dung sau:</p>
+<pre><code>&lt;?php
+$servername   = &quot;192.168.33.32&quot;;
+$database = &quot;example&quot;;
+$username = &quot;example&quot;;
+$password = &quot;example!234&quot;;
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+// Check connection
+if ($conn-&gt;connect_error) {
+   die(&quot;Connection failed: &quot; . $conn-&gt;connect_error);
+}
+  echo &quot;Connected successfully&quot;;
+?&gt;
+</code></pre>
+<p>Các thông tin kết nối DB như servername, database, username, password đã được định nghĩa trong file modify cấu hình cho local (file group_vars/local).</p>
+<p>Khởi động lại ngginx:</p>
+<pre><code>$sudo service nginx restart
+</code></pre>
+<p>Truy cập địa chỉ sau để xem connnect thành công chưa: <a href="http://192.168.33.31:82/example.php">http://192.168.33.31:82/example.php</a></p>
+<p><img src="https://drive.google.com/uc?id=19pb6qHwz99R8kXt8jAsAa8SANYnhG9v3&amp;export=download" alt=""></p>
+<h3>3. Cấu hình môi trường production</h3>
+<p>Vậy đến đây xem như môi trường local chúng ta đã cơ bản hoàn thành, web php đã có thể chạy dc. tiếp theo chúng ta sẽ xem xét đến việc deploy lên môi trường thật gồm nhưng công việc gì.</p>
+<ul>
+<li><em>1. Cấu hình Private network cho các server</em></li>
+<li><em>2. Thiết lập cấu hình network sao cho user bên ngoài chỉ có thể access được đến global ip của web01 và web02, ngoài ra không thể access được vào các server khác, cho dù có mật khẩu root</em></li>
+<li><em>3. Cấu hình bảo mật cho các server, từ CI server có thể ssh đến bất kỳ server nào</em></li>
+<li><em>4. Tạo file hosts.prod và thêm vào file provision.yml, tiến hành deploy</em></li>
+</ul>
+<p>Nội dung chi tiết mình sẽ nói trong 1 bài viết khác. (Mấy con server hiện đang được tắt cho đỡ tốn tiền :D)</p>
+<h3>4. Kết Luận</h3>
+<p><strong>Đạt được:</strong></p>
+<p>Bài viết này được viết nhằm tổng hợp và ôn lại kiến thức sau khi đã được một người đàn anh trong dự án training lại, tất nhiên nó còn nhiều điểm thiếu sót, tuy nhiên như đã nhắc đến phía trên về vấn đề sử dụng vagrant và ansible. Thường thì nhưng người có kinh nghiệm như leader sẽ làm nhưng công việc cấu hình môi trường, nên thường những người ít hoặc chưa có kinh nghiệm về cấu hình server sẽ không được đụng đến, điều đó làm mất cơ hội được thử, chưa kể việc thuê VPS hay Cloud mất nhiều chi phí. Vì vậy bài viết mong giúp đỡ nhưng ai mới bắt đầu với vagrant, ansible có cái nhìn tổng quan, có những kiến thức cơ bản để có thể tự mình cấu hình cho các con server dự án riêng của mình. Đầu tiên là local, nếu có điều kiện thì thuê VPS hay Cloud để làm trên đó. Thực tế àm nói, đụng đến mấy con server thật cảm giác nó khác hoàn toàn với local, điều đó làm mình thất rất thích thú.</p>
+<p><strong>Chưa đạt được:</strong></p>
+<p>Bài viết còn nhiều cái chưa được đề cập đến như:</p>
+<ul>
+<li><em>Một số hoặt động để đảm bảo an toàn cho các server thật (security)</em></li>
+<li><em>Cách viết role như thế nào .vv.</em></li>
+<li><em>Cách cấu hình load balance cho web server</em></li>
+<li><em>Cách cấu hình DB Master - Slave</em></li>
+<li><em>vv.</em></li>
+</ul>
+<p>Tuy còn thiếu nhiều, xong mục tiêu chính vẫn là muốn người đọc có cái nhìn bao quát, chi tiết thì sẽ tự tìm hiểu học tham khảo những bài viết khác.</p>
+<p>Thêm một điều nữa, trong quá trình cấu hình, lỗi xuất hiện thường xuyên và việc đọc lỗi và fix dần dần mất rất nhiều thời gian. Vậy cho thấy được để cấu hình server quả thật không phải điều đơn giản. Tuy vậy chỉ có làm nhiều mới có được nhiều kinh nghiệm mà thôi.</p>
+<h3>5. Tài liệu tham khảo </h3>
+<ol>
+<li><a href="http://docs.ansible.com/ansible/latest/playbooks.html" target="_blank">http://docs.ansible.com/ansible/latest/playbooks.html</a></li>
+<li><a href="https://viblo.asia/p/tim-hieu-vagrant-phan-1-1l0rvmDQGyqA" target="_blank">https://viblo.asia/p/tim-hieu-vagrant-phan-1-1l0rvmDQGyqA</a></li>
+<li><a href="https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM" target="_blank">https://viblo.asia/p/phan-1-tim-hieu-ve-ansible-4dbZNxv85YM</a></li>
+<li><a href="http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html" target="_blank">http://docs.ansible.com/ansible/latest/playbooks_reuse_roles.html</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=C%E1%BA%A5u%20h%C3%ACnh%20m%C3%B4i%20tr%C6%B0%E1%BB%9Dng%20ph%C3%A1t%20tri%E1%BB%83n%20web%20s%E1%BB%AD%20d%E1%BB%A5ng%20Vagrant%2C%20Ansible%20-%20Step%20by%20Step">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/cau-hinh-moi-truong-phat-trien-web-su-dung-vagrant-ansible-step-by-step/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

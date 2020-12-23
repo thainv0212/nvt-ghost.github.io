@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Hiểu về Load Average trong Linux</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hiểu về Load Average trong Linux" />
+    <meta property="og:description" content="Với những người làm DevOps, một trong những công việc không thể thiếu là giám sát (monitoring) một hệ thống, có rất nhiều những thông số quan trọng cần theo dõi nhưng có một thông số cơ bản mà không phải ai cũng hiểu rõ là Load Average, chúng ta" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/hieu-ve-load-average-trong-linux/" />
+    <meta property="article:published_time" content="2019-12-20T10:24:27.000Z" />
+    <meta property="article:modified_time" content="2019-12-20T10:24:27.000Z" />
+    <meta property="article:tag" content="Tin tức" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Hiểu về Load Average trong Linux" />
+    <meta name="twitter:description" content="Với những người làm DevOps, một trong những công việc không thể thiếu là giám sát (monitoring) một hệ thống, có rất nhiều những thông số quan trọng cần theo dõi nhưng có một thông số cơ bản mà không phải ai cũng hiểu rõ là Load Average, chúng ta" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/hieu-ve-load-average-trong-linux/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Tin tức" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/47245480087cd133dc949e0363a87263?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/hoantp/",
+        "sameAs": []
+    },
+    "headline": "Hiểu về Load Average trong Linux",
+    "url": "https://blog.vietnamlab.vn/hieu-ve-load-average-trong-linux/",
+    "datePublished": "2019-12-20T10:24:27.000Z",
+    "dateModified": "2019-12-20T10:24:27.000Z",
+    "keywords": "Tin tức",
+    "description": "Với những người làm DevOps, một trong những công việc không thể thiếu là giám\nsát (monitoring) một hệ thống, có rất nhiều những thông số quan trọng cần theo\ndõi nhưng có một thông số cơ bản mà không phải ai cũng hiểu rõ là Load Average,\nchúng ta hãy cũng tìm hiểu nhé!\n\nLoad Average là gì?\nĐã bao giờ bạn gõ thử lệnh uptime để ý thấy 3 chỉ số cuối cùng chưa?\n\n➜ uptime\n20:31  up 8 days,  1:22, 3 users, load averages: 1.75 2.73 4.20\n\n\nĐây chính là 3 chỉ số chỉ mức độ tải trung bình của CPU trong 1 p",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Hiểu về Load Average trong Linux</h1>
+                <section class="post-meta">
+                    T.P.H -
+                    <time class="post-date" datetime="2019-12-20">20 Dec 2019</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p>Với những người làm DevOps, một trong những công việc không thể thiếu là giám sát (monitoring) một hệ thống, có rất nhiều những thông số quan trọng cần theo dõi nhưng có một thông số cơ bản mà không phải ai cũng hiểu rõ là Load Average, chúng ta hãy cũng tìm hiểu nhé!</p>
+<h3 id="loadaveragelg">Load Average là gì?</h3>
+<p>Đã bao giờ bạn gõ thử lệnh <code>uptime</code> để ý thấy 3 chỉ số cuối cùng chưa?</p>
+<pre><code class="language-sh">➜ uptime
+20:31  up 8 days,  1:22, 3 users, load averages: 1.75 2.73 4.20
+</code></pre>
+<p>Đây chính là 3 chỉ số chỉ mức độ tải trung bình của CPU trong 1 phút - 5 phút - 15 phút, vậy tải trung bình (load average) là thế nào? Nó được tính toán như thế nào? Hãy thử hình tượng hoá một chút nhé!</p>
+<pre><code class="language-sh">    H      &lt;-- Xe ôtô của bạn
+|   1   |  &lt;-- Trạm thu phí
+</code></pre>
+<p>Giả sử process của bạn là một xe ô tô, CPU của bạn là trạm thu phí cần xử lý cho xe bạn đi qua, thời điểm hiện tại chỉ có 1 mình xe bạn đi qua, và cứ 6 giây trôi qua trạm mới phải xử lý thêm 1 xe tiếp theo, vậy khi đó trong 1 phút trạm chỉ xử lý khoảng 6 xe (tức 6 processes). Vậy mức độ tải trung bình trong 1 phút chỉ ~0.1 (10%), rất nhẹ nhàng và mượt mà.</p>
+<pre><code class="language-sh">    ...
+    H      &lt;-- Xe ôtô của bạn
+    H'
+    H'
+    H'
+|   1   |  &lt;-- Trạm thu phí
+</code></pre>
+<p>Đến cuối tuần, mọi người về quê nhiều nên số lượng xe cũng nhiều hơn, trạm thu phí liên tục phải xử lý không được ngơi tay lúc nào, tuy nhiên không xe nào phải đứng chờ. Lúc này trạm đã đạt công suất full load 100% tức là 1, hệ thống sẽ tiếp tục ghi nhận thông số này.</p>
+<pre><code class="language-sh">    ...
+    H      &lt;-- Xe ôtô của bạn
+    H'
+    H'
+    H'
+    H'
+    H'
+    H'
+|   1   |  &lt;-- Trạm thu phí
+</code></pre>
+<p>Rồi ngày lễ đến gần, số lượng xe bỗng nhiên tăng đột biến, các xe ùn ứ, có xe thì đi lề mề, làm cho trạm quá tải, trạm tiếp tục phải xử lý liên tục nhưng các xe vẫn phải phải đứng chờ rất lâu để đợi được xử lý. Lúc này hệ thống đã trở nên quá tải hơn 100% (tức &gt; 1), có quá nhiều process vẫn đang chờ đợi...</p>
+<p>Khi nhìn vào thông số trên, bạn có thể biết CPU liệu có đang quá tải không để có biện pháp xử lý sao cho hiệu quả, ví dụ có process nào đó chiếm dụng quá mức do bị deadlock không thể giải phóng tài nguyên? Hay có thể hệ thống đón nhận một lượng request lớn hơn mức server có thể đảm nhận?</p>
+<h3 id="imimultiprocessors">Đối mới multi-processors?</h3>
+<p>Như bạn thấy ở trên chúng ta chỉ có duy nhất 1 trạm thu phí, tương ứng với máy single-core, trong lúc một process đang được xử lý mà có một process khác cũng request xử lý thì nó sẽ phải đợi. Tuy nhiên, hiện nay CPU rất đa dạng và có nhiều core/thread vì vậy số lượng process có thể xử lý đồng thời cũng lớn hơn nhiều.</p>
+<pre><code class="language-sh">    H                                   &lt;-- Xe ôtô của bạn
+    H'
+    H'
+|   H'   |   H'   |   H'   |   H'   |   &lt;-- Trạm thu phí
+</code></pre>
+<p>Ví dụ như trên có tới 4 trạm thu phí (4 cores) nên tốc độ xử lý nhanh hơn, tuy nhiên với số lượng process lớn thì vẫn có thể bị quá tải như bình thường ^^.</p>
+<h3 id="cvhiusaochong">Đọc và hiểu sao cho đúng?</h3>
+<p>Một trong những vấn đề khi nhiều người tiếp cận chưa tìm hiểu kĩ về load average là hiểu sai thông số này khi có nhiều core/thread.</p>
+<p>"Load Average" của CPU được định nghĩa là số lượng process cần tài nguyên tính toán của CPU tại thời điểm nhất định. Giả sử tải trung bình của máy tính bạn hiện tại là 3.2, điều đó có nghĩa là tại thời điểm đó đang có trung bình 3.2 processes cần CPU xử lý. Tại thời điểm process cần CPU, nếu CPU đang rảnh process sẽ được OS cho.</p>
+<p>Vậy nếu CPU sau một thời điểm nhất định luôn &gt; 1 thì tức là CPU load quá tải, các process đang phải chờ lẫn nhau và cần có cảnh báo để tìm hiểu vấn đề ngay. Tuy nhiên nếu bạn có 4 core chẳng hạn, thì nếu load average = 3.2 thì có nghĩ là CPU load chưa hề quá tải, lúc đó max load average = 4, việc thiết lập cảnh báo cũng sẽ cần thay đổi.</p>
+<hr></hr>
+<p>Ngoài ra, để tránh hiểu nhầm về khả năng CPU Usage với CPU Load, mình xin phép trích dẫn tài liệu cũ ở blog KTMT.</p>
+<p>Việc đánh giá hiệu năng CPU tùy thuộc vào từng bài toán cụ thể. Ta sẽ đánh giá về hiệu năng sử dụng CPU qua các trường hợp sau (giả sử máy tính có 6 cores 12 threads - ví dụ Intel Xeon):</p>
+<ul>
+<li>Tỉ lệ sử dụng CPU thấp (1%), tải CPU thấp (3 - 3 processes / 12 cores)</li>
+<li>Tỉ lệ sử dụng CPU cao (80%), tải CPU thấp (3 - 3 processes / 12 cores)</li>
+<li>Tỉ lệ sử dụng CPU thấp (1%), tải CPU cao (18 - 18 processes / 12 cores)</li>
+<li>Tỉ lệ sử dụng CPU cao (80%), tải CPU cao (18 - 18 processes / 12 cores)</li>
+</ul>
+<p>Trong trường hợp đầu, máy tính của bạn hầu như không dùng CPU mấy. CPU dành hầu hết thời gian cho tính toán thấp, số lượng process cũng không cao. Đứng từ góc độ chi phí, bạn đã chi tiền mua 1 CPu quá tốt so với nhu cầu thực tế :-)</p>
+<p>Trường hợp 2, bạn đang sử dụng CPU ở mức khá. Bạn bắt CPU tính toán cật lực. Tuy vậy tải trung bình của CPU chỉ có 3, có nghĩa là năng lực CPU của bạn vẫn còn rất lớn mà bạn hoàn toàn có thể tận dụng. Bạn hoàn toán có thể bật thêm 9 processes với mức tính toán như hiện tại mới có thể tận dụng được hết hiệu năng của CPU.</p>
+<p>Trường hợp 3 khá lý thú. CPU của bạn được dùng cho những tính toán rất nhẹ nhàng có thể xong ngay lập tức nhưng số lượng process cần CPU lại khá cao. Điều này nói lên rằng CPU của bạn đang bị quá tải process. Có nhiều lý do dẫn đến trường hợp này và mỗi trường hợp có nhiều cách giải quyết khác nhau. Một ví dụ cho trường hợp này là máy chủ web. Việc render các trang web là tính toán không hề nặng, tuy vậy với các máy chủ web chịu trafic lớn (số lượng connection lớn), các process phục vụ request sẽ phải xếp hàng dẫn đến tình trạng trang web bị phục vụ thời gian kéo dài hơn. Một ví dụ khác là máy chủ dành thời gian chủ yếu đợi thao tác vào ra (I/O) chẳng hạn nhưng truy vấn cơ sở dữ liệu. Số lượng query lớn, số lượng truy vấn cần sắp xếp lớn nhưng dữ liệu cần sắp xếp lại bé, thời gian đợi dữ liệu từ đĩa cứng lại cao. Vì vậy phần lớn CPU sẽ idle, nhưng tải CPU vẫn cao. Đối với trường hợp này, ta chỉ có cách là mua CPU với tần số thấp hơn và chia tải ra nhiều máy hơn để tối ưu hóa chi phí.</p>
+<p>Trường hợp 4 là trường hợp bạn đang sử dụng CPU một cách hiệu quả nhất. Mỗi cores đều bận rộn tính toán và hầu hết các cores đều được cho sử dụng. Tùy bài toán tính toán mà trường hợp này có thể là tốt hay xấu. Nếu đây là máy chủ web có lẽ đã đến lúc bạn mua thêm máy tính.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://ktmt.github.io/blog/2014/07/20/load-average/">https://ktmt.github.io/blog/2014/07/20/load-average/</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

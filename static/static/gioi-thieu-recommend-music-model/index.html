@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Giới thiệu Recommend Music Model | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Giới thiệu các recommend music model: Collaborative Filtering, Natural Language Processing (NLP), Audio model" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Giới thiệu các recommend music model: Collaborative Filtering, Natural Language Processing (NLP), Audio model" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu Recommend Music Model" />
+    <meta property="og:description" content="Giới thiệu các recommend music model: Collaborative Filtering, Natural Language Processing (NLP), Audio model" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-recommend-music-model/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkVUVIczFmcE84QzA&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-11-22T01:14:00.000Z" />
+    <meta property="article:modified_time" content="2017-11-22T02:06:34.000Z" />
+    <meta property="article:tag" content="music" />
+    <meta property="article:tag" content="recommend" />
+    <meta property="article:tag" content="deep learning" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu Recommend Music Model" />
+    <meta name="twitter:description" content="Giới thiệu các recommend music model: Collaborative Filtering, Natural Language Processing (NLP), Audio model" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-recommend-music-model/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkVUVIczFmcE84QzA&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="music, recommend, deep learning" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="592" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu Recommend Music Model",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-recommend-music-model/",
+    "datePublished": "2017-11-22T01:14:00.000Z",
+    "dateModified": "2017-11-22T02:06:34.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkVUVIczFmcE84QzA&export=download",
+        "width": 1280,
+        "height": 592
+    },
+    "keywords": "music, recommend, deep learning",
+    "description": "Trong những ngày mưa gió, ngắm những đám mây vội vã bay, cây trút lá, người\nngười vội vã về nhà, đó là cơ hội không thể tốt hơn để ngồi nghe những bản nhạc\nhay về cuộc sống.\n\n\n\nVà khi man mác buồn tôi tim đến thằng bạn tỉ tê về một ứng dụng nghe nhạc \nSpotify  . Tôi không thể ngờ rằng có thể ngồi nghe nhạc cả ngày với cái ứng dụng\nnày. Tôi không thể ngờ rằng trong đại dương nhạc hơn 30 triệu bài hát lại có thể\nchọn lọc ra được những bài hát hiểu lòng tôi đến vậy. Discover Weekly, có thể\ngọi là m",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-music tag-recommend tag-deep-learning nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-music tag-recommend tag-deep-learning js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Giới thiệu Recommend Music Model</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-11-22">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 22 November 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/music/index.html">music</a>, <a href="../tag/recommend/index.html">recommend</a>, <a href="../tag/deep-learning/index.html">deep learning</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkVUVIczFmcE84QzA&amp;export&#x3D;download" alt="Giới thiệu Recommend Music Model">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/gioi-thieu-recommend-music-model/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Recommend%20Music%20Model">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Trong những ngày mưa gió, ngắm những đám mây vội vã bay, cây trút lá, người người vội vã về nhà, đó là cơ hội không thể tốt hơn để ngồi nghe những bản nhạc hay về cuộc sống.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWkhVcXhFLUFtX1E&amp;export=download" alt="alt"></p>
+<p>Và khi man mác buồn tôi tim đến thằng bạn tỉ tê về một ứng dụng nghe nhạc <em>Spotify</em> . Tôi không thể ngờ rằng có thể ngồi nghe nhạc cả ngày với cái ứng dụng này. Tôi không thể ngờ rằng trong đại dương nhạc hơn 30 triệu bài hát lại có thể chọn lọc ra được những bài hát hiểu lòng tôi đến vậy. Discover Weekly, có thể gọi là một “phép màu” của Spotify trong thế giới nghe nhạc trực tuyến. Và từ đây về sau mỗi sáng thứ 2 khi tôi mở Spotify, Discover Weekly mang đến cho tôi một playlist những bài nhạc giúp tôi chiêm nghiệm cuộc sống này. Playlist này phần lớn là nhạc tôi chưa nghe bao giờ làm tôi không bao giờ biết chán.</p>
+<p>Trong một ngày mất mạng tôi không thể nghe nhạc online được nữa, tôi buồn bực chán nản quyết định lên mạng xem tại sao Spotify luôn có thể cho tôi nhưng bài nhạc tôi muốn nghe.</p>
+<p>Cảm ơn cuộc đời đã đưa đẩy tôi đến với IT, và cuối cùng tôi đã tìm được 3 Model gợi ý của nó.</p>
+<ul>
+<li><strong>Collaborative Filtering</strong> model: Nó sẽ phân tích hành vi của mình và cả người khác để gợi ý.</li>
+<li><strong>Natural Language Processing (NLP)</strong> model: đây là mô hình phân tích dữ liệu text để gợi ý.</li>
+<li><strong>Audio</strong> model: Đây là model dựa vào các bản raw của bài hát để phân tích.</li>
+</ul>
+<p><img src="http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2016/08/18104334/Screen-Shot-2016-08-17-at-4.48.55-PM.png" alt="alt"></p>
+<p>Phần thực hiện 3 model này lằm ở 3 Batch: Batch CF Models, Batch NLP Models, Batch Audio Models.<br>
+Tiếp theo điểm qua từng model sẽ thực hiện ra sao</p>
+<h3 id="recommendationmodel1collaborativefiltering">Recommendation Model #1: Collaborative Filtering</h3>
+<p>Khi tìm kiếm <strong>Collaborative Filtering</strong> trên mạng có lẽ thực hiện thành công nhất là Netfix. Họ là công ty đầu tiên sử dụng Collaborative Filtering để gợi ý phim. Họ sử dụng xếp hạng phim dựa trên ngôi sao của người dùng để thông báo cho họ sự hiểu biết về những gì phim để giới thiệu cho người sử dụng khác &quot;tương tự&quot;.</p>
+<p>Sau khi Netflix sử dụng nó thành công, việc sử dụng nó lan truyền nhanh chóng, và bây giờ nó thường được coi là điểm khởi đầu cho các công ty khác cố gắng tạo ra Recommend model.</p>
+<p>Tuy nhiên, không giống như Netflix, Spotify không có những ngôi sao mà người dùng đánh giá âm nhạc của họ. Thay vào đó, dữ liệu Spotify là dữ liệu phản hồi được ẩn đi - cụ thể là số lượng luồng các bài hát được lắng nghe, cũng như dữ liệu phát trực tuyến bổ sung, bao gồm việc người dùng đã lưu bản nhạc vào danh sách nhạc của mình hoặc truy cập trang Nghệ sĩ sau khi nghe.</p>
+<p>Nhưng Collaborative Filtering là gì và nó hoạt động như thế nào?</p>
+<p>Ví dụ: Minh thích nghe bài <em>&quot;Mình từng yêu nhau&quot;</em>, <strong>&quot;Có anh ở đây rồi&quot;, &quot;Em luôn ở trong tâm trí anh&quot;, &quot;Hãy để anh yêu em thêm lần nữa&quot;</strong> và vợ mình thích nghe bài <strong>&quot;Có anh ở đây rồi&quot;, &quot;Em luôn ở trong tâm trí anh&quot;, &quot;Hãy để anh yêu em thêm lần nữa&quot;</strong>, <em>&quot;Định mệnh ta gặp nhau&quot;</em>. Mình và vợ mình đều thích 3 bài <strong>&quot;Có anh ở đây rồi&quot;, &quot;Em luôn ở trong tâm trí anh&quot;, &quot;Hãy để anh yêu em thêm lần nữa&quot;</strong>. Đương nhiên trong suy nghĩ của mình sẽ nghĩ vợ mình thích cả bài <em>&quot;Mình từng yêu nhau&quot;</em> nữa và mình nói với vợ &quot;Vợ nghe thử bài Mình từng yêu nhau đi&quot;. và quả đúng là vợ mình thích và ngược lai mình cũng thích bài &quot;Định mệnh ta gặp nhau&quot;. Đơn giản phải không?</p>
+<p>Nhưng Spotify thực sự sử dụng như thế nào khái niệm đó trên thực tế để tính toán <em>hàng triệu</em> bài hát được đề xuất của người dùng dựa trên hàng triệu sở thích của người dùng khác?</p>
+<p>Tập hợp tất cả các (User, bài hát) sẽ đua vào 1 ma trận lớn. Cột tương ứng với user và hàng tương ứng với bài hát</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkaWJkNXdydzBVSm8&amp;export=download" alt="alt"></p>
+<p>Trong thực tế, so với ma trận mà bạn nhìn thấy ở đây là <em>khổng lồ</em> hơn rất nhiều. Mỗi hàng đại diện cho một trong 140 triệu người dùng Spotify (nếu bạn sử dụng Spotify, chính bạn là một hàng trong ma trận này) và mỗi cột đại diện cho một trong số 30 triệu bài hát trong cơ sở dữ liệu của Spotify.</p>
+<p>Sau đó thư viên python sẽ tính công thức dài bên dưới. Mục đích là vì ma trận trên quá lớn lên nên phải chỉa ra thành 2 vector X(là môt tập vector user) và vector Y(là một tập vector bài hát). Công thức cuối cùng họ sự dùng phức tạp hơn cả công thức ở phía trên và sẽ còn liên quán đến các yếu tố khắc nữa như là nội dung, thời gian nghe,...</p>
+<p>Và giờ chúng ta đã có 140 triệu vector người dùng và 30 triệu vector vài hát. Các con số trong vector sẽ dùng để phân tích sau này.</p>
+<p>Để tìm ra người dùng nào có khiếu âm nhạc giống với tôi nhất, Collaborative Filtering so sánh vector của tôi với tất cả các vector của người dùng khác, cuối cùng là trả về những người dùng tương tự nhất với tôi. Tương tự với vector Y, các bài hát - bạn có thể so sánh vector của bài hát với tất cả các vectơ bài hát khác và tìm những bài hát nào giống nhất với bài hát bạn đang xem.</p>
+<p>Collaborative Filtering thực hiện một công việc khá tốt, nhưng Spotify biết rằng họ có thể làm tốt hơn bằng cách thêm một công cụ khác</p>
+<h3 id="recommendationmodel2naturallanguageprocessingnlp">Recommendation Model #2: Natural Language Processing (NLP)</h3>
+<p>Thư hai loại mô hình khuyến nghị mà Spotify sử dụng là các mô hình xử lý ngôn ngữ tự nhiên (NLP) . Các dữ liệu nguồn của các mô hình này, như tên cho thấy, thường là các siêu dữ liệu theo từ, các bài báo, blog và các văn bản khác trên internet.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMl82ZkVCZWZOX2s&amp;export=download" alt="alt"></p>
+<p>Xử lý Ngôn ngữ Tự nhiên - khả năng của một máy tính để hiểu tiếng nói của con người như nó được nói - là một lĩnh vực rộng lớn cho chính nó, thường được khai thác thông qua các API phân tích tình cảm.</p>
+<p>Cơ chế chính xác của NLP nằm ngoài phạm vi của bài viết này, tuy nhiên đây là những gì xảy ra ở mức rất cao: Spotify thu thập dữ liệu trên web liên tục tìm các bài đăng trên blog và các văn bản viết về âm nhạc và tìm ra những gì mọi người đang nói về các nghệ sĩ cụ thể và bài hát - những tính từ và ngôn ngữ thường được sử dụng trong những bài hát đó, những nghệ sĩ và bài hát nào cũng được thảo luận cùng với họ.</p>
+<p>Mặc dù tôi không biết chi tiết về cách Spotify chọn xử lý dữ liệu đã đã được thu thập của họ, tôi có thể cho bạn biết cách Echo Nest đã làm việc với chúng như thế nào. Họ sẽ đặt chúng vào cái mà họ gọi là &quot;các vector văn hoá vùng miền&quot; hoặc &quot;các thuật ngữ(term) top&quot;. Mỗi nghệ sĩ và bài hát có hàng ngàn thuật ngữ hàng ngày thay đổi hàng ngày. Mỗi thuật ngữ có trọng lượng liên quan, cho thấy mức độ quan trọng của mô tả (khoảng, xác suất là ai đó sẽ mô tả âm nhạc như thuật ngữ đó.)</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ01jNHI5eXZnV0E&amp;export=download" alt="alt"></p>
+<p>Sau đó, giống như trong Collaborative Filtering, mô hình NLP sử dụng các thuật ngữ và trọng lượng này để tạo ra một biểu diễn vector của bài hát có thể được sử dụng để xác định xem hai mẩu nhạc có giống nhau hay không. Cũng kinh, phải không?</p>
+<h3 id="recommendationmodel3rawaudiomodels">Recommendation Model #3: Raw Audio Models</h3>
+<p>Mục đích chính của mô hình thứ ba tiếp tục cải thiện tính chính xác của dịch vụ đề xuất tuyệt vời này. Nhưng thực tế, mô hình này cũng phục vụ cho mục đích thứ yếu: Không giống như hai loại mô hình đầu tiên, các mô hình âm thanh thô sẽ tính đến các bài hát mới.</p>
+<p><strong>Chẳng hạn, bài hát mà bạn ca sĩ-người viết nhạc của mới đưa lên Spotify. Có lẽ nó chỉ có 50 nghe, vì vậy có ít người nghe nenen dùng collaboratively filter có lẽ là không hợp lý. Nó cũng không được đề cập đến bất cứ nơi nào trên internet, vì vậy các mô hình NLP sẽ không nhận được vào nó.</strong> May mắn thay, các mô hình âm thanh sử dụng bản thô(raw) không phân biệt giữa bài hát mới và bài hát phổ biến, vì vậy với sự giúp đỡ của họ, bài hát của bạn bè của bạn có thể lằm ở cuối trong danh sách phát. Discover Weekly sẽ là các bài hát phổ biến nhất!</p>
+<p>Vậy làm thế nào chúng ta có thể phân tích các dữ liệu âm thanh thô , có vẻ như trừu tượng?</p>
+<p>Với convolutional neural networks là công nghệ tương tự đằng sau sự nhận biết khuôn mặt. Trong trường hợp của Spotify, chúng đã được sửa đổi để sử dụng trên dữ liệu âm thanh thay vì các pixel. Dưới đây là một ví dụ về kiến ​​trúc mạng nơron:</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeEJDV1VsMWRhdFE&amp;export=download" alt="alt"></p>
+<p>Mạng neural network đặc biệt này có bốn lớp convolutional , được xem như các thanh dày bên trái, và ba lớp dày đặc, được xem như các thanh bên hẹp hơn bên phải. Đầu vào là các đại diện tần số thời gian của các khung âm thanh, sau đó được ghép nối thành hình quang phổ.</p>
+<p>Các khung âm thanh đi qua các lớp này, và sau lớp cuối cùng, bạn có thể thấy một lớp &quot;global temporal pooling&quot;, lần lượt qua các tầng khác nhau, tại mỗi tần sẽ chó ra các kết quả là các tính chất của bài hát.</p>
+<p>Sau khi xử lý, mạng neural thông qua sự hiểu biết về bài hát, bao gồm các đặc điểm như <strong>thời gian ước tính</strong>, <strong>nốt</strong>, <strong>chế độ</strong>, <strong>tốc độ</strong>, và <strong>độ ồn</strong>.</p>
+<p>Ví dụ về output trên tài liệu tham khảo: <a href="http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf">http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf</a></p>
+<pre><code>{
+&quot;meta&quot;:
+{
+&quot;analyzer_version&quot;:&quot;3.08b&quot;, &quot;detailed_status&quot;:&quot;OK&quot;, &quot;filename&quot;:&quot;/Users/Jim/
+Desktop/file.mp3&quot;, &quot;artist&quot;:&quot;Michael Jackson&quot;, &quot;album&quot;:&quot;Thriller&quot;,
+&quot;title&quot;:&quot;Billie Jean&quot;, &quot;genre&quot;:&quot;Rock&quot;, &quot;bitrate&quot;:192, &quot;sample_rate&quot;:44100,
+&quot;seconds&quot;:294, &quot;status_code&quot;:0, &quot;timestamp&quot;:1279120425, &quot;analysis_time&quot;:
+3.83081
+},
+&quot;track&quot;:
+{
+&quot;num_samples&quot;:6486072, &quot;duration&quot;:294.15293,
+&quot;sample_md5&quot;:&quot;0a84b8523c00b3c8c42b2a0eaabc9bcd&quot;, &quot;decoder&quot;:&quot;mpg123&quot;,
+&quot;offset_seconds&quot;:0, &quot;window_seconds&quot;:0, &quot;analysis_sample_rate&quot;:22050,
+&quot;analysis_channels&quot;:1, &quot;end_of_fade_in&quot;:0.87624, &quot;start_of_fade_out&quot;:
+282.38948, &quot;loudness&quot;:-7.078, &quot;tempo&quot;:117.152, &quot;tempo_confidence&quot;:0.848,
+&quot;time_signature&quot;:4, &quot;time_signature_confidence&quot;:0.42, &quot;key&quot;:6,
+&quot;key_confidence&quot;:0.019, &quot;mode&quot;:1, &quot;mode_confidence&quot;:0.416,
+&quot;codestring&quot;:&quot;eJwdk8U7m4Rz9Pej...tbtSnk8U7m4Rz980uF&quot;, &quot;code_version&quot;:3.15,
+&quot;echoprintstring&quot;:&quot;eJzFnQuyrTquZbsENjamOf5A_5t...pDF6eF__7eH_D9MWE8p&quot;,
+&quot;echoprint_version&quot;: 4.12, &quot;synchstring&quot;: &quot;eJxlWwmWJCsOu0ocIWz2-1-
+ssSRDZP...nUf0aeyz4=&quot;, &quot;synch_version&quot;: 1.00, &quot;rhythmstring&quot;:
+&quot;eJxVnAmyHDcM...9v71b_92-5V-fmWuX2n&quot;, &quot;rhythm_version&quot;: 1.00
+},
+&quot;bars&quot;:
+[{&quot;start&quot;:1.49356, &quot;duration&quot;:2.07688, &quot;confidence&quot;:0.037}, ...],
+&quot;beats&quot;:
+[{&quot;start&quot;:0.42759, &quot;duration&quot;:0.53730, &quot;confidence&quot;:0.936}, ...],
+&quot;tatums&quot;:
+[{&quot;start&quot;:0.16563, &quot;duration&quot;:0.26196, &quot;confidence&quot;:0.845}, ...],
+&quot;sections&quot;:
+[{&quot;start&quot;:0.00000, &quot;duration&quot;:8.11340, &quot;confidence&quot;:1.000,
+&quot;loudness&quot;: -15.761, &quot;tempo&quot;: 135.405, &quot;tempo_confidence&quot;: 0.938,
+ &quot;key&quot;: 0, &quot;key_confidence&quot;: 0.107, &quot;mode&quot;: 1, &quot;mode_confidence&quot;: 0.516,
+ &quot;time_signature&quot;: 4, &quot;time_signature_confidence&quot;: 1.000}, ...],
+&quot;segments&quot;:
+[{
+&quot;start&quot;:0.00000, &quot;duration&quot;:0.31887, &quot;confidence&quot;:1.000,
+&quot;loudness_start&quot;:-60.000, &quot;loudness_max_time&quot;:0.10242,
+&quot;loudness_max&quot;:-16.511, &quot;pitches&quot;:[0.370, 0.067, 0.055, 0.073, 0.108, 0.082,
+0.123, 0.180, 0.327, 1.000, 0.178, 0.234], &quot;timbre&quot;:[24.736, 110.034, 57.822,
+-171.580, 92.572, 230.158, 48.856, 10.804, 1.371, 41.446, -66.896, 11.207]
+ }, ...]
+}
+</code></pre>
+<p>Cuối cùng, sự hiểu biết về các đặc điểm chính của bài hát cho phép Spotify hiểu được sự tương đồng cơ bản giữa các bài hát và do đó người dùng có thể thưởng thức chúng dựa trên lịch sử nghe của riêng họ.</p>
+<p>Kết quả thực nghiệm lấy từ <a href="http://benanne.github.io/2014/08/05/spotify-cnns.html">http://benanne.github.io/2014/08/05/spotify-cnns.html</a></p>
+<iframe src="https://embed.spotify.com/?uri=spotify:user:sander_dieleman:playlist:3KcOA1o1Q1E7AKJp6lRKOG" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+<iframe src="https://embed.spotify.com/?uri=spotify:user:sander_dieleman:playlist:4XSo1qV9vGNwM7uz8LYwDR" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+<iframe src="https://embed.spotify.com/?uri=spotify:user:sander_dieleman:playlist:2CRSJ4h9cWvDSwNoqh9UJC" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+<iframe src="https://embed.spotify.com/?uri=spotify:user:sander_dieleman:playlist:121nUXz11tA96ONF4Dk2Eh" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+<p><img src="http://galvanize-wp.s3.amazonaws.com/wp-content/uploads/2016/08/18104334/Screen-Shot-2016-08-17-at-4.48.55-PM.png" alt="alt"><br>
+Và kết quả qua 3 mô hình trên. Spotify đưa các bài hát vào Discover Weekly playlist của họ. Tất nhiện với số lượng bài hát và user gần như không giới hạn về số lượng trên internet khổng lồ như vậy họ phải liên kết với các ecosystem.</p>
+<p>Cuối cùng mình muốn nói rằng trong cuộc sống chắc hản ai cũng có những lúc gặp buồn chán, thất tình, stress,... thậm chí là cả chán đời, tuyệt vọng rất cần yếu tố giúp bạn thoát khỏi những rắc rối đó để cảm thấy yêu đời hơn. Có rất nhiều cách, nhưng có lẽ âm nhạc là cách được nhiều người lựa chọn nhất vì nó khá phổ biến và chúng tá có thể thưởng thức mọi lúc mọi nơi. Nhưng không phải bài nhạc nào cũng hợp với tậm trạng bạn lúc đó. Mình không có ý quảng cáo cho Spotify nhưng bạn hãy thử nghe Spotify nhé.</p>
+<p><em>Link tham khảo:</em></p>
+<ul>
+<li><a href="https://www.spotify.com/jp/discoverweekly/">https://www.spotify.com/jp/discoverweekly/</a></li>
+<li><a href="https://qz.com/1108548/costco-cost-says-the-threat-of-tariffs-and-duties-pose-a-risk-to-its-business/">https://qz.com/1108548/costco-cost-says-the-threat-of-tariffs-and-duties-pose-a-risk-to-its-business/</a></li>
+<li><a href="https://www.slideshare.net/MrChrisJohnson/from-idea-to-execution-spotifys-discover-weekly/31-1_0_0_0_1">https://www.slideshare.net/MrChrisJohnson/from-idea-to-execution-spotifys-discover-weekly/31-1_0_0_0_1</a><br>
+<a href="http://benanne.github.io/2014/08/05/spotify-cnns.html">http://benanne.github.io/2014/08/05/spotify-cnns.html</a></li>
+<li><a href="http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf">http://docs.echonest.com.s3-website-us-east-1.amazonaws.com/_static/AnalyzeDocumentation.pdf</a></li>
+<li><a href="https://notes.variogr.am/2012/12/11/how-music-recommendation-works-and-doesnt-work/">https://notes.variogr.am/2012/12/11/how-music-recommendation-works-and-doesnt-work/</a></li>
+<li><a href="https://hackernoon.com/spotifys-discover-weekly-how-machine-learning-finds-your-new-music-19a41ab76efe">https://hackernoon.com/spotifys-discover-weekly-how-machine-learning-finds-your-new-music-19a41ab76efe</a></li>
+<li><a href="https://www.slideshare.net/erikbern/collaborative-filtering-at-spotify-16182818/11-Supervised_learning_Matrix_completion">https://www.slideshare.net/erikbern/collaborative-filtering-at-spotify-16182818/11-Supervised_learning_Matrix_completion</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/gioi-thieu-recommend-music-model/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Recommend%20Music%20Model">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/gioi-thieu-recommend-music-model/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/gioi-thieu-recommend-music-model/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

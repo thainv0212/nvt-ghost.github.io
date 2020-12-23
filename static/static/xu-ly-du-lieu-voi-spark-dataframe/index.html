@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Xử lý dữ liệu với Spark Dataframe | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý dữ liệu với Spark Dataframe" />
+    <meta property="og:description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-08-08T06:42:00.000Z" />
+    <meta property="article:modified_time" content="2017-08-08T07:13:35.000Z" />
+    <meta property="article:tag" content="Spark" />
+    <meta property="article:tag" content="dataframe" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý dữ liệu với Spark Dataframe" />
+    <meta name="twitter:description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Spark, dataframe" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Xử lý dữ liệu với Spark Dataframe",
+    "url": "https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/",
+    "datePublished": "2017-08-08T06:42:00.000Z",
+    "dateModified": "2017-08-08T07:13:35.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkY0ZBOVE2eVV1bE0&export=download"
+    },
+    "keywords": "Spark, dataframe",
+    "description": "Đầu tiên, bạn có biết Spark là gì chưa nhỉ.\n\nNếu chưa biết Spark là gì thì bạn nên tìm hiểu Spark, cũng như làm quen với nó\ntrước nhé.\n\nBạn có thể tìm hiểu Spark qua link sau: Các bài viết liên quan đến Spark\n[https://vietnamlab.vn/blog/tag/spark/]\n\n  I. Vậy, Spark DataFrame là gì ấy nhỉ ?\nNgày xửa, ngày xưa, khi Spark ver 1.3 ra đời, Spark đã đẻ thêm tính năng có tên\nlà Spark DataFrame. Vậy nó có gì hay ho nhỉ ?\n\n * Có thể thiết lập Schema\n   [https://stackoverflow.com/questions/298739/what-is-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-spark tag-dataframe nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-spark tag-dataframe js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Xử lý dữ liệu với Spark Dataframe</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-08-08">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 08 August 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/spark/index.html">Spark</a>, <a href="../tag/dataframe/index.html">dataframe</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" alt="Xử lý dữ liệu với Spark Dataframe">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/xu-ly-du-lieu-voi-spark-dataframe/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20d%E1%BB%AF%20li%E1%BB%87u%20v%E1%BB%9Bi%20Spark%20Dataframe">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Đầu tiên, bạn có biết Spark là gì chưa nhỉ.</p>
+<p>Nếu chưa biết Spark là gì thì bạn nên tìm hiểu Spark, cũng như làm quen với nó trước nhé.</p>
+<p>Bạn có thể tìm hiểu Spark qua link sau: <a href="https://vietnamlab.vn/blog/tag/spark/">Các bài viết liên quan đến Spark</a></p>
+<h3> I. Vậy, Spark DataFrame là gì ấy nhỉ ?</h3>
+<p>Ngày xửa, ngày xưa, khi Spark ver 1.3 ra đời, Spark đã đẻ thêm tính năng có tên là Spark DataFrame. Vậy nó có gì hay ho nhỉ ?</p>
+<ul>
+<li>Có thể thiết lập <a href="https://stackoverflow.com/questions/298739/what-is-the-difference-between-a-schema-and-a-table-and-a-database">Schema</a> cho Spark RDD và có thể tạo Object DataFrame.</li>
+</ul>
+<p>Chưa thấy hay lắm nhỉ, dùng Spark RDD có sao đâu...<br>
+Thế bạn thao tác dữ liệu chỉ sử dụng RDD thấy gặp vấn đề gì phức tạp không ?<br>
+Viết code có khó khăn không ? Rồi vấn đề về hiệu năng ?</p>
+<ul>
+<li>Giống như viết SQL, đầy đủ chức năng như select, where ... đặc biệt là join với các DataFrame khác.</li>
+<li>Sử dụng các method như filter, select để trích xuất dữ liệu theo cột, hàng.</li>
+<li>Xử gọn các loại data như Log ... với groupBy → agg</li>
+<li>Thêm 1 cột dễ dàng với UDF(User Defined Function)</li>
+<li>Giống như SQL, Spark DataFrame đã hỗ trợ <a href="http://oracletechtalk.blogspot.jp/2015/09/pivot-va-unpivot-phan-1.html">Pivot</a> (Spark 1.6 trở lên) rất hữu ích cho việc lập bảng biểu, báo cáo.</li>
+</ul>
+<p>Tóm lại là dễ xài, đơn giản hơn RDD mà hiệu suất, khả năng optimized truy vấn tốt hơn RDD.<br>
+Chính vì vậy với các trường hợp thông thường, các bạn nên xài DataFrame.</p>
+<h3>II. Tạo DataFrame như thế nào nhỉ ?</h3>
+<p>Bài viết này sẽ sử dụng file log này để thực hành nhé. <a href="https://drive.google.com/file/d/0B7Z4XTfCeeq_TFJLZmVmczhILUU/view?usp=sharing">Link dowload</a>. Cấu trúc file Log gồm 3 cột : Date, User_ID, Campaign_ID</p>
+<pre><code class="language-python">click.at	user.id	campaign.id
+4/27/2015 20:40	144012	Campaign077
+4/27/2015 00:27	24485	Campaign063
+4/27/2015 00:28	24485	Campaign063
+4/27/2015 00:33	24485	Campaign038
+4/27/2015 01:00	24485	Campaign063
+4/27/2015 16:10	145066	Campaign103
+</code></pre>
+<p><strong>Cách 1: Tạo từ RDD</strong></p>
+<p>Nếu bạn đã có RDD với tên column và type tương ứng (TimestampType, IntegerType, StringType)thì bạn có thể dễ dàng tạo DataFrame bằng</p>
+<pre><code class="language-python">sqlContext.createDataFrame(my_rdd, my_schema)
+</code></pre>
+<p>Với <code>printSchema(), dtypes</code> sẽ in thông tin của schema<br>
+và <code>count()</code> trả về số record</p>
+<p>Và nếu chỉ muốn in n record đầu tiên thì sử dụng <code>show(n)</code></p>
+<pre><code class="language-python">fields = [StructField(&quot;access_time&quot;, TimestampType(), True), StructField(&quot;userID&quot;, IntegerType(), True), StructField(&quot;campaignID&quot;, StringType(), True)]
+schema = StructType(fields)
+
+whole_log_df = sqlContext.createDataFrame(whole_log, schema)
+print whole_log_df.count()
+print whole_log_df.printSchema()
+print whole_log_df.dtypes
+print whole_log_df.show(5)
+
+#327430
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- userID: integer (nullable = true)
+# |-- campaignID: string (nullable = true)
+#
+#[('access_time', 'timestamp'), ('userID', 'int'), ('campaignID', 'string')]
+#
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-04-27 20:40:...|144012|Campaign077|
+#|2015-04-27 00:27:...| 24485|Campaign063|
+#|2015-04-27 00:28:...| 24485|Campaign063|
+#|2015-04-27 00:33:...| 24485|Campaign038|
+#|2015-04-27 01:00:...| 24485|Campaign063|
+</code></pre>
+<p><strong>Cách 2: Tạo trực tiếp từ file CSV</strong></p>
+<pre><code class="language-python">from pyspark.shell import spark
+from pyspark.sql.types import *
+
+# Định nghĩa Schema
+struct = StructType([
+    StructField('a', StringType(), False),
+    StructField('b', StringType(), False),
+    StructField('c', StringType(), False)
+])
+
+# Tạo DataFrame từ file CSV
+df_data = spark.read.csv('click_data_sample', struct)
+</code></pre>
+<p>Ngoài cách trên còn rất nhiều cách khác, có thể kể đến là gọi cổ 1 thằng thuộc họ nhà <a href="https://spark-packages.org/">Spark Package</a> tên là <a href="https://github.com/databricks/spark-csv">spark-csv</a> ra xài, hỗ trợ nhiều method hữu ích, dễ chơi, dễ trúng thưởng hơn.</p>
+<p>Lưu ý là nếu không định nghĩa schema thì tất cả các column sẽ có kiểu string. Nhưng nếu dùng thêm thằng em <code>inferSchema</code> thì mọi chuyện sẽ êm xuôi. ^^ Không tin đơn giản như vậy ư, bạn thử như code dưới xem ^^</p>
+<pre><code class="language-python">whole_log_df_2 = sqlContext.read.format(&quot;com.databricks.spark.csv&quot;).option(&quot;header&quot;, &quot;true&quot;).load(&quot;/user/hadoop/click_data_sample.csv&quot;)
+print whole_log_df_2.printSchema()
+print whole_log_df_2.show(5)
+
+#root
+# |-- click.at: string (nullable = true)
+# |-- user.id: string (nullable = true)
+# |-- campaign.id: string (nullable = true)
+#
+#+-------------------+-------+-----------+
+#|           click.at|user.id|campaign.id|
+#+-------------------+-------+-----------+
+#|2015-04-27 20:40:40| 144012|Campaign077|
+#|2015-04-27 00:27:55|  24485|Campaign063|
+#|2015-04-27 00:28:13|  24485|Campaign063|
+#|2015-04-27 00:33:42|  24485|Campaign038|
+#|2015-04-27 01:00:04|  24485|Campaign063|
+
+whole_log_df_3 = sqlContext.read.format(&quot;com.databricks.spark.csv&quot;).option(&quot;header&quot;, &quot;true&quot;).option(&quot;inferSchema&quot;, &quot;true&quot;).load(&quot;click_data_sample.csv&quot;)
+print whole_log_df_3.printSchema()
+
+#root
+# |-- click.at: timestamp (nullable = true)
+# |-- user.id: integer (nullable = true)
+# |-- campaign.id: string (nullable = true)
+</code></pre>
+<p>Nhân tiện đây, đôi lúc tên column không được chuẩn như Lê Duẩn thì bạn có thể dễ dàng thay đổi tên column bằng <code>withColumnRenamed</code>.</p>
+<p>Và cũng tiện đây, có 1 lưu ý là về cơ bản DataFrame là <code>imutable</code>(ông cha ta hay gọi với cái tên thuần Tàu là <code>bất biến</code>) nên hễ có thay đổi nội dung của DataFrame thì 1 DataFrame mới sẽ được tạo để lưu trữ những thay đổi đó.</p>
+<pre><code class="language-python">whole_log_df_4 = whole_log_df_3.withColumnRenamed(&quot;click.at&quot;, &quot;access_time&quot;)\
+                 .withColumnRenamed(&quot;user.id&quot;, &quot;userID&quot;)\
+                 .withColumnRenamed(&quot;campaign.id&quot;, &quot;campaignID&quot;)
+print whole_log_df_4.printSchema()
+
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- userID: integer (nullable = true)
+# |-- campaignID: string (nullable = true)
+</code></pre>
+<p><strong>Cách 3: Giao lưu trực tiếp từ file json</strong></p>
+<p>Bằng cách sử dụng <code>sqlContext.read.json</code>. Mỗi dòng của file json sẽ được coi là 1 object. Trong trường hợp object thiếu data thì sẽ null tại đó.</p>
+<pre><code class="language-python"># test_json.json gồm 3 dòng như dưới, dòng cuối không có &quot;campaignID&quot;
+#
+#{&quot;access_time&quot;: &quot;2015-04-27 20:40:40&quot;, &quot;userID&quot;: &quot;24485&quot;, &quot;campaignID&quot;: &quot;Campaign063&quot;}
+#{&quot;access_time&quot;: &quot;2015-04-27 00:27:55&quot;, &quot;userID&quot;: &quot;24485&quot;, &quot;campaignID&quot;: &quot;Campaign038&quot;}
+#{&quot;access_time&quot;: &quot;2015-04-27 00:27:55&quot;, &quot;userID&quot;: &quot;24485&quot;}
+
+df_json = sqlContext.read.json(&quot;test_json.json&quot;)
+df_json.printSchema()
+df_json.show(5)
+
+#root
+# |-- access_time: string (nullable = true)
+# |-- campaignID: string (nullable = true)
+# |-- userID: string (nullable = true)
+#
+#+-------------------+-----------+------+
+#|        access_time| campaignID|userID|
+#+-------------------+-----------+------+
+#|2015-04-27 20:40:40|Campaign063| 24485|
+#|2015-04-27 00:27:55|Campaign038| 24485|
+#|2015-04-27 00:27:55|       null| 24485|
+#+-------------------+-----------+------+
+
+</code></pre>
+<p><strong>Cách 4: Giao thông trực tiếp từ parquet</strong></p>
+<p>Nếu bạn chưa biết parquet là gì thì tham khảo tại <a href="https://parquet.apache.org/">đây</a> nhé. Với rất nhiều ưu điểm, mình sẽ giới thiệu vào 1 bài nào đó ở lúc nào đó nhé. ^^<br>
+Và cách đọc, đơn giản như đan rổ là sử dụng <code>sqlContext.read.parquet</code>. Như đoạn code bên dưới, cả folder chứa file parquet sẽ được đọc. Quá nhanh gọn lẹ phải không.</p>
+<pre><code class="language-python">sqlContext.read.parquet(&quot;/user/hadoop/parquet_folder/&quot;)
+</code></pre>
+<h3>III. Thao tác với DataFrame </h3>
+<h4>1. Thử query bằng SQL</h4>
+<p>Bằng cách sử dụng <code>registerTempTable</code>, bạn sẽ có một table được tham chiếu đến Dataframe đó, bạn có thể sử dụng tên table này để viết query SQL. Nếu bạn sử dụng <code>sqlContext.sql('query SQL')</code> thì giá trị trả về cũng là Dataframe.</p>
+<p>Có 1 lưu ý là: Bạn cũng có thể viết subquery nhưng subquery cần được gán Alias, nếu không toạch lô (Syntax error) đấy.</p>
+<pre><code class="language-python">#SQL query
+
+whole_log_df.registerTempTable(&quot;whole_log_table&quot;)
+
+print sqlContext.sql(&quot; SELECT * FROM whole_log_table where campaignID == 'Campaign047' &quot;).count()
+#18081
+print sqlContext.sql(&quot; SELECT * FROM whole_log_table where campaignID == 'Campaign047' &quot;).show(5)
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:27:...| 14151|Campaign047|
+#|2015-04-27 05:28:...| 14151|Campaign047|
+#+--------------------+------+-----------+
+
+
+#Trường hợp thêm biến số vào trong câu SQL
+for count in range(1, 3):
+    print &quot;Campaign00&quot; + str(count)
+    print sqlContext.sql(&quot;SELECT count(*) as access_num FROM whole_log_table where campaignID == 'Campaign00&quot; + str(count) + &quot;'&quot;).show()
+
+#Campaign001
+#+----------+
+#|access_num|
+#+----------+
+#|      2407|
+#+----------+
+#
+#Campaign002
+#+----------+
+#|access_num|
+#+----------+
+#|      1674|
+#+----------+
+
+#Trường hợp Sub Query：
+print sqlContext.sql(&quot;SELECT count(*) as first_count FROM (SELECT userID, min(access_time) as first_access_date FROM whole_log_table GROUP BY userID) subquery_alias WHERE first_access_date &lt; '2015-04-28'&quot;).show(5)
+#+------------+
+#|first_count |
+#+------------+
+#|       20480|
+#+------------+
+</code></pre>
+<h4>2. Tìm kiếm sử dụng filter, select</h4>
+<p>Đối với DataFrame , tìm kiếm kèm điều kiện rất đơn giản. Giống với câu query ở trên nhưng <code>filter, select</code> dễ dàng hơn rất nhiều. Vậy <code>filter</code> và <code>select</code> khác nhau thế nào ?</p>
+<p>Cùng là để tìm kiếm nhưng <code>filter</code> trả về những row thoả mãn điều kiện, trong đó <code>select</code> lấy dữ liệu theo column.</p>
+<pre><code class="language-python">#Ví dụ filter
+print whole_log_df.filter(whole_log_df[&quot;access_time&quot;] &lt; &quot;2015-04-28&quot;).count()
+#41434
+print whole_log_df.filter(whole_log_df[&quot;access_time&quot;] &gt; &quot;2015-05-01&quot;).show(3)
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-05-01 22:11:...|114157|Campaign002|
+#|2015-05-01 23:36:...| 93708|Campaign055|
+#|2015-05-01 22:51:...| 57798|Campaign046|
+#+--------------------+------+-----------+
+
+#Ví dụ select
+print whole_log_df.select(&quot;access_time&quot;, &quot;userID&quot;).show(3)
+#+--------------------+------+
+#|         access_time|userID|
+#+--------------------+------+
+#|2015-04-27 20:40:...|144012|
+#|2015-04-27 00:27:...| 24485|
+#|2015-04-27 00:28:...| 24485|
+#+--------------------+------+
+</code></pre>
+<h4>3. Sử dụng groupBy </h4>
+<p>groupBy có chức năng giống với reduceByKey của RDD, nhưng nó còn cung cấp <a href="https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.GroupedData">1 rổ method</a>. Ở đây mình sẽ run thử code count, agg.</p>
+<p><strong>groupBy→count</strong></p>
+<p>Ví dụ sau sẽ lấy key là <code>campaignID</code> và tiến hành <code>groupBy</code>. Sau đó dùng <code>count()</code> để lấy số record ứng với mỗi key.</p>
+<pre><code class="language-python">print whole_log_df.groupBy(&quot;campaignID&quot;).count().sort(&quot;count&quot;, ascending=False).show(5)
+#+-----------+-----+
+#| campaignID|count|
+#+-----------+-----+
+#|Campaign116|22193|
+#|Campaign027|19206|
+#|Campaign047|18081|
+#|Campaign107|13295|
+#|Campaign131| 9068|
+#+-----------+-----+
+
+print whole_log_df.groupBy(&quot;campaignID&quot;, &quot;userID&quot;).count().sort(&quot;count&quot;, ascending=False).show(5)
+#+-----------+------+-----+
+#| campaignID|userID|count|
+#+-----------+------+-----+
+#|Campaign047| 30292|  633|
+#|Campaign086|107624|  623|
+#|Campaign047|121150|  517|
+#|Campaign086| 22975|  491|
+#|Campaign122| 90714|  431|
+#+-----------+------+-----+
+</code></pre>
+<p><strong>groupBy→pivot</strong></p>
+<p>Pivot thì từ Spark v1.6 trở lên được đưa vào, có chức năng giống với pivot trong SQL. Thử áp dụng xem sao nhỉ :</p>
+<p>Trước khi pivot (<code>agged_df</code>)</p>
+<ul>
+<li>
+<p>Số hàng = số <code>UserID(=75,545) * campainID(=133) </code></p>
+</li>
+<li>
+<p>Số cột = <code>3</code></p>
+</li>
+</ul>
+<p>Sau khi pivot(<code>pivot_df</code>)</p>
+<ul>
+<li>Số hàng = số <code>UserID(=75,545)</code></li>
+<li>Số cột =  <code>UserID + số CampainID = 1 + 133 = 134</code></li>
+</ul>
+<p>Tất nhiên là bạn phải groupBy(cột giữ nguyên).pivot(cột muốn chuyển sang ngang).sum()</p>
+<pre><code class="language-python">agged_df = whole_log_df.groupBy(&quot;userID&quot;, &quot;campaignID&quot;).count()
+print agged_df.show(3)
+
+#+------+-----------+-----+
+#|userID| campaignID|count|
+#+------+-----------+-----+
+#|155812|Campaign107|    4|
+#|103339|Campaign027|    1|
+#|169114|Campaign112|    1|
+#+------+-----------+-----+
+
+#Những cell không có giá trị -&gt; null
+pivot_df = agged_df.groupBy(&quot;userID&quot;).pivot(&quot;campaignID&quot;).sum(&quot;count&quot;)
+print pivot_df.printSchema()
+
+#root
+# |-- userID: integer (nullable = true)
+# |-- Campaign001: long (nullable = true)
+# |-- Campaign002: long (nullable = true)
+# ..
+# |-- Campaign133: long (nullable = true)
+
+#TH muốn add 0 vào cell NULL
+pivot_df2 = agged_df.groupBy(&quot;userID&quot;).pivot(&quot;campaignID&quot;).sum(&quot;count&quot;).fillna(0)
+</code></pre>
+<h4>4. Thêm cột sử dụng UDF</h4>
+<p>Trong Spark DataFrame có thể sử dụng UDF, với ứng dụng chính là thêm cột. Như đã nói ở trên, bản chất DataFrame là immutable nên khi thêm cột thì 1 DataFrame mới sẽ được tạo.</p>
+<pre><code class="language-python">from pyspark.sql.functions import UserDefinedFunction
+from pyspark.sql.types import DoubleType
+
+def add_day_column(access_time):
+    return int(access_time.strftime(&quot;%Y%m%d&quot;))
+
+my_udf = UserDefinedFunction(add_day_column, IntegerType())
+print whole_log_df.withColumn(&quot;access_day&quot;, my_udf(&quot;access_time&quot;)).show(5)
+
+#+--------------------+------+-----------+----------+
+#|         access_time|userID| campaignID|access_day|
+#+--------------------+------+-----------+----------+
+#|2015-04-27 20:40:...|144012|Campaign077|  20150427|
+#|2015-04-27 00:27:...| 24485|Campaign063|  20150427|
+#|2015-04-27 00:28:...| 24485|Campaign063|  20150427|
+#|2015-04-27 00:33:...| 24485|Campaign038|  20150427|
+#|2015-04-27 01:00:...| 24485|Campaign063|  20150427|
+#+--------------------+------+-----------+----------+
+</code></pre>
+<p>Cũng có thể sử dụng <code>lambda</code></p>
+<pre><code class="language-python">my_udf2 = UserDefinedFunction(lambda x: x + 5, IntegerType())
+print whole_log_df.withColumn(&quot;userID_2&quot;, my_udf2(&quot;userID&quot;)).show(5)
+
+#+--------------------+------+-----------+--------+
+#|         access_time|userID| campaignID|userID_2|
+#+--------------------+------+-----------+--------+
+#|2015-04-27 20:40:...|144012|Campaign077|  144017|
+#|2015-04-27 00:27:...| 24485|Campaign063|   24490|
+#|2015-04-27 00:28:...| 24485|Campaign063|   24490|
+#|2015-04-27 00:33:...| 24485|Campaign038|   24490|
+#|2015-04-27 01:00:...| 24485|Campaign063|   24490|
+#+--------------------+------+-----------+--------+
+</code></pre>
+<p>Ngược lại, muốn xóa cột thì sử dụng <code>df.drop()</code></p>
+<pre><code class="language-python">print whole_log_df.drop(&quot;userID&quot;).show(3)
+
+#+--------------------+-----------+
+#|         access_time| campaignID|
+#+--------------------+-----------+
+#|2015-04-27 20:40:...|Campaign077|
+#|2015-04-27 00:27:...|Campaign063|
+#|2015-04-27 00:28:...|Campaign063|
+#+--------------------+-----------+
+</code></pre>
+<h4>5. Join 2 DataFrame </h4>
+<p>Tính năng rất quan trọng khi xử lý dữ liệu chính là join.<br>
+Mình sẽ sử dụng data đầu vào ban đầu để tạo ra 1 DataFrame mới chứa những userID có count &gt;100</p>
+<pre><code class="language-python">heavy_user_df1 = whole_log_df.groupBy(&quot;userID&quot;).count()
+heavy_user_df2 = heavy_user_df1.filter(heavy_user_df1 [&quot;count&quot;] &gt;= 100)
+
+print heavy_user_df2 .printSchema()
+print heavy_user_df2 .show(3)
+print heavy_user_df2 .count()
+
+#root
+# |-- userID: integer (nullable = true)
+# |-- count: long (nullable = false)
+#
+#+------+-----+
+#|userID|count|
+#+------+-----+
+#| 84231|  134|
+#| 13431|  128|
+#|144432|  113|
+#+------+-----+
+#
+#177
+</code></pre>
+<p>Được <code>heavy_user_df2 </code> rồi tiến hành join (mặc định là inner join).</p>
+<p>Các kiểu join bao gồm : inner, outer, left_outer, rignt_outer</p>
+<pre><code class="language-python">joinded_df = whole_log_df.join(heavy_user_df2, whole_log_df[&quot;userID&quot;] == heavy_user_df2[&quot;userID&quot;], &quot;inner&quot;).drop(heavy_user_df2[&quot;userID&quot;]).drop(&quot;count&quot;)
+print joinded_df.printSchema()
+print joinded_df.show(3)
+print joinded_df.count()
+
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- campaignID: string (nullable = true)
+# |-- userID: integer (nullable = true)
+
+#None
+#+--------------------+-----------+------+
+#|         access_time| campaignID|userID|
+#+--------------------+-----------+------+
+#|2015-04-27 02:07:...|Campaign086| 13431|
+#|2015-04-28 00:07:...|Campaign086| 13431|
+#|2015-04-29 06:01:...|Campaign047| 13431|
+#+--------------------+-----------+------+
+#
+#38729
+</code></pre>
+<h4>6. Lấy data theo cột trong DataFrame </h4>
+<ul>
+<li>Lấy lable của cột (<code>df.columns</code>) -&gt; Trả về list tên cột (not DataFrame )</li>
+<li>Lấy riêng 1 cột (<code>df.select(&quot;userID&quot;).map(lambda x: x[0]).collect()</code>) -&gt; Trả về list userID (not RDD/Dataframe)</li>
+<li>Lấy cột distinct, chỉ cần thêm .distinct()</li>
+</ul>
+<pre><code class="language-python">print whole_log_df.columns
+#['access_time', 'userID', 'campaignID']
+
+print whole_log_df.select(&quot;userID&quot;).map(lambda x: x[0]).collect()[:5]
+#[144012, 24485, 24485, 24485, 24485]
+
+print whole_log_df.select(&quot;userID&quot;).distinct().map(lambda x:x[0]).collect()[:5]
+#[4831, 48631, 143031, 39631, 80831]
+</code></pre>
+<h4>7. Từ DataFrame , tạo RDD</h4>
+<p>Có 2 cách chính là:</p>
+<ul>
+<li>Sử dụng <code>map()</code> : mỗi hàng của DataFrame được chuyển sang RDD theo dạng list</li>
+<li>Sử dụng <code>.rdd</code>: mỗi hàng của DataFrame được chuyển sang RDD <a href="https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.Row">Row Object</a> (Tức là mỗi hàng sẽ là 1 Object) Tiếp theo sử dụng <code>.asDict()</code> với Row Object để chuyển về RDD Key-Value.</li>
+</ul>
+<pre><code class="language-python">#convert to rdd by &quot;.map&quot;
+print whole_log_df.groupBy(&quot;campaignID&quot;).count().map(lambda x: [x[0], x[1]]).take(5)
+#[[u'Campaign033', 786], [u'Campaign034', 3867], [u'Campaign035', 963], [u'Campaign036', 1267], [u'Campaign037', 1010]]
+
+# rdd -&gt; normal list can be done with &quot;collect&quot;.
+print whole_log_df.groupBy(&quot;campaignID&quot;).count().map(lambda x: [x[0], x[1]]).collect()[:5]
+#[[u'Campaign033', 786], [u'Campaign034', 3867], [u'Campaign035', 963], [u'Campaign036', 1267], [u'Campaign037', 1010]]
+
+#convert to rdd by &quot;.rdd&quot; will return &quot;Row&quot; object
+print whole_log_df.groupBy(&quot;campaignID&quot;).rdd.take(3)
+#[Row(campaignID=u'Campaign033', count=786), Row(campaignID=u'Campaign034', count=3867), Row(campaignID=u'Campaign035', count=963)]
+
+#`.asDict()` will convert to Key-Value RDD from Row object
+print whole_log_df.groupBy(&quot;campaignID&quot;).rdd.map(lambda x:x.asDict()).take(3)
+#[{'count': 786, 'campaignID': u'Campaign033'}, {'count': 3867, 'campaignID': u'Campaign034'}, {'count': 963, 'campaignID': u'Campaign035'}]
+</code></pre>
+<h3>IV. Tổng kết</h3>
+Trên đây mình đã giới thiệu với các bạn những kiến thức cơ bản về DataFrame, và tất nhiên là bạn có thể làm nhiều điều hơn(ngoài phạm vi bài viết này) với DataFrame. Nhưng kiến thức cơ bản không bao giờ thừa phải không. 
+<p>Hẹn gặp lại các bạn ở các bài viết sau.</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/xu-ly-du-lieu-voi-spark-dataframe/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20d%E1%BB%AF%20li%E1%BB%87u%20v%E1%BB%9Bi%20Spark%20Dataframe">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/xu-ly-du-lieu-voi-spark-dataframe/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

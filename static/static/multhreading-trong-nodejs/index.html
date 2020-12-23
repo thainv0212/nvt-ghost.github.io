@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Đa luồng (Multithreading) trong Nodejs - Worker Thread | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads ... đa luồng ... nodejs ... multithreading ... concurrency ... javascript ..." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads ... đa luồng ... nodejs ... multithreading ... concurrency ... javascript ..." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Đa luồng (Multithreading) trong Nodejs - Worker Thread" />
+    <meta property="og:description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/multhreading-trong-nodejs/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-04-26T01:46:49.000Z" />
+    <meta property="article:modified_time" content="2019-04-26T01:46:49.000Z" />
+    <meta property="article:tag" content="NodeJS" />
+    <meta property="article:tag" content="multithreading" />
+    <meta property="article:tag" content="programming" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Đa luồng (Multithreading) trong Nodejs - Worker Thread" />
+    <meta name="twitter:description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/multhreading-trong-nodejs/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="NodeJS, multithreading, programming, javascript" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Đa luồng (Multithreading) trong Nodejs - Worker Thread",
+    "url": "https://blog.vietnamlab.vn/multhreading-trong-nodejs/",
+    "datePublished": "2019-04-26T01:46:49.000Z",
+    "dateModified": "2019-04-26T01:46:49.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&export=download"
+    },
+    "keywords": "NodeJS, multithreading, programming, javascript",
+    "description": "Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ...",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-nodejs tag-multithreading tag-programming tag-javascript nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-nodejs tag-multithreading tag-programming tag-javascript js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Multithreading trong Nodejs</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-04-26">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 26 April 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/nodejs/index.html">NodeJS</a>, <a href="../tag/multithreading/index.html">multithreading</a>, <a href="../tag/programming/index.html">programming</a>, <a href="../tag/javascript/index.html">javascript</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" alt="Multithreading trong Nodejs">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/multhreading-trong-nodejs/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Multithreading%20trong%20Nodejs">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, những vấn đề nó gặp phải, giải pháp hiện tại và tương lai của xử lý song song (parallel) với worker threads.</p><!--kg-card-begin: markdown--><h3 id="1nlung">1. Đơn luồng</h3>
+<p>Javascript được biết đến là một ngôn ngữ lập trình đơn luồng chạy trên browser. Đơn luồng nghĩa là những tập lệnh, những dòng code chúng ta viết ra chỉ được thực thi tuần tự tại một thời điểm của cùng process.</p>
+<p>Javascript khởi đầu là một ngôn ngữ chỉ hữu ích cho việc thêm các tương tác cho trang web, validate form,... Những xử lý này không cần phải thêm vào multithreading cho phức tạp.</p>
+<p>Ryan Dahl, người tạo ra Nodejs, đã nhìn thấy sự hạn chế này là một cơ hội. Anh ấy đã muốn triển khai một server-side platform dựa trên asynchronous I/O, điều đó có nghĩa không cần đến thread. Concurrency là một vấn đề khó để giải quyết. Nhiều thread cùng truy cập đến cùng vùng nhớ có thể gây nên hiện tượng <strong>race condition</strong> , hiện tượng này rất khó để reproduce và fix.</p>
+<h3 id="2nodejscphilnlung">2. Nodejs có phải là đơn luồng ?</h3>
+<p>Điều này vừa đúng vừa không đúng. Thật sự thì, chúng ta có thể chạy song song, nhưng ta không tạo thread và không đồng bộ hóa chúng. Máy ảo và OS sẽ chạy I/O song song và khi trở lại Javascript code, phần Javascript code sẽ chỉ chạy đơn luồng.</p>
+<p>Nói cách khác, tất cả mọi thứ chạy song song, ngoại trừ Javascript code.</p>
+<p>Điều này rất tuyệt nếu tất cả những gì ta làm là asynchronous I/O. Những dòng code chỉ gồm các phần nhỏ của synchronous block - được thực thi nhanh và truyền data đến các file và stream. Javscript code chạy rất nhanh nên sẽ không block việc thực thi của các phần Javascript khác. Thời gian sẽ được dành cho việc chờ đợi I/O event hơn là Javscript code được thực thi. Ví dụ sau đây sẽ giúp ta hiểu sơ qua:</p>
+<pre><code class="language-js">db.findOne('SELECT ... LIMIT 1', function(err, result) {
+  if (err) return console.error(err)
+  console.log(result)
+})
+console.log('Running query')
+setTimeout(function() {
+  console.log('Hey there')
+}, 1000)
+</code></pre>
+<p>Có thể lệnh query đến database sẽ tốn hơn một phút nhưng dòng chữ &quot;Running query&quot; sẽ xuất hiện ngay sau khi tạo lệnh query. Và ta sẽ thấy dòng chữ &quot;Hey there&quot; sau một giây sau khi tạo lệnh query dù query có đang chạy hay không. Nodejs app chỉ gọi function mà không block việc thực thi của các phần code khác. Nó sẽ được thông báo thông qua function callback khi lệnh query chạy xong và ta sẽ thu được kết quả.</p>
+<h3 id="3ccccvlmnngcpu">3. Các các vụ làm nặng CPU</h3>
+<p>Điều gì sẽ xảy ra nếu ta thực thi các tác vụ đồng bộ nặng? Ví dụ như các tính toán phức tạp trên tập data lớn. Khi đó ta có thể có một synchronous block code mà khi chạy tốn rất nhiều thời gian và nó sẽ block các phần code còn lại. Giả định rằng code tính toán phức tạp mất 10 giây. Nếu ta chạy trên web server điều đó có nghĩa rằng tất cả các request khác sẽ bị block ít nhất 10 giây bởi tính toán phức tạp đó. Điều này thực sự không tốt chút nào.</p>
+<p>Javascript và Nodejs thường không được dùng cho các tác vụ nặng CPU. Bởi vì Javascript chạy đơn luồng nó sẽ làm đứng UI trên browser và làm hàng đợi (queue) tất cả các I/O event trong Nodejs.</p>
+<p>Trở lại với ví dụ trước đó. Giả sử ta có một lệnh query return hàng ngàn kết quả và ta cần phải giải mã các giá trị bằng Javascript code:</p>
+<pre><code class="language-Js">db.findAll('SELECT ...', function(err, results) {
+  if (err) return console.error(err)
+  
+  // Heavy computation and many results
+  for (const encrypted of results) {
+    const plainText = decrypt(encrypted)
+    console.log(plainText)
+  }
+})
+</code></pre>
+<p>Ta sẽ có được kết quả trong biến <strong>results</strong> trong hàm callback một khi query xong. Rồi sau đó, sẽ không có Javascript code nào được thực thi cho đến khi hàm callback này xử lý xong. Như đã nói trước đó, các dòng Javascript thường nhỏ và đủ nhanh, tuy nhiên trong trường hợp này, chúng ta có quá nhiều kết quả và cần phải tính toán phức tạp, nặng nề trên các kết quả đó. Điều này có thể mất vài giây, và trong thời gian này việc thực thi các phần Javascript khác sẽ bị queue, điều đó có nghĩa ta sẽ block tất cả các user trong thời gian này nếu ta đang chạy một server trên cùng một app.</p>
+<h3 id="4tisaoccphinbntrcv1050khngthmthread">4. Tại sao các phiên bản trước v10.5.0 không thêm thread ?</h3>
+<p>Nhiều người nghĩ rằng cần phải thêm module mới trong Nodejs core để cho phép ta tạo và đồng bộ các thread. Tuy nhiên, không có cách nào để giải quyết tốt trường hợp này trong một server-side platform đã trưởng thành như Nodejs.</p>
+<p>Nếu thêm thread vào, điều đó sẽ thay đổi bản chất của ngôn ngữ. Ta không thể chỉ thêm  thread thành một tập class hay function có sẵn. Ta cần thay đổi ngôn ngữ. Những ngôn ngữ mà hỗ trợ multithreading thường có từ khóa như là &quot;synchronized&quot; để cho phép thread cộng tác, đồng bộ với nhau. Ví dụ như trong Java một vài kiểu số không không phải là atomic, điều đó có nghĩa là nếu ta không đồng bộ hóa các truy cập thì có thể xảy ra hiện tượng hai hay nhiều thread cùng thay đổi giá trị của biến đó và kết quả có thể dẫn đến các giá trị không hợp lệ.</p>
+<h3 id="5cchgiiquytngin">5. Cách giải quyết đơn giản</h3>
+<p>Nodejs sẽ không đưa block code tiếp theo vào event queue cho đến khi block trước đó được thực thi xong. Vậy nên điều đơn giản ta có thể làm là là chia nhỏ code thành các phần synchronous code nhỏ hơn và dùng hàm <em>setImmediate(callback)</em> để nói với Nodejs rằng ta đã xong và mày có thể thực thi các phần đang chờ ở trong queue.</p>
+<p>Điều này có thể giúp tiếp tục các vòng lặp tiếp theo hay gọi là <strong>tick</strong> của event loop. Cùng xem cách ta cấu trúc lại các dòng code để tận dụng lợi thế này. Giả sử ta có một array lớn mà ta muốn xử lý các item trong array mà việc xử lý này sẽ làm nặng CPU:</p>
+<pre><code class="language-Js">
+const arr = [/*large array*/]
+for (const item of arr) {
+  // do heavy stuff for each item on the array
+}
+// code that runs after the whole array is executed
+
+</code></pre>
+<p>Như đã nói trước đó nếu ta xử lý toàn bộ array thì sẽ tốn quá nhiều thời gian để xử lý và sẽ block các phần Javascript còn lại. Vì thế hãy chia nhỏ chúng thành các phần nhỏ hơn và sử dụng hàm setImmediate(callback):</p>
+<pre><code class="language-Js">
+const crypto = require('crypto')
+
+const arr = new Array(200).fill('something')
+function processChunk() {
+  if (arr.length === 0) {
+    // code that runs after the whole array is executed
+  } else {
+    console.log('processing chunk');
+    // pick 10 items and remove them from the array
+    const subarr = arr.splice(0, 10)
+    for (const item of subarr) {
+      // do heavy stuff for each item on the array
+      doHeavyStuff(item)
+    }
+    // Put the function back in the queue
+    setImmediate(processChunk)
+  }
+}
+
+processChunk()
+
+function doHeavyStuff(item) {
+  crypto.createHmac('sha256', 'secret').update(new Array(10000).fill(item).join('.')).digest('hex')
+}
+
+// This is just for confirming that we can continue
+// doing things
+let interval = setInterval(() =&gt; {
+  console.log('tick!')
+  if (arr.length === 0) clearInterval(interval)
+}, 0)
+
+</code></pre>
+<p>Bây giờ ta sẽ chỉ xử lý mỗi lần 10 item và gọi <em>setImmediate(callback)</em> vì vậy nếu có việc gì khác mà chương trình cần phải làm, nó sẽ được thực hiện chen giữa các khối 10 item.</p>
+<p>Ta có thể thấy rằng code trở nên phức tạp hơn. Và nhiều khi thuật toán phức tạp hơn thì thật khó để biết nên gọi <em>setImmediate()</em> ở đâu là tốt. Bên cạnh đó, code sẽ trở thành asynchronous và nếu ta phụ thuộc vào các thư viện bên thứ ba, khi đó ta sẽ khó có thể và gần như không thể chia nhỏ code thành các phần nhỏ hơn.</p>
+<h3 id="6cchgiiquytthhaidngbackgroundprocess">6. Cách giải quyết thứ hai: dùng background process</h3>
+<p><em>setImmeditate()</em> ổn trong vài trường hợp đơn giản, tuy nhiên nó không phải là cách giải quyết lý tưởng. Bên cạnh đó, ta không có thread và ta cũng không muốn thay đổi ngôn ngữ, liệu ta có thể xử lý song song mà không dùng thread không ? Câu trả lời là có, ta cần dùng một thứ gọi là background processing: một cách chạy một task với input, mà có thể sử dụng bất cứ lượng CPU nào và thời gian nó cần, và sau đó trả lại kết quả cho main app. Ví dụ như là:</p>
+<pre><code class="language-Js">
+// Runs `script.js` in a new environment without sharing memory.
+const service = createService('script.js')
+// We send an input and receive an output
+service.compute(data, function(err, result) {
+  // result available here
+})
+
+</code></pre>
+<p>Thực tế rằng ta đã có thể thực hiện background processing trong Nodejs. Ta có thể <strong>fork process</strong> và sử dụng <strong>message passing</strong>. Main process có thể giao tiếp với child process bằng cách gửi và nhận các sự kiện. Không một vùng nhớ nào được chia sẻ.Tất cả sự trao đổi data đều được &quot;clone&quot; nghĩa là thay đổi nó từ một phía sẽ không thay đổi nó ở các phía khác. Giống như HTTP response, một khi gửi nó, phía còn lại chỉ là bản copy của nó. Nếu ta không chia sẻ vùng nhớ, sẽ không có <strong>race condition</strong> và ta cũng không cần thread. Vấn đề đã được giải quyết!</p>
+<p>Tuy nhiên chờ đã. Đây là một giải pháp, tuy nhiên cũng không phải là giải pháp lý tưởng. Fork một process sẽ tốt rất nhiều tài nguyên và chậm chạp. Điều này có nghĩa là chạy thêm một máy ảo mới từ đầu sử dụng rất nhiều memory bởi vì các process không chia sẻ memory. Ta có thể tái sử dụng cùng process đã fork không? Đương nhiên rồi, nhưng gửi tác vụ nặng khác nhau sẽ được thực hiện đồng bộ (synchronous) trong process đã fork có hai vấn đề sau:</p>
+<ul>
+<li>
+<p>Main app sẽ không bị block, nhưng process đã fork sẽ chỉ có thể xử lý một tác vụ một lúc. Nếu có hai tác vụ, giả sử tác vụ đầu tiên tốn 10 giây và tác vụ thứ hai tốn 1s (theo thứ tự), sẽ không tốt nếu phải đợi 10 giây để thực thi tác vụ thứ hai. Bởi vì ta đang fork các process, ta muốn tận dụng scheduling của OS và tất cả các lõi (core) của máy tính. Một cách tương tự là ta có thể vừa nghe nhạc và lướt web cùng 1 lúc bằng cách fork hai process và thực thi tất cả các task song song.</p>
+</li>
+<li>
+<p>Bên cạnh đó, nếu một task bị crash, các task còn lại trong cùng process sẽ không được xử lý.</p>
+</li>
+</ul>
+<p>Để giải quyết các vấn đề trên ta cần fork rất nhiều process, nhưng ta cần giới hạn số lượng process được fork vì sẽ tốn rất nhiều bộ nhớ. Giống như các kết nối database, ta cần một dãy các process sẵn sằng để sử dụng (<strong>pool of process</strong>), chạy một tác vụ trong một thời điểm và tái sử dụng process sau khi task hoàn thành. Nhìn sơ qua thì thấy nó phức tạp để implement, nhưng may thay đã có sẵn <strong>worker-farm</strong> để giúp chúng ta:</p>
+<pre><code class="language-Js">// main app
+const workerFarm = require('worker-farm')
+const service = workerFarm(require.resolve('./script'))
+ 
+service('hello', function (err, output) {
+  console.log(output)
+})
+
+// script.js
+// This will run in forked processes
+module.exports = (input, callback) =&gt; {
+  callback(null, input + ' ' + world)
+}
+</code></pre>
+<h3 id="7vnccgiiquyt">7. Vấn đề có được giải quyết ?</h3>
+<p>Vậy thì, vấn đề đã được giải quyết chưa? Vâng, đã được giải quyết, nhưng ta vẫn sử dụng rất nhiều bộ nhớ hơn thay vì multithreading. Thread vẫn rất là gọn nhẹ so với forked process. Và đây là lý do <strong>Worker Thread</strong> được sinh ra.</p>
+<p><em>Worker Thread</em> có các context cô lập. Chúng trao đổi thông tin với main process bằng cách sử dụng message passing, vì vậy ta sẽ tránh được vấn đề <strong>race condition</strong> mà thread có. Tuy nhiên chúng vẫn cùng nằm trong một process, do đó chúng sẽ tốn ít bộ nhớ hơn nhiều.</p>
+<p>Ok, ta giờ đây có thể chia sẻ vùng nhớ với <em>Worker Thread</em> bằng cách truyền đối tượng SharedArrayBuffer. Nên nhớ rằng chỉ nên sử dụng chúng khi bạn cần xử lý các tác vụ nặng yêu cầu rất nhiều data. Điều này sẽ cho phép ta tránh các bước tuần tự hóa dữ liệu.</p>
+<h3 id="8sdngworkerthread">8. Sử dụng worker thread</h3>
+<p>Bây giờ nếu bạn đang sử dụng Nodejs phiên bản v10.5.0 trở lên bạn có thể bắt đầu sử dụng <em>Worker Thread</em>. Tuy nhiên <em>Worker Thread</em> vẫn đang trong quá trình thử nghiệm và có thể thay đổi trong tương lai. Thực tế thì, nó không có sẵn theo mặc định, ta cần phải bật nó lên bằng cách sử dụng flag   <em>experimental-worker</em> khi chạy Nodejs.</p>
+<p>Ngoài ra, hãy nhớ rằng việc tạo ra một Worker (giống như thread ở các ngôn ngữ khác) mặc dù nó nhẹ hơn nhiều so với việc fork một process, cũng có thể sử dụng quá nhiều tài nguyên phụ thuộc theo như cầu của bạn. Trong trường hợp đó, theo như docs gợi ý rằng ta nên tạo một dãy worker (pool of workers). Bạn nên tham khảo các cách triển khai pool chuẩn hoặc sử dụng các gói NPM thay vì tự tạo cách triển khai pool của riêng mình.</p>
+<p>Hãy xem qua ví dụ sau. Đầu tiên, ta hãy implement <strong>index.js</strong> nơi ta sẽ tạo một Worker Thread và gửi cho nó vài data.</p>
+<pre><code class="language-js">
+// index.js
+// run with node --experimental-worker index.js on Node.js 10.x
+const { Worker } = require('worker_threads')
+
+function runService(workerData) {
+  return new Promise((resolve, reject) =&gt; {
+    const worker = new Worker('./service.js', { workerData });
+    worker.on('message', resolve);
+    worker.on('error', reject);
+    worker.on('exit', (code) =&gt; {
+      if (code !== 0)
+        reject(new Error(`Worker stopped with exit code ${code}`));
+    })
+  })
+}
+
+async function run() {
+  const result = await runService('world')
+  console.log(result);
+}
+
+run().catch(err =&gt; console.error(err))
+
+</code></pre>
+<p>Theo như ta thấy rất dễ dàng để truyền tham số tên file và data mà ta muốn Worker xử lý. Hãy nhớ rằng data truyền qua sẽ được <em>clone</em> và không chia sẻ vùng nhớ. Sau đó, ta sẽ đợi Worker Thread gửi message đến bằng cách lắng nghe sự kiện &quot;message&quot;.</p>
+<p>Bây giờ, ta cần phải implement file <strong>service.js</strong></p>
+<pre><code class="language-js">const { workerData, parentPort } = require('worker_threads')
+
+// You can do any heavy stuff here, in a synchronous way
+// without blocking the &quot;main thread&quot;
+parentPort.postMessage({ hello: workerData })
+</code></pre>
+<p>Ở đây ta cần 2 thứ: <em>workerData</em> mà main app gửi tới, và một cách để gửi trả lại thông tin cho main app. Điều này được thực hiện với <em>parentPort</em> mà biến này có một phương thức tên là <em>postMessage</em> nơi ta sẽ truyền kết quả của xử lý.</p>
+<p>Đây chỉ là một ví dụ đơn giản, nhưng ta có thể tạo những thứ phức tạp hơn. Ví dụ, ta có thể gửi nhiều message từ Worker Thread mà cho biết trạng thái thực thi nếu ta muốn cung cấp feedback. Hoặc nếu ta muốn gửi một phần kết quả. Ví dụ như giả sử ta xử lý hàng ngàn hình ảnh, có thể ta muốn gửi một message khi mỗi hình ảnh đã được xử lý mà không phải đợi xử lý xong hết tất cả.</p>
+<p>Để chạy ví dụ trên, nhớ rằng phải dùng flag <em>experimental-worker</em> nếu đang ở Nodejs v10.5.0 trở lên:</p>
+<pre><code class="language-sh">$ node --experimental-worker index.js
+</code></pre>
+<p>Xem thêm về <a href="https://nodejs.org/api/worker_threads.html"><strong>worker thread</strong></a> ở trang chủ để biết thêm chi tiết.</p>
+<h3 id="9ktlun">9. Kết luận</h3>
+<p>Worker Thread là một module hứa hẹn để xử lý các tác vụ nặng CPU trong Nodejs app. Nó giống như thread nhưng lại không chia sẻ vùng nhớ và do đó sẽ không gây nên race condition. Mặc dù module này vẫn đang trong giai đoạn thử nghiệm những việc biết sơ qua nó cũng là một điều tốt. Hiện tại ta có thể vẫn sử dụng giải pháp background process và trong tương lai sau khi Worker Thread được hoàn thiện và trưởng thành, ta vẫn sẽ có thể dễ dàng chuyên đổi.</p>
+<br/>
+<br/>
+<div style="padding-left: 500px">
+<p>Tham khảo</p>
+<p><a href="https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10">Node.js multithreading: What are Worker Threads and why do they matter?</a></p>
+<p><a href="https://www.netguru.com/blog/node.js-is-going-multithread-the-future-of-javasripts-backend-framework">Node.js is Going Multithread: The Future of JavaSript’s Backend Framework</a></p>  
+<p ><a href="https://nodejs.org/api/worker_threads.html">Worker Threads | Node.js v11.14.0 Documentation</a></p>
+</div>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/multhreading-trong-nodejs/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Multithreading%20trong%20Nodejs">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/multhreading-trong-nodejs/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/multhreading-trong-nodejs/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

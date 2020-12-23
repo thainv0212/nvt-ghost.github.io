@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Hướng dẫn vượt qua phỏng vấn về Javascript | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Tìm hiểu một vài chủ đề hay được dùng để interview mà bạn cần đặc biệt quan tâm nếu muốn trở thành một Javascript Developer." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Tìm hiểu một vài chủ đề hay được dùng để interview mà bạn cần đặc biệt quan tâm nếu muốn trở thành một Javascript Developer." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hướng dẫn vượt qua phỏng vấn về Javascript" />
+    <meta property="og:description" content="Tìm hiểu một vài chủ đề hay được dùng để interview mà bạn cần đặc biệt quan tâm nếu muốn trở thành một Javascript Developer." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/huong-dan-vuot-qua-phong-van-ve-javascript/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1bdrPDGqMj8r0c10n-BG2hBvi41a6Z7Js&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-03-19T02:08:16.000Z" />
+    <meta property="article:modified_time" content="2018-03-19T02:08:16.000Z" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="interview" />
+    <meta property="article:tag" content="questions" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta property="article:author" content="https://www.facebook.com/hikaru.nguyenminh" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hướng dẫn vượt qua phỏng vấn về Javascript" />
+    <meta name="twitter:description" content="Tìm hiểu một vài chủ đề hay được dùng để interview mà bạn cần đặc biệt quan tâm nếu muốn trở thành một Javascript Developer." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/huong-dan-vuot-qua-phong-van-ve-javascript/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1bdrPDGqMj8r0c10n-BG2hBvi41a6Z7Js&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.M.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript, interview, questions" />
+    <meta property="og:image:width" content="2880" />
+    <meta property="og:image:height" content="1620" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.M.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdkxreUhBTFpEaHc&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quangnm/",
+        "sameAs": [
+            "https://www.facebook.com/hikaru.nguyenminh"
+        ]
+    },
+    "headline": "Hướng dẫn vượt qua phỏng vấn về Javascript",
+    "url": "https://blog.vietnamlab.vn/huong-dan-vuot-qua-phong-van-ve-javascript/",
+    "datePublished": "2018-03-19T02:08:16.000Z",
+    "dateModified": "2018-03-19T02:08:16.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1bdrPDGqMj8r0c10n-BG2hBvi41a6Z7Js&export=download",
+        "width": 2880,
+        "height": 1620
+    },
+    "keywords": "javascript, interview, questions",
+    "description": "Javascript chưa bao giờ là một ngôn ngữ dễ hiểu. Đặc biệt trong phỏng vấn, các\ncâu hỏi về Javascript có nhiều vô số, và có thể có nhiều bẫy  được đặt trong các\ncâu hỏi đó. Vì thế, để có thể tự tin vượt qua các cuộc phỏng vấn về Javascript,\ncó lẽ điều quan trọng nhất đối với một Developer là phải hiểu rõ cơ chế hoạt\nđộng của JS, từ đó có thể trả lời được các câu hỏi phỏng vấn sau này.\n\nCó thể bạn đã quen làm việc với các Framework JS nổi tiếng ( React JS, Jquery,\nAngular, ...). Tuy nhiên, hiểu rõ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-javascript tag-interview tag-questions nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-javascript tag-interview tag-questions js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Hướng dẫn vượt qua phỏng vấn về Javascript</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-03-19">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 19 March 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/javascript/index.html">javascript</a>, <a href="../tag/interview/index.html">interview</a>, <a href="../tag/questions/index.html">questions</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1bdrPDGqMj8r0c10n-BG2hBvi41a6Z7Js&amp;export&#x3D;download" alt="Hướng dẫn vượt qua phỏng vấn về Javascript">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/huong-dan-vuot-qua-phong-van-ve-javascript/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20v%C6%B0%E1%BB%A3t%20qua%20ph%E1%BB%8Fng%20v%E1%BA%A5n%20v%E1%BB%81%20Javascript">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Javascript chưa bao giờ là một ngôn ngữ dễ hiểu. Đặc biệt trong phỏng vấn, các câu hỏi về Javascript có nhiều vô số, và có thể có nhiều <em>bẫy</em> được đặt trong các câu hỏi đó. Vì thế, để có thể tự tin vượt qua các cuộc phỏng vấn về Javascript, có lẽ điều quan trọng nhất đối với một Developer là phải hiểu rõ cơ chế hoạt động của JS, từ đó có thể trả lời được các câu hỏi phỏng vấn sau này.</p>
+<p>Có thể bạn đã quen làm việc với các Framework JS nổi tiếng ( React JS, Jquery, Angular, ...). Tuy nhiên, hiểu rõ về Javascript thuần túy chưa bao giờ là dư thừa cả. Hơn nữa, việc hiểu rõ về JS thuần sẽ giúp chúng ta khá nhiều trong việc đọc các code trong các library sẵn có, từ đó có thể hiểu sâu thêm về cơ chế hoạt động của nó.</p>
+<p>Giả sử bạn có một câu hỏi như sau. Theo bạn, kết quả của đáp án trên là <strong>true</strong> hay <strong>false</strong><br>
+(Lời giải sẽ được thông báo ở cuối bài viết)</p>
+<pre><code>console.log(2.0 == “2” == new Boolean(true) == “1”)
+</code></pre>
+<h3 id="hiuvjsfunctions">Hiểu về JS Functions</h3>
+<ul>
+<li>Trong JS, function là thứ cơ bản nhất, và cũng là thứ thường gặp nhất trong JS. Trong JS, có thể nói chỉ có 2 thuộc tính chính là <em><strong>variable</strong></em> và <em><strong>function</strong></em>. Khác với các ngôn ngữ khác, function trong JS có thể được được xem như một biến, và có thể truyền vào trong 1 function khác.</li>
+<li>Xét 2 ví dụ sau, theo bạn kết quả có giống nhau:</li>
+</ul>
+<pre><code>console.log(square(5));
+/*Code do something*/
+function square(n) { return n * n; }
+</code></pre>
+<pre><code>console.log(square(5));
+ 
+var square = function(n) { 
+  return n * n; 
+}
+</code></pre>
+<ul>
+<li>Thoạt nhìn thì chúng ta nghĩ 2 ví dụ cho kết quả như nhau là <code>25</code>. Tuy nhiên nếu xét kỹ, thì ví dụ 2 sẽ không chạy được (Xem code chạy tại <a href="https://runkit.com/amethystos/functionerror">đây</a>). Lý do là bởi khi khi khai báo 1 function dưới dạng variable, ta không thể truy cập vào function đó khi mà JS chưa execute dòng lệnh định nghĩa cho function đó.</li>
+</ul>
+<pre><code>TypeError: square is not a function
+</code></pre>
+<h3 id="hiuvcchmbindapplyvcall">Hiểu về các hàm bind, apply, và call</h3>
+<ul>
+<li>
+<p>3 function này là 3 function khá phổ biến trong tất các thư viện. Có thể tóm gọn lại như sau</p>
+<ul>
+<li><code>.bind()</code>: Sử dụng khi ta muốn hàm đó khi được gọi phía sau sẽ sử dụng các giá trị mà ta đưa vào.</li>
+<li><code>call()</code> hay <code>.apply()</code>: Sử dụng khi ta muốn hàm thực thi ngay lập tức với giá trị mới được đưa vào.</li>
+</ul>
+</li>
+<li>
+<p>Xét ví dụ dưới đây. Giả sử ta có một hàm đơn giản.</p>
+</li>
+</ul>
+<pre><code>var mathLib = {
+    pi: 3.14,
+    area: function(r) {
+        return this.pi * r * r;
+    },
+    circumference: function(r) {
+        return 2 * this.pi * r;
+    }
+};
+</code></pre>
+<ul>
+<li>Trong trường hợp chúng ta muốn gọi hàm <code>area</code> với giá trị của số pi gồm 5 số sau dấu phẩy, thay vì phải đi sửa trong hàm chính, ta có thể thực hiện như sau với hàm <code>call()</code>:</li>
+</ul>
+<pre><code>mathLib.area.call({pi: 3.14159}, 2); //Output: 12.56636
+</code></pre>
+<ul>
+<li>Có thể thấy, hàm <code>call()</code> nhận vào 2 giá trị đầu vàoL
+<ul>
+<li>Context: là object sẽ thay thế cho giá trị của <code>this</code> trong function mà ta muốn thay đổi.</li>
+<li>Function Arguments: giá trị đầu vào của function.</li>
+</ul>
+</li>
+<li>Hàm <code>apply()</code> có chức năng tương tự, ngoại trừ việc các Funtion Argument được đưa vào dưới dạng là 1 list (array)</li>
+</ul>
+<pre><code>mathLib.area.apply({pi: 3.14159}, [2]); //Output: 12.56636
+</code></pre>
+<ul>
+<li>Hàm <code>bind()</code> sẽ gán vào một giá trị mới cho phần tử ở trong function. Tuy nhiên, function sẽ không được thực thi ngay lập tức như <code>call</code> hay <code>apply</code></li>
+<li>Vậy lợi ích của hàm <code>bind</code> là gì? Nó cho phép ta inject một giá trị mới vào trong function, từ đó tạo thành 1 function mới có giá trị trả về như mong muốn. Điều này có nghĩa là biến <em><strong>this</strong></em> trong function sẽ nhận giá trị do người dùng đưa vào, điều này rất thuận tiện khi làm việc với event trong JS.</li>
+</ul>
+<h3 id="hiuvscopetrongjavascript">Hiểu về scope trong Javascript</h3>
+<ul>
+<li>
+<p>Nói dễ hiểu thì nó là phạm vi ảnh hưởng của 1 biến trong Javascript. Có thể chia gồm 3 loại</p>
+</li>
+<li>
+<p>Global scope.</p>
+</li>
+<li>
+<p>Function scope.</p>
+</li>
+<li>
+<p>Block scope (Được giới thiệu trong ES6)</p>
+</li>
+<li>
+<p>Global scope có thể dễ dàng thấy khi ta định nghĩa 1 biến toàn cục.</p>
+</li>
+</ul>
+<pre><code>x = 10;
+function Foo() {
+  console.log(x); // Prints 10
+}
+Foo()
+</code></pre>
+<ul>
+<li>Function scope có thể thấy rõ nhất khi ta định nghĩa 1 biến trong 1 function.</li>
+</ul>
+<pre><code>pi = 3.14;
+function circumference(radius) {    
+     pi = 3.14159;
+     console.log(2 * pi * radius); // KQ: &quot;12.56636&quot;
+}
+circumference(2);
+</code></pre>
+<ul>
+<li>ES6 giới thiệu khái niệm block scope nhằm giới hạn phạm vi của một biến trong phạm vi cặp dấu ngoặc đơn.</li>
+</ul>
+<pre><code>var a = 10;
+
+function Foo() {
+  if (true) {
+    let a = 4;
+  }
+
+  alert(a); // alerts '10' because the 'let' keyword
+}
+Foo();
+</code></pre>
+<ul>
+<li>Hàm trên sẽ đưa ra giá trị là 4 bởi vì từ khóa <code>let</code> đã giới hạn giá trị của biến a trong phạm vi dấu ngoặc đơn.</li>
+<li>Ngoài ra, ta còn có thể gặp một loại scope nữa khi sử dụng <em>closures</em> trong Javascript. Closures có thể hiểu đơn giản là một function mà giá trị trả về của nó là một function khác.</li>
+</ul>
+<pre><code>function generator(input) {
+      var index = 0;
+      return {
+           next: function() {
+                   if (index &lt; input.length) {
+                        index += 1;
+                        return input[index - 1];
+                   }
+                   return &quot;&quot;;
+           } 
+      }
+}
+------------------------
+var mygenerator = generator(&quot;boomerang&quot;);
+mygenerator.next(); // returns &quot;b&quot;
+mygenerator.next() // returns &quot;o&quot;
+mygenerator = generator(&quot;toon&quot;);
+mygenerator.next(); // returns &quot;t&quot;
+</code></pre>
+<ul>
+<li>Ở đây thì scope của JS đóng vai trò quan trọng. Giá trị của biến <strong>index</strong> được giữ qua các lần gọi hàm. Biến cục bộ trong function có thể truy cập vào biến được định nghĩa ở trong function cha của nó.</li>
+</ul>
+<h3 id="hiurvtkhathis">Hiểu rõ về từ khóa &quot;this&quot;</h3>
+<ul>
+<li>Trong JS, ta làm việc với các function và object.Nếu ta mở trình duyệt lên, thì trong bối cảnh global đó, this đang được hiểu chính là window object.</li>
+</ul>
+<pre><code>this === window; //True
+</code></pre>
+<ul>
+<li>Khi mà scope và bối cảnh thay đổi, thì giá trị của <strong>this</strong> cũng sẽ thay đổi tương ứng với nó. Trường hợp dưới đây thì <strong>this</strong> đang đặt trong bối cảnh local.</li>
+</ul>
+<pre><code>function Foo(){
+  console.log(this.a);
+}
+var food = {a: &quot;Magical this&quot;};
+Foo.call(food); // food is this
+</code></pre>
+<ul>
+<li>Cuối cùng là <strong>this</strong> ở trong object scope.</li>
+</ul>
+<pre><code>var person = {
+    name: &quot;Stranger&quot;,
+    age: 24,
+    get identity() {
+        return {who: this.name, howOld: this.age};
+    }
+}
+-------------------
+person.identity; // returns {who: &quot;Stranger&quot;, howOld: 24}
+</code></pre>
+<ul>
+<li>Có thể thấy, <strong>this</strong> sẽ có những hành vi khác nhau tùy thuộc vào bối cảnh mà nó đang thuộc về. Do đó hãy cố gắng nắm rõ về nó.</li>
+</ul>
+<h3 id="hiurvobjectobjectfreezeobjectseal">Hiểu rõ về Object (Object.freeze, Object.seal)</h3>
+<ul>
+<li>Ai trong chúng ta cũng biết Object dưới dạng đơn giản nhất như thế này:</li>
+</ul>
+<pre><code>var marks = {physics: 98, maths:95, chemistry: 91};
+</code></pre>
+<ul>
+<li>Về cơ bản, Object là một map lưu trữ một cặp key-value. Tuy nhiên trong Javascript, value của Object có thể lưu trữ mọi thứ. Điều đó có nghĩa là bạn có thể lưu một list, một Object khác, một function dưới dạng value của Object.</li>
+<li>Ta có thể khai báo Object theo 2 kiểu dưới đây:</li>
+</ul>
+<pre><code>var marks = {};
+var marks = new Object();
+</code></pre>
+<ul>
+<li>Object có thể dễ dàng convert thành JSON và ngược lại với 2 hàm là <em><strong>stringify</strong></em> và <em><strong>parse</strong></em></li>
+</ul>
+<pre><code>// returns &quot;{&quot;physics&quot;:98,&quot;maths&quot;:95,&quot;chemistry&quot;:91}&quot;
+JSON.stringify(marks);
+// Get object from string
+JSON.parse('{&quot;physics&quot;:98,&quot;maths&quot;:95,&quot;chemistry&quot;:91}');
+</code></pre>
+<ul>
+<li>Bạn muốn duyệt qua tất cả phần tử trong Object, hãy sử dụng <em><strong>Object.keys</strong></em></li>
+</ul>
+<pre><code>var highScore = 0; 
+for (i of Object.keys(marks)) {
+   if (marks[i] &gt; highScore)
+      highScore = marks[i];
+}
+</code></pre>
+<ul>
+<li>
+<p>Bên cạnh đó, <em><strong>Object.values</strong></em> sẽ trả về 1 list các giá trị của Object.</p>
+</li>
+<li>
+<p>Ngoài ra, chúng ta còn có các function khác quan trọng trong Object, cụ thể là:</p>
+<ul>
+<li><em><strong>Object.prototype(object)</strong></em></li>
+<li><em><strong>Object.freeze(function)</strong></em></li>
+<li><em><strong>Object.seal(function)</strong></em></li>
+</ul>
+</li>
+<li>
+<p><em><strong>Object.prototype</strong></em> cung cấp cho chúng ta một vài function khá quan trọng và hữu dụng khi làm việc với Object, cụ thể là</p>
+<ul>
+<li><em><strong>Object.prototype.hasOwnProperty</strong></em>: Hữu dụng trong việc kiểm tra xem một thuộc tính/key có tồn tại trong object hay không</li>
+<li><em><strong>Object.prototype.instanceof</strong></em>: Kiểm tra xem type của Object.</li>
+</ul>
+</li>
+<li>
+<p>Tiếp theo chúng ta sẽ nói đến 2 function còn lại. <em><strong>Object.freeze</strong></em> cho phép ta &quot;đóng băng&quot; một object, khiến cho các thuộc tính của nó không thể nào được thay đổi.</p>
+</li>
+</ul>
+<pre><code>var marks = {physics: 98, maths:95, chemistry: 91};
+finalizedMarks = Object.freeze(marks);
+finalizedMarks[&quot;physics&quot;] = 86; //  Báo lỗi khi ở strict mode
+console.log(marks); // {physics: 98, maths: 95, chemistry: 91}
+</code></pre>
+<ul>
+<li>Có thể thấy, chúng ta đang cố gắng thay đổi giá trị của <em><strong>physics</strong></em> trong object đã bị freeze, nhưng JS không cho phép ta thay đổi giá trị đó. Ngoài ra chúng ta có thể check xem một object có đang bị freeze hay không bằng cách</li>
+</ul>
+<pre><code>Object.isFrozen(finalizedMarks); // returns true
+</code></pre>
+<ul>
+<li><em><strong>Object.seal</strong></em> thì có đôi chút khác biệt so với <em><strong>freeze</strong></em>. Nó cho phép ta thay đổi giá trị của thuộc tính hiện có trong object, nhưng không cho phép thêm hay xóa thuộc tính.</li>
+</ul>
+<pre><code>var marks = {physics: 98, maths:95, chemistry: 91};
+Object.seal(marks);
+delete marks.chemistry; // Trả về fail vì không thể thực thi
+marks.physics = 95; // Chạy bình thường!
+marks.greek = 86; // Không chạy!!!!
+</code></pre>
+<h3 id="hiuvcallbackpromise">Hiểu về Callback, Promise</h3>
+<ul>
+<li>Callback là function sẽ được thực thi khi mà một hành động I/O được thực thi. Javascript xử lý I/O bất đồng bộ, do đó ta có thể đưa một hàm callback để xử lý giá trị trả về sau khi I/O hoàn thành. Ví dụ dễ dàng nhìn thấy nhất là xử lý gọi AJAX, ví dụ</li>
+</ul>
+<pre><code>function reqListener () {
+  console.log(this.responseText);
+}
+
+var req = new XMLHttpRequest();
+req.addEventListener(&quot;load&quot;, reqListener);
+req.open(&quot;GET&quot;, &quot;http://www.example.org/example.txt&quot;);
+req.send();
+</code></pre>
+<ul>
+<li>
+<p>Ở đây, <strong>reqListener</strong> chính là hàm callback sẽ được thực thi khi request GET hoàn thành.</p>
+</li>
+<li>
+<p>Promise là một wrapper cho callback giúp chúng ta có thể viết code một cách dễ nhìn hơn. Về Promise. phạm vi của nó khá lớn, bạn có thể đọc bài blog dưới đây để hiểu rõ hơn về nó.(Link bên dưới)</p>
+</li>
+</ul>
+<p><a href="https://vietnamlab.vn/blog/2016/06/18/xu-cc-89-ly-bat-dong-do-cc-a3-trong-javascript-voi-promise-va-generator/">Xử lý bất đồ bộ trong JS với Promise</a></p>
+<h3 id="hiuvregularexpression">Hiểu về Regular Expression</h3>
+<ul>
+<li>Regular Expression (Viết tắt là RegEx) xuất hiện khá nhiều và khá hữu dụng trong công việc thực tế. Ngoài ra, RegEx cũng là một đề tài khá được ưa thích để đem ra đặt câu hỏi khi phỏng vấn. Do đó, nắm rõ về RegEx cơ bản cũng là một điều tiên quyết.</li>
+<li>Chúng ta có thể tạo một RegEx theo cú pháp dưới đây</li>
+</ul>
+<pre><code>var re = /ar/;
+var re = new RegExp('ar'); // This too works
+</code></pre>
+<ul>
+<li>RegEx tạo ở trên có chức năng kiểm tra trùng khớp string. Một khi đã tạo xong, ta có thể test bằng cách dùng hàm <code>exec</code></li>
+</ul>
+<pre><code>re.exec(&quot;car&quot;); // returns [&quot;ar&quot;, index: 1, input: &quot;car&quot;]
+re.exec(&quot;cab&quot;); // returns null
+</code></pre>
+<ul>
+<li>
+<p>Dưới đây là một vài nhóm ký tự đặc biệt giúp bạn viết một RegEx phức tạp.</p>
+<ul>
+<li>Characters: <code>\w</code> - Chữ số Alphabet; <code>\d</code> - Số thập phân; <code>\D</code> - Không phải số thập phân.</li>
+<li>Characters class: <code>[x-y]</code> - Trong khoảng từ x tới y; <code>[^x]</code> - Not x</li>
+<li>Quantifiers: <code>+, ?, * </code> - lazy, greedy matcher.</li>
+<li>Boundaries: <code>^</code> -Beginning of input; <code>$</code> - end of input.</li>
+</ul>
+</li>
+<li>
+<p>Chúng ta có thể xem các ví dụ dưới đây để hiểu rõ hơn về RegEx.</p>
+</li>
+</ul>
+<pre><code>/* Character class */
+var re1 = /[AEIOU]/;
+re1.exec(&quot;Oval&quot;); // returns [&quot;O&quot;, index: 0, input: &quot;Oval&quot;]
+re1.exec(&quot;2456&quot;); // null
+var re2 = /[1-9]/;
+re2.exec('mp4'); // returns [&quot;4&quot;, index: 2, input: &quot;mp4&quot;]
+/* Characters */
+var re4 = /\d\D\w/;
+re4.exec('1232W2sdf'); // returns [&quot;2W2&quot;, index: 3, input: &quot;1232W2sdf&quot;]
+re4.exec('W3q'); // returns null
+/* Boundaries */
+var re5 = /^\d\D\w/;
+re5.exec('2W34'); // returns [&quot;2W3&quot;, index: 0, input: &quot;2W34&quot;]
+re5.exec('W34567'); // returns null
+var re6 = /^[0-9]{5}-[0-9]{5}-[0-9]{5}$/;
+re6.exec('23451-45242-99078'); // returns [&quot;23451-45242-99078&quot;, index: 0, input: &quot;23451-45242-99078&quot;]
+re6.exec('23451-abcd-efgh-ijkl'); // returns null
+/* Quantifiers */
+var re7 = /\d+\D+$/;
+re7.exec('2abcd'); // returns [&quot;2abcd&quot;, index: 0, input: &quot;2abcd&quot;]
+re7.exec('23'); // returns null
+re7.exec('2abcd3'); // returns null
+var re8 = /&lt;([\w]+).*&gt;(.*?)&lt;\/\1&gt;/;
+re8.exec('&lt;p&gt;Hello JS developer&lt;/p&gt;'); //returns  [&quot;&lt;p&gt;Hello JS developer&lt;/p&gt;&quot;, &quot;p&quot;, &quot;Hello JS developer&quot;, index: 0, input: &quot;&lt;p&gt;Hello JS developer&lt;/p&gt;&quot;]
+</code></pre>
+<ul>
+<li>Ngoài ra, ta có thể dùng các hàm như <code>match</code>, <code>search</code> hoặc <code>replace</code> để tìm 1 string nằm trong 1 string khác sử dụng RegEx. Tuy nhiên những hàm này phải sử dụng trên chính string cần tìm.</li>
+</ul>
+<pre><code>&quot;2345-678r9&quot;.match(/[a-z A-Z]/); // returns [&quot;r&quot;, index: 8, input: &quot;2345-678r9&quot;]
+&quot;2345-678r9&quot;.replace(/[a-z A-Z]/, &quot;&quot;); // returns 2345-6789
+</code></pre>
+<ul>
+<li>Tham khảo thêm RegEx
+<ul>
+<li><a href="http://www.rexegg.com/regex-quickstart.html">RegEx Cheat Sheet</a></li>
+<li><a href="https://regex101.com/">RegEx Testing</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="tngkt">Tổng kết</h2>
+<ul>
+<li>Có thể thấy, JS là một ngôn ngữ khá phức tạp. Do đó, các câu hỏi phỏng vấn về JS sẽ có khá nhiều đề tài để hỏi và các câu hỏi sẽ gây ít nhiều khó khăn cho bạn nếu bạn không nắm rõ về cơ chế hoạt động của JS</li>
+<li>Trên đây chỉ là một vài chủ đề đơn giản. Ngoài ra còn nhiều vấn đề phức tạp hơn về JS sẽ được đề cập vào một bài viết khác trong thời gian tới. Hẹn các bạn lần sau.</li>
+<li>Về kết quả đề bài phía trên, kết quả là <em><strong>true</strong></em>. Có thể giải thích đơn giản như sau:
+<ul>
+<li><code>2.0 == &quot;2&quot;</code>: kết quả là <strong>true</strong>. Giá trị này sẽ được đem đi so sánh phía dưới.</li>
+<li><code>true == new Boolean(true)</code>: kết quả vẫn là <strong>true</strong></li>
+<li><code>true == &quot;1&quot;</code>: Trong JS, giá trị <strong>1</strong> tương đương với kết quả <strong>true</strong>. Do ở đây là dấu <strong>==</strong> nên kết quả cuối cùng sẽ là <strong>true</strong>.</li>
+</ul>
+</li>
+</ul>
+<pre><code>console.log((2.0 == “2”) == new Boolean(true) == “1”)
+--------------
+console.log((true == new Boolean(true)) == “1”))
+---------------
+console.log(true == &quot;1&quot;)
+</code></pre>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/dev-bits/a-perfect-guide-for-cracking-a-javascript-interview-a-developers-perspective-23a5c0fa4d0d">https://medium.com/dev-bits/a-perfect-guide-for-cracking-a-javascript-interview-a-developers-perspective-23a5c0fa4d0d</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/huong-dan-vuot-qua-phong-van-ve-javascript/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20v%C6%B0%E1%BB%A3t%20qua%20ph%E1%BB%8Fng%20v%E1%BA%A5n%20v%E1%BB%81%20Javascript">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/huong-dan-vuot-qua-phong-van-ve-javascript/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/huong-dan-vuot-qua-phong-van-ve-javascript/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

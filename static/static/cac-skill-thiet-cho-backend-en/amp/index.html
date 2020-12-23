@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018" />
+    <meta property="og:description" content="Tôi đọc một bài viết chi tiết về lộ trình cho Backend Engineer Modern Backend Developer in 2018. Tuy nhiên tôi cảm thấy có một số khúc mắc đối với lộ trình đã được trình bày trong bài viết.  Cần có bao nhiêu kỹ năng trong bài viết trong lĩnh" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cac-skill-thiet-cho-backend-en/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1jXMp6Bt5TcdGkWAzN5qgnUYGZ1X90LjN&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T09:56:37.000Z" />
+    <meta property="article:modified_time" content="2018-06-29T09:56:37.000Z" />
+    <meta property="article:tag" content="backend" />
+    <meta property="article:tag" content="2018" />
+    <meta property="article:tag" content="backend2018" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018" />
+    <meta name="twitter:description" content="Tôi đọc một bài viết chi tiết về lộ trình cho Backend Engineer Modern Backend Developer in 2018. Tuy nhiên tôi cảm thấy có một số khúc mắc đối với lộ trình đã được trình bày trong bài viết.  Cần có bao nhiêu kỹ năng trong bài viết trong lĩnh" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cac-skill-thiet-cho-backend-en/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1jXMp6Bt5TcdGkWAzN5qgnUYGZ1X90LjN&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="backend, 2018, backend2018" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018",
+    "url": "https://blog.vietnamlab.vn/cac-skill-thiet-cho-backend-en/",
+    "datePublished": "2018-06-29T09:56:37.000Z",
+    "dateModified": "2018-06-29T09:56:37.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1jXMp6Bt5TcdGkWAzN5qgnUYGZ1X90LjN&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "backend, 2018, backend2018",
+    "description": "Tôi đọc một bài viết chi tiết về lộ trình cho Backend Engineer Modern Backend\nDeveloper in 2018\n[https://medium.com/tech-tajawal/modern-backend-developer-in-2018-6b3f7b5f8b9].\nTuy nhiên tôi cảm thấy có một số khúc mắc đối với lộ trình đã được trình bày\ntrong bài viết.\n\n * Cần có bao nhiêu kỹ năng trong bài viết trong lĩnh vực backend hiện nay\n * Các kỹ năng quan trọng nào chưa được đề cập trong bài viết trong trang web\n   trên\n\nTrong bài viết này tôi viết ra một chút về ý kiến riêng của mình về ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1jXMp6Bt5TcdGkWAzN5qgnUYGZ1X90LjN&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Tôi đọc một bài viết chi tiết về lộ trình cho Backend Engineer <a href="https://medium.com/tech-tajawal/modern-backend-developer-in-2018-6b3f7b5f8b9">Modern Backend Developer in 2018</a>. Tuy nhiên tôi cảm thấy có một số khúc mắc đối với lộ trình đã được trình bày trong bài viết.</p>
+<ul>
+<li>Cần có bao nhiêu kỹ năng trong bài viết trong lĩnh vực backend hiện nay</li>
+<li>Các kỹ năng quan trọng nào chưa được đề cập trong bài viết trong trang web trên</li>
+</ul>
+<p>Trong bài viết này tôi viết ra một chút về ý kiến riêng của mình về 2 khúc mắc trên.<br />
+Tôi không nghĩ mình là một kỹ sư am hiểu về các kỹ thuật tiên tiến nhưng là người làm nhiều dự án web nhất cũng là người có nhiều năm kinh nghiệm làm web, game server nhất tại Vietnamlab, gần đây ít nhiều tôi vẫn theo dõi những xu hướng của Backend. Tôi rất hạnh phúc nếu ai đó có thể tham khảo được từ bài viết của tôi.</p>
+<h3 id="ngnnglptrnh">Ngôn ngữ lập trình</h3>
+<p>Có nhiều ngôn ngữ được kể ra trong bài viết của của họ, tôi chỉ có một chút điều chỉnh nhỏ về danh sách các ngôn ngữ lập trình:</p>
+<ul>
+<li><strong>Elixir</strong></li>
+<li><strong>Scala</strong></li>
+<li><strong>Java</strong></li>
+<li><strong>.NET (C# and VB.NET)</strong></li>
+<li><strong>Python</strong></li>
+<li><strong>Ruby</strong></li>
+<li><strong>PHP</strong></li>
+<li><strong>TypeScript</strong></li>
+<li><strong>Golang</strong></li>
+<li><strong>Rust</strong></li>
+</ul>
+<p>Đối với mỗi ngôn ngữ trên tôi có khoảng một vài tháng kinh nghiệm trở lên sử dụng trong công việc. (Ngoài ra tôi cũng có môt chút kinh nghiệm về <strong>Kotlin</strong>).</p>
+<p>Một số ngôn ngữ có trường hợp sử dụng tương đối giống nhau, những ngôn ngữ khác thì không, nhưng theo ý kiến cá nhân của tôi sẽ gồm 3 nhóm sau (nhiều trang web khác nhau họ sẽ chia làm 2 nhóm):</p>
+<ul>
+<li>Ngôn ngữ kịch bản (script không cần compile) có kiểu động (Python/Ruby/PHP/...)</li>
+<li>Ngôn ngữ compile có kiểu tĩnh (Golang/Rust/Java/..)</li>
+<li>Ngôn ngữ function programing có kiểu tĩnh (Python/Golang/Scala)</li>
+</ul>
+<p>Tôi tin rằng nó sẽ là đủ để trải nghiệm một hoặc nhiều (ví dụ, vv) cho mỗi loại trong ba loại trên.</p>
+<p>Ngược lại, Nếu "Không có kinh nghiệm về ngôn ngữ kịch bản" hoặc "Không có kinh nghiệm về ngôn ngữ biên dịch", hay là "Không muốn làm ngôn ngữ đó". Tức là sự cân bằng về hiểu biết ngôn ngữ khá là không tốt. Cũng với việc cần phải lĩnh hội đa dạng các kỹ thuật mới khác nhau sẽ là gánh nặng về ngôn ngữ. Vì vậy nếu bạn đang có thái độ "không học đúng cách" hoặc "không quá chú tâm" về ngôn ngữ sẽ bị thiệt thòi trong việc tham gia các dự án hấp dẫn đòi hỏi ngôn ngữ đặc thù riêng.</p>
+<p>Nhân tiện <code>.NET(C#/VB.NET)</code>, bởi vì nó là một ngôn ngữ không được sử dụng nhiều cho bởi các kỹ sư backend trong lập trình web, nên bỏ qua  cũng không sao cả. (Tôi cũng quan tâm đến việc phát triển ứng dụng và tôi nghĩ rằng nó dành cho những người muốn sử dụng Xamarin hoặc Unity)</p>
+<h3 id="packagemanager">Package manager</h3>
+<p>Tại thời điểm này, có khá nhiều ngôn ngữ ứng dụng hình thức quản lý package theo kiểu kết hợp <code>◯◯File</code> và <code>◯◯File.lock</code>.</p>
+<p>Đặc biệt đối với <code>npm</code>, do tầm quan trọng trong của <code>Javascript(TypeScript)</code> (dù là server site hay fontend hay phát triển ứng dụng đểu có thể sử được). Nếu mà nắm bắt được <code>npm</code> sẽ rất bổ ích. Nhưng ai còn chưa có cơ hội sử dùng nó, tôi nghĩ rằng nên bắt đầu tự tìm hiểu nó.</p>
+<p>Có một vài trình quản lý gói của một số ngôn ngữ như <code>sbt</code> của <code>Scala</code> hay <code>grade</code> của <code>Java(Kolin)</code> tôi thấy khá là đơn giản không cần học cũng được. Tuy nhiên có môt số lai khá khó như <code>Pipenv</code> của <code>Python</code> càng ngày càng được mở rộng và khó hơn.</p>
+<h3 id="security">Security</h3>
+<p>Về vấn đề này tôi nghĩ rằng nó không thể hiểu tất cả mọi thứ vì chúng quá sâu, nhưng, ở mức tối thiểu <code>SQL Injection</code>, <code>XSS</code>, <code>CSRF</code> cũng như các biện pháp kỹ thuật chống lại các cuộc tấn công lỗ hổng phải nắm bắt được.</p>
+<ul>
+<li>Không giữ thông tin quan trọng trong văn bản thuần tuý trong cơ sở dữ liệu vv (luôn mã hóa)</li>
+<li>Không tải lên thông tin bí mật cho dịch vụ quản lý nguồn như Github (.env, sử dụng các biến môi trường)</li>
+<li>Trên đám mây (AWS hoặc GCP), hãy kiểm soát truy cập bằng cách sử dụng IAM, v.v.</li>
+<li>Luôn luôn SSL hóa</li>
+</ul>
+<p>Các phương pháp kỹ thuật trên đây cần phải hiểu và thực hiện đầy đủ.</p>
+<p>Tuy nhiên, nếu yêu cầu bảo mật được thực hiện quá nghiêm ngặt, hiệu quả phát triển sẽ kém dần đi (dẫn đến sự ra đi của các kỹ sư). Nên tùy vào mức độ quan trọng để thực hiện thiết lập bảo mật.</p>
+<h3 id="testing">Testing</h3>
+<ul>
+<li><code>Rspec(Ruby)</code></li>
+<li><code>unittest(Python)</code></li>
+<li><code>testing(Golang)</code></li>
+<li><code>ExUnit(Elixir)</code></li>
+<li><code>ScalaTest(Scala)</code></li>
+</ul>
+<p>Cần phải nắm bắt chi tiết, cụ thể về cách sử dụng chuẩn của mỗi Test framework của các ngôn ngữ khác nhau như được mô tả ở trên đang được sử dụng trong dự án càng nhiều càng tốt (ví dụ: <code>setup</code>, <code>teardown</code> phạm vi áp dụng vv). Tuy nhiên, vì bất kỳ Test framework nào về cơ bản đều có các phần tương tự nhau, nếu đã làm quen với một Test framework, có thể dễ dàng hiểu được Test framework của các ngôn ngữ khác.</p>
+<p>Ngoài ra phải hiểu rõ được sự khác nhau giữa <code>Unit test</code> và <code>Integration test</code> . Khái niện <code>DI(Dependency Injection)</code> trong test cũng rất quan trọng. Ngoài ra cũng nên hiểu về <code>Test Double</code>, <code>Mock</code>, <code>Stub</code>.</p>
+<p>Tham khảo: <a href="https://en.wikipedia.org/wiki/Test_double">https://en.wikipedia.org/wiki/Test_double</a></p>
+<p>Hiện tại tôi vần  thực hiện Unit test với các hàm phụ thuộc vào DB hay bộ nhớ ngoài theo 2 cách là phương pháp Mocking và phương pháp sử dụng service bên ngoài đã được dump trên local, và rồi tôi nhận thấy rằng với Docker việc làm giả các Service bên ngoài trên local trở lên đơn giản với chi phí thấp hơn rất nhiều, cùng với nhiều lợi ích đáng kể. (Trường hợp của AWS có 1 Docker Image gọi là localstack cho phép làm giả các loại service khác nhau, các Service CI của CircleCI chẳng hạn đang được làm nên chúng ta có thể thực hiện các unit test trên local giống như trên môi trường CI).</p>
+<p>Nhân tiện, về TDD (Test Driven Development), tôi muốn dùng nó trong dự án thực tế nhưng kinh nghiệm của tôi chỉ mới làm ở 1 buổi thực hành nho nhỏ nên chưa thể nói gì nhiều về nó vì chưa có đủ kinh nghiệm. Nó đòi hỏi các kỹ sư phải có hiểu biết rõ về ngôn ngữ cũng đòi hỏi chi phí khá cao nên hiện tại chưa nhiều công ty thực hiện.</p>
+<h3 id="rdbmshquntrcsdliuquanh">RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ)</h3>
+<p>Ngay cả bây giờ rất nhiều dịch vụ NoSQL đang xuất hiện, cơ sở dữ liệu quan hệ vẫn còn rất quan trọng và tồn tại đến tận bây giờ, đặc biệt là đối với MySQL. Nó là một RDB quan trọng, vì vậy tôi nghĩ rằng bạn cần phải biết về các phương pháp quản lý cơ bản và các lệnh của MySQL.</p>
+<p>Với SQL, Kiến thức tối thiểu cần nắm được</p>
+<ul>
+<li><strong>Cơ bản về DDL (CREATE TABLE)</strong></li>
+<li><strong>Cơ bản về DML (SELECT/INSERT/UPDATE/DELETE)</strong></li>
+<li><strong>Cơ bản về DCL (GRANT)</strong></li>
+</ul>
+<p>Ngoài ra nhưng kiển thức về <code>Character code</code>, <code>index</code>, <code>transaction</code>, <code>deadlock</code>, <code>master / slave</code> cũng cần phải biết.</p>
+<p>Gần đây RDB được quản lý đầy đủ bởi RDS được sử dụng khá nhiều, nhờ vậy mà không cần hiểu cặn kẽ về RDB. Nhưng vẫn nên cần biết về các kỹ thuật RDB để có khả năng xử lý các sự cố khi cần thiết.</p>
+<h3 id="webframework">Web Framework</h3>
+<ul>
+<li><strong>Rails(Ruby)</strong></li>
+<li><strong>Django, Flask(Python)</strong></li>
+<li><strong>Revel(Golang)</strong></li>
+<li><strong>Phoenix(Elixir)</strong></li>
+<li><strong>Finch(Scala)</strong></li>
+<li><strong>Iron(Rust)</strong></li>
+<li><strong>Vert.x(Kotlin)</strong></li>
+</ul>
+<p>Trên đây là Web Framework mà tôi đã sử dụng trong thực tế trong vài năm qua, nhưng không giới hạn ở đây, nếu bạn đã quen thuộc với một vài các Web framework của các ngôn ngữ khác nhau thì dù nào là Web framework nào cũng đẽ dàng sử dụng nhanh chóng.</p>
+<p>Tham khảo để đưa ra lựa chọn framework: <a href="https://www.techempower.com/benchmarks/">https://www.techempower.com/benchmarks/</a></p>
+<p>Phần sau sẽ giới thiệu thêm về các phần khác nữa. <code>NodSQL/Cache</code>, <code>REST API </code>, <code>Auth</code>, <code>Mesenge</code>, <code>SearchEngine</code>, <code>Docker</code>, ... Thôi còn nhiều lắm, cứ chờ phần sau sẽ rõ.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

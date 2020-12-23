@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Series Java-OOP] Classes, Constructors and Inheritance (part 1)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Series Java-OOP] Classes, Constructors and Inheritance (part 1)" />
+    <meta property="og:description" content="OOP? Lập trình hướng đối tượng? Thuật ngữ này cứ lặp đi lặp lại nhiều hơn khi chúng ta đi trên con đường trở thành một lập trình viên. Thầy cô hỏi, phỏng vấn xin việc hỏi, em út cũng hỏi. Bây giờ trả lời thế nào cho sang nhỉ?" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/java-oop-class-constructor-inheritance-p1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1rPlDm460NTl6Tlyb60S2VdapMRWpyMQo&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-11-05T01:17:06.000Z" />
+    <meta property="article:modified_time" content="2019-12-27T01:00:32.000Z" />
+    <meta property="article:tag" content="java" />
+    <meta property="article:tag" content="OOP" />
+    <meta property="article:tag" content="Lập trình hướng đối tượng" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Series Java-OOP] Classes, Constructors and Inheritance (part 1)" />
+    <meta name="twitter:description" content="OOP? Lập trình hướng đối tượng? Thuật ngữ này cứ lặp đi lặp lại nhiều hơn khi chúng ta đi trên con đường trở thành một lập trình viên. Thầy cô hỏi, phỏng vấn xin việc hỏi, em út cũng hỏi. Bây giờ trả lời thế nào cho sang nhỉ?" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/java-oop-class-constructor-inheritance-p1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1rPlDm460NTl6Tlyb60S2VdapMRWpyMQo&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.N" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="java, OOP, Lập trình hướng đối tượng" />
+    <meta property="og:image:width" content="793" />
+    <meta property="og:image:height" content="397" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.N",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1rzgHE6K9K0d6dF9jVVl-rE4D1csQjrn8&export=download",
+            "width": 257,
+            "height": 257
+        },
+        "url": "https://blog.vietnamlab.vn/author/namnt/",
+        "sameAs": []
+    },
+    "headline": "[Series Java-OOP] Classes, Constructors and Inheritance (part 1)",
+    "url": "https://blog.vietnamlab.vn/java-oop-class-constructor-inheritance-p1/",
+    "datePublished": "2019-11-05T01:17:06.000Z",
+    "dateModified": "2019-12-27T01:00:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1rPlDm460NTl6Tlyb60S2VdapMRWpyMQo&export=download",
+        "width": 793,
+        "height": 397
+    },
+    "keywords": "java, OOP, Lập trình hướng đối tượng",
+    "description": "OOP? Lập trình hướng đối tượng? Thuật ngữ này cứ lặp đi lặp lại nhiều hơn khi chúng ta đi trên con đường trở thành một lập trình viên. Thầy cô hỏi, phỏng vấn xin việc hỏi, em út cũng hỏi. Bây giờ trả lời thế nào cho sang nhỉ?",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Series Java-OOP] Classes, Constructors and Inheritance (part 1)</h1>
+                <section class="post-meta">
+                    N.T.N -
+                    <time class="post-date" datetime="2019-11-05">05 Nov 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1rPlDm460NTl6Tlyb60S2VdapMRWpyMQo&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                
+<blockquote>  
+    Có thể nói kiến thức về <b>OOP</b> là vô cùng quan trọng trên con đường học lập trình cũng như để trở thành một lập trình viên.<br />
+    Đây là series đầu tay của mình về OOP được thể hiện bằng ngôn ngữ Java.<br />
+    Hy vọng series này sẽ giúp ích cho các bạn đang học lập trình và có ý định trở thành một lập trình viên
+    </blockquote>
+    <h3>Tóm tắt nội dung </h3>
+    <p>
+        Ở blog này mình sẽ trình bày về thuật ngữ <b>Lập trình hướng đối tượng</b> và các thành phần quan trọng:
+        </p><ul>
+            <li>
+                Đối tượng ở thế giới thật 
+            </li>
+            <li>
+                Đối tượng trong lập trình
+            </li>
+            <li>
+                Class trong Java
+            </li>
+        </ul> 
+    <p></p>
+    <h3> Đối tượng là gì </h3>
+    <p class="a">
+        Đầu tiên, trước khi tìm hiểu về lập trình hướng đối tượng là gì chúng ta cùng tìm hiểu đối tượng là gì. Điều này vô cùng giúp ích cho việc hiểu rõ về thuật ngữ và các công nghệ hướng đối tượng.<br />
+    Bây giờ, các bạn hãy ngồi xuống và nhìn xung quanh. Các bạn sẽ tìm thấy rất nhiều vật thể ở thế giới thật <br />
+    Ví dụ như, hiện tại mình đang ngồi ở The Coffee House, một chiếc đèn rực rỡ, một tấm bảng hiệu nhiều màu sắc...và một cô gái xinh đẹp :3<br />
+    <br />
+    Các vật thể ở thế giới thật có 2 đặc điểm chính đó là trạng thái <b>(states)</b> và hành vi <b>(behaviors)</b> :
+    </p>
+    <ul>
+        <li>
+            Nói về <b>states</b> của một Laptop, ta có thể nói về dung lượng ram, hệ điều hành đang được cài đặt, hoặc là kích thước màn hình...<br />
+            Còn cô gái xinh đẹp mình đang nhìn, cô ấy mảnh khảnh, cao tầm 1m6, đôi môi trái tim quyến rũ :3 
+        </li>
+        <li>
+            Nói về <b>behaviors</b>, một cái laptop có các hành vi như : Đang khởi động, đang tắt, đang in gì đó...<br />
+            Còn về một chú mèo thì sao, ta có các hành vi như: Đang ăn, đang uống...
+        </li>
+    </ul>
+    
+    <h3>Đối tượng trong lập trình</h3>
+    <p class="a">
+            Đối tượng <b>(object)</b> trong lập trình hương đối tượng cũng có 2 đặc điểm giống như các vật thể trong thế giới thật đó là states và behaviors.<br />
+        Object lưu trữ các states trong các trường dữ liệu <b>(fields)</b>, được biết đến như là các biến <b>(variables)</b>.<br />
+        Và behaviors được định nghĩa trong các hàm <b>(methods)</b>. 
+    </p>
+    <h3>Class trong Java</h3>
+    <p class="a">
+        Có thể nói Class là bản thiết kế của Object.
+    </p>
+    <pre>
+    <code lang="Java">
+    package vnl.ntn;
+
+    public class Main {
+    
+        public static void main(String[] args) {
+    
+        }
+    }
+    </code>
+    </pre>
+    
+    <p class="a"><code class="cl-denim">public class Main</code> là cú pháp <b>(statement)</b> để khai báo một class trong Java.<br />
+        Câu hỏi là <span class="cl-deep-pink">"Tại sao chúng ta lại quan tâm đến những class?"</span>, 
+        <span class="cl-deep-pink">"Những lợi ích từ classes cho việc lập trình là gì?"</span>
+    </p>
+    <p class="a">
+        Hãy nghĩ về các kiểu dữ liệu cơ bản mà chúng ta đã làm việc như là int, short...chúng đều là các loại dữ liệu cơ bản.
+        Chúng hạn chế, và bạn không thể làm gì nhiều với những kiểu dữ liệu này. 
+        Trong trường hợp này <b>Class</b> có thể coi là một kiểu dữ liệu mạnh mẽ. Kiểu dữ liệu mà người dùng có thể tự định nghĩa, <b>Class</b> cho phép bạn tạo ra kiểu dữ liệu mạnh mẽ hơn những loại nguyên thủy thông thường mà bạn đã từng xử lý 
+    </p>  
+    <p>
+        Bây giờ chúng ta sẽ định nghĩa một class mới 
+    </p>
+    <pre>
+    <code lang="Java">
+    package vnl.ntn;
+
+    public class Car {
+    
+    }
+    </code>
+    </pre>
+
+    <p class="a">
+        Điều đầu tiên mình muốn các bạn chú ý đó là <code class="cl-denim">package</code> , và dòng tiếp theo đó là <code class="cl-denim">public class Car</code>. Đó là <b>statement</b> để định nghĩa một <b>Class</b>.
+        <br />
+        Từ khóa <b>public</b> nghĩa là quyền truy cập không giới hạn vào <b>Class</b>. Thông thường khi khởi tạo <b>Class</b>, các bạn cứ sử dụng <b>public</b>. Khi có sự điều chỉnh về quyền truy cập bạn có thể lựa chọn các sự thay thế như :
+    </p>
+    <ul>
+        <li>
+            <b>private</b>: Những Class khác không thể truy cập đến Class của bạn 
+        </li>
+        <li>
+            <b>protected</b>: Cho phép những Class khác trong cùng <b>package</b> truy cập đến Class của bạn 
+        </li>
+    </ul>
+    <p class="ps">Mình sẽ đề cập về vấn đề này trong các bài viết tới</p>     
+    <p>
+        Bây giờ chúng ta sẽ khởi tạo các variables cho class Car, chúng là các trường dữ liệu <b>(field)</b> của class Car
+    </p>
+    <pre>
+    <code lang="Java">
+    package vnl.ntn;
+
+    public class Car {
+        public int doors;
+        public String colour;
+        private String engine;
+    }
+    </code>
+    </pre>
+    
+    <p>
+        Sau đó chung ta sẽ khởi tạo một đối tượng thuộc class Car trong hàm <b>main()</b>
+    </p>
+    <pre>
+    <code lang="Java">
+    package vnl.ntn;
+
+    public class Main {
+    
+        public static void main(String[] args) {
+            Car porsche = new Car();
+        }
+    }
+    </code>
+    </pre>
+    <p>
+        Các bạn hãy thử xem các thuộc tính và phương thức của đối tượng porsche vừa tạo bằng cách gõ "porsche."
+    </p>
+       <figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1HYLufBXGpfxzblry7Bj2aWmz1B3v_1U5&amp;export=download" class="kg-image" alt width="522" height="276" layout="responsive"></amp-img></figure> <p>   Như các bạn thấy đấy: </p> 
+<ul>
+    <li>
+    field engine không được hiện ra cũng như đối tượng porsche vừa tạo không thể truy cập đến thuộc tính engine của lớp Car bởi vì thuộc tính của field này là private hay nói cách khác Java sử dụng thuộc tính private để ẩn đi những thuộc tính và hàm của đối tượng.<br />
+Đây là tính đóng gói <b>(encapsulation)</b> trong Java.
+    </li>
+    <li>
+        Ngoài ra các bạn có thể thấy thêm những methods khác như equals, hashCode, toString...các methods này được thêm vào bởi Java khi khởi tạo một đối tượng. Bạn có thể hiểu là 
+        những phương thức này được kế thừa từ Java. Đây là ví dụ cho tính kế thừa <b>(Inheritance)</b> trong Java.<br />
+    </li>
+</ul> 
+    <p>Chúng ta sẽ bàn tới những vấn đề này trong blog tiếp theo</p>
+
+<h3>Mã nguồn Java</h3>
+<a href="https://github.com/namntdnc/java-oop">Mã nguồn</a>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tìm hiểu Travis-CI - Github với project PHP</title>
+
+    <meta name="description" content="Travis là một dịch vụ (service) CI, miễn phí và là open source. Tích hợp tự động với Github. Hỗ trợ cho hơn 20 ngôn ngữ lập trình. Hỗ trợ build và test" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tìm hiểu Travis-CI - Github với project PHP" />
+    <meta property="og:description" content="Travis là một dịch vụ (service) CI, miễn phí và là open source. Tích hợp tự động với Github. Hỗ trợ cho hơn 20 ngôn ngữ lập trình. Hỗ trợ build và test" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tim-hieu-travis-ci-github-voi-project-php/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY01ldnlUVXRWV1U&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-03-17T02:40:00.000Z" />
+    <meta property="article:modified_time" content="2017-08-23T15:11:24.000Z" />
+    <meta property="article:tag" content="php" />
+    <meta property="article:tag" content="travis ci" />
+    <meta property="article:tag" content="CI" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tìm hiểu Travis-CI - Github với project PHP" />
+    <meta name="twitter:description" content="Travis là một dịch vụ (service) CI, miễn phí và là open source. Tích hợp tự động với Github. Hỗ trợ cho hơn 20 ngôn ngữ lập trình. Hỗ trợ build và test" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tim-hieu-travis-ci-github-voi-project-php/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY01ldnlUVXRWV1U&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="php, travis ci, CI" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="600" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Tìm hiểu Travis-CI - Github với project PHP",
+    "url": "https://blog.vietnamlab.vn/tim-hieu-travis-ci-github-voi-project-php/",
+    "datePublished": "2017-03-17T02:40:00.000Z",
+    "dateModified": "2017-08-23T15:11:24.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkY01ldnlUVXRWV1U&export=download",
+        "width": 800,
+        "height": 600
+    },
+    "keywords": "php, travis ci, CI",
+    "description": "Khi lần đầu tiên được tham gia vào một dự án có sử dụng Github, mình đã rất hào\nhứng khi thấy cái tool build và test code tự động Jenkins  được tích hợp vào \nGithub. Mỗi lần up source lên Github, **Jenkins**sẽ tự động lấy code vừa up đấy\nbuild và test rồi báo trạng thái code chạy bị error hay không ngay trên Github.\nSẽ có 3 trạng thái là đang build, build thành công, build lỗi.\n\n \n[https://lh3.googleusercontent.com/uXHZdTSP6h_FQO1gMmDP4xS3i6JqOLDNQuY4oQrGyqBCAU5knO66JDUIPrHvf3x5xZwq6ewyKdcHhn9W8",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tìm hiểu Travis-CI - Github với project PHP</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2017-03-17">17 Mar 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY01ldnlUVXRWV1U&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Khi lần đầu tiên được tham gia vào một dự án có sử dụng <strong>Github</strong>, mình đã rất hào hứng khi thấy cái tool build và test code tự động <strong><span>Jenkins</span></strong> được tích hợp vào <strong>Github</strong>. Mỗi lần up source lên <strong>Github</strong>, **<span>Jenkins</span>**sẽ tự động lấy code vừa up đấy build và test rồi báo trạng thái code chạy bị error hay không ngay trên <strong>Github</strong>. Sẽ có 3 trạng thái là đang build, build thành công, build lỗi.</p>
+<p><a href="https://lh3.googleusercontent.com/uXHZdTSP6h_FQO1gMmDP4xS3i6JqOLDNQuY4oQrGyqBCAU5knO66JDUIPrHvf3x5xZwq6ewyKdcHhn9W8anxImvdJJxyEjmrDDBwaFMQzFoHw1SVbhVu95NU8qqMcKqDNk8B1uTviuB62RUhNLZmFa34-yg5_IYaUh-ZDkvyx3fIwqFn70ccG55W-QM6AfniCvHQpG_a3ZOka5GfgQoVct2HDY_y-CLZO-WRrIAOJxqLcuYX36C5MlrtG5EAB155EuqizAEjYHQmvqzzUqPCDLc26Q4Ax_xd1b-JI4tDTxSKzTgv_L5m3wSvJsspUsppJgixA0zv9Plmn3H9sluj7NeOCX-yEwFDuQgqz8TM2EuVLRq-AC7sryyrS5KM9goV9BrQMBxELZmh2QFb7JJGe5uF7lvxsGYQsmFkjpcKJlzPsXtvfxnR4SiBKxOo5VOmFhQIrh5ZoKOBshIKav5wITcgkKXY-14b5xG-4X16THFq-G-NAQgq_WNaXjEKAzsFbp70VSkLYAeWJodWWLDxfAX06BwFTel_qljHMI5NcQNcvq9rPrSubh9qbJq1ThpFTn9JqY5qXJQMSV6lOpWITtylsYgQh_Jbq5Rw_6K8fPF-4nCXTAfN=w1366-h485-no"><amp-img src="https://lh3.googleusercontent.com/uXHZdTSP6h_FQO1gMmDP4xS3i6JqOLDNQuY4oQrGyqBCAU5knO66JDUIPrHvf3x5xZwq6ewyKdcHhn9W8anxImvdJJxyEjmrDDBwaFMQzFoHw1SVbhVu95NU8qqMcKqDNk8B1uTviuB62RUhNLZmFa34-yg5_IYaUh-ZDkvyx3fIwqFn70ccG55W-QM6AfniCvHQpG_a3ZOka5GfgQoVct2HDY_y-CLZO-WRrIAOJxqLcuYX36C5MlrtG5EAB155EuqizAEjYHQmvqzzUqPCDLc26Q4Ax_xd1b-JI4tDTxSKzTgv_L5m3wSvJsspUsppJgixA0zv9Plmn3H9sluj7NeOCX-yEwFDuQgqz8TM2EuVLRq-AC7sryyrS5KM9goV9BrQMBxELZmh2QFb7JJGe5uF7lvxsGYQsmFkjpcKJlzPsXtvfxnR4SiBKxOo5VOmFhQIrh5ZoKOBshIKav5wITcgkKXY-14b5xG-4X16THFq-G-NAQgq_WNaXjEKAzsFbp70VSkLYAeWJodWWLDxfAX06BwFTel_qljHMI5NcQNcvq9rPrSubh9qbJq1ThpFTn9JqY5qXJQMSV6lOpWITtylsYgQh_Jbq5Rw_6K8fPF-4nCXTAfN=w1366-h485-no" alt="status build code" width="1366" height="484" layout="responsive"></amp-img></a></p>
+<p>Thấy cái tool **<span>Jenkins</span>**hay quá, thế là bắt tay vào tìm hiểu. Lay hoay tìm hiểu định nghĩa, các cài đặt, setup, v.v… và cuối cùng vẫn chưa chạy được <amp-anim src="https://i0.wp.com/cdn.tinymce.com/4/plugins/emoticons/img/smiley-frown.gif" alt="frown" width="18" height="18" layout="fixed"></amp-anim>. Sau đó tìm thấy một service khác khá thú vị, cũng build, test và deploy code tự động giống <strong><span>Jenkins</span></strong>, mà chẳng phải setup server gì cả, và rất là dễ sử dụng. Thế là mình quyết định viết 1 bài về service này, đó là <span><strong>Travis CI</strong></span>.</p>
+<p>Bài viết gồm các phần:</p>
+<ul>
+<li><strong><span>Travis CI</span></strong> là gì</li>
+<li>Tính năng của <strong><span>Travis CI</span></strong></li>
+<li>Quy trình làm việc với <span><strong>Travis CI</strong></span></li>
+<li>Tổng quan giao diện</li>
+<li>Demo project <strong><span>PHP</span></strong> với <strong><span>Travis CI</span></strong> (gồm 11 bước) - Kết nối <strong>Github</strong> với <strong><span>Travis-ci</span></strong></li>
+<li>Tạo file cấu hình .travis.yml</li>
+<li>Push source và check trạng thái</li>
+</ul>
+<hr></hr>
+<h2 id="vytraviscilg"><strong>Vậy Travis CI là gì?</strong></h2>
+<p><strong><span>Travis</span></strong> là một dịch vụ (service) CI, miễn phí và là open source. Trong đó CI là viết tắt của từ <span>Continuous Integrantion</span>, nghĩa là tích hợp liên tục. <span><em>Mình giải thích ý nghĩa về CI một xíu nhé. Tích hợp liên tục (CI) nghĩa là trong quá trình phát triển phần mềm, các thành viên trong nhóm nghiên cứu phải tích hợp công việc của họ thường xuyên, thông thường mỗi người đều phải tích hợp công việc ít nhất một lần vào cuối ngày. Sau mỗi tích hợp là công việc build tự động (bao gồm test) để phát hiện lỗi tích hợp càng sớm càng tốt. Chính vì tính chất có thể phát hiện lỗi sớm, nên CI đã rất được các team phát triển phần mềm ưa dùng.</em></span></p>
+<p><span>Bạn có thể sử dụng phiên bản free tại <span><a href="https://travis-ci.org">https://travis-ci.org</a></span> , và phiên bản trả phí tại<span><a href="https://travis-ci.com">https://travis-ci.com</a></span>.</span></p>
+<h2 id="tnhnngcatravisci"><strong>Tính năng của Travis CI?</strong></h2>
+<ul>
+<li>Tích hợp tự động với Github</li>
+<li>Hỗ trợ cho hơn 20 ngôn ngữ lập trình</li>
+<li>Hỗ trợ build và test</li>
+<li>Hỗ trợ deploy lên nhiều cloud services</li>
+<li>Cung cấp feedback qua mail</li>
+<li>Check chất lượng code</li>
+</ul>
+<h2 id="quytrnhlmvic"><strong>Quy trình làm việc?</strong></h2>
+<p>Các bạn xem sơ đồ sau sẽ dễ hiểu.</p>
+<p><a href="https://lh3.googleusercontent.com/upEQSFtpGqXh9igSdHSoZOhp57M8dfE8FUQ7Dg8Z5T_E8dgAovEDYreY0yu2Q8xsYRQ0CeeQWqrc1W3v8UF-DkKPzpETZ2g1rpT4ZiFjNEYfpIpYu35xb8QU2Xwl4FCrbrjsIlJxV_rJwkY34SIU-i-qcCPs4Cn0tIHww0ag33UE0vCR_5WJv9cyDO1Ut3GP_TX9SFSW8hE27MVHF6-G6Xhhgxb2V82cNOzHfE4jXnrLXIf3W6fGp_vs5WGAKfw5sy2owj_3s3YapPKYd7vsrzDrYqGqxQmMEO0fJDhkv_etQpdhZsASyeW7_M-t3fnSg0jE0kcXZSfOscobpAjZVfdF3x3HY4A9EWWnUUrFj4rJ2x2E-JVhGC0KTXGmGeIMxvdt2bSlLiAMreD-MjjygFdSGC_zZExFhY3PTGWvkVrG5eBaCuy3ExE-9vqewS7CQqyW2NC38f6cT8Luaq7i8RV8R2gvss1E0JAXTqx3JxO6BHJnXvpBSW9M4g1REBNNivLon_4CwX2XZ_vvSHssctwWcDEEdDrw8m5eRiPRP7ghuqnaTSKmFUN__p9mf8jrXsCNPConUrb_qknchYm3uTfY7wWzrNlbok8-mUdGc6-yZQwdBZ33=w668-h509-no"><amp-img src="https://lh3.googleusercontent.com/upEQSFtpGqXh9igSdHSoZOhp57M8dfE8FUQ7Dg8Z5T_E8dgAovEDYreY0yu2Q8xsYRQ0CeeQWqrc1W3v8UF-DkKPzpETZ2g1rpT4ZiFjNEYfpIpYu35xb8QU2Xwl4FCrbrjsIlJxV_rJwkY34SIU-i-qcCPs4Cn0tIHww0ag33UE0vCR_5WJv9cyDO1Ut3GP_TX9SFSW8hE27MVHF6-G6Xhhgxb2V82cNOzHfE4jXnrLXIf3W6fGp_vs5WGAKfw5sy2owj_3s3YapPKYd7vsrzDrYqGqxQmMEO0fJDhkv_etQpdhZsASyeW7_M-t3fnSg0jE0kcXZSfOscobpAjZVfdF3x3HY4A9EWWnUUrFj4rJ2x2E-JVhGC0KTXGmGeIMxvdt2bSlLiAMreD-MjjygFdSGC_zZExFhY3PTGWvkVrG5eBaCuy3ExE-9vqewS7CQqyW2NC38f6cT8Luaq7i8RV8R2gvss1E0JAXTqx3JxO6BHJnXvpBSW9M4g1REBNNivLon_4CwX2XZ_vvSHssctwWcDEEdDrw8m5eRiPRP7ghuqnaTSKmFUN__p9mf8jrXsCNPConUrb_qknchYm3uTfY7wWzrNlbok8-mUdGc6-yZQwdBZ33=w668-h509-no" alt width="668" height="509" layout="responsive"></amp-img></a></p>
+<ol>
+<li>Đầu tiên, một developer sẽ thực hiện một lệnh git push để đẩy code ở local lên server <strong>Github</strong>.</li>
+<li>Tiếp đó <strong>Github</strong> nháy mặt với <span><strong>Travis</strong></span>là “có source mới vừa push lên kìa, build rồi test giúp nhé, khi nào có kết quả báo về cho tui”.</li>
+<li>Sau đó **<span>Travis</span>**thực hiện build và test code.</li>
+<li>Kết thúc quá trình build và test, **<span>Travis</span>**trả kết quả thành công hay có lỗi về cho <strong>Github</strong> và gửi mail thông báo cho tài khoản <strong>Travis</strong> đó.</li>
+</ol>
+<p>Thời trước, thường phải có một đội ngồi lấy code của các thành viên trong team về, build, test rồi deploy lên server. Trước đó mình cũng tham gia vào một team, mà đội build code ấy chỉ có một anh duy nhất, còn dev thì tới chục người, mỗi lần push source lên, phải chờ anh giải quyết các lệnh push trước mình, rồi mới tới mình. Thời gian phát hiện có lỗi phát sinh bị kéo dài rồi, rồi đối ứng chậm, dẫn đến việc tới hạn mà không thể release sản phẩm.</p>
+<p>Bây giờ nhờ các tool tự động như <strong><span>Travis CI</span></strong>, bên cạnh việc build và deploy tự động, còn giúp các dev phát hiện nhanh lỗi phát sinh và đối ứng kịp thời.</p>
+<p>Ngoài <strong><span>Travis CI</span></strong>, thì còn có rất nhiều dịch vụ tương đương như <strong>Jenkins</strong>,** Circle CI**, <strong>Wercker</strong>, <strong>drone.io</strong>, <strong>Gitlab-CI</strong>, v.v…</p>
+<h2 id="tngquangiaodin">Tổng quan giao diện</h2>
+<p>Mình giới thiệu sơ về giao diện của Travis-ci. Travis-ci cung cấp một giao diện cũng khá đơn giản, và dễ sử dụng.<br />
+<a href="https://lh3.googleusercontent.com/GpIi9cWdajup0UmUVBL_Rem-Jr_OLaMP3vjIEO8C1Rm9fdlfbpvZeM8boxcYfiSNkeR-cOQ_18pw-yFoQWSD7NrAfulb7GqoCVb1f3yiF8PYdalZUc9FEpoYGOIuQsFBCqkM_R2JxeSpRc3K2EP2gWxIXB1eMx8-cstMX38Z-vE_I72LzhElrgDTa_yEqY3W4ROTBfTtEg6SEp0dcWHjaqjLn-CgWxcQvBOgIbZC0VZO1uNV7GitMJhsuE-sdfN9KwLjE0IURKNDWdSLEtPLlbSW_-SqbTxtJ-wRzkLV_MBSVaIaYu3BcblLrkGOLs7vnYHUb9GVAv47t6VBbOsc6RIkwCJ0L_CW9xE6IIrrWwIDvLzPpz-WJAb6njmCZOgFVP_DY-p-LgrmiaImKx7jcnixyidp4mzzGTBNTFyUEGA7AXSb2jARLGidOWMV6bblqyJQSOB5AiGd5MiBXxX6LlG-2PFS3vKfS08Cve8L0ym_Zzr-eZbr6FS4QQ0vYg4CicBpnxFxZmm2GyDuALR6SRqjoPUc38rIpMHPwS7s4t3Lai2hiB39QYeqYynpIwZZQH9P9vXwXBdWrtcJt_-lktcvccycxblq8XMW_l6JqOUegcLc1gdV=w1682-h832-no"><amp-img src="https://lh3.googleusercontent.com/GpIi9cWdajup0UmUVBL_Rem-Jr_OLaMP3vjIEO8C1Rm9fdlfbpvZeM8boxcYfiSNkeR-cOQ_18pw-yFoQWSD7NrAfulb7GqoCVb1f3yiF8PYdalZUc9FEpoYGOIuQsFBCqkM_R2JxeSpRc3K2EP2gWxIXB1eMx8-cstMX38Z-vE_I72LzhElrgDTa_yEqY3W4ROTBfTtEg6SEp0dcWHjaqjLn-CgWxcQvBOgIbZC0VZO1uNV7GitMJhsuE-sdfN9KwLjE0IURKNDWdSLEtPLlbSW_-SqbTxtJ-wRzkLV_MBSVaIaYu3BcblLrkGOLs7vnYHUb9GVAv47t6VBbOsc6RIkwCJ0L_CW9xE6IIrrWwIDvLzPpz-WJAb6njmCZOgFVP_DY-p-LgrmiaImKx7jcnixyidp4mzzGTBNTFyUEGA7AXSb2jARLGidOWMV6bblqyJQSOB5AiGd5MiBXxX6LlG-2PFS3vKfS08Cve8L0ym_Zzr-eZbr6FS4QQ0vYg4CicBpnxFxZmm2GyDuALR6SRqjoPUc38rIpMHPwS7s4t3Lai2hiB39QYeqYynpIwZZQH9P9vXwXBdWrtcJt_-lktcvccycxblq8XMW_l6JqOUegcLc1gdV=w1682-h832-no" alt="status build code" width="1682" height="832" layout="responsive"></amp-img></a></p>
+<ol>
+<li>Danh sách các repos public trên Github mà đang được build tự động.</li>
+<li>Để thêm hay xóa các repos.</li>
+<li>Tên project và các liên kết: được định dạng theo username/repository.</li>
+<li>Thông tin cho từng kiểu build.</li>
+<li>Thông tin chi tiết của mỗi lần build</li>
+</ol>
+<h2 id="demoprojectphpvitravisci"><strong>Demo project PHP với Travis-ci</strong></h2>
+<p>Bây giờ mình sẽ làm demo project <span><strong>PHP</strong></span>với <span><strong>Travis-ci</strong></span> nhé.</p>
+<p>**Bước 1: Login vào account Github. **Nếu chưa có thì các bạn đăng ký mới nhé.</p>
+<p><strong>Bước 2: Tạo một repository.</strong> Mình đặt tên cho demo này là travis_php_demo.</p>
+<p><a href="https://lh3.googleusercontent.com/3NQVHb8I1lsx2uhHcBLME3hYDj878mHN9IpCIDinHV4AuMFqDFiRNJJUxKwJQKiXwVJiIjkZW7Vjsn-MiFYWGgi3mWi-M0OK2u4EgPr-IrmlL4YjM-znXo6iYWwNtSEHU7KDWbwle-VUieF1fHX5uEWKOARSdo8gYVfMIPM64r0Z4DLqIEz4V1c2FG57sKVLLx2Yr2Z-GjHdP_JXt7nYq2iBG0zt7M0VNMTBQV39v2Z_UNLVFE6IhFjhZFXWhRM6wARTW5xkiCsJF1yB09wvh8Uo9s80oP75Rv29hOkQQV4UoLXMRZlNg_LutWbRdBj86pF9eEpMWf-FHuneNbpKK1YREnf5rDOYc9hNCAdJRkNCvN2IP4oNOnSk1yrc9l3NMfstaSRpxZH2HoWc9oZFus-QxDE_uzKfamCR680oMdTVg8-Ihq_awRgZjAmHTNCZk5FFX6f-3jO3lIJa4pBixRtlqrCtxHy3fQnCUz4eHpBfWmz27UvQAMepopo2JvqJPxRfpw3NaWQuTWcHkdRSbaw0AC1A6omXUjbcDGlLeDriqEByIKxBCkPIRpiuZHPjERFfVt3U9OG8MAwyErUyVpXQqPPFz4Ynp9ewvMlN1s6AT7d49wqW=w941-h646-no"><amp-img src="https://lh3.googleusercontent.com/3NQVHb8I1lsx2uhHcBLME3hYDj878mHN9IpCIDinHV4AuMFqDFiRNJJUxKwJQKiXwVJiIjkZW7Vjsn-MiFYWGgi3mWi-M0OK2u4EgPr-IrmlL4YjM-znXo6iYWwNtSEHU7KDWbwle-VUieF1fHX5uEWKOARSdo8gYVfMIPM64r0Z4DLqIEz4V1c2FG57sKVLLx2Yr2Z-GjHdP_JXt7nYq2iBG0zt7M0VNMTBQV39v2Z_UNLVFE6IhFjhZFXWhRM6wARTW5xkiCsJF1yB09wvh8Uo9s80oP75Rv29hOkQQV4UoLXMRZlNg_LutWbRdBj86pF9eEpMWf-FHuneNbpKK1YREnf5rDOYc9hNCAdJRkNCvN2IP4oNOnSk1yrc9l3NMfstaSRpxZH2HoWc9oZFus-QxDE_uzKfamCR680oMdTVg8-Ihq_awRgZjAmHTNCZk5FFX6f-3jO3lIJa4pBixRtlqrCtxHy3fQnCUz4eHpBfWmz27UvQAMepopo2JvqJPxRfpw3NaWQuTWcHkdRSbaw0AC1A6omXUjbcDGlLeDriqEByIKxBCkPIRpiuZHPjERFfVt3U9OG8MAwyErUyVpXQqPPFz4Ynp9ewvMlN1s6AT7d49wqW=w941-h646-no" alt width="941" height="646" layout="responsive"></amp-img></a></p>
+<p><strong>Bước 3: Kết nối <span>Travis</span> với Github.</strong> Vào trang <strong><span><a href="https://travis-ci.org/">https://travis-ci.org/</a></span></strong> để khai báo kết nối với <strong>Github</strong>. Bạn bấm vào <span><strong>“Sign in with Github”</strong></span> hay <span><strong>“Sign up”</strong></span> đều được cả.</p>
+<p><a href="https://lh3.googleusercontent.com/1Aj_hfkMWF7sXZVJKn0VFutgNdon_NwvgJOqLXp8aPNdaMLuARRR2DF3vmmpO9JQWBp5MK-gaTN0_YTq0xM2puLDwjVmCxrDg0tMf3pwtyFR9ndct5J69DV1ZzhkltBw6uSuwqV9M-xP9swFxFfR2OloFio1vngTBK9C-6au41piK4PFOD2VQwqwvSt1fDWJX4ydmxjD2BapMDORMu9ZsPPtbXAoG8PMfsS-KenSbaK_Vt5AEbUROQnzMowoHiCTUnzZSNpcWOJJczjQL0ozHj5an8lA_GvQ85lnd3vXVan9Us-wYxpr5vay3D2dY1lEVemAaugrTyTr4SBqxeKLW1LqDYYJoq-agXiyvmuTSY3KDumCFHgqoC95gryPUsdSLQ6dUVjiduMsM_OZNeXYq8DkaJhwJqs6Tc7P00v5AORPrABubb19kr7-cSQ5YJ-QSI34DZySYGBazldKhPaKQz6zQhG1BXjK5bwecU2_9SMevsDvOFJVHzOd9SViyXKizRWj50jgFKjQM5iskXR-Rd4CYp3daHXUaAuLMXhb85ZEqseyvBGNKFOuXgPZZqk_MvBVHRZ965Co80G1fjiwijrvmTUGCELyOuMITZYVGffkHzhpoSff=w943-h646-no"><amp-img src="https://lh3.googleusercontent.com/1Aj_hfkMWF7sXZVJKn0VFutgNdon_NwvgJOqLXp8aPNdaMLuARRR2DF3vmmpO9JQWBp5MK-gaTN0_YTq0xM2puLDwjVmCxrDg0tMf3pwtyFR9ndct5J69DV1ZzhkltBw6uSuwqV9M-xP9swFxFfR2OloFio1vngTBK9C-6au41piK4PFOD2VQwqwvSt1fDWJX4ydmxjD2BapMDORMu9ZsPPtbXAoG8PMfsS-KenSbaK_Vt5AEbUROQnzMowoHiCTUnzZSNpcWOJJczjQL0ozHj5an8lA_GvQ85lnd3vXVan9Us-wYxpr5vay3D2dY1lEVemAaugrTyTr4SBqxeKLW1LqDYYJoq-agXiyvmuTSY3KDumCFHgqoC95gryPUsdSLQ6dUVjiduMsM_OZNeXYq8DkaJhwJqs6Tc7P00v5AORPrABubb19kr7-cSQ5YJ-QSI34DZySYGBazldKhPaKQz6zQhG1BXjK5bwecU2_9SMevsDvOFJVHzOd9SViyXKizRWj50jgFKjQM5iskXR-Rd4CYp3daHXUaAuLMXhb85ZEqseyvBGNKFOuXgPZZqk_MvBVHRZ965Co80G1fjiwijrvmTUGCELyOuMITZYVGffkHzhpoSff=w943-h646-no" alt width="943" height="646" layout="responsive"></amp-img></a></p>
+<p><strong>Bước 4: Thực hiện Authorize.</strong> Nếu là account mới thì **<span>Travis</span>**cần bạn cấp quyền để truy cập vào account. Bước này cũng không có gì khó khăn cả, bạn chỉ việc click vào nút màu xanh <strong><span>“</span><span><strong>A</strong>uthorize application</span></strong>” là xong.</p>
+<p><a href="https://lh3.googleusercontent.com/O7luqzZznr99mnLebVH_Nh8ZiKwpl56yRFYElRBPTc2wn8mVhQVHTMeWPjGDOt42hwZAHbI3dW0vij4g8MYPJIEQ4tuuroTv_bKIdpeq_bXORgH2bmA75Yoo8w3EO3zfoy0KXz907tgM93sbXULlJX7BLyxh_sLLA8uerMpWB_IwRXGE3X_tF_DNS_VmnaRjBbhIr6RdSu7GaV9BTrFJdHphFFcTF_4-ydA2orefchtYuCYSbktP3imWfyk_qJZy4-W1k4rSLP5VXIwPUsph1Pcip9FUsULf8X7GvmNNFXH0GgwWQxVU3Ezm1XK4inwTukwcoOguMUN-4j7HOJpxc5cC09qbzZ2nkxQjLBox813csuZguFn2Je_hH6jZ-hoTp-t3mbcwYGi9Jyt_H_BbUSJlyiR_s7dJ31NNMVSVFH4v7qDJvCZNjITdp9L4vIKimaR4FUobpCWXo4qPdAEsEVP0SGhkapzLGJwkUGuV9ZccmxOumSFaNIX4Lr7V1dF9s5xJAh5vrRVPAZk8BXYzwEorDWGXe0-eHNak786lLjVLmUPKY27ROXRHQ9VY_e-qv2kupGA1-VeV1buvta-A69tvRq8bwH4wD2X21ZFAjV_xphHWZ473=w941-h646-no"><amp-img src="https://lh3.googleusercontent.com/O7luqzZznr99mnLebVH_Nh8ZiKwpl56yRFYElRBPTc2wn8mVhQVHTMeWPjGDOt42hwZAHbI3dW0vij4g8MYPJIEQ4tuuroTv_bKIdpeq_bXORgH2bmA75Yoo8w3EO3zfoy0KXz907tgM93sbXULlJX7BLyxh_sLLA8uerMpWB_IwRXGE3X_tF_DNS_VmnaRjBbhIr6RdSu7GaV9BTrFJdHphFFcTF_4-ydA2orefchtYuCYSbktP3imWfyk_qJZy4-W1k4rSLP5VXIwPUsph1Pcip9FUsULf8X7GvmNNFXH0GgwWQxVU3Ezm1XK4inwTukwcoOguMUN-4j7HOJpxc5cC09qbzZ2nkxQjLBox813csuZguFn2Je_hH6jZ-hoTp-t3mbcwYGi9Jyt_H_BbUSJlyiR_s7dJ31NNMVSVFH4v7qDJvCZNjITdp9L4vIKimaR4FUobpCWXo4qPdAEsEVP0SGhkapzLGJwkUGuV9ZccmxOumSFaNIX4Lr7V1dF9s5xJAh5vrRVPAZk8BXYzwEorDWGXe0-eHNak786lLjVLmUPKY27ROXRHQ9VY_e-qv2kupGA1-VeV1buvta-A69tvRq8bwH4wD2X21ZFAjV_xphHWZ473=w941-h646-no" alt width="941" height="646" layout="responsive"></amp-img></a></p>
+<p>Sau khi đó <strong><span>Travis</span></strong> sẽ tự thực hiện đồng bộ hóa với tài khoản <strong>Github</strong> của bạn trong vài giây. Trên trang <strong><span>Travis-ci</span></strong>, các bạn sẽ thấy có nút <strong><span>“Sync account”</span></strong>, nếu <strong><span>Travis-ci</span></strong> chưa kịp thực hiện đồng bộ với account <strong>Github</strong> của bạn, bạn có thể click vào đó để thực hiện đồng bộ nhanh chống với <strong>Github</strong>.</p>
+<p><a href="https://lh3.googleusercontent.com/YwnMwvOHvA6LXD70yj_f3CEbB2HtJfC1PDKaTxfpW9gLRpVN6AZg8G7Uva2yV1CD9Cq8fTVrEnX4rwLdX1uhpHVVjkVsYIoVHYtfQWIHvBzO78O9iupn3nlSF-U9IXUEC0DTA6OsKkSImJ1YW3zrLQTtcIAuMvmNVlsZlQeiWIvb__iKiQNQsMfvdTmFx-jJhcwCwc9H93ioJLhcZ1lDDmqwOvRqOakNtNgmXkz7wiu5Nw0dh5BsmGBa6lwcV2ac6Gt-jOkMJ9IO7p0qS5eO_WR6NR_otc-7Gi5oXj4_3FRjLaZoPadkuxPyJOSiiypfbnxX7ftGa9oqzDj4r7eNCwuKGuscv7iRBZUcUp2ppbNtpqI010U1XJuaqLyj71bDS4GHDX4ioO-bgNof26toMgeL0wzhmG9icBP3UyPTx-Cy_f_7UHm8e5lz-xHs82Ky75fKJhh6boKs0WUZU67dwwDoq0xr2blcOOoZAC4qszVhOUjgF8ZXFKMePUyDAAwikeUt2hZfsuKioSME5d_KwwoN7MNDjmltCRSvqL_DBTwBeg-xU9GE23IZ2dX_rPFKjaRAaP9V8k9Hy195KsmM4FZ1vVo0kIjuDfwun-PztMhBdmac4uOl=w1267-h646-no"><amp-img src="https://lh3.googleusercontent.com/YwnMwvOHvA6LXD70yj_f3CEbB2HtJfC1PDKaTxfpW9gLRpVN6AZg8G7Uva2yV1CD9Cq8fTVrEnX4rwLdX1uhpHVVjkVsYIoVHYtfQWIHvBzO78O9iupn3nlSF-U9IXUEC0DTA6OsKkSImJ1YW3zrLQTtcIAuMvmNVlsZlQeiWIvb__iKiQNQsMfvdTmFx-jJhcwCwc9H93ioJLhcZ1lDDmqwOvRqOakNtNgmXkz7wiu5Nw0dh5BsmGBa6lwcV2ac6Gt-jOkMJ9IO7p0qS5eO_WR6NR_otc-7Gi5oXj4_3FRjLaZoPadkuxPyJOSiiypfbnxX7ftGa9oqzDj4r7eNCwuKGuscv7iRBZUcUp2ppbNtpqI010U1XJuaqLyj71bDS4GHDX4ioO-bgNof26toMgeL0wzhmG9icBP3UyPTx-Cy_f_7UHm8e5lz-xHs82Ky75fKJhh6boKs0WUZU67dwwDoq0xr2blcOOoZAC4qszVhOUjgF8ZXFKMePUyDAAwikeUt2hZfsuKioSME5d_KwwoN7MNDjmltCRSvqL_DBTwBeg-xU9GE23IZ2dX_rPFKjaRAaP9V8k9Hy195KsmM4FZ1vVo0kIjuDfwun-PztMhBdmac4uOl=w1267-h646-no" alt width="1267" height="646" layout="responsive"></amp-img></a></p>
+<p><strong>Bước 5: Turn on repository.</strong> Sau khi đồng bộ xong, các bạn sẽ thấy xuất hiện list các repositories giống với bên <strong>Github</strong>. Tới đây, <strong><span>Travis</span></strong> chỉ mới đồng bộ với <strong>Github</strong> chứ chưa thực hiện kết nối lắng nghe với bất kì repository nào. Từ danh sách repositories, bạn chọn repository và turn on.</p>
+<p><a href="https://lh3.googleusercontent.com/H6m4Y-kVApkXNI89ao71mzjNxNfnorbGnOBFOJKI8gvIv_r0I5591q44jkxGplLOK1OY-FirPvQrenBi1OvPKaTJJax28z0O8w_Cpj5lLnBHsrph7g9ikKc1HEv55lwu1BpbGd_voR5ZVOiXshxWOpf05GQwbzRl8WFc9rx_ef86HWRBZxn3y21s0nKDJGfdRUmy7mCFILU3LHnvX-h4rWqK62nQ1uTWurtGr7Lx7WoqF7n25_yet_nLA_g6JhnGT4cwouDSE-bRC3RtrZ9a62Z_ySciMXffsb54wm52BRGkaH_PL218RmVCpQoILCzu1YT1nnDmnHLU_RRfTcOMOUkMCVLdc_KSoHH5A4m_Q-EdhtBHdT5teWqhlUWFG-5QHylIuAVZndG4jc_5bsDMPud4r4Wj2K1eLoPnMU9SXoHqsFOm0Yd5LButa9bEivB--GTkYdQDnYTRn7fg9o-4Gm0s99qhZ5PkqlegD_HD0JSulS20B70xZsqYUh4vA_Ou1IwSuVRbILLdikzlDpPtGVHVGbuzRVKTcpwQbfXm8HbsDGj8isZa_TlHQrTPznmOp1S2lcPDRDMFr-Lcly6-TOfjUmebYAyHizx9S0PhnCpM28_iDzdD=w835-h646-no"><amp-img src="https://lh3.googleusercontent.com/H6m4Y-kVApkXNI89ao71mzjNxNfnorbGnOBFOJKI8gvIv_r0I5591q44jkxGplLOK1OY-FirPvQrenBi1OvPKaTJJax28z0O8w_Cpj5lLnBHsrph7g9ikKc1HEv55lwu1BpbGd_voR5ZVOiXshxWOpf05GQwbzRl8WFc9rx_ef86HWRBZxn3y21s0nKDJGfdRUmy7mCFILU3LHnvX-h4rWqK62nQ1uTWurtGr7Lx7WoqF7n25_yet_nLA_g6JhnGT4cwouDSE-bRC3RtrZ9a62Z_ySciMXffsb54wm52BRGkaH_PL218RmVCpQoILCzu1YT1nnDmnHLU_RRfTcOMOUkMCVLdc_KSoHH5A4m_Q-EdhtBHdT5teWqhlUWFG-5QHylIuAVZndG4jc_5bsDMPud4r4Wj2K1eLoPnMU9SXoHqsFOm0Yd5LButa9bEivB--GTkYdQDnYTRn7fg9o-4Gm0s99qhZ5PkqlegD_HD0JSulS20B70xZsqYUh4vA_Ou1IwSuVRbILLdikzlDpPtGVHVGbuzRVKTcpwQbfXm8HbsDGj8isZa_TlHQrTPznmOp1S2lcPDRDMFr-Lcly6-TOfjUmebYAyHizx9S0PhnCpM28_iDzdD=w835-h646-no" alt width="835" height="646" layout="responsive"></amp-img></a></p>
+<p><strong>Bước 6: Kiểm tra Github đã tích hợp <span>Travis</span>.</strong> Bạn vào **Github **-&gt; repository “travis_php_demo” -&gt; Settings -&gt; Integrations &amp; services, sẽ thấy <strong><span>Travis CI</span></strong> đã được tích hợp vào.</p>
+<p><a href="https://lh3.googleusercontent.com/05zMHaQ7Go526Kxut9WwyvIKzchVJcY-K8sVZanTh08dwCm4u7f5ahk1Dg4hsD0YTdYOxR1oDOHI0zW70oX-WJ-vKkDuTrYxZ7xaMcgGEOdR45Go13MwphNUXknNIq5fIvkxL812WFXhvQKImFzvcvX7rlIUZWjugGUCayNKtNOhXgh0OBKjtZzNjMtiG3-ibAbGxB70GlaqefGAskeOE5qz3MeHqLyuD1omOBAP9V3qqX5kkoEg2zTedsrnWJFMmrhtiPMyG7LmMUnsfVV0PHvj6j7RD_2cXv_KZTTIflj2WUu3zoKkKIoPS_Bt2wCuBk70a6TM066Du6CuXmeY8CxtZ_ZRgUIx3axut9Vg-9OiWdj5JWEyBNi1Eq4PBUamY1Et9AH4VZSJHW4bT6A49nEMTVyz9SnsjqZRvZpyYMVK2rpsa3XYeU72shIJYyM6tx4Hy28xahYVFwuFKna2weQMEJ2GwuMNbpwOM1WLiMsYuzWvK0YoA9HNLcNlUoEPOvmT8H9TGOs_bcIr7aWe8SX-sTYjMiwDJiJlqXqada7fsO8jA1OWBkHw1btMo_ut_SU_XqhSiCHhGDIHv7nLeRnOUT6TAYXWh_mgX8HAF9btmrqDDU09=w941-h646-no"><amp-img src="https://lh3.googleusercontent.com/05zMHaQ7Go526Kxut9WwyvIKzchVJcY-K8sVZanTh08dwCm4u7f5ahk1Dg4hsD0YTdYOxR1oDOHI0zW70oX-WJ-vKkDuTrYxZ7xaMcgGEOdR45Go13MwphNUXknNIq5fIvkxL812WFXhvQKImFzvcvX7rlIUZWjugGUCayNKtNOhXgh0OBKjtZzNjMtiG3-ibAbGxB70GlaqefGAskeOE5qz3MeHqLyuD1omOBAP9V3qqX5kkoEg2zTedsrnWJFMmrhtiPMyG7LmMUnsfVV0PHvj6j7RD_2cXv_KZTTIflj2WUu3zoKkKIoPS_Bt2wCuBk70a6TM066Du6CuXmeY8CxtZ_ZRgUIx3axut9Vg-9OiWdj5JWEyBNi1Eq4PBUamY1Et9AH4VZSJHW4bT6A49nEMTVyz9SnsjqZRvZpyYMVK2rpsa3XYeU72shIJYyM6tx4Hy28xahYVFwuFKna2weQMEJ2GwuMNbpwOM1WLiMsYuzWvK0YoA9HNLcNlUoEPOvmT8H9TGOs_bcIr7aWe8SX-sTYjMiwDJiJlqXqada7fsO8jA1OWBkHw1btMo_ut_SU_XqhSiCHhGDIHv7nLeRnOUT6TAYXWh_mgX8HAF9btmrqDDU09=w941-h646-no" alt width="940" height="646" layout="responsive"></amp-img></a></p>
+<p><strong>Bước 7: Clone code.</strong> Các bạn vào github clone source code về và bắt đầu code nhé. Lưu ý, nếu bạn nào chưa biết xài git thì tìm hiểu trước nhé. Ở đây mình mặc định các bạn đã biết sử dụng git và các command đơn giản của git rồi.</p>
+<p>**Bước 8: Directory. **Mình tạo cấu trúc thư mục như sau:</p>
+<p><a href="https://lh3.googleusercontent.com/zWE01rGSr4452ZhEE9KgcWohKbfj9dvTuUXb_bYQkSe4UY0CKRNQZm1hmHwJfGt5r2eOx-8t3RqRvNyZDOjnn_0tvBXkoRLm9DEskQf8j-wQE5bngVTSPbm8g8Q3fqZ6H9mP1EXOJHx0q6iAENQTknh4-WStChbVIgZTVZBUmqQfjDganVWOT0YS3A7H7N4EaGLtD1Qz-NTgo2ObmTMGb9ioCaMPVDf8kgFrE1cATkP2yoN2RDKeBHiATUpTACkbLYrhtqJV8EMtws0mUBKFx3Pfdr5cTKAqTN8AcjoIdRT9NFSsSpSrnF5y4648MxGd2R4TIKlxyMiL90cGsAMqiUhjMOI4riN-HLuNdDH7ke4uSj7oDKy4b9lCxzkETGsvLzuDZzyLxUvTjrsr43OEHLrnuaDC_kWcAmr7_pbz7RgbYJO8cfKAGoRXtM2s7W9dxcRGKj3F0ZZWKQYbhEjYrvrGx6OCGkViQet2R0ICj5HX7FcPqiZnJq9LoHhCWdFXnaRdCcxo1sYgEFJma95TogFlIlSV0LiyZS_AVJDdpOq6AjD2W8nvyZ3yrEzeY-No_QyvcHoBvdmFXbVRrzKbMcBI5twYz0uIn2K1vsW_qzSsjGDhIyFz=w816-h326-no"><amp-img src="https://lh3.googleusercontent.com/zWE01rGSr4452ZhEE9KgcWohKbfj9dvTuUXb_bYQkSe4UY0CKRNQZm1hmHwJfGt5r2eOx-8t3RqRvNyZDOjnn_0tvBXkoRLm9DEskQf8j-wQE5bngVTSPbm8g8Q3fqZ6H9mP1EXOJHx0q6iAENQTknh4-WStChbVIgZTVZBUmqQfjDganVWOT0YS3A7H7N4EaGLtD1Qz-NTgo2ObmTMGb9ioCaMPVDf8kgFrE1cATkP2yoN2RDKeBHiATUpTACkbLYrhtqJV8EMtws0mUBKFx3Pfdr5cTKAqTN8AcjoIdRT9NFSsSpSrnF5y4648MxGd2R4TIKlxyMiL90cGsAMqiUhjMOI4riN-HLuNdDH7ke4uSj7oDKy4b9lCxzkETGsvLzuDZzyLxUvTjrsr43OEHLrnuaDC_kWcAmr7_pbz7RgbYJO8cfKAGoRXtM2s7W9dxcRGKj3F0ZZWKQYbhEjYrvrGx6OCGkViQet2R0ICj5HX7FcPqiZnJq9LoHhCWdFXnaRdCcxo1sYgEFJma95TogFlIlSV0LiyZS_AVJDdpOq6AjD2W8nvyZ3yrEzeY-No_QyvcHoBvdmFXbVRrzKbMcBI5twYz0uIn2K1vsW_qzSsjGDhIyFz=w816-h326-no" alt width="816" height="326" layout="responsive"></amp-img></a></p>
+<p>Trong đó:</p>
+<ul>
+<li>travis_php_demo: là thư mục git của mình.</li>
+<li>src: là thư mục chứa source code của project.</li>
+<li>.travis.yml: là file cấu hình cho Travis, file này bắt buộc phải có nhé.</li>
+<li>phpunit.xml: file cấu hình cho công cụ test là PHPUnit, file này cũng bắt buộc phải có nhé.</li>
+</ul>
+<p><strong>Bước 9: Code thôi.</strong> Bây giờ mình viết code cho từng file như sau:</p>
+<ul>
+<li><span><strong>phpunit.xml<span> __ </span></strong></span>Dòng code <span>./src</span> có nghĩa là test các file có đuôi là php trong thư mục src.</li>
+</ul>
+<p><a href="https://lh3.googleusercontent.com/n1YZJ069EVOE5FBTMiK0GWF2HlBPeaUp3lTQbMeISR_SSp-_FFN759TQFew1s3-zUM5_s31uO8qtOhj3e313yttJW-SwQkiLSWd1u-Bq1iARomJ3my58d1dRWdwwuFlxqLWxwSTtBjnT4f3uh-qX7XDJDqzUljGDWXuBsjpNNhJlQM69Sc43A5lcIpP4k73KPAGebNX0oMXqdIzSwjOAlw49cpd3i-ljxUS45j5IvQpDdHGsGp1S_rJmg0FVBF8ZmNEhZiKTTWqlUaaRKlItVxY3hkxY8Zcmcut5gCYpObBjMGMeK3nkNLGWW1YB5wBE4U0iCa2cSIeouTBskSj9bFiVuc1d4zy1aj3cOtDJzTs6kqLMAQsCWdStdMF7KlNOwOpJXB4_TVgt2YXN2w27Oz8X5azQrRAxV2jc_shnfgSbtQWNi4BfS04HlzWKynXmi_3ty4p66AJWLRR2E9HsLa7D2vCzUQyey4qH-nxIg4KQBurIdRQAbFndf4OWGZ8hQQrJnz3834kaL3pBazzlBbZB-16Ia2HCzDvZfX6KPg80XfnZ-OzrSsc4waLAgw3dKWukzv_ZHtMLBr33YmfoLooQoyEk7yVP3jetke4uWL3Rq1AfQbM4=w856-h410-no"><amp-img src="https://lh3.googleusercontent.com/n1YZJ069EVOE5FBTMiK0GWF2HlBPeaUp3lTQbMeISR_SSp-_FFN759TQFew1s3-zUM5_s31uO8qtOhj3e313yttJW-SwQkiLSWd1u-Bq1iARomJ3my58d1dRWdwwuFlxqLWxwSTtBjnT4f3uh-qX7XDJDqzUljGDWXuBsjpNNhJlQM69Sc43A5lcIpP4k73KPAGebNX0oMXqdIzSwjOAlw49cpd3i-ljxUS45j5IvQpDdHGsGp1S_rJmg0FVBF8ZmNEhZiKTTWqlUaaRKlItVxY3hkxY8Zcmcut5gCYpObBjMGMeK3nkNLGWW1YB5wBE4U0iCa2cSIeouTBskSj9bFiVuc1d4zy1aj3cOtDJzTs6kqLMAQsCWdStdMF7KlNOwOpJXB4_TVgt2YXN2w27Oz8X5azQrRAxV2jc_shnfgSbtQWNi4BfS04HlzWKynXmi_3ty4p66AJWLRR2E9HsLa7D2vCzUQyey4qH-nxIg4KQBurIdRQAbFndf4OWGZ8hQQrJnz3834kaL3pBazzlBbZB-16Ia2HCzDvZfX6KPg80XfnZ-OzrSsc4waLAgw3dKWukzv_ZHtMLBr33YmfoLooQoyEk7yVP3jetke4uWL3Rq1AfQbM4=w856-h410-no" alt width="856" height="410" layout="responsive"></amp-img></a></p>
+<ul>
+<li>**<span> .travis.yml<span> __ </span></span>**Mình khai báo ngôn ngữ là <strong><span>PHP</span></strong>, và test với php version 5.6 với 7.0</li>
+</ul>
+<p><a href="https://lh3.googleusercontent.com/5z7cv-Bf1ftkNf0UcWgwm8KO4_Tj7JMy2wYK4YfxxKv43yqbWX_DFvfeDMgRV4w4uoUQ2uATfxBdZZKERCVZ7LwY0NmyNur0DUb8UqCr8nHhe438RDoc4EGrb6gZ4ajiJegZmGsnfTOXf48v_CJYYoUTyvQwFZKeyMPmkl4LDA9FvMJU5xAM4K7i-KNfFV8cP2HtBQ-XWhk23ESWv99NSqEOzJ2JbqIU_xQBaBn91cbqoNDrZ2JVglGGMu_n3patLJF9vj2q39shuktd6_ueM041KOgX0bF6T7EGlooeucXPNv9SvctmJwSWIA3kEaIthSHrIDfAQ4nIA43ekM3c_z12REwfEhfraVnTBk9tsT-w3YhZvaeAGihxPP9MOC3SBMiaU4su5JMfrphf9xyuJVD0rdZLeVFvNNqjUVaJtXTslYSfVDEOTXQosvip3optgTiiXVFPtnmPxRz_ZPXsWwH9eFg_8gi74o9ratXPkfsyiV5Y9TUmiiQt31q4pArZ3uqy-5VKjb15YfRvtBo91DzbO2AiXcwO6BXakw8JDqAjdraJxcpy9HGPWfpAPWo43bSxuNGzh9Oralun1Tz59uSowxCd6G7y1RrYhIDweM8fPcGb1qdZ=w860-h413-no"><amp-img src="https://lh3.googleusercontent.com/5z7cv-Bf1ftkNf0UcWgwm8KO4_Tj7JMy2wYK4YfxxKv43yqbWX_DFvfeDMgRV4w4uoUQ2uATfxBdZZKERCVZ7LwY0NmyNur0DUb8UqCr8nHhe438RDoc4EGrb6gZ4ajiJegZmGsnfTOXf48v_CJYYoUTyvQwFZKeyMPmkl4LDA9FvMJU5xAM4K7i-KNfFV8cP2HtBQ-XWhk23ESWv99NSqEOzJ2JbqIU_xQBaBn91cbqoNDrZ2JVglGGMu_n3patLJF9vj2q39shuktd6_ueM041KOgX0bF6T7EGlooeucXPNv9SvctmJwSWIA3kEaIthSHrIDfAQ4nIA43ekM3c_z12REwfEhfraVnTBk9tsT-w3YhZvaeAGihxPP9MOC3SBMiaU4su5JMfrphf9xyuJVD0rdZLeVFvNNqjUVaJtXTslYSfVDEOTXQosvip3optgTiiXVFPtnmPxRz_ZPXsWwH9eFg_8gi74o9ratXPkfsyiV5Y9TUmiiQt31q4pArZ3uqy-5VKjb15YfRvtBo91DzbO2AiXcwO6BXakw8JDqAjdraJxcpy9HGPWfpAPWo43bSxuNGzh9Oralun1Tz59uSowxCd6G7y1RrYhIDweM8fPcGb1qdZ=w860-h413-no" alt width="860" height="413" layout="responsive"></amp-img></a></p>
+<ul>
+<li>**<span>src/index.php</span><span>__ </span>**Code php đơn giản</li>
+</ul>
+<p><a href="https://lh3.googleusercontent.com/iCOfZ-x4oGp-OAzRySQHIZfS9tFNc3HhYcB-yd3-BygD5b8MwMzuL7uYHLZbZG-Z1YcWzAWUpK0YtAi3Kt8RVu3BKVA5qvDINqnG5t_SLVPFJBUSPZut8_d6UifY_a4c0smGw4h8z3Bw3UI3zs7hZ2ehFtpSpsfHfFJmFp0836k8LDRF6bxTyjKDB2jY6ykAffDxsK2ys-D5iCrPzrITbb7HOEI3nZJ95U-6S_THjSYmzUobIf3zWDgIVBHn-PbtSpZgsTUJD_JM9z6ZmvmoBhgZZZohwwawJoHjEyyZ_B7KTqLWyhEzWK_gxlXdNKtarh65fa_tDhDRz3lrWJqyNPr8w_XRXXOl492OuWjSudElQB-M2H-SVdw0eEDiRqv3K6PPfCV0oXXpGBAg70twpToA3viE1b77903ImdAO4eFeCZTmsLkf1-K6p_V_Mz9l6fMna8GwK_gypPhSkngiRT0XyNhAlGw04_D6nTEeynbB9_NZuePT37Z5BaYd7xTMeqeeHhWvDQ3z-5J3rS4Auh0-13Ewt4qwnKLsFE_GjltsPv7a4XFSM3RnhdRlaC-rJmf0xuHJW4Rd_Aw6Rye4Yx2LWMOxg4BY_bsu0vC5IW0PMnAV9R1X=w861-h412-no"><amp-img src="https://lh3.googleusercontent.com/iCOfZ-x4oGp-OAzRySQHIZfS9tFNc3HhYcB-yd3-BygD5b8MwMzuL7uYHLZbZG-Z1YcWzAWUpK0YtAi3Kt8RVu3BKVA5qvDINqnG5t_SLVPFJBUSPZut8_d6UifY_a4c0smGw4h8z3Bw3UI3zs7hZ2ehFtpSpsfHfFJmFp0836k8LDRF6bxTyjKDB2jY6ykAffDxsK2ys-D5iCrPzrITbb7HOEI3nZJ95U-6S_THjSYmzUobIf3zWDgIVBHn-PbtSpZgsTUJD_JM9z6ZmvmoBhgZZZohwwawJoHjEyyZ_B7KTqLWyhEzWK_gxlXdNKtarh65fa_tDhDRz3lrWJqyNPr8w_XRXXOl492OuWjSudElQB-M2H-SVdw0eEDiRqv3K6PPfCV0oXXpGBAg70twpToA3viE1b77903ImdAO4eFeCZTmsLkf1-K6p_V_Mz9l6fMna8GwK_gypPhSkngiRT0XyNhAlGw04_D6nTEeynbB9_NZuePT37Z5BaYd7xTMeqeeHhWvDQ3z-5J3rS4Auh0-13Ewt4qwnKLsFE_GjltsPv7a4XFSM3RnhdRlaC-rJmf0xuHJW4Rd_Aw6Rye4Yx2LWMOxg4BY_bsu0vC5IW0PMnAV9R1X=w861-h412-no" alt width="861" height="412" layout="responsive"></amp-img></a></p>
+<p>** Bước 10: Push code lên Github. **Vào trang <strong><span>Travis-ci</span></strong> với <strong>Github</strong> để xem thông báo trạng thái code bạn vừa push có <strong><span>OK</span></strong> ko nhé. Nếu màu xanh là mọi thứ **<span>OK</span>**nhé. Ngược lại màu đỏ là bị lỗi.</p>
+<p><a href="https://lh3.googleusercontent.com/cKm1mxMT3RtArMJX1a40ntyFHZ1cZxK4UGVRi-erTLGhXD61xSuhVwgeg5oBw6qZgyNeCURlxTJhH1Wju9solNPY0-WmXDj3euD4qlvEJyLj9mxyqNmXYKpWT78zqTF8Fo2Pe3j08AkHfGt74OtYZuDFJ9je5Rw2db4mBloAXLla4hsSajYgBiXjfoqyQymOAHOgOoBPLYjzvuKqIge0YnDPpIF9aAVq6uxlxaZAtJeYL-xDa2mcCCPzPkORb8jnJh8_hsob44wcsxQq9wHLhYFKd3Dv0SFae_xqAS2fvHXAJkO6QtZPtQ7BoLTY9fHhFrQJ6epwiegKpCF9FdfTeLF2prKjjzM3EEWXVA7apN_pXjAiSlOMubpjM4Wir7hSEfbuXPoiGAZovKW1nWRFT0yCTuZEQvO6kY5CoQksJ2APg6E3_NGTxDHI3FWfa52B-QkBIuFmmhr8DixwyHHwzYhk2O7C66hMDYY9qV1UYl5T33dxEfA0vgfsDQY5RlEC3hByzC3cCrSvWezrXYpFOlgL2VMgtZfiY8MlLdtiLqYKUrSM03NAnrD9Nof8IN2DdgCfWpnHfqSoc4Crb5-8NtYV2jONOBO3q8Q_2j9D_dFedViqrLo4=w734-h646-no"><amp-img src="https://lh3.googleusercontent.com/cKm1mxMT3RtArMJX1a40ntyFHZ1cZxK4UGVRi-erTLGhXD61xSuhVwgeg5oBw6qZgyNeCURlxTJhH1Wju9solNPY0-WmXDj3euD4qlvEJyLj9mxyqNmXYKpWT78zqTF8Fo2Pe3j08AkHfGt74OtYZuDFJ9je5Rw2db4mBloAXLla4hsSajYgBiXjfoqyQymOAHOgOoBPLYjzvuKqIge0YnDPpIF9aAVq6uxlxaZAtJeYL-xDa2mcCCPzPkORb8jnJh8_hsob44wcsxQq9wHLhYFKd3Dv0SFae_xqAS2fvHXAJkO6QtZPtQ7BoLTY9fHhFrQJ6epwiegKpCF9FdfTeLF2prKjjzM3EEWXVA7apN_pXjAiSlOMubpjM4Wir7hSEfbuXPoiGAZovKW1nWRFT0yCTuZEQvO6kY5CoQksJ2APg6E3_NGTxDHI3FWfa52B-QkBIuFmmhr8DixwyHHwzYhk2O7C66hMDYY9qV1UYl5T33dxEfA0vgfsDQY5RlEC3hByzC3cCrSvWezrXYpFOlgL2VMgtZfiY8MlLdtiLqYKUrSM03NAnrD9Nof8IN2DdgCfWpnHfqSoc4Crb5-8NtYV2jONOBO3q8Q_2j9D_dFedViqrLo4=w734-h646-no" alt width="734" height="646" layout="responsive"></amp-img></a></p>
+<p>** Bước 11: Test trường hợp code bị lỗi.** Vào file <strong><span>src/index.php</span></strong>, mình xóa dấu <strong><span>chấm phẩy ;</span></strong> đi. Sau đó push code lên server <strong>Github</strong>, và đợi <span><strong>Travis</strong></span>test nhé.</p>
+<p><a href="https://lh3.googleusercontent.com/0cz4Bl2u5G_4g9cevK1Ltq7IQs8BbO_Ri-zacP1LGdSp9LdLypcds9ULkb5xdoqUD5ygDH8QGzyuf1Xwf2isEQznZrfhnzRCQXt7FEcAbf_ripZyHgkvsYeQreJ0DjRgRqQDkX5eWIXBQdx2lrfcWbGTUMdtXZ6Cxsl__tnD5-dYPLTWy3EE1ACijp7f5hjLxktgu_Yrqc7cJnyfK8M8NdaYQnzQUeS6MFyqZ3Hi0U43QtNX5qlydEl3V0HjanK0t2rSIIIkR9ansCozBITt9P-PZIL2yg-lXEkZHCa2JB8KlrLCrbimIr-xXPGLDN22m3RWmf1yU-3tLGYXvFyv1rNfXO7mbUa4QwsBQ97pWNtvQmEu23xL-WCai7xMZZq3tovUQ75kacKQ-BX6KHz7faknGQQ7bKPO8OV9jWsVy0uuUjWjFjEwGMMGVTYUaqkEo4S8pimhUxJRhN3w-G95mhBiJtzVS3_zq2TawvHeY-91-_c7AvqVb7MTlaD8bwKaX4FG_z9hiI7b4vxH2_-8_bnI3t3n2m8YY-qh0ph8_q7LBUx8PG7TuBhjucFKm8LJS9I5mmHhAhvHR3BUz6Idd1YMFIFQu-8f8zWTz38bhudmlLn0VygM=w1310-h591-no"><amp-img src="https://lh3.googleusercontent.com/0cz4Bl2u5G_4g9cevK1Ltq7IQs8BbO_Ri-zacP1LGdSp9LdLypcds9ULkb5xdoqUD5ygDH8QGzyuf1Xwf2isEQznZrfhnzRCQXt7FEcAbf_ripZyHgkvsYeQreJ0DjRgRqQDkX5eWIXBQdx2lrfcWbGTUMdtXZ6Cxsl__tnD5-dYPLTWy3EE1ACijp7f5hjLxktgu_Yrqc7cJnyfK8M8NdaYQnzQUeS6MFyqZ3Hi0U43QtNX5qlydEl3V0HjanK0t2rSIIIkR9ansCozBITt9P-PZIL2yg-lXEkZHCa2JB8KlrLCrbimIr-xXPGLDN22m3RWmf1yU-3tLGYXvFyv1rNfXO7mbUa4QwsBQ97pWNtvQmEu23xL-WCai7xMZZq3tovUQ75kacKQ-BX6KHz7faknGQQ7bKPO8OV9jWsVy0uuUjWjFjEwGMMGVTYUaqkEo4S8pimhUxJRhN3w-G95mhBiJtzVS3_zq2TawvHeY-91-_c7AvqVb7MTlaD8bwKaX4FG_z9hiI7b4vxH2_-8_bnI3t3n2m8YY-qh0ph8_q7LBUx8PG7TuBhjucFKm8LJS9I5mmHhAhvHR3BUz6Idd1YMFIFQu-8f8zWTz38bhudmlLn0VygM=w1310-h591-no" alt width="1310" height="591" layout="responsive"></amp-img></a></p>
+<p>Sau khi push code, **<span>Travis</span>**sẽ tự động build lại. Trạng thái màu vàng là đang build nhé. <strong>Github</strong> cũng hiện trạng thái đang build.</p>
+<p><a href="https://lh3.googleusercontent.com/G4ZxsmCqT0-YnGHPtP6sfoMKJ1HX7zuZPPMTSEFKem3Lbgn_YGrek609NrtiQqnTHBpbk1qNvMg25bG-wlXZ4Ihla6WslLGAp6hkChXIye9nhzBDjdOeqUTybE1udro3p7du5rtcMj0Zq5XUL4t46P6nMUSOFzBmR5E9j_hFm_qzuz0ia-CtPYkVNRRNEQM06yk3FHBqBcdh4-mP-0B4-o7_YuV412QEqfQgnDjJAwC6IkJFEOQbhNe1_hPQ307lorjho-r-iIl7zF3IkLTR6OtIHOAPZXaNSonJMl8CyMcwygZyDCFPc9HnQDFP-8UdvpCBK8haiech3ptn9coM5DtwSacBhHi-nzZ4yKI2QI_gskbZAE4Z_zu9y7INm1ix63XHDuvzZ0Eu4DYQwR2TuKAQZJxeGCL-N0vtmO-MmtYAogiVg-gInn0EPpaVYlQIvzEkWRO2TOxqn_4WWzfE-zQzLZCllUsZOEa2IgCsIUYEh_kHF0lojpkl76V2frD-N2jZczo-62PNpzKkL8sqNjtZyoJae6AVKerYiKuf59IJ6UEDIpmnrzSTy-YHaVct9tFumoykTVzafnThw_gBK0Mb7R3a77J1VWMHg0Z1IegSnbVK2gbK=w807-h646-no"><amp-img src="https://lh3.googleusercontent.com/G4ZxsmCqT0-YnGHPtP6sfoMKJ1HX7zuZPPMTSEFKem3Lbgn_YGrek609NrtiQqnTHBpbk1qNvMg25bG-wlXZ4Ihla6WslLGAp6hkChXIye9nhzBDjdOeqUTybE1udro3p7du5rtcMj0Zq5XUL4t46P6nMUSOFzBmR5E9j_hFm_qzuz0ia-CtPYkVNRRNEQM06yk3FHBqBcdh4-mP-0B4-o7_YuV412QEqfQgnDjJAwC6IkJFEOQbhNe1_hPQ307lorjho-r-iIl7zF3IkLTR6OtIHOAPZXaNSonJMl8CyMcwygZyDCFPc9HnQDFP-8UdvpCBK8haiech3ptn9coM5DtwSacBhHi-nzZ4yKI2QI_gskbZAE4Z_zu9y7INm1ix63XHDuvzZ0Eu4DYQwR2TuKAQZJxeGCL-N0vtmO-MmtYAogiVg-gInn0EPpaVYlQIvzEkWRO2TOxqn_4WWzfE-zQzLZCllUsZOEa2IgCsIUYEh_kHF0lojpkl76V2frD-N2jZczo-62PNpzKkL8sqNjtZyoJae6AVKerYiKuf59IJ6UEDIpmnrzSTy-YHaVct9tFumoykTVzafnThw_gBK0Mb7R3a77J1VWMHg0Z1IegSnbVK2gbK=w807-h646-no" alt width="806" height="646" layout="responsive"></amp-img></a></p>
+<p>Quá trình build kết thúc. Ôi, có lỗi rồi..</p>
+<p><a href="https://lh3.googleusercontent.com/8tWlWLjUu9R0rSAF86I0--14ikmRUzB_VgB8MxDXMSsObhEtlriVsSlaQBva5kaVD-i7WXkfVdKMZYhneQ7IFWvY4SmIjBXgVZAnta9AqYWRE8r5yAW4v8FqxAuvO1C_MnKWbSt3D6pl_E5Mh3z19H4yVb1CjjRylYwgp_xWvWmLAWomc26e4XrTTA7xpFRiBvSiWakIvc7k1FlzhRvJjCmMPCPkjXx7zE7K86gLSSSTcrLdQd11EkjrsWNVxktz5HCeGaPjvQC7JSmN7hAkC9iBZZ8tspUnI9JVVLSxRWCEmgELRoG07VB7-2HwowhKfhGhLA1sa7PmyvrFKeRfynWgEVpYx14Vs9DWhXnRug7aC8KuggXMFcezhdx72W-ZdeMZkr5iY1IOItwtZV2h22zXBzDYMiopOv_7uCZBp-ASA_4S6UdtvwyOv2zkoW-Yje0IEEeXT0bkcNzPbHWKhuYG7090l0fgQlHZcB6yl7cbRSRsknLgBEI5IR_dLMa5BrUn-2kDKxx8Z57SRb9BvreI80gt-Fjfh23YhYLVWUrtIuD2uGLQL5vX6KBuhWNMMmL_M0NPRQZCi_SlxMJY89WjabColIcazAfv9Y360EFKcI-Z14cP=w914-h646-no"><amp-img src="https://lh3.googleusercontent.com/8tWlWLjUu9R0rSAF86I0--14ikmRUzB_VgB8MxDXMSsObhEtlriVsSlaQBva5kaVD-i7WXkfVdKMZYhneQ7IFWvY4SmIjBXgVZAnta9AqYWRE8r5yAW4v8FqxAuvO1C_MnKWbSt3D6pl_E5Mh3z19H4yVb1CjjRylYwgp_xWvWmLAWomc26e4XrTTA7xpFRiBvSiWakIvc7k1FlzhRvJjCmMPCPkjXx7zE7K86gLSSSTcrLdQd11EkjrsWNVxktz5HCeGaPjvQC7JSmN7hAkC9iBZZ8tspUnI9JVVLSxRWCEmgELRoG07VB7-2HwowhKfhGhLA1sa7PmyvrFKeRfynWgEVpYx14Vs9DWhXnRug7aC8KuggXMFcezhdx72W-ZdeMZkr5iY1IOItwtZV2h22zXBzDYMiopOv_7uCZBp-ASA_4S6UdtvwyOv2zkoW-Yje0IEEeXT0bkcNzPbHWKhuYG7090l0fgQlHZcB6yl7cbRSRsknLgBEI5IR_dLMa5BrUn-2kDKxx8Z57SRb9BvreI80gt-Fjfh23YhYLVWUrtIuD2uGLQL5vX6KBuhWNMMmL_M0NPRQZCi_SlxMJY89WjabColIcazAfv9Y360EFKcI-Z14cP=w914-h646-no" alt width="913" height="646" layout="responsive"></amp-img></a></p>
+<p>Các bạn click vào để xem bảo lỗi do đâu. Hiện tại thì nó báo lỗi do thiếu dấu chấm phẩy ở dòng số 4. Vậy là biết được nguyên nhân gây lỗi rồi nhé.</p>
+<p><a href="https://lh3.googleusercontent.com/kYPU1HKSbLEJNWpSbnXowDlH8a2zqIFbNOGoGCiowBLzO43d8rfhk5Gqyp5oUqk9wWiXFyI0gtGGD_2tghSY-fP0W5TbluNfUvc9-LFIMdRKaSbWKcITlDIVlL8UIx3TC18R1gnnAcV8-EKYVG3yoYPCImlc_LEzINqxY_BLf7eZQNi6D6sSk8y4raUMUdF_NMciw_kKkj0cO8C3yplBn2Lwcv1pxoxWBsHNTcWKIayPv4ByoIu0zGR85yRP3fl1VbNrbqv-mvunzqTMOCStBLueHrq1LJWpQLTHmreKxeQOmOtZdvz1ZBmIMlY0GuoYKjatXSrcJEsEkp6ek6WKj290ueNGDlFl_ctmSabSLZqeNclJ-kqmXzCMXRLE_sLJ0EVoIsa8b649hBa2TC99KFK6l-v9EiINsdgEBp81IJ5L--zDYvO4eKul4eU032W18zo9xl4uKDwHWsEg31-3BZWZEQNys7nBm-PF9Zw2XrD0sQzuUbDH-2PNPcbYuCcEbSmEibFyt7Xzqv7wqHpgEnZsUb9Fnh4kdr7yFmtMnduklRBJ8ukvEffh-DZuSnwkJjQynTbdUQ9nCqo0z6hFopBH93u4K45nDhnPW0U_maH4FsP9-rdd=w1366-h597-no"><amp-img src="https://lh3.googleusercontent.com/kYPU1HKSbLEJNWpSbnXowDlH8a2zqIFbNOGoGCiowBLzO43d8rfhk5Gqyp5oUqk9wWiXFyI0gtGGD_2tghSY-fP0W5TbluNfUvc9-LFIMdRKaSbWKcITlDIVlL8UIx3TC18R1gnnAcV8-EKYVG3yoYPCImlc_LEzINqxY_BLf7eZQNi6D6sSk8y4raUMUdF_NMciw_kKkj0cO8C3yplBn2Lwcv1pxoxWBsHNTcWKIayPv4ByoIu0zGR85yRP3fl1VbNrbqv-mvunzqTMOCStBLueHrq1LJWpQLTHmreKxeQOmOtZdvz1ZBmIMlY0GuoYKjatXSrcJEsEkp6ek6WKj290ueNGDlFl_ctmSabSLZqeNclJ-kqmXzCMXRLE_sLJ0EVoIsa8b649hBa2TC99KFK6l-v9EiINsdgEBp81IJ5L--zDYvO4eKul4eU032W18zo9xl4uKDwHWsEg31-3BZWZEQNys7nBm-PF9Zw2XrD0sQzuUbDH-2PNPcbYuCcEbSmEibFyt7Xzqv7wqHpgEnZsUb9Fnh4kdr7yFmtMnduklRBJ8ukvEffh-DZuSnwkJjQynTbdUQ9nCqo0z6hFopBH93u4K45nDhnPW0U_maH4FsP9-rdd=w1366-h597-no" alt width="1366" height="596" layout="responsive"></amp-img></a></p>
+<p>Chúc các bạn thành công nhé.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

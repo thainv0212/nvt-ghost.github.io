@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Flask logging và logrotate | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Flask logging và logrotate" />
+    <meta property="og:description" content="Giới thiệuFlask là tuyệt vời, vô cùng linh hoạt để xây dựng một ứng dụng web. Nó nhỏ gọn  hơn rất nhiều so với người anh em Django. Trong suốt một vài dự án tại GMO Z.com vietnam lab center, chúng tôi đã phát triển một số phần liên" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/flask-logging-va-logrotate/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1hMkrRvVMcmSvxVB9XT2ibjizqN-oyd2x&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-06-25T07:10:55.000Z" />
+    <meta property="article:modified_time" content="2020-06-25T07:10:55.000Z" />
+    <meta property="article:tag" content="flask" />
+    <meta property="article:tag" content="blog" />
+    <meta property="article:tag" content="Python" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Flask logging và logrotate" />
+    <meta name="twitter:description" content="Giới thiệuFlask là tuyệt vời, vô cùng linh hoạt để xây dựng một ứng dụng web. Nó nhỏ gọn  hơn rất nhiều so với người anh em Django. Trong suốt một vài dự án tại GMO Z.com vietnam lab center, chúng tôi đã phát triển một số phần liên" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/flask-logging-va-logrotate/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1hMkrRvVMcmSvxVB9XT2ibjizqN-oyd2x&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="flask, blog, Python" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Flask logging và logrotate",
+    "url": "https://blog.vietnamlab.vn/flask-logging-va-logrotate/",
+    "datePublished": "2020-06-25T07:10:55.000Z",
+    "dateModified": "2020-06-25T07:10:55.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1hMkrRvVMcmSvxVB9XT2ibjizqN-oyd2x&export=download",
+        "width": 1280,
+        "height": 720
+    },
+    "keywords": "flask, blog, Python",
+    "description": "Giới thiệu\nFlask là tuyệt vời, vô cùng linh hoạt để xây dựng một ứng dụng web. Nó nhỏ gọn\n hơn rất nhiều so với người anh em Django. Trong suốt một vài dự án tại GMO\nZ.com vietnam lab center, chúng tôi đã phát triển một số phần liên quan đế sử lý\nlog mà tôi thấy hữu ích và muốn chia sẻ với bạn.\n\n\n\nFlask loging\nLog mặc định của flask dược hiện thị trên màn hình như sau\n\n# Default settings - meh\n[2020-06-12 08:46:44,202] ERROR in app: &lt;Lightsaber noises&gt;\n[2020-06-12 08:46:44,202] WARNING in app: G",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-flask tag-blog-tag tag-python nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-flask tag-blog-tag tag-python js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Flask logging và logrotate</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-06-25">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 25 June 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/flask/index.html">flask</a>, <a href="../tag/blog-tag/index.html">blog</a>, <a href="../tag/python/index.html">Python</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1hMkrRvVMcmSvxVB9XT2ibjizqN-oyd2x&amp;export&#x3D;download" alt="Flask logging và logrotate">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/flask-logging-va-logrotate/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Flask%20logging%20v%C3%A0%20logrotate">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <h3 id="gi-i-thi-u">Giới thiệu</h3><p>Flask là tuyệt vời, vô cùng linh hoạt để xây dựng một ứng dụng web. Nó nhỏ gọn  hơn rất nhiều so với người anh em Django. Trong suốt một vài dự án tại GMO Z.com vietnam lab center, chúng tôi đã phát triển một số phần liên quan đế sử lý log mà tôi thấy hữu ích và muốn chia sẻ với bạn.</p><p></p><h3 id="flask-loging">Flask loging</h3><p>Log mặc định của flask dược hiện thị trên màn hình như sau</p><pre><code># Default settings - meh
+[2020-06-12 08:46:44,202] ERROR in app: &lt;Lightsaber noises&gt;
+[2020-06-12 08:46:44,202] WARNING in app: General Kenobi
+127.0.0.1 - - [12/Jun/2020 08:46:44] "GET / HTTP/1.1" 200 -</code></pre><p>Thêm config log có thể set ở <code>app.config</code> . Ví dụ mình đã thêm vào 2 config là <code>LOG_TYPE</code> và <code>LOG_LEVEL</code></p><pre><code>from flask import Flask, current_app
+from flask_logs import LogSetup
+import os
+
+app = Flask(__name__)
+app.config["LOG_TYPE"] = os.environ.get("LOG_TYPE", "stream")
+app.config["LOG_LEVEL"] = os.environ.get("LOG_LEVEL", "INFO")
+
+logs = LogSetup()
+logs.init_app(app)
+
+@app.route("/")
+def hello_world():
+    current_app.logger.info("Hello REM")
+    current_app.logger.error("&lt;Lightsaber noises&gt;")
+    current_app.logger.warning("General Kenobi")
+    return "Hello World!"
+
+if __name__ == "__main__":
+    app.run()</code></pre><p>Tiếp đó cần phải ghi log ra file để có thể rotation về sau này</p><pre><code>from flask import Flask, current_app
+from flask_logs import LogSetup
+import os
+
+app = Flask(__name__)
+
+app.config["LOG_TYPE"] = os.environ.get("LOG_TYPE", "watched")
+app.config["LOG_LEVEL"] = os.environ.get("LOG_LEVEL", "INFO")
+
+# File Logging Setup
+app.config['LOG_DIR'] = os.environ.get("LOG_DIR", "./")
+app.config['APP_LOG_NAME'] = os.environ.get("APP_LOG_NAME", "app.log")
+app.config['WWW_LOG_NAME'] = os.environ.get("WWW_LOG_NAME", "www.log")
+logs = LogSetup()
+logs.init_app(app)
+
+@app.route("/")
+def hello_world():
+    current_app.logger.info("Hello REM")
+    current_app.logger.error("&lt;Lightsaber noises&gt;")
+    current_app.logger.warning("General Kenobi")
+    return "Hello World!"
+
+if __name__ == "__main__":
+    app.run()</code></pre><p>Như ở trên mình đã thêm các config <code>LOG_DIR</code> và <code>APP_LOG_NAME</code> và <code>WWW_LOG_NAME</code></p><p>Class LogSetup của mình như sau</p><pre><code>from logging.config import dictConfig
+
+
+class LogSetup(object):
+    def __init__(self, app=None, **kwargs):
+        if app is not None:
+            self.init_app(app, **kwargs)
+
+    def init_app(self, app):
+        log_type = app.config["LOG_TYPE"]
+        logging_level = app.config["LOG_LEVEL"]
+        if log_type != "stream":
+            try:
+                log_directory = app.config["LOG_DIR"]
+                app_log_file_name = app.config["APP_LOG_NAME"]
+                access_log_file_name = app.config["WWW_LOG_NAME"]
+            except KeyError as e:
+                exit(code="{} is a required parameter for log_type '{}'".format(e, log_type))
+            app_log = "/".join([log_directory, app_log_file_name])
+            www_log = "/".join([log_directory, access_log_file_name])
+
+        if log_type == "stream":
+            logging_policy = "logging.StreamHandler"
+        elif log_type == "watched":
+            logging_policy = "logging.handlers.WatchedFileHandler"
+        else:
+            log_max_bytes = app.config["LOG_MAX_BYTES"]
+            log_copies = app.config["LOG_COPIES"]
+            logging_policy = "logging.handlers.RotatingFileHandler"
+
+        std_format = {
+            "formatters": {
+                "default": {
+                    "format": "[%(asctime)s.%(msecs)03d] %(levelname)s %(name)s:%(funcName)s: %(message)s",
+                    "datefmt": "%d/%b/%Y:%H:%M:%S",
+                },
+                "access": {"format": "%(message)s"},
+            }
+        }
+        std_logger = {
+            "loggers": {
+                "": {"level": logging_level, "handlers": ["default"], "propagate": True},
+                "app.access": {
+                    "level": logging_level,
+                    "handlers": ["access_logs"],
+                    "propagate": False,
+                },
+                "root": {"level": logging_level, "handlers": ["default"]},
+            }
+        }
+        if log_type == "stream":
+            logging_handler = {
+                "handlers": {
+                    "default": {
+                        "level": logging_level,
+                        "formatter": "default",
+                        "class": logging_policy,
+                    },
+                    "access_logs": {
+                        "level": logging_level,
+                        "class": logging_policy,
+                        "formatter": "access",
+                    },
+                }
+            }
+        elif log_type == "watched":
+            logging_handler = {
+                "handlers": {
+                    "default": {
+                        "level": logging_level,
+                        "class": logging_policy,
+                        "filename": app_log,
+                        "formatter": "default",
+                        "delay": True,
+                    },
+                    "access_logs": {
+                        "level": logging_level,
+                        "class": logging_policy,
+                        "filename": www_log,
+                        "formatter": "access",
+                        "delay": True,
+                    },
+                }
+            }
+        else:
+            logging_handler = {
+                "handlers": {
+                    "default": {
+                        "level": logging_level,
+                        "class": logging_policy,
+                        "filename": app_log,
+                        "backupCount": log_copies,
+                        "maxBytes": log_max_bytes,
+                        "formatter": "default",
+                        "delay": True,
+                    },
+                    "access_logs": {
+                        "level": logging_level,
+                        "class": logging_policy,
+                        "filename": www_log,
+                        "backupCount": log_copies,
+                        "maxBytes": log_max_bytes,
+                        "formatter": "access",
+                        "delay": True,
+                    },
+                }
+            }
+
+        log_config = {
+            "version": 1,
+            "formatters": std_format["formatters"],
+            "loggers": std_logger["loggers"],
+            "handlers": logging_handler["handlers"],
+        }
+        dictConfig(log_config)</code></pre><p>Trong hàm <code>init_app(self, app):</code> sẽ lấy các config đã được set ở trên như là <code>log_type=app.config["LOG_TYPE"]</code></p><p>Sau đó sẽ chỉ định clask Log Handler nào được thực thi tùy theo config </p><ul><li>logging.StreamHandler</li><li>logging.handlers.WatchedFileHandler</li><li>logging.handlers.RotatingFileHandler</li></ul><p><code>logging_handler</code> Sẽ định nghĩa các setting cho từng loại log handler ở trên</p><h4 id="streamhander">StreamHander</h4><p><a href="https://docs.python.org/3/library/logging.handlers.html">https://docs.python.org/3/library/logging.handlers.html</a></p><p>Đây là class log base, class Handler cha chó các class Log handler khác. Sử dụng khi muốn chia log theo level và cần format cho log. Sử dụng class này log sẽ được hiện thị trực tiếp ra console</p><p>Các setting cần thiết cở bản như là level và formatter</p><h4 id="watchedfilehandler">WatchedFileHandler</h4><p>Đây là class con của class <code>logging.FileHander</code> . Tuy nhiên nó được mở rộng để ghi log ra file</p><h5 id="rotatingfilehandler">RotatingFileHandler</h5><p>Đây là class để ghi log ra file và có các hàm hỗ trợ rotation theo file size.</p><h5 id="timedrotatingfilehandler">TimedRotatingFileHandler</h5><p>Đây là class để ghi log ra file và có các hàm hỗ trợ rotation theo thời gian. Có thể chỉ định thời gian rotation, tuy nhiên với handler này thì thời gian không được set cố định mà chỉ set được một khoảng thời gian.</p><p>Ví dụ mình muốn rotation theo từng tiếng và log sẽ chạy từ phút thứ 15 thì đến phút thứ 15 của giờ tiếp theo sẽ được tách ra thành 1 file. Tức là không thể cố định được theo thời gian cụ thể mả chỉ có thể set được khoảng thời gian.</p><h3 id="t-o-log-rotation-handler-m-i">Tạo Log rotation handler mới</h3><p>Dưới đây mình đã thử viết một class log handle mới và tự ghi ra file mới khi đã hết khoảng thời gian là 1 ngày. Khi ghi ra file mới cần phải close  stream và mở lai stream mới</p><pre><code>class TimedFileHandler(logging.FileHandler):
+
+    def __init__(self, filename, encoding='utf8', delay=False):
+        """
+        Use the specified filename for streamed logging
+        """
+        # self.current_half_hour = half_hour()
+        current_time = int(time.time())
+        self.current_date = time.strftime("%Y%m%d", time.localtime(current_time))
+        filename = filename + "." + self.current_date
+        logging.FileHandler.__init__(self, filename, 'a', encoding, delay)
+
+    def should_rollover(self):
+        t = int(time.time())
+        new_date = time.strftime("%Y%m%d", time.localtime(t))
+        if new_date &gt; self.current_date:
+            self.current_date = new_date
+            return 1
+        return 0
+
+    def do_rollover(self):
+        if self.stream:
+            self.stream.close()
+            self.stream = None
+        self.baseFilename = self.baseFilename[:-8] + self.current_date
+        self.stream = self._open()
+
+    def emit(self, record):
+        try:
+            if self.should_rollover():
+                self.do_rollover()
+            logging.FileHandler.emit(self, record)
+        except Exception:
+            self.handleError(record)
+
+    def _open(self):
+        file_exists = os.path.exists(self.baseFilename)
+        stream = logging.FileHandler._open(self)
+        if not file_exists:
+            stream.write(LOG_HEADER)
+        return stream
+</code></pre><h3 id="k-t-lu-t">Kết luật</h3><p>Nước sơn thì giống UI của hệ thống, còn gỗ tốt hay không thì cái vụ logging này nó cũng quyết định lắm nè! Nếu không coi trọng logging, khi hệ thống bị bug hay bị attack (gọi là gỗ bị sâu) thì, hoặc là chả coi được log hoặc là log có đó mà không xài được dẫn đến hoàn cảnh bế tắc, lâu dần càng ngày gỗ càng mục nát mà! Cuối cùng người đau khổ và phải hấng chịu nhiều nhất vẫn chính là các bạn - người làm ra hệ thống.</p><p>Với những hệ thống quy mô trung bình, được thiết kế scale ngang nhiều server chẳng hạn đi nữa, mình nghĩ log cực kỳ quan trọng trong việc sử lý lỗi và phân tích hệ thống. Vì thế rất recommend mọi người cài đặt và cải thiện hệ thống để nó ngày càng “tốt gỗ” hơn nhé.</p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/flask-logging-va-logrotate/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Flask%20logging%20v%C3%A0%20logrotate">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/flask-logging-va-logrotate/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/flask-logging-va-logrotate/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

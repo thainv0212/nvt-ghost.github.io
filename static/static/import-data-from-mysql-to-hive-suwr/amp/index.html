@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Import Data từ MySQL vào Hive sử dụng Sqoop</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Import Data từ MySQL vào Hive sử dụng Sqoop" />
+    <meta property="og:description" content="ETL là gì ? Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ?  ETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-09-10T00:50:37.000Z" />
+    <meta property="article:modified_time" content="2019-09-10T00:50:37.000Z" />
+    <meta property="article:tag" content="sqoop" />
+    <meta property="article:tag" content="Apache Hive" />
+    <meta property="article:tag" content="docker mysql" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Import Data từ MySQL vào Hive sử dụng Sqoop" />
+    <meta name="twitter:description" content="ETL là gì ? Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ?  ETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.92" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="sqoop, Apache Hive, docker mysql" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="260" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.92",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkclJsTEtLTVF0UDA&export=download",
+            "width": 259,
+            "height": 194
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt92/",
+        "sameAs": []
+    },
+    "headline": "Import Data từ MySQL vào Hive sử dụng Sqoop",
+    "url": "https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/",
+    "datePublished": "2019-09-10T00:50:37.000Z",
+    "dateModified": "2019-09-10T00:50:37.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&export=download",
+        "width": 400,
+        "height": 260
+    },
+    "keywords": "sqoop, Apache Hive, docker mysql",
+    "description": "ETL là gì ?\nTrong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì\n? \n\nETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu\nđược đưa vào từ các nguồn dữ liệu vào kho dữ liệu.\n\nETL gồm 3 bước là :\n\n 1. Extracts : đi thu gom dữ liệu từ nhiều nguồn khác nhau\n 2. Transforms : chuyển đổi dữ liệu, như mô hình ở trên mục đích của chúng ta là\n    chuyển đổi dữ liệu nghiệp vụ thành dạng dữ liệu có thể phân tích được. Ngoài\n    ra ở bước này chúng ta ph",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Import Data từ MySQL vào Hive sử dụng Sqoop</h1>
+                <section class="post-meta">
+                    N.T.A.92 -
+                    <time class="post-date" datetime="2019-09-10">10 Sep 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="etllg">ETL là gì ?</h3>
+<p>Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ? </p><p><strong><strong>ETL </strong></strong>là viết tắt của <strong><strong>Extract Transform Load</strong></strong> gọi là quá trình <strong><strong><em><em>làm thế nào</em></em></strong></strong> dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1T5KqOOH2PpKcRFRNamm7l05Fp0AZYJ1z&amp;export=download" class="kg-image" alt width="451" height="144" layout="responsive"></amp-img></figure><p>ETL gồm 3 bước là :</p><ol><li><strong><strong>Extracts</strong> : </strong>đi thu gom dữ liệu từ nhiều nguồn khác nhau</li><li><strong><strong>Transforms</strong> : </strong>chuyển đổi dữ liệu, như mô hình ở trên mục đích của chúng ta là chuyển đổi dữ liệu nghiệp vụ thành dạng dữ liệu có thể phân tích được. Ngoài ra ở bước này chúng ta phải làm sạch dữ liệu.</li><li><strong><strong>Load</strong>ing : </strong>Sau khi chuyển đổi và lưu trữ, dữ liệu được đưa vào một datawarehouse. Dữ liệu này dùng cho mục đích phân tích và phát triển của 1 team khác đó chính là team phân tích</li></ol><p>Trong các bước ở trên, mình thường xuyên phải sử dụng một công cụ để import dữ liệu từ bên ngoài và import vào hive. Đó chính là Sqoop. </p><p>Vậy chúng ta cùng nhau làm 1 ví dụ để xem sqoop import dữ liệu từ MySQL vào hive như thế nào nhé.</p><h3 id="tobngtrongmysql">Tạo bảng trong MySQL</h3>
+<p>Kiểm tra MySQL đã được cài đặt hay chưa, nếu chưa bạn tự cài đặt nhé.</p><pre><code>shell&gt; mysql --version
+mysql  Ver 14.14 Distrib 5.1.66, for redhat-linux-gnu (x86_64) using readline 5.
+</code></pre><p>Tạo 1 database, ta đặt tên là sqoop</p><pre><code>mysql&gt; create database sqoop;</code></pre><p>Sau đó</p><pre><code>
+mysql&gt; use sqoop;
+
+mysql&gt; create table customer(id varchar(3), name varchar(20), age varchar(3), salary integer(10));
+Query OK, 0 rows affected (0.09 sec)
+mysql&gt; desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(3)  | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| age    | varchar(3)  | YES  |     | NULL    |       |
+| salary | int(10)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+</code></pre><pre><code>mysql&gt; select * from customer;
++------+--------+------+--------+
+| id   | name   | age  | salary |
++------+--------+------+--------+
+| 1    | John   | 30   |  80000 |
+| 2    | Kevin  | 33   |  84000 |
+| 3    | Mark   | 28   |  90000 |
+| 4    | Jenna  | 34   |  93000 |
+| 5    | Robert | 32   | 100000 |
+| 6    | Zoya   | 40   |  60000 |
+| 7    | Sam    | 37   |  75000 |
+| 8    | George | 31   |  67000 |
+| 9    | Peter  | 23   |  70000 |
+| 19   | Alex   | 26   |  74000 |
++------+--------+------+-----</code></pre><h3 id="sdngsqoop">Sử dụng Sqoop</h3>
+<p>Như chúng ta đã thấy, ở trên bảng sqoop tôi không tạo khóa chính và thêm một vài bản ghi trong bảng customer. Mặc định, sqoop sẽ xác định primary key là splitting column. Ví dụ <em>--split-by id </em></p><p>Tôi muốn import dữ liệu này vào hive, tôi sử dụng command</p><pre><code>sqoop import --connect jdbc:mysql://localhost:3306/sqoop 
+--username root 
+-P 
+--split-by id 
+--columns id,name 
+--table customer  
+--target-dir /user/cloudera/ingest/raw/customers 
+--fields-terminated-by "," 
+--hive-import 
+--create-hive-table 
+--hive-table sqoop_workspace.customers</code></pre><p>Trong đó</p><ul><li><strong><strong>connect </strong>-</strong> jdbc string của mysql</li><li><strong><strong>username</strong> - </strong>Database username</li><li><strong><strong>P</strong> : Database password </strong></li><li><strong><strong>table </strong>: Tên bảng cần import. Ở đây chính là bảng customer</strong></li><li><strong><strong>split-by</strong> : chính là split column đã nói ở trên. Ở đây là Id</strong></li><li><strong><strong>target-dir</strong> : Path lưu trữ trên hệ thống HDFS</strong></li><li><strong><strong>fields-terminated-by</strong> : Các giá trị phân cách nhau giữa các field, ở đây là dấu phẩy</strong></li><li><strong><strong>create-hive-table</strong> : Tạo bảng trên hive để lưu trữ dữ liệu từ bảng customer. Sẽ fail nếu bảng đc tạo rồi</strong></li><li><strong><strong>hive-table</strong> : Chỉ định database name và tên table trên hive</strong></li></ul><p>Chạy lệnh import bằng sqoop</p><pre><code>sqoop import --connect jdbc:mysql://localhost:3306/sqoop --username root -P --split-by id --columns id,name --table customer  --target-dir /user/cloudera/ingest/raw/customers --fields-terminated-by "," --hive-import --create-hive-table --hive-table sqoop_workspace.customers
+Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+16/03/01 12:59:44 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.5.0
+Enter password:
+16/03/01 12:59:54 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+16/03/01 12:59:54 INFO tool.CodeGenTool: Beginning code generation
+16/03/01 12:59:55 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 12:59:56 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 12:59:56 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /usr/lib/hadoop-mapreduce
+Note: /tmp/sqoop-cloudera/compile/6471c43b5c867834458d3bf5a67eade2/customer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+16/03/01 13:00:01 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-cloudera/compile/6471c43b5c867834458d3bf5a67eade2/customer.jar
+16/03/01 13:00:01 WARN manager.MySQLManager: It looks like you are importing from mysql.
+16/03/01 13:00:01 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+16/03/01 13:00:01 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+16/03/01 13:00:01 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+16/03/01 13:00:01 INFO mapreduce.ImportJobBase: Beginning import of customer
+16/03/01 13:00:01 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+16/03/01 13:00:02 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+16/03/01 13:00:04 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+16/03/01 13:00:05 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+16/03/01 13:00:11 INFO db.DBInputFormat: Using read commited transaction isolation
+16/03/01 13:00:11 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`id`), MAX(`id`) FROM `customer`
+16/03/01 13:00:11 WARN db.TextSplitter: Generating splits for a textual index column.
+16/03/01 13:00:11 WARN db.TextSplitter: If your database sorts in a case-insensitive order, this may result in a partial import or duplicate records.
+16/03/01 13:00:11 WARN db.TextSplitter: You are strongly encouraged to choose an integral split column.
+16/03/01 13:00:11 INFO mapreduce.JobSubmitter: number of splits:4
+16/03/01 13:00:12 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1456782715090_0004
+16/03/01 13:00:13 INFO impl.YarnClientImpl: Submitted application application_1456782715090_0004
+16/03/01 13:00:13 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1456782715090_0004/
+16/03/01 13:00:13 INFO mapreduce.Job: Running job: job_1456782715090_0004
+16/03/01 13:00:47 INFO mapreduce.Job: Job job_1456782715090_0004 running in uber mode : false
+16/03/01 13:00:48 INFO mapreduce.Job:  map 0% reduce 0%
+16/03/01 13:01:43 INFO mapreduce.Job:  map 25% reduce 0%
+16/03/01 13:01:46 INFO mapreduce.Job:  map 50% reduce 0%
+16/03/01 13:01:48 INFO mapreduce.Job:  map 100% reduce 0%
+16/03/01 13:01:48 INFO mapreduce.Job: Job job_1456782715090_0004 completed successfully
+16/03/01 13:01:48 INFO mapreduce.Job: Counters: 30
+    File System Counters
+        FILE: Number of bytes read=0
+        FILE: Number of bytes written=548096
+        FILE: Number of read operations=0
+        FILE: Number of large read operations=0
+        FILE: Number of write operations=0
+        HDFS: Number of bytes read=409
+        HDFS: Number of bytes written=77
+        HDFS: Number of read operations=16
+        HDFS: Number of large read operations=0
+        HDFS: Number of write operations=8
+    Job Counters 
+        Launched map tasks=4
+        Other local map tasks=5
+        Total time spent by all maps in occupied slots (ms)=216810
+        Total time spent by all reduces in occupied slots (ms)=0
+        Total time spent by all map tasks (ms)=216810
+        Total vcore-seconds taken by all map tasks=216810
+        Total megabyte-seconds taken by all map tasks=222013440
+    Map-Reduce Framework
+        Map input records=10
+        Map output records=10
+        Input split bytes=409
+        Spilled Records=0
+        Failed Shuffles=0
+        Merged Map outputs=0
+        GC time elapsed (ms)=2400
+        CPU time spent (ms)=5200
+        Physical memory (bytes) snapshot=418557952
+        Virtual memory (bytes) snapshot=6027804672
+        Total committed heap usage (bytes)=243007488
+    File Input Format Counters 
+        Bytes Read=0
+    File Output Format Counters 
+        Bytes Written=77
+16/03/01 13:01:48 INFO mapreduce.ImportJobBase: Transferred 77 bytes in 104.1093 seconds (0.7396 bytes/sec)
+16/03/01 13:01:48 INFO mapreduce.ImportJobBase: Retrieved 10 records.
+16/03/01 13:01:49 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 13:01:49 INFO hive.HiveImport: Loading uploaded data into Hive
+Logging initialized using configuration in jar:file:/usr/jars/hive-common-1.1.0-cdh5.5.0.jar!/hive-log4j.properties
+OK
+Time taken: 2.163 seconds
+Loading data to table sqoop_workspace.customers
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00000': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00001': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00002': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00003': User does not belong to supergroup
+Table sqoop_workspace.customers stats: [numFiles=4, totalSize=77]
+OK
+Time taken: 1.399 seconds</code></pre><p>Cuối cùng, chúng ta kiểm tra dữ liệu đã được import vào hive chưa ?</p><pre><code>hive&gt; show databases;
+OK
+default
+sqoop_workspace
+Time taken: 0.034 seconds, Fetched: 2 row(s)
+hive&gt; use sqoop_workspace;
+OK
+Time taken: 0.063 seconds
+hive&gt; show tables;
+OK
+customers
+Time taken: 0.036 seconds, Fetched: 1 row(s)
+hive&gt; show create table customers;
+OK
+CREATE TABLE `customers`(
+  `id` string, 
+  `name` string)
+COMMENT 'Imported by sqoop on 2016/03/01 13:01:49'
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+  LINES TERMINATED BY '\n' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers'
+TBLPROPERTIES (
+  'COLUMN_STATS_ACCURATE'='true', 
+  'numFiles'='4', 
+  'totalSize'='77', 
+  'transient_lastDdlTime'='1456866115')
+Time taken: 0.26 seconds, Fetched: 18 row(s)</code></pre><pre><code>hive&gt; select * from customers;
+OK
+1    John
+2    Kevin
+19    Alex
+3    Mark
+4    Jenna
+5    Robert
+6    Zoya
+7    Sam
+8    George
+9    Peter
+Time taken: 1.123 seconds, Fetched: 10 row(s).</code></pre><p>Đến đây, chúng ta đã thực hành xong việc import dữ liệu từ MySQL sang hive, việc tiếp theo, dữ liệu trên Hive sẽ được sử dụng để team phân tích sử dụng tiếp. Cảm ơn các bạn đã đọc bài viết.</p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

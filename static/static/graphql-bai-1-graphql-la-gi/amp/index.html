@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>GraphQL là gì?</title>
+
+    <meta name="description" content="GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh mẽ và linh hoạt hơn REST được phát triển bởi Facebook." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="GraphQL là gì?" />
+    <meta property="og:description" content="GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh mẽ và linh hoạt hơn REST được phát triển bởi Facebook." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/graphql-bai-1-graphql-la-gi/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1v6_-F8iTHMgg8Rd1Fd5Pyg1ZLUBpqSRw&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T10:01:12.000Z" />
+    <meta property="article:modified_time" content="2018-06-30T01:22:56.000Z" />
+    <meta property="article:tag" content="GraphQL" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GraphQL là gì?" />
+    <meta name="twitter:description" content="GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh mẽ và linh hoạt hơn REST được phát triển bởi Facebook." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/graphql-bai-1-graphql-la-gi/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1v6_-F8iTHMgg8Rd1Fd5Pyg1ZLUBpqSRw&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="GraphQL" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "GraphQL là gì?",
+    "url": "https://blog.vietnamlab.vn/graphql-bai-1-graphql-la-gi/",
+    "datePublished": "2018-06-29T10:01:12.000Z",
+    "dateModified": "2018-06-30T01:22:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1v6_-F8iTHMgg8Rd1Fd5Pyg1ZLUBpqSRw&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "GraphQL",
+    "description": "GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh\nmẽ và linh hoạt hơn REST. Ban đầu GraphQL được Facebook phát triển và hiện là\nmột open-source đang được một một cộng đồng lớn bao gồm các công ty và các cá\nnhân trên khắp thế giới chung tay xây dựng.\n\nNhư ta đã biết hiện tại API đã trở thành các thành phần phổ biến của cơ sở hạ\ntầng phần mềm. Một API định nghĩa cách client có thể tải dữ liệu từ server và\nGraphQL cho phép client có thể định nghĩa chính xác dữ liệu nà",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[GraphQL] Bài 1: GraphQL là gì?</h1>
+                <section class="post-meta">
+                    Enso -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1v6_-F8iTHMgg8Rd1Fd5Pyg1ZLUBpqSRw&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh mẽ và linh hoạt hơn REST. Ban đầu GraphQL được Facebook phát triển và hiện là một open-source đang được một một cộng đồng lớn bao gồm các công ty và các cá nhân trên khắp thế giới chung tay xây dựng.</p>
+<p>Như ta đã biết hiện tại API đã trở thành các thành phần phổ biến của cơ sở hạ tầng phần mềm. Một API định nghĩa cách client có thể tải dữ liệu từ server và GraphQL cho phép client có thể định nghĩa chính xác dữ liệu nào nó cần từ một API. Thay vì cần nhiều endpoint mà mỗi endpoint trả về một cấu trúc dữ liệu cố định, GraphQL server chỉ cần một endpoint duy nhất và phản hồi chính xác dữ liệu mà client yêu cầu.</p>
+<h3 id="graphqlngnngtruyvnchoapi">GraphQL - ngôn ngữ truy vấn cho API</h3>
+<p>Hầu hết các ứng dụng ngày nay đều có nhu cầu tải dữ liệu từ một server (được lưu trữ trong cơ sở dữ liệu của server đó). Nhiệm vụ của API là cung cấp interface tới dữ liệu được lưu trữ phù hợp với nhu cầu của ứng dụng.</p>
+<p>GraphQL thường bị nhầm lẫn là một kỹ thuật liên quan đến cơ sở dữ liệu. Đây là một quan niệm sai lầm, GraphQL là một ngôn ngữ truy vấn cho các API - chứ không phải cho cơ sở dữ liệu. Nó không phụ thuộc vào cơ sở dữ liệu và có thể hoạt động một cách hiệu quả trong mọi ngữ cảnh có sử dụng API.</p>
+<h3 id="shnchcarest">Sự hạn chế của REST</h3>
+<p>REST là một cách phổ biến để lấy dữ liệu từ một server. Khi REST được phát triển, các ứng dụng client tương đối đơn giản và tốc độ phát triển không nhanh như ngày nay. Do vậy khi đó REST phù hợp cho nhiều ứng dụng. Tuy nhiên, bối cảnh về API đã thay đổi hoàn toàn trong vài năm qua. Đặc biệt, có ba yếu tố thách thức việc thiết kế API:</p>
+<ol>
+<li>
+<p><em><strong>Sự bùng nổ của thiết bị di động</strong></em><br />
+Các thiết bị di động yếu hơn máy tính cá nhân, bị giới hạn bởi dung lượng pin và kết nối mạng băng thông kém và thiếu ổn định. Do đó nó đòi hỏi một phương thức truyền tải dữ liệu hiệu quả. Và việc số lượng người dùng Facebook qua thiết bị di động ngày càng tăng khiến Facebook phải phát triển GraphQL. GraphQL giảm thiểu lượng dữ liệu cần truyền qua mạng nên cải thiện đáng kể hiệu năng của các ứng dụng di động.</p>
+</li>
+<li>
+<p><em><strong>Sự đa dạng của các platform và framework</strong></em><br />
+Sự không đồng nhất của các platform và framework chạy các ứng dụng client khiến cho việc xây dựng và bảo trì một API phù hợp với yêu cầu của tất cả mọi platform, framework trở nên khó khăn. Với GraphQL, mỗi client có thể truy cập chính xác dữ liệu mà nó cần.</p>
+</li>
+<li>
+<p><em><strong>Xu hướng phát triển phần mềm nhanh và liên tục</strong></em><br />
+Phương pháp phát triển phần mềm liên tục đã trở thành một tiêu chuẩn của nhiều công ty. Các vòng đời phát triển phần mềm nhanh chóng, các bản cập nhật liên tục được đưa ra. Với các API REST, cách dữ liệu được server trả về thường xuyên cần phải sửa đổi để phù hợp các yêu cầu cụ thể và các thay đổi thiết kế ở phía client. Điều này đã cản trở, làm chậm lại tốc độ phát triển phần mềm một cách đáng kể.</p>
+</li>
+</ol>
+<h3 id="graphqlsthaythchorest">GraphQL - sự thay thế cho REST</h3>
+<p>GraphQL được phát triển để đáp ứng nhu cầu một cách linh hoạt và hiệu quả hơn! Nó giải quyết được nhiều thiếu sót và sự thiếu hiệu quả mà các nhà phát triển gặp phải khi làm việc với các API REST.</p>
+<p>Để minh họa sự khác biệt chính giữa REST và GraphQL khi lấy dữ liệu từ API, hãy xem xét một trường hợp ví dụ đơn giản: Trong ứng dụng viết blog, ứng dụng cần:</p>
+<ul>
+<li>Hiển thị tiêu đề của tất cả các bài đăng của một người dùng cụ thể.</li>
+<li>Cùng trên màn hình đó, hiển thị tên của 3 người theo dõi cuối cùng của người dùng đó.</li>
+</ul>
+<p>Tình huống đó sẽ được giải quyết như thế nào với REST và GraphQL?</p>
+<p>Với một API REST, bạn thường sẽ lấy dữ liệu bằng cách truy cập tới nhiều endpoint. Trong ví dụ này, các endpoint có thể là:</p>
+<ul>
+<li><code>/users/&lt;id&gt;</code>: dữ liệu người dùng ban đầu.</li>
+<li><code>/users/&lt;id&gt;/posts</code>: danh sách các bài đăng của người dùng đó</li>
+<li><code>/users/&lt;id&gt;/followers</code>: danh sách người theo dõi trên mỗi người dùng.</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=1voxYAq4x2xDsw5_vLLj_HTJHOiLzYLzW&amp;export=download" alt="uc?id=1voxYAq4x2xDsw5_vLLj_HTJHOiLzYLzW&amp;export=download" width="1786" height="1434" layout="responsive"></amp-img></p>
+<p>Ta có thể thấy, với REST API, client phải gọi đến 3 endpoint để lấy được dữ liệu cần thiết. Bên cạnh đó, ngoài dữ liệu cần thiết để hiển thị, server còn trả về nhiều dữ liệu dư thừa gây lãng phí tài nguyên hệ thống.</p>
+<h4 id="khngcnthahaythiudliu">Không còn thừa hay thiếu dữ liệu</h4>
+<p>Một trong những vấn đề phổ biến nhất với REST là sự dư thừa cũng như thiếu hụt dữ liệu. Điều này xảy ra vì cách duy nhất để client lấy dữ liệu là gọi đến endpoint và server trả về dữ liệu với cấu trúc cố định. Rất khó để thiết kế API theo cách có thể cung cấp cho client những dữ liệu chính xác với nhu cầu của tất cả các client.</p>
+<ul>
+<li>
+<p>Sự dư thừa xảy ra khi một client phải tải xuống nhiều thông tin hơn so với nhu cầu thực sự của nó. Ví dụ một màn hình cần hiển thị danh sách người dùng chỉ với tên của họ. Trong một API REST, ứng dụng này thường sẽ truy cập điểm cuối <code>/users</code> và nhận một đối tượng JSON với dữ liệu các người dùng. Tuy nhiên, kết quả có thể chứa thêm thông tin về người dùng được trả về, ví dụ: ngày sinh nhật hoặc địa chỉ của họ. Tại sao server phải trả về nhiều thông tin dư thừa như vậy? Đó là do API phải được thiết để đáp ứng được nhiều yêu cầu của của nhiều client, ví dụ ở màn hình thông tin chi tiết của người dùng cần hiển thị cả địa chỉ và ngày sinh nhật.</p>
+</li>
+<li>
+<p>Sự thiếu hụt dữ liệu xảy ra khi server không cung cấp đủ thông tin cần thiết trong một endpoint. Client sẽ phải gọi đến các endpoint bổ sung để lấy những dữ liệu còn thiếu. Điều này có thể dẫn đến tình huống mà client phải tải xuống một danh sách các phần tử, và tiếp đó phải gọi thêm endpoint cho mỗi phần tử để lấy thêm những dữ liệu cần thiết.<br />
+Ví dụ: ở ứng dụng blog trên, cần hiển thị ba người theo dõi cuối cùng cho mỗi người dùng. Để có thể hiển thị thông tin được yêu cầu, ứng dụng sẽ phải gọi tới endpoint <code>/users</code> và sau đó gọi tới endpoint <code>/users/&lt;user-id&gt;/followers</code> cho mỗi người dùng.</p>
+</li>
+</ul>
+<p>Với GraphQL, client chỉ cần gửi một câu truy vấn tới GraphQL server xác định rõ những dữ liệu cần thiết. Và server sau đó sẽ trả về cho client một đối tượng JSON chỉ chứa những dữ liệu mà client đã yêu cầu.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1CiBlWXcyQFeS5QOpgurz1yclBN1HhHJA&amp;export=download" alt="uc?id=1CiBlWXcyQFeS5QOpgurz1yclBN1HhHJA&amp;export=download" width="1836" height="1086" layout="responsive"></amp-img></p>
+<h4 id="phttrincpnhtfrontendnhanhchng">Phát triển cập nhật frontend nhanh chóng</h4>
+<p>Một pattern chung cho REST API là việc thiết kế cấu trúc các endpoint theo các view bên trong ứng dụng của mình. Điều này rất tiện lợi vì nó cho phép client nhận tất cả các thông tin cần thiết cho một view cụ thể bằng cách truy cập vào endpoint tương ứng.<br />
+Tuy nhiên hạn chế của cấu trúc này là nó không cho phép một sự thay đổi nhanh trên frontend. Mọi thay đổi về frontend đều có khả năng cao dẫn đến sự thay đổi lượng dữ liệu cần thiết (nhiều hơn hoặc ít hơn). Do đó, phía backend cũng cần được điều chỉnh để đáp ứng các nhu cầu dữ liệu mới. Điều này làm giảm năng suất và làm chậm sự kết hợp phản hồi của người dùng vào sản phẩm.</p>
+<p>Với GraphQL, vấn đề này được giải quyết. Nhờ tính chất linh hoạt của GraphQL, client có thể chỉ định chính xác và cụ thể các yêu cầu về dữ liệu, phía backend không cần phải thay đổi gì khi phía frontend thay đổi về thiết kế và dữ liệu cần lấy về.</p>
+<h4 id="khnngphntchnhucuvdliu">Khả năng phân tích nhu cầu về dữ liệu</h4>
+<p>Vì với GraphQL, mỗi client chỉ định chính xác thông tin mà nó cần nên ta có thể nắm được thông tin chi tiết về cách mà dữ liệu sẵn có đang được sử dụng. Dựa vào những thông tin này, ta có thể cải tiến các API, ví dụ bỏ đi các trường dữ liệu không được bất kỳ client nào yêu cầu.</p>
+<p>Thêm vào đó, ta cũng có thể thực hiện giám sát hiệu năng xử lý request từ client của server. GraphQL sử dụng khái niệm về <em>resolver function</em> để thu thập dữ liệu được yêu cầu từ client. Việc đo lường và đánh giá hiệu suất của các <em>resolver</em> này cung cấp thông tin chi tiết quan trọng về các bottleneck trong hệ thống.</p>
+<h4 id="lichcaschematype">Lợi ích của Schema &amp; Type</h4>
+<p>GraphQL sử dụng một hệ thống strong type để định nghĩa khả năng của một API. Tất cả các kiểu dữ liệu trong một API được định nghĩa trong một schema bằng SDL (Schema Definition Language) của GraphQL. Schema này đóng vai trò là quy ước giữa client và server xác định cách mà client có thể truy cập dữ liệu.</p>
+<p>Sau khi schema được định nghĩa, các nhóm làm việc trên frontend và backend có thể thực hiện công việc của mình mà không cần liên lạc thêm vì cả hai đều biết cấu trúc xác định của dữ liệu được gửi qua mạng.</p>
+<p>Các nhóm Frontend có thể dễ dàng kiểm tra các ứng dụng của họ bằng cách giả lập các cấu trúc dữ liệu cần thiết được trả về. Khi server đã sẵn sàng, các ứng dụng client có thể ngay lập tức chuyển sang sử dụng API thực tế được cung cấp bởi server.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Qua bài viết chúng ta đã nắm được GraphQL là một ngôn ngữ truy vấn dành cho API, giúp cho client có thể định nghĩa chính xác các nhu cầu về dữ liệu và server chỉ trả về client những dữ liệu mà client đã yêu cầu. Thêm vào đó chúng ta cũng nắm được những hạn chế của REST API hiện nay và những lợi ích mà GraphQL mang lại. Trong bài viết tiếp theo chúng ta hãy cũng tìm hiểu những khái niệm cơ bản được sử dụng trong GraphQL.</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<p>Internet :)</p>
+<h3 id="enso">Enso.</h3>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

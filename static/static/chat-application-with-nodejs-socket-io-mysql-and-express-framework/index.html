@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Chat application with NodeJS, Socket.IO, Mysql and Express framework | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Chat application with NodeJS, Socket.IO, Mysql and Express framework" />
+    <meta property="og:description" content="Nội dung: Giới thiệu NodeJS Sơ lược về Socket và SocketIO Chat application Chat application advance Kết luận Tài liệu tham khảo 1. Giới thiệu NodeJS Nodejs là gì?  Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-05-09T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2019-09-03T10:21:23.000Z" />
+    <meta property="article:tag" content="Chat application" />
+    <meta property="article:tag" content="NodeJS" />
+    <meta property="article:tag" content="Socket.IO" />
+    <meta property="article:tag" content="Chat application with NodeJS" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chat application with NodeJS, Socket.IO, Mysql and Express framework" />
+    <meta name="twitter:description" content="Nội dung: Giới thiệu NodeJS Sơ lược về Socket và SocketIO Chat application Chat application advance Kết luận Tài liệu tham khảo 1. Giới thiệu NodeJS Nodejs là gì?  Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Chat application, NodeJS, Socket.IO, Chat application with NodeJS" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Chat application with NodeJS, Socket.IO, Mysql and Express framework",
+    "url": "https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/",
+    "datePublished": "2017-05-09T01:00:00.000Z",
+    "dateModified": "2019-09-03T10:21:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&export=download",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "Chat application, NodeJS, Socket.IO, Chat application with NodeJS",
+    "description": "Nội dung:\n * Giới thiệu NodeJS\n * Sơ lược về Socket và SocketIO\n * Chat application\n * Chat application advance\n * Kết luận\n * Tài liệu tham khảo\n\n1. Giới thiệu NodeJS\nNodejs là gì?\n\nNodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript\nruntime của chrome’s mà chúng ta có thể xây dựng được ứng dụng mạng nhanh chóng\nvà dễ dàng mở rộng.\n\nNodejs được xây dựng và phát triển từ năm 2009 và được bảo trợ từ công ty\nJoyent. Khả năng đáp ứng của nodejs là rất nhanh bởi nodejs được ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-chat-application tag-nodejs tag-socket-io tag-chat-application-with-nodejs nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-chat-application tag-nodejs tag-socket-io tag-chat-application-with-nodejs js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Chat application with NodeJS, Socket.IO, Mysql and Express framework</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-05-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 May 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/chat-application/index.html">Chat application</a>, <a href="../tag/nodejs/index.html">NodeJS</a>, <a href="../tag/socket-io/index.html">Socket.IO</a>, <a href="../tag/chat-application-with-nodejs/index.html">Chat application with NodeJS</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" alt="Chat application with NodeJS, Socket.IO, Mysql and Express framework">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Chat%20application%20with%20NodeJS%2C%20Socket.IO%2C%20Mysql%20and%20Express%20framework">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3>Nội dung:</h3>
+<ul>
+<li><em>Giới thiệu NodeJS</em></li>
+<li><em>Sơ lược về Socket và SocketIO</em></li>
+<li><em>Chat application</em></li>
+<li><em>Chat application advance</em></li>
+<li><em>Kết luận</em></li>
+<li><em>Tài liệu tham khảo</em></li>
+</ul>
+<h3>1. Giới thiệu NodeJS</h3>
+<p><strong>Nodejs là gì?</strong></p>
+<p>Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng ta có thể xây dựng được  ứng dụng mạng nhanh chóng và dễ dàng mở rộng.</p>
+<p>Nodejs được xây dựng và phát triển từ năm 2009 và được bảo trợ từ công ty Joyent. Khả năng đáp ứng của nodejs là rất nhanh bởi nodejs được viết hầu hết bởi ngôn ngữ C.</p>
+<p><strong>Những ứng dụng nào có thể viết bằng nodejs?</strong></p>
+<p>Các chương trình như các kênh chat với tốc độ thời gian thực runtime.<br>
+Các chương trình upload file<br>
+Các máy chủ quảng cáo<br>
+Các dịch vụ đám mây<br>
+Và bất kỳ ứng dụng dữ liệu thời gian thực nào.</p>
+<p><strong>Những kết luận sai lầm về nodejs cần tránh.</strong></p>
+<p>Nodejs không phải là một web framework mà là một nền tảng để phát triển các ứng dụng.</p>
+<p>Nodejs không giành cho những người mới.</p>
+<p>Chúng ta phải lập trình từ những tầng rất thấp ví dụ như chúng ta phải nhận các requests  từ client xử lý dữ liệu và response trả về cho client, thêm vào đó nodejs yêu cầu cần chúng ta phải thành thạo ngôn ngữ javascript có thể cần 1 chút html và css để chúng ta phát triển các ứng dụng web bằng nodejs</p>
+<p>Nodejs không hỗ trợ chúng ta lập trình đa luồng tức là không tạo ra nhiều luồng hay tiến trình để xử lý đoạn mã của chúng ta 1 cách đồng thời. Các bạn hãy tưởng tượng nodejs như là 1 máy chủ đơn luồng.</p>
+<p>Bài sau ta sẽ tìm hiểu  cơ chế thực thi của nodejs và khái niệm làm cho nodejs trở nên nhanh và mạnh mẽ</p>
+<p>Như vậy chúng ta đã hiểu cơ bản nodejs là gì?</p>
+<p><strong>Lý do gì để tự tin sử dụng nodejs?</strong></p>
+<p>Các ứng dụng nodejs được viết hoàn toản bởi ngôn ngữ javascript và javacript thì có 1 số đặc tính làm cho nó rất khác so với các ngôn ngữ lập trình động khác, cụ thể là nó không có khái niệm đa luồng.</p>
+<p>Nodejs là một môi trường pt đa nền tảng phía server và các ứng dụng mạng.</p>
+<p>Nodejs cho phéo chúng ta chạy các ứng dụng ở trên các hệ điều hành khác nhau.</p>
+<p>Như Mac OS X, Window, Linux.</p>
+<p>Mô hình nodejs hoàn toàn dựa trên các sự kiện và các cơ chế non-blocking điều này làm cho nodejs trở nên nhẹ nhanh và hiệu quả ở các ứng dụng  free-time chạy đa nền tảng và đa thiết bị.</p>
+<p>Cho tới thời điểm này số lượng thư viện miễn phí trên NPM đã lên tới con số hơn 95000 modules và chưa dừng lại ở con số này.</p>
+<p>Nếu chúng ta sử dụng CSDL noSQL ví dụ như mongodb thì  nodejs cho phép chúng ta sử dụng dữ liệu JSON trực tiếp như nhau ở client , server và CSDL mà ko cần chuyển đổi gì cả.</p>
+<p><strong>Ông lớn nào đang sử dụng nodejs?</strong></p>
+<p>Có rất nhiều công ty lớn đã sử dụng nodejs để phát triển ứng dụng của họ ở mức độ bộ phận hoặc toàn bộ như:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkY3pwM0F2ZDZyLXM&amp;export=download" alt=""><br>
+Trước khi đọc tiếp bài viết này, Nếu bạn là người mới và chưa biết gì về nodejs thì hãy tham khảo link sau để có những kiến thức cơ bản.</p>
+<p><a href="http://freetuts.net/hoc-nodejs/nodejs-can-ban">http://freetuts.net/hoc-nodejs/nodejs-can-ban</a></p>
+<h3>2. Sơ lược về Socket và SocketIO :</h3>
+<p>Trước tiên, Socket là 1 công nghệ. Đừng nhầm lẫn giữa Socket.IO và Socket. Socket.IO không phải là mô hình Socket duy nhất hiện nay, và cũng không phải là mô hình web socket duy nhất hiện nay. Socket là cách bạn tổ chức mô hình client-server để một trong 2 bên luôn trong tình trạng sẵn sàng trả lời bên kia và ngược lại. Để đảm bảo việc này, kết nối giữa Client và Server phải ở trạng thái “keep-alive” và phải luôn xảy ra quá trình đồng bộ giữa Client-Server. Socket sẽ mang lại khả năng trả lời tức thì từ một trong 2 bên khi bên kia đưa ra một sự kiện, thay vì phải thực thi lại một loạt các thủ tục kết nối phức tạp như trước, và ứng dụng của bạn sẽ trở thành ứng dụng thời gian thực ví dụ: Yahoo Messenger, Skype v.v… đều là các ứng dụng được xây dựng theo mô hình Socket.</p>
+<p>Trong lập trình web trước đây, việc xây dựng client-server theo mô hình socket phải thông qua các phần mềm thứ 3. Vì mô hình socket không phù hợp với các ngôn ngữ lập trình Server như: PHP, ASP.NET, JSP v.v… Các ngôn ngữ này luôn làm việc theo cách: Die ngay connection khi Server trả lời Client xong. Tuy nhiên, mình nhấn mạnh: Chúng ta có thể làm được web-socket với bất kỳ ngôn ngữ lập trình nào. Chỉ có điều, với các ngôn ngữ cũ, việc làm này cần bạn phải am hiểu các giao thức http, tcp; hiểu thế nào là 1 request header, v.v…</p>
+<p>Nodejs là một nền tảng mới, xây dựng thuần túy bằng javascript. Đây là một điểm lợi thế của Node.js để lập trình web-socket:</p>
+<p>Thứ nhất: javascript là ngôn ngữ lập trình hướng sự kiện, mà trong lập trình thời gian thực, cách tiếp cận bằng lập trình sự kiện là cách tiếp cận khôn ngoan nhất.</p>
+<p>Thứ hai: Node.js chạy non-blocking việc hệ thống không phải tạm ngừng để xử lý xong một request sẽ giúp cho server trả lời client gần như ngay tức thì.</p>
+<p>Thứ ba: lập trình socket yêu cầu bạn phải xây dựng được mô hình lắng nghe - trả lời từ cả 2 bên. Nói khác đi, vai trò của client và server phải tương đương nhau, mà client thì chạy bằng javascript, nên nếu server cũng chạy bằng javascript nữa, thì việc lập trình sẽ dễ dàng và thân thiện hơn.</p>
+<p>Chính vì những đặc điểm này, socket.io ra đời. Tuy nhiên, khi bạn thực sự am hiểu về Node.js, http request header, bạn hoàn toàn có thể viết một socket cho riêng mình.</p>
+<h3>3. Chat application.</h3>
+<p>Sau khi đã tìm hiểu về node.js và socket.io thì bây giờ, chúng ta sẽ ứng dụng để làm 1 demo nhỏ. Trong hướng dẫn này chúng ta sẽ tạo một ứng dụng chat cơ bản.</p>
+<p><strong>Giới thiệu</strong></p>
+<p>Viết một ứng dụng chat với hầu hết các web application như LAMP(PHP) là điều rất khó khăn. Nó đòi hỏi việc polling server cho những thay đổi, theo dõi timestamps và nó chậm hơn rất nhiều so với mong đợi của người sử dụng.</p>
+<p>Socket có thể giải quyết các vấn đề xung quanh, nhưng vấn đề mà hầu hết các hệ thống chat thời gian thực được kiến trúc. Cung cấp kênh thông tin liên lạc giữa client và server.</p>
+<p>Điều này có nghĩa là server có thể push message đến client, bất cứ khi nào bạn viết một message, ý tưởng là client sẽ nhận được message và push nó đến tất cả các client đang có kết nối khác.</p>
+<p><strong>The web framework</strong></p>
+<p>Mục tiêu đầu tiên là thiết lập 1 trang html, nó sẽ chứa 1 form để nhập nội dung message và nơi chứa list message chat giữa các client. Chúng ta sẽ sử dụng Express framework để thực hiện việc này. Hãy chắc chắn rằng NodeJS đã được cài đặt trên máy của bạn nhé.</p>
+<p>Đầu tiên chúng ta sẽ tạo file package.json nơi sẽ mô tả project của chúng ta. Chúng ta sẽ tạo một thư mục cho project này (chẳng hạn tôi đặt là chat-example).</p>
+<pre><code>{
+&quot;name&quot;: &quot;chat-example&quot;,
+&quot;version&quot;: &quot;1.0.0&quot;,
+&quot;description&quot;: &quot;chat-examole&quot;,
+&quot;main&quot;: &quot;index.js&quot;,
+&quot;scripts&quot;: {
+&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+},
+&quot;author&quot;: &quot;PhongNX&quot;,
+&quot;license&quot;: &quot;ISC&quot;
+}
+</code></pre>
+<p>Bây giờ chúng ta sẽ cài đặt module mà chúng ta cần. sử dụng npm install --save:</p>
+<pre><code>npm install --save express@4.15.2
+</code></pre>
+<p>Bây giờ express đã được cài đặt, chúng ta có thể tạo một tập tin index.js mà nó sẽ thiết lập ứng dụng của chúng ta</p>
+<pre><code>var app = require('express')();
+var http = require('http').Server(app);
+
+app.get('/', function(req, res){
+  res.send('&lt;h1&gt;Hello world&lt;/h1&gt;');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+</code></pre>
+<ul>
+<li>Express khởi tạo app như 1 function handle mà bạn có thể cung cấp cho máy chủ HTTP (Như ở dòng 2)</li>
+<li>Chúng ta định nghĩa function get, sử lý xự kiện khi chúng ta di chuyển đến trang home của website.</li>
+<li>Tạo http server lắng nghe trên cổng 3000</li>
+</ul>
+<p>Bây giờ, nếu chúng ta chạy file index.js, chúng ta sẽ thấy như sau:</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQmx4V3c2X1IteXc&amp;export=download" alt=""></p>
+<p>Và nếu chúng ta chạy trên trình duyệt với đường dẫn <a href="http://localhost:3000">http://localhost:3000</a><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbE1jUXdIeTVCcGc&amp;export=download" alt=""><br>
+<strong>Serving HTML</strong></p>
+<p>Để ứng dụng của chúng ta dễ hình dung hơn. Tôi sẽ tạo riêng 1 file html cho phần giao diện.</p>
+<p>Trong file index.js chúng ta sẽ thay thế đoạn code này, để gọi đến trang index.html</p>
+<pre><code>app.get('/', function(req, res){
+res.sendFile(__dirname + '/index.html');
+});
+</code></pre>
+<p>Và bây giờ chúng ta tạo 1 trang index.html như bên dưới<br>
+&lt;!doctype html&gt;</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Socket.IO chat&lt;/title&gt;
+    &lt;style&gt;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;ul id=&quot;messages&quot;&gt;&lt;/ul&gt;
+    &lt;form action=&quot;&quot;&gt;
+      &lt;input id=&quot;m&quot; autocomplete=&quot;off&quot; /&gt;&lt;button&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Bây giờ chúng ta thự hiện reset server (nhấn Ctr C và chạy lại lệnh node index.js). Kết quả là<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUUFnbnpfQ0RLSEU&amp;export=download" alt=""><br>
+<strong>Integrating Socket.IO</strong></p>
+<p>Socket.IO gồm có hai phần:</p>
+<ul>
+<li>Một Server tích hợp(hoặc gắn kết) các Node.js HTTP Server: socket.io</li>
+<li>Một thư viện client mà tải ở phía trình duyệt: socket.io-client<br>
+Trong development, socket.io phục vụ các client tự động cho chúng ta, như chúng ta sẽ thấy sau đây, vì vậy bây giờ chúng ta chỉ cần cài đặt một module:</li>
+</ul>
+<pre><code>npm install --save socket.io
+</code></pre>
+<p>Bây giờ chúng ta sẽ sửa file index.js</p>
+<pre><code>var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+</code></pre>
+<p>Tiếp theo, add nội dung dưới đây vào file index.html trước thẻ </body></p>
+<pre><code>&lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var socket = io();
+&lt;/script&gt;
+</code></pre>
+<p>Đó là tất cả những gì cần thiết để load các socket.io-client, và sau đó là kết nối. Bây giờ nếu có một người dung nào kết nối đến server. Một thông báo sẽ xuất hiện ở console “a user connected”.</p>
+<p>Thử mở nhiều tab, bạn sẽ thấy nhiều thông điệp.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd3VCc05RMkZXSGs&amp;export=download" alt=""><br>
+Mỗi soket cũng có sự kiến ngắt kết nối đặc biệt.</p>
+<pre><code>io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+</code></pre>
+<p><strong>Emitting events</strong></p>
+<p>Ý tưởng chính là khi người dung nhập một tin nhắn và nhấn Enter/Send SocketIO sẽ bắt sự kiện này và gửi lên seser xử lý, sau đó trả về lại cho người dung, nhưng người đang connect đến server nội dung message.</p>
+<p>Bây giờ chúng ta sẽ sửa file index.html như bên dưới</p>
+<pre><code>&lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://code.jquery.com/jquery-1.11.1.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<p>Trong file index.js, chúng ta them xử lý out message cho client</p>
+<pre><code>io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+</code></pre>
+<p><strong>Broadcasting</strong></p>
+<p>Mục tiêu tiếp theo là để chúng ta phát ra sự kiện từ máy chủ đến các người sử dụng còn lại.</p>
+<p>Để gửi một sự kiện để tất cả mọi người, Socket.IO cho chúng ta io.emit:</p>
+<pre><code>io.emit('some event', { for: 'everyone' });
+</code></pre>
+<p>Nếu bạn muốn gửi message đến tất cả các client, ngoại trừ người nào đó</p>
+<pre><code>io.on('connection', function(socket){
+  socket.broadcast.emit('hi');
+});
+</code></pre>
+<p>Trong trường hợp này, để đơn giản, tôi gửi đến tất cả các client kể cả người gửi.</p>
+<pre><code>io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+</code></pre>
+<p>Về phía client, tôi sẽ tạo một xử lý bắt sự kiến mà server trả message về.</p>
+<pre><code>&lt;script&gt;
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('&lt;li&gt;').text(msg));
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<p>Và cuối cùng ứng dụng chat đơn giản của chúng ta đã hoàn thành. Cùng xem kết quả nhé.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRlM3SnVyaTB5SDA&amp;export=download" alt=""></p>
+<h3>4. Chat application advance</h3>
+<p>Vậy là chúng ta đã cơ bản xây dựng được 1 ứng dụng chat, phải nói là cực kỳ đơn giản, thô sơ. Chỉ bao gồm chức năng chính là chat giữa các client với nhau.</p>
+<p>Bây giờ, để nâng cao, phát triển thêm các tính năng cho ứng dụng này tôi có các gợi ý sau</p>
+<ul>
+<li>Sử dựng cơ sở dữ liệu mysql để lưu thông tin đăng nhập của client (bao gồm loginID và pass)</li>
+<li>Mỗi khi có client join vào group chat, hiện thông báo cho các thành viên khác cùng biết</li>
+<li>Hiện tên của mỗi client riêng biệt tại ô chat để biết đó là message của client nào</li>
+<li>Nếu đăng nhập group chat thất bại, có thể tùy ý xử lý như là di chuyển đến trang Error v.v</li>
+<li>Thêm các biểu tượng cảm xúc, có thể chèn vào ô chat.<br>
+Phía trên là nhưng gợi ý để chúng ta có thể phát triển them cho ứng dụng này.</li>
+</ul>
+<p><strong>Kết nối với Mysql</strong></p>
+<p>Để thực hiện kết nối đến Mysql, đầu tiên chúng ta sẽ tạo một table trên cơ sở dữ liệu Mysql như sau<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbFNmbGJNdVlxN3c&amp;export=download" alt=""><br>
+Để cài đặt module mysql trên nodejs sử dụng lệnh sau</p>
+<pre><code>npm install mysql@2.10.2
+</code></pre>
+<p><strong>Source code</strong></p>
+<p>Và đây là source code đầy đủ cho các tính năng mở rộng trên. Các bạn có thể tham khảo và bổ sung thêm nhưng tính năng cần thiết để hoàn thiện ứng dụng nhé.</p>
+<p><a href="https://github.com/phongnx1/NodeJS_ChatApp">https://github.com/phongnx1/NodeJS_ChatApp</a></p>
+<p><strong>Demo application</strong></p>
+<p>Khởi động server<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkT3VWTkpZY1RQbkE&amp;export=download" alt=""><br>
+Join chat group<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkemRTUTFNeFd2TlE&amp;export=download" alt=""><br>
+Trường hợp Login name không tồn tại trong DB<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdHVRSHRseEpFd28&amp;export=download" alt=""><br>
+Thông báo khi có client nào đó join vào group<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkODR1YVVXVHdYbGc&amp;export=download" alt=""><br>
+Và kết quả nhiều client cùng chat<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSlFPeGpRTkVNZDQ&amp;export=download" alt=""></p>
+<h3>5. Kết luận.</h3>
+<p>Bài viết này cơ bản đã giới thiệu đến các bạn về nodejs, sử các module trong nodejs như thế nào. Sơ lược về SocketIO, Express framework và demo một ứng dụng chat mô phỏng. Bài viết cũng cung cấp cho các bạn cách kết nối với cơ sở dữ liệu Mysql, các bạn có thể phát triển các ứng dụng khác sau này.</p>
+<h3>6. Tài liệu tham khảo</h3>
+<ul>
+<li>
+<p><a href="http://freetuts.net/hoc-nodejs/nodejs-can-ban">http://freetuts.net/hoc-nodejs/nodejs-can-ban</a></p>
+</li>
+<li>
+<p><a href="https://landolatui.wordpress.com/2016/06/06/ket-noi-voi-mysql-nodejs-05/">https://landolatui.wordpress.com/2016/06/06/ket-noi-voi-mysql-nodejs-05/</a></p>
+</li>
+<li>
+<p><a href="http://www.programwitherik.com/getting-started-with-socket-io-node-js-and-express/">http://www.programwitherik.com/getting-started-with-socket-io-node-js-and-express/</a></p>
+</li>
+<li>
+<p><a href="http://danielnill.com/nodejs-tutorial-with-socketio">http://danielnill.com/nodejs-tutorial-with-socketio</a></p>
+</li>
+<li>
+<p><a href="http://devpro.edu.vn/gioi-thieu-nodejs/">http://devpro.edu.vn/gioi-thieu-nodejs/</a></p>
+</li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Chat%20application%20with%20NodeJS%2C%20Socket.IO%2C%20Mysql%20and%20Express%20framework">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/chat-application-with-nodejs-socket-io-mysql-and-express-framework/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

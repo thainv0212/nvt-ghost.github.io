@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Time series: Moving average model</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Time series: Moving average model" />
+    <meta property="og:description" content="Trong các bài viết trước chúng ta đã tìm hiểu cơ bản về khái niệm chuỗi time series, về mô hình Autogressive.  Link bài viết trước:  https://blog.vietnamlab.vn/2020/04/07/time-series/  Trong bài viết này, ta sẽ tiếp tục tìm hiểu về mô hình Moving Average (sau" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/time-series-moving-average-model/" />
+    <meta property="article:published_time" content="2020-06-23T15:05:01.000Z" />
+    <meta property="article:modified_time" content="2020-06-23T15:05:01.000Z" />
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Time series: Moving average model" />
+    <meta name="twitter:description" content="Trong các bài viết trước chúng ta đã tìm hiểu cơ bản về khái niệm chuỗi time series, về mô hình Autogressive.  Link bài viết trước:  https://blog.vietnamlab.vn/2020/04/07/time-series/  Trong bài viết này, ta sẽ tiếp tục tìm hiểu về mô hình Moving Average (sau" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/time-series-moving-average-model/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.H" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.H",
+        "url": "https://blog.vietnamlab.vn/author/haupv/",
+        "sameAs": []
+    },
+    "headline": "Time series: Moving average model",
+    "url": "https://blog.vietnamlab.vn/time-series-moving-average-model/",
+    "datePublished": "2020-06-23T15:05:01.000Z",
+    "dateModified": "2020-06-23T15:05:01.000Z",
+    "description": "Trong các bài viết trước chúng ta đã tìm hiểu cơ bản về khái niệm chuỗi time\nseries, về mô hình Autogressive.\nLink bài viết trước:\nhttps://blog.vietnamlab.vn/2020/04/07/time-series/\nTrong bài viết này, ta sẽ tiếp tục tìm hiểu về mô hình Moving Average (sau đây\nsẽ được kí hiệu là MA)\n\n1. Mô hình Moving Average là gì\nTrích dẫn định nghĩa của mô hình MA trên wiki:\n\n&gt; In time series analysis, the moving-average model (MA model), also known as\nmoving-average process, is a common approach for modeling",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Time series: Moving average model</h1>
+                <section class="post-meta">
+                    P.V.H -
+                    <time class="post-date" datetime="2020-06-23">23 Jun 2020</time>
+                </section>
+            </header>
+            <section class="post-content">
+
+                <p>Trong các bài viết trước chúng ta đã tìm hiểu cơ bản về khái niệm chuỗi time series, về mô hình Autogressive.<br />
+Link bài viết trước:<br />
+<a href="https://blog.vietnamlab.vn/2020/04/07/time-series/">https://blog.vietnamlab.vn/2020/04/07/time-series/</a><br />
+Trong bài viết này, ta sẽ tiếp tục tìm hiểu về mô hình Moving Average (sau đây sẽ được kí hiệu là MA)</p>
+<h1 id="1mhnhmovingaveragelg">1. Mô hình Moving Average là gì</h1>
+<p>Trích dẫn định nghĩa của mô hình MA trên wiki:</p>
+<blockquote>
+<p>In time series analysis, the moving-average model (MA model), also known as moving-average process, is a common approach for modeling univariate time series. The moving-average model specifies that the output variable depends linearly on the current and various past values of a stochastic (imperfectly predictable) term.</p>
+</blockquote>
+<blockquote>
+<p>Together with the autoregressive (AR) model, the moving-average model is a special case and key component of the more general ARMA and ARIMA models of time series, which have a more complicated stochastic structure.</p>
+</blockquote>
+<p>Mô hình MA là một phương pháp phổ biến dùng trong mô hình hoá chuỗi time series, và như mình đã đề cập ở bài viết trước, nó cùng với phương pháp AutoRegressive sẽ tạo nên mô hình tổng quát hơn ARIMA. Về đặc điểm thì mô hình MA thể hiện rằng output (giá trị của chuỗi thời gian) sẽ phụ thuộc tuyến tính vào giá trị hiện tại cũng như các giá trị trong quá khứ của nhiễu (nhiễu mình nói ở đây như trên wiki hiểu là một thành phần stochastic - thành phần ngẫu nhiên, không thể dự đoán được)</p>
+<p>Công thức của mô hình MA có dạng như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1VPMsjVJ4im7AJxFOTNWV4CGxnMbZTZRN&amp;export=download" alt="uc?id=1VPMsjVJ4im7AJxFOTNWV4CGxnMbZTZRN&amp;export=download" width="986" height="128" layout="responsive"></amp-img></p>
+<p>Để tiện so sánh với mô hình AutoRegressive mình cũng đưa lại công thức mô hình AR ở đây:<br />
+<amp-img src="https://drive.google.com/uc?id=1a73G18zY1MjqXDwPl3xo6yEmSrqnYg3i&amp;export=download" alt="uc?id=1a73G18zY1MjqXDwPl3xo6yEmSrqnYg3i&amp;export=download" width="444" height="120" layout="responsive"></amp-img></p>
+<p>Chỉ cần nhìn qua thì ta đã thấy hai mô hình này là khác nhau, trong khi mô hình AR thể hiện mối quan hệ <code>X[t]</code> phụ thuộc vào các giá trị chuỗi thời gian trước đó như  <code>X[t-1], X[t-2], ...</code><br />
+thì mô hình MA thể hiện rằng <code>X[t]</code> phụ thuộc vào các giá trị nhiễu.<br />
+Thực ra trong mô hình AR cũng có thành phần nhiễu epsilon(t), nhưng mối quan hệ của <code>X[t]</code> với <code>epsilon(t)</code> trong hai mô hình là hoàn toàn khác nhau.</p>
+<p>Trong mô hình AR, ảnh hưởng của thành phần nhiễu kéo dài đến vô cùng, như biểu diễn dưới đây:<br />
+<code>X[t]</code> bị ảnh hưởng bởi <code>epsilon(t)</code><br />
+<code>X[t+1]</code> bị ảnh hưởng bởi <code>X[t]</code> nên <code>X[t+1]</code> bị ảnh hưởng bởi <code>epsilon(t)</code><br />
+...<br />
+Lấy vị dụ như trong mô hình tài chính, ta mô hình hoá chỉ số thị trường chứng khoán, nếu <code>epsilon(t)</code> là tác động của khủng hoảng tài chính (tức là epsilon rất lớn) thì ảnh hưởng mà nó gây ra sẽ kéo dài rất lâu lên chỉ số thị trường.</p>
+<p>Trong khi đó ở mô hình AM, ảnh hưởng của thành phần nhiễu chỉ kéo dài trong khoảng thời gian q (bằng với bậc của mô hình AM), lý do vì trong mô hình AM ta không có mối quan hệ phụ thuộc giữa <code>X[t]</code> và <code>X[t-1]</code>.</p>
+<h1 id="2tnhchtcamhnhmovingaverage">2. Tính chất của mô hình Moving Average</h1>
+<p>Để đơn giản, ta sẽ tìm hiểu các tính chất của mô hình AM bậc 1, có công thức như sau:<br />
+Xét mô hình AR bậc 1 có công thức sau:<br />
+<code>X[t] = u + w[t] + p* w[t-1]</code><br />
+Trong đó, nhiễu w tuân theo phân phối chuẩn với mean bằng <code>0</code> và variance bằng <code>var_w</code>, và không phụ thuộc vào <code>X</code></p>
+<p>Mean của chuỗi time series:<br />
+<code>mean(X) = u</code><br />
+Varience của chuỗi time series:<br />
+<code>var(X) = var_w^2/(1+p^2)</code><br />
+Autocovariance của chuỗi time series:<br />
+<code>autovar(X) = E(X[t+n],X[t]) = 0</code> với <code>n&gt;1</code><br />
+<code>autovar(X) = E(X[t+1],X[t]) = p/(1+p^2)</code></p>
+<p>Ngoài ra, ta còn có một số khái niệm và tính chất khác:</p>
+<ul>
+<li>Mô hình MA bậc hữu hạn luôn thoả mãn tính dừng (stationary)</li>
+<li>Invertible MA: gọi là mô hình MA đảo ngược được (chỗ này dịch hơi khó), khi nó có thể biểu diễn được dưới dạng mô hình AR với bậc vô hạn:<br />
+<code>X[t] = w[t] + p*X[t-1] + p^2*X[t-2] + ...</code><br />
+Mô hình invertiable MA phải có |p|&lt;1 để đảm bảo rằng hệ số p^n không tiến ra vô cùng.</li>
+<li>Hay tính chất khác khá hay là mô hình AR(1) có thể biểu diễn được dưới dạng mô hình MA bậc vô hạn.</li>
+</ul>
+<h1 id="3thchnh">3. Thực hành</h1>
+<p>Xét chuỗi time series tuân theo mô hình AR với bậc 1, có công thức như sau:<br />
+<code>X[t] = 3 + w[t] - 0.6*w[t-1]</code><br />
+với <code>w = normal(0,5)</code> (phân phối chuẩn có độ lệch chuẩn bằng 5)</p>
+<p>Import thư viện cần dùng:</p>
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from statsmodels.tsa.arima_model import ARMA
+</code></pre>
+<p>Chuẩn bị dữ liệu:</p>
+<pre><code class="language-python">u = 3
+p = -0.6
+T = 500
+mean = u
+w = np.random.normal(loc=0,scale=1, size=500)
+X = np.zeros(500)
+X[0] = 3 + w[0]
+for i in range(1,500):
+    X[i] = 3 + w[i] - 0.6*w[i-1]
+</code></pre>
+<p>Fit dữ liệu với mô hình MA:</p>
+<pre><code class="language-python"># fit model
+model = ARMA(X, order=(0, 1))
+model_fit = model.fit(disp=False)
+</code></pre>
+<p>Check kết quả:</p>
+<pre><code class="language-python">print(model_fit.params)
+-&gt; array([ 2.9776383 , -0.59430176])
+</code></pre>
+<p>Như vậy các tham số predicted tương đối giống với tham số của mô hình thực tế (3, -0.6)</p>
+<h1 id="4ktlun">4. Kết luận</h1>
+<p>Như vậy trong bài viết này, ta đã tìm hiểu về lý thuyết, cách ứng dụng của mô hình MA (Moving Average). Việc xây dựng mô hình MA là tương đối khó khăn vì các đại lượng nhiễu trong mô hình là không thể xác định được. Tuỳ từng bài toán, ta cần linh hoạt sử dụng mô hình MA, AR hay đôi khi là kết hợp cả hai.<br />
+Trong bài tiếp theo ta sẽ tìm hiểu về kết hợp của 2 mô hình AR&amp;MA, còn gọi là mô hình ARMA.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

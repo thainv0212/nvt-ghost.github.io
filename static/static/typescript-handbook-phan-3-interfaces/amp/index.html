@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>TypeScript Handbook (Phần 3) - Interfaces</title>
+
+    <meta name="description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="TypeScript Handbook (Phần 3) - Interfaces" />
+    <meta property="og:description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/" />
+    <meta property="og:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-06-30T01:55:06.000Z" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="TypeScript Handbook" />
+    <meta property="article:tag" content="Interfaces" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TypeScript Handbook (Phần 3) - Interfaces" />
+    <meta name="twitter:description" content="Đây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript.Lần này mình sẽ tổng hộp về Interfaces trong TypeScript" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/" />
+    <meta name="twitter:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="typescript, javascript, TypeScript Handbook, Interfaces" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "TypeScript Handbook (Phần 3) - Interfaces",
+    "url": "https://blog.vietnamlab.vn/typescript-handbook-phan-3-interfaces/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2017-06-30T01:55:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg"
+    },
+    "keywords": "typescript, javascript, TypeScript Handbook, Interfaces",
+    "description": "Nội dung được giới thiệu trong bài viết này\nĐây là bài viết thứ 3 trong loạt bài giới thiệu về TypeScript\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/]. Nối\ntiếp thành công vài bài viết thứ hai giới thiệu về Variable Declarations\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-2-variable-declarations/] \n lần này mình sẽ tổng hộp lại Interfaces\n[https://www.typescriptlang.org/docs/handbook/interfaces.html]  trong TypeScript\n\nOur First Interface\nDưới đây",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">TypeScript Handbook (Phần 3) - Interfaces</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2017-06-30">30 Jun 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h1 id="nidungcgiithiutrongbivitny">Nội dung được giới thiệu trong bài viết này</h1>
+<p>Đây là bài viết thứ 3 trong loạt bài giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/">TypeScript</a>. Nối tiếp thành công vài bài viết thứ hai giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-2-variable-declarations/">Variable Declarations</a> lần này mình sẽ tổng hộp lại <a href="https://www.typescriptlang.org/docs/handbook/interfaces.html">Interfaces</a> trong TypeScript</p>
+<h3 id="ourfirstinterface">Our First Interface</h3>
+<p>Dưới đây là một số ví dụ về cách bạn có thể áp dụng Interfaces một các đơn giản:</p>
+<p>Compiler sẽ kiểm tra xem trong tham số chuyền vào của hàm <code>printLabel</code> có thuộc tính <code>label</code> không. Những thuộc tính khác của Object nó sẽ bỏ qua.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function printLabel(labelledObj: { label: string }) {
+    console.log(labelledObj.label);
+}
+;
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function printLabel(labelledObj) {
+    console.log(labelledObj.label);
+}
+;
+var myObj = { size: 10, label: "Size 10 Object" };
+printLabel(myObj);
+</code></pre>
+<p>Thay vào đó giờ hãy thử sủ dụng Interfaces</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">interface LabelledValue {
+    label: string;
+}
+;
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+;
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function printLabel(labelledObj) {
+    console.log(labelledObj.label);
+}
+;
+var myObj = { size: 10, label: "Size 10 Object" };
+printLabel(myObj);
+</code></pre>
+<blockquote>
+<p>Interfaces này chủ yểu để kiểm tra đầu vào. Sau khi compile nó sẽ bi xóa đi</p>
+</blockquote>
+<p>Không cần quan tâm đến thứ tự thuộc tính khai báo trong interface.</p>
+<h3 id="optionalproperties">Optional Properties</h3>
+<p>Đôi khi chúng ta không nhất thiết phải bắt buộc phải có tất cả thuộc tính vả để thể hiện những thuộc tính không bắt buộc cần thêm <code>?</code> vào cuối biến đó.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+;
+function createSquare(config: SquareConfig): {color: string; area: number} {
+    let newSquare = {color: "white", area: 100};
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+;
+let mySquare = createSquare({color: "black"});
+</code></pre>
+<blockquote>
+<p>Javascript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function createSquare(config) {
+    var newSquare = { color: "white", area: 100 };
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+;
+var mySquare = createSquare({ color: "black" });
+</code></pre>
+<blockquote>
+<p>Mặc dù được chỉ định thuộc tính không bắt buộc trong Interface rồi nhưng JavaScript code được compile vẫn không thay đổi?</p>
+</blockquote>
+<p>Điểm tiện lợi của việc định nghĩa tất cả các kiểu không bắt buộc là có thể check được có sự dụng nhầm biến không được khai báo không</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    let newSquare = {color: "white", area: 100};
+    if (config.color) {
+        // Lỗi. Biến 'clor' không tồn tại trong 'SquareConfig'
+        newSquare.color = config.clor;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+
+let mySquare = createSquare({color: "black"});
+</code></pre>
+<h3 id="readonlyproperties">Readonly Properties</h3>
+<p>Những thuộc tính mà chỉ dùng để đọc thì thêm <code>readonly</code> vào trước tên thuộc tính đó.</p>
+<pre><code>interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+</code></pre>
+<p>Trường hợp này có thể khởi tạo object chứa các giá trị thuộc tính của nó được nhưng không thể thay đổi</p>
+<pre><code>let p1: Point = { x: 10, y: 20 };
+p1.x = 5; // Lỗi!
+</code></pre>
+<p>TypeScript còn hỗ trợ class <code>ReadonlyArray&lt;T&gt;</code>. Class này giống với Array nhưng loại bỏ hết tất cả các hàm thay đổi Object</p>
+<pre><code>let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray&lt;number&gt; = a;
+ro[0] = 12; // Lỗi!
+ro.push(5); // Lỗi!
+ro.length = 100; // Lỗi!
+a = ro; // Lỗi!
+</code></pre>
+<p>Object của <code>ReadonlyArray</code> không thể thay đổi trẳng hạn như trong các thuật toán sắp xếp nhưng có thể sử dụng để ép kiểu.</p>
+<pre><code>a = ro as number[];
+</code></pre>
+<h4 id="readonlyvsconst"><code>readonly</code> vs <code>const</code></h4>
+<p>Sử phân chia cách sử dụng của <code>readonly</code> và <code>const</code> hết sức đơn giản. <code>const</code> sử dụng cho biến còn <code>readonly</code> sử dụng cho thuộc tính(property).</p>
+<h3 id="excesspropertychecks">Excess Property Checks</h3>
+<p>Khi kết hợp giữa Interface và thuộc tính không bắt buộc có thể sẽ xảy ra một vài cạm bẫy như sau</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    // ...
+}
+
+let mySquare = createSquare({ colour: "red", width: 100 }); // :o định dùng là 'color' nhưng giờ bị nhầm thành 'colour'
+</code></pre>
+<p>Vì <code>'color'</code> không bắt buộc nên trường hợp này Object truyền vào sẽ chỉ có thuộc tính là <code>'width'</code><br />
+Để tranh những nhầm lẫn này xẩy ra TypeScript sẽ thực hiện check riêng object được viết ra. Cụ thể khi gán cho biến khác hoặc khi đã chuyền tham số vào hàm sẽ xẩy ra lỗi không tồn tại thuộc tính có kiểu của đối tượng</p>
+<pre><code>// Lỗi,　'colour' không nằm trong 'SquareConfig'
+let mySquare = createSquare({ colour: "red", width: 100 });
+</code></pre>
+<p>Để bỏ qua check như trên chỉ cần ép kiểu là được</p>
+<pre><code>// 'opacity' không có trong 'SquareConfig' nhưng vẫn không vấn đề gì
+let mySquare = createSquare({ width: 100, opacity: 0.5 } as SquareConfig);
+</code></pre>
+<p>Còn một cách làm tốt hơn nữa để nhận được thuộc tính ngoài là thêm index là một biến kiểu chuỗi như sau:</p>
+<pre><code>interface SquareConfig {
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+}
+</code></pre>
+<ul>
+<li>Mặc dù đang được chỉ định thêm propName nhưng không hản có thể truy cập đến những thuộc tích khác nữa. Sẽ được nói rõ hơn ở phần <strong>Indexable Types</strong> phía dưới</li>
+</ul>
+<p>Nếu chúng ta thi chỉ gán biến 1 lần sẽ chỉ mất 2 dòng code.</p>
+<pre><code>let squareOptions = { colour: "red", width: 100 };
+let mySquare = createSquare(squareOptions);
+</code></pre>
+<p>Có thể bạn nghĩ viết thế này đơn giản hơn rất nhiều nhưng khi code trở lên phức tạp hơn chúng ta cần phải sử dụng kỹ thật trên. Tức là trong nhiều trường hợp chúng ta phải ý thức trước được là sẽ có những thuộc tính dư thừa nữa.</p>
+<h3 id="functiontypes">Function Types</h3>
+<p>Interface ngoài việc thể hiện các Object có những thuộc tính đặc trung ra cỏn có thể thể hiện được cả method.<br />
+Dưới đây là ví dụ biểu thị khai báo một hàm bao gồm cả tham số chuyển vào và giá trị trả về. Danh sách tham số chuyền vào sẽ cần định nghĩa tên và kiểu dự liệu</p>
+<pre><code>interface SearchFunc {
+    (source: string, subString: string): boolean;
+}
+</code></pre>
+<p>Sau đó sẽ sử dụng sao cho giống với interface trên</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(source: string, subString: string) {
+    let result = source.search(subString);
+    return result &gt; -1;
+}
+</code></pre>
+<p>Lúc này không cần phải để tên tham số chuyền vào chùng khớp với interface của hàm.</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(src: string, sub: string): boolean {
+    let result = src.search(sub);
+    return result &gt; -1;
+}
+</code></pre>
+<p>Còn kiểu của tham số nếu không khai báo sẽ tự lấy kiểu theo như interface của hàm.</p>
+<pre><code>let mySearch: SearchFunc;
+
+mySearch = function(src, sub) {
+    let result = src.search(sub);
+    return result &gt; -1;
+}
+</code></pre>
+<ul>
+<li>Mặc dù như vậy nhưng mình nghĩ định nghĩa kiểu tham số tại hàm càng nhiều càng tốt</li>
+</ul>
+<h3 id="indexabletypes">Indexable Types</h3>
+<p>Trong TypeScript cũng thể hiện cả việc có thể truy cập vao mang như là <code>a[10]</code> hoặc <code>ageMap["daniel"]</code>. Indexble Types có 1 <code>index signature</code> mà nó có thể được định nghĩa kiểu và nó có thể được sử đụng trong Object</p>
+<pre><code>interface StringArray {
+    [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+let myStr: string = myArray[0];
+</code></pre>
+<p><code>index signature</code> được support 2 kiểu dữ liệu là kiểu chuỗi và kiểu số. Có thể hỗ trợ cả 2 loại này nhưng trường hợp dưới đây, kiểu giá trị trả về của index signature có kiểu số và kiểu giá trị tra về của index signature có kiểu chuỗi cần phỉ có subclass. Bởi vì trong javascript khi truy cập với index là kiếu số nó sẽ chuyển thành kiểu string</p>
+<pre><code>class Animal {
+    name: string;
+}
+class Dog extends Animal {
+    breed: string;
+}
+
+// Lỗi. Khi truy cập với index là kiểu chuỗi sẽ trả về Dog
+interface NotOkay {
+    [x: number]: Animal;
+    [x: string]: Dog;
+}
+</code></pre>
+<p>Ngoài ra index signature cho phép đồng nhất về một kết quả</p>
+<pre><code>interface NumberDictionary {
+    [index: string]: number;
+    length: number;    // OK. length là kiểu số
+    name: string;      // Lỗi. name không phải kiểu số cũng không phải subclass
+}
+</code></pre>
+<p>Cuối cùng, bằng việc chỉ định <code>readonly</code> cho index signature sẽ không thể gán lại biến</p>
+<pre><code>interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+
+let myArray: ReadonlyStringArray = ["Alice", "Bob"];
+myArray[2] = "Mallory"; // Lỗi!
+</code></pre>
+<h3 id="classtypes">Class Types</h3>
+<h4 id="implementinganinterface">Implementing an interface</h4>
+<p>Cũng giống ngôn ngữ khác sử dụng Interface cho class còn thông dụng hơn rất nhiều.</p>
+<pre><code>interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<p>Trong các class sẽ định nghĩa các hàm trong interface giống như trên đã nói.</p>
+<pre><code>interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<h4 id="differencebetweenthestaticandinstancesidesofclasses">Difference between the static and instance sides of classes</h4>
+<p>Trong khi sử dụng interface với class cần phải ý thức trước được rằng có 2 loại thành viên static va instance.<br />
+Như ví dụ dưới đây sẽ xẩy ra lỗi:</p>
+<pre><code>interface ClockConstructor {
+    new (hour: number, minute: number);
+}
+
+class Clock implements ClockConstructor {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+</code></pre>
+<p>Bởi vì khí thực hiện interface sẽ chỉ check những thành viên instance, nó sẽ bỏ qua thành viên static như là constructor.<br />
+Thay vào đó cần sử dụng interface vào trực tiếp các thanh phần static. Ví dụ dưới đây có <code>ClockConstructor</code> là interface riêng cho hàm khởi tạo</p>
+<pre><code>interface ClockConstructor {
+    new (hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("beep beep");
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("tick tock");
+    }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+</code></pre>
+<h3 id="extendinginterfaces">Extending Interfaces</h3>
+<p>Kế thừa của interface cũng giống như kế thừa của class</p>
+<pre><code>interface Shape {
+    color: string;
+}
+
+interface Square extends Shape {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = "blue";
+square.sideLength = 10;
+</code></pre>
+<p>Thậm chí có thể kế thừa nhiều interface</p>
+<pre><code>interface Shape {
+    color: string;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+
+let square = &lt;Square&gt;{};
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+</code></pre>
+<h3 id="hybridtypes">Hybrid Types</h3>
+<p>Trong interface, cho đến bây giờ có thể kết hợp nhiều cách sử dụng lại với nhau</p>
+<pre><code>interface Counter {
+    (start: number): string;
+    interval: number;
+    reset(): void;
+}
+
+function getCounter(): Counter {
+    let counter = &lt;Counter&gt;function (start: number) { }; //Interface chưa được thực hiện hến, chưa định nghĩa là 1 kiểu'Counter'
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter; // 'Counter' Tất cả các thuộc tính và function đã được chuẩn bị rồi nên có thể trả về kiểu 'Counter'
+}
+
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+</code></pre>
+<h3 id="interfacesextendingclasses">Interfaces Extending Classes</h3>
+<p>Trường hợp interface đã kế thừa, thì trong class tất cả thành phần private/protected đêu được ghi đè.</p>
+<p>Trong ví dụ dưới đây, class <code>SelectableControl</code> cũng sẽ chứa thuộc tính <code>state</code>, class <code>Control</code> lúc này sẽ bao gồm tất cả các thành phần. class <code>Button</code> (được kế thừa từ <code>Control</code>) sẽ chứa thuộc tính <code>state</code> và hàm <code>select</code> nên có thể xem như là class <code>SelectableControl</code>. Mặt khác, class <code>Image</code> chỉ chứa hàm <code>select</code> nên không thể coi như là class <code>SelectableControl</code>.</p>
+<pre><code>class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control {
+    select() { }
+}
+
+class Image {
+    select() { }
+}
+</code></pre>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

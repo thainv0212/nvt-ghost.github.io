@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Từ Developer đến DevOps Engineer (part 1)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Từ Developer đến DevOps Engineer (part 1)" />
+    <meta property="og:description" content="Nội dung: Giới thiệu What is DevOps? DevOps Culture DevOps Phases and Tools DevOps Concepts How to become DevOps Engineer? Giới thiệu tổng quan các tool trong DevOps. The 2019 DevOps RoadMap Learn and Practice 🔰 Giới thiệu Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-08-04T02:29:08.000Z" />
+    <meta property="article:modified_time" content="2020-10-26T16:04:06.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="devops" />
+    <meta property="article:tag" content="Ansible" />
+    <meta property="article:tag" content="CI/CD" />
+    <meta property="article:tag" content="Build Automation" />
+    <meta property="article:tag" content="Infrastructure as Code" />
+    <meta property="article:tag" content="monitoring" />
+    <meta property="article:tag" content="Container orchestration" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Từ Developer đến DevOps Engineer (part 1)" />
+    <meta name="twitter:description" content="Nội dung: Giới thiệu What is DevOps? DevOps Culture DevOps Phases and Tools DevOps Concepts How to become DevOps Engineer? Giới thiệu tổng quan các tool trong DevOps. The 2019 DevOps RoadMap Learn and Practice 🔰 Giới thiệu Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, docker, devops, Ansible, CI/CD, Build Automation, Infrastructure as Code, monitoring, Container orchestration" />
+    <meta property="og:image:width" content="1950" />
+    <meta property="og:image:height" content="734" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Từ Developer đến DevOps Engineer (part 1)",
+    "url": "https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/",
+    "datePublished": "2019-08-04T02:29:08.000Z",
+    "dateModified": "2020-10-26T16:04:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&export=download",
+        "width": 1950,
+        "height": 734
+    },
+    "keywords": "kubernetes, docker, devops, Ansible, CI/CD, Build Automation, Infrastructure as Code, monitoring, Container orchestration",
+    "description": "Nội dung:\n * Giới thiệu\n * What is DevOps?\n * DevOps Culture\n * DevOps Phases and Tools\n * DevOps Concepts\n * How to become DevOps Engineer?\n * Giới thiệu tổng quan các tool trong DevOps.\n * The 2019 DevOps RoadMap\n * Learn and Practice\n\n🔰 Giới thiệu\nChào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc các blog trước của mình,\ncác chủ đề thường liên quan đến DevOps, Kubernetes, v.v... Mình sẽ tự giới thiệu\n1 chút.\nTên: N.X.Phong - DevOps công ty GMO Z.com VietNam Lab Center, Số năm kinh nghi",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Từ Developer đến DevOps Engineer (part 1)</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-08-04">04 Aug 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="nidung">Nội dung:</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>What is DevOps?</li>
+<li>DevOps Culture</li>
+<li>DevOps Phases and Tools</li>
+<li>DevOps Concepts</li>
+<li>How to become DevOps Engineer?</li>
+<li>Giới thiệu tổng quan các tool trong DevOps.</li>
+<li>The 2019 DevOps RoadMap</li>
+<li>Learn and Practice</li>
+</ul>
+<h3 id="giithiu">🔰 Giới thiệu</h3>
+<p>Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc các blog trước của mình, các chủ đề thường liên quan đến DevOps, Kubernetes, v.v... Mình sẽ tự giới thiệu 1 chút.<br />
+Tên: N.X.Phong - DevOps công ty GMO Z.com VietNam Lab Center, Số năm kinh nghiệm làm DevOps là 2,5 năm (quá ít phải không nhỉ :D ). Hiện tại mình cùng với team 8 thành viên (4 member VN, 4 member ở Nhật) phát triển và vận hành hệ thống web thương mại điện tử (point service) khoảng hơn 20 triệu người dùng, cung cấp API cho khoảng gần 20 site liên kết. Số lượng server cho các môi trường (dev, staging, design, security, pre product, product) trên 150 server, Riêng số server dành riêng cho Product đã hơn 50 server chạy hàng chục service khác nhau. Dưới đây là hầu hết các công nghệ dự án mình đang sử dụng.<br />
+<amp-img src="https://drive.google.com/uc?id=1Je-qpk7jj6PzE1iiPzo6oqmloq0mOS3w&amp;export=download" alt="uc?id=1Je-qpk7jj6PzE1iiPzo6oqmloq0mOS3w&amp;export=download" width="2662" height="1256" layout="responsive"></amp-img><br />
+Ngoài ra còn một số công cụ như Rancher, Harbor, Redash, v.v... mình tạm thời chưa liệt kê hết.</p>
+<p>Đối tượng bài viết này là ai? Sẽ hướng đến những bạn sinh viên, những bạn chưa có kiến thức nhiều về DevOps, cho những bạn đang còn loay hoay không biết đi hướng nào để trở thành DevOps. và có thể là tham khảo cho những bạn khác. Các bạn có nhiều kinh nghiệm khi đọc bài này xin hãy để lại ít gạch đá để mình xây nhà nhé! :D Mình mạn phép "mùa rìu qua mắt thợ" tý.</p>
+<p>Mục đích bài viết này? chia sẻ kiến thức thu được trong quá trình làm dự án với các Kỹ sư dày dạn kinh nghiệm ở Nhật. Bản thân tự đánh giá và đưa ra các gợi ý về các kiến thức cũng như các công nghệ cần thiết để vận hành hệ thống.</p>
+<p>Bản thân tự cảm thấy đã hiểu được các lợi ích của DevOps, liên quan trực tiếp đến việc cải thiện quy trình triển khai và phát triển phần mềm. Tuy nhiên, từ kinh nghiệm hạn hẹp của mình, trở thành kỹ sư DevOps không bao giờ là dễ dàng.</p>
+<p>Do yêu cầu sâu rộng về kiến thức, công cụ và nhiều kinh nghiệm thực tiễn, việc chọn đúng con đường để trở thành một kỹ sư DevOps thành công có thể là một nhiệm vụ khó khăn.</p>
+<h3 id="whatisdevops">🔰 What is DevOps?</h3>
+<p>Có lẽ các bạn đã nghe nhiều đến khái niệm devops rồi. Đại khái nó là thế này</p>
+<blockquote>
+<p>DevOps là một văn hóa làm việc đề cao sự hợp tác, kéo hai giai đoạn phát triển (development) và vận hành (operations) xích lại gần nhau hơn. Khái niệm DevOps ra đời nhằm tối ưu hóa chu trình phát triển phần mềm, giúp sản phẩm IT được release nhanh và thường xuyên hơn.</p>
+</blockquote>
+<p><amp-img src="https://drive.google.com/uc?id=1aW44tFxgUmRKAi-nk1aZ-gytsuwBI68t&amp;export=download" alt="uc?id=1aW44tFxgUmRKAi-nk1aZ-gytsuwBI68t&amp;export=download" width="1000" height="600" layout="responsive"></amp-img><br />
+Bạn nào chưa hiểu rõ có đọc thêm ở đây:<br />
+<a href="https://www.quora.com/What-is-DevOps">https://www.quora.com/What-is-DevOps</a><br />
+<a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a></p>
+<h3 id="devopsculture">🔰 DevOps Culture</h3>
+<blockquote>
+<p>DevOps is a culture, not a role!</p>
+</blockquote>
+<p>Ngày nay, mọi cơ quan, tổ chức lớn đều liên quan đên phát triển phần mềm. Có nhiều áp lực đối với việc chuyển giao nhanh hơn mà không phải bỏ qua tính bảo mật hay độ tin cậy. Áp lực này thể hiện ở việc các dự án bị hủy bỏ hoặc tạm dừng. Đây là tính huống mà DevOps phải tìm cách giải quyết: làm thể nào để các nhóm development, operation và các nhóm khác trong tố chức hợp tác xung quanh 1 mục tiêu chung để cung cấp phầm mềm nhanh và tin cậy đến end user. Từ đó nảy sinh ra văn hóa gọi là DevOps để chuẩn hóa bộ quy trình và công cụ cho việc delivery phần mềm, chúng thường bao gồm:</p>
+<ul>
+<li>Automated configuration management, testing and application deployment</li>
+<li>Version control of application and infrastructure code to enable collaboration and rollbacks</li>
+<li>CI (continuous integration) to automate code builds and enable faster feedback and iteration through more frequent, lower risk releases.</li>
+</ul>
+<p>Về văn hoá làm việc của DevOps các bạn cũng có thể đọc ở đây nhé.<br />
+<a href="https://medium.com/@neonrocket/devops-is-a-culture-not-a-role-be1bed149b0">https://medium.com/@neonrocket/devops-is-a-culture-not-a-role-be1bed149b0</a><br />
+<a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a></p>
+<h3 id="devopsphasesandtools">🔰 DevOps Phases and Tools</h3>
+<h4 id="devopsphases">DevOps Phases</h4>
+<p>Các giai đoạn trong quy trình làm việc DevOps các bạn có thể hình dung như hình bên dưới:<br />
+<amp-img src="https://drive.google.com/uc?id=1QZqwRnA2qtZPme53PRxb5XSFxwHJY5Xz&amp;export=download" alt="uc?id=1QZqwRnA2qtZPme53PRxb5XSFxwHJY5Xz&amp;export=download" width="1628" height="685" layout="responsive"></amp-img><br />
+Phần việc của Developer là Plan - Coding -Build - Test, Phần việc của Operation là Deploy - Operator - Monitoring. Và khối chính giữa chính là sự tích hợp giữa Development và Operation tạo nên một quy trình thống nhất.</p>
+<h4 id="devopsphasesandtool">DevOps Phases and Tool</h4>
+<p>Để dễ hình dung các giai đoạn, mình sẽ nêu ra đây vài đại diện các tool được sử dụng.<br />
+<amp-img src="https://drive.google.com/uc?id=1V8qKPXbkTKSfl5s0v7GTqmnJ8OL3HXbQ&amp;export=download" alt="uc?id=1V8qKPXbkTKSfl5s0v7GTqmnJ8OL3HXbQ&amp;export=download" width="2048" height="870" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://www.edureka.co/blog/devops-tools">https://www.edureka.co/blog/devops-tools</a></em></p>
+<p>Có thể có nhiều tool các bạn còn chưa biết, nhưng không sao, chúng ta cứ đi tiếp.</p>
+<h3 id="devopsconcepts">🔰 DevOps Concepts</h3>
+<p>Dưới đây mình sẽ nêu ra những khái niệm mà mình nghĩ nó quan trọng đối với DevOps.</p>
+<h4 id="1buildautomation">1. Build Automation</h4>
+<blockquote>
+<p>Tùy vào ngôn ngữ được sử dụng mà cần phải compile, transform hoặc thực hiện unit test,... đối với code. Thông thường build automation cũng giống như việc chạy một command - line tool để chạy đoạn code đã được viết script hoặc được setting trong file config.</p>
+</blockquote>
+<ul>
+<li>Build Automation là một quy trình tự động để chuẩn bị source code deploy lên môi trường bằng cách sử dụng script hoặc tool.</li>
+<li>Build automation sẽ giúp tiết kiệm thời gian, có thể handle được những task cần phải build theo một quy trình nhất định nào đó.</li>
+<li>Build automation còn giúp thực hiện việc build code trên bất kỳ môi trường nào.</li>
+<li>Bất cứ ai trong team cũng có thể làm được.</li>
+</ul>
+<h4 id="2continuousintegrationcitchhplintc">2. Continuous Integration ( CI - Tích hợp liên tục)</h4>
+<blockquote>
+<p>Tích hợp liên tục (CI) là phương pháp phát triển phần mềm đòi hỏi các thành viên trong nhóm tích hợp công việc thường xuyên.<br />
+Các developer phải thường xuyên merge code thay đổi, build, auto test để detect vấn đề khi merge.<br />
+Khi developer commit source code thay đổi của họ lên, CI Server sẽ thấy sự thay đổi này và bắt đầu thực hiện build, test source code thay đổi một cách tự động. Quá trình này sẽ được thực hiện nhiều lần trong 1 ngày, và nếu CI server phát hiện có vấn đề xảy ra nó sẽ ngay lập tức hiển thị thông báo cho developer.</p>
+</blockquote>
+<p>Các lợi ích khi sử dụng CI</p>
+<ul>
+<li>CI sẽ giúp phát hiện ra bug sớm, thông báo cho developer.</li>
+<li>CI sẽ giúp tránh việc phải merge một lượng code lớn khi release.</li>
+<li>Khi code được build liên tục nó cũng tạo ra Continuos Testing (Test liên tục), QA có thể test ngay lập tức những chỉnh sửa đã được đưa lên mà không cần chờ đến khi mọi thứ hoàn thành.</li>
+</ul>
+<p>Tham khảo thêm tại:</p>
+<ol>
+<li><a href="https://viblo.asia/p/continuous-integration-with-jenkins-bai-1-gioi-thieu-ve-ci-va-jenkins-OeVKBggEZkW">https://viblo.asia/p/continuous-integration-with-jenkins-bai-1-gioi-thieu-ve-ci-va-jenkins-OeVKBggEZkW</a></li>
+<li><a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a><br />
+<amp-img src="https://drive.google.com/uc?id=1OxN-mCXvg3gp7A-fL2kUy8ndEx1BTMOj&amp;export=download" alt="uc?id=1OxN-mCXvg3gp7A-fL2kUy8ndEx1BTMOj&amp;export=download" width="938" height="696" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://toidicodedao.com/2015/08/27/giai-thich-don-gian-ve-ci-continuous-integration-tich-hop-lien-tuc/">toidicodedao</a></em></li>
+</ol>
+<p>CI tool</p>
+<ul>
+<li><a href="http://www.scmgalaxy.com/tutorials/top-10-continuous-integration-tool/">http://www.scmgalaxy.com/tutorials/top-10-continuous-integration-tool/</a></li>
+</ul>
+<p>Trong các tool để vận hành CI thì có lẽ Jenkins được gợi ý nhiều nhất, có lẽ do Jenkins là open source và free. Hiện tại bên mình đang dùng Bamboo, Bamboo là một trong các sản phẩm của <a href="https://www.atlassian.com/">Atlassian</a>. Nói về Atlassian thì bên mình đang sử dụng Jira(quản lý task theo Agile-Scrum), Confluence(Quản lý tài liệu dự án online, VIP hơn SVN rất nhiều, thay đổi tài liệu có mail bắn về cho team, có thể review và comment tài liệu. Trước đây toàn sử dụng SVN để quản lý tài liệu Excel...), Bitbucket quản lý source code. (Bitbucket thực sự có nhiều chức năng VIP hơn Github, GitLab nhiều, xài rất OK). Nhưng ở mức độ doanh nghiệp nhỏ hay chỉ học thôi thì Jenkins là sự lựa chọn Ok rồi.</p>
+<h4 id="3continuousdeliveryvcontinuousdeployment">3. Continuous Delivery và Continuous Deployment</h4>
+<blockquote>
+<p>Trước hết Continuous Delivery: được hiểu là chuyển giao liên tục, là 1 tập hợp các kỹ thuật nhằm đảm bảo việc triển khai tích hợp souce code trên môi trường staging (một môi trường rất giống với môi trường production). Theo cách này ta có thể đảm bảo source được kiểm thử một cách tỉ mỉ trước khi deploy lên môi trường production. Khi đó source code sẽ không được deploy tự động sang môi trường production.<br />
+Continuous Deployment: là 1 bước phát triển của Coninuous Delivery, giúp hoàn tất giai đoạn triển khai từ môi trường staging ( môi trường kiểm thử) sang môi trường production. Bằng cách này sources code sẽ đuợc tự động deploy lên môi trường production.<br />
+Vì vậy, ta sẽ hiểu CD là Continuous Delivery hay Continuous Deployment thì phụ thuộc vào cách thức mà nó triển khai trai trên môi trường production hay môi trường testing/staging.</p>
+</blockquote>
+<p><amp-img src="https://drive.google.com/uc?id=1CxeCTvZFRPiv1kS34QYUdSkb5KIYq3bH&amp;export=download" alt="uc?id=1CxeCTvZFRPiv1kS34QYUdSkb5KIYq3bH&amp;export=download" width="1000" height="349" layout="responsive"></amp-img><br />
+<em>Nguồn:<a href="https://puppet.com/blog/continuous-delivery-vs-continuous-deployment-what-s-diff">https://puppet.com/blog/continuous-delivery-vs-continuous-deployment-what-s-diff</a></em></p>
+<p>So sánh tổng quan về CI/CD thì như hình bên dưới<br />
+<amp-img src="https://drive.google.com/uc?id=1NZqhU5zc1_K9DhioKD3Wbpnid2oScVv5&amp;export=download" alt="uc?id=1NZqhU5zc1_K9DhioKD3Wbpnid2oScVv5&amp;export=download" width="1206" height="787" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://stackoverflow.com/questions/28608015/continuous-integration-vs-continuous-delivery-vs-continuous-deployment.">stackoverflow</a></em><br />
+Nhìn nhận tổng quan thì CI/CD pipeline thường gồm các bước sau:</p>
+<ul>
+<li><strong>Commit</strong>. Khi lập trình viên hoàn thành một thay đổi thì anh ta sẽ commit thay đổi đó vào một source code repository</li>
+<li><strong>Build</strong>. Thay đổi được lấy ra từ repository và sau đó phần mềm được build để có thể chạy trên máy tính. Bước này phụ thuộc vào ngôn ngữ nào được dùng, đối với các ngôn ngữ phiên dịch (interpreted languages) thì bước này có thể được loại bỏ.</li>
+<li><strong>Automated tests</strong>. Đây là phần chính của CI/CD pipeline. Các thay đổi được test ở nhiều góc độ để đảm bảo nó hoạt động và không làm hại đến những phần khác.</li>
+<li><strong>Deploy</strong>. Phiên bản đã được build sẽ được đưa lên production.</li>
+</ul>
+<p>Với cách làm như vậy Continuous Delivery và Continuous Deployment sẽ đem lại những lợi ích như dưới đây:</p>
+<ul>
+<li>Nhanh chóng đưa sản phẩm đến tay khách hàng</li>
+<li>Giảm thiếu các vấn đề xảy ra khi deploy</li>
+<li>Giảm thiếu risk: lượng deploy trong 1 lần càng nhiều, risk càng cao. Việc chia nhỏ lượng deploy sẽ giảm thiểu risk.</li>
+<li>Rollback lập tức khi xảy ra lỗi</li>
+<li>Giúp developer không còn lo lắng khi deploy khi đã có chức năng roll back automation.</li>
+</ul>
+<p>Đến đây thì mình nhìn nhận lại dự án hiện tại của mình một chút. Hiện tại đang dùng CI/CD, nhưng là Continuous Delivery chứ không phải Continuous Deployment, và Continuous Delivery cũng không áp dụng cho toàn bộ. Mình tự hỏi tại sao lại như thế?<br />
+Hiện tại với mỗi commit của member, sẽ được build và automation test (CI), nhưng có triển khai ngay lên môi trường Staging (gần với Production) không? thì cũng tuỳ trường hợp. Hiện tại đối với những thay đổi của design, sẽ tiến hành Continuous Delivery. còn đối với Developer, sau khi code được merge vào master mới triển khai lên môi trường DEV -&gt; Staging. Sao lại rườm rà và thủ công như vậy. Cái này tuỳ thuộc vào dự án, mà triển khai sao cho hợp lý. Môi trường DEV bên mình có thể tự do deploy, test thoải mái nhưng môi trường Staging còn được dùng bởi gần 20 site liên kết. Vậy nên các thay đổi đến Staging thông thường sẽ được test trước ở môi trường DEV. còn Continuous Deployment thì bên mình không triển khai, thực hiện bằng con người chứ không để tool chạy tự động.</p>
+<h4 id="4infrastructureascodeiac">4. Infrastructure as Code (IaC)</h4>
+<blockquote>
+<p>Infrastructure as Code là method giúp quản lý, xây dựng cơ sở hạ tầng (Infra) cho sản phẩm của bạn. Với Infrastructure as Code, thay vì thực hiện thủ công theo manual. Bạn có thể viết code và cho chạy tự động.<br />
+Các đối tượng xây dựng trong Infra bao gồm: Server, Instance, môi trường, Container,...</p>
+</blockquote>
+<p><amp-img src="https://drive.google.com/uc?id=197da0asrRYl31KC-5IXvX_uYRkVWYiiA&amp;export=download" alt="uc?id=197da0asrRYl31KC-5IXvX_uYRkVWYiiA&amp;export=download" width="784" height="432" layout="responsive"></amp-img></p>
+<p>Với mình đây thứ tuyệt với nhất với DevOps. Các bạn có thể hình dung thế này. Khi bạn bắt đầu vào dự án, leader hay ai đó đưa cho bạn 1 cái GUI để setup môi trường, và bạn phải hì hục đi tìm các công cụ, rồi chạy command, copy file/folder, v.v... đủ thứ các thể loại. Mất cả ngày nếu như môi trường phức tạp. Chưa kể làm đã đời nó lại không chạy, mà đấy đôi khi chỉ là môi trường để run cái web thôi, chứ chưa nói gì đến các môi trường khác... Thế đấy, chưa kể bạn còn có thể sai sót trong quá trình chọn version, bỏ qua step bla bla.<br />
+Ở đây thật sự Infrastructure as Code rất quan trọng. khi chỉ vài command line, môi trường đồ sộ của bạn đã chạy được. tất cả các member đều dùng 1 môi trường phát triển thống nhất. dù cho bạn xài Windows, Mac hay Linux đều không ảnh hưởng gì. Chúng ta cùng xem qua các lợi ích của IaC.</p>
+<p>Vì sao nên sử dụng IaC?</p>
+<ul>
+<li><strong>Tạo và quản lý resource đúng tiêu chuẩn</strong>. Tất cả mọi việc được thực hiện automation.</li>
+<li><strong>Tính linh hoạt</strong>: IaC cho phép thực hiện cùng một thay đổi giống nhau trên nhiều host, và có thể sử dụng lại trong tương lai.</li>
+<li><strong>Tính co dãn</strong> (Scalability) : khi cần thêm instance bạn chỉ cần cho chạy lại config giống với instance có sẵn và một instance mới được tạo ra chỉ trong vài phút hoặc vài giây.</li>
+<li><strong>Self-documenting</strong>: với IaC để xem những config của hệ thống chỉ cần xem trong source control, bạn không cần phải log lại hoặc tạo 1 tài liệu bất kỳ nào để lưu giữ thông tin config. Chính bản thân code được dùng để build infra chính là document.</li>
+</ul>
+<p>Tất nhiên để sử dụng các công cụ Infrastructure as Code, bạn phải mất nhiều thời gian để học, tối ưu hoá. mục đích hướng đến là tính automation, và quản lý Infrastructure bằng việc viết code.<br />
+Một số Infrastructure as Code Tool:<br />
+<a href="https://www.thorntech.com/2018/04/15-infrastructure-as-code-tools/">https://www.thorntech.com/2018/04/15-infrastructure-as-code-tools/</a><br />
+<amp-img src="https://drive.google.com/uc?id=1-vOgW_1pPu8fU9ec6yIKXJBHbB_vh22-&amp;export=download" alt="uc?id=1-vOgW_1pPu8fU9ec6yIKXJBHbB_vh22-&amp;export=download" width="2680" height="698" layout="responsive"></amp-img><br />
+Có nhiều công cụ được đưa ra, bản thân mình khuyên dùng 3 công cụ trong khung đỏ.</p>
+<h3 id="howtobecomedevopsengineer">🔰 How to become DevOps Engineer?</h3>
+<p>Theo ý kiến cá nhân mình:</p>
+<ul>
+<li>Hiểu được bản chất của DevOps</li>
+<li>Là một Developer (bạn chắc chắn phải lập trình như 1 developer)</li>
+<li>Kỹ năng lập trình Python, shell script.</li>
+<li>Hiểu sâu, thông thạo về HDH đang sử dụng (Linux, Docker, v.v...)</li>
+<li>Khả năng research tốt</li>
+<li>Có tính cẩn thận, tỉ mỉ</li>
+<li>Kinh nghiệm về system và IT operation</li>
+<li>Nắm vững các tiến trình (CI/CD) và các công cụ tự động hóa</li>
+<li>Khả năng sử dụng nhiều công cụ mã nguồn mở, coding/scripting</li>
+</ul>
+<p>Trong các yếu tố trên thì mình muốn nhấn mạnh các điểm sau:<br />
+<strong>Tính cẩn thận, tỉ mỉ:</strong><br />
+Vận hành hệ thống không phải là chuyện ngày một ngày hai, hệ thống có chạy trơn tru thì DevOps mới ngủ ngon được. Vì vậy, không được cẩu thả, command phải chính xác. "Đừng bao giờ thực thi command khi không hình dung được kết quả nhận được là gì ". Bản thân cũng làm chết server nhiều lần rồi nên đúc kết như vậy :D.</p>
+<p><strong>Khả năng research tốt</strong><br />
+Đương nhiên rồi, không chỉ riêng DevOps mà công việc nào cũng đòi hỏi cả. Nhưng DevOps lại càng yêu cầu khắt khe hơn, chuyện gặp lỗi là chuyện hàng ngày, hãy quen với nó và đừng thấy khó chịu, không có chuyện một phát ăn ngay. Ở đây để research hiệu quả còn cần phải có khả năng phân tích vấn đề nữa. Mình sẽ ví dụ về 1 trường hợp phân tích nguyên nhân:<br />
+Ví dụ bạn access đến Nginx thông qua Browser và xảy ra lỗi.<br />
+Phương châm ở đây là nginx lỗi hay network có vấn đề<br />
+Nội dung cần confirm là:<br />
+Login trực tiếp đến nginx server và thực hiện gửi request đến localhost thông qua lệnh curl. Dựa vào kết quả có thể chia ra như sau:</p>
+<ul>
+<li>Có response trả về -&gt; Nginx hoạt động bình thường, vấn đề có thể nằm ở firewall hoặc network (Như vậy có thể hiểu vấn đề không nằm ở nginx)</li>
+<li>Không có response trả về -&gt; Cần kiểm tra nginx có đang hoạt động không? hay nginx config có vấn đề gì không. (Như vậy có thể hiểu vấn đề nằm ở nginx.)</li>
+</ul>
+<p>Có nhiều trường hợp khi triển khai một middleware nào đó gồm nhiều thành phần,  và không hoạt động như mong đợi. Việc phân tách xem vấn nằm ở đâu rất cần thiết.</p>
+<h4 id="dnhchoccbnilntdeveloper">Dành cho các bạn đi lên từ Developer.</h4>
+<p>Bản thân mình cũng là một Developer -&gt; DevOps. Mình gặp những khó khăn khi bắt đầu học DevOps như sau.</p>
+<ol>
+<li>Chưa thông thạo về HDH Linux. (ở trường đại học có môn Linux nhưng mà học dc rất ít :D)</li>
+<li>Rất ngại sử dụng command line (khó nhớ, không có giao diện dể nhìn, toàn màn hình đen)</li>
+<li>Chưa có cái nhìn tổng quát về vận hành hệ thống. (đại khái là web nó chạy dc ở local là dc, còn ở Production họ triển khai như thế nào không biết)</li>
+<li>Kinh nghiệm về system và IT operation (Cái này thì đúng là Developer bình thường không biết được)</li>
+<li>Khá nhiều công cụ dành cho vận hành mình chưa biết đến.</li>
+</ol>
+<p>Vì vậy mình nghĩ các bạn Dev muốn đi lên DevOps thì khắc phục các điểm phía trên của mình. Ngoài ra thì có một tiền bối nào đó chỉ đường nữa là quá tuyệt vời.</p>
+<h4 id="dnhchoccbnilntsystemadminitoperation">Dành cho các bạn đi lên từ System Admin, IT Operation.</h4>
+<p>Với những bạn như vậy chắc là chỉ khuyên các bạn học lập trình như Developer, tham gia dự án để hiểu được hệ thống, hiểu được các chức năng cũng như yêu cầu hệ thống. từ đó có cái nhìn phù hợp để triển khai hệ thống tốt hơn.</p>
+<p>Các bạn System Admin, IT Operation đi lên DevOps có khi lại dễ hơn các bạn DEV.</p>
+<h3 id="giithiutngquancccngnghtooltrongdevops">🔰 Giới thiệu tổng quan các công nghệ/tool trong DevOps</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1TVpp28S6LuXruKe3r11QBcWMaStMxI02&amp;export=download" alt="uc?id=1TVpp28S6LuXruKe3r11QBcWMaStMxI02&amp;export=download" width="1830" height="1125" layout="responsive"></amp-img><br />
+Quả thật hệ sinh thái DevOps vô cùng khổng lồ và liên tục gia tăng đến mức choáng ngợp.<br />
+Thế thì học cái gì trong đống này, bản thân mình cũng rất phân vân. Tình cờ mình đọc được 2 bài viết dưới đây và mình nghĩ rất đáng để tham khảo.</p>
+<h3 id="devopsroadmap">🔰 DevOps RoadMap</h3>
+<h4 id="thamkhotitviecblog">Tham khảo từ itviec Blog</h4>
+<p>Mình có đọc 1 bài viết, 1 anh DevOps được phỏng vấn trong bài đó đưa ra các công nghệ/tool cần học.<br />
+<a href="https://itviec.com/blog/devops-engineer-la-gi/">https://itviec.com/blog/devops-engineer-la-gi/</a> Phần 3. Kĩ năng mới.<br />
+<amp-img src="https://drive.google.com/uc?id=1DKo2e5lAKcCxuz8GDTZPAsg0k2Ykg2St&amp;export=download" alt="uc?id=1DKo2e5lAKcCxuz8GDTZPAsg0k2Ykg2St&amp;export=download" width="768" height="999" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://itviec.com/blog/devops-engineer-la-gi/">https://itviec.com/blog/devops-engineer-la-gi/</a></em></p>
+<p>Mình cũng đồng tình phần lớn với các recommend của anh được phỏng vấn trong bài viết trên.</p>
+<h4 id="the2019devopsroadmapcatcgikamranahmedse">The 2019 DevOps RoadMap của tác giả <a href="https://github.com/kamranahmedse">Kamranahmedse</a></h4>
+<p>Vô tình mình đọc được <a href="https://github.com/kamranahmedse/developer-roadmap">Github</a> của tác giả Kamranahmedse nói về lộ trình hữu ích dành cho các kỹ sư Frontend, kỹ sư Backend cũng như lộ trình dành cho DevOps Engineer.<br />
+Lộ trình này không chỉ giải thích vai trò cụ thể của các kỹ sư DevOps, mà còn chỉ định những công cụ nào cần thiết để bao quát các lĩnh vực công việc của các kỹ sư DevOps. Các bạn có thể in ra, dán lên bàn làm việc để flow theo.<br />
+<amp-img src="https://drive.google.com/uc?id=18VDuHrqTOlVVN5cj8MFznsIdFeLmuwwR&amp;export=download" alt="uc?id=18VDuHrqTOlVVN5cj8MFznsIdFeLmuwwR&amp;export=download" width="1105" height="2216" layout="responsive"></amp-img><br />
+<em>Nguồn:<a href="https://github.com/kamranahmedse/developer-roadmap">https://github.com/kamranahmedse/developer-roadmap</a></em></p>
+<p>Trên đây mình đã chia sẻ 2 nguồn để các bạn tham khảo lộ trình để trở thành DevOps Engineer, quả thật lắm chông gai và cần nhiều thời gian công sức để học tập.<br />
+Lộ trình thì có rồi nhưng cũng nhiều quá phải không, mình đã trãi qua việc học các kiến thức và công cụ dưới đây để join vào team DevOps và làm việc cho đến bây giờ (2,5 năm). Mình sẽ giới thiệu đến các bạn mới để các bạn có thể nhanh chóng tiến lên con đường DevOps và cảm nhận được sự thú vị của nó.</p>
+<p>Phần tiếp theo mình sẽ đưa ra 1 practice đơn giản để các bạn mới học và thực hành DevOps.</p>
+<h3 id="learnandpractice">🔰 Learn and Practice</h3>
+<p>Đây cũng gần như là chương trình thực tập DevOps công ty mình, cho các bạn sinh viên năm 4,5.<br />
+Let's get started!</p>
+<ol>
+<li>Hãy bắt đầu với GIT</li>
+<li>Linux (Sử dụng được thành thạo các command cơ bản của linux, thao tác với user, file, ssh, v.v...)</li>
+<li>Vagrant (Công cụ kết hợp với Virtual Box để tạo máo ảo trên local)</li>
+<li>Ansible (Công cụ để thực hiện Infrastructure as Code)</li>
+<li>Docker, Docker Compose (Thời đại container hoá rồi nên phải học cái này :D)</li>
+<li>Web server (Bên mình thì cho các bạn học Nginx - cài đặt, cấu hình cơ bản, học 1 cái này thì các web server khác như Apache, IIS, v.v... cũng gần gần)</li>
+<li>Do Exercise 1</li>
+<li>Học php, Framework Yii2</li>
+<li>Do Exercise 2 (Phát triển và vận hành hệ thống CI/CD, IaC dựa trên các công cụ đã học, sử dụng php, Yii2 FW)</li>
+<li>Triển khai cả môi trường Prodcution (Bên mình cung cấp VPS Conoha cloud)</li>
+</ol>
+<p>---------------------Chương trình thực tập đến đây-------------------</p>
+<p>Các bạn vào chính thức sẽ tiếp tục học</p>
+<ol>
+<li>Kubernetes</li>
+<li>Do Exercise 3</li>
+</ol>
+<p>Bây giờ mình sẽ nói về "Do Exercise 1". Đây chỉ là bài tập vận dụng đơn giản, hệ thống thật sẽ khác lắm.<br />
+<amp-img src="https://drive.google.com/uc?id=1HV6xLgMbi7YSJT1BD19dkW7iwpBVqFNP&amp;export=download" alt="uc?id=1HV6xLgMbi7YSJT1BD19dkW7iwpBVqFNP&amp;export=download" width="1926" height="1092" layout="responsive"></amp-img></p>
+<ol>
+<li>Sử dụng Vagrant tạo 3 máy ảo CI, WEB, DB. CI có thể ssh đến 2 server kia, CI được cài đặt sẵn Git, Ansible. Vì là môi trường local nên có thể syns source playbook với máy CI.</li>
+<li>Chạy provision để cài đặt các thứ cần thiết cho cả 3 server như docker, v.v... WEB cần được triển khai 2 container là nginx và php-fpm, có thể thực hiện bằng docker-compose. DB cần triển khai mysql container, tiện nhất là bằng docker-compose.</li>
+<li>Viết role để có thể copy nginx config đã được chuẩn bị sẵn/khi muốn thay đổi.</li>
+<li>Chuẩn bị source ứng dụng (ở đây chỉ là 1 file php đơn giản có nội dung kết nối đến mysql, nếu thành công thì trả về message "Connection Successful!" ngược lại thì trả về "Connection Failure!") ở một git repository khác.</li>
+<li>Viết role để triển khai source này vào container php-fpm.</li>
+<li>Viết README</li>
+</ol>
+<p>Kết quả cần đạt được:<br />
+Chỉ vài command có thể chạy được môi trường.</p>
+<h3 id="tngkt">🔰 Tổng kết</h3>
+<p>Bài viết mình đến đây thôi, phần tiếp theo mình sẽ nói về "Do Exercise 2", "Do Exercise 3", hy vọng các bạn thu được nhiều kiến thức cũng như quan tâm, có hứng thú hơn với DevOps. Comment thật nhiều để giúp mình hoàn thiện hơn về kiến thức, khả năng trình bày cũng như có thêm động lực cho các bài blog sau nhé!</p>
+<p>Chào thân ái!<br />
+<amp-img src="https://drive.google.com/uc?id=1zcoKQVSALa5dm3V5L6ADT1AYdEFIXTLM&amp;export=download" alt="uc?id=1zcoKQVSALa5dm3V5L6ADT1AYdEFIXTLM&amp;export=download" width="2870" height="1484" layout="responsive"></amp-img></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

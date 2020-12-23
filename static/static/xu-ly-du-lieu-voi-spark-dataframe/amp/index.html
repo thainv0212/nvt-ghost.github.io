@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Xử lý dữ liệu với Spark Dataframe</title>
+
+    <meta name="description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý dữ liệu với Spark Dataframe" />
+    <meta property="og:description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-08-08T06:42:00.000Z" />
+    <meta property="article:modified_time" content="2017-08-08T07:13:35.000Z" />
+    <meta property="article:tag" content="Spark" />
+    <meta property="article:tag" content="dataframe" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý dữ liệu với Spark Dataframe" />
+    <meta name="twitter:description" content="Spark Dataframe là gì ấy nhỉ ?
+Tạo Dataframe như thế nào nhỉ ?" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Spark, dataframe" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Xử lý dữ liệu với Spark Dataframe",
+    "url": "https://blog.vietnamlab.vn/xu-ly-du-lieu-voi-spark-dataframe/",
+    "datePublished": "2017-08-08T06:42:00.000Z",
+    "dateModified": "2017-08-08T07:13:35.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkY0ZBOVE2eVV1bE0&export=download"
+    },
+    "keywords": "Spark, dataframe",
+    "description": "Đầu tiên, bạn có biết Spark là gì chưa nhỉ.\n\nNếu chưa biết Spark là gì thì bạn nên tìm hiểu Spark, cũng như làm quen với nó\ntrước nhé.\n\nBạn có thể tìm hiểu Spark qua link sau: Các bài viết liên quan đến Spark\n[https://vietnamlab.vn/blog/tag/spark/]\n\n  I. Vậy, Spark DataFrame là gì ấy nhỉ ?\nNgày xửa, ngày xưa, khi Spark ver 1.3 ra đời, Spark đã đẻ thêm tính năng có tên\nlà Spark DataFrame. Vậy nó có gì hay ho nhỉ ?\n\n * Có thể thiết lập Schema\n   [https://stackoverflow.com/questions/298739/what-is-",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Xử lý dữ liệu với Spark Dataframe</h1>
+                <section class="post-meta">
+                    T.T.T -
+                    <time class="post-date" datetime="2017-08-08">08 Aug 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkY0ZBOVE2eVV1bE0&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Đầu tiên, bạn có biết Spark là gì chưa nhỉ.</p>
+<p>Nếu chưa biết Spark là gì thì bạn nên tìm hiểu Spark, cũng như làm quen với nó trước nhé.</p>
+<p>Bạn có thể tìm hiểu Spark qua link sau: <a href="https://vietnamlab.vn/blog/tag/spark/">Các bài viết liên quan đến Spark</a></p>
+<h3> I. Vậy, Spark DataFrame là gì ấy nhỉ ?</h3>
+<p>Ngày xửa, ngày xưa, khi Spark ver 1.3 ra đời, Spark đã đẻ thêm tính năng có tên là Spark DataFrame. Vậy nó có gì hay ho nhỉ ?</p>
+<ul>
+<li>Có thể thiết lập <a href="https://stackoverflow.com/questions/298739/what-is-the-difference-between-a-schema-and-a-table-and-a-database">Schema</a> cho Spark RDD và có thể tạo Object DataFrame.</li>
+</ul>
+<p>Chưa thấy hay lắm nhỉ, dùng Spark RDD có sao đâu...<br />
+Thế bạn thao tác dữ liệu chỉ sử dụng RDD thấy gặp vấn đề gì phức tạp không ?<br />
+Viết code có khó khăn không ? Rồi vấn đề về hiệu năng ?</p>
+<ul>
+<li>Giống như viết SQL, đầy đủ chức năng như select, where ... đặc biệt là join với các DataFrame khác.</li>
+<li>Sử dụng các method như filter, select để trích xuất dữ liệu theo cột, hàng.</li>
+<li>Xử gọn các loại data như Log ... với groupBy → agg</li>
+<li>Thêm 1 cột dễ dàng với UDF(User Defined Function)</li>
+<li>Giống như SQL, Spark DataFrame đã hỗ trợ <a href="http://oracletechtalk.blogspot.jp/2015/09/pivot-va-unpivot-phan-1.html">Pivot</a> (Spark 1.6 trở lên) rất hữu ích cho việc lập bảng biểu, báo cáo.</li>
+</ul>
+<p>Tóm lại là dễ xài, đơn giản hơn RDD mà hiệu suất, khả năng optimized truy vấn tốt hơn RDD.<br />
+Chính vì vậy với các trường hợp thông thường, các bạn nên xài DataFrame.</p>
+<h3>II. Tạo DataFrame như thế nào nhỉ ?</h3>
+<p>Bài viết này sẽ sử dụng file log này để thực hành nhé. <a href="https://drive.google.com/file/d/0B7Z4XTfCeeq_TFJLZmVmczhILUU/view?usp=sharing">Link dowload</a>. Cấu trúc file Log gồm 3 cột : Date, User_ID, Campaign_ID</p>
+<pre><code class="language-python">click.at	user.id	campaign.id
+4/27/2015 20:40	144012	Campaign077
+4/27/2015 00:27	24485	Campaign063
+4/27/2015 00:28	24485	Campaign063
+4/27/2015 00:33	24485	Campaign038
+4/27/2015 01:00	24485	Campaign063
+4/27/2015 16:10	145066	Campaign103
+</code></pre>
+<p><strong>Cách 1: Tạo từ RDD</strong></p>
+<p>Nếu bạn đã có RDD với tên column và type tương ứng (TimestampType, IntegerType, StringType)thì bạn có thể dễ dàng tạo DataFrame bằng</p>
+<pre><code class="language-python">sqlContext.createDataFrame(my_rdd, my_schema)
+</code></pre>
+<p>Với <code>printSchema(), dtypes</code> sẽ in thông tin của schema<br />
+và <code>count()</code> trả về số record</p>
+<p>Và nếu chỉ muốn in n record đầu tiên thì sử dụng <code>show(n)</code></p>
+<pre><code class="language-python">fields = [StructField("access_time", TimestampType(), True), StructField("userID", IntegerType(), True), StructField("campaignID", StringType(), True)]
+schema = StructType(fields)
+
+whole_log_df = sqlContext.createDataFrame(whole_log, schema)
+print whole_log_df.count()
+print whole_log_df.printSchema()
+print whole_log_df.dtypes
+print whole_log_df.show(5)
+
+#327430
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- userID: integer (nullable = true)
+# |-- campaignID: string (nullable = true)
+#
+#[('access_time', 'timestamp'), ('userID', 'int'), ('campaignID', 'string')]
+#
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-04-27 20:40:...|144012|Campaign077|
+#|2015-04-27 00:27:...| 24485|Campaign063|
+#|2015-04-27 00:28:...| 24485|Campaign063|
+#|2015-04-27 00:33:...| 24485|Campaign038|
+#|2015-04-27 01:00:...| 24485|Campaign063|
+</code></pre>
+<p><strong>Cách 2: Tạo trực tiếp từ file CSV</strong></p>
+<pre><code class="language-python">from pyspark.shell import spark
+from pyspark.sql.types import *
+
+# Định nghĩa Schema
+struct = StructType([
+    StructField('a', StringType(), False),
+    StructField('b', StringType(), False),
+    StructField('c', StringType(), False)
+])
+
+# Tạo DataFrame từ file CSV
+df_data = spark.read.csv('click_data_sample', struct)
+</code></pre>
+<p>Ngoài cách trên còn rất nhiều cách khác, có thể kể đến là gọi cổ 1 thằng thuộc họ nhà <a href="https://spark-packages.org/">Spark Package</a> tên là <a href="https://github.com/databricks/spark-csv">spark-csv</a> ra xài, hỗ trợ nhiều method hữu ích, dễ chơi, dễ trúng thưởng hơn.</p>
+<p>Lưu ý là nếu không định nghĩa schema thì tất cả các column sẽ có kiểu string. Nhưng nếu dùng thêm thằng em <code>inferSchema</code> thì mọi chuyện sẽ êm xuôi. ^^ Không tin đơn giản như vậy ư, bạn thử như code dưới xem ^^</p>
+<pre><code class="language-python">whole_log_df_2 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").load("/user/hadoop/click_data_sample.csv")
+print whole_log_df_2.printSchema()
+print whole_log_df_2.show(5)
+
+#root
+# |-- click.at: string (nullable = true)
+# |-- user.id: string (nullable = true)
+# |-- campaign.id: string (nullable = true)
+#
+#+-------------------+-------+-----------+
+#|           click.at|user.id|campaign.id|
+#+-------------------+-------+-----------+
+#|2015-04-27 20:40:40| 144012|Campaign077|
+#|2015-04-27 00:27:55|  24485|Campaign063|
+#|2015-04-27 00:28:13|  24485|Campaign063|
+#|2015-04-27 00:33:42|  24485|Campaign038|
+#|2015-04-27 01:00:04|  24485|Campaign063|
+
+whole_log_df_3 = sqlContext.read.format("com.databricks.spark.csv").option("header", "true").option("inferSchema", "true").load("click_data_sample.csv")
+print whole_log_df_3.printSchema()
+
+#root
+# |-- click.at: timestamp (nullable = true)
+# |-- user.id: integer (nullable = true)
+# |-- campaign.id: string (nullable = true)
+</code></pre>
+<p>Nhân tiện đây, đôi lúc tên column không được chuẩn như Lê Duẩn thì bạn có thể dễ dàng thay đổi tên column bằng <code>withColumnRenamed</code>.</p>
+<p>Và cũng tiện đây, có 1 lưu ý là về cơ bản DataFrame là <code>imutable</code>(ông cha ta hay gọi với cái tên thuần Tàu là <code>bất biến</code>) nên hễ có thay đổi nội dung của DataFrame thì 1 DataFrame mới sẽ được tạo để lưu trữ những thay đổi đó.</p>
+<pre><code class="language-python">whole_log_df_4 = whole_log_df_3.withColumnRenamed("click.at", "access_time")\
+                 .withColumnRenamed("user.id", "userID")\
+                 .withColumnRenamed("campaign.id", "campaignID")
+print whole_log_df_4.printSchema()
+
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- userID: integer (nullable = true)
+# |-- campaignID: string (nullable = true)
+</code></pre>
+<p><strong>Cách 3: Giao lưu trực tiếp từ file json</strong></p>
+<p>Bằng cách sử dụng <code>sqlContext.read.json</code>. Mỗi dòng của file json sẽ được coi là 1 object. Trong trường hợp object thiếu data thì sẽ null tại đó.</p>
+<pre><code class="language-python"># test_json.json gồm 3 dòng như dưới, dòng cuối không có "campaignID"
+#
+#{"access_time": "2015-04-27 20:40:40", "userID": "24485", "campaignID": "Campaign063"}
+#{"access_time": "2015-04-27 00:27:55", "userID": "24485", "campaignID": "Campaign038"}
+#{"access_time": "2015-04-27 00:27:55", "userID": "24485"}
+
+df_json = sqlContext.read.json("test_json.json")
+df_json.printSchema()
+df_json.show(5)
+
+#root
+# |-- access_time: string (nullable = true)
+# |-- campaignID: string (nullable = true)
+# |-- userID: string (nullable = true)
+#
+#+-------------------+-----------+------+
+#|        access_time| campaignID|userID|
+#+-------------------+-----------+------+
+#|2015-04-27 20:40:40|Campaign063| 24485|
+#|2015-04-27 00:27:55|Campaign038| 24485|
+#|2015-04-27 00:27:55|       null| 24485|
+#+-------------------+-----------+------+
+
+</code></pre>
+<p><strong>Cách 4: Giao thông trực tiếp từ parquet</strong></p>
+<p>Nếu bạn chưa biết parquet là gì thì tham khảo tại <a href="https://parquet.apache.org/">đây</a> nhé. Với rất nhiều ưu điểm, mình sẽ giới thiệu vào 1 bài nào đó ở lúc nào đó nhé. ^^<br />
+Và cách đọc, đơn giản như đan rổ là sử dụng <code>sqlContext.read.parquet</code>. Như đoạn code bên dưới, cả folder chứa file parquet sẽ được đọc. Quá nhanh gọn lẹ phải không.</p>
+<pre><code class="language-python">sqlContext.read.parquet("/user/hadoop/parquet_folder/")
+</code></pre>
+<h3>III. Thao tác với DataFrame </h3>
+<h4>1. Thử query bằng SQL</h4>
+<p>Bằng cách sử dụng <code>registerTempTable</code>, bạn sẽ có một table được tham chiếu đến Dataframe đó, bạn có thể sử dụng tên table này để viết query SQL. Nếu bạn sử dụng <code>sqlContext.sql('query SQL')</code> thì giá trị trả về cũng là Dataframe.</p>
+<p>Có 1 lưu ý là: Bạn cũng có thể viết subquery nhưng subquery cần được gán Alias, nếu không toạch lô (Syntax error) đấy.</p>
+<pre><code class="language-python">#SQL query
+
+whole_log_df.registerTempTable("whole_log_table")
+
+print sqlContext.sql(" SELECT * FROM whole_log_table where campaignID == 'Campaign047' ").count()
+#18081
+print sqlContext.sql(" SELECT * FROM whole_log_table where campaignID == 'Campaign047' ").show(5)
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:26:...| 14151|Campaign047|
+#|2015-04-27 05:27:...| 14151|Campaign047|
+#|2015-04-27 05:28:...| 14151|Campaign047|
+#+--------------------+------+-----------+
+
+
+#Trường hợp thêm biến số vào trong câu SQL
+for count in range(1, 3):
+    print "Campaign00" + str(count)
+    print sqlContext.sql("SELECT count(*) as access_num FROM whole_log_table where campaignID == 'Campaign00" + str(count) + "'").show()
+
+#Campaign001
+#+----------+
+#|access_num|
+#+----------+
+#|      2407|
+#+----------+
+#
+#Campaign002
+#+----------+
+#|access_num|
+#+----------+
+#|      1674|
+#+----------+
+
+#Trường hợp Sub Query：
+print sqlContext.sql("SELECT count(*) as first_count FROM (SELECT userID, min(access_time) as first_access_date FROM whole_log_table GROUP BY userID) subquery_alias WHERE first_access_date &lt; '2015-04-28'").show(5)
+#+------------+
+#|first_count |
+#+------------+
+#|       20480|
+#+------------+
+</code></pre>
+<h4>2. Tìm kiếm sử dụng filter, select</h4>
+<p>Đối với DataFrame , tìm kiếm kèm điều kiện rất đơn giản. Giống với câu query ở trên nhưng <code>filter, select</code> dễ dàng hơn rất nhiều. Vậy <code>filter</code> và <code>select</code> khác nhau thế nào ?</p>
+<p>Cùng là để tìm kiếm nhưng <code>filter</code> trả về những row thoả mãn điều kiện, trong đó <code>select</code> lấy dữ liệu theo column.</p>
+<pre><code class="language-python">#Ví dụ filter
+print whole_log_df.filter(whole_log_df["access_time"] &lt; "2015-04-28").count()
+#41434
+print whole_log_df.filter(whole_log_df["access_time"] &gt; "2015-05-01").show(3)
+#+--------------------+------+-----------+
+#|         access_time|userID| campaignID|
+#+--------------------+------+-----------+
+#|2015-05-01 22:11:...|114157|Campaign002|
+#|2015-05-01 23:36:...| 93708|Campaign055|
+#|2015-05-01 22:51:...| 57798|Campaign046|
+#+--------------------+------+-----------+
+
+#Ví dụ select
+print whole_log_df.select("access_time", "userID").show(3)
+#+--------------------+------+
+#|         access_time|userID|
+#+--------------------+------+
+#|2015-04-27 20:40:...|144012|
+#|2015-04-27 00:27:...| 24485|
+#|2015-04-27 00:28:...| 24485|
+#+--------------------+------+
+</code></pre>
+<h4>3. Sử dụng groupBy </h4>
+<p>groupBy có chức năng giống với reduceByKey của RDD, nhưng nó còn cung cấp <a href="https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.GroupedData">1 rổ method</a>. Ở đây mình sẽ run thử code count, agg.</p>
+<p><strong>groupBy→count</strong></p>
+<p>Ví dụ sau sẽ lấy key là <code>campaignID</code> và tiến hành <code>groupBy</code>. Sau đó dùng <code>count()</code> để lấy số record ứng với mỗi key.</p>
+<pre><code class="language-python">print whole_log_df.groupBy("campaignID").count().sort("count", ascending=False).show(5)
+#+-----------+-----+
+#| campaignID|count|
+#+-----------+-----+
+#|Campaign116|22193|
+#|Campaign027|19206|
+#|Campaign047|18081|
+#|Campaign107|13295|
+#|Campaign131| 9068|
+#+-----------+-----+
+
+print whole_log_df.groupBy("campaignID", "userID").count().sort("count", ascending=False).show(5)
+#+-----------+------+-----+
+#| campaignID|userID|count|
+#+-----------+------+-----+
+#|Campaign047| 30292|  633|
+#|Campaign086|107624|  623|
+#|Campaign047|121150|  517|
+#|Campaign086| 22975|  491|
+#|Campaign122| 90714|  431|
+#+-----------+------+-----+
+</code></pre>
+<p><strong>groupBy→pivot</strong></p>
+<p>Pivot thì từ Spark v1.6 trở lên được đưa vào, có chức năng giống với pivot trong SQL. Thử áp dụng xem sao nhỉ :</p>
+<p>Trước khi pivot (<code>agged_df</code>)</p>
+<ul>
+<li>
+<p>Số hàng = số <code>UserID(=75,545) * campainID(=133) </code></p>
+</li>
+<li>
+<p>Số cột = <code>3</code></p>
+</li>
+</ul>
+<p>Sau khi pivot(<code>pivot_df</code>)</p>
+<ul>
+<li>Số hàng = số <code>UserID(=75,545)</code></li>
+<li>Số cột =  <code>UserID + số CampainID = 1 + 133 = 134</code></li>
+</ul>
+<p>Tất nhiên là bạn phải groupBy(cột giữ nguyên).pivot(cột muốn chuyển sang ngang).sum()</p>
+<pre><code class="language-python">agged_df = whole_log_df.groupBy("userID", "campaignID").count()
+print agged_df.show(3)
+
+#+------+-----------+-----+
+#|userID| campaignID|count|
+#+------+-----------+-----+
+#|155812|Campaign107|    4|
+#|103339|Campaign027|    1|
+#|169114|Campaign112|    1|
+#+------+-----------+-----+
+
+#Những cell không có giá trị -&gt; null
+pivot_df = agged_df.groupBy("userID").pivot("campaignID").sum("count")
+print pivot_df.printSchema()
+
+#root
+# |-- userID: integer (nullable = true)
+# |-- Campaign001: long (nullable = true)
+# |-- Campaign002: long (nullable = true)
+# ..
+# |-- Campaign133: long (nullable = true)
+
+#TH muốn add 0 vào cell NULL
+pivot_df2 = agged_df.groupBy("userID").pivot("campaignID").sum("count").fillna(0)
+</code></pre>
+<h4>4. Thêm cột sử dụng UDF</h4>
+<p>Trong Spark DataFrame có thể sử dụng UDF, với ứng dụng chính là thêm cột. Như đã nói ở trên, bản chất DataFrame là immutable nên khi thêm cột thì 1 DataFrame mới sẽ được tạo.</p>
+<pre><code class="language-python">from pyspark.sql.functions import UserDefinedFunction
+from pyspark.sql.types import DoubleType
+
+def add_day_column(access_time):
+    return int(access_time.strftime("%Y%m%d"))
+
+my_udf = UserDefinedFunction(add_day_column, IntegerType())
+print whole_log_df.withColumn("access_day", my_udf("access_time")).show(5)
+
+#+--------------------+------+-----------+----------+
+#|         access_time|userID| campaignID|access_day|
+#+--------------------+------+-----------+----------+
+#|2015-04-27 20:40:...|144012|Campaign077|  20150427|
+#|2015-04-27 00:27:...| 24485|Campaign063|  20150427|
+#|2015-04-27 00:28:...| 24485|Campaign063|  20150427|
+#|2015-04-27 00:33:...| 24485|Campaign038|  20150427|
+#|2015-04-27 01:00:...| 24485|Campaign063|  20150427|
+#+--------------------+------+-----------+----------+
+</code></pre>
+<p>Cũng có thể sử dụng <code>lambda</code></p>
+<pre><code class="language-python">my_udf2 = UserDefinedFunction(lambda x: x + 5, IntegerType())
+print whole_log_df.withColumn("userID_2", my_udf2("userID")).show(5)
+
+#+--------------------+------+-----------+--------+
+#|         access_time|userID| campaignID|userID_2|
+#+--------------------+------+-----------+--------+
+#|2015-04-27 20:40:...|144012|Campaign077|  144017|
+#|2015-04-27 00:27:...| 24485|Campaign063|   24490|
+#|2015-04-27 00:28:...| 24485|Campaign063|   24490|
+#|2015-04-27 00:33:...| 24485|Campaign038|   24490|
+#|2015-04-27 01:00:...| 24485|Campaign063|   24490|
+#+--------------------+------+-----------+--------+
+</code></pre>
+<p>Ngược lại, muốn xóa cột thì sử dụng <code>df.drop()</code></p>
+<pre><code class="language-python">print whole_log_df.drop("userID").show(3)
+
+#+--------------------+-----------+
+#|         access_time| campaignID|
+#+--------------------+-----------+
+#|2015-04-27 20:40:...|Campaign077|
+#|2015-04-27 00:27:...|Campaign063|
+#|2015-04-27 00:28:...|Campaign063|
+#+--------------------+-----------+
+</code></pre>
+<h4>5. Join 2 DataFrame </h4>
+<p>Tính năng rất quan trọng khi xử lý dữ liệu chính là join.<br />
+Mình sẽ sử dụng data đầu vào ban đầu để tạo ra 1 DataFrame mới chứa những userID có count &gt;100</p>
+<pre><code class="language-python">heavy_user_df1 = whole_log_df.groupBy("userID").count()
+heavy_user_df2 = heavy_user_df1.filter(heavy_user_df1 ["count"] &gt;= 100)
+
+print heavy_user_df2 .printSchema()
+print heavy_user_df2 .show(3)
+print heavy_user_df2 .count()
+
+#root
+# |-- userID: integer (nullable = true)
+# |-- count: long (nullable = false)
+#
+#+------+-----+
+#|userID|count|
+#+------+-----+
+#| 84231|  134|
+#| 13431|  128|
+#|144432|  113|
+#+------+-----+
+#
+#177
+</code></pre>
+<p>Được <code>heavy_user_df2 </code> rồi tiến hành join (mặc định là inner join).</p>
+<p>Các kiểu join bao gồm : inner, outer, left_outer, rignt_outer</p>
+<pre><code class="language-python">joinded_df = whole_log_df.join(heavy_user_df2, whole_log_df["userID"] == heavy_user_df2["userID"], "inner").drop(heavy_user_df2["userID"]).drop("count")
+print joinded_df.printSchema()
+print joinded_df.show(3)
+print joinded_df.count()
+
+#root
+# |-- access_time: timestamp (nullable = true)
+# |-- campaignID: string (nullable = true)
+# |-- userID: integer (nullable = true)
+
+#None
+#+--------------------+-----------+------+
+#|         access_time| campaignID|userID|
+#+--------------------+-----------+------+
+#|2015-04-27 02:07:...|Campaign086| 13431|
+#|2015-04-28 00:07:...|Campaign086| 13431|
+#|2015-04-29 06:01:...|Campaign047| 13431|
+#+--------------------+-----------+------+
+#
+#38729
+</code></pre>
+<h4>6. Lấy data theo cột trong DataFrame </h4>
+<ul>
+<li>Lấy lable của cột (<code>df.columns</code>) -&gt; Trả về list tên cột (not DataFrame )</li>
+<li>Lấy riêng 1 cột (<code>df.select("userID").map(lambda x: x[0]).collect()</code>) -&gt; Trả về list userID (not RDD/Dataframe)</li>
+<li>Lấy cột distinct, chỉ cần thêm .distinct()</li>
+</ul>
+<pre><code class="language-python">print whole_log_df.columns
+#['access_time', 'userID', 'campaignID']
+
+print whole_log_df.select("userID").map(lambda x: x[0]).collect()[:5]
+#[144012, 24485, 24485, 24485, 24485]
+
+print whole_log_df.select("userID").distinct().map(lambda x:x[0]).collect()[:5]
+#[4831, 48631, 143031, 39631, 80831]
+</code></pre>
+<h4>7. Từ DataFrame , tạo RDD</h4>
+<p>Có 2 cách chính là:</p>
+<ul>
+<li>Sử dụng <code>map()</code> : mỗi hàng của DataFrame được chuyển sang RDD theo dạng list</li>
+<li>Sử dụng <code>.rdd</code>: mỗi hàng của DataFrame được chuyển sang RDD <a href="https://spark.apache.org/docs/latest/api/python/pyspark.sql.html#pyspark.sql.Row">Row Object</a> (Tức là mỗi hàng sẽ là 1 Object) Tiếp theo sử dụng <code>.asDict()</code> với Row Object để chuyển về RDD Key-Value.</li>
+</ul>
+<pre><code class="language-python">#convert to rdd by ".map"
+print whole_log_df.groupBy("campaignID").count().map(lambda x: [x[0], x[1]]).take(5)
+#[[u'Campaign033', 786], [u'Campaign034', 3867], [u'Campaign035', 963], [u'Campaign036', 1267], [u'Campaign037', 1010]]
+
+# rdd -&gt; normal list can be done with "collect".
+print whole_log_df.groupBy("campaignID").count().map(lambda x: [x[0], x[1]]).collect()[:5]
+#[[u'Campaign033', 786], [u'Campaign034', 3867], [u'Campaign035', 963], [u'Campaign036', 1267], [u'Campaign037', 1010]]
+
+#convert to rdd by ".rdd" will return "Row" object
+print whole_log_df.groupBy("campaignID").rdd.take(3)
+#[Row(campaignID=u'Campaign033', count=786), Row(campaignID=u'Campaign034', count=3867), Row(campaignID=u'Campaign035', count=963)]
+
+#`.asDict()` will convert to Key-Value RDD from Row object
+print whole_log_df.groupBy("campaignID").rdd.map(lambda x:x.asDict()).take(3)
+#[{'count': 786, 'campaignID': u'Campaign033'}, {'count': 3867, 'campaignID': u'Campaign034'}, {'count': 963, 'campaignID': u'Campaign035'}]
+</code></pre>
+<h3>IV. Tổng kết</h3>
+Trên đây mình đã giới thiệu với các bạn những kiến thức cơ bản về DataFrame, và tất nhiên là bạn có thể làm nhiều điều hơn(ngoài phạm vi bài viết này) với DataFrame. Nhưng kiến thức cơ bản không bao giờ thừa phải không. 
+<p>Hẹn gặp lại các bạn ở các bài viết sau.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

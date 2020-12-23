@@ -1,0 +1,648 @@
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Command Injection - Series Web Application Security | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Kẻ tấn công có thể thực hiện các câu lệnh, dòng code của OS để thực hiện các hành vi không tốt đối với hệ thống. Việc tiêm thêm (injection) vào ứng dụng để">
+    <meta property="fb:app_id" content="703042457154743">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0">
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Kẻ tấn công có thể thực hiện các câu lệnh, dòng code của OS để thực hiện các hành vi không tốt đối với hệ thống. Việc tiêm thêm (injection) vào ứng dụng để">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/command-injection-series-web-application-security/amp/">
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Command Injection - Series Web Application Security">
+    <meta property="og:description" content="Kẻ tấn công có thể thực hiện các câu lệnh, dòng code của OS để thực hiện các hành vi không tốt đối với hệ thống. Việc tiêm thêm (injection) vào ứng dụng để">
+    <meta property="og:url" content="https://blog.vietnamlab.vn/command-injection-series-web-application-security/">
+    <meta property="og:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export=download">
+    <meta property="article:published_time" content="2017-06-05T04:37:00.000Z">
+    <meta property="article:modified_time" content="2017-07-28T11:16:21.000Z">
+    <meta property="article:tag" content="Web Application Security">
+    <meta property="article:tag" content="Command Injection">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Command Injection - Series Web Application Security">
+    <meta name="twitter:description" content="Kẻ tấn công có thể thực hiện các câu lệnh, dòng code của OS để thực hiện các hành vi không tốt đối với hệ thống. Việc tiêm thêm (injection) vào ứng dụng để">
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/command-injection-series-web-application-security/">
+    <meta name="twitter:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export=download">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Q_Đ.V.P">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Web Application Security, Command Injection">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_Đ.V.P",
+        "url": "https://blog.vietnamlab.vn/author/phidv/",
+        "sameAs": []
+    },
+    "headline": "Command Injection - Series Web Application Security",
+    "url": "https://blog.vietnamlab.vn/command-injection-series-web-application-security/",
+    "datePublished": "2017-06-05T04:37:00.000Z",
+    "dateModified": "2017-07-28T11:16:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkNHFGa0xGMW5rTWM&export=download"
+    },
+    "keywords": "Web Application Security, Command Injection",
+    "description": "1. Nội dung\n * Giới Thiệu\n * Command Injection\n * Cách Phòng Chống\n * Các Bài Viết Liên\n\n2. Giới thiệu\n * Theo Wiki của OWASP:\n   https://www.owasp.org/index.php/Command_Injection  Command injection is an\n   attack in which the goal is execution of arbitrary commands on the host\n   operating system via a vulnerable application. Command injection attacks are\n   possible when an application passes unsafe user supplied data (forms,\n   cookies, HTTP headers etc.) to a system shell. In this attack, t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36">
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html">
+</head>
+
+<body class="post-template tag-web-application-security tag-command-injection nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.rss">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-web-application-security tag-command-injection js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Command Injection - Series Web Application Security</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-06-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 June 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/web-application-security/">Web Application Security</a>, <a href="../tag/command-injection/">Command Injection</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export=download" alt="Command Injection - Series Web Application Security">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/command-injection-series-web-application-security/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Command%20Injection%20-%20Series%20Web%20Application%20Security">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="1nidung">1. Nội dung</h3>
+<ul>
+<li>Giới Thiệu</li>
+<li>Command Injection</li>
+<li>Cách Phòng Chống</li>
+<li>Các Bài Viết Liên</li>
+</ul>
+<h3 id="2giithiu">2. Giới thiệu</h3>
+<ul>
+<li>
+<p>Theo Wiki của OWASP:<br>
+<a href="https://www.owasp.org/index.php/Command_Injection">https://www.owasp.org/index.php/Command_Injection</a> Command injection is an attack in which the goal is execution of arbitrary commands on the host operating system via a vulnerable application. Command injection attacks are possible when an application passes unsafe user supplied data (forms, cookies, HTTP headers etc.) to a system shell. In this attack, the attacker-supplied operating system commands are usually executed with the privileges of the vulnerable application. Command injection attacks are possible largely due to insufficient input validation. This attack differs from Code Injection, in that code injection allows the attacker to add his own code that is then executed by the application. In Code Injection, the attacker extends the default functionality of the application without the necessity of executing system commands.</p>
+</li>
+<li>
+<p>Như vậy tóm lại là dựa vào sơ hơ của Web Application, Hacker - kẻ tấn công có thể thực hiện các câu lệnh, dòng code của OS để thực hiện các hành vi không tốt đối với hệ thống. Việc tiêm thêm (injection) vào ứng dụng để thực thi hành vi không tốt là một lỗi vô cùng nguy hiểm. Có thể gây lỗi cho host, lấy cắp thông tin, thậm trí chiếm quyền quản lý server.</p>
+</li>
+</ul>
+<h3 id="3commandinjection">3. Command Injection</h3>
+<h4 id="xemxtcchthclidnglhngbomt">Xem xét cách thức lợi dụng lỗ hổng bảo mật</h4>
+<ul>
+<li>
+<p>Ví dụ về một ứng dụng web:<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/ping_command.png" alt=""></p>
+</li>
+<li>
+<p>Web Application trên là một ứng dụng ping một địa chỉ IP hoặc website nào đó. Kết quả của việc <code>[ping google.com.vn]</code> được hiển thị kết quả như màn hình trên.</p>
+</li>
+<li>
+<p>Mọi sự chẳng có gì nếu gặp một ai đó sử dụng đúng mục đích.</p>
+</li>
+<li>
+<p>Hãy xem trong trường hợp level security thấp thì hệ thống sẽ xử lý ra sao:</p>
+</li>
+</ul>
+<pre><code>// Get input 
+$target = $_REQUEST[ 'ip' ]; 
+// Determine OS and execute the ping command. 
+if( stristr( php_uname( 's' ), 'Windows NT' ) ) { 
+  // Windows 
+  $cmd = shell_exec( 'ping ' . $target ); 
+} else { 
+  // Unix 
+  $cmd = shell_exec( 'ping -c 4 ' . $target ); 
+}
+</code></pre>
+<p></p>
+<ul>
+<li>
+<p>Nếu kẻ tấn công thử với vài câu lệnh nho nhỏ:<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/command_injection_1.png" alt=""></p>
+</li>
+<li>
+<p>Như kế quả trên thì hệ chức năng Ping này quả thật là nguy hiểm. Nó có thể hiển thị được tất cả nội dung trong file <code>/etc/passwd</code>. File lưu thông tin về <code>account, password</code> của server.</p>
+</li>
+<li>
+<p>Kẻ gây hại có thể xem hết nội dung của các file trong hệ thống. Có thể tạo ra 1 <code>shell script</code> thực hiện một hành vi gây hại nào đó rồi dùng các command của linux để nạp, chạy, thậm trí xóa dữ liệu của server. Nếu user chạy Web có khả năng quyền root nữa thì lỗ hổng trên trở lên vô cùng nghiêm trọng</p>
+</li>
+<li>
+<p>Nguyên nhân của việc trên là các chức năng thực thi các câu lệnh của OS mà không hề kiểm tra tính đúng đắn của input đầu vào.</p>
+</li>
+</ul>
+<h3 id="4cchphngchng">4. Cách Phòng chống</h3>
+<ul>
+<li>Không bao giờ tin tưởng giá trị đầu vào của người dùng.</li>
+<li>Loại bỏ các ký tự đặc biệt bên server như các chuyển hướng, điều kiện của command hệ thống</li>
+<li>Với mỗi loại command muốn chạy thì kiểm tra chặt chẽ đầu vào. Như ứng dụng trên kiểm tra việc nhập vào có đúng format của địa chỉ IP: <code>{digit}.{digit}.{digit}.{digit}</code></li>
+<li>Cách phòng chống của bên DVAW cung cấp với mức level imposible của ứng dụng PING:</li>
+</ul>
+<pre><code>// Get input 
+$target = $_REQUEST[ 'ip' ]; 
+$target = stripslashes( $target ); 
+
+// Split the IP into 4 octects 
+$octet = explode( ".", $target ); 
+// Check IF each octet is an integer 
+if( ( is_numeric( $octet[0] ) ) &amp;&amp; ( is_numeric( $octet[1] ) ) &amp;&amp; ( is_numeric( $octet[2] ) ) &amp;&amp; ( is_numeric( $octet[3] ) ) &amp;&amp; ( sizeof( $octet ) == 4 ) ) { 
+  // If all 4 octets are int's put the IP back together. 
+  $target = $octet[0] . '.' . $octet[1] . '.' . $octet[2] . '.' . $octet[3]; 
+
+  // Determine OS and execute the ping command. 
+  if( stristr( php_uname( 's' ), 'Windows NT' ) ) { 
+    // Windows 
+    $cmd = shell_exec( 'ping ' . $target ); 
+  } else { 
+    // Unix 
+    $cmd = shell_exec( 'ping -c 4 ' . $target ); 
+  } 
+
+  // Feedback for the end user 
+  $html .= "&lt;pre&gt;{$cmd}&lt;/pre&gt;"; 
+} else { 
+  // Ops. Let the user name theres a mistake 
+  $html .= '&lt;pre&gt;ERROR: You have entered an invalid IP.&lt;/pre&gt;'; 
+} 
+</code></pre>
+<h3 id="5ccbivitlinquantiseries">5. Các Bài Viết Liên Quan Tới Series</h3>
+<ul>
+<li>
+<p>1.<a href="https://vietnamlab.vn/blog/2017/06/05/gioi-thieu-tong-quan-series-web-application-security/"> Giới thiệu tổng quan series Web Application Security</a></p>
+</li>
+<li>
+<p>2.<a href="https://vietnamlab.vn/blog/2017/06/05/sql-injection-series-web-application-security/"> SQL Injection</a></p>
+</li>
+<li>
+<p>3.<a href="https://vietnamlab.vn/blog/2017/06/05/command-injection-series-web-application-security/"> Command Injection</a></p>
+</li>
+<li>
+<p>4.<a href="https://vietnamlab.vn/blog/2017/06/05/cross-site-request-forgery-csrf-series-web-application-security/"> CSRF</a></p>
+</li>
+<li>
+<p>5.<a href="https://vietnamlab.vn/blog/2017/06/05/cross-site-scripting-xss-series-web-application-security/"> XSS</a></p>
+</li>
+<li>
+<p>6.<a href="https://vietnamlab.vn/blog/2017/06/05/tool-test-security-owasp-zap-series-web-application-security/"> Tool Test Security – OWASP ZAP</a></p>
+</li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/command-injection-series-web-application-security/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Command%20Injection%20-%20Series%20Web%20Application%20Security">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/command-injection-series-web-application-security/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/command-injection-series-web-application-security/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <search></search>
+
+    <div class="sidebar-box">
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img style="max-width: 100%" src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf" alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export=download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export=download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export=download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export=download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../">GMO-Z.com Vietnam Lab Center Technology Blog</a> © 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+

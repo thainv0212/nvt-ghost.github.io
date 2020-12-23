@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu về synthetic gradient</title>
+
+    <meta name="description" content="Giới thiệu tổng quát về synthetic gradient, cách thức nó hoạt động trong neural netwok khái quát các ưu, nhược điểm khi so sánh với backpropagation" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu về synthetic gradient" />
+    <meta property="og:description" content="Giới thiệu tổng quát về synthetic gradient, cách thức nó hoạt động trong neural netwok khái quát các ưu, nhược điểm khi so sánh với backpropagation" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-synthetic-gradient/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1FvWVY0U3_YN2o1ylipZBgRzgpM7xbprp&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-12-22T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-12-22T01:50:56.000Z" />
+    <meta property="article:tag" content="neural network" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu về synthetic gradient" />
+    <meta name="twitter:description" content="Giới thiệu tổng quát về synthetic gradient, cách thức nó hoạt động trong neural netwok khái quát các ưu, nhược điểm khi so sánh với backpropagation" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-synthetic-gradient/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1FvWVY0U3_YN2o1ylipZBgRzgpM7xbprp&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.93" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="neural network" />
+    <meta property="og:image:width" content="334" />
+    <meta property="og:image:height" content="189" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.93",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1-XBWW3IcmcrT-vofa_Y0HG7QUGdyF28t&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt93/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu về synthetic gradient",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ve-synthetic-gradient/",
+    "datePublished": "2017-12-22T01:00:00.000Z",
+    "dateModified": "2017-12-22T01:50:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1FvWVY0U3_YN2o1ylipZBgRzgpM7xbprp&export=download",
+        "width": 334,
+        "height": 189
+    },
+    "keywords": "neural network",
+    "description": "Trong các giải thuật neural network, chúng ta thường xuyên sử dụng\nBackpropagation (lan truyền ngược) để update các tham số của từng lớp hidden\nlayer. Tuy nhiên , việc sử dụng Backpropagation trong các mô hình neural network\ncó kích thước rất lớn sẽ có thể gây ra hiện tượng bottleneck.Giả sử trong 1 mạng\nneural có 100 lớp hidden layer,để chỉnh sửa các trọng số trong layer 1, layer 1\nsẽ buộc phải đợi thực hiện full forward qua 100 lớp layer, tính loss function,\nvà sau đó thực hiện Backpropagation",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu về synthetic gradient</h1>
+                <section class="post-meta">
+                    N.T.A.93 -
+                    <time class="post-date" datetime="2017-12-22">22 Dec 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1FvWVY0U3_YN2o1ylipZBgRzgpM7xbprp&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong các giải thuật neural network, chúng ta thường xuyên sử dụng Backpropagation (lan truyền ngược) để update các tham số của từng lớp hidden layer. Tuy nhiên , việc sử dụng Backpropagation trong các mô hình neural network có kích thước rất lớn sẽ có thể gây ra hiện tượng bottleneck.Giả sử trong 1 mạng neural có 100 lớp hidden layer,để chỉnh sửa các trọng số trong layer 1, layer 1 sẽ buộc phải đợi thực hiện full forward qua 100 lớp layer, tính loss function, và sau đó thực hiện Backpropagation qua 99 lớp ở sau đó để update các tham số của mình. Deepmind đã giới thiệu 1 giải pháp mới thay thế cho Backpropagation trong <a href="https://arxiv.org/abs/1608.05343">paper này</a>, đó là sử dụng synthetic gradient. Bài viết sẽ tập trung giới thiệu về ý tưởng mới này , so sánh với Backpropagation ( bài 1 ), và demo cho cả 2 phương thức trong 1 mạng neural network cơ bản với numpy ( bài 2 ).</p>
+<h4 id="chuibivitsgmc2phnchnh">Chuỗi bài viết sẽ gồm có 2 phần chính</h4>
+<pre><code>1. Giới thiệu về synthetic gradient
+2. Implement synthetic gradient cho feedforward network(chưa viết)
+</code></pre>
+<p>Trong bài đầu tiên này chúng ta sẽ review lại Backpropagation , giới thiệu synthetic gradient.</p>
+<p><em>Nếu các bạn chưa quen với neural network và backpropagation thì có thể xem ở đây : <a href="https://kipalog.com/posts/Neural-Network---Phan-1">neural network</a> và <a href="https://machinelearningcoban.com/2017/02/24/mlp/">backpropagation</a></em></p>
+<h5 id="1giithiuvsyntheticgradient">1.Giới thiệu về synthetic gradient</h5>
+<p>Giả sử chúng ta có 1 mạng feedforward đơn giản với 3 layers, tất cả đều sử dụng activation function là sigmoid. Trước hết chúng ta hãy cùng xem xét vấn đề bottleneck của Backpropagation trong mạng này ( Mũi tên đen là đường đi của feedforward, mũi tên xanh là đường đi của backpropagation ) :<br />
+<amp-img src="https://drive.google.com/uc?id=1z6r3qWRoiqIbSjOAvMG_5KN2Onz1zrXc&amp;export=download" alt width="722" height="236" layout="responsive"></amp-img></p>
+<p>Quá trình feedforward :<br />
+<br />
+<br />
+Z<br />
+<br />
+1<br />
+<br />
+<br />
+=<br />
+<br />
+W<br />
+<br />
+0<br />
+1<br />
+<br />
+<br />
+∗<br />
+<br />
+X<br />
+<br />
++<br />
+<br />
+b<br />
+1<br />
+<br />
+</p>
+
+  
+    A
+    
+      1
+    
+  
+  =
+    sigmoid
+    (
+  
+    Z
+    
+      1
+    
+  
+  )
+
+
+  
+    Z
+    
+      2
+    
+  
+  =
+  
+    W
+    
+      1
+      2
+    
+  
+  ∗
+  
+    A
+    
+      1
+    
+  
+  +
+  
+    b
+    2
+  
+
+
+  
+    A
+    
+      2
+    
+  
+  =
+    sigmoid
+    (
+  
+    Z
+    
+      2
+    
+  
+  )
+
+
+  
+    Z
+    
+      3
+    
+  
+  =
+  
+    W
+    
+      2
+      3
+    
+  
+  ∗
+  
+    A
+    
+      2
+    
+  
+  +
+  
+    b
+    3
+  
+
+
+  
+    A
+    
+      3
+    
+  
+  =
+    sigmoid
+    (
+  
+    Z
+    
+      3
+    
+  
+  )
+
+<p>Tiếp theo chúng ta sẽ tính loss function. Ở đây chúng ta sẽ sử dụng Mean Square Error:</p>
+
+  ξ
+  =
+  
+  1
+  
+  2
+  
+  
+  
+    ∑
+    
+      i
+      =
+      0
+    
+    m
+  
+  
+  
+  (
+  
+    A
+    
+      3
+    
+  
+  -
+  Y
+  )
+  
+  2
+  
+
+<p>Quá trình backpropagation :</p>
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          3
+        
+      
+    
+  
+  =
+  
+    A
+    
+      3
+    
+  
+  -
+  Y
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          3
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          3
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        A
+        
+          3
+        
+      
+    
+    
+      ∂
+      
+        Z
+        
+          3
+        
+      
+    
+  
+  =
+  (
+  
+    A
+    
+      3
+    
+  
+  -
+  Y
+  )
+  ∗
+  
+    A
+    
+      3
+    
+  
+  ∗
+  (
+  1
+  -
+  
+    A
+    
+      3
+    
+  
+  )
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          2
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          3
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        Z
+        
+          3
+        
+      
+    
+    
+      ∂
+      
+        A
+        
+          2
+        
+      
+    
+  
+  =
+  
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          3
+        
+      
+    
+  
+  
+  .
+      
+      
+        W
+        
+          2
+          3
+        
+        T
+      
+    
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          2
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          2
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        A
+        
+          2
+        
+      
+    
+    
+      ∂
+      
+        Z
+        
+          2
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          2
+        
+      
+    
+  
+  ∗
+  
+    A
+    
+      2
+    
+  
+  ∗
+  (
+  1
+  -
+  
+    A
+    
+      2
+    
+  
+  )
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          1
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          2
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        Z
+        
+          2
+        
+      
+    
+    
+      ∂
+      
+        A
+        
+          1
+        
+      
+    
+  
+  =
+  
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          2
+        
+      
+    
+  
+  
+  .
+      
+      
+        W
+        
+          1
+          2
+        
+        T
+      
+    
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          1
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          1
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        A
+        
+          1
+        
+      
+    
+    
+      ∂
+      
+        Z
+        
+          1
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        A
+        
+          1
+        
+      
+    
+  
+  ∗
+  
+    A
+    
+      1
+    
+  
+  ∗
+  (
+  1
+  -
+  
+    A
+    
+      1
+    
+  
+  )
+
+<p>Cuối cùng là chúng ta update các trọng số W và b của từng parameters :</p>
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        W
+        
+          x
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          x
+        
+      
+    
+  
+  .
+  
+    
+      ∂
+      
+        Z
+        
+          x
+        
+      
+    
+    
+      ∂
+      
+        W
+        
+          x
+        
+      
+    
+  
+  =
+  
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          x
+        
+      
+    
+  
+  
+  .
+      
+      
+        A
+        
+          x
+        
+        T
+      
+    
+
+
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        b
+        
+          x
+        
+      
+    
+  
+  =
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        Z
+        
+          x
+        
+      
+    
+  
+
+
+  
+    
+      W
+      
+        x
+      
+    
+  
+  =
+  
+    
+      W
+      
+        x
+      
+    
+  
+  -
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        W
+        
+          x
+        
+      
+    
+  
+
+
+  
+    
+      b
+      
+        x
+      
+    
+  
+  =
+  
+    
+      b
+      
+        x
+      
+    
+  
+  -
+  
+    
+      ∂
+      ξ
+    
+    
+      ∂
+      
+        b
+        
+          x
+        
+      
+    
+  
+
+<p>Trên là cách 1 neural network cơ bản chạy với backpropagation. Vậy vấn đề ở đây là gì ? chúng ta có thể thấy là kết quả<br />
+\(dA1\)<br />
+phụ thuộc vào<br />
+\(dA2\)<br />
+,<br />
+\(dA2\)<br />
+phụ thuộc vào<br />
+\(dA3\)<br />
+, ... , tức là layer2 phải đợi quá trình fullforward kết thúc, và layer3 trả về kết quả<br />
+\(dA3\)<br />
+, layer1 phải đợi kết quả fullfoward,<br />
+\(dA3\)<br />
+và<br />
+\(dA2\)<br />
+. Nếu như là 1 mạng không có quá nhiều lớp hidden layer thì thời gian phải chờ đợi không đáng bao nhiêu, nhưng nếu như có 100 hidden layer thì sao ? layer1 sẽ phải đợi kết quả từ 99 layer trước đó, tốn thời gian chờ đợi 1 cách vô ích,và có thể là rất dài.  Nếu như <strong>các layer có thể tự động update tham số một cách độc lập , không cần phải đợi kết quả của các lớp layer sau đó</strong> thì tốc độ học sẽ tăng lên rất nhiều, và đó là ý tưởng của synthetic gradient.</p>
+<p>Vậy làm cách nào để có thể update các tham số 1 cách độc lập ? <strong>hãy dùng 1 neural network khác để dự báo nó</strong>. Dựa trên kết quả đầu ra của mỗi hidden layer, mỗi hidden layer sẽ có 1 neural network bên trong nó để tự dự báo gradient của lớp đó (<br />
+\(dA_x\)<br />
+) mà không cần phải đợi kết quả tính toán của feedforward cũng như của backpropagation, tức là việc update các trọng số của 1 hiden layer có thể thực hiện ngay lập tức mà không cần phải chờ đợi các hidden layer ở sau lớp đó :</p>
+<p><amp-img src="https://storage.googleapis.com/deepmind-live-cms/images/3-4.width-1500_jjNNlb7.png" alt="alt text" width="912" height="297" layout="responsive"></amp-img>.</p>
+<p>Training data cho neural network này sẽ đến từ đâu ? Đương nhiên là từ gradient thực sự được truyền từ hidden layer phía sau rồi ( chúng ta sẽ gọi đây là real gradient để phân biệt với synthetic gradient - real gradient sẽ là<br />
+\(dX\)<br />
+, synthetic gradient sẽ là<br />
+\(dX'\)<br />
+) . Nhưng nếu vậy tức là chúng ta vẫn cần thực thi backpropagation ? và nếu vậy thì thực sự synthetic gradient sẽ chỉ gia tăng thêm các phép tính toán, dẫn tới môt hiệu suất chậm hơn. Nhưng gradient thực sự được truyền từ hidden layer phía sau thực tế lại được tạo ra 1 synthetic gradient neural network khác. Các bạn có thể nhìn vào hình sau để dễ hiểu hơn :</p>
+<p><amp-img src="https://drive.google.com/uc?id=1IiCFguNe4YUfs2F4bPgicVviIec5xf1v&amp;export=download" alt width="943" height="247" layout="responsive"></amp-img></p>
+<p>Từ kết quả của<br />
+\(A1\)<br />
+được truyền đến hidden layer2 ( feed forward ), chúng ta tính được kết quả của<br />
+\(A2\)<br />
+. Từ kết quả của<br />
+\(A2\)<br />
+, synthetic gradient network sẽ predict ra<br />
+\(dA2'\)<br />
+để trả về cho hidden layer 2, và dựa trên kết quả<br />
+\(dA2'\)<br />
+layer 2 sẽ tính ra<br />
+\(dA1\) để trả về cho synthetic neural network của hidden layer 1. Vậy synthetic gradient neural network của hidden layer 1 sẽ có input là \(A1\), output thực là \(dA1\) được trả về từ hidden layer 2. Nhưng \(dA1\) thực sẽ được tính từ \(dA2'\) được dự báo bởi hidden layer 2 , không phải là kết quả trả về từ backpropagation ( \(\frac{∂ξ}{A_1}\) ) .</p>
+<p>Vậy thực tế \(dA1\) cũng không phải là output chính xác( không phải là \(\frac{∂ξ}{A_1}\) ), vậy với dữ liệu không chính xác làm sao chúng ta dự báo \(dA1'\) chính xác được ? Hãy cùng xem 1 trường hợp cụ thể hơn, trong 1 mạng feedforward gồm 3 hidden layer:</p>
+<ol>
+<li>
+<p>synthetic gradient neural network của hidden layer 1 sẽ có input là \(A1\), output thực là \(dA1\) được tính dựa trên \(dA2'\), dự báo \(dA1'\) ( gọi neural network này là M1 )</p>
+</li>
+<li>
+<p>synthetic gradient neural network của hidden layer 2 sẽ có input là \(A2\), output thực là \(dA2\) được tính dựa trên \(dA3'\), dự báo \(dA2'\) ( gọi neural network này là M2 )</p>
+</li>
+<li>
+<p>synthetic gradient neural network của hidden layer 3 sẽ có input là \(A3\), output thực là \(dA3\) được tính theo \(\frac{∂ξ}{A_3}\), dự báo \(dA2'\) ( gọi neural network này là M3 )</p>
+</li>
+</ol>
+<p>Các bạn có thể hiểu đơn giản quá trình học như sau : với output thực là<br />
+\(\frac{∂ξ}{A_3}\)<br />
+(không phụ thuộc vào các synthetic network khác ) ,M3 sẽ dần dự báo \(dA3'\) chính xác hơn. Vì \(dA3'\) chính xác hơn,\(dA2\) sẽ chính xác hơn, bởi vậy M2 sẽ dự báo \(dA2'\) chính xác hơn. Vì \(dA2'\) chính xác hơn,\(dA1\) sẽ chính xác hơn, bởi vậy M1 sẽ dự báo \(dA1'\) chính xác hơn. Nói cách khác, các synthetic network của chúng ta sẽ bắt đầu từ việc dự báo chính xác \(dA_x'\) của lớp cao nhất, sau đó sẽ tiếp tục học để dự báo \(dA_x'\) của các lớp thấp hơn. ( một cách tuần tự )</p>
+<p>Vậy liệu chúng ta có cần 1 mạng phức tạp để học cho các synthetic gradient neural network không ? như trong bài báo trên đã nếu, chỉ với 1 mô hình rất đơn giản ( linear regression ), các mô hình neural network phức tạp sử dụng synthetic gradient có cho ra cùng kết quả với việc sử dụng backpropagation.</p>
+<p>Ok vậy là các bạn đã hiểu cách synthetic gradient hoạt động trong 1 neural network rồi đó. Trong các bài tiếp theo chúng ta sẽ cùng nhau implement 1 synthetic gradient cho một mạng feedforward để hiểu rõ hơn cách thực hoạt động của phương pháp mới này.</p>
+<p>Tài liệu tham khảo:</p>
+<ol>
+<li><a href="https://arxiv.org/pdf/1703.00522.pdf">https://arxiv.org/pdf/1703.00522.pdf</a></li>
+<li><a href="https://deepmind.com/blog/decoupled-neural-networks-using-synthetic-gradients/">https://deepmind.com/blog/decoupled-neural-networks-using-synthetic-gradients/</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

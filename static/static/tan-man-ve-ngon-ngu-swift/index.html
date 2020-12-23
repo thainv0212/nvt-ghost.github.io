@@ -1,0 +1,534 @@
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tản mạn về ngôn ngữ Swift | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="">
+    <meta property="fb:app_id" content="703042457154743">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0">
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Tản mạn về ngôn ngữ Swift">
+    <meta property="og:description" content="Chào các bạn, lâu rồi mình mới lại ngồi viết blog chia sẻ về công nghệ. Trong thời gian này do được làm quen với iOS và cụ thể là ngôn ngữ lập trình Swift nên mình xin mạn phép chia sẻ một vài điều hay ho của ngôn ngữ">
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tan-man-ve-ngon-ngu-swift/">
+    <meta property="og:image" content="https://drive.google.com/uc?id=1IEsdJdegkAdfokz1me3-RDV84ZEBfHyT&amp;export=download">
+    <meta property="article:published_time" content="2020-04-28T22:17:00.000Z">
+    <meta property="article:modified_time" content="2020-05-05T07:44:21.000Z">
+    <meta property="article:tag" content="Swift">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tản mạn về ngôn ngữ Swift">
+    <meta name="twitter:description" content="Chào các bạn, lâu rồi mình mới lại ngồi viết blog chia sẻ về công nghệ. Trong thời gian này do được làm quen với iOS và cụ thể là ngôn ngữ lập trình Swift nên mình xin mạn phép chia sẻ một vài điều hay ho của ngôn ngữ">
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tan-man-ve-ngon-ngu-swift/">
+    <meta name="twitter:image" content="https://drive.google.com/uc?id=1IEsdJdegkAdfokz1me3-RDV84ZEBfHyT&amp;export=download">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="L.Đ.T">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Swift">
+    <meta property="og:image:width" content="1400">
+    <meta property="og:image:height" content="600">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tản mạn về ngôn ngữ Swift",
+    "url": "https://blog.vietnamlab.vn/tan-man-ve-ngon-ngu-swift/",
+    "datePublished": "2020-04-28T22:17:00.000Z",
+    "dateModified": "2020-05-05T07:44:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1IEsdJdegkAdfokz1me3-RDV84ZEBfHyT&export=download",
+        "width": 1400,
+        "height": 600
+    },
+    "keywords": "Swift",
+    "description": "Chào các bạn, lâu rồi mình mới lại ngồi viết blog chia sẻ về công nghệ. Trong\nthời gian này do được làm quen với iOS và cụ thể là ngôn ngữ lập trình Swift nên\nmình xin mạn phép chia sẻ một vài điều hay ho của ngôn ngữ lập trình này.\n\nI. Một chút sơ qua về sự xuất hiện\nXưa thật là xưa.... mà cũng không xưa lắm\n\nTrong 1 khoảng thời gian dàiiii đổ về trước năm 2014, khi nhắc đến các ứng dụng\nvề iOS là người ta sẽ chỉ biết ngay đến ngôn ngữ lập trình Objective-C. Giới\nthiệu sơ qua chút, Objective-C ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36">
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html">
+</head>
+
+<body class="post-template tag-swift nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.rss">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-swift js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tản mạn về ngôn ngữ Swift</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-04-29">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 29 April 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/swift/">Swift</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id=1IEsdJdegkAdfokz1me3-RDV84ZEBfHyT&amp;export=download" alt="Tản mạn về ngôn ngữ Swift">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tan-man-ve-ngon-ngu-swift/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A3n%20m%E1%BA%A1n%20v%E1%BB%81%20ng%C3%B4n%20ng%E1%BB%AF%20Swift">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Chào các bạn, lâu rồi mình mới lại ngồi viết blog chia sẻ về công nghệ. Trong thời gian này do được làm quen với iOS và cụ thể là ngôn ngữ lập trình Swift nên mình xin mạn phép chia sẻ một vài điều hay ho của ngôn ngữ lập trình này.</p><h3 id="i-m-t-ch-t-s-qua-v-s-xu-t-hi-n">I. Một chút sơ qua về sự xuất hiện</h3><p>Xưa thật là xưa.... mà cũng không xưa lắm</p><p>Trong 1 khoảng thời gian dàiiii đổ về trước năm 2014, khi nhắc đến các ứng dụng về iOS là người ta sẽ chỉ biết ngay đến ngôn ngữ lập trình Objective-C. Giới thiệu sơ qua chút, Objective-C là một ngôn ngữ cải tiến từ C , advanced hơn khi được thêm vào hướng đối tượng và dynamic runtime. Mặc dù tính bảo mật cao tuy nhiên Objective C (theo cá nhân mình thấy) cú pháp khá là lằng nhằng. Khiến các lập trình viên khá là điên đầu khi bắt tay vào làm quen. Ơn trời, năm 2014, Apple sau một thời gian phát triển đã cho ra mắt một bộ bí kíp mới, đơn giản hơn - <strong>Swift</strong>, được miêu tả như "ObjectiveC without the C". :v</p><p>Swift về cơ bản, theo lời giới thiệu của Apple khi ra mắt, là một ngôn ngữ nhanh nhẹn, an toàn, hiện đại và cho phép các lập trình viên tương tác tốt hơn với ứng dụng trong quá trình phát triển. Nó có nhiều tính năng mới dễ sử dụng như <strong>closures</strong>, <strong>generics</strong>, <strong>type inference</strong>,... và quan trọng là cú pháp rất đơn giản, được phát triển dựa trên nền tảng Objective-C.  Nói nôm na là Objective-C là cha, còn C thì là ông nội vậy :D. vì nó có những gì tinh tuý nhất của 2 ngôn ngữ trên. Với sự hỗ trợ của Cocoa và Cocoa Touch, hai môi trường phát triển phần mềm siêu khổng lồ cho các thiết bị chạy iOS, Swift dần dần định nghĩa lại việc phát triển phần mềm đối với những sản phẩm của Apple và nhanh chóng trở thành một trong những ngôn ngữ được ưa chuộng nhất ngay từ khi ra mắt.</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://drive.google.com/uc?id=1O4y6kM7G4v3_fGT7-b856C3i4uWuUfBS&amp;export=download" class="kg-image" alt><figcaption>Ngôn ngữ được yêu thích nhất năm 2015 (<em><a href="https://stackoverflow.blog/2015/04/07/stack-overflow-developer-survey-2015-the-results/">2015 StackOverflow Developer Survey</a></em>)</figcaption></figure><p></p><p>Trong vòng 6 năm tính tới thời điểm hiện tại, Swift đã trải qua rất nhiều phiên bản và cột mốc đáng nhớ. Năm 2015, Apple chính thức biến Swift trở thành một ngôn ngữ open sourced. Làm cho ngôn ngữ này không ngừng được cải tiến và hoàn thiện hơn. Chỉ ngay trong tuần đầu sau thông báo trên, đã có 60000 người download. Đến năm 2017, Swift đã lập kỷ lục khi là ngôn ngữ phát triển nhanh nhất lịch sử. Đến tháng 3 năm 2019, phiên bản <strong>Swift 5.0</strong> (hiện tại) ra đời với những cải tiến vượt trội, stable, được tích hợp cho tất cả các thiết bị của Apple. </p><h3 id="ii-i-m-v-t-tr-i">II. Điểm vượt trội</h3><h4 id="1-t-c-trong-qu-tr-nh-ph-t-tri-n">1. Tốc độ trong quá trình phát triển</h4><p>Swift rất dễ dàng trong việc đọc hiểu và tường minh trong việc code vì đặc trưng Syntax của nó hướng đến - đơn giản. Nó giảm đi lượng code performing so với Objective-C. Ngoài ra, nó còn hỗ trợ ARC (Automatic Reference Counting), quản lý memory usage của ứng dụng, vì vậy lập trình viên chúng ta không cần phải mất thời gian cho việc đó.</p><p>Ngoài ra bản chất Swift , với cú pháp đơn giản và tối ưu trong performance, cũng có tốc độ rất đáng nể. Theo trang chủ của Apple, Swift nhanh hơn 2,6 lần so với Objective-C và 8,4 lần so với Python. :D</p><h4 id="2-m-c-m-r-ng-project">2. Mức độ mở rộng project</h4><p>Cái này thì không thể bàn cãi, vì Apple đã khẳng đinh "Swift là tương lai".  Các phiên bản hoàn thiện và nâng cấp được cập nhật đều đặn. Và lập trình viên có thể dễ dàng update những feature mới cho project. Chắc chắn là Apple luôn yêu thương và đầu tư cho Swift hơn rồi :D Vì vậy có thể khẳng định Swift còn được phát triển dài dài.</p><h4 id="3-performance-n-nh-v-b-o-m-t">3. Performance ổn định và bảo mật</h4><p>Như cái tên của nó, ngôn ngữ Swift là để... swift (nhanh, mượt mà). Cái này mình đã nói ở trên về tốc độ. Mình hay nói nhanh thì ẩu. Tuy nhiên Swift thì trái ngược. Trải qua nhiều năm, rất nhiều các bài tests của các lập trình viên đã chỉ ra về tốc độ và performance của Swift là tuyệt vời, luôn đồng nhất.</p><p>Một điểm nữa, mà mình thấy là tốt nhất, đó là vấn đề bảo mật của Swift. Swift hỗ trợ một bộ công cụ handle typing và error rất perfect, giúp ngăn các exception khiến phần mềm bị crash. Ngoài ra, Xcode còn hỗ trợ để phát hiện các lỗi của Swift 1 cách nhanh chóng, làm cho thời gian debug giảm đi rất nhiều.</p><h4 id="4-d-d-ng-t-ch-h-p-v-i-objective-c">4. Dễ dàng tích hợp với Objective-C</h4><p>Swift có thể kết hợp tốt với Objective-C trong cùng 1 project. Vì nó phát triển từ Objective-C. Điều này thật sự hữu ích đối với việc phát triển ứng dụng lớn, hoặc nâng cấp các ứng dựng từ Objective-C.</p><h4 id="5-full-stack-v-h-tr-cross-device">5. Full-stack và hỗ trợ cross-device </h4><p>Apple đã và đang hướng Swift như vậy. Tương tự với Javascript. Swift có thể sử dụng ở cả Backend lẫn Frontend để dễ dàng trong việc chia sẻ và reuse code, làm giảm thời gian phát triển và tối ưu mọi mặt.</p><p>Ngoài ra, Apple còn hỗ trợ Swift cho tất cả các thiết bị của họ: Mac, MacBooks, iPhones, iPads, Apple TV and Apple Watch. Ngoài ra, Swift còn hỗ trợ cho Linux và cả trên nền tảng Windows như 1 open-source project.</p><h4 id="6-c-ng-ng-ng-y-c-ng-ng-d-h-c-h-i">6. Cộng đồng ngày càng đông, dễ học hỏi</h4><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1K6rINHgipjTpnS6RBLkneWY9jd9wpMZZ&amp;export=download" class="kg-image" alt></figure><p>Với việc các sản phẩm của Apple quá phổ biến, cùng với sự hợp tác của Apple và IBM, Swift trở thành 1 trào lưu, 1 ngôn ngữ hấp dẫn để học và kiếm việc làm. Các lập trình viên Swift ngày một đông đảo, thúc đẩy việc trao đổi trở nên dễ dàng. Tài liệu về Swift cũng nhiều, và dễ học.</p><h3 id="iii-nh-c-i-m">III. Nhược điểm</h3><p>Với những thứ trên, hầu hết lập trình viên đều thấy hào hứng và cho rằng ngôn ngữ này hoàn hảo để dùng. Tuy nhiên, không có gì là hoàn hảo cả.</p><h4 id="1-tr-qu-">1.  Trẻ quá</h4><p>Như mình đã nói, Swift chỉ mới được ra mắt vào năm 2014, lại được bệ đỡ của hội cha chú và thế lực Apple nên trở thành ngôn ngữ phát triển nhanh nhất. Tuy nhiên, việc phát triển cần có thời gian và giục tốc bất đạt. Các ngôn ngữ khác có tuổi đời vài chục năm, qua bao nhiêu thăng trầm mới tới được phiên bản hoàn thiện. Swift cũng tương tự. Có rất nhiều vấn đề mà nó chưa giải quyết được triệt để.</p><p>Ngoài ra, do tuổi đời còn ngắn, nên Swift vẫn còn giới hạn về các native library, tool. Các thư viện hỗ trợ thì lại chưa thật sự ổn định sau mỗi lần Swift được cập nhật.</p><h4 id="2-c-ng-ng-thi-u-kinh-nghi-m">2. Cộng đồng thiếu kinh nghiệm</h4><p> Cái này là một issue do cái issue trên tạo ra. Mặc dù cộng đồng lập trình viên iOS phát triển nhanh, tuy nhiên nó vẫn còn quá nhỏ bé so với các ngôn ngữ khác đã trải qua hành chục năm phát triển. Theo thống kê của StackOverflow năm 2019, chỉ có 6.6% người tham gia khảo sát làm việc với Swift.</p><p>Với số lượng đã ít, người có kinh nghiệm và master lại càng ít hơn. Việc này cần thời gian để bù đắp lại.</p><h4 id="3-v-n-m-i-khi-n-ng-c-p">3. Vấn đề mỗi khi nâng cấp</h4><p>Cụ thể, các lập trình viên Swift đều đau đầu mỗi khi Swift được nâng cấp Version. Do các thư viện hỗ trợ ở phiên bản cũ đều không tương thích với các phiên bản mới sau mỗi lần release. Khiến cho project bị crash và đôi khi phải ngồi viết lại rất mất thời gian. Xcode đã giải quyết vấn đề này bằng cách update swift code lên version mới nhưng việc đó không thể giải quyết hết được vấn đề.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1I8NAyPDhUl1eb6CH8oKYK3o1Vam0Q-Sh&amp;export=download" class="kg-image" alt></figure><h4 id="4-kh-ng-support-cho-c-c-ios-version-th-p">4. Không support cho các iOS version thấp</h4><p>Hiện tại, Swift chỉ tương thích với iOS 7 trở lên. 5% thiết bị trên toàn cầu vẫn đang sử dụng iOS 6 trở xuống. Điều này ảnh hưởng đến một phần cộng đồng sử dụng Apple tuy không lớn.</p><h3 id="iv-l-i-k-t">IV. Lời kết</h3><p>Bên trên mình đã khái quát một vài đặc điểm, cũng như điểm mạnh, yếu của ngôn ngữ Swift. Hy vọng, các bạn có cái nhìn tổng quan về ngôn ngữ này. Xin chào!</p><h3 id="v-references">V. References</h3><p><a href="https://www.quora.com/What-are-the-advantages-of-Swift-programming">https://www.quora.com/What-are-the-advantages-of-Swift-programming</a></p><p><a href="https://clearbridgemobile.com/8-advantages-choosing-swift-objective-c-ios/">https://clearbridgemobile.com/8-advantages-choosing-swift-objective-c-ios/</a></p><p><a href="https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/">https://www.altexsoft.com/blog/engineering/the-good-and-the-bad-of-swift-programming-language/</a></p><p><a href="https://developer.apple.com/swift/">https://developer.apple.com/swift/</a></p><p><a href="http://www.globalnerdy.com/2015/01/16/swiftly-rising-up-the-programming-language-charts/">http://www.globalnerdy.com/2015/01/16/swiftly-rising-up-the-programming-language-charts/</a></p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tan-man-ve-ngon-ngu-swift/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A3n%20m%E1%BA%A1n%20v%E1%BB%81%20ng%C3%B4n%20ng%E1%BB%AF%20Swift">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tan-man-ve-ngon-ngu-swift/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tan-man-ve-ngon-ngu-swift/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <search></search>
+
+    <div class="sidebar-box">
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img style="max-width: 100%" src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf" alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export=download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export=download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export=download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export=download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../">GMO-Z.com Vietnam Lab Center Technology Blog</a> © 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Automate deploying a Docker Application to AWS by Travis CI</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Automate deploying a Docker Application to AWS by Travis CI" />
+    <meta property="og:description" content="Trong bài viết này mình sẽ sử dụng một ứng dụng React basic cho frontend , Docker cho việc container hoá và AWS cho việc triển khai ứng dụng.  Yêu cầu:A Github accountA minimum of a free tier AWS account.A basic knowledge of DockerTravis-CI là một dịch vụ tích" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tu-dong-hoa-trien-khai-ung-dung-bang/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1q1k_ZTf6GRoarw6skY6jtCvp89N6wG1c&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-06-23T15:07:21.000Z" />
+    <meta property="article:modified_time" content="2020-06-23T15:07:21.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="AWS" />
+    <meta property="article:tag" content="Travis-CI" />
+    <meta property="article:tag" content="reactjs" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Automate deploying a Docker Application to AWS by Travis CI" />
+    <meta name="twitter:description" content="Trong bài viết này mình sẽ sử dụng một ứng dụng React basic cho frontend , Docker cho việc container hoá và AWS cho việc triển khai ứng dụng.  Yêu cầu:A Github accountA minimum of a free tier AWS account.A basic knowledge of DockerTravis-CI là một dịch vụ tích" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tu-dong-hoa-trien-khai-ung-dung-bang/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1q1k_ZTf6GRoarw6skY6jtCvp89N6wG1c&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Đ.Đ.N" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, AWS, Travis-CI, reactjs" />
+    <meta property="og:image:width" content="1530" />
+    <meta property="og:image:height" content="874" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Đ.Đ.N",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1-jOi3GLFHBtF47J4KRipqajDxGAStySe&export=download",
+            "width": 600,
+            "height": 602
+        },
+        "url": "https://blog.vietnamlab.vn/author/nhandd/",
+        "sameAs": []
+    },
+    "headline": "Automate deploying a Docker Application to AWS by Travis CI",
+    "url": "https://blog.vietnamlab.vn/tu-dong-hoa-trien-khai-ung-dung-bang/",
+    "datePublished": "2020-06-23T15:07:21.000Z",
+    "dateModified": "2020-06-23T15:07:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1q1k_ZTf6GRoarw6skY6jtCvp89N6wG1c&export=download",
+        "width": 1530,
+        "height": 874
+    },
+    "keywords": "docker, AWS, Travis-CI, reactjs",
+    "description": "Trong bài viết này mình sẽ sử dụng một ứng dụng React basic cho frontend ,\nDocker cho việc container hoá và AWS cho việc triển khai ứng dụng. \n\nYêu cầu:\n * A Github [https://github.com/] account\n * A minimum of a free tier AWS [https://aws.amazon.com/] account.\n * A basic knowledge of Docker\n\nTravis-CI là một dịch vụ tích hợp liên tục (CI) được lưu trữ được sử dụng để xây\ndựng và thử nghiệm các dự án phần mềm được lưu trữ tại GitHub.\n\nVề cơ bản, nó giúp các nhà phát triển tự động hóa quá trình t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Automate deploying a Docker Application to AWS by Travis CI</h1>
+                <section class="post-meta">
+                    Đ.Đ.N -
+                    <time class="post-date" datetime="2020-06-23">23 Jun 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1q1k_ZTf6GRoarw6skY6jtCvp89N6wG1c&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><em>Trong bài viết này mình sẽ sử dụng một ứng dụng React basic cho <strong>frontend</strong> , Docker cho việc <strong>container</strong> hoá và AWS cho việc triển khai ứng dụng. </em></p><h3 id="y-u-c-u-">Yêu cầu:</h3><ul><li>A <a href="https://github.com/" rel="noopener nofollow">Github</a> account</li><li>A minimum of a free tier <a href="https://aws.amazon.com/" rel="noopener nofollow">AWS</a> account.</li><li>A basic knowledge of Docker</li></ul><p><strong>Travis-CI</strong> là một dịch vụ tích hợp liên tục (CI) được lưu trữ được sử dụng để xây dựng và thử nghiệm các dự án phần mềm được lưu trữ tại GitHub.</p><p>Về cơ bản, nó giúp các nhà phát triển tự động hóa quá trình triển khai source code của mình từ local lên môi trường trực tiếp trong khi vẫn đảm bảo tất cả các thử nghiệm đã đặt của ứng dụng được thông qua trước khi  triển khai lên production.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1cN4g8Lw04QOF9-MWJYYqSwjzdTBV9rHL&amp;export=download" class="kg-image" alt width="641" height="231" layout="responsive"></amp-img></figure><p><em>                                                 Tổng quan về sơ đồ hoạt động của ứng dụng</em></p><h3 id="b-c-1-react">Bước 1: React</h3><p>Tôi đã sử dụng gói <strong>npm</strong> có tên là <em>create-react-app</em> để nhanh chóng tạo ra ứng dụng bằng cách chạy lệnh <strong><em>create-react-app sample-app</em></strong></p><p>Sau khi hoàn thành, bạn sẽ thấy một cấu trúc thư mục như thế này:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1j4M4fEAxsTTDQqSR4JPj0xW__3h5hXOJ&amp;export=download" class="kg-image" alt width="538" height="418" layout="responsive"></amp-img></figure><h3 id="b-c-2-docker">Bước 2 : Docker </h3><p>Tại thời điểm này, chúng ta sẽ cần tạo một docker image cho ứng dụng này và để làm điều này, chúng ta sẽ thêm hai tệp có tên bên dưới vào thư mục gốc của ứng dụng:</p><ul><li><strong>Dockerfile</strong> - Được sử dụng để xây dựng image có chứa phiên bản tối ưu hóa của ứng dụng này.</li><li><strong>Dockerfile.dev</strong> - Được sử dụng để xây dựng hình ảnh có chứa phiên bản phát triển sẽ được sử dụng để chạy trên môi trường development.</li></ul><blockquote>
+<p>Tệp Dockerfile chứa các hướng dẫn mà docker sử dụng để xây dựng hình ảnh của ứng dụng.</p>
+</blockquote>
+<p>Để mọi thứ dễ hiểu hơn, dưới đây là <strong>DockerFile</strong> tôi sử dụng:</p><ul><li><strong>DockerFile</strong></li></ul><pre><code class="language-sh">#Split everything the build into two steps
+FROM node:alpine as builder
+# Above, we set the base image for this first stage as a light weigh node called alpine
+
+WORKDIR '/app'
+# Above we set the build environment as a folder called /app in the docker container to prevent clashes
+
+COPY package.json .
+# To prevent repeated npm installs anytime we make any change, we'd copy over the package.json and install things first
+
+RUN npm i
+
+COPY . .
+# Copy the rest of the project over to the /app folder in the container
+
+RUN npm run build
+# Build the production version of our app in the container
+
+FROM nginx 
+# The image needs nginx to run on aws
+
+EXPOSE 80 
+#Nginx runs on port 80, so elastic beanstalk uses the expose command to expose this port
+
+COPY --from=builder /app/build /usr/share/nginx/html
+
+# Copy the content of the builder step, move the contents of build folder into the html folder in this nginx container
+# That's where our app would run from in aws
+
+# No need to specify a command to start nginx as it gets started by default when a container with the image starts
+</code></pre>
+<ul><li><strong>Dockerfile.dev</strong></li></ul><pre><code class="language-sh">FROM node:alpine
+# Above, we set the base image as a light weight node image called alpine
+
+WORKDIR '/app'
+# Above we set the build environment as a folder called /app in the docker container to prevent clashes
+
+COPY package.json .
+# To prevent repeated npm installs anytime we make any change, we'd copy over the package.json and install things first
+
+RUN npm i
+
+COPY . .
+# Copy the rest of the project over to the /app folder in the container
+
+CMD ["npm", "start"]
+# Here we are setting the default command when a container is built and started up from this our image
+</code></pre>
+<p>Tại thời điểm này, bạn nên tạo một repository trên github (Bạn có thể đặt tên cho nó là docker-react giống như tôi cho tính nhất quán) và push source code của mình lên đó.</p><p>Bây giờ chúng ta cần kết nối repository của chúng ta với travis-ci và để làm điều này, chúng ta sẽ chuyển sang bước 3.</p><h3 id="b-c-3-config-travis-ci">Bước 3: Config Travis CI</h3><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=11G1m_SzyEWg2SbNU5t6DP3czA2uZu9eT&amp;export=download" class="kg-image" alt width="501" height="497" layout="responsive"></amp-img></figure><p>Tôi giả sử bạn đã có một tài khoản với <strong>Travis-CI</strong> bằng tài khoản <strong>Github</strong> của bạn. Điều này mang lại cho ta quyền truy cập cần thiết vào repository của bạn.</p><p>Tiếp theo, nhấp vào biểu tượng hồ sơ của bạn&gt; cài đặt, sau đó bật repository <strong><em>docker-react</em></strong> mà chúng ta vừa tạo ở Github.</p><p>Điều này nói với <strong>Travis-CI</strong> sẽ bắt đầu theo dõi repository của chúng ta. Nhưng để làm điều này, chúng ta cần một tệp <strong>YAML</strong> có tên <em>.travis.yml</em> vào ứng dụng vì điều này sẽ chứa các cài đặt về những gì bạn muốn <strong>Travis-CI</strong> thực hiện với source code của bạn khi quá trình xây dựng được kích hoạt.</p><p>Dưới đây là một số hướng dẫn bạn nên thêm vào tệp <em>.travis.yml</em> của mình:</p><pre><code class="language-sh">sudo: required 
+language: node_js
+node_js:
+    - "stable"
+    
+services: 
+    - docker
+
+before_install: 
+    - docker build -t nhandd/sample-app -f Dockerfile.dev .
+script:     
+    - docker run -e CI=true nhandd/sample-app npm run test -- --coverage
+</code></pre>
+<ul><li><strong>sudo: required</strong> - Travis CI yêu cầu người dùng phải là user root </li><li><strong>language: node_js </strong>- Xác định ngôn ngữ nên được sử dụng trong việc xây dựng ứng dụng </li><li><strong>services </strong>- Được sử dụng để nói với Travis-CI rằng chúng ta cần một phiên bản docker chạy cho ứng dụng này.</li><li><strong>before_install </strong>-  Các việc cần làm với  source code của bạn trước khi chạy testing hoặc deploy lên môi trường dev (Hướng dẫn ở đây xây dựng docker image bằng tệp Dockerfile.dev của tôi và gắn với tên <em><strong>nhandd/sample-app</strong></em>) </li><li><strong>script </strong>: Một loạt các tập lệnh để chạy trước khi triển khai mã của bạn.</li></ul><h3 id="b-c-4-aws-elastic-beanstalk">Bước 4: AWS Elastic Beanstalk</h3><p><strong>AWS Elastic Beanstalk</strong> là một dịch vụ dễ sử dụng để triển khai và scale các ứng dụng và dịch vụ web được phát triển với Java ,. NET, PHP, Node. js, Python, Ruby, Go và Docker trên các web server quen thuộc như Apache, Nginx, Passenger và IIS.</p><p>Chúng ta cần đăng nhập vào AWS, đi đến các dịch vụ và chọn Elastic Beanstalk sau đó chọn <strong>Create Application</strong> như được thấy dưới đây:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Ru5Kdcoindcr-3XOqocJSa-DIhWr93GS&amp;export=download" class="kg-image" alt width="2876" height="908" layout="responsive"></amp-img></figure><p>Nhập tên ứng dụng và chọn platform là <em>Docker</em>  sau đó nhấn <strong>Create Application</strong> như hình dưới: </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1BlQjQpiGfOsD0i6CZZmOiJSzSJJR4h8f&amp;export=download" class="kg-image" alt width="1298" height="1422" layout="responsive"></amp-img></figure><p>Nếu mọi thứ diễn ra theo đúng kế hoạch, bạn sẽ thấy một cái gì đó như thế này khi nó kết thúc:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=18CcMjHZv-DXo3L5nFLavb2ae_J_tamps&amp;export=download" class="kg-image" alt width="1400" height="509" layout="responsive"></amp-img></figure><h3 id="b-c-5-aws-iam">Bước 5 : AWS IAM</h3><p><strong><strong>Identity and Access Management (IAM) </strong></strong>cung cấp một cách để các nền tảng bên ngoài truy cập các elastic beanstalk apps trong tài khoản AWS của chúng ta.</p><p>Để làm điều này, chúng ta cần tạo một IAM user  và cấp cho người dùng các đặc quyền phù hợp.</p><p>Go to <strong><strong>Services</strong></strong>(at the top left) &gt; <strong><strong>IAM</strong></strong> &gt; <strong><strong>users</strong></strong> &gt; <strong><strong>Add user</strong></strong> on the page.</p><p>Tôi đã sử dụng <em>sample-docker-react</em> làm tên người dùng và tất cả các quyền liên quan đến <strong><strong>elasticbeanstalk</strong></strong> vì đó là những gì ứng dụng này cần.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1C7t8DmcED33L8dJS4nnkfT4WMuStjfGz&amp;export=download" class="kg-image" alt width="2070" height="1298" layout="responsive"></amp-img></figure><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=17hOREuJVriC8B0PFM4AiXONi3aO15yaQ&amp;export=download" class="kg-image" alt width="2102" height="1216" layout="responsive"></amp-img></figure><p>Khi thành công, bạn đã thấy một bảng hiển thị cho bạn <strong>AccessKeyID</strong> và <strong>SecretAccessKey</strong> như xem bên dưới.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1zGD6_urTf746clSFZSs-FKJY9G62KLjF&amp;export=download" class="kg-image" alt width="1400" height="509" layout="responsive"></amp-img></figure><h3 id="b-c-6-aws-s3-buckets">Bước 6 : AWS S3 Buckets</h3><p><strong>Amazon S3</strong> hoặc <strong>Amazon Simple Storage Service</strong> là dịch vụ được cung cấp bởi <strong>Amazon Web Services (AWS)</strong> cung cấp lưu trữ đối tượng thông qua giao diện dịch vụ web.</p><p>Ngoài ra, trong khi tạo <em>elastic beanstalk environment</em>, AWS chọn một vị trí máy chủ gần bạn nhất để lưu trữ nó (Bạn cũng có thể chọn một vị trí khác).</p><p>Ngoài ra, sau khi môi trường được tạo, S3 cũng được tạo có tên chứa định danh của vị trí máy chủ bạn sử dụng (ví dụ: us-east-1, us-west-1) và nó được sử dụng để lưu trữ các ứng dụng mà bạn đã triển khai trong môi trường hiện tại trong cùng một vị trí máy chủ.</p><p>Thứ hai, bạn cần chỉ định một thư mục (còn gọi là backet path trong travis) sẽ được travis-ci sử dụng để triển khai.</p><p><em>Goto Services &gt; Storage &gt; S3</em></p><p>Chọn nhóm có tên có mã định danh vị trí máy chủ của môi trường của bạn trong tên đó.</p><p>Tạo một thư mục và bạn có thể đặt tên nó cùng tên với ứng dụng của bạn (<em>sample-docker-react</em>) sự lựa chọn tên này là tùy chọn và tôi làm điều đó để giúp tôi nhớ ứng dụng mà nó dùng cho ứng dụng nào.</p><h3 id="b-c-7-quay-l-i-v-i-travis-ci">Bước 7 : Quay lại với Travis-CI</h3><p>Bạn cần phải thêm <strong>AccessKeyID</strong> và <strong>SecretAccessKey</strong> làm biến môi trường trong Travis-CI.</p><p>Đi đến bảng điều khiển của bạn và chọn the <em>sample-docker-react</em> repository =&gt; click các tùy chọn ở trên cùng bên phải =&gt; click cài đặt.</p><p> Trên trang này bạn <strong><strong>AWS_ACCESS_KEY</strong></strong> and <strong><strong>AWS_SECRET_KEY </strong></strong>like I have done:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=12GKfyr5vFCYAi-gRr0WQvFGA8Th4SeoO&amp;export=download" class="kg-image" alt width="2232" height="1420" layout="responsive"></amp-img></figure><h3 id="b-c-8-quay-l-i-v-i-react">Bước 8 : Quay lại với React</h3><p>Chúng ta cần cập nhật tệp <em>.travis-yml </em>với các hướng dẫn để triển khai mã của chúng ta và sau đó đẩy sang Github.</p><p>Cập nhật của bạn với những điều sau đây:</p><pre><code class="language-sh">deploy:
+  provider: elasticbeanstalk
+  region: "your-server-location"
+  app: "sample-docker-react"
+  env: "SampleDockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-XXXXXXXXXXXX"
+  bucket_path: "sample-app"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
+</code></pre>
+<ul><li><strong><strong>deploy:</strong></strong> Cho Travis-CI biết cách triển khai ứng dụng của bạn.</li><li><strong><strong>provider: </strong></strong>Platform  sử dụng.</li><li><strong><strong>region: </strong></strong> Nơi server elastic beanstalk app bạn khởi tạo.</li><li><strong><strong>app: </strong></strong>Tên ứng dụng</li><li><strong><strong>bucket_name:</strong></strong> Tên bucket bạn khởi tạo trong S3.</li><li><strong><strong>bucket_path:</strong></strong> Thư mục chúng ta khởi tạo để nhận từ travis-ci.</li><li><strong><strong>on: </strong></strong>Branch để build.</li><li><strong><strong>access_key_id:</strong></strong> IAM access key generated in AWS nhưng được lưu trong travis ci</li><li><strong><strong>secret_access_key: </strong></strong>IAM secret key generated in IAM of AWS nhưng được lưu trong travis ci</li></ul><p>Bây giờ tệp <em>.travis.yml</em> của chúng tôi sẽ trông giống như:</p><pre><code class="language-sh">
+sudo: required #Travis ci requires the user to be with elevated permission
+
+language: node_js
+node_js:
+    - "stable"
+    
+services: 
+    - docker #Our use of travis ci needs an instance of docker to be running
+
+before_install: #Things to do with your code on travis ci before running tests or deploying your code
+    - docker build -t nhandd/sample-docker-react -f Dockerfile.dev . #Used the .dev dockerfile cos we need to run the tests in travis ci and the test image is in that .dev file
+
+script:     
+    - docker run -e CI=true nhandd/sample-docker-react npm run test -- --coverage
+
+deploy: #This deploys the whole folder onto elasticbeanstalk so it's the production Dockerfile that would be used by elasticbeanstalk to startup this app
+    provider: elasticbeanstalk
+    region: "" #region you selected when creating the elb application
+    app: "sample-docker-react" #the aws elb app name
+    env: "SampleDockerReact-env" #the aws elb app environment
+    bucket_name: "elasticbeanstalk-us-east-2-XXXXXXXXXXXX" #s3 storage location for all apps deployed to this region
+    bucket_path: "sample-docker-react" #name of the folder where this app you're targeting is located or going to exist
+    on:
+        branch: master #Only deploy when master branch is updated
+    access_key_id: $AWS_ACCESS_KEY #Environment variable generated in IAM of AWS but stored in travis ci
+    secret_access_key:
+        secure: "$AWS_SECRET_KEY" # Another environment variable generated in IAM of AWS but stored in travis ci
+</code></pre>
+<h3 id="b-c-9-push-to-git">Bước 9 : Push to Git</h3><p>Kiểm tra lại một lần nữa các tệp của bạn và thiết lập để đảm bảo bạn đã làm tất cả những gì tôi đã nói trong phần hướng dẫn này sau đó Add, commit và push các bản cập nhật của bạn lên repo trên github.</p><p>Vì chúng ta đã thêm một tệp .travis.yml, travis-ci sẽ nhận bản cập nhật trong vài giây và kích hoạt bản dựng.</p><p>Sau khi xây dựng thành công, hãy truy cập ứng dụng của bạn trên AWS và bạn sẽ thấy nó được cập nhật với mã mới từ travis, xây dựng docker image và khởi động ứng dụng có thể truy cập khi bạn nhấp vào liên kết được cung cấp.</p><p>Bây giờ bất cứ khi nào chúng tôi cập nhật nhánh <strong>master</strong> ứng dụng của mình, travis-ci sẽ nhận các thay đổi và cập nhật ứng dụng của chúng ta trong AWS.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1ah4QQ_Aq1O7R_qZZZ8ubRKqU1F6myJVr&amp;export=download" class="kg-image" alt width="2255" height="1175" layout="responsive"></amp-img></figure><p><em><strong>Nếu bạn thực hiện thành công theo hướng dẫn này, cảm ơn rất nhiều vì đã đọc bài!</strong></em></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

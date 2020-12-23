@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết" />
+    <meta property="og:description" content="Serial blog Nhập môn Kubernetes  Nội dung Mở đầu Lịch sử kubernetes Các khái niệm trong kubernetes. Kubernetes làm được những gì Kết luận Tài liệu tham khảo Mở đầu Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-08-08T06:39:40.000Z" />
+    <meta property="article:modified_time" content="2018-09-25T02:32:23.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="Container orchestration" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết" />
+    <meta name="twitter:description" content="Serial blog Nhập môn Kubernetes  Nội dung Mở đầu Lịch sử kubernetes Các khái niệm trong kubernetes. Kubernetes làm được những gì Kết luận Tài liệu tham khảo Mở đầu Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, kubernetes, k8s, Container orchestration" />
+    <meta property="og:image:width" content="2688" />
+    <meta property="og:image:height" content="1272" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Nhập môn Kubernetes] - Tại sao Kubernetes là cần thiết",
+    "url": "https://blog.vietnamlab.vn/nhap-mon-kubernetes/",
+    "datePublished": "2018-08-08T06:39:40.000Z",
+    "dateModified": "2018-09-25T02:32:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&export=download",
+        "width": 2688,
+        "height": 1272
+    },
+    "keywords": "docker, kubernetes, k8s, Container orchestration",
+    "description": "Serial blog Nhập môn Kubernetes\n[https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/]\n\nNội dung\n * Mở đầu\n * Lịch sử kubernetes\n * Các khái niệm trong kubernetes.\n * Kubernetes làm được những gì\n * Kết luận\n * Tài liệu tham khảo\n\nMở đầu\nKubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển\nkhai ứng dụng dưới dạng container hoá, Kubernetes còn gọi là Container\norchestration engine. Trong serial bài viết về kubernetes này, mục tiêu là cho",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-docker tag-kubernetes tag-k8s tag-container-orchestration nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-docker tag-kubernetes tag-k8s tag-container-orchestration js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">[Nhập môn Kubernetes P1] - Tại sao Kubernetes là cần thiết?</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-08-08">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 08 August 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/docker/index.html">docker</a>, <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/k8s/index.html">k8s</a>, <a href="../tag/container-orchestration/index.html">Container orchestration</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1YsQLB5elwNLyDo2naXmtdVF3DcHNZMt2&amp;export&#x3D;download" alt="[Nhập môn Kubernetes P1] - Tại sao Kubernetes là cần thiết?">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/nhap-mon-kubernetes/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BNh%E1%BA%ADp%20m%C3%B4n%20Kubernetes%20P1%5D%20-%20T%E1%BA%A1i%20sao%20Kubernetes%20l%C3%A0%20c%E1%BA%A7n%20thi%E1%BA%BFt%3F">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p><a href="https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/">Serial blog Nhập môn Kubernetes</a></p>
+<h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Mở đầu</li>
+<li>Lịch sử kubernetes</li>
+<li>Các khái niệm trong kubernetes.</li>
+<li>Kubernetes làm được những gì</li>
+<li>Kết luận</li>
+<li>Tài liệu tham khảo</li>
+</ul>
+<h3 id="mu">Mở đầu</h3>
+<p>Kubernetes là một Platform dùng để tự động hoá việc quản lý, scaling và triển khai ứng dụng dưới dạng container hoá, Kubernetes còn gọi là Container orchestration engine. Trong serial bài viết về kubernetes này, mục tiêu là cho dù bạn là người chưa từng đụng đến kubernestes đi nữa thì cũng có thể hiểu được khái niệm k8s, và có thể tự mình triển khai k8s trên một ứng dụng thực tế.<br>
+Trong những năm gần đây, nhiều ứng dụng đã thực hiện container hoá bằng cách sử dụng docker. Trên thực tế nhiều ứng dụng sử dụng docker chạy trên môi trường production ngày càng tăng lên. Trên môi trường production, Vì việc cấu trúc hệ thống chạy bằng container chỉ sử dụng docker là rất khó khăn. Cho nên việc sử dụng một Platform gọi là Container orchestration engine như là k8s thì khá phổ biến hiện nay.<br>
+Ngoài K8s thì còn có docker swarm, DC/OS, tuy nhiên loạt bài viết này tôi chỉ đề cập về k8s, vì mấy cái kia tôi chưa đụng đến :D.<br>
+<img src="https://drive.google.com/uc?id=1UhmdvzQ2Yunp1T3lvZMMLPjOULFyeGHP&amp;export=download" alt="uc?id=1UhmdvzQ2Yunp1T3lvZMMLPjOULFyeGHP&amp;export=download"></p>
+<h3 id="lchscakubernetes">Lịch sử của kubernetes</h3>
+<p>Dựa theo website của Kubernetes thì chúng được định nghĩ như sau:<br>
+<em>“Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.”</em><br>
+Kubernetes là một hệ thống mã nguồn mở để tự động triển khai, scaling, quản lý các container. Kubernetes được xây dựng bởi Google dựa trên kinh nghiệm quản lý sử dụng các container trong khi triển khai một hệ thống quản lý gọi là Borg ( nhiều lúc gọi là Omega).<br>
+Nó được phát hành vào tháng 6 năm 2014, và thời điểm ra mắt phiên bản 1.0 vào tháng 7/2015 thì nó được chuyển giao cho Cloud Native Computing Foundation (CNCF).<br>
+Trong bối cảnh có thể nói là K8s đã trở thành De facto standard thì có sự đối ứng phù hợp của những nhà cung cấp dịch vụ Cloud. Trong khoảng tháng 11/2014 Google Cloud Platform（GCP）đã bắt đầu cung cấp dịch vụ Google Container Engine (GKE, sau này là Google Kubernetes Engine). Để sử dụng k8s đã được quản lý, GKE là một lựa chọn, tuy nhiên tháng 2/2017 Microsoft Azure cũng đã release Azure Container Service (AKS), Tháng 11/2017 Amazon Web Service（AWS）cũng cho ra đời Amazon Elastic Container Service for Kubernetes（Amazon EKS）.<br>
+Kubernetes được quản lý bởi những nhà cung cấp dịch vụ Cloud hàng đầu đã ra đời.</p>
+<h3 id="cckhinimtrongkubernetes">Các khái niệm trong Kubernetes.</h3>
+<h4 id="nhclivkintrccadocker">Nhắc lại về kiến trúc của docker</h4>
+<p><img src="https://drive.google.com/uc?id=1YIf4OwtVNb4f5-XdkiICIdMOn0plBj5A&amp;export=download" alt="uc?id=1YIf4OwtVNb4f5-XdkiICIdMOn0plBj5A&amp;export=download"><br>
+Link tham khảo: <a href="https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/">[Docker] – Part 2 – Cấu trúc và quy trình hoạt động của Docker.</a></p>
+<p>Nếu cái hình phía trên có nhiều thứ bạn chưa hiểu thì mình sẽ rút gọn nó như ở ví dụ sau: Giả sử mình có 1 ứng dụng chạy bằng docker trên 1 máy. Ứng dụng web bao gồm Nginx, Mysql, php-fpm. Mình dùng docker nên mình có được kiến trúc như hình dưới đây:<br>
+<img src="https://drive.google.com/uc?id=1fRlYKAK5jENdOpdW0D963q1fv_IJ89lL&amp;export=download" alt="uc?id=1fRlYKAK5jENdOpdW0D963q1fv_IJ89lL&amp;export=download"></p>
+<h4 id="kubernetesarchitecture">Kubernetes Architecture</h4>
+<p><img src="https://drive.google.com/uc?id=1X8MR70R-MOY6UgTbAq_9iBN0nOtFeqFL&amp;export=download" alt="uc?id=1X8MR70R-MOY6UgTbAq_9iBN0nOtFeqFL&amp;export=download"><br>
+Link tham khảo: <a href="https://thenewstack.io/kubernetes-an-overview/">https://thenewstack.io/kubernetes-an-overview/</a><br>
+Là người mới nên bạn chưa thể hiểu được cái hình phía trên, không sao, mình sẽ đi từng khái niệm một.</p>
+<h5 id="kubernetescluster">Kubernetes Cluster.</h5>
+<p>Cluster có nghĩa là cụm, vậy Kubernetes Cluster có nghĩa là cụm các máy chạy docker có phải vậy không? không đơn giản thế đâu, nhưng trước tiên cứ hãy xem như vậy đã.<br>
+Một cluster là một tập các máy vật lý hay máy ảo được sử dụng bởi Kubernetes để chạy các ứng dụng.<br>
+Kubernetes Cluster bao gồm Nodes(master) và Nodes(worker).<br>
+<img src="https://drive.google.com/uc?id=1S_jqz8wkHt9n_o7_uOSmJekqnwf45jeR&amp;export=download" alt="uc?id=1S_jqz8wkHt9n_o7_uOSmJekqnwf45jeR&amp;export=download"><br>
+Đến đây các bạn sẽ hỏi Nodes là gì, Nodes master và Nodes worker có nhiệm vụ gì. OK, Mình sẽ trình bày ngay sau đây.</p>
+<h5 id="nodes">Nodes</h5>
+<p>Một node là một máy ảo hoặc máy vật lý chạy Kubernetes. Nodes hay còn gọi là docker host. Để cho không bị rối, mình tạm thời chưa nhắc đến vai trò của Nodes Master (Kubernetes master) hay Nodes worker (nodes).<br>
+Bạn hiểu Nodes như hình sau:<br>
+<img src="https://drive.google.com/uc?id=1Yyxcvqtc3Ex-_e_f0_mcLx6RXpWyrJNu&amp;export=download" alt="uc?id=1Yyxcvqtc3Ex-_e_f0_mcLx6RXpWyrJNu&amp;export=download"><br>
+Link tham khảo:<a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">Kubernetes 101: Pods, Nodes, Containers, and Clusters</a></p>
+<p>Khi làm việc chỉ với một máy, sẽ gặp các vấn đề như không đủ tài nguyên, không thể backup khi sự cố xảy ra, vv. Ta nghĩ đến vấn đề join các máy tính riêng lẽ tạo thành 1 cụm, ta có Kubernetes Cluster như hình dưới đây:<br>
+<img src="https://drive.google.com/uc?id=1qz2-BQ0rRJqxP8t37FRSwsWYHM1b1AdF&amp;export=download" alt="uc?id=1qz2-BQ0rRJqxP8t37FRSwsWYHM1b1AdF&amp;export=download"><br>
+Link tham khảo:<a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">Kubernetes 101: Pods, Nodes, Containers, and Clusters</a></p>
+<h5 id="pods">Pods</h5>
+<p>Bây giờ đến khái niệm Pods, nó là gì? đầu tiên các bạn chắc chắn đã biết đến khái niệm container rồi.<br>
+Pod là 1 nhóm (1 trở lên) các container thực hiện một mục đích nào đó, như là chạy software nào đó. Nhóm này chia sẻ không gian lưu trữ, địa chỉ IP với nhau. Pod thì được tạo ra hoặc xóa tùy thuộc vào yêu cầu của dự án.<br>
+Đơn vị nhỏ nhất của ứng dụng chạy Kubernetes đó là container, nhưng đơn vị quản lý cơ bản nhất thì là Pods.<br>
+Ví dụ cho dễ hiểu:<br>
+Mình có 2 ứng dụng sau:</p>
+<ul>
+<li>backend: có 3 container: backend (chứa code php backend), nginx(cấu hình dành cho backend), fluentd (tool gửi log)</li>
+<li>frontend: có 2 container: frontend (chứa code php frontend), nginx (cấu hình dành cho frontend), fluentd (tool gửi log)</li>
+</ul>
+<p>Mình sẽ thiết kế theo Kubernetes là sẽ chia làm 2 pods.</p>
+<ul>
+<li>backend-pod</li>
+<li>frontend-pod<br>
+Cụ thể các bạn theo dõi hình sau.<br>
+<img src="https://drive.google.com/uc?id=1iaXmbIkefOU2PfPCg5Ec2W7R65Yl3Wsf&amp;export=download" alt="uc?id=1iaXmbIkefOU2PfPCg5Ec2W7R65Yl3Wsf&amp;export=download"></li>
+</ul>
+<p>Ở đây các bạn có thể hỏi 2 Pods này có thể nằm cùng trên 1 Node được không? Dĩ nhiên là được vì chúng là 2 ứng dụng độc lập, có địa chỉ IP riêng. Không gian lưu trữ cho mỗi ứng dụng (pod) thì sao? Như các bạn đã biết về khái niệm Volume ở docker rồi. Vậy thì chỉ cần chỉ định vùng lưu trữ riêng thì mỗi Pods đều không ảnh hưởng gì đến nhau.</p>
+<h5 id="deployment">Deployment</h5>
+<p>Đến đây thì các bạn cũng chưa thấy có gì hay ở Kubernetes cả, chỉ mới là nhóm cụm các container có liên quan với nhau thành 1 Pod. Tiếp theo mình muốn nói đến khái niệm Deployment trong Kubernetes, nó dùng để phân phối các pods cho các nodes cụ thể, mang tính dự phòng. Ví dụ như hình trên, nếu lỡ Node 1 bị die (chết server) thì ứng dụng backend coi như xong.<br>
+Đầu tiên mình muốn nói đến <strong>Replica Set</strong>. Replica Set đảm nhận vai trò tạo ra số lượng Pods giống nhau dựa vào yêu cầu và luôn luôn duy trì số lượng đó.<br>
+Giả sử quy định replicas: 3 thì nó sẽ tạo ra 3 Pods giống nhau, giả sử 1 pod ở Node (server) nào đó bị sự cố, nó sẽ tạo ra 1 Pod mới để duy trì số lượng là 3 như yêu cầu lúc đầu.<br>
+Vậy Deployment là việc định nghĩa policy update/phân phối của Replica Set. Nghĩa là sao, là nó sẽ quy định Pods gồm những container nào, các Pods được tạo ra sẽ phân phối đến các Nodes nào trong Kubernetes.<br>
+<img src="https://drive.google.com/uc?id=1070PbXntD2Gr_duND5QlrE12Huts4y5U&amp;export=download" alt="uc?id=1070PbXntD2Gr_duND5QlrE12Huts4y5U&amp;export=download"></p>
+<p>Đến đây mình đã giới thiệu qua 1 vài khái niệm lớn trong Kubernetes. Tổng kết lại:</p>
+<ul>
+<li>Kubernetes Cluster là 1 cụm các Nodes: Master Nodes và Worker Nodes</li>
+<li>Nodes là một máy vật lý hoặc máy ảo, mỗi Node bao gồm 1 hoặc nhiều Pods</li>
+<li>Pods là đơn vị quản lý container, mỗi Pod có thể có 1 hoặc nhiều container.</li>
+<li>Replica Set Dùng để tạp ra nhiều Pods giống nhau</li>
+<li>Deployment dùng để quản lý việc tạo Pod và phân bổ các Pod vào các Node quy định.</li>
+</ul>
+<p>Kubernetes còn hàng đống các khái niệm mà mình không thể trình bày hết trong bài viết này. Như đã nói, mình sẽ viết một series blog về Kubernetes, nên mình sẽ nói về cơ chế hoạt động cùng hình ảnh minh hoạ cụ thể ở các phần sau.</p>
+<h3 id="kuberneteslmcnhngg">Kubernetes làm được những gì</h3>
+<p>Bằng việc sử dụng docker, trên 1 host bạn có thể tạo ra nhiều container, tuy nhiên nếu bạn có ý định sử dụng trên môi trường production thì phải bắt buộc phải nghĩ đến những vấn đề dưới đây:</p>
+<ul>
+<li>Việc quản lý hàng loạt docket host</li>
+<li>Container Scheduling</li>
+<li>Rolling update</li>
+<li>Scaling/Auto Scaling</li>
+<li>Monitor vòng đời và tình trạng sống chết của container.</li>
+<li>Self-hearing trong trường hợp có lỗi xãy ra. (Có khả năng phát hiện và tự correct lỗi)</li>
+<li>Service discovery</li>
+<li>Load balancing</li>
+<li>Quản lý data</li>
+<li>Quản lý work node</li>
+<li>Quản lý log</li>
+<li>Infrastructure as Code</li>
+<li>Sự liên kết và mở rộng với các hệ thống khác</li>
+</ul>
+<p>Bằng việc sử dụng một Container orchestration engine như K8s có thể giải quyết được nhưng vấn đề trên đây. Trong trường hợp không sử dụng k8s, Thì sẽ phải cần thiết tạo ra cơ chế tự động hoá cho những cái kể trên, theo tôi thì không có tính khả thi lắm. Trong trường hợp sử dụng máy ảo thông thường VMs Thì nó chính là việc thực hiện tự động hoá một phần bằng việc sử dụng AWS CloudFormation hay OpenStack Heat. K8s cũng quản lý thực thi các container sử dụng YAML để viết các Manifest.<br>
+Dưới đây là một ví dụ:</p>
+<pre><code>apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx-server
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx-server
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: &quot;app&quot;
+                operator: In
+                values:
+                  - develop
+      containers:
+      - name: nginx
+        image: &quot;nginx:latest&quot;
+        imagePullPolicy: &quot;Always&quot;
+        ports:
+          - containerPort: 80
+        volumeMounts:
+        - mountPath: /etc/nginx
+          name: nginx-conf
+        - mountPath: /var/log/nginx
+          name: nginx-log
+</code></pre>
+<p>Kubernetes quản lý các docker host và cấu trúc container cluster. Thêm nữa, khi thực thi các container trên K8s, Bằng cách thực hiện replicas (tạo ra nhiều container giống nhau) làm cho hệ thống có sức chịu lỗi cao và tự động thực hiện load balancing.<br>
+Thêm nữa, thông qua cơ chế load balancing, chúng ta có thể tăng giảm số lượng container replica (auto scaling).<br>
+<img src="https://drive.google.com/uc?id=1WCu3JDEOeYp4MapPt5VGYZk_pFiMptJh&amp;export=download" alt="uc?id=1WCu3JDEOeYp4MapPt5VGYZk_pFiMptJh&amp;export=download"><br>
+<em>Image: scaling/auto scaling</em></p>
+<p>Khi thực hiện phân bổ container vào các Node (docker host), dựa trên các loại docker host kiểu như &quot;Disk SSD&quot; hay &quot;số lượng clock của CPU cao&quot; v.v Hoặc dựa trên loại Workload kiểu như &quot;Disk I/O quá nhiều&quot;, &quot;Băng thông đến một container chỉ định quá nhiều&quot; v.v, K8s sẽ ý thực được việc affinity hay anti-affinity và thực hiện Scheduling một cách hợp lý cho chúng ta.<br>
+<img src="https://drive.google.com/uc?id=1NRbNu-FRp26rAfH_j23SQ79FjVDoYqDh&amp;export=download" alt="uc?id=1NRbNu-FRp26rAfH_j23SQ79FjVDoYqDh&amp;export=download"><br>
+<em>Image: Scheduling</em></p>
+<p>Trong trường hợp không được chỉ định host cụ thể, K8s sẽ thực thực hiện scheduling tuỳ thuộc vào tình trạng CPU, memmory của docker host có trống hay không, chính vì vậy, chúng ta không cần thiết quan tâm đến việc quản lý bố trí container vào các docker host như thế nào. Hơn nữa, trường hợp resource không đủ, thì việc auto scheduling của K8s cluster cũng sẽ được thực hiện tự động.<br>
+<img src="https://drive.google.com/uc?id=1jwVxqEla5jPLiGhpOA73I-QzsBk6PXkS&amp;export=download" alt="uc?id=1jwVxqEla5jPLiGhpOA73I-QzsBk6PXkS&amp;export=download"><br>
+<em>Image: k8s resource management</em></p>
+<p>Trên quan điểm tính chịu lỗi cao, K8s thực hiện monitor các container theo tiêu chuẩn. Trong trường hợp hi hữu nào đó, khi một container process bị stop, K8s sẽ thực hiện Self-hearing bằng cách scheduling một container nữa. Self-hearing là một khái niệm khá quan trọng trong k8s, trong trường hợp có một node nào đó trong cluster xảy ra vấn đề (có thể là bị die, hay node đó được move đi). Cơ chế self-hearing sẽ sẽ tự động phục hồi mà không ảnh hưởng đến service.<br>
+Thêm nữa, ngoài việc monitor hệ thống, k8s còn có khả năng thiết lập helth check bằng HTTP/TCP script.<br>
+<img src="https://drive.google.com/uc?id=1oSfYJe3gwF35a0gRARlPzHMIvYRvPg1B&amp;export=download" alt="uc?id=1oSfYJe3gwF35a0gRARlPzHMIvYRvPg1B&amp;export=download"><br>
+<em>Image: auto hearing.</em></p>
+<p>Trường hợp sau khi auto scaling, phát sinh một vấn đề của endpoint đến container. Trong trường hợp sử dụng máy ảo, bằng việc setting load balancing endpoint sẽ được sử dụng như một VIP. K8s cũng có một chức năng tương tự như vậy đó là Service.  Service của k8s cung cấp chức năng load balancing cho hàng loạt các container được chỉ định. Việc tự động thêm, xoá container thời điểm scale là điều đương nhiên, khi một container xảy ra sự cố thì tự động cách ly. Khi thực hiện rolling update container thì việc đầu tiên k8s sẽ làm là cách ly container cho chúng ta, vì vậy k8s có thể đảm nhận việc quản lý các endpoint ở mức SLA cao.<br>
+Thêm nữa, trường hợp cấu trúc một hệ thống sử dụng docker, tôi nghĩ rằng nên phân tách nhỏ các chức năng trong Microservice architecture. Trong Microservice architecture, để sử dụng các image container được tạo ra tương ứng với từng chức năng và deploy chúng thì chức năng Service discovery thực sự cần thiết.<br>
+<img src="https://drive.google.com/uc?id=11DaKIuULFmeYM8X65ssExezc2RpSVO-v&amp;export=download" alt="uc?id=11DaKIuULFmeYM8X65ssExezc2RpSVO-v&amp;export=download"></p>
+<p>K8s là một Platform nhưng có khả năng liên kết tốt với các hệ sinh thái bên ngoài, có nhiều middleware chạy trên các service của k8s, trong tương lai chắc chắn sẽ còn nhiều hơn nữa.</p>
+<ul>
+<li>Ansible: Deploy container tới Kubernetes</li>
+<li>Apache Ignite: Sử dụng Service Discovery của Kubernetes, tự động tạo và scaling k8s clkuster</li>
+<li>Fluentd: gửi log của container trong Kubernetes</li>
+<li>Jenkins: Deploy container đến Kubernetes</li>
+<li>OpenStack：Cấu trúc k8s liên kết với Cloud</li>
+<li>Prometheus: Monitor Kubernetes</li>
+<li>Spark: Thực thi native job trên Kubernetes(thay thế cho YARN)</li>
+<li>Spinnaker：Deploy container đến Kubernetes</li>
+<li>v.v</li>
+</ul>
+<p>Thêm nữa, K8s chuẩn bị một vài cơ thế để có thể mở rộng, thực thi chức năng độc lập, nó có thể sử dụng platform như là một framework. Bằng cách sử dụng khả năng mở rộng, chúng ta có thể thực hiện release một ReplicaSet mà k8s cung cấp.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Bài viết này tôi đã giới thiệu đến các bạn khái lược về k8s, không biết các bạn cảm nhận thế nào.<br>
+Việc sử dụng docker trên môi trường Production mà không sử dụng Container orchestration engine như K8s, Thì những tính năng tôi sẽ dự định viết tới thời điểm này là cần thiết cho bạn. Nếu sử dụng k8s, bạn có thể sử dụng cơ chế tự động hoá Borg được nghĩ ra bởi những người tiền nhiệm. Để thực hiện được những công việc tự động hoá như vậy với VMs thông thường, chúng ta cần thiết phải chuẩn bị những thứ như là: Sử dụng CloudFormation, tạo ra cơ chế load balancing, cơ chế update application. Nhưng với việc sử dụng k8s, bạn có thể tận dụng được tính portability và Light weight của container và phát triển hệ thống mức High cycle.</p>
+<p>Bài viết tiếp theo, tôi sẽ trình bày về [Lựa chọn môi trường Kubernetes].</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://thenewstack.io/kubernetes-an-overview/">https://thenewstack.io/kubernetes-an-overview/</a></li>
+<li><a href="https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/">https://luanbn.wordpress.com/2015/08/27/docker-part-2-cau-truc-va-quy-trinh-hoat-dong-cua-docker/</a></li>
+<li><a href="https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16">https://medium.com/google-cloud/kubernetes-101-pods-nodes-containers-and-clusters-c1509e409e16</a></li>
+<li><a href="https://thinkit.co.jp/article/13289">https://thinkit.co.jp/article/13289</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/nhap-mon-kubernetes/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BNh%E1%BA%ADp%20m%C3%B4n%20Kubernetes%20P1%5D%20-%20T%E1%BA%A1i%20sao%20Kubernetes%20l%C3%A0%20c%E1%BA%A7n%20thi%E1%BA%BFt%3F">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/nhap-mon-kubernetes/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/nhap-mon-kubernetes/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

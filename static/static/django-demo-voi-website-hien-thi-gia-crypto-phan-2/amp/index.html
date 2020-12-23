@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Django - Demo với website hiển thị giá Crypto - Phần 2</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Django - Demo với website hiển thị giá Crypto - Phần 2" />
+    <meta property="og:description" content="Trong phần một mình đã giới thiệu sơ qua về kiến trúc trong Django. Để hiểu rõ hơn, chúng ta thử làm một demo nhỏ hiển thị giá crypto bằng Django.  Demo với website hiển thị giá Crypto 1. Cài đặt môi trường Cài đặt python  Bước đầu tiền luôn" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto-phan-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;12fKm-652BKxfXNzeD-nVJWokgGNiyLCA&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-12-20T10:22:44.000Z" />
+    <meta property="article:modified_time" content="2019-12-25T02:37:18.000Z" />
+    <meta property="article:tag" content="Python" />
+    <meta property="article:tag" content="django" />
+    <meta property="article:tag" content="crypto" />
+    <meta property="article:tag" content="Bitcoin" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Django - Demo với website hiển thị giá Crypto - Phần 2" />
+    <meta name="twitter:description" content="Trong phần một mình đã giới thiệu sơ qua về kiến trúc trong Django. Để hiểu rõ hơn, chúng ta thử làm một demo nhỏ hiển thị giá crypto bằng Django.  Demo với website hiển thị giá Crypto 1. Cài đặt môi trường Cài đặt python  Bước đầu tiền luôn" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto-phan-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;12fKm-652BKxfXNzeD-nVJWokgGNiyLCA&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Python, django, crypto, Bitcoin" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="422" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Django - Demo với website hiển thị giá Crypto - Phần 2",
+    "url": "https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto-phan-2/",
+    "datePublished": "2019-12-20T10:22:44.000Z",
+    "dateModified": "2019-12-25T02:37:18.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=12fKm-652BKxfXNzeD-nVJWokgGNiyLCA&export=download",
+        "width": 750,
+        "height": 422
+    },
+    "keywords": "Python, django, crypto, Bitcoin",
+    "description": "Trong phần một\n[https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/] mình\nđã giới thiệu sơ qua về kiến trúc trong Django. Để hiểu rõ hơn, chúng ta thử làm\nmột demo nhỏ hiển thị giá crypto bằng Django.\n\nDemo với website hiển thị giá Crypto\n1. Cài đặt môi trường\nCài đặt python\n\nBước đầu tiền luôn cần thiết khi phát triển một ứng dụng là cài đặt môi trường.\n\nĐầu tiên bạn cần cài python. Truy cập vào https://www.python.org/, tải gói\npython phù hợp với OS của bạn và cài đặt.\n\nSau ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Django - Demo với website hiển thị giá Crypto - Phần 2</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2019-12-20">20 Dec 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;12fKm-652BKxfXNzeD-nVJWokgGNiyLCA&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong <a href="../../django-demo-voi-website-hien-thi-gia-crypto/index.html">phần một</a> mình đã giới thiệu sơ qua về kiến trúc trong Django. Để hiểu rõ hơn, chúng ta thử làm một demo nhỏ hiển thị giá crypto bằng Django.</p>
+<h1 id="demoviwebsitehinthgicrypto">Demo với website hiển thị giá Crypto</h1>
+<h3 id="1citmitrng">1. Cài đặt môi trường</h3>
+<p><strong>Cài đặt python</strong></p>
+<p>Bước đầu tiền luôn cần thiết khi phát triển một ứng dụng là cài đặt môi trường.</p>
+<p>Đầu tiên bạn cần cài python. Truy cập vào <code>https://www.python.org/</code>, tải gói python phù hợp với OS của bạn và cài đặt.</p>
+<p>Sau khi python xong, bạn mở terminal lên và check version:</p>
+<pre><code class="language-bash">$ python
+Python 3.6.5 :: Anaconda, Inc.
+$
+</code></pre>
+<p>Bạn có thể check những models đã được cài đặt bằng lệnh <code>pip freeze</code> trong python</p>
+<pre><code class="language-bash">$ pip freeze
+certifi==2019.3.9
+chardet==3.0.4
+Django==2.0.6
+idna==2.8
+pytz==2019.1
+requests==2.22.0
+urllib3==1.25.3
+$
+</code></pre>
+<p>Tiếp theo cài tool <code>virtualenv</code> với lệnh sau:</p>
+<pre><code class="language-bash">$ pip install virtualenv
+</code></pre>
+<p><code>virtualenv</code> là tool giúp tạo các dự án python.</p>
+<p><strong>Tạo thư mục project</strong></p>
+<pre><code class="language-bash">$ mkdir django-projects
+$ cd django-projects/
+</code></pre>
+<p>Tạo thư mục dự án tên <code>django-projects</code> rồi di chuyển vào thư mục vừa tạo.</p>
+<p>Cài đặt môi trường cho project của bạn với lệnh sau:</p>
+<pre><code class="language-bash">$ virtualenv .
+</code></pre>
+<p>Sau khi chạy lệnh trên xong, trong thư mục <code>django-project</code> sẽ có một vài thư mục môi trường như sau:</p>
+<pre><code class="language-bash">├── django-project
+    ├── bin
+    ├── include
+    └── lib
+</code></pre>
+<p>Start môi trường với lệnh:</p>
+<pre><code class="language-bash">$ . bin/activate
+</code></pre>
+<p>Bên cạnh đó bạn có thể shutdown môi trường với lệnh:</p>
+<pre><code class="language-bash">$ deactivate
+</code></pre>
+<p><strong>Cài đặt Django</strong></p>
+<p>Nếu bạn muốn cài Django với phiên bản mới nhất, bạn run lệnh sau:</p>
+<pre><code class="language-bash">$ pip install django
+</code></pre>
+<p>Nếu bạn muốn cài Django với phiên bản đặc định, bạn run lệnh sau kèm theo version muốn cài:</p>
+<pre><code class="language-bash">$ pip install django==2.0.6
+</code></pre>
+<p><strong>Cài đặt project</strong></p>
+<p>Tiếp đến bạn tạo project trong Django với lệnh sau:</p>
+<pre><code class="language-bash">$ django-admin.py startproject mysite
+</code></pre>
+<p>Sau thi tạo xong, bạn sẽ có thư mục như sau:</p>
+<pre><code class="language-bash">├── django-project
+    ├── bin
+    ├── include
+    ├── lib
+    └── mysite                  ← thư mục project mysite
+        ├── db.sqlite3
+        ├── manage.py
+        └── mysite              ← thư mục app mysite
+            ├── __init__.py
+            ├── __pycache__
+            │   ├── __init__.cpython-36.pyc
+            │   ├── settings.cpython-36.pyc
+            │   ├── urls.cpython-36.pyc
+            │   └── wsgi.cpython-36.pyc
+            ├── settings.py
+            ├── urls.py
+            └── wsgi.py
+</code></pre>
+<p>Trong project <code>mysite</code>, Django tự động tạo giúp bạn một ứng dụng website cơ bản với tên app trùng với tên project <code>mysite</code>. Như đã nói ở trên, Django không quá quan tâm đến tên project, nên bạn có thể đổi tên khác đễ không bị nhầm lẫn với tên ứng dụng. Ở đây mình để nguyên tên không đổi.</p>
+<p>Tiếp theo bạn thử run project xem nhé</p>
+<pre><code class="language-bash"># di chuyển vào project mysite
+$ cd mysite
+$ python manage.py runserver
+</code></pre>
+<p>Mở trình duyệt lên và gõ <code>http://localhost:8000/</code>. Lúc này bạn sẽ thấy webiste cơ bản như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1IqEXAImzwa4ldoBbNLoNht_qUuyXZC8a&amp;export=download" alt="uc?id=1IqEXAImzwa4ldoBbNLoNht_qUuyXZC8a&amp;export=download" width="1401" height="761" layout="responsive"></amp-img></p>
+<p>Có vẻ mọi thứ đã chạy ổn. Nhưng bạn thử nhìn vào màn hình terminal, nếu bạn thấy warning <code>You have 14 unapplied migration(s). </code>, bạn cần cài thêm vài bước sau.<br />
+Warning báo như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1kaOCru5SDfOV_xN9fmyegcn6nEpo8dFg&amp;export=download" alt="uc?id=1kaOCru5SDfOV_xN9fmyegcn6nEpo8dFg&amp;export=download" width="947" height="117" layout="responsive"></amp-img></p>
+<p>Bạn nhấn <code>Ctr+C</code> để thoát, sau đó chạy những lệnh sau:</p>
+<pre><code class="language-bash"># di chuyển vào project mysite
+$ cd mysite
+
+# chạy lệnh migrate
+$ python manage.py migrate
+
+# start lại project
+$ python manage.py runserver
+</code></pre>
+<p>Lúc này khi start lại project, bạn sẽ không còn thấy thông báo như trên nữa.</p>
+<p><strong>Tạo ứng dụng Crypto</strong></p>
+<p>Di chuyển vào project mysite, tạo ứng dụng crypto với lệnh như sau:</p>
+<pre><code class="language-bash"># di chuyển vào project mysite
+$ cd mysite
+$ python manage.py startapp crypto
+</code></pre>
+<p>Sau khi tạo xong bạn sẽ có cấu trúc thư mục như sau:</p>
+<pre><code class="language-bash">├── django-project
+    ├── bin
+    ├── include
+    ├── lib
+    ├── crypto   ← ứng dụng crypto đã được tạo
+    └── mysite
+</code></pre>
+<p>Cụ thể trong ứng dụng crypto, bạn sẽ có những thứ như sau:</p>
+<pre><code class="language-bash">├── crypto
+    ├── __init__.py
+    ├── __pycache__
+    ├── migrations
+    ├── admin.py
+    ├── apps.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+</code></pre>
+<p><strong>Khai báo ứng dựng crypto trong settings.py</strong></p>
+<p>Sau khi vừa tạo một ứng dụng mới, bạn vào <code>settings.py</code> để khai báo với Django tên ứng dụng của bạn.</p>
+<pre><code class="language-python"># django-projects/mysite/mysite/settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'crypto',    # ← tên ứng dụng crypto được thêm vào
+]
+</code></pre>
+<p><strong>Khai báo đường dẫn urls</strong></p>
+<p>Hiện tại cứ gõ <code>http://localhost:8000/</code> là Django đang đọc dữ liệu từ ứng dụng mysite để hiển thị lên. Làm sao để Django không chạy vào ứng dụng mysite nữa mà chạy vào ứng dụng crypto?</p>
+<p>Trước tiên, bạn cận tạo file <code>urls.py</code> trong thư mục crypto như sau:</p>
+<pre><code class="language-python"># django-projects/mysite/crypto/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # Khi bạn khai báo đường dẫn với dấu nháy trống '',
+    # nghĩa là sẽ nhận url root http://localhost:8000/
+    path('', views.home, name='home'),
+    
+    # Nếu bạn có url http://localhost:8000/home
+    # bạn sẽ khai báo như sau:
+    # path('home', views.home, name='home'),
+]
+</code></pre>
+<p><code>path('', views.home, name='home')</code> cụ thể là như thế nào mình sẽ giải thích sau.</p>
+<p>Tiếp đến bạn vào <code>urls.py</code> của ứng dụng mysite, khai báo thêm <code>urls.py</code> của crypto như sau:</p>
+<pre><code class="language-python"># import thêm hàm include
+from django.urls import include
+
+urlpatterns = [
+    ...
+    # khai báo urls của crypto
+    path('', include('crypto.urls'))
+]
+</code></pre>
+<p>Trở lại với định nghĩa trong urls của crypto, <code>path('', views.home, name='home')</code> nghĩa là khi bạn gõ vào trình duyệt đường dẫn <code>http://localhost:8000/</code>, Django sẽ bắt đường dẫn này, dò tìm trong file urls rằng views nào sẽ nhận trách nhiệm xử lý tương ứng với request mà user đã yêu cầu. Trong trường hợp này, thì hàm <code>home()</code> trong <code>views.py</code> sẽ xử lý.</p>
+<p><strong>Định nghĩa views</strong></p>
+<p>Sau khi đã chỉ định hàm <code>home()</code> trong <code>views.py</code> sẽ xử lý nhiệm vụ hiển thị danh sách giá crypto, bạn mở file <code>views.py</code> và định nghĩa hàm <code>home()</code> như sau:</p>
+<pre><code class="language-python"># django-projects/mysite/crypto/views.py
+
+from django.shortcuts import render
+import requests
+import json
+
+def home(request):
+
+    # get crypto price Data
+    price_request = requests.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,XRP&amp;tsyms=USD,EUR")
+    price = json.loads(price_request.content)
+
+    # truyền dữ liệu giá qua template để được hiển thị
+    return render(request, 'home.html', {"price": price})
+</code></pre>
+<p>Ở phần lấy giá crypto, mình sử dụng dịch vụ <code>https://min-api.cryptocompare.com</code> để query. Trong bài viết này, mình sẽ không bàn về sử dụng APIs của dịch vụ trên. Nhìn chung thì cũng rất đơn giản, các bạn có thể tham khảo thêm trên website của họ.</p>
+<p>Đầu tiên bạn cần import hai models là <code>requests</code> và <code>json</code> để sử dụng trong việc gửi và nhận dữ liệu trả về. Import models <code>render</code> để sử dụng trong việc chỉ định template html sẽ hiển thị và truyền biến dữ liệu giá qua template.</p>
+<p><code>requests.get()</code> hàm này sẽ tạo ra một request đến địa chỉ mà bạn chỉ định. Ở đây mình truyền vào địa chỉ apis lấy giá của các đồng BTC, XRP.<br />
+<code>json.loads()</code> hàm sẽ nhận dữ liệu prices trả về dạng json<br />
+Ở phần render, mình sẽ chỉ định tên template sẽ hiển thị là <code>home.html</code>.</p>
+<p><code>home.html</code> sẽ là file nào và khai báo ở đâu?</p>
+<p><strong>Định nghĩa templates</strong></p>
+<p>Bạn cần tạo một thư mục với tên <code>templates</code> trong thư mục <code>crypto</code> để khai báo các file html. Sau khi tạo thư mục <code>templates</code>, như khai báo ở trên, bạn tạo thêm file <code>home.html</code>. Lúc này cấu trúc thư mục sẽ như sau:</p>
+<pre><code class="language-bash">crypto
+    │   ├── __init__.py
+    │   ├── __pycache__
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── migrations
+    │   ├── models.py
+    │   ├── templates          ← thư mục templates vừa tạo
+    │   │   ├── home.html      ← file home.html vừa tạo
+    │   ├── tests.py
+    │   ├── urls.py
+    │   └── views.py
+
+</code></pre>
+<p>Sau khi tạo xong, bạn định nghĩa file <code>home.html</code> như sau:</p>
+<pre><code class="language-html">&lt;table class="table table-striped"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Name&lt;/th&gt;
+      &lt;th scope="col"&gt;Price&lt;/th&gt;
+      &lt;th scope="col"&gt;24h High&lt;/th&gt;
+      &lt;th scope="col"&gt;24h Low&lt;/th&gt;
+      &lt;th scope="col"&gt;Market Cap&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    {% for key, value in price.DISPLAY.items %}
+    &lt;tr&gt;
+      &lt;td&gt;{{ key }}&lt;/td&gt;
+      &lt;td&gt;{{ value.USD.PRICE }}&lt;/td&gt;
+      &lt;td&gt;{{ value.USD.HIGHDAY }}&lt;/td&gt;
+      &lt;td&gt;{{ value.USD.LOWDAY }}&lt;/td&gt;
+      &lt;td&gt;{{ value.USD.MKTCAP }}&lt;/td&gt;
+    &lt;/tr&gt;
+    {% endfor %}
+  &lt;/tbody&gt;
+  &lt;/table&gt;
+</code></pre>
+<p>Với cấu trúc json trong <code>price</code> mà Apis crypto trả về, ta sử dụng <code>price.DISPLAY.items</code> để truy vấn đến danh sách giá của crypto.</p>
+<p><code>price.DISPLAY.items</code> sẽ là một danh sách, nên ta sử dụng cấu trúc lặp <code>for</code> để hiển thị từng giá của cryto.</p>
+<p>Bây giờ bạn thử refresh lại trình duyệt và sẽ hiển thị như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1HSsZC8NIwoRlvSf5zkxo92qF620oWr5_&amp;export=download" alt="uc?id=1HSsZC8NIwoRlvSf5zkxo92qF620oWr5_&amp;export=download" width="1407" height="216" layout="responsive"></amp-img></p>
+<p>Ở đây table mình hiển thị trong đẹp mắt là do mình có sử dụng Bootstrap. Nhưng về cơ bản là list price sẽ được loop và show ra như thế.</p>
+<p>Dưới đây là website mình đã demo thử với Django. Các bạn có thể tham khảo thêm trong code của mình.</p>
+<p>Github: <a href="https://github.com/lando110390/django_get_price_crypto">https://github.com/lando110390/django_get_price_crypto</a></p>
+<p><amp-img src="https://drive.google.com/uc?id=1-JgPngIBAIHOwtDXUkNGw-vO7qawTEPD&amp;export=download" alt="uc?id=1-JgPngIBAIHOwtDXUkNGw-vO7qawTEPD&amp;export=download" width="779" height="707" layout="responsive"></amp-img></p>
+<h1 id="tmli">Tóm lại</h1>
+<p>Django là một framework viết bằng python và hầu như để lập trình website. Ngoài các framework thịnh hành trên thị trường hiện nay được viết bằng PHP thì Django cũng là một lựa chọn cho các fan python khi muốn tạo website mà mà không cần phải học thêm ngôn ngữ khác. Về phần template thì các cấu trúc, lệnh, hàm khác giống với các template hiện nay, nên việc tiếp cận cũng không mấy khó khăn.</p>
+<h1 id="thamkho">Tham khảo</h1>
+<p><a href="https://djangobook.com/">https://djangobook.com/</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

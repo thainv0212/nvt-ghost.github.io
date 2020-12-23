@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Lightning network, Plasma and Plasma Cash | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Lightning network, Plasma and Plasma Cash" />
+    <meta property="og:description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-03-21T08:36:25.000Z" />
+    <meta property="article:modified_time" content="2018-03-21T08:36:25.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="Bitcoin" />
+    <meta property="article:tag" content="ethereum" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lightning network, Plasma and Plasma Cash" />
+    <meta name="twitter:description" content="Introduction about Lightning network, Plasma and Plasma Cash technology" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, Bitcoin, ethereum" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="512" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Lightning network, Plasma and Plasma Cash",
+    "url": "https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/",
+    "datePublished": "2018-03-21T08:36:25.000Z",
+    "dateModified": "2018-03-21T08:36:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&export=download",
+        "width": 1024,
+        "height": 512
+    },
+    "keywords": "blockchain, Bitcoin, ethereum",
+    "description": "Nội dung\nMục tiêu:  cung cấp khái niệm về giải pháp giảm tải cho mạng Blockchain\n\n 1. Vấn đề của các mạng Blockchain\n 2. Công nghệ Lightning Network của Bitcoin\n 3. Raiden network, Plasma, Plasma Cash trên Ethereum\n 4. Kết luận\n\nVấn đề của các mạng Blockchain\nNhờ các đặc tính của Blockchain như là phí giao dịch rẻ, tính bảo mật cao, đảm\nbảo tính riêng tư,... mà Blockchain được ứng dụng rộng rãi nhất là những lĩnh\nvực liên quan đến tiền tệ. Tuy nhiên để được sử dụng 1 cách rộng rãi hơn\n(scaling) ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-blockchain tag-bitcoin tag-ethereum nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-blockchain tag-bitcoin tag-ethereum js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Lightning network, Plasma và Plasma Cash</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-03-21">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 21 March 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/blockchain/index.html">blockchain</a>, <a href="../tag/bitcoin/index.html">Bitcoin</a>, <a href="../tag/ethereum/index.html">ethereum</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1bGbG4wWmnwaIvc-K3G3_QEXBad8B5XnY&amp;export&#x3D;download" alt="Lightning network, Plasma và Plasma Cash">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/lightning-network-plasma-va-plasma-cash/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Lightning%20network%2C%20Plasma%20v%C3%A0%20Plasma%20Cash">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h2 id="nidung">Nội dung</h2>
+<p><strong>Mục tiêu:</strong> <em>cung cấp khái niệm về giải pháp giảm tải cho mạng Blockchain</em></p>
+<ol>
+<li>Vấn đề của các mạng Blockchain</li>
+<li>Công nghệ Lightning Network của Bitcoin</li>
+<li>Raiden network, Plasma, Plasma Cash trên Ethereum</li>
+<li>Kết luận</li>
+</ol>
+<h3 id="vncaccmngblockchain">Vấn đề của các mạng Blockchain</h3>
+<p>Nhờ các đặc tính của Blockchain như là phí giao dịch rẻ, tính bảo mật cao, đảm bảo tính riêng tư,... mà Blockchain được ứng dụng rộng rãi nhất là những lĩnh vực liên quan đến tiền tệ. Tuy nhiên để được sử dụng 1 cách rộng rãi hơn (scaling) thì các mạng lưới Blockchain đang gặp phải một số khó khắn như là:</p>
+<ul>
+<li>Đối với các giao dịch nhỏ nhưng tần suất lớn (micropayment) thì phí giao dịch vẫn còn cao và thời gian để hoàn tất giao dịch chậm.</li>
+<li>Để xác thực 1 giao dịch rất tốn tài nguyên, thời gian để xác thực thì tất cả các node đều phải xác thực giao dịch. Lượng giao dịch càng nhiều thì càng khiến cho mạng Blockchain thêm nặng nề hơn.</li>
+<li>Lượng dữ liệu của các Blockchain sẽ tăng lên theo thời gian, đòi hỏi các node trong network phải đủ năng lực để có thể phân tích lại lược sử tất cả các giao dịch trong quá khứ của người dùng cũng như state hiện tại để có thể xác thực các giao dịch mới. Điều này khiến cho theo thời gian sẽ chỉ có các node siêu mạnh mới có thể đảm đương được những công việc như vậy, mạng lưới Blockchain sẽ trở nên quá tải.</li>
+</ul>
+<p>Hiện tại, mạng Bitcoin có khả năng thực hiện được 7 giao dịch/giây, Ethereum thì là 15 giao dịch/giây trong khi Visa có khả năng thực hiện được 65.000 giao dịch/giây =&gt; đây là vấn đề thực sự to lớn khi ta muốn đưa Blockchain vào thay thế cho các nền tảng thanh toán hiện tại.</p>
+<p>Giải pháp đề ra là gì? =&gt; Giảm tải, giảm tải và giảm tải :D</p>
+<p>Có 2 phương pháp được đề cập phổ biến nhất là:</p>
+<ol>
+<li>Sharding: chia dữ liệu Blockchain thành cách khối dữ liệu nhỏ hơn và xử lý phân tán.</li>
+<li>Off-chain transactions: giao dịch ngoại chuỗi để giảm tải cho Blockchain.</li>
+</ol>
+<h4 id="sharding">Sharding</h4>
+<p>Shard là mảnh, Sharding ám chỉ chia 1 khối lượng lúc đầu thành các mảnh nhỏ hơn và áp dụng các phương pháp quản lý, tính toán phân tán để giúp hệ thống có thể đáp ứng được khối lượng xử lý lớn hơn, hiệu quả hơn.<br>
+<img src="https://drive.google.com/uc?id=1lXrB1hSpWnYmf2yMK4D7js8vK99Y3LSi&amp;export=download" alt=""><br>
+Sharding là 1 kỹ thuật được sử dụng trong Database, được ứng dụng vào trong Blockchain để giảm tải cho Blockchain network. Các full-node trong mạng Blockchain phải lưu tất cả dữ liệu lược sử transactions của mọi account trong mạng sẽ chuyển sang lưu từng mảnh một ( các shard) và node nào thì xác thực transaction nào mà nó chứa dữ liệu thôi, khi việc xác thực cần tham chiếu từ transaction ở node khác thì cần connect tới node khác để lấy dữ liệu.</p>
+<p><strong>Chú ý:</strong> Sharding vẫn còn một số khó khăn, tiêu biểu nhất là đảm bảo việc cung cấp thông tin giữa các node sao cho thật bảo mật.</p>
+<h4 id="offchaintransactions">Off-chain transactions:</h4>
+<p>Đây là giải pháp khả thi nhất, hướng đến giải quyết các micropayment diễn ra tần suất lớn. Điển hình là Lightning Network của Bitcoin và Raiden Network của Ethereum.<br>
+Tư tưởng chính của giải pháp này là: <em><strong>Mở các kênh(channel) thanh toán riêng để thực hiện các micropayment ngoài Blockchain Network và chỉ khi kênh thanh toán được đóng lại thì mới lưu lại trong Blockchain dưới dạng chỉ 1 giao dịch thôi.</strong></em> Khi giao dịch micropayment được tách khỏi Blockchain network thì thời gian thực hiện giao dịch trở nên nhanh gọn, cũng như trên kênh thanh toán đó ta có thể mở bao nhiêu giao dịch tùy ý mà lúc lưu lại trên Blockchain cũng chỉ là 1 giao dịch thôi =&gt; nghe thật hấp dẫn đúng ko!</p>
+<p>Bài viết này chủ yếu giới thiệu giải pháp Off-chain nên chi tiết mời các bạn đọc tiếp bên dưới nhé.</p>
+<h3 id="cngnghlightningnetworkcabitcoin">Công nghệ Lightning Network của Bitcoin</h3>
+<p><img src="https://drive.google.com/uc?id=1qh3AT0Ti1Rvj91zc8ElEtiATc-BSdj3p&amp;export=download" alt=""></p>
+<ul>
+<li>
+<p>Lightning network (mạng chớp): ý là giao dịch xử lý nhanh như chớp. Như đã nói ở trên, mạng Lightning network sử dụng giải pháp Off-chain để giải quyết các vấn đề về scaling của Bitcoin. Lightning network hoạt động dựa trên Smart Contract, là 1 tầng phía trên mạng Blockchain của Bitcoin. Hiện tại mới chỉ release bản beta trên mainnet.</p>
+</li>
+<li>
+<p>Nguyên lý hoạt động:</p>
+<ul>
+<li>Một multi-signature wallet (ví đa chữ ký) được tạo ra giữa 2 bên, ví này có chứa 1 lượng tiền được nạp vào từ ít nhất 1 trong số các bên tham gia. =&gt; đây chính là kênh giao dịch riêng của Lightning network</li>
+<li>Địa chỉ ví sẽ được lưu vào trong mạng Bitcoint bao gồm cả balance sheet (Smart Contract) để chứng minh là ví có bao nhiêu Bitcoin + thuộc về ai.</li>
+<li>Khi ví đã được thiết lập -&gt; kênh thanh toán đã sẵn sàng, các bên có thể giao dịch bao nhiêu tùy tích mà không hề động chạm gì tới mạng blockchain của Bitcoin.</li>
+<li>Với mỗi giao dịch, cả 2 bên cùng ký vào những balance sheet cập nhật theo thứ tự -&gt; giúp ta biết được mỗi bên sở hữu bao nhiêu Bitcoin trong ví.</li>
+<li>Balance sheet sau khi được cập nhật sẽ không được lưu vào mạng Blockchain của Bitcoin mà mỗi bên sẽ giữ 1 bản copy.</li>
+<li>Khi xảy ra tranh chấp hoặc kênh thanh toán bị đóng, cả 2 bên đều có thể sử dụng bản balance sheet được cùng ký mới nhất để chốt lại số tiền của mình trong ví đa chữ ký.</li>
+</ul>
+</li>
+</ul>
+<p>(Balance sheet: bản quyết toán, ta hiểu là như một sổ cái riêng cho kênh thanh toán đó)</p>
+<p><img src="https://btcnews.vn/wp-content/uploads/2017/11/lighting-network-4.png" alt=""><br>
+Hình trên mô tả quá trình giao dịch giữa Xan và Yelena thông qua Lightning Network. Bạn có thể đọc thêm tại <a href="https://btcnews.vn/lightning-network-la-gi/">link</a> sau để hiểu rõ hơn.</p>
+<p>Một tính năng rất hay của Lightning network là nằm trong chữ network (mạng) của nó, khi bất kì ai mở 1 kênh thanh toán trên Lightning network thì người đó thành 1 node trong mạng lưới của Lightning network, giúp cho người đó có thể không nhất thiết mở kênh thanh toán riêng đến 1 bên khác nếu bên kia có join vào mạng và 2 bên nhìn thấy nhau được (nhìn thấy nhau được nghĩa là có liên kết giữa 2 bên) thì 2 bên vẫn giao dịch bình thường. Ví dụ: anh A mở kênh vs anh B, anh B mở kênh vs anh C thì anh A có thể giao dịch với anh C thông qua anh B trung gian. Ta sẽ hình dung giao dịch như sau: A chuyển 1 Bitcoin cho C -&gt; thực tế là A chuyển 1 Bitcoint cho B, B chuyển 1 Bitcoint cho C (giao dịch bắc cầu)</p>
+<h4 id="lichcalightningnetworkmangli">Lợi ích của Lightning network mang lại</h4>
+<ul>
+<li>Thanh toán lượng tiền nhỏ là khả thi: phí giao dịch chỉ tính khi chốt lại kênh, không liên quan trên kênh đó đã giao dịch bao nhiêu lần và bao nhiêu tiền nên người dùng thoải mái giao dịch micropayment.</li>
+<li>Giao dịch diễn ra nhanh: gần như ngay lập tức vì quá trình này xảy ra ngoài Blockchain network.</li>
+<li>Tăng tính riêng tư: Các giao dịch trong Lightning network không lưu lại trên Blockchain nên đảm bảo tính riêng tư cho các bên tham gia.</li>
+</ul>
+<h4 id="mtsvncntnti">Một số vấn đề còn tồn tại</h4>
+<ul>
+<li>Không thể thanh toán ngoại tuyến (lúc người kia không online)</li>
+<li>Không thể chốt ví (close a payment channel) khi người kia không phản hồi</li>
+<li>Có thể khó khăn trong các giao dịch số tiền lớn: vì lúc tạo ví đa chữ ký đã không nạp tiền đủ</li>
+<li>Lightning network là có xu hướng xử lý tập trung -&gt; ngược với nguyên tắc phân tán của Blockchain</li>
+</ul>
+<p>Bạn đọc xem thêm video này sẽ hiểu rõ hơn về Lightning network:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/rrr_zPmEiME" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<p>Lightning network đã đc release bản beta trên mainnet, hy vọng sẽ sẵn sàng sử dụng trong 1 ngày không xa</p>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Big day for bitcoin, Lightning goes live on mainnet! ⚡ <br><br>Announcing the first Lightning beta release for the live bitcoin network, lnd 0.4. Read about it here: <a href="https://t.co/aaYec7Orsj">https://t.co/aaYec7Orsj</a> ??‍???‍??</p>&mdash; Lightning⚡️ (@lightning) <a href="https://twitter.com/lightning/status/974299189076148224?ref_src=twsrc%5Etfw">March 15, 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h3 id="raidennetworkplasmaplasmacashtrnethereum">Raiden network, Plasma, Plasma Cash trên Ethereum</h3>
+<p>Phần này ta cùng tìm hiểu xem trên Ethereum sẽ có những giải pháp gì để giảm tải cho Blockchain network nhé.</p>
+<h4 id="raidennetwork">Raiden network</h4>
+<p>Bên Ethereum có giải pháp là Raiden network giống với Lightning network nhưng cao cấp hơn 1 chút. Raiden network về bản chất rất giống với Lightning network nhưng vì phát triển trên nền tảng Ethereum nên nó thừa hưởng được những tính năng về Dapps (decentralized applications : ứng dụng phân tán) và Smart Contract, khiến cho tính ứng dụng thực tế của Raiden network cao hơn Lightning network.</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*8_7HeUPykEavgyQHB2VbUQ.jpeg" alt=""></p>
+<p>Raiden network có thể được ứng dụng trên:</p>
+<ul>
+<li><strong>Daaps</strong>: Ứng dụng micropayment trên các Daaps, ví dụ như đối vơi <a href="https://d.tube/">dTube</a> (một Daaps về chia sẻ video) hiện tại đăng video sẽ nhận được tiền khi người xem vote (upvote hoặc downvote) thì khi ứng dụng công nghệ Raiden network, người đăng video có thể nhận được tiền trên từng giây người xem xem.</li>
+<li><strong>DEXs (decentralized exchanges)</strong>: trên IoT, nơi có hàng tỉ tỉ thiết bị có thể thực hiện các giao dịch một cách nhanh chóng.</li>
+<li><strong>ERC20(Ethereum Request for Comments)</strong>: Trên Raiden network ta có thể thực hiện chuyển đổi các token ERC20 qua lại với nhau.</li>
+</ul>
+<h4 id="plasmaplasmacash">Plasma, Plasma Cash</h4>
+<p><strong>CÁC VẤN ĐỀ CỦA LIGHTNING NETWORK VÀ RAIDEN NETWORK</strong></p>
+<p>Lightning network và Raiden network thực tế vẫn chưa release chính thức, ngoài ra vẫn còn một số vấn đề gây tranh cãi, có thể khiến chúng không thực sự khả thi, bạn có thể tham khảo thêm trong các link sau để hiểu rõ hơn:</p>
+<ul>
+<li><a href="https://medium.com/failsafe/why-lightning-and-raiden-networks-will-not-work-d1880e4bc294">https://medium.com/failsafe/why-lightning-and-raiden-networks-will-not-work-d1880e4bc294</a></li>
+<li><a href="https://medium.com/@jonaldfyookball/continued-discussion-on-why-lightning-network-cannot-scale-883c17b2ef5b">https://medium.com/@jonaldfyookball/continued-discussion-on-why-lightning-network-cannot-scale-883c17b2ef5b</a></li>
+<li><a href="https://medium.com/@jonaldfyookball/mathematical-proof-that-the-lightning-network-cannot-be-a-decentralized-bitcoin-scaling-solution-1b8147650800">https://medium.com/@jonaldfyookball/mathematical-proof-that-the-lightning-network-cannot-be-a-decentralized-bitcoin-scaling-solution-1b8147650800</a></li>
+</ul>
+<p>Các vấn đề lớn là:</p>
+<ul>
+<li>Mục tiêu chính của Blockchain là xây dựng nền tảng phi tập trung, không có ai kiểm soát. Nhưng giải pháp Lightning network và Raiden network lại hướng tới tập trung, phải xây dựng các Hub (các node trung tâm) để giúp các kênh thanh toán có thể liên kết với nhau.</li>
+<li>Khi được ứng dụng rộng rãi, có hàng trăm nghìn người tham gia vào network (kênh thanh toán ngoại chuỗi) thì network lúc đó trở nên rối rắm, quá lớn để tìm một chuỗi kênh thanh toán giữa 2 bên đang giao dịch =&gt; trở ngại về tính toán trên mạng lưới thanh toán ngoại chuỗi.</li>
+<li>Để gửi 1 số tiền lớn từ A -&gt; B qua chuỗi kênh thanh toán thì các node trung gian phải bắt buộc có đủ số tiền lớn đó thì mới giao dịch được =&gt; có thể là bất khả thi khi số tiền quá lớn. Thực tế là Lightning network và Raiden network vẫn chỉ hướng tới giải quyết thanh toán micropayment có xu hướng liên tục (mua coffe, bánh,... hàng ngày)</li>
+</ul>
+<p><strong>PLASMA</strong></p>
+<p>Tháng 8/2017 Vitalik Buterin (người tạo ra Ethereum) và Joseph Poon (đồng sáng lập Lightning network) đã giới thiệu 1 giải pháp mới là Plasma (paper xem tại <a href="http://plasma.io/plasma.pdf">link</a>), mô tả ngắn gọn về Plasma thì nó được gọi là &quot;Blockchains in Blockchains&quot;.</p>
+<ul>
+<li>Plasma là hàng loạt các Smart Contract ở layer trên cùng của root Blockchains. Hợp đồng chính trên root Blockchain chỉ thực hiện 1 số lượng nhỏ cam kết(commitment) từ child Blockchains (Blockchain con), các cam kết này được broadcast định kỳ từ child Blockchain lên root Blockchain.</li>
+<li>Plasma sử dụng &quot;Fraud proofs&quot;(chứng minh gian lận) để đảm bảo các giao dịch chuyển đổi trạng thái đều hợp lệ.</li>
+<li>Plasma là hội tụ của các yếu tố sau:
+<ol>
+<li>Một lớp khuyến khích cho phép việc tính toán hợp đồng hiệu quả hơn.</li>
+<li>Một khuôn khổ cho việc sắp xếp child-chain (chuỗi con) ở dạng cây nhằm tối đa hóa hiệu quả chi phí thấp và giải quyết các giao dịch trên network.</li>
+<li>Tích hợp một khuôn khổ máy tính MapReduce để xây dựng quá trình chuyển đổi proof-of-state trong các chuỗi lồng nhau, nhằm cho phép tương thích với cấu trúc cây, trong khi sắp xếp lại các trạng thái chuyển tiếp cho khả năng mở rộng.</li>
+<li>Một cơ chế đồng thuận, phụ thuộc vào Blockchain gốc, cố gắng tái tạo, khuyến khích đồng thuận Nakamoto (proof-of-work).</li>
+<li>Một cấu trúc cam kết bitmap-UTXO đảm bảo quá trình chuyển đổi trạng thái chính xác khỏi Blockchain gốc, đồng thời giảm thiểu chi phí. Cho phép thu hồi khi không có Block hoặc nếu hành vi Byzantine khác ngăn cản khi ra khỏi chuỗi, là một trong những điểm thiết kế chính trong hoạt động của Plasma.</li>
+</ol>
+</li>
+<li>Plasma có tổ chức phân cấp cây, giống như một hệ thống tư pháp phân cấp, giảm thiểu chi phí với những giao dịch non-Byzantine<br>
+<img src="https://tiendientu.org/wp-content/uploads/2017/08/plaas4-08-10-2017.png" alt=""></li>
+</ul>
+<p><strong>PLASMA CASH</strong></p>
+<p>Mới đây 9/03/2018, tại hội nghị EthCC tổ chức ở Paris, Vitalik Buterin giới thiệu Plasma Cash, 1 phiên bản nâng cấp của Plasma. Trên Plasma người dùng phải download toàn bộ các khối Plasma về để xác thực tất cả các khổi Plasma đó -&gt; tốn công sức của người dùng. Plasma Cash đã đưa ra 1 giải pháp đơn giản là người dùng chỉ phải chú ý tới những khối Plasma chứa đồng tiền mà họ mong muốn. Plasma Cash sẽ có đồng tiền riêng với unique ID và không thể bị chia ra.</p>
+<p>Plasma Cash cũng có cơ chế chống hack, mỗi đồng tiền thuộc về sở hữu của 1 tài khoản và nó không thể bị chuyển sang người khác nếu không có sự đồng ý của chủ sở hữu.</p>
+<p>Những thông tin về Plasma Cash vẫn còn rất mơ hồ, nhưng Buterin tin tưởng nó sẽ thành công và đưa vào sử dụng 1 ngày không xa.</p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Nguyên tắc giảm tải cho Blockchain sẽ bao gồm có 2 phương pháp chính : chia dữ liệu của Blockchain thành các khối nhỏ hơn và lưu tại các server khác nhau (sharding) và chuyển qua thanh toán ngoại chuỗi (off-blockchains) để giảm tải cho chuỗi Blockchains chính.</li>
+<li>Các giải pháp off-blockchains vẫn chưa thực sự sẵn sàng để sử dụng thực tế, nếu thành công thì đã đến lúc công nghệ Blockchain có thể được ứng dụng rộng rãi trong thực tế rồi.</li>
+</ul>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://btcnews.vn/lightning-network-la-gi/">https://btcnews.vn/lightning-network-la-gi/</a></li>
+<li><a href="https://medium.com/@argongroup/bitcoin-lightning-network-7-things-you-should-know-604ef687af5a">https://medium.com/@argongroup/bitcoin-lightning-network-7-things-you-should-know-604ef687af5a</a></li>
+<li><a href="https://lightning.network/">https://lightning.network/</a></li>
+<li><a href="https://steemit.com/bitcoin/@mooncryption/scaling-cryptos-bitcoin-lightning-network-vs-ethereum-raiden-network">https://steemit.com/bitcoin/@mooncryption/scaling-cryptos-bitcoin-lightning-network-vs-ethereum-raiden-network</a></li>
+<li><a href="https://medium.com/chain-cloud-company-blog/plasma-in-10-minutes-c856da94e339">https://medium.com/chain-cloud-company-blog/plasma-in-10-minutes-c856da94e339</a></li>
+<li><a href="https://bitcoinexchangeguide.com/vitalik-buterin-presents-plasma-cash-blockchain-scaling-solution/">https://bitcoinexchangeguide.com/vitalik-buterin-presents-plasma-cash-blockchain-scaling-solution/</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/lightning-network-plasma-va-plasma-cash/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Lightning%20network%2C%20Plasma%20v%C3%A0%20Plasma%20Cash">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/lightning-network-plasma-va-plasma-cash/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/lightning-network-plasma-va-plasma-cash/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

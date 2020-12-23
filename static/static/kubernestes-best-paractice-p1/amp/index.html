@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook" />
+    <meta property="og:description" content="Application lifecycle management là gì? Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:29:19.000Z" />
+    <meta property="article:modified_time" content="2019-11-06T04:38:16.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="pod lifecycle" />
+    <meta property="article:tag" content="postStart" />
+    <meta property="article:tag" content="preStop" />
+    <meta property="article:tag" content="Init Container" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook" />
+    <meta name="twitter:description" content="Application lifecycle management là gì? Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, pod lifecycle, postStart, preStop, Init Container" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="479" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook",
+    "url": "https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/",
+    "datePublished": "2019-10-09T01:29:19.000Z",
+    "dateModified": "2019-11-06T04:38:16.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&export=download",
+        "width": 1024,
+        "height": 479
+    },
+    "keywords": "kubernetes, pod lifecycle, postStart, preStop, Init Container",
+    "description": "Application lifecycle management là gì?\nĐầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật\nngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với\ncác thành phần mà nó tạo ra ngay sau khi nó khởi động hoặc trước khi nó dừng\nlại.\nNhư mọi người đã biết, trong Kubernetes, Pod là một đơn vị cơ bản trong cluster.\nPod có thể chứa một hoặc nhiều container cái mà dùng để chạy chương trình ứng\ndụng của chúng ta. Để hiểu thêm về Pod, các bạn có thể đọc t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-10-09">09 Oct 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="applicationlifecyclemanagementlg">Application lifecycle management là gì?</h3>
+<p>Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra ngay sau khi nó khởi động hoặc trước khi nó dừng lại.<br />
+Như mọi người đã biết, trong Kubernetes, Pod là một đơn vị cơ bản trong cluster. Pod có thể chứa một hoặc nhiều container cái mà dùng để chạy chương trình ứng dụng của chúng ta. Để hiểu thêm về Pod, các bạn có thể đọc thêm <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">tại đây</a><br />
+Nhưng các Pods luôn được trừu tượng hóa (bao bọc) bởi các thành phần cấp cao hơn, hầu hết là Deployments, và chúng ta thường viết cấu hình cho Deployment, Replica Set v.v... Hiểu được thành phần cốt lõi cho phép ta gỡ rối các vấn đề, tận dụng hệ sinh thái k8s tốt hơn và tự tin thay đổi.<br />
+Việc triển khai này rất quan trọng vì đôi khi chúng ta có thể cần thực hiện một số hành động trên Pod, chẳng hạn như kiểm tra khả năng kết nối đến một hoặc nhiều thành phần phụ thuộc của nó. Tương tự, Pod có thể phải trải qua các hoạt động dọn dẹp trước khi Pod bị destroyed.<br />
+Ở đây chúng ta sẽ thấy các giai đoạn khác nhau của pod và làm thế nào chúng ta có thể tận dụng chúng.<br />
+<amp-img src="https://drive.google.com/uc?id=12u_ziVUKPi7XKsdh3IONc-6Oy2fEbMdU&amp;export=download" alt="uc?id=12u_ziVUKPi7XKsdh3IONc-6Oy2fEbMdU&amp;export=download" width="720" height="576" layout="responsive"></amp-img><br />
+<em>Url: <a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h3 id="lmthnokubernetesterminatesccpodcan">Làm thế nào Kubernetes terminates các Pod của nó?</h3>
+<p>Thông qua vòng đời của nó, một container có thể bị terminated (chấm dứt). Có lẽ bởi vì Pod đang bị tắt hoặc thất bại một hoặc cả hai tín hiệu dò liveness hoặc readiness probes (liveness và readiness probes là 2 thông số dùng cho việc health check Pod, mình sẽ nói rõ hơn ở P2). Trong mọi trường hợp, Kubernetes tuân theo một cách tiêu chuẩn để destroy một container running: bằng cách gửi kill signals. Cuối cùng, một container chỉ là một quá trình chạy trên máy.</p>
+<ul>
+<li>
+<p>Đầu tiên, Kubernetes gửi tín hiệu SIGTERM. Tín hiệu SIGTERM được gửi theo mặc định khi bạn cấp lệnh kill đối với một process đang chạy trên hệ thống Linux của bạn.</p>
+</li>
+<li>
+<p>SIGTERM cho phép running process thực hiện bất kỳ hoạt động dọn dẹp cần thiết nào trước khi tắt máy như giải phóng file locks,  closing database và kết nối mạng, v.v...</p>
+</li>
+<li>
+<p>Mặc dù vậy, đôi khi process (trong trường hợp này là container) không đáp ứng với tín hiệu SIGTERM. Hoặc là do lỗi code, vòng lặp vô hạn hoặc vì lý do nào đó. Bởi vì điều này, Kubernetes chờ đợi thời gian gia hạn là ba mươi giây (con số này có thể được overide) trước khi nó gửi tín hiệu tích cực hơn là SIGKILL.</p>
+</li>
+<li>
+<p>SIGKILL là tín hiệu tương tự được gửi đến một running process khi bạn cấp lệnh phổ biến kill -9 và gửi cho nó process id. Không phải process nhận được tín hiệu SIGKILL mà chính là hệ điều hành bên dưới.</p>
+</li>
+<li>
+<p>Khi kernel phát hiện tín hiệu này, nó sẽ ngừng cung cấp bất kỳ tài nguyên nào cho process đang bị kill. Kernel cũng dừng bất kỳ luồng CPU nào đang được sử dụng bởi dangling process. Nói cách khác, nó cắt điện khỏi process, buộc nó phải chết.</p>
+</li>
+</ul>
+<p>Cho đến nay, Kubernetes xử lý các container giống như bất kỳ Linux system administrator xử lý running process: gửi tín hiệu đến process hoặc kernel. Nhưng, bởi vì các container là một phần của các ứng dụng lớn hơn với các chức năng và nhiệm vụ phức tạp, tín hiệu là không đủ. Vì lý do đó, Kubernetes cung cấp các postStart và preStop hooks.</p>
+<h3 id="initcontainer">Init Container</h3>
+<p>Vì sao chúng ta lại đề cập đến Init Container ở đây? Có thể nhiều bạn đã biết đến nó hoặc chưa biết, và để tránh nhầm lẫn hay sử dụng sai mục đích giữa Init Container và postStart hook, mình sẽ nói thêm về Init Container.<br />
+Init Container là một container bên trong Pod dùng cho mục đích khởi chạy một xử lý nào đó cần thiết trước khi 1 container khác được chỉ định khởi chạy.<br />
+Chẳng hạn như mình có Pod A chứa các container như inint container, nginx, frontend, fluentd, v.v.. để chạy 1 web php. Nhưng trước khi nginx khởi động mình muốn có 1 inint container có nhiệm vụ chuẩn bị source code (backup code, switch sang branch cần test, v.v...)<br />
+Init Container có đặc trưng sau:</p>
+<ul>
+<li>Luôn chạy đến khi hoàn thành.</li>
+<li>Chạy trước khi container được chỉ định bắt đầu</li>
+<li>Nếu nhiều Init Container được chỉ định, chúng sẽ được thực hiện theo thứ tự</li>
+<li>Trường hợp thuộc tính restartPolicy trong Pod là Always. OnFailure được sử dụng trong Init Container</li>
+<li>Nếu Init Container không thành công, Kubernetes liên tục khởi động lại Pod cho đến khi Init Container thành công. Tuy nhiên, nếu Pod có restartPolicy là Never, Kubernetes không khởi động lại Pod.</li>
+<li>Ngoài ra, các Init Container không hỗ trợ readiness probes vì chúng phải chạy để hoàn thành trước khi Pod có thể sẵn sàng.</li>
+</ul>
+<p>Ưu điểm của việc tách riêng Init Container với các container ứng dụng như sau:</p>
+<ul>
+<li>Từ lý do mang tính security, phân tách các Container (bao gồm các container tool) với các container của Application</li>
+<li>Trường hợp bạn muốn sử dụng code hay là tool mà nó không được bao gồm trong container của application (chẳng hạn như đoạn xử lý backup source app, switch sang branch cần test) và thực thi một số xử lý đầu tiên (init).</li>
+</ul>
+<p>Lưu ý: Init Container có thể được khởi động lại hoặc chạy lại, vì vậy khi thực hiện các xử lý đầu tiên (init) phải xem xét cẩn thận.<br />
+( Reference : <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a> )</p>
+<h3 id="podlifecycle">Pod Lifecycle</h3>
+<p>Pod có một số phase dưới đây:</p>
+<ul>
+<li>Pending: Approved bởi Kubernetes, nhưng đang ở trạng thái 1 hoặc nhiều container chưa được tạo. Thông thường thì đang ở trạng thái đang pull images hoặc đang xử lý Init Container.</li>
+<li>Running: Pod đã được liên kết với một node và tất cả các Container đã được create. Ít nhất một Container vẫn đang running hoặc đang trong quá trình starting or restarting.</li>
+<li>Success: Tất cả các Container trong Pod đã kết thúc thành công và sẽ không được khởi động lại.</li>
+<li>failed: Tất cả các Container trong Pod đã terminated và ít nhất một Container đã bị terminated in failure. Nghĩa là, Container hoặc exited with non-zero status hoặc bị hệ thống terminated.</li>
+</ul>
+<p>Tham khảo thêm <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/">tại đây</a></p>
+<h3 id="lifecycleevents">Lifecycle Events</h3>
+<p>Như mình đã đề cập phía trên, chúng ta có 2 hook dành cho việc xử lý ở 2 thời điểm: ngay khi container được khởi tạo và trước khi Pod bị stop.</p>
+<ul>
+<li>postStart: Chạy ngay sau khi container được tạo. Chấm dứt nếu Trình xử lý này không thành công và khởi động lại theo restartPolicy</li>
+<li>preStop: được thực hiện trước khi container kết thúc. Trình xử lý này được thực thi trước khi SIGTERM được gửi đến tiến trình root container.</li>
+</ul>
+<p>Mình sẽ có một sơ đồ khái quát thời điểm Lifecycle Event<br />
+<amp-img src="https://drive.google.com/uc?id=1dkuhsdLT2_VaXBXvx8wr4jHJfoipurHS&amp;export=download" alt="uc?id=1dkuhsdLT2_VaXBXvx8wr4jHJfoipurHS&amp;export=download" width="1024" height="479" layout="responsive"></amp-img><br />
+Url: <a href="https://cstoku.dev/posts/2018/k8sdojo-06/">https://cstoku.dev/posts/2018/k8sdojo-06/</a></p>
+<h3 id="poststarthookthchincommandkhicontainerstart">postStart hook (Thực hiện command khi container start)</h3>
+<p>PostStart là một trong 2 Container hooks mà Kubernetes cung cấp. Hook này được thực thi ngay sau khi container được tạo, tuy nhiên không có gì để đảm bảo rằng hook sẽ được thực thi trước ENTRYPOINT của container. Không có tham số được truyền cho xử lý.<br />
+Bạn có thể sử dụng hoặc không sử dụng postStart hook tùy theo nhu cầu của bạn. Mình sẽ đưa ra các trường hợp mà bạn có thể xem xét sử dụng:</p>
+<ul>
+<li>Nếu như container của bạn là một client để thực thi API, bạn phải đảm bảo rằng API đang hoạt động và có khả năng responding to requests trước khi container của bạn đi vào hoặt động.</li>
+<li>Khi container cần thực thi một số hoạt động trước khi process chính khởi chạy, chẳng hạn như đặt lại mật khẩu của người dùng hoặc các sự kiện đăng nhập vào log hoặc database.</li>
+<li>Ví dụ, khi cần phải đáp ứng một điều kiện cụ thể trước khi container đi vào hoạt động, bạn có thể thăm dò API bên ngoài trong vài giây; nếu kiểm tra thất bại sau thời gian nhất định, thăm dò trả về non-zero exit code. Khi non-zero exit code được trả về, Kubernetes sẽ tự động kill main process của container.<br />
+Chúng ta sẽ xem xét ví vụ sau đây, các container cần phải đảm bảo rằng một service phụ thuộc available. Nếu không, toàn bộ container sẽ bị kill:</li>
+</ul>
+<pre><code># poststart.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         exec:
+           command:
+             - sh
+             - -c
+             - sleep 10 &amp;&amp; exit 1
+</code></pre>
+<pre><code>[vagrant@ci postStart-preStop]$ kubectl create namespace kuber-best-practice
+[vagrant@ci postStart-preStop]$ kubectl apply -f poststart.yml -n kuber-best-practice
+pod "client" created
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          10s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          12s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          13s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          15s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          17s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          20s
+</code></pre>
+<p>Đây là những gì đã xảy ra như sau:</p>
+<ul>
+<li>Kubernetes pull image nginx</li>
+<li>Nó tạo ra container và chuẩn bị khởi động nó</li>
+<li>Vì chúng ta có một lifecycle trong định nghĩa, Kubernetes thực hiện postStart hook và scheduled up container lên cho đến khi script hook kết thúc.</li>
+<li>postStart script tạm dừng chuỗi trong mười giây trước khi nó trả về non-zero exit status.</li>
+<li>Khi Kubernetes phát hiện non-zero exit status, nó sẽ giết và khởi động lại container và toàn bộ chu trình lặp lại vô thời hạn.</li>
+</ul>
+<p>Chúng ta có thể làm cho nginx start sau mười giây (mô phỏng mọi hoạt động precheck) bằng cách thay đổi postStart script.</p>
+<pre><code># poststart_fix.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         exec:
+           command:
+             - sh
+             - -c
+             - sleep 10
+</code></pre>
+<pre><code>[vagrant@ci postStart-preStop]$ kubectl apply -f poststart_fix.yml -n kuber-best-practice
+pod "client" created
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          4s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          9s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS    RESTARTS   AGE
+client    1/1       Running   0          18s
+</code></pre>
+<p>Như bạn có thể thấy ở trên, Kubernetes đã thực thi tập lệnh postStart sau đó khởi động ENTRYPOINT chính của container, đó là trình nền nginx.</p>
+<h4 id="poststartscriptmethods">postStart script methods</h4>
+<p>postStart script sử dụng các phương thức sau để running the checks:</p>
+<ul>
+<li>exec: Được sử dụng trong ví dụ trên, phương thức exec thực thi một hoặc nhiều lệnh tùy ý đối với container. Exit status xác định xem việc check đã pass hay chưa.</li>
+<li>httpGet: Mở kết nối HTTP đến một local port trên container. Bạn có thể tùy ý cung cấp một path. Ví dụ: nếu chúng ta có thể sửa đổi ví dụ trước để kiểm tra xem cổng 8080 có mở hay không (giả sử một dịch vụ REST giả định) và path /status endpoint trả về valid success response.</li>
+</ul>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         httpGet:
+         port: 8080
+         path: /status
+</code></pre>
+<p><amp-img src="https://drive.google.com/uc?id=1nGmWPVUOHq-lHmLDAKUP_OiO1b-gTpAv&amp;export=download" alt="uc?id=1nGmWPVUOHq-lHmLDAKUP_OiO1b-gTpAv&amp;export=download" width="720" height="576" layout="responsive"></amp-img><br />
+<em>Url: <a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h4 id="vsaokhngsdnginitcontainerthaychopoststart">Vì sao không sử dụng init container thay cho postStart?</h4>
+<p>Good question! init container là một tính năng Kubernetes cho phép một container bắt đầu và thực hiện một hoặc nhiều nhiệm, sau đó nó bị chấm dứt. Init Container bắt đầu và dừng trước khi các container khác thực hiện, làm cho nó trở thành ứng cử viên phù hợp để thực hiện bất kỳ nhiệm vụ nào trước khi Pod khởi động.<br />
+Tuy nhiên có sự khác nhau trong cách implement giữa postStart hooks và init containers, chúng ta sẽ có một số so sánh dưới đây:</p>
+<ul>
+<li>postStart script được thực thi bằng cách sử dụng cùng một images như là main container. Các init container có thể sử dụng cùng hoặc khác images với images được sử dụng bởi các container tiếp theo. Vì vậy, nếu các tác vụ mà bạn cần thực hiện yêu cầu một base images khác, thì bạn tốt hơn nên sử dụng init container.</li>
+<li>postStart script được thực thi bên trong cùng một container. Vì vậy, nếu tập lệnh bạn cần chạy được kết hợp chặt chẽ với container, ví dụ như bạn cần thực hiện thay đổi cấu hình cho chính container, bạn nên sử dụng postStart script.</li>
+<li>Tất cả các init container phải kết thúc trước khi các main container bắt đầu. Mặt khác, các postStart script dành riêng cho từng container. Vì vậy, container A sử dụng các tập lệnh postStart và khởi chạy, container B thực thi các tập lệnh postStart của nó và start, v.v. Vì vậy, nếu bạn đang lưu trữ nhiều hơn một container trên cùng một Pod và bạn cần chạy một hoặc nhiều tác vụ không dành riếng cho container nào, bạn nên sử dụng các init container. Tuy nhiên, nếu mỗi tập lệnh init dành riêng cho vùng chứa của nó, thì postStart hook là lựa chọn phù hợp.</li>
+<li>Init container bắt đầu và dừng lại trước khi bất kỳ container khác bắt đầu. postStart script được thực thi song song với các container của chúng. Điều này có nghĩa là tập lệnh có thể chạy hoặc không chạy trước khi ENTRYPOINT của container khởi động. Nếu bạn cần chắc rằng logic trước khi khởi chạy luôn được thực thi trước khi main container thực hiện, thì hãy sử dụng init container.</li>
+<li>Do cách chúng được thiết kế, các tập lệnh postStart có thể chạy nhiều lần. Logic ứng dụng sẽ có khả năng xử lý nhiều thực thi kiểu này. Ví dụ: nếu tập lệnh postStart thêm tài mới khoản người dùng tạm thời trước khi container chạy, thì trước tiên, nó sẽ kiểm tra xem người dùng đã được tạo chưa để nó không trả về trạng thái non-zero exit.</li>
+</ul>
+<h4 id="chngtacthlmiutngtnhpoststarthookbntrongcontainer">Chúng ta có thể làm điều tương tự như postStart hook bên trong container</h4>
+<p>Vâng, bất kỳ logic nào được triển khai thông qua postStart script đều có thể được áp dụng bằng cách thêm nó vào như một phần của lệnh ENTRYPOINT (lệnh để start container). Nhưng đây không phải là một quyết định tốt từ quan điểm thiết kế.<br />
+Nó kết hợp chặc chẽ container với pre-launch logic của nó theo cách mà nó yêu cầu mối container phải được sửa đổi riêng. Sử dụng hooks cho phép bạn thay đổi các container trong khi vẫn giữ nguyên pre-launch logic. Nó cũng cho phép bạn làm việc trên pre-launch logic độc lập với các container mà nó sẽ chạy.</p>
+<h3 id="prestophookthchincommandtrckhicontainerterminates">preStop hook (Thực hiện command trước khi container terminates)</h3>
+<p>Chúng ta đã tìm hiểu về các tín hiệu khác nhau mà Kubernetes gửi đến các container đang chạy bên trong Pods khi muốn tắt chúng. Tuy nhiên, mặc dù container nhận SIGTERM và nó cho phép container tắt trong tối đa ba mươi giây - default, điều này có thể không đủ cho các tình huống phức tạp.<br />
+Kubernetes cung cấp preStop hook, được gọi ngay trước khi tín hiệu SIGTERM được gửi đến container. preStop hook cũng cung cấp các phương thức kiểm tra tương tự như postStart hook: httpGet và exec.<br />
+Tuy nhiên, không giống như postStart hook, nếu Kubernetes phát hiện trạng thái non-zero exit hoặc mã HTTP không thành công, nó sẽ tiếp tục quy trình tắt máy và gửi tín hiệu SIGTERM.<br />
+Chúng ta sẽ cùng xem ví vụ bên dưới, thực hiện một GET request đến endpoint là /shutdown đang chạy ở cổng 8080.</p>
+<pre><code># preStop.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       preStop:
+         httpGet:
+         port: 8080
+         path: /shutdown
+</code></pre>
+<p><amp-img src="https://drive.google.com/uc?id=13UMXR_SU-ZsKFFwySrAQGoki0OVj_06A&amp;export=download" alt="uc?id=13UMXR_SU-ZsKFFwySrAQGoki0OVj_06A&amp;export=download" width="986" height="565" layout="responsive"></amp-img><br />
+<em>Url:<a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h3 id="initcontainersvslifecyclehooks">Init Containers vs Lifecycle Hooks</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1qB5Nx_aE1B94W-L0VriZFSaReJO8RboI&amp;export=download" alt="uc?id=1qB5Nx_aE1B94W-L0VriZFSaReJO8RboI&amp;export=download" width="720" height="405" layout="responsive"></amp-img><br />
+<em>Url: <a href="https://www.linkedin.com/pulse/kubernetes-deep-dive-part-1-init-containers-lifecycle-chauthaiwale/">https://www.linkedin.com/pulse/kubernetes-deep-dive-part-1-init-containers-lifecycle-chauthaiwale/</a></em></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Kết thúc bài viết ở đây mình sẽ tóm tắt lại một số nội dung sau:</p>
+<ul>
+<li>Các ứng dụng phải phản hồi chính xác các tín hiệu SIGTERM được gửi đến nó và thực hiện clean shutdown.</li>
+<li>Nếu có một logic startup điển hình cần được áp dụng cho các container trước khi chúng bắt đầu, bạn nên xem xét sử dụng các postStart hook hoặc init container tùy thuộc vào trường hợp sử dụng của bạn (tham khảo so sánh giữa cả hai cách tiếp cận trước đó trong bài viết).</li>
+<li>Nếu ứng dụng quá phức tạp để thực hiện clean shutdown, chỉ cần chặn tín hiệu SIGTERM, cần có một script hoặc endpoint có thể được yêu cầu để bắt đầu quy trình tắt máy.<br />
+Kubernetes là một dự án liên tục phát triển. Có thể có nhiều hooks hơn trong tương lai để liên lạc với container khi nó sắp được scaled up and down hoặc khi container được yêu cầu giải phóng một số tài nguyên đã tiêu thụ của nó để tránh bị giết.<br />
+Một điều lưu ý nữa là chúng ta cần suy nghĩ nhiều hơn khi thiết kế các ứng dụng của mình để tận dụng tốt những lợi ích đó.<br />
+Thanks all!</li>
+</ul>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a></li>
+<li><a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></li>
+<li><a href="https://cstoku.dev/posts/2018/k8sdojo-06/">https://cstoku.dev/posts/2018/k8sdojo-06/</a></li>
+<li><a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1?fbclid=IwAR1OcWEo5o77Lzu4-zw5Jh0V0gedVwvre_IjKI1wuvlCTeJ_oRxWhVJsp6Y">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1?fbclid=IwAR1OcWEo5o77Lzu4-zw5Jh0V0gedVwvre_IjKI1wuvlCTeJ_oRxWhVJsp6Y</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

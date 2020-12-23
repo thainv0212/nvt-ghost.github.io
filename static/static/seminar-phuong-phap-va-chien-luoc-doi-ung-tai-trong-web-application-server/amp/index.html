@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Seminar: phương pháp và chiến lược đối ứng tải trong web application server</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Seminar: phương pháp và chiến lược đối ứng tải trong web application server" />
+    <meta property="og:description" content="Ngày 17/10/2018 tại văn phòng công ty GMO-Z.com VIỆT NAM LAB CENTER, Tầng 1 Tòa nhà Trực thăng miền Trung, đường Nguyễn Văn Linh, Thành phố Đà Nẵng đã tổ chức buổi chia sẻ công nghệ phương pháp và chiến lược đối ứng tải trong web application" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/seminar-phuong-phap-va-chien-luoc-doi-ung-tai-trong-web-application-server/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1b44l22k7bR0xajbeKK94x66oF0EkOsIV&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-10-24T03:03:14.000Z" />
+    <meta property="article:modified_time" content="2018-11-23T03:13:46.000Z" />
+    <meta property="article:tag" content="seminar" />
+    <meta property="article:tag" content="web" />
+    <meta property="article:tag" content="application" />
+    <meta property="article:tag" content="GMO-Z.com" />
+    <meta property="article:tag" content="VIETNAMLAB CENTER" />
+    <meta property="article:tag" content="Tin tức" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Seminar: phương pháp và chiến lược đối ứng tải trong web application server" />
+    <meta name="twitter:description" content="Ngày 17/10/2018 tại văn phòng công ty GMO-Z.com VIỆT NAM LAB CENTER, Tầng 1 Tòa nhà Trực thăng miền Trung, đường Nguyễn Văn Linh, Thành phố Đà Nẵng đã tổ chức buổi chia sẻ công nghệ phương pháp và chiến lược đối ứng tải trong web application" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/seminar-phuong-phap-va-chien-luoc-doi-ung-tai-trong-web-application-server/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1b44l22k7bR0xajbeKK94x66oF0EkOsIV&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.L.N" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="seminar, web, application, GMO-Z.com, VIETNAMLAB CENTER, Tin tức" />
+    <meta property="og:image:width" content="988" />
+    <meta property="og:image:height" content="520" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.L.N",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1tsolu1N02JiUl0TsL59hqHPaf7jdLpi2&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/nattl/",
+        "sameAs": []
+    },
+    "headline": "Seminar: phương pháp và chiến lược đối ứng tải trong web application server",
+    "url": "https://blog.vietnamlab.vn/seminar-phuong-phap-va-chien-luoc-doi-ung-tai-trong-web-application-server/",
+    "datePublished": "2018-10-24T03:03:14.000Z",
+    "dateModified": "2018-11-23T03:13:46.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1b44l22k7bR0xajbeKK94x66oF0EkOsIV&export=download",
+        "width": 988,
+        "height": 520
+    },
+    "keywords": "seminar, web, application, GMO-Z.com, VIETNAMLAB CENTER, Tin tức",
+    "description": "Ngày 17/10/2018 tại văn phòng công ty GMO-Z.com VIỆT NAM LAB CENTER, Tầng 1 Tòa\nnhà Trực thăng miền Trung, đường Nguyễn Văn Linh, Thành phố Đà Nẵng đã tổ chức\nbuổi chia sẻ công nghệ phương pháp và chiến lược đối ứng tải trong web\napplication server.\n\nĐây là sự kiện nằm trong khuôn khổ chuyến công tác hằng quý của các chuyên gia\nNhật Bản làm việc tại phòng nghiên cứu và phát triển công nghệ mới thuộc tập\nđoàn GMO và công ty GMO-Z.com VIỆT NAM LAB CENTER. Thông qua các chuyến viếng\nthăm vào mỗi qu",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Seminar: phương pháp và chiến lược đối ứng tải trong web application server</h1>
+                <section class="post-meta">
+                    T.T.L.N -
+                    <time class="post-date" datetime="2018-10-24">24 Oct 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1b44l22k7bR0xajbeKK94x66oF0EkOsIV&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><strong>Ngày 17/10/2018 tại văn phòng công ty GMO-Z.com VIỆT NAM LAB CENTER, Tầng 1 Tòa nhà Trực thăng miền Trung, đường Nguyễn Văn Linh, Thành phố Đà Nẵng đã tổ chức buổi chia sẻ công nghệ phương pháp và chiến lược đối ứng tải trong web application server.</strong></p>
+<p>Đây là sự kiện nằm trong khuôn khổ chuyến công tác hằng quý của các chuyên gia Nhật Bản làm việc tại phòng nghiên cứu và phát triển công nghệ mới thuộc tập đoàn GMO và công ty GMO-Z.com VIỆT NAM LAB CENTER. Thông qua các chuyến viếng thăm vào mỗi quý, những buổi chia sẻ công nghệ được diễn ra thường xuyên nhằm thắt chặt mối quan hệ và cùng nhau cập nhật liên tục các công nghệ hiện nay.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1KE7qBF93SrPHqekMJ42pJpVGESe0y62H&amp;export=download" alt="uc?id=1KE7qBF93SrPHqekMJ42pJpVGESe0y62H&amp;export=download" width="960" height="614" layout="responsive"></amp-img></p>
+<p>Lần đầu tiên tổ chức sự kiện tại văn phòng công ty GMO-Z.com VIỆT NAM LAB CENTER chi nhánh Đà Nẵng, buổi Seminar phương pháp và chiến lược đối ứng tải trong web application server dưới sự trình bày của diễn giả Ishiyama đã thu hút được sự quan tâm của đông đảo khách mời đến từ các trường đại học, các đơn vị công ty và tổ chức hoạt động trên địa bàn Đà Nẵng.</p>
+<p>Sự kiện lần này không còn bị giới hạn trong phạm vi nội bộ mà đã được mở rộng ra bên ngoài công ty, hy vọng rằng buổi seminar đã hoàn thành được mục tiêu: trở thành nơi kết nối những người đam mê công nghệ với nhau cùng tìm hiểu, trao đổi vấn đề công nghệ đang nhận được nhiều sự quan tâm hiện nay, cung cấp được một lượng kiến thức nhất định đến với khách mời, cũng như đã đưa ra được một số phương pháp nhằm nâng cao hiệu suất đổi ứng tải trong web application server.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1r2xSva8ZeCPX1klhfYUKGdCMFtDEvuQj&amp;export=download" alt="uc?id=1r2xSva8ZeCPX1klhfYUKGdCMFtDEvuQj&amp;export=download" width="960" height="720" layout="responsive"></amp-img></p>
+<p>Hình ảnh trong sự kiện seminar</p>
+<p>Hiện nay, cải thiện hiệu suất web application trở nên quan trọng hơn bao giờ hết. Trong bối cảnh kết nối toàn cầu hóa hiện nay nhu cầu của người dùng cũng cao hơn bao giờ hết. Nếu trang web của bạn không phản hồi ngay lập tức hoặc nếu ứng dụng của bạn hoạt động chậm trễ, người dùng sẽ nhanh chóng chuyển sang các đối thủ cạnh tranh của bạn.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1vU6xyD-520PwlnyAsIJRj2kda6kD0YBZ&amp;export=download" alt="uc?id=1vU6xyD-520PwlnyAsIJRj2kda6kD0YBZ&amp;export=download" width="640" height="346" layout="responsive"></amp-img></p>
+<p>Tốc độ tải web chậm gây ra hậu quả khôn lường với doanh nghiệp</p>
+<p>Một nghiên cứu về mức độ hài lòng của khách hàng với tốc độ tải trang web (theo Akamai và Gomez) cho thấy: 47% khách hàng truy cập mong muốn nội dung website được tải hết trong vòng 2 giây. 40% khách hàng sẽ tạm biệt trang web của bạn nếu tốc độ tải hết của trang từ 3 giây trở lên. Với những website mua sắm, 79% khách hàng cam đoan sẽ không mua sản phẩm từ website đó nữa. Tai hại hơn, 44% khách hàng sẽ chia sẻ trải nghiệm không tốt của họ về website tải chậm với người thân, bạn bè.</p>
+<p>Nếu còn chưa tin về mức độ nghiêm trọng của việc website tải chậm, bạn sẽ phải giật mình khi biết: một trang thương mại điện tử với doanh thu 100.000 USD/ngày sẽ chịu lỗ 2,5 triệu USD/năm nếu website của họ load chậm 1 giây. Thậm chí với ông lớn hàng đầu thế giới về thương mại điện tử Amazon, với mỗi giây trễ mạng, công ty của họ có thể bị thiệt hại doanh số lên tới 1,6 tỷ USD.</p>
+<p>Các trang web thương mại điện tử hàng đầu cung cấp thời gian tương tác đầu tiên từ một đến ba giây, cung cấp tỷ lệ chuyển đổi cao nhất. Rõ ràng là việc đầu tư vào hiệu suất web application có xu hướng tăng cao.</p>
+<p>Việc cải thiện hiệu suất không quá khó nhưng để thấy được kết quả lại không dễ dàng. Trước những cơ hội và thách thức này, buổi seminar Phương pháp và chiến lược đối ứng tải trong web application server dưới sự trình bày của diễn giả Ishiyama đã đưa đến cho người nghe góc nhìn toàn diện về tầm ảnh hưởng của hiệu suất web app, đồng thời cung cấp những định hướng để triển khai phát triển một cách hiệu quả nhất.</p>
+<p>Cụ thể hơn, diễn giả đã sử dụng phương pháp chia sẻ trong buổi seminar để áp dụng vào game: <strong>キャプテン翼ZERO</strong></p>
+<ul>
+<li>WEB Server Scaleout, Chiến lược Caching</li>
+<li>Tách DB (Horizontal Sharding / Vertical Sharding)</li>
+<li>Linux Kernel Parameters</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=1N22M8SYpDJDgiNpsJBzQgNRDXKpezo-q&amp;export=download" alt="uc?id=1N22M8SYpDJDgiNpsJBzQgNRDXKpezo-q&amp;export=download" width="960" height="541" layout="responsive"></amp-img></p>
+<p>Game được release vào ngày 18/10/2018 (sau buổi seminar 1 ngày): Sau release 1 ngày đã nhận được số lượng đăng ký 1.500.000 user.</p>
+<ul>
+<li>Tên game: <strong>キャプテン翼ZERO</strong></li>
+<li>News: <a href="https://bit.ly/2Aht67w">https://bit.ly/2Aht67w</a></li>
+<li>Youtube: <a href="https://www.youtube.com/watch?v=AfwtSXXeC4E">https://www.youtube.com/watch?v=AfwtSXXeC4E</a></li>
+</ul>
+<p>Buổi chia sẻ diễn ra sôi nổi với những câu hỏi trao đổi thảo luận của những khách mời tham gia đối với vấn đề liên quan đến buổi seminar.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1ko5_X8vZVXeZrmO8B41oIQItbQO1aSJN&amp;export=download" alt="uc?id=1ko5_X8vZVXeZrmO8B41oIQItbQO1aSJN&amp;export=download" width="960" height="720" layout="responsive"></amp-img></p>
+<p><amp-img src="https://drive.google.com/uc?id=1B6ognQnlsCCwa111XCYQDnK9OVg9cPCZ&amp;export=download" alt="uc?id=1B6ognQnlsCCwa111XCYQDnK9OVg9cPCZ&amp;export=download" width="960" height="720" layout="responsive"></amp-img></p>
+<p><amp-img src="https://drive.google.com/uc?id=1o1G6Ac3cpazhFafI7OMR6k3HRvWpw2eY&amp;export=download" alt="uc?id=1o1G6Ac3cpazhFafI7OMR6k3HRvWpw2eY&amp;export=download" width="960" height="720" layout="responsive"></amp-img></p>
+<p>Hình ảnh trong sự kiện seminar</p>
+<p>Slide của buổi chia sẻ được thực hiện bằng cả tiếng Nhật và tiếng Việt giúp khách mời có thể hiểu vấn đề rõ ràng nhất.</p>
+<p align="center">
+<amp-iframe src="https://www.slideshare.net/slideshow/embed_code/key/Jm4qJci0A5t1zw" width="595" height="485" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin" layout="responsive"> </amp-iframe> </p><div> <strong> </strong> </div>
+<p></p>
+<div> <strong> <a href="https://www.slideshare.net/gmovnlab/tm-hiu-v-trin-khai-ng-dng-web-vi-kubernetes" title="Tìm hiểu và triển khai ứng dụng Web với Kubernetes" target="_blank">高負荷に耐えうるWebApplication Serverの作り方</a> </strong> <strong><a href="https://www.slideshare.net/gmovnlab" target="_blank"></a></strong> </div>
+<p align="center">
+<amp-iframe src="https://www.slideshare.net/slideshow/embed_code/key/1oZsfYKKTteL4c" width="595" height="485" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin" layout="responsive"> </amp-iframe> </p><div> <strong> </strong> </div>
+<p></p>
+<div> <strong> <a href="https://www.slideshare.net/gmovnlab/tm-hiu-v-trin-khai-ng-dng-web-vi-kubernetes" title="Tìm hiểu và triển khai ứng dụng Web với Kubernetes" target="_blank">Phương pháp và chiến lược đối ứng tải trong Web Application Server</a> </strong> <strong><a href="https://www.slideshare.net/gmovnlab" target="_blank"></a></strong> </div>
+<p>Vì quy mô sự kiện lần này chưa thực sự lớn dẫn đến lượng khách mời bị hạn chế nên đã không thể đáp ứng hết được số lượng đăng kí tham gia đông đảo từ những người quan tâm công nghệ, công ty cảm thấy đây còn là điều đáng tiếc trong sự kiện vừa qua. Vấn đề này công ty sẽ nghiêm túc xem xét và cải thiện trong những sự kiên sắp đến.</p>
+<p>Sau sự kiện, công ty nhận lại được phản hồi rất tích cực từ những khách mời tham gia, những đóng góp ý kiến này sẽ là tiền đề và động lực để có thể tổ chức những sự kiện sau này với quy mô lớn hơn và chuyên nghiệp hơn nữa.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3)" />
+    <meta property="og:description" content="Mở đầu Bài viết này sẽ giải thích về các khái niệm khi tính toản khoảng tin cậy và cách tính khoảng tin cậy (sử dụng python). Các bạn nên đọc trước bài viết về phân phối chuẩn và các tính chất trong phân phối chuẩn  https://blog.vietnamlab.vn/" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/toan-thong-ke-2/" />
+    <meta property="article:published_time" content="2020-06-23T15:06:05.000Z" />
+    <meta property="article:modified_time" content="2020-07-23T01:21:28.000Z" />
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3)" />
+    <meta name="twitter:description" content="Mở đầu Bài viết này sẽ giải thích về các khái niệm khi tính toản khoảng tin cậy và cách tính khoảng tin cậy (sử dụng python). Các bạn nên đọc trước bài viết về phân phối chuẩn và các tính chất trong phân phối chuẩn  https://blog.vietnamlab.vn/" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/toan-thong-ke-2/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.M.L" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.M.L",
+        "url": "https://blog.vietnamlab.vn/author/longlm/",
+        "sameAs": []
+    },
+    "headline": "Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3)",
+    "url": "https://blog.vietnamlab.vn/toan-thong-ke-2/",
+    "datePublished": "2020-06-23T15:06:05.000Z",
+    "dateModified": "2020-07-23T01:21:28.000Z",
+    "description": "\nMở đầu\nBài viết này sẽ giải thích về các khái niệm khi tính toản khoảng tin cậy và cách\ntính khoảng tin cậy (sử dụng python). Các bạn nên đọc trước bài viết về phân\nphối chuẩn và các tính chất trong phân phối chuẩn\nhttps://blog.vietnamlab.vn/2019/12/20/cac-loai-phan-phoi-va-tinh-chat/\n\nBài toán thống kê\n\n\nGiả sử có một máy bán kẹo có kẹo màu xanh lá cây và các màu khác (xanh, đỏ,\nvàng, trắng...). Trong máy bán kẹo có 10,000 viên kẹo. Ta muốn bến phần trăm\nviên kẹo có màu xanh lá cây trong máy b",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post no-image js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-06-23">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 23 June 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> 
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="../assets/img/featured_default.png?v=52156bd6b0" alt="Confidence Interval - Khoảng tin cậy (Toán Thống Kê: Phần 3)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/toan-thong-ke-2/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Confidence%20Interval%20-%20Kho%E1%BA%A3ng%20tin%20c%E1%BA%ADy%20(To%C3%A1n%20Th%E1%BB%91ng%20K%C3%AA%3A%20Ph%E1%BA%A7n%203)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <h3></h3><!--kg-card-begin: markdown--><h3 id="mu">Mở đầu</h3>
+<p>Bài viết này sẽ giải thích về các khái niệm khi tính toản khoảng tin cậy và cách tính khoảng tin cậy (sử dụng python). Các bạn nên đọc trước bài viết về phân phối chuẩn và các tính chất trong phân phối chuẩn<br>
+<a href="https://blog.vietnamlab.vn/2019/12/20/cac-loai-phan-phoi-va-tinh-chat/">https://blog.vietnamlab.vn/2019/12/20/cac-loai-phan-phoi-va-tinh-chat/</a></p>
+<h3 id="bitonthngk">Bài toán thống kê</h3>
+<p><img src="https://drive.google.com/uc?id=1zn6IzmhxKhu3MEJgA-oXkdzLHeIIoeZP&amp;export=download" alt="uc?id=1zn6IzmhxKhu3MEJgA-oXkdzLHeIIoeZP&amp;export=download"></p>
+<p>Giả sử có một máy bán kẹo có kẹo màu xanh lá cây và các màu khác (xanh, đỏ, vàng, trắng...). Trong máy bán kẹo có 10,000 viên kẹo. Ta muốn bến phần trăm viên kẹo có màu xanh lá cây trong máy bán kẹo là bao nhiêu.<br>
+Sẽ mất nhiều tiền để lấy 10,000 viên kẹo trong máy bán để biết số phần trăm viên kẹo có màu xanh lá cay là bao nhiêu. Vì vậy ta lấy mẫu 100 viên kẹo (có thể nhiều lần, không trả lại kẹo vào máy).<br>
+Lần thứ nhất mẫu 100 viên kẹo, phần trăm số viên kẹo màu xanh lá cây là 54%.<br>
+Dù không sử dụng con số nay, ta lấy 100 viên kẹo lần thứ hai. Giả sử lần thứ hai mẫu 100 viên kẹo, 58% viên kẹo trog mẫu là màu xanh. Để ý lần thứ hai lấy mẫu số phần trăm kẹo màu xanh lá cây khác với lần thứ nhất.</p>
+<p>Dựa vào số liệu này, ta có thể tạo ra <em>phân phối mẫu</em> của <em>tỷ lệ của mẫu</em> trông như sau:<br>
+<img src="https://drive.google.com/uc?id=14Kr8nEsjQOLmNMVKxDPld2KwF3RwvqVs&amp;export=download" alt="uc?id=14Kr8nEsjQOLmNMVKxDPld2KwF3RwvqVs&amp;export=download"><br>
+Phân phối mẫu của tỷ lệ mẫu sẽ là một phân phối chuẩn. Trong phân phối mẫu của tỷ lệ mẫu, trung bình sẽ là tỷ lệ tổ hợp (con số ta muốn biết). Lần 1<br>
+\( \hat{p}=0.54 \) và lần 2 \( \hat{p}=0.58 \) lấy mẫu ta sẽ có tỷ lệ mẫu có thể khác với tỷ lệ tổ hợp.</p>
+<p>Câu hỏi của chúng ta là: Xác xuất để tỷ lệ mẫu \( \hat{p}=0.54 \) nằm trong 2 độ lệch chuẩn của phần trăm tổ hợp p là bao nhiêu?</p>
+<p>Dựa vào luật 68, 95 99.7, xác xuất tỷ lệ mẫu nằm trong 2 độ lệch chuẩn (\(\sigma\)) của tỷ lệ tổ hợp là 95%.<br>
+<img src="https://drive.google.com/uc?id=1i3r2_bmHzwTqLxp1Lpx_APL5693yGLGt&amp;export=download" alt="uc?id=1i3r2_bmHzwTqLxp1Lpx_APL5693yGLGt&amp;export=download"></p>
+<p>Vậy 95% tỷ lệ mẫu \hat{p}=0.54 nằm trong 2 độ lệch chuẩn của tỷ lệ tổ hợp p. Ta có thể kết luận ngược lại: Xác xuất 95% tỷ lệ tổ hợp sẽ nằm trong \( 2 * \sigma \) của tỷ lệ mẫu \( \hat{p}=0.54 \).</p>
+<p>Ta phải tính \( \sigma \) là bao nhiêu. Đúng ra, ta phải tính \( \sigma \) với tỷ lệ tổ hợp p. Nhưng ta không biết tỷ lệ tổ hợp p, vì đây là câu hỏi của bài toán. Ta có thể ước lượng độ lệch chuẩn \( \sigma \)  bằng độ sai chuẩn.</p>
+<p><img src="https://drive.google.com/uc?id=1Px4uxFCPx8O88OAiSVfF8PLSKiC-RsKn&amp;export=download" alt="uc?id=1Px4uxFCPx8O88OAiSVfF8PLSKiC-RsKn&amp;export=download"></p>
+<p>Độ sai chuẩn sử dụng tỷ lệ mẫu thay bằng tỷ lệ tổ hợp. Độ sai chuẩn sẽ là:<br>
+<img src="https://drive.google.com/uc?id=129vVxmjkcAMmmaU5R1cPvWNCp6vjKX80&amp;export=download" alt="uc?id=129vVxmjkcAMmmaU5R1cPvWNCp6vjKX80&amp;export=download"></p>
+<p>Như vậy ta sẽ có các khái niệm sử dụng trong khoảng tin cậy như dưới đây các thông tin dưới đây:<br>
+Confidence Level, mức tin cậy: 95%.<br>
+Margin of error, giới hạn lỗi: độ sai chuẩn * 2 = 0.05 * 2 = 0.10<br>
+Confidence interval, khoảng tin cậy (2 số): tỷ lệ mẫu +- giới hạn lỗi =  (0.54 - 0.10, 0.54 + 0.10) = (0.44, 0.64).</p>
+<p>Điều này có nghĩa là có xác xuất 95% (mức tin cậy) tỷ lệ tổ hợp sẽ có giá trị nằm trong khoảng tin cậy là (0.44, 0.64). Hay một cách khác, có xác xuất 95% (mức tin cậy) tỷ lệ tổ hợp sẽ có giá trị nằm trong 0.54 (tỷ lệ mẫu) +- 0.10 (giới hạn lỗi)</p>
+<h3 id="khongtincy">Khoảng tin cậy</h3>
+<p>Ta có thể hình dung bài toán trên như sau.</p>
+<p><img src="https://drive.google.com/uc?id=149aTpUWdpy7xCUeg5Lveic5ZBz8odiej&amp;export=download" alt="uc?id=149aTpUWdpy7xCUeg5Lveic5ZBz8odiej&amp;export=download"><br>
+(Vẽ bằng sử dụng link: <a href="https://www.khanacademy.org/computer-programming/confidence-intervals-about-a-proportion/6167177771548672">https://www.khanacademy.org/computer-programming/confidence-intervals-about-a-proportion/6167177771548672</a>)</p>
+<p>Một đường gạch có chấm ở giữa là một mẫu có 100 viên kẹo. Chấm là tỷ lệ mẫu. Đường gạch thẳng hai bên là giới hạn lỗi. Giá trị ở đầu và cuối hai đường gạch là khoảng tin cậy.</p>
+<p>Thử lấy mẫu 100 viên kẹo 300 lần như trên. Xác xuất khoảng tin cậy của tỷ lệ mẫu bao gồm tỷ lệ tổ hợp sẽ gần bằng 95% (màu đen). 5% khoảng tin cậy sẽ không bao gồm  tỷ lệ tổ hợp  (đường gạch màu đỏ). Lấy mẫu càng nhiều lần (1000 lần thay bằng 300) thì con số này sẽ càng gần với mức tin cậy là 95% hơn</p>
+<h3 id="bitontnhkhongtincy">Bài toán tính khoảng tin cậy</h3>
+<p>Dựa vào bài toán trên, ta có thể viết công thức tính khoảng tin cậy như sau:<br>
+<img src="https://drive.google.com/uc?id=1GynPTN5yYAUrHpSS_FUkUvQijlwxIhBI&amp;export=download" alt="uc?id=1GynPTN5yYAUrHpSS_FUkUvQijlwxIhBI&amp;export=download"></p>
+<p>Dựa vào công thức trên ta làm bài toán khác để tính khoảng tin cậy<br>
+Della có 500 bài hát trong máy điện thoại. Della muốn ước lượng có bao nhiêu bài hát là của nữ ca sĩ. Để làm việc đó, Della lấy một mẫu 50 bài hát bất kỳ. Trong mẫu 50 bài hát, có 20 bài hát của ca sĩ nữ. Hỏi với mức tin cậy là 99%, khoảng tin cậy cho tỷ lệ bài hát của ca sĩ nữ là bao nhiêu?</p>
+<p>Giải toán bằng code</p>
+<ol>
+<li>Tính thông tin đơn giản</li>
+</ol>
+<pre><code class="language-python">from scipy import stats
+from math import sqrt
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Số dữ liệu trong mẫu
+sample_size = 50
+# Tính Tỷ lệ mẫu
+sample_proportion = 20/sample_size
+# Mức tin cậy
+confidence_level = 0.99
+</code></pre>
+<ol start="2">
+<li>Tính độ lêch chuẩn</li>
+</ol>
+<pre><code class="language-python"># Tính độ lệch chuẩn cho tỷ lệ mẫu
+std_dev = sqrt((sample_proportion * (1 - sample_proportion))/50)
+std_dev # 0.06928203230275509
+</code></pre>
+<ol start="3">
+<li>Tính z* (z-score)</li>
+</ol>
+<pre><code class="language-python">upper_probability = (1 - confidence_level)/2
+upper_probability # 0.0050000000000000044
+</code></pre>
+<pre><code class="language-python"># Tính z score bằng diện tích dưới đường cong (xác xuất dữ liệu nằm trong khoảng giá trị trong phân phối chuẩn)
+# ppf là hàm ngược của norm cdf (dùng để tính diện tích dưới đường cong từ z-score). Một cách nữa là sử dụng z-table để lấy z-score từ diện tích dưới đường cong (không đề cập trong bài viết này)
+z_star =  stats.norm.ppf(1 - upper_probability)
+z_star # 2.5758293035489004
+</code></pre>
+<ol start="4">
+<li>Tính giới hạn lỗi</li>
+</ol>
+<pre><code class="language-python"># Tính giới hạn lỗi 
+margin_of_error = z_star * std_dev
+margin_of_error # 0.17845868901485806
+</code></pre>
+<ol start="5">
+<li>Tính khoảng tin cậy</li>
+</ol>
+<pre><code class="language-python"># Tính khoảng cách tin cậy
+confidence_interval = (sample_proportion - margin_of_error, sample_proportion + margin_of_error)
+confidence_interval # (0.22154131098514196, 0.5784586890148581)
+</code></pre>
+<ol start="6">
+<li>Kiểm tra kết quả bằng hàm có sẵn</li>
+</ol>
+<pre><code class="language-python"># Kiểm tra khoảng cách tin cậy bằng code có sẵn. Nên sử dụng luôn hàm này khi lập trình thật.
+confidence_interval_check = stats.norm.interval(confidence_level, loc=sample_proportion, scale=std_dev)
+confidence_interval_check # (0.22154131098514196, 0.5784586890148581)
+</code></pre>
+<p>Kết quả bằng hàm có sẵn giống như ở trên.</p>
+<ol start="6">
+<li>Phân tích kết quả</li>
+</ol>
+<p>Với khoảng tin cậy gần bằng (0.22, 0.58). Ta có thể tự tin 99% là số bài hát được hát bởi ca sĩ nữ trong điện thoại của Della sẽ có tỷ lệ từ 22% đến 58%.</p>
+<h3 id="ktthc">Kết thúc</h3>
+<p>Hi vọng các bạn đã hiểu về một số khái niệm sử dụng trong việc tính khoảng tin cậy và cách tính khoảng tin cậy. Chúc các bạn may mắn trong việc áp dụng vào công việc.</p>
+<h3 id="reference">Reference</h3>
+<p><a href="https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/introduction-to-sampling-distributions?modal=1">https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/introduction-to-sampling-distributions?modal=1</a></p>
+<p><a href="https://www.khanacademy.org/computer-programming/confidence-intervals-about-a-proportion/6167177771548672">https://www.khanacademy.org/computer-programming/confidence-intervals-about-a-proportion/6167177771548672</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/toan-thong-ke-2/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Confidence%20Interval%20-%20Kho%E1%BA%A3ng%20tin%20c%E1%BA%ADy%20(To%C3%A1n%20Th%E1%BB%91ng%20K%C3%AA%3A%20Ph%E1%BA%A7n%203)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/toan-thong-ke-2/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/toan-thong-ke-2/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

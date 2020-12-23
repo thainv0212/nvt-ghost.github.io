@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu Spark MLLib Association Rules</title>
+
+    <meta name="description" content="Association Rules là một phương pháp phát hiện các mối quan hệ giữa các đối tượng trong một khối dữ liệu lớn." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu Spark MLLib Association Rules" />
+    <meta property="og:description" content="Association Rules là một phương pháp phát hiện các mối quan hệ giữa các đối tượng trong một khối dữ liệu lớn." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-spark-mllib-association-rules/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMUFkOUwzejRXVkU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-03-21T15:25:26.000Z" />
+    <meta property="article:modified_time" content="2017-05-19T03:45:34.000Z" />
+    <meta property="article:tag" content="FP-growth" />
+    <meta property="article:tag" content="Frequent Pattern Mining" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="MLLib" />
+    <meta property="article:tag" content="Spark" />
+    <meta property="article:tag" content="Association Rules" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu Spark MLLib Association Rules" />
+    <meta name="twitter:description" content="Association Rules là một phương pháp phát hiện các mối quan hệ giữa các đối tượng trong một khối dữ liệu lớn." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-spark-mllib-association-rules/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMUFkOUwzejRXVkU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="FP-growth, Frequent Pattern Mining, machine learning, MLLib, Spark, Association Rules" />
+    <meta property="og:image:width" content="736" />
+    <meta property="og:image:height" content="544" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Giới thiệu Spark MLLib Association Rules",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-spark-mllib-association-rules/",
+    "datePublished": "2016-03-21T15:25:26.000Z",
+    "dateModified": "2017-05-19T03:45:34.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkMUFkOUwzejRXVkU&export=download",
+        "width": 736,
+        "height": 544
+    },
+    "keywords": "FP-growth, Frequent Pattern Mining, machine learning, MLLib, Spark, Association Rules",
+    "description": "1. MLLib\nLà một thư viện hữu ích của Apache Spark về Machine Learning.\n\nMột số ưu điểm của Spark\n\n * Nhanh hơn Hadoop MapReduce: dùng memory là 100x lần, dùng disk là 10x lần\n * Dễ dàng sử dụng với Java (7+), Scala (Spark 1.6.1 dùng Scala 2.10), Python\n   (2.6+), R (3.1+)\n * Cung cấp nhiều thư viện: Spark SQL, Spark Streaming, MLLib, GraphX\n * Có thể chạy Spark\n * Standalone mode (https://spark.apache.org/docs/latest/spark-standalone.html)\n * Trên EC2 (Amazon Elastic Compute Cloud [https://aws.a",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu Spark MLLib Association Rules</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2016-03-21">21 Mar 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMUFkOUwzejRXVkU&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="1mllib">1. MLLib</h3>
+<p>Là một thư viện hữu ích của Apache Spark về Machine Learning.</p>
+<p>Một số ưu điểm của Spark</p>
+<ul>
+<li>Nhanh hơn Hadoop MapReduce: dùng memory là 100x lần, dùng disk là 10x lần</li>
+<li>Dễ dàng sử dụng với Java (7+), Scala (Spark 1.6.1 dùng Scala 2.10), Python (2.6+), R (3.1+)</li>
+<li>Cung cấp nhiều thư viện: Spark SQL, Spark Streaming, MLLib, GraphX</li>
+<li>Có thể chạy Spark</li>
+<li>Standalone mode (<a href="https://spark.apache.org/docs/latest/spark-standalone.html">https://spark.apache.org/docs/latest/spark-standalone.html</a>)</li>
+<li>Trên EC2 (<a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud</a> – Môi trường điện toán đám mây do Amazon cung cấp)</li>
+<li>Trên <a href="http://hadoop.apache.org/">Hadoop</a> (là một Apache Framework mã nguồn mở cho phép xử lý phân tán các tập dữ liệu lớn trên các cụm máy tính)</li>
+<li>Trên <a href="http://mesos.apache.org/">Mesos</a></li>
+<li>Có thể truy cập dữ liệu trên</li>
+<li>HDFS</li>
+<li>Cassandra</li>
+<li>HBase</li>
+<li>Hive</li>
+<li>S3</li>
+<li>Tachyon</li>
+<li>…</li>
+</ul>
+<h3 id="2associationrulesar">2. Association Rules (AR)</h3>
+<p>Là một phương pháp phát hiện các mối quan hệ giữa các đối tượng trong một khối dữ liệu lớn.</p>
+<p>Ví dụ trên bài toán gợi ý tin tức cho người dùng, ta có tập dữ liệu</p>
+<pre><code>User1 đọc Tin tức 1, Tin tức 2, Tin tức 4 
+User2 đọc Tin tức 1, Tin tức 2 
+User3 đọc Tin tức 2, Tin tức 3, Tin tức 4 
+User4 đọc Tin tức 3, Tin tức 5, Tin tức 1 
+User5 đọc Tin tức 5 ...
+</code></pre>
+<p>Từ tập dữ liệu này AR giúp xác định mối quan hệ giữa các tin tức (đối tượng) và dựa vào đó ta có thể biết nên đưa ra gợi ý nào là hợp lý.</p>
+<pre><code>Với User đọc Tin tức 1 =&gt; có thể gợi ý Tin tức 2 ...
+</code></pre>
+<p>Sau đây là 1 số khái niệm của AR</p>
+<h4 id="21transactiongiaodch">2.1 Transaction (Giao dịch)</h4>
+<p>Là lần thực hiện tương tác với hệ thống.</p>
+<p>Ví dụ</p>
+<pre><code>User3 đọc Tin tức 2, Tin tức 3, Tin tức 4
+</code></pre>
+<p>là một transaction</p>
+<h4 id="22supporthtr">2.2 Support (Độ hỗ trợ)</h4>
+<p>Dùng để đo tần số xuất hiện của các phần tử</p>
+<pre><code># Công thức 
+Supp (X) = n(X) / |T| 
+Với n(X) là số transaction chứa X và T là tập transaction
+ 
+# Tỷ lệ transaction chứa Tin tức 1 
+Supp (Tin tức 1) = Số transaction chứa Tin tức 1 / Tổng số transaction
+                 = 3/5
+</code></pre>
+<p>Ngoài ra còn có</p>
+<ul>
+<li>minSupport là mức hỗ trợ tối thiểu</li>
+<li>Frequent itemset (tập phần tử phổ biến)  là tập phần tử có support thỏa mãn mức hỗ trợ tối thiểu (minSupport)</li>
+</ul>
+<h4 id="23confidencetincy">2.3 Confidence (Độ tin cậy)</h4>
+<p>Dùng để đo tần suất xuất hiện của 1 phần tử trong điều kiện xuất hiện của một phần tử khác</p>
+<pre><code># Công thức 
+Conf (X =&gt; Y) = Supp (X∪Y) / Supp (X) 
+
+# Tỷ lệ transaction chứa Tin tức 1 đồng thời chứa Tin tức 2 
+Conf (Tin tức 1 =&gt; Tin tức 2) = Supp (Tin tức 1 và Tin tức 2) / Supp (Tin tức 2) 
+                              = 2/3
+</code></pre>
+<p>Và minConfidence là mức tin cậy tối thiểu</p>
+<h4 id="24khc">2.4 Khác</h4>
+<p>Ngoài những khái niệm trên, còn có 1 số khái niệm khác như</p>
+<ul>
+<li>Lift(X =&gt; Y): Tỉ lệ dự kiến X và Y là độc lập</li>
+<li>Conviction(X =&gt; Y): Tỉ lệ của tần số mong muốn xảy ra X mà không có Y</li>
+</ul>
+<p>Có thể đọc thêm ở <a href="https://en.wikipedia.org/wiki/Association_rule_learning">Association rule learning</a></p>
+<h3 id="3dngthsparkmllib">3. Dùng thử Spark MLLib</h3>
+<h4 id="31download">3.1 Download</h4>
+<p>Có thể download Spark ở</p>
+<ul>
+<li>Trang chủ của Spark (<a href="https://spark.apache.org/downloads.html">https://spark.apache.org/downloads.html</a>):</li>
+<li>Trang chủ của Apache (<a href="https://www.apache.org/dyn/closer.cgi">https://www.apache.org/dyn/closer.cgi</a>)</li>
+</ul>
+<p>Ngoài source code, Spark còn có sẵn các bản Pre-build cho</p>
+<ul>
+<li>CDH 4</li>
+<li>Hadoop (1.x, 2.3, 2.4, 2.6)</li>
+</ul>
+<p>Để sử dụng Spark trong 1 dự án thực tế thì có thể tham khảo cấu hình phần cứng được gợi ý bởi Spark (Spark hardware provisioning](<a href="https://spark.apache.org/docs/latest/hardware-provisioning.html">https://spark.apache.org/docs/latest/hardware-provisioning.html</a>)). Ngoài ra còn phụ thuộc vào từng dự án để điều chỉnh hợp lý.</p>
+<ul>
+<li><strong>4-8 disks</strong> per node</li>
+<li><strong>8 GB to hundreds of gigabytes</strong> of memory per machine</li>
+<li><strong>10 Gigabit</strong> or higher network</li>
+<li>least <strong>8-16 cores</strong> per machine</li>
+</ul>
+<p>Sau đây mình sẽ cài đặt</p>
+<ul>
+<li>Spark 1.6.1 bản built cho Hadoop 2.6 (một Apache Framework cho phép lưu trữ và xử lý phân tán các tập dữ liệu lớn trên các cụm máy tính)</li>
+<li>Trên Centos 6.5</li>
+</ul>
+<pre><code># Download (có thể vào trang chủ Apache để lựa chọn mirror site thích hợp) 
+wget ftp://ftp.riken.jp/net/apache/spark/spark-1.6.1/spark-1.6.1-bin-hadoop2.6.tgz 
+
+# Giải nén 
+tar xvf spark-1.6.1-bin-hadoop2.6.tgz 
+cd spark-1.6.1-bin-hadoop2.6 
+
+# Chạy spark-shell 
+./bin/spark-shell
+</code></pre>
+<h4 id="32todliutransaction">3.2 Tạo dữ liệu transaction</h4>
+<p>Ta sẽ tạo 1 file text gồm mỗi dòng là 1 transaction</p>
+<pre><code># Raw 
+User1 đọc Tin tức 1, Tin tức 2, Tin tức 4 
+User2 đọc Tin tức 1, Tin tức 2 
+User3 đọc Tin tức 2, Tin tức 3, Tin tức 4 
+User4 đọc Tin tức 3, Tin tức 5, Tin tức 1 
+User5 đọc Tin tức 5 
+
+# File TXT (/tmp/ar_sample.txt) 
+TT1,TT2,TT4 
+TT1,TT2 
+TT2,TT3,TT4 
+TT3,TT5,TT1 
+TT5
+</code></pre>
+<h4 id="33dngth">3.3 Dùng thử</h4>
+<p>Spark cung cấp API cho Java, Scala, Python và R. Sau đây sẽ dùng Scala shell để dùng thử AR:</p>
+<pre><code># Chạy spark shell 
+./bin/spark-shell 
+
+# Import 
+import org.apache.spark.mllib.fpm.FPGrowth 
+import org.apache.spark.rdd.RDD 
+import org.apache.spark.mllib.fpm.AssociationRules 
+import org.apache.spark.mllib.fpm.FPGrowth.FreqItemset 
+
+# Đọc dữ liệu transaction 
+val data = sc.textFile("/tmp/ar_sample.txt") 
+val transactions: RDD[Array[String]] = data.map(s =&gt; s.trim.split(',')) 
+
+# Dùng Spark MLLib FPGrowth để tìm ra tập phần tử phổ biến (Frequent itemset) từ tập transaction dựa vào minSupport được chỉ định 
+val fpg = new FPGrowth().setMinSupport(0.2) 
+val model = fpg.run(transactions) 
+
+# In ra tập phần tử phổ biến và tần số của phần tử đó
+model.freqItemsets.collect().foreach { itemset =&gt;
+  println(itemset.items.mkString("[", ",", "]") + ", " + itemset.freq) 
+} 
+
+# Dùng Spark MLLib Association Rule để đưa ra các rule và độ tin cậy của nó 
+val ar = new AssociationRules().setMinConfidence(0.1) 
+val results = ar.run(model.freqItemsets) 
+
+# In ra kết quả
+results.collect().foreach { rule =&gt; 
+  println("[" + rule.antecedent.mkString(",") + "=&gt;" + rule.consequent.mkString(",") + "]," + rule.confidence) 
+}
+</code></pre>
+<p>Hoặc đơn giản hơn, có thể gọi tạo AR trực tiếp từ kết quả của FP Growth</p>
+<pre><code>val minConfidence = 0.8
+model.generateAssociationRules(minConfidence).collect().foreach { rule =&gt; 
+  println( rule.antecedent.mkString("[", ",", "]") + " =&gt; " + rule.consequent .mkString("[", ",", "]") + ", " + rule.confidence) 
+}
+</code></pre>
+<h4 id="34ktqu">3.4 Kết quả</h4>
+<pre><code># Tập phần tử phổ biến (Frequent itemset) có support &gt;= minSupport (0.2)
+# Phần tử và tần suất của nó 
+[TT3], 2 
+[TT3,TT1], 1 
+[TT3,TT2], 1 
+[TT4], 2 
+[TT4,TT3], 1 
+[TT4,TT3,TT2], 1 
+[TT4,TT1], 1 
+[TT4,TT1,TT2], 1 
+[TT4,TT2], 2 
+[TT1], 3 
+[TT1,TT2], 2 
+[TT5], 2 
+[TT5,TT3], 1 
+[TT5,TT3,TT1], 1 
+[TT5,TT1], 1 
+[TT2], 3
+
+# Tập luật và độ tin cậy của nó (&gt;= minConfidence)
+[TT2=&gt;TT3],0.3333333333333333 
+[TT2=&gt;TT4],0.6666666666666666 
+[TT2=&gt;TT1],0.6666666666666666 
+[TT3,TT2=&gt;TT4],1.0 
+[TT1,TT2=&gt;TT4],0.5 
+[TT3,TT1=&gt;TT5],1.0 
+[TT1=&gt;TT3],0.3333333333333333 
+[TT1=&gt;TT4],0.3333333333333333 
+[TT1=&gt;TT2],0.6666666666666666 
+[TT1=&gt;TT5],0.3333333333333333 
+[TT4=&gt;TT3],0.5 
+[TT4=&gt;TT1],0.5 
+[TT4=&gt;TT2],1.0 
+[TT5=&gt;TT3],0.5 
+[TT5=&gt;TT1],0.5 
+[TT3=&gt;TT1],0.5 
+[TT3=&gt;TT2],0.5 
+[TT3=&gt;TT4],0.5 
+[TT3=&gt;TT5],0.5 
+[TT4,TT2=&gt;TT3],0.5 
+[TT4,TT2=&gt;TT1],0.5 
+[TT4,TT3=&gt;TT2],1.0 
+[TT5,TT3=&gt;TT1],1.0 
+[TT5,TT1=&gt;TT3],1.0 
+[TT4,TT1=&gt;TT2],1.0
+</code></pre>
+<p>Từ các tập luật và độ tin cậy của nó ta có thể đưa ra các gợi ý. Độ tin cậy càng cao thì rule đó càng chính xác.</p>
+<pre><code># Ví dụ 
+Người dùng đọc Tin tức 1 và 4 =&gt; Gợi ý Tin tức 2 (sẽ có độ chính xác cao nhất) 
+Người dùng đọc Tin tức 2 và 4 =&gt; Gợi ý Tin tức 1 
+...
+</code></pre>
+<h3 id="4ktlun">4. Kết luận</h3>
+<ul>
+<li>Spark MLLib giúp cho việc sử dụng các thuật toán Machine Learning dễ dàng hơn, thay vì phải tự cài đặt thuật toán ta có thể dễ dàng gọi và sử dụng nó</li>
+<li>Spark MLLib hỗ trợ <span class="pl-en">Association Rules từ phiên bản 1.5.0 trở đi</span></li>
+<li>Khi áp dụng với dữ liệu lớn, việc dựa trên kích thước dữ liệu của mình để tính toán để có thể thiết lập các giá trị (minSupport, minConfidence) một cách hợp lý là rất quan trọng.</li>
+<li>Nếu bé quá, lượng dữ liệu phải xử lý sẽ rất lớn, có thể dẫn đến OOM (Out Of Memory)</li>
+<li>Nếu quá lớn thì kết quả đưa ra lại ít đi</li>
+</ul>
+<h3 id="5thamkho">5. Tham khảo</h3>
+<p><a href="https://spark.apache.org/docs/latest/index.html">https://spark.apache.org/docs/latest/index.html</a></p>
+<p><a href="https://spark.apache.org/docs/latest/mllib-guide.html">https://spark.apache.org/docs/latest/mllib-guide.html</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

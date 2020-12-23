@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2)" />
+    <meta property="og:description" content="Nội dung Giới thiệu Prometheus Thành phần chính của Prometheus Install Prometheus thông qua Rancher catalog UI Install Prometheus sử dụng Helm Kết luận Tài liệu tham khảo Giới thiệu Ở kỳ 1, mình đã giới thiệu qua về Prometheus, Grafana và có demo cài đặt và tạo biểu đồ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1TTwsne3tsc58D_IZA5dS1WtKBEx4JrEk&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-09-10T00:54:53.000Z" />
+    <meta property="article:modified_time" content="2019-09-10T00:54:53.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="Prometheus" />
+    <meta property="article:tag" content="monitoring" />
+    <meta property="article:tag" content="Grafana" />
+    <meta property="article:tag" content="rancher" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2)" />
+    <meta name="twitter:description" content="Nội dung Giới thiệu Prometheus Thành phần chính của Prometheus Install Prometheus thông qua Rancher catalog UI Install Prometheus sử dụng Helm Kết luận Tài liệu tham khảo Giới thiệu Ở kỳ 1, mình đã giới thiệu qua về Prometheus, Grafana và có demo cài đặt và tạo biểu đồ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1TTwsne3tsc58D_IZA5dS1WtKBEx4JrEk&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, k8s, Prometheus, monitoring, Grafana, rancher" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="340" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2)",
+    "url": "https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/",
+    "datePublished": "2019-09-10T00:54:53.000Z",
+    "dateModified": "2019-09-10T00:54:53.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1TTwsne3tsc58D_IZA5dS1WtKBEx4JrEk&export=download",
+        "width": 1280,
+        "height": 340
+    },
+    "keywords": "kubernetes, k8s, Prometheus, monitoring, Grafana, rancher",
+    "description": "Nội dung\n * Giới thiệu\n * Prometheus\n * Thành phần chính của Prometheus\n * Install Prometheus thông qua Rancher catalog UI\n * Install Prometheus sử dụng Helm\n * Kết luận\n * Tài liệu tham khảo\n\nGiới thiệu\nỞ kỳ 1, mình đã giới thiệu qua về Prometheus, Grafana và có demo cài đặt và tạo\nbiểu đồ monitoring đơn giản. Bài viết này sẽ không nói lại những kiến thức cũ mà\nsẽ nói thêm các kiến thức bổ sung, giới thiệu 2 cách cài đặt Prometheus bằng\nRancher catalog UI và Helm. Khi sử dụng Helm có phát sinh ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-kubernetes tag-k8s tag-prometheus tag-monitoring tag-grafana tag-rancher nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-kubernetes tag-k8s tag-prometheus tag-monitoring tag-grafana tag-rancher js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-09-10">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 10 September 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/k8s/index.html">k8s</a>, <a href="../tag/prometheus/index.html">Prometheus</a>, <a href="../tag/monitoring/index.html">monitoring</a>, <a href="../tag/grafana/index.html">Grafana</a>, <a href="../tag/rancher/index.html">rancher</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1TTwsne3tsc58D_IZA5dS1WtKBEx4JrEk&amp;export&#x3D;download" alt="Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 2)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Monitoring%20Kubernetes%20Cluster%20v%E1%BB%9Bi%20Prometheus-Grafana%20Stack%20(k%E1%BB%B3%202)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>Prometheus</li>
+<li>Thành phần chính của Prometheus</li>
+<li>Install Prometheus thông qua Rancher catalog UI</li>
+<li>Install Prometheus sử dụng Helm</li>
+<li>Kết luận</li>
+<li>Tài liệu tham khảo</li>
+</ul>
+<h3 id="giithiu">Giới thiệu</h3>
+<p>Ở kỳ 1, mình đã giới thiệu qua về Prometheus, Grafana và có demo cài đặt và tạo biểu đồ monitoring đơn giản. Bài viết này sẽ không nói lại những kiến thức cũ mà sẽ nói thêm các kiến thức bổ sung, giới thiệu 2 cách cài đặt Prometheus bằng Rancher catalog UI và Helm. Khi sử dụng Helm có phát sinh vấn đề, mình sẽ chia sẻ vấn đề đó và cách giải quyết nó.<br>
+Các bạn có thể đọc lại<a href="https://blog.vietnamlab.vn/2019/01/31/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack/"> bài viết ở kỳ 1</a> để năm qua các khai niệm, cũng như hình dung cách Prometheus hoặt động (chỉ tham khảo thôi nhé). Kỳ 2 này mình sẽ fix lại một số điểm trong quá trình cài đặt, làm sao cho chuẩn hơn, thuận tiện hơn.</p>
+<h3 id="tvn">Đặt vấn đề</h3>
+<p>Rancher UI là một công cụ khá hữu ích trong việc monitoring cluter để có thể giải quyết các vấn đề phát sinh, tuy nhiên nó chưa phải là công cụ monitoring tuyệt vời nhất. Các đại diện công cụ monitoring cho Kubernetes là <a href="https://www.datadoghq.com/">Datadog</a> và <a href="https://prometheus.io/">Prometheus</a> . Lần này mình sẽ tìm hiểu về Prometheus và tiến hành cài đặt. Đi với Prometheus mình có công cụ Grafana, công cụ này thường được chọn để đi kèm với Prometheus. Sử dụng 2 công cụ trên cho phép ta tạo các biểu đồ cự đẹp và dễ nhìn để monitoring Kubernetes resource.</p>
+<h3 id="prometheus">Prometheus</h3>
+<p>Vốn dĩ Prometheus là project của công ty SoundCloud phát hành, là công cụ dùng để monitoring và Alert. Từ năm 2016, gia nhập vào công ty CNCF, tháng <a href="https://www.cncf.io/announcement/2018/08/09/prometheus-graduates/">8/2018 chính thức release</a>.<br>
+Tổng quan về kiến trúc của Prometheus như hình bên dưới.<img src="https://drive.google.com/uc?id=1OCXHs-p1IjQUsaVqjBWdRb1e2xAjVkgw&amp;export=download" alt="uc?id=1OCXHs-p1IjQUsaVqjBWdRb1e2xAjVkgw&amp;export=download"></p>
+<h4 id="ccthnhphnquantrng">Các thành phần quan trọng</h4>
+<p>Để có thể hiểu được cơ chế monitoring của Prometheus, đầu tiên chúng ta cần biết được 2 thành phần chính sau đây:</p>
+<head>
+<style>
+th {
+    background-color: #5f5f5f;
+    color: white;
+}
+table td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+</style>
+</head>
+<table>
+  <tr>
+    <th>Tên</th>
+    <th>Nội dung </th>
+  </tr>
+  <tr>
+    <td>exporter</td>
+    <td>
+      <li>Chương trình chạy trên các máy đối tượng để monitoring</li>
+      <li>Giống như một Web API để công khai các thông tin resource dưới dạng text</li>
+      <li>Tương ứng với mỗi loại resource khác nhau sẽ có các exporter khác nhau</li>
+    </td>
+  </tr>
+  <tr>
+    <td>prometheus</td>
+    <td>
+      <li>Là một monitoring server program</li>
+      <li>Thăm dò tất cả các exporter và thu thập thông tin resource thời gian định kỳ</li>
+      <li>Dữ liệu monitoring được lưu trữ trong DB của Prometheus</li>
+    </td>
+  </tr>
+</table>
+<p>Mỗi thành phần phía trên hiện tại đã được cung cấp bằng docker images, chỉ bằng cách thiết lập đơn giản như sau, chúng ta đã có thể monitoring (resource) được rồi.</p>
+<ul>
+<li>Tại server muốn monitor, khởi chạy exporter docker container</li>
+<li>Tại server muốn lưu trữ data monitor chạy Prometheus docker conatainer</li>
+</ul>
+<h4 id="ccloiexporter">Các loại Exporter</h4>
+<p>Trên các server đối tượng monitor, Với mỗi loại resource mình muốn monitor, mình sẽ khởi chạy các exporter tương ứng. Mỗi middleware vendor khác nhau sẽ cung cấp các exporter khác nhau. Vì vậy có rất nhiều loại Exporter.<br>
+<a href="https://prometheus.io/docs/instrumenting/exporters/">https://prometheus.io/docs/instrumenting/exporters/</a><br>
+Loại Exporter thông dụng nhất là node_exporter: Thu thập các thông tin như CPU, Memory vv của máy vật lý.<br>
+<a href="https://github.com/prometheus/node_exporter">https://github.com/prometheus/node_exporter</a><br>
+Để thu thập thông tin từ máy GPU thì chúng ta cần thêm nvidia_exporter.<br>
+<a href="https://github.com/Nextremer/nvidia_exporter">https://github.com/Nextremer/nvidia_exporter</a></p>
+<h4 id="datacthutptexporter">Data được thu tập từ Exporter</h4>
+<p>Ví dụ chúng ta truy cập trực tiếp bằng lệnh curl đến data được công khai của node_exporter, kiểu data như dưới đây sẽ được trả về. Nó chỉ trả về giá trị do được của resource tại thời điểm truy cập ở định dạng text.<br>
+Prometheus server sẽ thu thập data và lưu trữ data này theo định kỳ</p>
+<pre><code>$ curl http://hogehoge:9100/metrics
+# HELP go_gc_duration_seconds A summary of the GC invocation durations.
+# TYPE go_gc_duration_seconds summary
+go_gc_duration_seconds{quantile=&quot;0&quot;} 0.000111075
+go_gc_duration_seconds{quantile=&quot;0.25&quot;} 0.000244251
+go_gc_duration_seconds{quantile=&quot;0.5&quot;} 0.000264236
+go_gc_duration_seconds{quantile=&quot;0.75&quot;} 0.000295209
+go_gc_duration_seconds{quantile=&quot;1&quot;} 0.000693045
+go_gc_duration_seconds_sum 187.504344849
+go_gc_duration_seconds_count 237336
+・・・
+</code></pre>
+<h4 id="applicationcngcthtrthnh1exporter">Application cũng có thể trở thành 1 Exporter</h4>
+<p>Nếu chúng ta hiểu được tổng quan về Exporter, có lẽ chúng ta sẽ muốn làm nhưng điều như là: số lương user tại thời điểm đó, hay số lượng đăng ký vv.<br>
+Nếu chúng ta chuẩn bị sẵn API thu thập các thông tin ứng dụng trả về dưới định dạng Json thì dễ dàng tích hợp với exporter.<br>
+Để thu thập log xuất ra từ Application giống như kiểu Kibana, khi xem phần FAQ của Prometheus thì chúng ta sẽ thấy có một công cụ gọi là &quot;mtail&quot;. Công cụ này sẽ thu thập log, sau đo chuyển đổi thành dạng metrics.<br>
+<a href="https://prometheus.io/docs/introduction/faq/#how-to-feed-logs-into-prometheus">https://prometheus.io/docs/introduction/faq/#how-to-feed-logs-into-prometheus</a>?<br>
+<a href="https://github.com/google/mtail">https://github.com/google/mtail</a><br>
+Thật ra nếu nói đến thu thập log thì tốt nhất chúng ta nên dùng ELK stack, hoặc <a href="https://blog.vietnamlab.vn/2018/05/30/quan-ly-log-voi-logstash-elasticsearch-kibana/">EFK stack</a>. log và metrics là khác nhau, sử dụng công cụ phù hợp để đạt hiệu quả tốt nhất.</p>
+<h4 id="biuhadliu">Biểu đồ hóa dữ liệu</h4>
+<p>Data được thu thập từ các server đối tượng sẽ được lưu trữ vào DB của Prometheus dưới dạng time series, sử dụng GUI cung cấp mặc định của Prometheus, chúng ta có Graph như bên dưới:<br>
+<img src="https://drive.google.com/uc?id=1XGw877cYc4RFEhLw4RO5oguvUXEcdLeH&amp;export=download" alt="uc?id=1XGw877cYc4RFEhLw4RO5oguvUXEcdLeH&amp;export=download"><br>
+Để thu thập data ta sử dụng Prometheus query, quả thật cách sử dụng Prometheus query cũng rất khó khăn, tuy nhiên cứ hỏi google thì kiểu gì cũng có ai đó chỉ cho thôi :)<br>
+<a href="https://prometheus.io/docs/querying/examples/">https://prometheus.io/docs/querying/examples/</a></p>
+<h4 id="biuhabngcngcgrafana">Biểu đồ hóa bằng công cụ Grafana</h4>
+<p>GUI cung cấp bởi Prometheus quả thật quá đơn giản, không có nhiều loại biểu đồ, ít tính năng. Cũng không trách được vì bản thân chức năng chính của Prometheus là Monitoring server và cung cấp DB để lưu trữ data.<br>
+Biểu đồ hóa data bằng Grafana quả thật không gì tuyệt vời hơn.<br>
+<img src="https://drive.google.com/uc?id=1p7rmt6kHEaAbZ9sh7foELvDyvDBn76MA&amp;export=download" alt="uc?id=1p7rmt6kHEaAbZ9sh7foELvDyvDBn76MA&amp;export=download"></p>
+<p>Quan hệ giữa Prometheus và Grafana cũng giống như Elasticsearch và <a href="https://www.elastic.co/jp/products/kibana">Kibana</a></p>
+<h3 id="mitrngcit">Môi trường cài đặt</h3>
+<p>Bây giờ chúng ta sẽ đi vào trọng tâm bài viết này là 2 cách cài đặt Prometheus.<br>
+Môi trường mình sử dụng:</p>
+<ul>
+<li>Kubernetes (1 master and 1 node)</li>
+<li>Rancher v2.1.8 (Nếu các bạn không sử dụng Rancher thì cài đặt bằng cách 2 - sử dụng Helm)</li>
+</ul>
+<pre><code>$ kubectl version
+Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;10&quot;, GitVersion:&quot;v1.10.1&quot;, GitCommit:&quot;d4ab47518836c750f9949b9e0d387f20fb92260b&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-04-12T14:26:04Z&quot;, GoVersion:&quot;go1.9.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+Server Version: version.Info{Major:&quot;1&quot;, Minor:&quot;10&quot;, GitVersion:&quot;v1.10.1&quot;, GitCommit:&quot;d4ab47518836c750f9949b9e0d387f20fb92260b&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2018-04-12T14:14:26Z&quot;, GoVersion:&quot;go1.9.3&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+</code></pre>
+<h3 id="installprometheusthngquaranchercatalogui">Install Prometheus thông qua Rancher catalog UI</h3>
+<h4 id="install">Install</h4>
+<p>Tham khảo: Phần Use Prometheus for Monitoring trong link: <a href="https://rancher.com/blog/2018/2018-10-18-monitoring-kubernetes/">https://rancher.com/blog/2018/2018-10-18-monitoring-kubernetes/</a><br>
+Khi Install Prometheus thì mặc định cũng cài luôn Grafana, nhớ setting passwork cho Grafana nhé, Namespace cứ để nguyên như vậy cũng OK, quá trình cài đặt có thể mất vài phút. Sau khi cài đặt xong chúng ta kiểm tra lại, giả sử mình cài đặt với namespace là prometheus-rnztg</p>
+<pre><code>$ kubectl get all -n prometheus-rnztg
+NAME                                                       READY     STATUS    RESTARTS   AGE
+pod/prometheus-rnztg-alertmanager-976b66445-xk6jm          2/2       Running   0          21h
+pod/prometheus-rnztg-grafana-6b456867f9-lktgd              2/2       Running   0          21h
+pod/prometheus-rnztg-kube-state-metrics-6d9954479c-929jx   1/1       Running   0          21h
+pod/prometheus-rnztg-node-exporter-9g7vv                   1/1       Running   0          21h
+pod/prometheus-rnztg-node-exporter-c4kns                   1/1       Running   0          21h
+pod/prometheus-rnztg-server-64474768cb-57xff               2/2       Running   0          21h
+ 
+NAME                                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/prometheus-rnztg-alertmanager         NodePort    10.43.248.98    &lt;none&gt;        80:31537/TCP   21h
+service/prometheus-rnztg-grafana              NodePort    10.43.11.155    &lt;none&gt;        80:31260/TCP   21h
+service/prometheus-rnztg-kube-state-metrics   ClusterIP   10.43.95.203    &lt;none&gt;        80/TCP         21h
+service/prometheus-rnztg-node-exporter        ClusterIP   10.43.222.130   &lt;none&gt;        9100/TCP       21h
+service/prometheus-rnztg-server               NodePort    10.43.32.172    &lt;none&gt;        80:31981/TCP   21h
+ 
+NAME                                            DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/prometheus-rnztg-node-exporter   2         2         2         2            2           &lt;none&gt;          21h
+ 
+NAME                                                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/prometheus-rnztg-alertmanager         1         1         1            1           21h
+deployment.apps/prometheus-rnztg-grafana              1         1         1            1           21h
+deployment.apps/prometheus-rnztg-kube-state-metrics   1         1         1            1           21h
+deployment.apps/prometheus-rnztg-server               1         1         1            1           21h
+ 
+NAME                                                             DESIRED   CURRENT   READY     AGE
+replicaset.apps/prometheus-rnztg-alertmanager-976b66445          1         1         1         21h
+replicaset.apps/prometheus-rnztg-grafana-6b456867f9              1         1         1         21h
+replicaset.apps/prometheus-rnztg-kube-state-metrics-6d9954479c   1         1         1         21h
+replicaset.apps/prometheus-rnztg-server-64474768cb               1         1         1         21h
+</code></pre>
+<p>Quan sát Pod với Service của Grafana và access đến <a href="http://192.168.33.50:31260">http://192.168.33.50:31260</a><br>
+<img src="https://drive.google.com/uc?id=13h-4OdRwHLyc2a6L9A6Fdo0NAWahbjnD&amp;export=download" alt="uc?id=13h-4OdRwHLyc2a6L9A6Fdo0NAWahbjnD&amp;export=download"><br>
+Đến đây có vẻ như quá trình cài đặt ổn rồi.</p>
+<h4 id="updatemanifestfile">Update Manifest file</h4>
+<pre><code>$ kubectl get pods -o wide -n prometheus-rnztg
+NAME                                                   READY     STATUS    RESTARTS   AGE       IP              NODE
+prometheus-rnztg-alertmanager-976b66445-xk6jm          2/2       Running   2          22h       10.42.0.140     192.168.33.50
+prometheus-rnztg-grafana-6b456867f9-lktgd              2/2       Running   2          22h       10.42.0.141     192.168.33.50
+prometheus-rnztg-kube-state-metrics-6d9954479c-929jx   1/1       Running   1          22h       10.42.0.137     192.168.33.50
+prometheus-rnztg-node-exporter-9g7vv                   1/1       Running   1          22h       192.168.33.50   192.168.33.50
+prometheus-rnztg-node-exporter-c4kns                   1/1       Running   0          22h       192.168.33.51   192.168.33.51
+prometheus-rnztg-server-64474768cb-57xff               2/2       Running   2          22h       10.42.0.139     192.168.33.50
+</code></pre>
+<p>Hiện tại đang thấy Prometheus server được schedule đến node 192.168.33.50, mình muốn thay đổi để prometheus server schedule đến server 192.168.33.51. Có 2 cách làm như sau:</p>
+<h5 id="1updatemanifestfilebngrancherui">1. Update manifest file bằng Rancher UI</h5>
+<p><img src="https://drive.google.com/uc?id=1Tk3ZgquxgaC1sUsOQVdVCAfEt2fq6tUr&amp;export=download" alt="uc?id=1Tk3ZgquxgaC1sUsOQVdVCAfEt2fq6tUr&amp;export=download"><br>
+Chúng ta sẽ thêm setting (chọn server để schedule) như bên dưới vào file -&gt; Save</p>
+<pre><code>affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: &quot;app&quot;
+          operator: In
+          values:
+            - &quot;consumer&quot;
+</code></pre>
+<p>&quot;consumer&quot; là label của node có IP 192.168.33.51<br>
+<img src="https://drive.google.com/uc?id=1WhujtpxZDXpdKUd6yqxJB-uqxTz4vRUV&amp;export=download" alt="uc?id=1WhujtpxZDXpdKUd6yqxJB-uqxTz4vRUV&amp;export=download"></p>
+<p>Sau khi save thì kiểm tra lại:</p>
+<pre><code>$ kubectl get pods -o wide -n prometheus-rnztg
+NAME                                                   READY     STATUS    RESTARTS   AGE       IP              NODE
+prometheus-rnztg-alertmanager-976b66445-xk6jm          2/2       Running   2          22h       10.42.0.140     192.168.33.50
+prometheus-rnztg-grafana-6b456867f9-lktgd              2/2       Running   2          22h       10.42.0.141     192.168.33.50
+prometheus-rnztg-kube-state-metrics-6d9954479c-929jx   1/1       Running   1          22h       10.42.0.137     192.168.33.50
+prometheus-rnztg-node-exporter-9g7vv                   1/1       Running   1          22h       192.168.33.50   192.168.33.50
+prometheus-rnztg-node-exporter-c4kns                   1/1       Running   0          22h       192.168.33.51   192.168.33.51
+prometheus-rnztg-server-7d44d88b9c-l9np5               2/2       Running   0          4m        10.42.1.81      192.168.33.51
+</code></pre>
+<p>Ok rồi!</p>
+<h5 id="2copyvlumanifestfile">2. Copy và lưu manifest file</h5>
+<p>Bằng cách trên thì chúng ta có thể thay đổi setting theo ý muốn, nhưng khi gặp lỗi phải cài đặt lại vv thì nhưng setting đó cũng bị reset về default, bằng cách nào đó mình muốn lưu giữ file manifest. Đơn giản thôi, copy từ Rancher về rồi lưu ở đâu đó, nhưng cũng phải xóa đi những phần không cần thiết, thêm nhưng setting mong muốn vào, mình đã làm thử và nó trong như thế này. Ở đây mình chỉ copy mỗi file manifest của prometheus server thôi.</p>
+<pre><code># prometheus_deployment.yml
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  generation: 3
+  labels:
+    app: prometheus
+    chart: prometheus-6.2.1
+    component: server
+    heritage: Tiller
+    io.cattle.field/appId: prometheus-rnztg
+    release: prometheus-rnztg
+  name: prometheus-rnztg-server
+  namespace: prometheus-rnztg
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: prometheus
+      component: server
+      release: prometheus-rnztg
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: prometheus
+        component: server
+        release: prometheus-rnztg
+      annotations:
+        reloaded-at: &quot;{{ ansible_date_time.date }}_{{ ansible_date_time.hour}}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}&quot;
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - consumer
+      containers:
+      - args:
+        - --volume-dir=/etc/config
+        - --webhook-url=http://localhost:9090/-/reload
+        image: jimmidyson/configmap-reload:v0.1
+        imagePullPolicy: IfNotPresent
+        name: prometheus-server-configmap-reload
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config-volume
+          readOnly: true
+      - args:
+        - --config.file=/etc/config/prometheus.yml
+        - --storage.tsdb.path=/data
+        - --web.console.libraries=/etc/prometheus/console_libraries
+        - --web.console.templates=/etc/prometheus/consoles
+        - --web.enable-lifecycle
+        image: prom/prometheus:v2.2.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/healthy
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        name: prometheus-server
+        ports:
+        - containerPort: 9090
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/ready
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 30
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config-volume
+        - mountPath: /data
+          name: storage-volume
+      dnsPolicy: ClusterFirst
+      initContainers:
+      - command:
+        - chown
+        - -R
+        - 65534:65534
+        - /data
+        image: busybox:latest
+        imagePullPolicy: IfNotPresent
+        name: init-chown-data
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: storage-volume
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: prometheus-rnztg-server
+      serviceAccountName: prometheus-rnztg-server
+      terminationGracePeriodSeconds: 300
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: prometheus-rnztg-server
+        name: config-volume
+      - emptyDir: {}
+        name: storage-volume
+</code></pre>
+<p>bây giờ thì chúng ta thử apply xem</p>
+<pre><code>kubectl apply -f prometheus_deployment.yml
+</code></pre>
+<p>Sau vài chục giây thực hiện Rolling update xong, chung ta kiểm tra lại</p>
+<pre><code>$ kubectl get pods -n prometheus-rnztg
+NAME                                                   READY     STATUS    RESTARTS   AGE
+prometheus-rnztg-alertmanager-976b66445-xk6jm          2/2       Running   2          1d
+prometheus-rnztg-grafana-6b456867f9-lktgd              2/2       Running   2          1d
+prometheus-rnztg-kube-state-metrics-6d9954479c-929jx   1/1       Running   1          1d
+prometheus-rnztg-node-exporter-9g7vv                   1/1       Running   1          1d
+prometheus-rnztg-node-exporter-c4kns                   1/1       Running   0          1d
+prometheus-rnztg-server-64dcd6dbb7-8l4q5               2/2       Running   0          1m
+</code></pre>
+<p>Oh! nó đã update được rồi!</p>
+<p>Đến đây cơ bản mình đã giới thiệu cách cài đặt Prometheus-Grafana bằng Rancher UI cùng với cách update cấu hình bằng file manifest. Cách lưu giữ file manifest và dùng kubectl là một cách hay tuy nhiên có quá nhiều pod, service, deployment, deamonset vv, với việc copy như vậy không ổn lắm. Mình sẽ qua cách cài đặt thứ 2.</p>
+<h3 id="installprometheussdnghelm">Install Prometheus sử dụng Helm</h3>
+<p>Helm đóng vai trò là một Package Manager cho Kubernetes, các bạn có thể tham khảo thêm <a href="https://blog.vietnamlab.vn/2019/01/31/helm-package-manager-cho-kuber/">tại đây.</a></p>
+<h4 id="installhelm">Install Helm</h4>
+<p><a href="https://github.com/helm/helm/blob/master/docs/install.md">https://github.com/helm/helm/blob/master/docs/install.md</a> -&gt; From Script</p>
+<pre><code>$ curl -LO https://git.io/get_helm.sh
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+</code></pre>
+<h4 id="initializehelminstalltiller">Initialize Helm (Install Tiller)</h4>
+<p><a href="https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-init/">https://rancher.com/docs/rancher/v2.x/en/installation/ha/helm-init/</a></p>
+<pre><code>kubectl -n kube-system create serviceaccount tiller
+ 
+kubectl create clusterrolebinding tiller \
+  --clusterrole=cluster-admin \
+  --serviceaccount=kube-system:tiller
+ 
+helm init --service-account tiller
+</code></pre>
+<h4 id="installprometheus">Install prometheus</h4>
+<p>Tham khảo: <a href="https://github.com/helm/charts/tree/master/stable/prometheus-operator">https://github.com/helm/charts/tree/master/stable/prometheus-operator</a></p>
+<pre><code>helm install stable/prometheus-operator --name prometheus-operator --namespace prometheus-test
+</code></pre>
+<p>Quá trình cài đặt mất tầm 1 đến vài phút, kiểm tra lại:</p>
+<pre><code>$ kubectl get all -n prometheus-test
+ 
+NAME                                                          READY     STATUS    RESTARTS   AGE
+pod/alertmanager-prometheus-operator-alertmanager-0           2/2       Running   0          1m
+pod/prometheus-operator-grafana-5dd5865bc-7h9p7               2/2       Running   0          1m
+pod/prometheus-operator-kube-state-metrics-6b4b87f6fd-r82jt   1/1       Running   0          1m
+pod/prometheus-operator-operator-5b9f65b595-8tk69             1/1       Running   0          1m
+pod/prometheus-operator-prometheus-node-exporter-drrqt        1/1       Running   0          1m
+pod/prometheus-operator-prometheus-node-exporter-nb85g        1/1       Running   0          1m
+pod/prometheus-prometheus-operator-prometheus-0               3/3       Running   1          1m
+ 
+NAME                                                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+service/alertmanager-operated                          ClusterIP   None            &lt;none&gt;        9093/TCP,6783/TCP   1m
+service/prometheus-operated                            ClusterIP   None            &lt;none&gt;        9090/TCP            1m
+service/prometheus-operator-alertmanager               ClusterIP   10.43.180.29    &lt;none&gt;        9093/TCP            1m
+service/prometheus-operator-grafana                    ClusterIP   10.43.103.82    &lt;none&gt;        80/TCP              1m
+service/prometheus-operator-kube-state-metrics         ClusterIP   10.43.46.65     &lt;none&gt;        8080/TCP            1m
+service/prometheus-operator-operator                   ClusterIP   10.43.51.253    &lt;none&gt;        8080/TCP            1m
+service/prometheus-operator-prometheus                 ClusterIP   10.43.212.205   &lt;none&gt;        9090/TCP            1m
+service/prometheus-operator-prometheus-node-exporter   ClusterIP   10.43.10.41     &lt;none&gt;        9100/TCP            1m
+ 
+NAME                                                          DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/prometheus-operator-prometheus-node-exporter   2         2         2         2            2           &lt;none&gt;          1m
+ 
+NAME                                                     DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/prometheus-operator-grafana              1         1         1            1           1m
+deployment.apps/prometheus-operator-kube-state-metrics   1         1         1            1           1m
+deployment.apps/prometheus-operator-operator             1         1         1            1           1m
+ 
+NAME                                                                DESIRED   CURRENT   READY     AGE
+replicaset.apps/prometheus-operator-grafana-5dd5865bc               1         1         1         1m
+replicaset.apps/prometheus-operator-kube-state-metrics-6b4b87f6fd   1         1         1         1m
+replicaset.apps/prometheus-operator-operator-5b9f65b595             1         1         1         1m
+ 
+NAME                                                             DESIRED   CURRENT   AGE
+statefulset.apps/alertmanager-prometheus-operator-alertmanager   1         1         1m
+statefulset.apps/prometheus-prometheus-operator-prometheus       1         1         1m
+</code></pre>
+<p>Có vẻ như quá trình cài đặt Ok rồi.</p>
+<h4 id="deletechart">Delete chart</h4>
+<blockquote>
+<p>To uninstall/delete the my-release deployment:<br>
+$ helm delete prometheus-operator<br>
+The command removes all the Kubernetes components associated with the chart and &gt; deletes the release.<br>
+CRDs created by this chart are not removed by default and should be manually cleaned up:</p>
+</blockquote>
+<pre><code>kubectl delete crd prometheuses.monitoring.coreos.com
+kubectl delete crd prometheusrules.monitoring.coreos.com
+kubectl delete crd servicemonitors.monitoring.coreos.com
+kubectl delete crd alertmanagers.monitoring.coreos.com
+</code></pre>
+<h4 id="prometheusconfiguration">Prometheus Configuration</h4>
+<p>Tham khảo:<br>
+<a href="https://github.com/helm/charts/tree/master/stable/prometheus-operator#configuration">https://github.com/helm/charts/tree/master/stable/prometheus-operator#configuration</a><br>
+Bây giờ chúng ta thử update config xem như thế nào!<br>
+Như kiểm tra phía trên thì hiện tại Service của Gragana đang làm ClusterIP, vì vậy chúng ta không thể access từ bên ngoài vào được. Mình sẽ thay đổi thành NodePort</p>
+<pre><code>helm upgrade prometheus-operator stable/prometheus-operator --set grafana.service.type=NodePort
+</code></pre>
+<pre><code>$ kubectl get svc -n prometheus-test
+NAME                                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+alertmanager-operated                          ClusterIP   None            &lt;none&gt;        9093/TCP,6783/TCP   1h
+prometheus-operated                            ClusterIP   None            &lt;none&gt;        9090/TCP            1h
+prometheus-operator-alertmanager               ClusterIP   10.43.180.29    &lt;none&gt;        9093/TCP            1h
+prometheus-operator-grafana                    NodePort    10.43.103.82    &lt;none&gt;        80:30414/TCP        1h
+prometheus-operator-kube-state-metrics         ClusterIP   10.43.46.65     &lt;none&gt;        8080/TCP            1h
+prometheus-operator-operator                   ClusterIP   10.43.51.253    &lt;none&gt;        8080/TCP            1h
+prometheus-operator-prometheus                 ClusterIP   10.43.212.205   &lt;none&gt;        9090/TCP            1h
+prometheus-operator-prometheus-node-exporter   ClusterIP   10.43.10.41     &lt;none&gt;        9100/TCP            1h
+</code></pre>
+<p>Login thử xem<br>
+<a href="http://192.168.33.50:30414/login">http://192.168.33.50:30414/login</a> (admin/prom-operator)<br>
+<img src="https://drive.google.com/uc?id=1U3VI-DukPoTTkAtDzl08crXN6HUzkvur&amp;export=download" alt="uc?id=1U3VI-DukPoTTkAtDzl08crXN6HUzkvur&amp;export=download"></p>
+<p>Chúng ta thay đổi để có thể xem được GUI mặc định của Prometheus luôn.</p>
+<pre><code>helm upgrade prometheus-operator prometheus-operator --set prometheus.service.type=NodePort,grafana.service.type=NodePort,grafana.service.type=NodePort,kubelet.serviceMonitor.https=false
+</code></pre>
+<h4 id="likhngthuthpcpoddata">Lỗi không thu thập được Pod data</h4>
+<p><img src="https://drive.google.com/uc?id=18QGg5QP2wc4HalIe3OXdKvloJlZeDVBD&amp;export=download" alt="uc?id=18QGg5QP2wc4HalIe3OXdKvloJlZeDVBD&amp;export=download"><br>
+Như các bạn thấy ở hình trên, Grafana không hiển thị được dữ liệu của K8s Pod, vậy nguyên nhân là do đâu?<br>
+Sau khi điều tra khá lâu thì đây là nguyên nhân<br>
+<a href="https://qiita.com/MahoTakara/items/21090863674368e6aae3#cadvisor%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">https://qiita.com/MahoTakara/items/21090863674368e6aae3#cadvisorについて</a><br>
+Kiểm chứng lại xem đúng vậy không? quả thật là như vậy.<br>
+<img src="https://drive.google.com/uc?id=1tMdIZ3kCnFnccyk-F-Wf9-T3nlGY46ef&amp;export=download" alt="uc?id=1tMdIZ3kCnFnccyk-F-Wf9-T3nlGY46ef&amp;export=download"><br>
+Mình sẽ tạm dịch nội dung liên quan đến cAdvisor từ bài blog trên.</p>
+<h5 id="cadvisor">cAdvisor</h5>
+<p>cAdvisor là một agent mả nguồn mở dùng để phân tích perfomance và trạng thái sử dụng tài nguyên container. Vì nó được thiết lập chuyên dụng cho container, nên thực sự nó suppport cho các Docker container.<br>
+Trong Kubernetes, cAdvisor được tích hợp vào kubelet binary. cAdvisor tự động phát hiện tất cả các container trong máy và thu thập toàn bộ các thông tin thống kê như CPU, Memory, file system cũng như trạng thái sử dụng network. Nói tóm lại cAdvisor là một phần của kubelet.<br>
+Chúng ta không thể thu thập data nếu như không đổi cadvisor-port thành 10255.<br>
+Nếu bạn đang sử dụng Kuberadm  thì sẽ tìm thấy setting như bên dưới.</p>
+<pre><code>vagrant@node-1:~$ cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf |grep cadvisor
+Environment=&quot;KUBELET_CADVISOR_ARGS=--cadvisor-port=0&quot;
+</code></pre>
+<h5 id="giiquytvn">Giải quyết vấn đề</h5>
+<p>Tình hình lỗi như vậy, bây giờ chúng ta đi kiểm tra có đúng cadvisor-port=0 hay không.<br>
+Đầu tiên chúng ta vào máy node, exec đến container kubelet và tìm option cadvisor-port</p>
+<pre><code>$ docker ps -f name=kubelet
+CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS               NAMES
+87426ecd271d        rancher/hyperkube:v1.10.1-rancher2   &quot;/opt/rke/entrypoi...&quot;   11 minutes ago      Up 11 minutes                           kubelet
+[vagrant@consumer ~]$ docker exec -it kubelet bash
+root@consumer:/# ps -ef | grep cadvisor
+root      1229  1217  2 03:52 ?        00:00:20 kubelet --cloud-provider= --tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305 --resolv-conf=/etc/resolv.conf --anonymous-auth=false --feature-gates=MountPropagation=false --read-only-port=0 --network-plugin=cni --cni-bin-dir=/opt/cni/bin --cgroups-per-qos=True --cni-conf-dir=/etc/cni/net.d --allow-privileged=true --volume-plugin-dir=/var/lib/kubelet/volumeplugins --cluster-domain=cluster.local --v=2 --address=0.0.0.0 --cadvisor-port=0 --pod-infra-container-image=rancher/pause-amd64:3.1 --kubeconfig=/etc/kubernetes/ssl/kubecfg-kube-node.yaml --fail-swap-on=false --client-ca-file=/etc/kubernetes/ssl/kube-ca.pem --root-dir=/var/lib/kubelet --enforce-node-allocatable= --hostname-override=192.168.33.51 --cluster-dns=10.43.0.10 --cgroup-driver=cgroupfs
+root      5759  5663  0 04:04 pts/2    00:00:00 grep cadvisor
+root@consumer:/#
+</code></pre>
+<p>Quả nhiên là --cadvisor-port=0, sau khi điều tra cách để thay đổi port này mình thêm setting cho rancher-cluser như bên dưới. (Như đã nói mình đang dùng rancher để create kubernetes cluster, nếu bạn dùng Kuberadm thì có khi dễ dàng hơn).</p>
+<pre><code>kubelet:
+  extra_args:
+    cadvisor-port: 10255
+</code></pre>
+<p>Restart lại rancher cluster.</p>
+<pre><code>./rke up --config rancher-cluster.yml
+</code></pre>
+<p>Kiểm tra lại port như cách làm phía trên, hoặc access vài prometheus GUI, <a href="http://192.168.33.50:30090/targets">http://192.168.33.50:30090/targets</a>.<br>
+<img src="https://drive.google.com/uc?id=1fxxCnjF8UReZj10icTq9NvVkhGhWFhqr&amp;export=download" alt="uc?id=1fxxCnjF8UReZj10icTq9NvVkhGhWFhqr&amp;export=download"><br>
+Trông có vẻ Ok rồi nhỉ, giờ thì kiểm tra Grafana đã nhận data pod được chưa?<br>
+<img src="https://drive.google.com/uc?id=1IOGm7xActH3xkuiaMCjQpT5z8e3UHh5V&amp;export=download" alt="uc?id=1IOGm7xActH3xkuiaMCjQpT5z8e3UHh5V&amp;export=download"><br>
+Tuyệt vời! Dữ liệu của K8s pod bắt đầu được thu thập rồi. Đến đây xem như nội dung cần truyền tải trong bài blog này là hết, tuy nhiên mình sẽ bổ sung thêm một chút - tương đối là có ích.</p>
+<h3 id="helmmoreinstallationmethods">Helm More Installation Methods</h3>
+<p>Tham khảo: <a href="https://helm.sh/docs/using_helm/#more-installation-methods">https://helm.sh/docs/using_helm/#more-installation-methods</a><br>
+Các bạn có để ý command khi mình cài đặt Prometheus.</p>
+<pre><code>helm install stable/prometheus-operator --name prometheus-operator --namespace prometheus-test
+</code></pre>
+<p>Khi install chart, cách đơn giản là dùng chart của official là &quot;stable&quot;. Tuy nhiên, chúng ta có thể tự tạo chart riêng cho riêng mình để có thể dễ dàng modify.<br>
+Tham khảo: <a href="https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/">https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/</a><br>
+Chúng ta cũng thử xem, mình sẽ tải nguyên source prometheus-operator về, và cài đặt chart bằng source đó</p>
+<pre><code>$ helm fetch stable/prometheus-operator
+$ tar -zxvf ~/prometheus-operator-5.10.4.tgz
+$ helm install prometheus-operator --name prometheus-operator --namespace prometheus-test
+</code></pre>
+<p>Chúng ta cũng được kết quả tương tự, bằng cách này mình có thể tùy chỉnh các giá trị trong các chart theo ý mình và upgrade source này. Thật tiện lợi phải không.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Bài viết cũng khá dài rồi, hy vọng mọi người có thể hiểu được cách thức hoặc động cũng như cài đặt được prometheus-grafane để monitoring cho hệ thống của mình. Tương lai mình sẽ viết tiếp phần 3 để hướng dẫn cách tạo các biểu đồ monitoring dữ liệu, tạo các alert cần thiết vv</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://qiita.com/MahoTakara/items/21090863674368e6aae3#cadvisor%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6">https://qiita.com/MahoTakara/items/21090863674368e6aae3#cadvisorについて</a></li>
+<li><a href="https://qiita.com/Chanmoro/items/ac0eb1bf93760566b338">https://qiita.com/Chanmoro/items/ac0eb1bf93760566b338</a></li>
+<li><a href="https://helm.sh/docs/using_helm/">https://helm.sh/docs/using_helm/</a></li>
+<li><a href="https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/">https://docs.bitnami.com/kubernetes/how-to/create-your-first-helm-chart/</a></li>
+<li><a href="https://github.com/helm/charts/tree/master/stable/prometheus-operator">https://github.com/helm/charts/tree/master/stable/prometheus-operator</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Monitoring%20Kubernetes%20Cluster%20v%E1%BB%9Bi%20Prometheus-Grafana%20Stack%20(k%E1%BB%B3%202)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack-ky-2/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

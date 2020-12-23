@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment" />
+    <meta property="og:description" content="Serial blog Nhập môn Kubernetes  Nội dung Workload Resource Pod ReplicaSet Deployment Workload Resource Bài viết phần 5 này mình sẽ trình bày về Workloads resource.  Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:    Pod Trong kubernetes thì" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-04-26T01:45:04.000Z" />
+    <meta property="article:modified_time" content="2019-05-31T07:27:26.000Z" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="kubernetes resource" />
+    <meta property="article:tag" content="pod" />
+    <meta property="article:tag" content="ReplicaSet" />
+    <meta property="article:tag" content="Deployment" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment" />
+    <meta name="twitter:description" content="Serial blog Nhập môn Kubernetes  Nội dung Workload Resource Pod ReplicaSet Deployment Workload Resource Bài viết phần 5 này mình sẽ trình bày về Workloads resource.  Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:    Pod Trong kubernetes thì" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="k8s, kubernetes, kubernetes resource, pod, ReplicaSet, Deployment" />
+    <meta property="og:image:width" content="1077" />
+    <meta property="og:image:height" content="328" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment",
+    "url": "https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/",
+    "datePublished": "2019-04-26T01:45:04.000Z",
+    "dateModified": "2019-05-31T07:27:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&export=download",
+        "width": 1077,
+        "height": 328
+    },
+    "keywords": "k8s, kubernetes, kubernetes resource, pod, ReplicaSet, Deployment",
+    "description": "Serial blog Nhập môn Kubernetes\n[https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/]\n\nNội dung\n * Workload Resource\n * Pod\n * ReplicaSet\n * Deployment\n\nWorkload Resource\nBài viết phần 5 này mình sẽ trình bày về Workloads resource.\n\nWorkload resource là loại resource sử dụng để khởi động container. Như đã nói\nlần trước thì có 8 loại:\n\n\nPod\nTrong kubernetes thì Pod là là đơn vị nhỏ nhất. Pod được cấu thành từ 1\ncontainer hoặc nhiều container, chúng chia sẽ địa ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-04-26">26 Apr 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><a href="https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/">Serial blog Nhập môn Kubernetes</a></p>
+<h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Workload Resource</li>
+<li>Pod</li>
+<li>ReplicaSet</li>
+<li>Deployment</li>
+</ul>
+<h3 id="workloadresource">Workload Resource</h3>
+<p>Bài viết phần 5 này mình sẽ trình bày về Workloads resource.</p>
+<p>Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:<br />
+<amp-img src="https://drive.google.com/uc?id=13zlat-2E6cpIM4GxaHZGmowByB_TPBi0&amp;export=download" alt="uc?id=13zlat-2E6cpIM4GxaHZGmowByB_TPBi0&amp;export=download" width="2880" height="1502" layout="responsive"></amp-img></p>
+<h3 id="pod">Pod</h3>
+<p>Trong kubernetes thì Pod là là đơn vị nhỏ nhất. Pod được cấu thành từ 1 container hoặc nhiều container, chúng chia sẽ địa chỉ IP giữa các container với nhau. Nói cách khác, nếu chúng ta tạo một Pod chứa 2 container trở lên, thì các các container này sẽ đồng nhất với nhau địa chỉ IP. Chính vì vậy các container trong Pod sẽ trao đổi với nhau như trong môi trường local vậy. Ngoài ra các container trong cùng 1 Pod cũng chia sẽ với nhau vùng chứa gọi là Volume.<br />
+<amp-img src="https://drive.google.com/uc?id=1xAVHSa6mviBkrNGpRwhbS4DnxYQgXUwa&amp;export=download" alt="uc?id=1xAVHSa6mviBkrNGpRwhbS4DnxYQgXUwa&amp;export=download" width="668" height="277" layout="responsive"></amp-img><br />
+Link: <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/">https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/</a></p>
+<h4 id="createpod">Create Pod</h4>
+<p>Bây giờ chúng ta sẽ thực hiện create Pod đơn giản, các ví dụ ở phần này mình sử dụng minikube để thực hiện. Cách thiết lập môi trường minikube thì mình đã trình bày ở phần 2.<br />
+Đầu tiên chúng ta chuẩn bị 1 file pod_sample.yml. Pod này đơn giản chứa 1 container là nginx:1.12, mở port 80 cho container này.</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.12
+      ports:
+      - containerPort: 80
+</code></pre>
+<p>Chạy lệnh để create pod</p>
+<pre><code>$ kubectl apply -f pod_sample.yml 
+pod "sample-pod" created
+</code></pre>
+<p>Kiểm tra Pod đã được khởi tạo ok chưa.</p>
+<pre><code>$ kubectl get pods
+NAME         READY     STATUS    RESTARTS   AGE
+sample-pod   1/1       Running   0          1m
+</code></pre>
+<p>Như ở trên thì mình có thể thấy là Pod đã run ok rồi, các bạn muốn lấy thông tin chi tiết hơn chút thì ta dùng lệnh option -o wide</p>
+<pre><code>$ kubectl get pods -o wide
+NAME         READY     STATUS    RESTARTS   AGE       IP           NODE
+sample-pod   1/1       Running   0          3m        172.17.0.4   minikube
+</code></pre>
+<h4 id="createpodcha2container">Create Pod chứa 2 container</h4>
+<p>Chúng ta chuẩn bị file 2pod_sample.yml như bên dưới:</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-2pod
+spec:
+  containers:
+    - name: nginx-container-112
+      image: nginx:1.12
+      ports:
+      - containerPort: 80
+    - name: nginx-container-113
+      image: nginx:1.13
+      ports:
+      - containerPort: 81
+</code></pre>
+<p>Để cho không bị xung đột với pod trước, chúng ta tạm thời xoá pod cũ đi</p>
+<pre><code>kubectl delete -f pod_sample.yml
+</code></pre>
+<p>Bây giờ chúng ta tạo Pod mới chứa 2 container, câu lệnh cũng tương tự.</p>
+<pre><code># Create pod
+$ kubectl apply -f 2pod_sample.yml 
+pod "sample-2pod" created
+
+# Get list pods
+$ kubectl get pods
+NAME          READY     STATUS    RESTARTS   AGE
+sample-2pod   2/2       Running   0          3s
+</code></pre>
+<p>Ở trạng thái Running và READY là 2/2 thì có vẻ là OK rồi. Các bạn để ý một chút ở file 2pod_sample.yml mình đã cố ý gắn port cho conainer thứ 2 là port: 81. Lý do vì sao như vậy, chắc chắn là để tránh xung đột rồi. Vậy thì mình sửa về port 80 xem kết quả như thế nào nhé.</p>
+<pre><code>$ kubectl apply -f 2pod_sample.yml 
+pod "sample-2pod" created
+
+$ kubectl get pods
+NAME          READY     STATUS    RESTARTS   AGE
+sample-2pod   1/2       Error     2          33s
+
+$ kubectl logs sample-2pod nginx-container-113
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: still could not bind()
+nginx: [emerg] still could not bind()
+</code></pre>
+<p>Như mình đã nói các container trong Pod sẽ chia sẽ không gian Network với nhau, ở đây mình dùng 2 container nginx có chung port: 80, hẳn là xảy ra xung đột rồi. :D</p>
+<h4 id="loginncontainer">Login đến container</h4>
+<p>Để truy cập vào container  ta dùng 「kubectl exec」</p>
+<pre><code>$ kubectl exec -it sample-pod /bin/bash
+root@sample-pod:/#
+</code></pre>
+<h3 id="replicaset">ReplicaSet</h3>
+<p>ReplicaSet là loại resource dùng để tạo và duy trì số lượng Pod được chỉ định. Chẳng hạn như mình muốn tạo ra 5 Pod và muốn luôn duy trì số lượng này (nhằm đảm bảo ứng dụng hoặt động ổn định), mình sẽ sử dụng ReplicaSet, trong trường hợp vì lý do gì đó, một hoặc một vào pod bị sự cố. K8s sẽ tự động tái tạo lại đủ 5 Pod cho chúng ta.</p>
+<h4 id="tomtreplicaset">Tạo một ReplicaSet</h4>
+<p>Chúng ta sẽ tạo thử một ReplicaSet đơn giản như file rs_sample.yml bên dưới. replicas: 3 nghĩa là tạo 3 Pod giống nhau, Pod được định nghĩa ở chổ spec.template. Trong ví dụ này thì Pod của chúng ta chỉ chứa 1 container là nginx:1.12</p>
+<pre><code>#rs_sample.yml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sample-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+          ports:
+            - containerPort: 80
+</code></pre>
+<p>Chạy lệnh để đăng ký resource đến Kubernetes Master</p>
+<pre><code>$ kubectl apply -f ./rs_sample.yml
+replicaset.apps/sample-rs created
+</code></pre>
+<p>Bây giờ chúng ta kiểm ra ReplicaSet đã được tạo Ok chưa, có tạo 3 Pod cho chúng ta không.</p>
+<pre><code>$ kubectl get rs -o wide
+NAME        DESIRED   CURRENT   READY     AGE       CONTAINERS        IMAGES       SELECTOR
+sample-rs   3         3         3         14m       nginx-container   nginx:1.12   app=sample-app
+</code></pre>
+<p>Tiếp theo thì kiếm tra số Pod được tạo ra, trạng thái như thế nào.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-pdkcl   1/1       Running   0          16m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          16m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          16m       10.42.2.5   Node1
+</code></pre>
+<p>Như vậy là Ok rồi, các bạn có để ý ở item NODE không, do hiện tại mình đang chạy ở Cluster có 4 server sử dụng Rancher. Các bạn có thể tham khảo lại cách cấu trúc Kubernetes Cluster mình đã trình bày ở phần 3. Ở đây mình sử dụng 2 Nodes nên nó phân bổ Pods về cho 2 Nodes này. Trường hợp bạn đang dùng minikube thì chắc chắn là chỉ có 1 node duy nhất mà thôi.<br />
+<amp-img src="https://drive.google.com/uc?id=1l-G_z8Qu0e6vT3wqi5w-BMq7CxlxBOzf&amp;export=download" alt="uc?id=1l-G_z8Qu0e6vT3wqi5w-BMq7CxlxBOzf&amp;export=download" width="710" height="359" layout="responsive"></amp-img></p>
+<h4 id="autohealing">Auto Healing</h4>
+<p>Ở ReplicaSet, trường hợp Node hay Pod gặp sự cố, ReplicaSet có cơ chế tự động khởi động lại Pod trên một Node khác, vì vậy làm giảm sự ảnh hưởng đến hệ thống. Một trong số những khái niệm cự kỳ quan trọng trong Kubernetes đó là "Auto Healing - tự động chữa bệnh".</p>
+<p>Để kiểm chứng cơ chế auto healing thì ta thử xoá 1 Pod đi xem sao. Hiện tại chúng ta có 3 Pod như dưới đây, mọi người để ý NAME của nó nhé.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-pdkcl   1/1       Running   0          47m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          47m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          47m       10.42.2.5   Node1
+</code></pre>
+<p>Xoá Pod</p>
+<pre><code>$ kubectl delete pods sample-rs-pdkcl
+pod "sample-rs-pdkcl" deleted
+</code></pre>
+<p>Đã xoá xong rồi, nhưng bây giờ kiểm tra lại số lượng Pod chúng ta đang có là bao nhiêu.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-4bwhw   1/1       Running   0          47m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          47m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          47m       10.42.2.5   Node1
+</code></pre>
+<p>Vẫn duy trì 3 Pod đúng chưa, để ý NAME thì thấy có 1 Pod đã khác tên. Vì cơ chế auto healing đã tự động tạo ra Pod mới khi một Pod bị xoá.<br />
+Sự tăng giảm Pod của ReplicaSet chúng ta cũng có thể confirm bằng lệnh "kubectl describe rs"</p>
+<pre><code>$ kubectl describe rs sample-rs
+Name:         sample-rs
+Namespace:    default
+Selector:     app=sample-app
+Labels:       app=sample-app
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"apps/v1","kind":"ReplicaSet","metadata":{"annotations":{},"name":"sample-rs","namespace":"default"},"spec":{"replicas":3,"selector":{"ma...
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=sample-app
+  Containers:
+   nginx-container:
+    Image:        nginx:1.12
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-znzkg
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-pdkcl
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-vwz57
+  Normal  SuccessfulCreate  9m    replicaset-controller  Created pod: sample-rs-4bwhw
+</code></pre>
+<p><amp-img src="https://drive.google.com/uc?id=1Jy6LxzTfaQok0_FdO__jdLxcZ92xdiXY&amp;export=download" alt="uc?id=1Jy6LxzTfaQok0_FdO__jdLxcZ92xdiXY&amp;export=download" width="591" height="311" layout="responsive"></amp-img><br />
+Link:<a href="https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c">https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c</a></p>
+<h4 id="label">Label</h4>
+<p>RepicaSet quản lý các Pod được tạo ra bằng cơ chế gắn nhãn cho từng Pod. Vì vậy chúng ta dễ dàng tìm kiếm những Pod có label giống nhau, dễ dàng cho việc điều chỉnh tăng giảm số lượng Pod.<br />
+Labe của Pod được chỉ định ở phần spec.selector</p>
+<pre><code>spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+</code></pre>
+<p>Chúng ta cũng để ý ở file rs_sample.yml phía trên. tại thiết lập spec.template.metadata.labels cũng được setting là "app:sample-app". Vì các Pod được tạo ra ở trạng thái được gắn label là "app:sample-app" nên replicas: 3 sẽ tạo ra 3 Pod giống nhau.<br />
+Chúng ta cần lưu ý spec.selector và spec.template.metadata.labels bắt buộc phải giống nhau, nếu không sẽ xảy ra lỗi.</p>
+<p>Có nhiều bạn cũng sẽ đặt câu hỏi, bây giờ mình tạo 1 Pod riêng (không phải tạo trong RepicaSet Manifest) nhưng được gắn label cũng là "app:sample-app" thì điều gì xãy ra. Trong trường hợp lable bị duplicate, tức là chúng ta đang chỉ định tạo 3 Pod có label là "app:sample-app"  nhưng tự nhiên ở đâu xuất hiện 1 Pod nữa cũng có nhãn như vậy. Lúc này ReplicaSet hiểu lầm là số lượng Pod đã tăng quá mức quy định, nó sẽ stop đi một Pod.<br />
+Test thử thôi!</p>
+<pre><code>#pod_sample.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+  labels:
+    app: sample-app
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.13
+      ports:
+      - containerPort: 80
+</code></pre>
+<pre><code># create Pod
+$ kubectl apply -f pod_sample.yml
+pod/sample-pod created
+</code></pre>
+<p>Kiểm tra tình trạng các Pod như thế nào</p>
+<pre><code>$ kubectl get pods -L app
+NAME              READY     STATUS        RESTARTS   AGE       APP
+sample-pod        0/1       Terminating   0          3s        sample-app
+sample-rs-4bwhw   1/1       Running       0          2h        sample-app
+sample-rs-vwz57   1/1       Running       0          3h        sample-app
+sample-rs-znzkg   1/1       Running       0          3h        sample-app
+</code></pre>
+<p>Vài giây sau chúng ta kiểm tra lại lần nữa.</p>
+<pre><code>$ kubectl get pods -L app
+NAME              READY     STATUS    RESTARTS   AGE       APP
+sample-rs-4bwhw   1/1       Running   0          2h        sample-app
+sample-rs-vwz57   1/1       Running   0          3h        sample-app
+sample-rs-znzkg   1/1       Running   0          3h        sample-app
+</code></pre>
+<p>Pod chúng ta vừa tạo đã biến mất. Vậy thì cơ chế luôn giữ số lượng Pod được chỉ định đã xoá đi 1 Pod thừa. Trong trường hợp lần này là xoá đi Pod chúng ta vừa thêm vào, nhưng cũng có trường hợp nó xoá đi Pod đã tồn tại trước đó. Vì vậy chúng ta cần lưu ý việc đánh nhãn cho Pod.<br />
+Khi chúng ta quen với cách làm việc của Kubernetes thì Lable nên là duy nhất. Vì chúng ta có thể gắn nhiều lable cho cùng 1 container nên hãy quyết định quy tắc đặt lên lable như gợi ý sau:</p>
+<pre><code>labels:
+  env: dev
+  codename: system_a
+  role: web-front
+</code></pre>
+<h4 id="scalingpod">Scaling Pod</h4>
+<p>Bây giờ chúng ta sẽ thực hiện thay đổi số lượng Pod bằng cách thay đổi setting của ReplicaSet.<br />
+Có 2 phương pháp:</p>
+<ul>
+<li>Edit file yaml config, chạy command "kubectl apply -f [FILENAME]"</li>
+<li>Thực hiện scale bằng cách chạy command kubectl scale</li>
+</ul>
+<p>Cách thứ nhất thì như mình cũng đã nói ở phần trước rồi, thay đổi file YAML config, chạy command kubectl apply ... là sẽ update được resource. Lần này mình sẽ demo bằng kubectl scale. Nhưng Workload resource có thể thực hiện scale bằng kubectl scale chỉ có 4 loại Deployment, Job, ReplicaSet, ReplicationController.</p>
+<pre><code>$ kubectl get rs
+NAME        DESIRED   CURRENT   READY     AGE
+sample-rs   3         3         3         3h
+$ kubectl scale rs sample-rs --replicas 5
+replicaset.extensions/sample-rs scaled
+$ kubectl get rs
+NAME        DESIRED   CURRENT   READY     AGE
+sample-rs   5         5         5         3h
+$ kubectl get pods -l app=sample-app
+NAME              READY     STATUS    RESTARTS   AGE
+sample-rs-4bwhw   1/1       Running   0          3h
+sample-rs-lz6x7   1/1       Running   0          44s
+sample-rs-vwz57   1/1       Running   0          3h
+sample-rs-z5l8b   1/1       Running   0          44s
+sample-rs-znzkg   1/1       Running   0          3h
+</code></pre>
+<h3 id="deployment">Deployment</h3>
+<p>Deployment là loại resource có khả năng thực hiện việc Roling update, Roll back vv bằng việc quản lý nhiều ReplicaSet.<br />
+Cơ chế đơn giản như sau:</p>
+<ol>
+<li>Tạo một ReplicaSet mới</li>
+<li>Dần dần tăng số lượng replica (số Pod) trên ReplicaSet mới</li>
+<li>Dần dần giảm số lượng replica (số Pod) trên ReplicaSet cũ</li>
+<li>Lặp lại bước 2,3</li>
+<li>ReplicaSet cũ sẽ lưu lại với replica: 0</li>
+</ol>
+<p><amp-img src="https://drive.google.com/uc?id=1oXm3GVXNafwNkJjU5o4DtKDZySvpmANf&amp;export=download" alt="uc?id=1oXm3GVXNafwNkJjU5o4DtKDZySvpmANf&amp;export=download" width="897" height="437" layout="responsive"></amp-img></p>
+<p>Lúc thực hiện chuyển đổi qua ReplicaSet mới.</p>
+<ol>
+<li>Vừa có thể kiểm tra việc khởi động container hay tình trạng Helth check trên ReplicaSet mới.</li>
+<li>Vừa có thể chỉ định chi tiết số lượng Pod lúc di chuyển ReplicaSet</li>
+</ol>
+<p>Kubernetes là công cụ được đề cử nhiều nhất về phương pháp khởi động container. Cho dù hệ thống có 1 container đi nữa, thì việc khởi động container sử dụng Deployment cũng rất được kỳ vọng.</p>
+<h4 id="createdeployment">Create Deployment</h4>
+<p>Việc đầu tiên thì chúng ta cũng chuẩn bị fiel YAML config deployment_sample.yml. Nó trông cũng không khác file config của ReplicaSet mấy.</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+          ports:
+            - containerPort: 80
+</code></pre>
+<p>Lần này khi create resource, chúng ta thêm option --record để lưu lại lịch sử lúc update.</p>
+<pre><code>$ kubectl apply -f deployment_sample.yml --record
+deployment.apps/sample-deployment created
+</code></pre>
+<p>Lịch sử sẽ lưu lại trong metadata.annotations.kubernetes.io/change-cause của ReplicaSets, chúng ta có thể confirm như bên dưới. Thông số metadata.annotations.deployment.kubernetes.io/revision cũng cho ta biết số lần sửa đổi.</p>
+<pre><code>$ kubectl get rs -o yaml | head
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "3"
+      deployment.kubernetes.io/max-replicas: "4"
+      deployment.kubernetes.io/revision: "1"
+      kubernetes.io/change-cause: kubectl apply --filename=deployment_sample.yml --record=true
+</code></pre>
+<p>Nhân đây cũng nói luôn, Command "Kubectl run" cũng có khả năng tạo ra một Deployment, chỉ có điểm khác nhau là nó gán lable mặc định là run: sample-deployment, nhưng vì khả năng xảy ra xung đột của nó thấp nên thỉnh thoảng chúng ta cần test một images nào đó thì cũng có thể sử dụng rất tiện lợi.</p>
+<pre><code>$ kubectl run sample-deployment --image nginx:1.12 --replicas 3 --port 80
+deployment.apps/sample-deployment created
+</code></pre>
+<p>Chúng ta có thể kiểm tra lại thông tin Deployment, ReplicaSet, Pods vv</p>
+<pre><code>$ kubectl get deployment
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+sample-deployment   3         3         3            3           2m
+
+$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY     AGE
+sample-deployment-5f7c4b7b4   3         3         3         2m
+
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+sample-deployment-5f7c4b7b4-59rlm   1/1       Running   0          2m
+sample-deployment-5f7c4b7b4-69bjd   1/1       Running   0          2m
+sample-deployment-5f7c4b7b4-vzpqq   1/1       Running   0          2m
+</code></pre>
+<p>Bây giờ mình muốn thay đổi version nginx từ nginx:1.12 -&gt; nginx:1.13 trong deployment vừa rồi. Chúng ta có command 「kubectl set image」.</p>
+<pre><code>$ kubectl set image deployment sample-deployment nginx-container=nginx:1.13
+deployment.extensions/sample-deployment image updated
+</code></pre>
+<p>Sau khi update xong thì ReplicaSet đã được tạo mới, giống như hình phía trên mình đã trình bày về rolling update, thì bây giờ Pod đã được tạo lại, về cơ bản thì không ảnh hưởng gì đến service của chúng ta.</p>
+<pre><code>kubectl get deployment
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+sample-deployment   3         3         3            3           23m
+
+$ kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   0         0         0         23m
+sample-deployment-d5b55f699    3         3         3         16m
+
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+sample-deployment-d5b55f699-4zqw2   1/1       Running   0          15m
+sample-deployment-d5b55f699-9xvrj   1/1       Running   0          16m
+sample-deployment-d5b55f699-zgv5w   1/1       Running   0          16m
+</code></pre>
+<p>Lần này mình đã giới thiệu về mối quan hệ giữa Deployment, ReplicaSet, Pod. Cụ thể như hình bên dưới đây.<br />
+<amp-img src="https://drive.google.com/uc?id=1FRQtz565xOCeN-tI6j06H_QKfsRSnP_b&amp;export=download" alt="uc?id=1FRQtz565xOCeN-tI6j06H_QKfsRSnP_b&amp;export=download" width="946" height="410" layout="responsive"></amp-img></p>
+<h4 id="iukinupdatedeploymentreplcasetctora">Điều kiện update Deployment (ReplcaSet được tạo ra)</h4>
+<p>Như mình đã trình bày, khi update Deployment thì ReplicaSet mới sẽ được tạo ra. Việc "Update" ở đây không bao gồm việc thay đổi số lương replica mà chính là việc thay đổi nội dung của Pod được tạo ra. Nói một cách chính xác hơn thì khi spec.template thay đổi thì sẽ tạo ra ReplicaSet mới, và thực hiện Rolling update.<br />
+Thực tế khi xem định nghĩa ReplicaSet, tại phần dưới spec.template tính toán giá trị hash và quản lý nó bằng label đã được gắn. Thêm nữa khi thực hiện cơ chế này, trong trường hợp chúng ta muốn quay về lại image cũ, bằng cách thủ công nếu chúng ta setting cùng giá trị hash, thì sẽ không sinh ra ReplicaSet mới, mà sử dụng lại ReplicaSet đã tồn tại trước đó.</p>
+<pre><code>$ kubectl get rs sample-deployment-d5b55f699 -o yaml
+...
+...
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+      pod-template-hash: "816119255"
+...
+...
+</code></pre>
+<p>Trong ví dụ lần này vì chúng ta thay đổi image của Pod từ nginx:1.12 sang nginx 1.13 nên Pod Template Hash được tính toán lại và ReplicaSet được tạo mới.<br />
+<amp-img src="https://drive.google.com/uc?id=1XaV8FbTNgcDneOdbv2FoE5Z0Uw_VdjfN&amp;export=download" alt="uc?id=1XaV8FbTNgcDneOdbv2FoE5Z0Uw_VdjfN&amp;export=download" width="1097" height="697" layout="responsive"></amp-img></p>
+<h4 id="rollbackupdate">Rollback Update</h4>
+<p>Ở Deployment có chức năng roolback. Thực chất của chức năng roolback đó chính là việc chuyển đổi ReplicaSet hiện tại đang sử dụng. ReplicaSet về cơ bản sau khi được chuển đổi vẫn tồn tại ở trạng thái replica: 0 như lưu history vậy. Vì vậy nó có thể tăng số lượng replica bằng việc tái sử dụng lại:</p>
+<pre><code>kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   0         0         0         21h
+sample-deployment-d5b55f699    3         3         3         21h
+</code></pre>
+<p>Để kiểm tra lịch sử update chúng ta sử dụng command 「kubectl rollout history」. Tại mục CHANGE-CAUSE, vì chung ta đã truyền option --record lúc create Deployment nên nó đã lưu lại, trường hợp không có option --record thì nó sẽ không hiển thị.</p>
+<pre><code>$ kubectl rollout history deployment sample-deployment
+deployments "sample-deployment"
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment_sample.yml --record=true
+2         kubectl set image deployment sample-deployment nginx-container=nginx:1.13
+</code></pre>
+<p>Khi thực hiện rollback, dĩ nhiên chúng ta có thể chỉ định việc muốn rollback đến revision nào bằng cách gán thêm parameter</p>
+<pre><code># Trường hợp rollback về revision ngay trước đó
+$ kubectl rollout undo deployment sample-deployment 
+deployment "sample-deployment" rolled back
+
+# Trường hợp chỉ định revision cụ thể
+$ kubectl rollout undo deployment sample-deployment --to-revision 1
+deployment "sample-deployment" rolled back
+</code></pre>
+<p>Sau khi thực hiện rollback thì Pod đã được khởi động trên ReplicaSet cũ.</p>
+<pre><code>$ kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   3         3         3         22h
+sample-deployment-d5b55f699    0         0         0         22h
+</code></pre>
+<p>Xem qua thì các bạn thấy cách rollback kiểu này có vẻ rất hay, tuy nhiên thực tế thì rất ít người dùng, lý do thay vì thực hiện rollback bằng command kubectl rollout thì chúng ta chỉnh sửa trực tiếp lên file YAML và chạy lệnh kubectl apply thì tốt hơn. Khi thay đổi spec.template về lại trạng thái trước khi update (nginx 1.12) thì Pod Template Hash cũng về lại giá trị ban đầu. Vì vậy Pod được khởi động trên ReplicaSet phù hợp, giống như lệnh kubectl rollout.</p>
+<h4 id="deploymentscaling">Deployment scaling</h4>
+<p>Cũng giống như ReplicaSets chúng ta có thể sử dụng 「kubectl scale」 hoặc 「kubectl apply -f」 để scaling.</p>
+<h4 id="phngphpupdatenngcao">Phương pháp update nâng cao</h4>
+<p>Trong bài viết lần này mình đã tập trung nói về phần update, thực tế để update thì chúng ta còn có một phương pháp đó là recreate. Liên quan đến update có rất nhiều paramater, chi tiết mình sẽ trình bày ở các phần sau.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

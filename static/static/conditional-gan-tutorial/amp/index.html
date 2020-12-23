@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Conditional GAN tutorial</title>
+
+    <meta name="description" content="Giới thiệu tổng quan về Conditional GAN với ví dụ bằng tensorflow" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Conditional GAN tutorial" />
+    <meta property="og:description" content="Giới thiệu tổng quan về Conditional GAN với ví dụ bằng tensorflow" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/conditional-gan-tutorial/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1FlxczhjyvO67ZODD4wQmjAma9w-VRQ1_&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-09-04T01:25:19.000Z" />
+    <meta property="article:modified_time" content="2018-11-25T09:26:56.000Z" />
+    <meta property="article:tag" content="neural network" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="GAN tutorial" />
+    <meta property="article:tag" content="GAN" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Conditional GAN tutorial" />
+    <meta name="twitter:description" content="Giới thiệu tổng quan về Conditional GAN với ví dụ bằng tensorflow" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/conditional-gan-tutorial/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1FlxczhjyvO67ZODD4wQmjAma9w-VRQ1_&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.93" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="neural network, machine learning, GAN tutorial, GAN" />
+    <meta property="og:image:width" content="1050" />
+    <meta property="og:image:height" content="367" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.93",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1-XBWW3IcmcrT-vofa_Y0HG7QUGdyF28t&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt93/",
+        "sameAs": []
+    },
+    "headline": "Conditional GAN tutorial",
+    "url": "https://blog.vietnamlab.vn/conditional-gan-tutorial/",
+    "datePublished": "2018-09-04T01:25:19.000Z",
+    "dateModified": "2018-11-25T09:26:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1FlxczhjyvO67ZODD4wQmjAma9w-VRQ1_&export=download",
+        "width": 1050,
+        "height": 367
+    },
+    "keywords": "neural network, machine learning, GAN tutorial, GAN",
+    "description": "Trong bài viết này chúng ta sẽ tiếp tục với seri về GAN ( các bạn chưa biết GAN\nlà gì có thể đọc bài viết trước ở đây\n[https://blog.vietnamlab.vn/2018/06/29/gan-tutorial/] ).\n\nBài viết gồm có 3 phần:\n1.Nhắc lại ý tưởng về GAN\n2. Ý tưởng cơ bản về Conditional GAN ( cGAN )\n3. Training cGAN bằng tensorflow\n\nFull code các bạn có thể tìm ở đây: \nhttps://gist.github.com/astrung/76cdb95589b181bd007d86a2b7a24c8a\n\n1. Nhắc lại về GAN\nĐầu tiên, GAN là 1 mô hình neural network gồm 2 mạng neural network nhỏ ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Conditional GAN tutorial</h1>
+                <section class="post-meta">
+                    N.T.A.93 -
+                    <time class="post-date" datetime="2018-09-04">04 Sep 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1FlxczhjyvO67ZODD4wQmjAma9w-VRQ1_&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong bài viết này chúng ta sẽ tiếp tục với seri về GAN ( các bạn chưa biết GAN là gì có thể đọc bài viết trước ở <a href="https://blog.vietnamlab.vn/2018/06/29/gan-tutorial/">đây</a> ).</p>
+<p>Bài viết gồm có 3 phần:<br />
+<em><strong>1.Nhắc lại ý tưởng về GAN<br />
+2. Ý tưởng cơ bản về Conditional GAN ( cGAN )<br />
+3. Training cGAN bằng tensorflow</strong></em></p>
+<p>Full code các bạn có thể tìm ở đây: <a href="https://gist.github.com/astrung/76cdb95589b181bd007d86a2b7a24c8a">https://gist.github.com/astrung/76cdb95589b181bd007d86a2b7a24c8a</a></p>
+<h3 id="1nhclivgan">1. Nhắc lại về GAN</h3>
+<p>Đầu tiên, GAN là 1 mô hình neural network gồm 2 mạng neural network nhỏ ,mô phỏng quá trình cạnh tranh để nhằm mục đích cải tiến mô hình. Vậy nên khi nói về mô hình GAN và train GAN, thục chất chúng ta đang nói tới 2 mô hình neural network:</p>
+<ul>
+<li>Generator neural network: sinh ra những dữ liệu<br />
+giống thực tế nhất có thể từ 1 nguồn noise nào đó ( thông thường là 1 phân bố xác suất ), có nhiệm vụ đánh lừa Discriminator rằng những dữ liệu mình sinh ra là thật ( dữ liệu gần với thực tế nhất có thể ). Vậy input của Generator là 1 tập các giá trị noise, và output là dữ liệu thực tế. Trong bài viết này, chúng ta sẽ kí hiệu noise là z, và dữ liệu được sinh ra là X</li>
+<li>Discriminator neural network: phát hiện đó là dữ liệu thực tế hay dữ liệu giả do Generator sinh ra. Vậy input của Discriminator là dữ liệu, và output sẽ là 1 giá trị 0 hay 1 - giả hay thật.</li>
+</ul>
+<p>Vậy 1 mô hình GAN thường được sử dụng để tạo ra các dữ liệu giống như trong thực tế. Ví dụ như chúng ta có 1 tập ảnh các chữ số đen trắng ( MNIST dataset ), và giờ chúng ta muốn sinh ra các ảnh chữ số đen trắng mới thì nhiệm vụ của Generator sẽ là sinh ra các ảnh đó, còn Discriminator sẽ có nhiệm vụ phân biệt giữa những bức ảnh được Generator sinh ra và những bức ảnh từ thực tế, và sau đó phản hồi sự khác nhau để Discriminator có thể chỉnh sửa những bức ảnh mình sinh ra.Thông qua sự cạnh tranh giữa Discriminator và Generator, các bức ảnh được sinh ra sẽ ngày càng tốt hơn.</p>
+<p>Nếu các bạn muốn biết chi tiết hơn thì có thể đọc bài viết trước ở <a href="https://blog.vietnamlab.vn/2018/06/29/gan-tutorial/">đây</a></p>
+<h3 id="2tngcbnvconditionalgancgan">2. Ý tưởng cơ bản về Conditional GAN ( cGAN )</h3>
+<p>Vậy trong ví dụ MNIST trên, output của 1 generator sẽ là 1 bức ảnh đen trắng của các số từ 0 đến 9. Nhưng bức ảnh của các con số này mang tính hoàn toàn ngẫu nhiên, chúng ta không thể nào biết trước được bức ảnh sinh ra sẽ là số 0 hay số 9, hoặc là 1 số nào đó khác.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1pTLYgqtVE738Q2ZxD5Vq3CcFRgecrzvq&amp;export=download" alt="uc?id=1pTLYgqtVE738Q2ZxD5Vq3CcFRgecrzvq&amp;export=download" width="622" height="620" layout="responsive"></amp-img></p>
+<p>Vậy làm sao để chúng ta sinh ra chỉ một số cố định theo ý muốn của chúng ta. Lúc này chúng ta có 2 lựa chọn:</p>
+<ul>
+<li>
+<p>Sử dụng 10 mô hình GAN riêng biệt tương ứng cho mỗi số từ 0 đến 9.Mỗi 1 mô hình GAN sẽ chỉ sử dụng duy nhất 1 tập ảnh của 1 số để train, và sau khi train sẽ chỉ sinh ra duy nhất ảnh của số đó. Ví dụ như chúng ta sẽ train cho riêng 1 GAN với các bức ảnh số 0, và sau đó mô hình GAN này sẽ chỉ sinh ra duy nhất ảnh số 0. Tất nhiên cách này sẽ rất tốn kém hiệu năng rồi.</p>
+</li>
+<li>
+<p>Chúng ta chỉ sử dụng 1 mô hình GAN, <strong>nhưng sử dụng thêm 1 input mới cho Generator và Discriminator - chúng ta gọi input này là y để giúp Generator và Discriminator phân biệt các điều kiện khác nhau ( giá trị input mới ) thì sẽ sinh ra các bức ảnh của các chữ số khác nhau.</strong> Đây chính là ý tưởng cơ bản của Conditional GAN.</p>
+</li>
+</ul>
+<p>Ứng dụng Conditional GAN cho mô hình MNIST của chúng ta, giá trị của y sẽ là từ 0 đến 9, mỗi giá trị của y tương ứng với 1 số mà chúng ta muốn sinh ra.<br />
+Generator sẽ dựa vào giá trị của y để sinh ra các bức ảnh chữ số tương ứng. Ví dụ chúng ta truyền vào 0 thì Generator sẽ chỉ sinh ra các bức ảnh của số 0.<br />
+Vậy nếu chẳng may sinh ra ảnh của số 1 thì sao? Lúc này là nhiệm vụ của Discriminator. Discriminator giờ đây không chỉ phân biệt thật hay giả, mà còn có nhiệm vụ kiểm tra xem liệu bức ảnh được Generator sinh ra có đúng với điều kiện được truyền vào là y hay không. Nói cách khác, nếu như chúng ta truyền vào 0 mà Generator lại cho ra các bức ảnh của số khác thì Discriminator sẽ coi đây như là ảnh giả - ouput của Discriminator phải là 0. Chỉ khi bức ảnh Generator sinh ra tương ứng với y - truyền vào y = 0 thì nhận được ảnh số 0 thì Discriminator mới coi đây là ảnh thật - ouput của Discriminator là 1.</p>
+<p>Vậy này Input của Generator sẽ là <code>noise + y</code> - output là ảnh (X), còn input của Discriminator sẽ là <code>X + y</code>, output vẫn sẽ là 1 biến 0 hay 1. Trong trường hợp y là số từ 0 đến 9 , chúng ta sẽ vector hóa nó bằng one hot encoding.</p>
+<p>Như vậy các bạn có thể hiểu đơn giản là cGAN chính là GAN được gắn thêm 1 input để phân biệ các điều kiện khác nhau. Các để thêm input đơn giản nhất chính là đầu tiên chúng ta vector hóa đầu vào mới, rồi chèn vào sau đầu vào cũ thôi:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1C-smyJmVKcdqG4gg93QXEnYspjlWil1X&amp;export=download" alt="uc?id=1C-smyJmVKcdqG4gg93QXEnYspjlWil1X&amp;export=download" width="926" height="803" layout="responsive"></amp-img></p>
+<h3 id="3trainingcganbngtensorflow">3. Training cGAN bằng tensorflow:</h3>
+<p>Trong ví dụ này, chúng ta sẽ xây dựng CGAN cho mô hình MNIST. Khi truyền vào y 1 giá trị từ 0 đến 9, chúng ta sẽ nhận được các bức ảnh tương ứng với giá trị của y<br />
+Vậy đầu tiên, chúng ta vector hóa giá trị y từ 0 đến 9 sang one-hot encode - 1 vector gồm 10 phần tử:</p>
+<p><code>y = tf.placeholder(tf.float32, shape=[None, 10])</code></p>
+<p>Tiếp theo chúng ta cần phải xây dựng Generator Và Discriminator. Ở bài trước chúng ta đã sử dụng Convolution , nhưng trong bài này để đơn giản hóa, chúng ta sẽ chỉ sử dụng 1 mô hình feedforward gồm 2 lớp layer. Lớp đầu sẽ sử dụng activation function là RELU, lớp 2 sẽ sử dụng acvation là Sigmoid.</p>
+<pre><code>def generator(z, y):
+    # Concatenate z and y, z is noise and y is one-hot vector
+    inputs = tf.concat(concat_dim=1, values=[z, y])
+
+    G_h1 = tf.nn.relu(tf.matmul(inputs, G_W1) + G_b1)
+    G_log_prob = tf.matmul(G_h1, G_W2) + G_b2
+    G_prob = tf.nn.sigmoid(G_log_prob)
+
+    return G_prob
+
+
+def discriminator(x, y):
+    # Concatenate x and y, x is images, and y is one-hot vector
+    inputs = tf.concat(concat_dim=1, values=[x, y])
+
+    D_h1 = tf.nn.relu(tf.matmul(inputs, D_W1) + D_b1)
+    D_logit = tf.matmul(D_h1, D_W2) + D_b2
+    D_prob = tf.nn.sigmoid(D_logit)
+
+    return D_prob, D_logit
+</code></pre>
+<p>Như các bạn thấy trên code, khi có thêm 1 đầu với mới là y thì chúng ta thực tế là <code>concat</code> ( ghép ) vào với đầu vào cũ của Generator hay Discriminator, rồi tiếp tục coi đó như là Input của mạng neural network.</p>
+<p>Sau đó là quá trình training:</p>
+<pre><code>G_sample = generator(Z, y)
+D_real, D_logit_real = discriminator(X, y)
+D_fake, D_logit_fake = discriminator(G_sample, y)
+
+D_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=D_logit_real, labels=tf.ones_like(D_logit_real)))
+D_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=D_logit_fake, labels=tf.zeros_like(D_logit_fake)))
+D_loss = D_loss_real + D_loss_fake
+G_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=D_logit_fake, labels=tf.ones_like(D_logit_fake)))
+
+D_solver = tf.train.AdamOptimizer().minimize(D_loss, var_list=theta_D)
+G_solver = tf.train.AdamOptimizer().minimize(G_loss, var_list=theta_G)
+</code></pre>
+<p>Cuối cùng chúng ta sẽ thứ sinh kết quả mới. Chúng ta sẽ truyền vào 1 giá trị là <code>y= 3</code>, và chúng ta muốn Generator chỉ sinh ra các bức ảnh của số 3. Vậy đầu tiên chúng ta cần chuyển số 3 của chúng ta về one-hot encoding trước đã:</p>
+<pre><code>n_sample = 16 # số lượng ảnh muốn sinh
+
+Z_sample = sample_Z(n_sample, Z_dim) # lấy giá trị noise
+
+y_sample = np.zeros(shape=[n_sample, 10]) # y có thể từ 0 đến 9, vậy one hot có 10 phần tử
+y_sample[:, 3] = 1 # y= 3 vậy thì trong one hot vector phần tử ở index số 3 bằng 1, các phần tử khác bằng 0
+</code></pre>
+<p>Sau đó chúng ta sẽ feed vào trong Generator để sinh ra ảnh mới:</p>
+<pre><code>samples = sess.run(G_sample, feed_dict={Z: Z_sample, y:y_sample})
+fig = plt.figure(figsize=(4, 4))
+for i, sample in enumerate(samples):
+    ax = plt.subplot(gs[i])
+    plt.axis('off')
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_aspect('equal')
+    plt.imshow(sample.reshape(28, 28), cmap='Greys_r')
+
+plt.show()
+</code></pre>
+<p>Kết quả là đây. Các ảnh số 3 rất đẹp:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1auMyTPZ67hKCAMU6uIs3hHdsA7itRFq6&amp;export=download" alt="uc?id=1auMyTPZ67hKCAMU6uIs3hHdsA7itRFq6&amp;export=download" width="236" height="231" layout="fixed"></amp-img></p>
+<p>Các bạn có thể check code trực tiếp ở đây: <a href="https://gist.github.com/astrung/76cdb95589b181bd007d86a2b7a24c8a">https://gist.github.com/astrung/76cdb95589b181bd007d86a2b7a24c8a</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

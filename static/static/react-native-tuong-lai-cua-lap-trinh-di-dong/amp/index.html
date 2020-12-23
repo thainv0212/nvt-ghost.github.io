@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>React Native - Tương lai của lập trình di động</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="React Native - Tương lai của lập trình di động" />
+    <meta property="og:description" content="React được Facebook giới thiệu tới cộng đồng lập trình viên vào khoảng 2 năm trước, từ thời điểm đó cho đến nay, React đã phát triển một cách nhanh chóng không chỉ trong nội bộ facebook mà còn cả cộng đồng bên ngoài. Hiện nay, rất nhiều dự án" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/react-native-tuong-lai-cua-lap-trinh-di-dong/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkM3EtYXJxRDdlcGM&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-10-16T21:10:36.000Z" />
+    <meta property="article:modified_time" content="2018-04-24T01:16:31.000Z" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="mobile" />
+    <meta property="article:tag" content="react-native" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="React Native - Tương lai của lập trình di động" />
+    <meta name="twitter:description" content="React được Facebook giới thiệu tới cộng đồng lập trình viên vào khoảng 2 năm trước, từ thời điểm đó cho đến nay, React đã phát triển một cách nhanh chóng không chỉ trong nội bộ facebook mà còn cả cộng đồng bên ngoài. Hiện nay, rất nhiều dự án" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/react-native-tuong-lai-cua-lap-trinh-di-dong/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkM3EtYXJxRDdlcGM&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.92" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="react, mobile, react-native" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.92",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkclJsTEtLTVF0UDA&export=download",
+            "width": 259,
+            "height": 194
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt92/",
+        "sameAs": []
+    },
+    "headline": "React Native - Tương lai của lập trình di động",
+    "url": "https://blog.vietnamlab.vn/react-native-tuong-lai-cua-lap-trinh-di-dong/",
+    "datePublished": "2016-10-16T21:10:36.000Z",
+    "dateModified": "2018-04-24T01:16:31.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM3EtYXJxRDdlcGM&export=download",
+        "width": 1000,
+        "height": 500
+    },
+    "keywords": "react, mobile, react-native",
+    "description": "React được Facebook giới thiệu tới cộng đồng lập trình viên vào khoảng 2 năm\ntrước, từ thời điểm đó cho đến nay, React đã phát triển một cách nhanh chóng\nkhông chỉ trong nội bộ facebook mà còn cả cộng đồng bên ngoài. Hiện nay, rất\nnhiều dự án đã được xây dựng dựa trên React, tỷ lệ các lập trình viên chọn và sử\ndụng React ngày càng nhiều vì nó giúp tiết kiệm thời gian “chiến đấu” với\nframework và tập trung hơn vào sản phẩm của mình hơn.\n\nVới công nghệ web, việc kết hợp React với Redux giúp chúng ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">React Native - Tương lai của lập trình di động</h1>
+                <section class="post-meta">
+                    N.T.A.92 -
+                    <time class="post-date" datetime="2016-10-17">17 Oct 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkM3EtYXJxRDdlcGM&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>React được Facebook giới thiệu tới cộng đồng lập trình viên vào khoảng 2 năm trước, từ thời điểm đó cho đến nay, React đã phát triển một cách nhanh chóng không chỉ trong nội bộ facebook mà còn cả cộng đồng bên ngoài. Hiện nay, rất nhiều dự án đã được xây dựng dựa trên React, tỷ lệ các lập trình viên chọn và sử dụng React ngày càng nhiều vì nó giúp tiết kiệm thời gian “chiến đấu” với framework và tập trung hơn vào sản phẩm của mình hơn.</p>
+<p>Với công nghệ web, việc kết hợp React với Redux giúp chúng ta có thể xây dựng rất nhiều ứng dụng tuyệt vời. Tuy nhiên, web chỉ là một phần mà React làm được. Với những hạn chế của các ứng dụng web, các ứng dụng Android và IOS đang dần lên ngôi. Tuy nhiên không phải ai đang lập trình web cũng có thể chuyển sang lập trình IOS và Android một cách dễ dàng và đó chính là lý do React-Native ra đời.</p>
+<ul>
+<li><strong>React Native sử dụng ngôn ngữ Java Script cực kì thân thiện: Một lập trình viên có thể lập trình tốt cho cả hai nền tảng Android và iOS chỉ với một ngôn ngữ duy nhất là javascript.</strong><br />
+- <strong>React Native tạo ra những Native App (không phải Web App), tạo nên sự trải nghiệm tuyệt vời cho người dùng: tốc độ nhanh, tương tác phần cứng thiết bị một cách hoàn hảo.</strong></li>
+</ul>
+<p>React Native ra đời vì lý do đó, nó giúp cho các lập trình viên vốn đã quen thuộc với ngôn ngữ web, đặc biệt là javascript có thể viết được các ứng dụng trên Android và IOS với trải nghiệm Native thực thụ. Việc này cách đây mấy năm dường như là không thể đối với PhoneGap hay các công nghệ tương tự. Nhưng đúng như tiêu chí của React Native – “Học một lần, sử dụng nhiều nơi”.</p>
+<p>Vậy chúng ta cùng bắt tay vào tìm hiểu những điều cơ bản nhất của React Native để nhanh chóng xây dựng cho mình một ứng dụng mobile thực sự. Một ứng dụng đêm lại trải nghiệm native.</p>
+<h3 id="cchreactnativehotng">Cách React Native hoạt động</h3>
+<p>Ứng dụng được viết bằng React Native được chia làm 2 phần:</p>
+<ul>
+<li>Phần view: Nếu đã từng làm việc với React, bạn không còn lạ lẫm gì với khái niệm Virtual DOM của React, mọi xử lý được thực hiện trên 1 cây DOM ảo, với React Native các Component như Tab, Touch… đã được facebook xây dựng sẵn, khi build ứng dụng sẽ được render lại bằng native view.</li>
+<li>Phần xử lý : Các phần xử lý logic, tương tác người dùng được thực thi dưới bộ core của javascript, không phải thông dịch qua Java hay Objective-C.</li>
+</ul>
+<h3 id="styletrongreactnative">Style trong React Native</h3>
+<p>Với React Native, chúng ta không sử dụng một ngôn ngữ đặc biệt hay một cú pháp nào đó để định nghĩa style ở phần view. Với các ứng dụng Android, khi bạn tạo 1 view nào đó bạn phải sử dụng các thẻ xml được quy định bởi google, các thẻ XML như LinearLayout, TableLayout để chia các thành phần trong component của mình, nhưng với React Native bạn chỉ sử dụng javascript, tất cả các core component đều được sử dụng 1 Prop name là style.</p>
+<p>Style này làm việc giống như thẻ style trong html đối với lập trình web. Đối với các component phức tạp, chúng ta có thể định nghĩa phần style riêng để code trở nên clear hơn bằng cách sử dụng <code>StyleSheet.create</code> để định nghĩa bên ngoài.</p>
+<h3 id="layoutviflexbox">Layout với FlexBox</h3>
+<p>FlexBox được facebook thiết kế để cung cấp layout trên những size màn hình khác nhau. Khi làm việc với layout trong React-Native chúng ta thường làm việc với các thuộc tính sau : <strong>flexDirection</strong>, <strong>alignItems</strong>, <strong>justifyContent</strong>, để hoàn thành layout. <strong>FlexBox</strong> làm việc giống CSS trên web nhưng có một vài điểm khác biệt.</p>
+<ul>
+<li><strong>flexDirection</strong>:  mặc định sẽ là cột thay vì hàng, flexDirection được khai báo trong thẻ style của layout đó. Nó sẽ tổ chức giao diện theo chiều ngang hoặc chiều dọc tùy thuộc vào tham số chúng ta truyền vào.</li>
+<li><strong>Justify Content</strong>: Nếu khai báo thuộc tính này, các thành phần con của bạn sẽ được phân bố vị trí bởi các thuộc tính bạn truyền vào cho nó. Các thuộc tính được hỗ trợ bởi facebook là : <em>flex-start</em>, <em>center</em>, <em>flex-end</em>, <em>space-around, space-between</em>. Tùy thuộc vào yêu cầu bài toán về giao diện bạn sẽ tự thiết kế giao diện của mình dựa vào các thuộc tính trên. Nếu đã biết qua về Android,  có vẻ như giao diện của bạn sẽ được thiết kế nhanh và đơn giản hơn so với việc sử dụng các Layout như xml trong Android.</li>
+<li><strong>alignItems</strong>: mặc định sẽ là kiểu *stretch *thay vì <em>flex-start</em></li>
+</ul>
+<pre><code class="language-js">import React, { Component } from 'react';
+import { AppRegistry, View } from 'react-native';
+
+class FlexDirectionBasics extends Component {
+  render() {
+    return (
+      // Try setting `flexDirection` to `column`.
+      &lt;View style={{flex: 1, flexDirection: 'row'}}&gt;
+        &lt;View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} /&gt;
+        &lt;View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} /&gt;
+        &lt;View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} /&gt;
+      &lt;/View&gt;
+    );
+  }
+};
+
+AppRegistry.registerComponent('AwesomeProject', () =&gt; FlexDirectionBasics);
+</code></pre>
+<p>Đoạn code trên chúng ta đang khai báo 1 vierw lớn, có kiểu hàng ngang, bao gồm 3 view nhỏ với chiều cao và độ dài tương ứng của mỗi view con là 50. Bạn có thể nhận thấy ưu điểm rất rõ ràng của FlexBox trong việc chia layout cho app trên màn hình dễ dàng như thế nào? Và trên đây là là các thuộc tính cơ bản để chúng ta có thể dựng được khung của giao diện như ý muốn trên các size màn hình khác nhau.</p>
+<p>Ngoài ra, React-Native còn hỗ trợ rất nhiều các thuộc tính khác như padding, margin, Zindex giống như trong CSS. Chúng ta có thể đọc và tìm hiểu thêm tại link sau: <a href="https://facebook.github.io/react-native/docs/layout-props.html">https://facebook.github.io/react-native/docs/layout-props.html</a></p>
+<h3 id="xlvitextinput">Xử lý với TextInput</h3>
+<p>TextInput là 1 component cơ bản cho phép người dùng nhập text, nếu làm việc với ReactJs khi bắt sự kiện với thẻ Input trong html chúng ta sử dụng hàm <code>onChange</code> thì với ReactNative chúng ta sử dụng hàm <code>onChangeText</code>, hàm này sẽ được gọi bất cứ khi nào chúng ta có một thao tác nhập hoặc xóa text trong thẻ input, hàm <code>onChangeText</code> được sử dụng cùng với hàm <code>onSubmitEditing</code> khi chúng ta submit data.</p>
+<pre><code class="language-js">import React, { Component } from 'react';
+import { AppRegistry, Text, TextInput, View } from 'react-native';
+
+class PizzaTranslator extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {text: ''};
+  }
+
+  render() {
+    return (
+      &lt;View style={{padding: 10}}&gt;
+        &lt;TextInput
+          style={{height: 40}}
+          placeholder="Type here to translate!"
+          onChangeText={(text) =&gt; this.setState({text})}
+        /&gt;
+        &lt;Text style={{padding: 10, fontSize: 42}}&gt;
+          {this.state.text.split(' ').map((word) =&gt; word &amp;&amp; '?').join(' ')}
+        &lt;/Text&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+AppRegistry.registerComponent('PizzaTranslator', () =&gt; PizzaTranslator);
+</code></pre>
+<h3 id="listviewtrongreactnative">ListView trong React-Native</h3>
+<p>ListView như chúng ta được biết là 1 component hiển thị theo chiều dọc khi lượng data chúng ta lấy được vượt quá sự hiển thị của màn hình, giúp cho màn hỉnh hiển thị được nhiều thông tin hơn, đầy đủ hơn.</p>
+<p>ListView làm việc tốt nhất với các danh sách item dài, khi mà số lượng item có thể thay đổi theo thời gian. Chú ý rằng, ListView chỉ render các element hiển thị trên màn hình chứ không phải render hết 1 lượt ra.</p>
+<p>ListView yêu cầu 2 tham số props là : <strong>dataSource</strong> và <strong>renderRow</strong></p>
+<ul>
+<li><strong>dataSource</strong>:  chính là source data danh sách của chúng ta</li>
+<li><strong>renderRow</strong>: sẽ lấy 1 item trong số đó và trả về format component để render</li>
+</ul>
+<pre><code class="language-js">import React, { Component } from 'react';
+import { AppRegistry, ListView, Text, View } from 'react-native';
+
+class ListViewBasics extends Component {
+  // Initialize the hardcoded data
+  constructor(props) {
+    super(props);
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) =&gt; r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows([
+        'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+      ])
+    };
+  }
+  render() {
+    return (
+      &lt;View style={{paddingTop: 22}}&gt;
+        &lt;ListView
+          dataSource={this.state.dataSource}
+          renderRow={(rowData) =&gt; &lt;Text&gt;{rowData}&lt;/Text&gt;}
+        /&gt;
+      &lt;/View&gt;
+    );
+  }
+}
+
+// App registration and rendering
+AppRegistry.registerComponent('ListViewBasics', () =&gt; ListViewBasics);
+</code></pre>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

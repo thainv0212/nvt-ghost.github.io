@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment" />
+    <meta property="og:description" content="Serial blog Nhập môn Kubernetes  Nội dung Workload Resource Pod ReplicaSet Deployment Workload Resource Bài viết phần 5 này mình sẽ trình bày về Workloads resource.  Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:    Pod Trong kubernetes thì" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-04-26T01:45:04.000Z" />
+    <meta property="article:modified_time" content="2019-05-31T07:27:26.000Z" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="kubernetes resource" />
+    <meta property="article:tag" content="pod" />
+    <meta property="article:tag" content="ReplicaSet" />
+    <meta property="article:tag" content="Deployment" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment" />
+    <meta name="twitter:description" content="Serial blog Nhập môn Kubernetes  Nội dung Workload Resource Pod ReplicaSet Deployment Workload Resource Bài viết phần 5 này mình sẽ trình bày về Workloads resource.  Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:    Pod Trong kubernetes thì" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="k8s, kubernetes, kubernetes resource, pod, ReplicaSet, Deployment" />
+    <meta property="og:image:width" content="1077" />
+    <meta property="og:image:height" content="328" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment",
+    "url": "https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/",
+    "datePublished": "2019-04-26T01:45:04.000Z",
+    "dateModified": "2019-05-31T07:27:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&export=download",
+        "width": 1077,
+        "height": 328
+    },
+    "keywords": "k8s, kubernetes, kubernetes resource, pod, ReplicaSet, Deployment",
+    "description": "Serial blog Nhập môn Kubernetes\n[https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/]\n\nNội dung\n * Workload Resource\n * Pod\n * ReplicaSet\n * Deployment\n\nWorkload Resource\nBài viết phần 5 này mình sẽ trình bày về Workloads resource.\n\nWorkload resource là loại resource sử dụng để khởi động container. Như đã nói\nlần trước thì có 8 loại:\n\n\nPod\nTrong kubernetes thì Pod là là đơn vị nhỏ nhất. Pod được cấu thành từ 1\ncontainer hoặc nhiều container, chúng chia sẽ địa ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-k8s tag-kubernetes tag-kubernetes-resource tag-pod tag-replicaset tag-deployment nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-k8s tag-kubernetes tag-kubernetes-resource tag-pod tag-replicaset tag-deployment js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-04-26">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 26 April 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/k8s/index.html">k8s</a>, <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/kubernetes-resource/index.html">kubernetes resource</a>, <a href="../tag/pod/index.html">pod</a>, <a href="../tag/replicaset/index.html">ReplicaSet</a>, <a href="../tag/deployment/index.html">Deployment</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1fW4p_OiDczxihWPnBlE2T1PPUW9vD9IP&amp;export&#x3D;download" alt="[Nhập môn Kubernetes P5] - Kubernetes Pod - ReplicaSet - Deployment">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BNh%E1%BA%ADp%20m%C3%B4n%20Kubernetes%20P5%5D%20-%20Kubernetes%20Pod%20-%20ReplicaSet%20-%20Deployment">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p><a href="https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/">Serial blog Nhập môn Kubernetes</a></p>
+<h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Workload Resource</li>
+<li>Pod</li>
+<li>ReplicaSet</li>
+<li>Deployment</li>
+</ul>
+<h3 id="workloadresource">Workload Resource</h3>
+<p>Bài viết phần 5 này mình sẽ trình bày về Workloads resource.</p>
+<p>Workload resource là loại resource sử dụng để khởi động container. Như đã nói lần trước thì có 8 loại:<br>
+<img src="https://drive.google.com/uc?id=13zlat-2E6cpIM4GxaHZGmowByB_TPBi0&amp;export=download" alt="uc?id=13zlat-2E6cpIM4GxaHZGmowByB_TPBi0&amp;export=download"></p>
+<h3 id="pod">Pod</h3>
+<p>Trong kubernetes thì Pod là là đơn vị nhỏ nhất. Pod được cấu thành từ 1 container hoặc nhiều container, chúng chia sẽ địa chỉ IP giữa các container với nhau. Nói cách khác, nếu chúng ta tạo một Pod chứa 2 container trở lên, thì các các container này sẽ đồng nhất với nhau địa chỉ IP. Chính vì vậy các container trong Pod sẽ trao đổi với nhau như trong môi trường local vậy. Ngoài ra các container trong cùng 1 Pod cũng chia sẽ với nhau vùng chứa gọi là Volume.<br>
+<img src="https://drive.google.com/uc?id=1xAVHSa6mviBkrNGpRwhbS4DnxYQgXUwa&amp;export=download" alt="uc?id=1xAVHSa6mviBkrNGpRwhbS4DnxYQgXUwa&amp;export=download"><br>
+Link: <a href="https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/">https://kubernetes.io/docs/tutorials/kubernetes-basics/explore/explore-intro/</a></p>
+<h4 id="createpod">Create Pod</h4>
+<p>Bây giờ chúng ta sẽ thực hiện create Pod đơn giản, các ví dụ ở phần này mình sử dụng minikube để thực hiện. Cách thiết lập môi trường minikube thì mình đã trình bày ở phần 2.<br>
+Đầu tiên chúng ta chuẩn bị 1 file pod_sample.yml. Pod này đơn giản chứa 1 container là nginx:1.12, mở port 80 cho container này.</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.12
+      ports:
+      - containerPort: 80
+</code></pre>
+<p>Chạy lệnh để create pod</p>
+<pre><code>$ kubectl apply -f pod_sample.yml 
+pod &quot;sample-pod&quot; created
+</code></pre>
+<p>Kiểm tra Pod đã được khởi tạo ok chưa.</p>
+<pre><code>$ kubectl get pods
+NAME         READY     STATUS    RESTARTS   AGE
+sample-pod   1/1       Running   0          1m
+</code></pre>
+<p>Như ở trên thì mình có thể thấy là Pod đã run ok rồi, các bạn muốn lấy thông tin chi tiết hơn chút thì ta dùng lệnh option -o wide</p>
+<pre><code>$ kubectl get pods -o wide
+NAME         READY     STATUS    RESTARTS   AGE       IP           NODE
+sample-pod   1/1       Running   0          3m        172.17.0.4   minikube
+</code></pre>
+<h4 id="createpodcha2container">Create Pod chứa 2 container</h4>
+<p>Chúng ta chuẩn bị file 2pod_sample.yml như bên dưới:</p>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-2pod
+spec:
+  containers:
+    - name: nginx-container-112
+      image: nginx:1.12
+      ports:
+      - containerPort: 80
+    - name: nginx-container-113
+      image: nginx:1.13
+      ports:
+      - containerPort: 81
+</code></pre>
+<p>Để cho không bị xung đột với pod trước, chúng ta tạm thời xoá pod cũ đi</p>
+<pre><code>kubectl delete -f pod_sample.yml
+</code></pre>
+<p>Bây giờ chúng ta tạo Pod mới chứa 2 container, câu lệnh cũng tương tự.</p>
+<pre><code># Create pod
+$ kubectl apply -f 2pod_sample.yml 
+pod &quot;sample-2pod&quot; created
+
+# Get list pods
+$ kubectl get pods
+NAME          READY     STATUS    RESTARTS   AGE
+sample-2pod   2/2       Running   0          3s
+</code></pre>
+<p>Ở trạng thái Running và READY là 2/2 thì có vẻ là OK rồi. Các bạn để ý một chút ở file 2pod_sample.yml mình đã cố ý gắn port cho conainer thứ 2 là port: 81. Lý do vì sao như vậy, chắc chắn là để tránh xung đột rồi. Vậy thì mình sửa về port 80 xem kết quả như thế nào nhé.</p>
+<pre><code>$ kubectl apply -f 2pod_sample.yml 
+pod &quot;sample-2pod&quot; created
+
+$ kubectl get pods
+NAME          READY     STATUS    RESTARTS   AGE
+sample-2pod   1/2       Error     2          33s
+
+$ kubectl logs sample-2pod nginx-container-113
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: bind() to 0.0.0.0:80 failed (98: Address already in use)
+nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+2018/08/16 04:28:48 [emerg] 1#1: still could not bind()
+nginx: [emerg] still could not bind()
+</code></pre>
+<p>Như mình đã nói các container trong Pod sẽ chia sẽ không gian Network với nhau, ở đây mình dùng 2 container nginx có chung port: 80, hẳn là xảy ra xung đột rồi. :D</p>
+<h4 id="loginncontainer">Login đến container</h4>
+<p>Để truy cập vào container  ta dùng 「kubectl exec」</p>
+<pre><code>$ kubectl exec -it sample-pod /bin/bash
+root@sample-pod:/#
+</code></pre>
+<h3 id="replicaset">ReplicaSet</h3>
+<p>ReplicaSet là loại resource dùng để tạo và duy trì số lượng Pod được chỉ định. Chẳng hạn như mình muốn tạo ra 5 Pod và muốn luôn duy trì số lượng này (nhằm đảm bảo ứng dụng hoặt động ổn định), mình sẽ sử dụng ReplicaSet, trong trường hợp vì lý do gì đó, một hoặc một vào pod bị sự cố. K8s sẽ tự động tái tạo lại đủ 5 Pod cho chúng ta.</p>
+<h4 id="tomtreplicaset">Tạo một ReplicaSet</h4>
+<p>Chúng ta sẽ tạo thử một ReplicaSet đơn giản như file rs_sample.yml bên dưới. replicas: 3 nghĩa là tạo 3 Pod giống nhau, Pod được định nghĩa ở chổ spec.template. Trong ví dụ này thì Pod của chúng ta chỉ chứa 1 container là nginx:1.12</p>
+<pre><code>#rs_sample.yml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sample-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+          ports:
+            - containerPort: 80
+</code></pre>
+<p>Chạy lệnh để đăng ký resource đến Kubernetes Master</p>
+<pre><code>$ kubectl apply -f ./rs_sample.yml
+replicaset.apps/sample-rs created
+</code></pre>
+<p>Bây giờ chúng ta kiểm ra ReplicaSet đã được tạo Ok chưa, có tạo 3 Pod cho chúng ta không.</p>
+<pre><code>$ kubectl get rs -o wide
+NAME        DESIRED   CURRENT   READY     AGE       CONTAINERS        IMAGES       SELECTOR
+sample-rs   3         3         3         14m       nginx-container   nginx:1.12   app=sample-app
+</code></pre>
+<p>Tiếp theo thì kiếm tra số Pod được tạo ra, trạng thái như thế nào.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-pdkcl   1/1       Running   0          16m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          16m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          16m       10.42.2.5   Node1
+</code></pre>
+<p>Như vậy là Ok rồi, các bạn có để ý ở item NODE không, do hiện tại mình đang chạy ở Cluster có 4 server sử dụng Rancher. Các bạn có thể tham khảo lại cách cấu trúc Kubernetes Cluster mình đã trình bày ở phần 3. Ở đây mình sử dụng 2 Nodes nên nó phân bổ Pods về cho 2 Nodes này. Trường hợp bạn đang dùng minikube thì chắc chắn là chỉ có 1 node duy nhất mà thôi.<br>
+<img src="https://drive.google.com/uc?id=1l-G_z8Qu0e6vT3wqi5w-BMq7CxlxBOzf&amp;export=download" alt="uc?id=1l-G_z8Qu0e6vT3wqi5w-BMq7CxlxBOzf&amp;export=download"></p>
+<h4 id="autohealing">Auto Healing</h4>
+<p>Ở ReplicaSet, trường hợp Node hay Pod gặp sự cố, ReplicaSet có cơ chế tự động khởi động lại Pod trên một Node khác, vì vậy làm giảm sự ảnh hưởng đến hệ thống. Một trong số những khái niệm cự kỳ quan trọng trong Kubernetes đó là &quot;Auto Healing - tự động chữa bệnh&quot;.</p>
+<p>Để kiểm chứng cơ chế auto healing thì ta thử xoá 1 Pod đi xem sao. Hiện tại chúng ta có 3 Pod như dưới đây, mọi người để ý NAME của nó nhé.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-pdkcl   1/1       Running   0          47m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          47m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          47m       10.42.2.5   Node1
+</code></pre>
+<p>Xoá Pod</p>
+<pre><code>$ kubectl delete pods sample-rs-pdkcl
+pod &quot;sample-rs-pdkcl&quot; deleted
+</code></pre>
+<p>Đã xoá xong rồi, nhưng bây giờ kiểm tra lại số lượng Pod chúng ta đang có là bao nhiêu.</p>
+<pre><code>$ kubectl get pod -l app=sample-app -o wide
+NAME              READY     STATUS    RESTARTS   AGE       IP          NODE
+sample-rs-4bwhw   1/1       Running   0          47m       10.42.2.6   Node1
+sample-rs-vwz57   1/1       Running   0          47m       10.42.1.6   Node2
+sample-rs-znzkg   1/1       Running   0          47m       10.42.2.5   Node1
+</code></pre>
+<p>Vẫn duy trì 3 Pod đúng chưa, để ý NAME thì thấy có 1 Pod đã khác tên. Vì cơ chế auto healing đã tự động tạo ra Pod mới khi một Pod bị xoá.<br>
+Sự tăng giảm Pod của ReplicaSet chúng ta cũng có thể confirm bằng lệnh &quot;kubectl describe rs&quot;</p>
+<pre><code>$ kubectl describe rs sample-rs
+Name:         sample-rs
+Namespace:    default
+Selector:     app=sample-app
+Labels:       app=sample-app
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={&quot;apiVersion&quot;:&quot;apps/v1&quot;,&quot;kind&quot;:&quot;ReplicaSet&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;sample-rs&quot;,&quot;namespace&quot;:&quot;default&quot;},&quot;spec&quot;:{&quot;replicas&quot;:3,&quot;selector&quot;:{&quot;ma...
+Replicas:     3 current / 3 desired
+Pods Status:  3 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+  Labels:  app=sample-app
+  Containers:
+   nginx-container:
+    Image:        nginx:1.12
+    Port:         80/TCP
+    Host Port:    0/TCP
+    Environment:  &lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Events:
+  Type    Reason            Age   From                   Message
+  ----    ------            ----  ----                   -------
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-znzkg
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-pdkcl
+  Normal  SuccessfulCreate  58m   replicaset-controller  Created pod: sample-rs-vwz57
+  Normal  SuccessfulCreate  9m    replicaset-controller  Created pod: sample-rs-4bwhw
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1Jy6LxzTfaQok0_FdO__jdLxcZ92xdiXY&amp;export=download" alt="uc?id=1Jy6LxzTfaQok0_FdO__jdLxcZ92xdiXY&amp;export=download"><br>
+Link:<a href="https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c">https://medium.com/@jiamin_ning/build-your-first-kubernetes-service-with-replicaset-7c37d9be689c</a></p>
+<h4 id="label">Label</h4>
+<p>RepicaSet quản lý các Pod được tạo ra bằng cơ chế gắn nhãn cho từng Pod. Vì vậy chúng ta dễ dàng tìm kiếm những Pod có label giống nhau, dễ dàng cho việc điều chỉnh tăng giảm số lượng Pod.<br>
+Labe của Pod được chỉ định ở phần spec.selector</p>
+<pre><code>spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+</code></pre>
+<p>Chúng ta cũng để ý ở file rs_sample.yml phía trên. tại thiết lập spec.template.metadata.labels cũng được setting là &quot;app:sample-app&quot;. Vì các Pod được tạo ra ở trạng thái được gắn label là &quot;app:sample-app&quot; nên replicas: 3 sẽ tạo ra 3 Pod giống nhau.<br>
+Chúng ta cần lưu ý spec.selector và spec.template.metadata.labels bắt buộc phải giống nhau, nếu không sẽ xảy ra lỗi.</p>
+<p>Có nhiều bạn cũng sẽ đặt câu hỏi, bây giờ mình tạo 1 Pod riêng (không phải tạo trong RepicaSet Manifest) nhưng được gắn label cũng là &quot;app:sample-app&quot; thì điều gì xãy ra. Trong trường hợp lable bị duplicate, tức là chúng ta đang chỉ định tạo 3 Pod có label là &quot;app:sample-app&quot;  nhưng tự nhiên ở đâu xuất hiện 1 Pod nữa cũng có nhãn như vậy. Lúc này ReplicaSet hiểu lầm là số lượng Pod đã tăng quá mức quy định, nó sẽ stop đi một Pod.<br>
+Test thử thôi!</p>
+<pre><code>#pod_sample.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+  labels:
+    app: sample-app
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:1.13
+      ports:
+      - containerPort: 80
+</code></pre>
+<pre><code># create Pod
+$ kubectl apply -f pod_sample.yml
+pod/sample-pod created
+</code></pre>
+<p>Kiểm tra tình trạng các Pod như thế nào</p>
+<pre><code>$ kubectl get pods -L app
+NAME              READY     STATUS        RESTARTS   AGE       APP
+sample-pod        0/1       Terminating   0          3s        sample-app
+sample-rs-4bwhw   1/1       Running       0          2h        sample-app
+sample-rs-vwz57   1/1       Running       0          3h        sample-app
+sample-rs-znzkg   1/1       Running       0          3h        sample-app
+</code></pre>
+<p>Vài giây sau chúng ta kiểm tra lại lần nữa.</p>
+<pre><code>$ kubectl get pods -L app
+NAME              READY     STATUS    RESTARTS   AGE       APP
+sample-rs-4bwhw   1/1       Running   0          2h        sample-app
+sample-rs-vwz57   1/1       Running   0          3h        sample-app
+sample-rs-znzkg   1/1       Running   0          3h        sample-app
+</code></pre>
+<p>Pod chúng ta vừa tạo đã biến mất. Vậy thì cơ chế luôn giữ số lượng Pod được chỉ định đã xoá đi 1 Pod thừa. Trong trường hợp lần này là xoá đi Pod chúng ta vừa thêm vào, nhưng cũng có trường hợp nó xoá đi Pod đã tồn tại trước đó. Vì vậy chúng ta cần lưu ý việc đánh nhãn cho Pod.<br>
+Khi chúng ta quen với cách làm việc của Kubernetes thì Lable nên là duy nhất. Vì chúng ta có thể gắn nhiều lable cho cùng 1 container nên hãy quyết định quy tắc đặt lên lable như gợi ý sau:</p>
+<pre><code>labels:
+  env: dev
+  codename: system_a
+  role: web-front
+</code></pre>
+<h4 id="scalingpod">Scaling Pod</h4>
+<p>Bây giờ chúng ta sẽ thực hiện thay đổi số lượng Pod bằng cách thay đổi setting của ReplicaSet.<br>
+Có 2 phương pháp:</p>
+<ul>
+<li>Edit file yaml config, chạy command &quot;kubectl apply -f [FILENAME]&quot;</li>
+<li>Thực hiện scale bằng cách chạy command kubectl scale</li>
+</ul>
+<p>Cách thứ nhất thì như mình cũng đã nói ở phần trước rồi, thay đổi file YAML config, chạy command kubectl apply ... là sẽ update được resource. Lần này mình sẽ demo bằng kubectl scale. Nhưng Workload resource có thể thực hiện scale bằng kubectl scale chỉ có 4 loại Deployment, Job, ReplicaSet, ReplicationController.</p>
+<pre><code>$ kubectl get rs
+NAME        DESIRED   CURRENT   READY     AGE
+sample-rs   3         3         3         3h
+$ kubectl scale rs sample-rs --replicas 5
+replicaset.extensions/sample-rs scaled
+$ kubectl get rs
+NAME        DESIRED   CURRENT   READY     AGE
+sample-rs   5         5         5         3h
+$ kubectl get pods -l app=sample-app
+NAME              READY     STATUS    RESTARTS   AGE
+sample-rs-4bwhw   1/1       Running   0          3h
+sample-rs-lz6x7   1/1       Running   0          44s
+sample-rs-vwz57   1/1       Running   0          3h
+sample-rs-z5l8b   1/1       Running   0          44s
+sample-rs-znzkg   1/1       Running   0          3h
+</code></pre>
+<h3 id="deployment">Deployment</h3>
+<p>Deployment là loại resource có khả năng thực hiện việc Roling update, Roll back vv bằng việc quản lý nhiều ReplicaSet.<br>
+Cơ chế đơn giản như sau:</p>
+<ol>
+<li>Tạo một ReplicaSet mới</li>
+<li>Dần dần tăng số lượng replica (số Pod) trên ReplicaSet mới</li>
+<li>Dần dần giảm số lượng replica (số Pod) trên ReplicaSet cũ</li>
+<li>Lặp lại bước 2,3</li>
+<li>ReplicaSet cũ sẽ lưu lại với replica: 0</li>
+</ol>
+<p><img src="https://drive.google.com/uc?id=1oXm3GVXNafwNkJjU5o4DtKDZySvpmANf&amp;export=download" alt="uc?id=1oXm3GVXNafwNkJjU5o4DtKDZySvpmANf&amp;export=download"></p>
+<p>Lúc thực hiện chuyển đổi qua ReplicaSet mới.</p>
+<ol>
+<li>Vừa có thể kiểm tra việc khởi động container hay tình trạng Helth check trên ReplicaSet mới.</li>
+<li>Vừa có thể chỉ định chi tiết số lượng Pod lúc di chuyển ReplicaSet</li>
+</ol>
+<p>Kubernetes là công cụ được đề cử nhiều nhất về phương pháp khởi động container. Cho dù hệ thống có 1 container đi nữa, thì việc khởi động container sử dụng Deployment cũng rất được kỳ vọng.</p>
+<h4 id="createdeployment">Create Deployment</h4>
+<p>Việc đầu tiên thì chúng ta cũng chuẩn bị fiel YAML config deployment_sample.yml. Nó trông cũng không khác file config của ReplicaSet mấy.</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+          ports:
+            - containerPort: 80
+</code></pre>
+<p>Lần này khi create resource, chúng ta thêm option --record để lưu lại lịch sử lúc update.</p>
+<pre><code>$ kubectl apply -f deployment_sample.yml --record
+deployment.apps/sample-deployment created
+</code></pre>
+<p>Lịch sử sẽ lưu lại trong metadata.annotations.kubernetes.io/change-cause của ReplicaSets, chúng ta có thể confirm như bên dưới. Thông số metadata.annotations.deployment.kubernetes.io/revision cũng cho ta biết số lần sửa đổi.</p>
+<pre><code>$ kubectl get rs -o yaml | head
+apiVersion: v1
+items:
+- apiVersion: extensions/v1beta1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: &quot;3&quot;
+      deployment.kubernetes.io/max-replicas: &quot;4&quot;
+      deployment.kubernetes.io/revision: &quot;1&quot;
+      kubernetes.io/change-cause: kubectl apply --filename=deployment_sample.yml --record=true
+</code></pre>
+<p>Nhân đây cũng nói luôn, Command &quot;Kubectl run&quot; cũng có khả năng tạo ra một Deployment, chỉ có điểm khác nhau là nó gán lable mặc định là run: sample-deployment, nhưng vì khả năng xảy ra xung đột của nó thấp nên thỉnh thoảng chúng ta cần test một images nào đó thì cũng có thể sử dụng rất tiện lợi.</p>
+<pre><code>$ kubectl run sample-deployment --image nginx:1.12 --replicas 3 --port 80
+deployment.apps/sample-deployment created
+</code></pre>
+<p>Chúng ta có thể kiểm tra lại thông tin Deployment, ReplicaSet, Pods vv</p>
+<pre><code>$ kubectl get deployment
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+sample-deployment   3         3         3            3           2m
+
+$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY     AGE
+sample-deployment-5f7c4b7b4   3         3         3         2m
+
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+sample-deployment-5f7c4b7b4-59rlm   1/1       Running   0          2m
+sample-deployment-5f7c4b7b4-69bjd   1/1       Running   0          2m
+sample-deployment-5f7c4b7b4-vzpqq   1/1       Running   0          2m
+</code></pre>
+<p>Bây giờ mình muốn thay đổi version nginx từ nginx:1.12 -&gt; nginx:1.13 trong deployment vừa rồi. Chúng ta có command 「kubectl set image」.</p>
+<pre><code>$ kubectl set image deployment sample-deployment nginx-container=nginx:1.13
+deployment.extensions/sample-deployment image updated
+</code></pre>
+<p>Sau khi update xong thì ReplicaSet đã được tạo mới, giống như hình phía trên mình đã trình bày về rolling update, thì bây giờ Pod đã được tạo lại, về cơ bản thì không ảnh hưởng gì đến service của chúng ta.</p>
+<pre><code>kubectl get deployment
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+sample-deployment   3         3         3            3           23m
+
+$ kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   0         0         0         23m
+sample-deployment-d5b55f699    3         3         3         16m
+
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+sample-deployment-d5b55f699-4zqw2   1/1       Running   0          15m
+sample-deployment-d5b55f699-9xvrj   1/1       Running   0          16m
+sample-deployment-d5b55f699-zgv5w   1/1       Running   0          16m
+</code></pre>
+<p>Lần này mình đã giới thiệu về mối quan hệ giữa Deployment, ReplicaSet, Pod. Cụ thể như hình bên dưới đây.<br>
+<img src="https://drive.google.com/uc?id=1FRQtz565xOCeN-tI6j06H_QKfsRSnP_b&amp;export=download" alt="uc?id=1FRQtz565xOCeN-tI6j06H_QKfsRSnP_b&amp;export=download"></p>
+<h4 id="iukinupdatedeploymentreplcasetctora">Điều kiện update Deployment (ReplcaSet được tạo ra)</h4>
+<p>Như mình đã trình bày, khi update Deployment thì ReplicaSet mới sẽ được tạo ra. Việc &quot;Update&quot; ở đây không bao gồm việc thay đổi số lương replica mà chính là việc thay đổi nội dung của Pod được tạo ra. Nói một cách chính xác hơn thì khi spec.template thay đổi thì sẽ tạo ra ReplicaSet mới, và thực hiện Rolling update.<br>
+Thực tế khi xem định nghĩa ReplicaSet, tại phần dưới spec.template tính toán giá trị hash và quản lý nó bằng label đã được gắn. Thêm nữa khi thực hiện cơ chế này, trong trường hợp chúng ta muốn quay về lại image cũ, bằng cách thủ công nếu chúng ta setting cùng giá trị hash, thì sẽ không sinh ra ReplicaSet mới, mà sử dụng lại ReplicaSet đã tồn tại trước đó.</p>
+<pre><code>$ kubectl get rs sample-deployment-d5b55f699 -o yaml
+...
+...
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+      pod-template-hash: &quot;816119255&quot;
+...
+...
+</code></pre>
+<p>Trong ví dụ lần này vì chúng ta thay đổi image của Pod từ nginx:1.12 sang nginx 1.13 nên Pod Template Hash được tính toán lại và ReplicaSet được tạo mới.<br>
+<img src="https://drive.google.com/uc?id=1XaV8FbTNgcDneOdbv2FoE5Z0Uw_VdjfN&amp;export=download" alt="uc?id=1XaV8FbTNgcDneOdbv2FoE5Z0Uw_VdjfN&amp;export=download"></p>
+<h4 id="rollbackupdate">Rollback Update</h4>
+<p>Ở Deployment có chức năng roolback. Thực chất của chức năng roolback đó chính là việc chuyển đổi ReplicaSet hiện tại đang sử dụng. ReplicaSet về cơ bản sau khi được chuển đổi vẫn tồn tại ở trạng thái replica: 0 như lưu history vậy. Vì vậy nó có thể tăng số lượng replica bằng việc tái sử dụng lại:</p>
+<pre><code>kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   0         0         0         21h
+sample-deployment-d5b55f699    3         3         3         21h
+</code></pre>
+<p>Để kiểm tra lịch sử update chúng ta sử dụng command 「kubectl rollout history」. Tại mục CHANGE-CAUSE, vì chung ta đã truyền option --record lúc create Deployment nên nó đã lưu lại, trường hợp không có option --record thì nó sẽ không hiển thị.</p>
+<pre><code>$ kubectl rollout history deployment sample-deployment
+deployments &quot;sample-deployment&quot;
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment_sample.yml --record=true
+2         kubectl set image deployment sample-deployment nginx-container=nginx:1.13
+</code></pre>
+<p>Khi thực hiện rollback, dĩ nhiên chúng ta có thể chỉ định việc muốn rollback đến revision nào bằng cách gán thêm parameter</p>
+<pre><code># Trường hợp rollback về revision ngay trước đó
+$ kubectl rollout undo deployment sample-deployment 
+deployment &quot;sample-deployment&quot; rolled back
+
+# Trường hợp chỉ định revision cụ thể
+$ kubectl rollout undo deployment sample-deployment --to-revision 1
+deployment &quot;sample-deployment&quot; rolled back
+</code></pre>
+<p>Sau khi thực hiện rollback thì Pod đã được khởi động trên ReplicaSet cũ.</p>
+<pre><code>$ kubectl get rs
+NAME                           DESIRED   CURRENT   READY     AGE
+sample-deployment-86b68b4c5b   3         3         3         22h
+sample-deployment-d5b55f699    0         0         0         22h
+</code></pre>
+<p>Xem qua thì các bạn thấy cách rollback kiểu này có vẻ rất hay, tuy nhiên thực tế thì rất ít người dùng, lý do thay vì thực hiện rollback bằng command kubectl rollout thì chúng ta chỉnh sửa trực tiếp lên file YAML và chạy lệnh kubectl apply thì tốt hơn. Khi thay đổi spec.template về lại trạng thái trước khi update (nginx 1.12) thì Pod Template Hash cũng về lại giá trị ban đầu. Vì vậy Pod được khởi động trên ReplicaSet phù hợp, giống như lệnh kubectl rollout.</p>
+<h4 id="deploymentscaling">Deployment scaling</h4>
+<p>Cũng giống như ReplicaSets chúng ta có thể sử dụng 「kubectl scale」 hoặc 「kubectl apply -f」 để scaling.</p>
+<h4 id="phngphpupdatenngcao">Phương pháp update nâng cao</h4>
+<p>Trong bài viết lần này mình đã tập trung nói về phần update, thực tế để update thì chúng ta còn có một phương pháp đó là recreate. Liên quan đến update có rất nhiều paramater, chi tiết mình sẽ trình bày ở các phần sau.</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BNh%E1%BA%ADp%20m%C3%B4n%20Kubernetes%20P5%5D%20-%20Kubernetes%20Pod%20-%20ReplicaSet%20-%20Deployment">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

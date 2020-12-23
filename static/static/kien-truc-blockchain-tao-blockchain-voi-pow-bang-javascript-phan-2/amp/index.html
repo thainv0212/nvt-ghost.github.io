@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2" />
+    <meta property="og:description" content="■ Gợi nhớ Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-09-04T01:24:21.000Z" />
+    <meta property="article:modified_time" content="2018-09-04T01:24:21.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="PoW" />
+    <meta property="article:tag" content="Proof-of-Work" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2" />
+    <meta name="twitter:description" content="■ Gợi nhớ Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, javascript, PoW, Proof-of-Work" />
+    <meta property="og:image:width" content="780" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2",
+    "url": "https://blog.vietnamlab.vn/kien-truc-blockchain-tao-blockchain-voi-pow-bang-javascript-phan-2/",
+    "datePublished": "2018-09-04T01:24:21.000Z",
+    "dateModified": "2018-09-04T01:24:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&export=download",
+        "width": 780,
+        "height": 500
+    },
+    "keywords": "blockchain, javascript, PoW, Proof-of-Work",
+    "description": "■ Gợi nhớ\nTrong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một\nBlockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu\nthành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với\nnhau. Mỗi Block sẽ chứa những thông tin cơ bản như index, prevHash, timestamp,\ndata, hash. Như vậy, để tạo một Block mới gắn vào tiếp chuỗi Blockchain, thì\nchúng ta chỉ cần tạo 1 block gồm như thông tin như trên, trong đó, hash được tạo\nra bằng thuật toán SHA. Sa",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Kiến trúc Blockchain – Tạo blockchain với bài toán PoW bằng javascript – Phần 2</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2018-09-04">04 Sep 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1pvkE4__8SKwilheDMzo4kfiV6aibtBZH&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="goi-nho"><strong>■ Gợi nhớ</strong></h3>
+Trong bài viết trước, chúng ta đã làm quen với cấu trúc cơ bản của một Blockchain. Mình xem lại cấu trúc Blockchain cơ bản một xíu nhé. Đơn vị cấu thành nhỏ nhất trong blockchain là Block. Một Blockchain có nhiều Block nối với nhau. Mỗi Block sẽ chứa những thông tin cơ bản như index, prevHash, timestamp, data, hash. Như vậy, để tạo một Block mới gắn vào tiếp chuỗi Blockchain, thì chúng ta chỉ cần tạo 1 block gồm như thông tin như trên, trong đó, hash được tạo ra bằng thuật toán SHA. Sau đó, gắn block mới tạo vào chuỗi blockchain. Thật là đơn giản phải không ^^.
+<p><amp-img src="https://drive.google.com/uc?id=1PEg4OXHoycEiLz-bI50yQQPtjtSqm56l" alt="drawing" width="785" height="567" layout="responsive"></amp-img></p>
+<p><a href="https://blog.vietnamlab.vn/2018/06/29/kien-truc-blockchain-tao-blockchain-voi-javascript-phan-1/">Bạn có thể xem lại phần 1 ở đây</a>.</p>
+<p>Nhưng đi sâu hơn một xíu trong thị trường tiền điện tử, điển hình như Bitcoin, chắc hẳn bạn cũng nghe loáng thoáng về máy đào coin, những máy đó phải giải thuật toán để xác nhận các transaction, giải xong bài toàn thì sẽ được thưởng bitcoin, độ khó đào coin ngày càng khó nên việc giải thuật toán cũng càng khó, v.v… Vậy với cái Blockchain cơ bản ở trong phần một mình đã trình bày, thì độ khó nằm đâu? phần thưởng cho máy đào nằm đâu? Cứ bình tĩnh, đọc tiếp phần dưới này nhé.</p>
+<h3 id="blockchain-voi-thuat-toan-proof-of-work"><strong>■ Blockchain với thuật toán Proof-of-Work</strong></h3>
+<p>Trước tiên mình muốn đưa ra bài toán đơn giản cho dễ hiểu như vầy:<br />
+<strong>● Bài toán dạng 1: A bằng bao nhiêu?</strong></p>
+<pre class="language-bash">1 + 2 + 3 + 4 + 5 = A
+
+111 + 222 + 333 + 444 + 555 = A</pre>
+<br />
+<p><strong>● Bài toán dạng 2: A bằng bao nhiêu?</strong></p>
+<pre class="language-bash">1 + 2 + 3 + 4 + A = 111
+
+222 + A + 333 + 444 + 555 = 9999</pre>
+<br />
+<p><strong>● Bài toán dạng 3: A bằng bao nhiêu? Trong đó, B là một số tuỳ ý nhưng phải thoả điều kiện</strong></p>
+<pre class="language-bash">4 + 5 + 8 + 9 + A  = B | với điều kiện B phải chia hết cho 3
+
+11 + 22 + 33 + 44 + A  = B | với điều kiện chữ số đầu của B phải bằng 3</pre>
+<br />
+<p>Trong 3 dạng toán trên, bạn có cảm nhận độ khó tăng dần không. Bài toán dạng một là một bài toàn dạng xuôi khá đơn giản. Nhưng đến bài toán thứ hai, thì bạn phải truy ngược lại để tìm số A. Đến dạng toán thứ 3 thì không những phải truy ngược lại mà còn kèm theo điều kiện. Vì vậy ai giải nhanh nhất sẽ là người chiến thắng và sẽ được thưởng.</p>
+<p>Trong Blockchain có áp dụng thuật toán <a href="https://en.wikipedia.org/wiki/Proof-of-work_system">Proof-of-Work</a> cũng vậy. Nhìn vào hình vẽ bên dưới, bạn sẽ thấy trong cấu trúc có thêm một param nonce. Nonce là một con số tuỳ ý, giống như số A trong bài toán ví dụ. Để hiểu rõ hơn bạn nhìn vào hình bên dưới nhé.<br />
+<amp-img src="https://drive.google.com/uc?id=1MVAvJTfBs8z5shabcN-J6pABom13HZPt&amp;export=download" alt="drawing" width="1215" height="548" layout="responsive"></amp-img><br />
+Khi có một Block mới muốn add vào Blockchain, Block đó sẽ được tạo ra với những tham số cơ bản và một số nonce. Lúc này, nonce và hash vẫn là ẩn số. Hash sẽ có công thức tính như sau:</p>
+<pre class="language-javascript"><code>hash = SHA256(index + prevHash + timestamp + JSON.stringify(data) + nonce); </code></pre>
+<p>và hash tìm được phải thoả kiều kiện 2 chữ số đầu của hash phải bằng 00. Điều điện đó ta gọi nó là độ khó. Độ khó càng tăng khi ta thay đổi điều kiện thoả càng phức tạp.</p>
+<p>Vd:</p>
+<p><strong><code>2 chữ số đầu</code> của hash phải bằng <code>dc</code> =&gt; độ khó <code>*</code></strong></p>
+<p><strong><code>5 chữ số đầu</code> của hash phải bằng <code>dc48e</code> =&gt; độ khó <code>**</code></strong></p>
+<p><strong><code>5 chữ số đầu</code> của hash phải bằng <code>dc48e</code> và <code>2 chữ số cuối</code> của hash phải bằng <code>00</code> =&gt; độ khó <code>n*</code> ^^</strong></p>
+<p>Để tìm ra hash thoả điều kiện, máy tính sẽ chạy liên tục công thức tính hash bằng SHA256 như trên với con số nonce nào đó. Nếu hash tìm ra không thoả, máy tính sẽ thay đổi số nonce khác rồi tính lại công thức cho đến khi hash tìm được thoả điều kiện. Sẽ có nhiều máy tính tham gia giải bài toán này. Máy tính nào tìm thấy con số nonce tạo ra hash thoả điều kiện đầu tiên sẽ là máy tính tính chiến thằng và sẽ được thưởng.</p>
+<h3 id="blockchain-voi-demo"><strong>■ Blockchain với Demo</strong></h3>
+Viết thử cái demo để chạy xem nhé, cho dễ hình dung hơn.
+<p>Code toàn bộ ở đây nhé.</p>
+<p>Dựa vào demo ở phần 1, chúng ta chỉnh sửa lại chút xíu nhé. Đầu tiên xem flowchart để  hình dung code chạy như thế nào nhé.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1adT7EaMl-h2foodLvLXRjbujoeELdpIl&amp;export=download" alt="drawing" width="949" height="467" layout="responsive"></amp-img></p>
+<p>Đầu tiên, ví dụ có</p>
+<p><strong><code>address_1</code> gửi đến <code>address_2</code> 100 coin =&gt; là 1 transaction</strong></p>
+<p><strong><code>address_3</code> gửi đến <code>address_4</code> 100 coin =&gt; là 1 transaction khác</strong></p>
+<p>những transaction sẽ vào hàng đợi, khi block mới được tạo, các transaction sẽ được bỏ vào block đóng vai trò là tham số data. Sau đó miner sẽ bắt đầu giải toán cho block mới đó bằng cách thay đổi con số nonce cho phù hợp để hash thoả điều kiện. Sau khi giải toán thành công, block đó sẽ đuọc add vào blockchain và 1 transaction mới được tạo để chuyển tiền thưởng cho miner.</p>
+<p>Dựa vào code ở phần 1, code của chúng ta sẽ thêm như sau:</p>
+<p>Định nghĩa thêm <code>class Transaction</code></p>
+<pre class="language-javascript"><code>// định nghĩa thêm class transaction
+// gồm các thông tin cần thiết:
+// địa chỉ gửi, địa chỉ đến, số tiền, phí giao dịch
+class Transaction{
+    constructor(fromAddress, toAddress, amount, fee){
+        this.fromAddress = fromAddress;
+        this.toAddress = toAddress;
+        this.amount = amount;
+        this.fee = fee;
+    }
+}</code></pre>
+<p>Trong <code>class Block</code>, chúng ta thêm một tẹo như sau:</p>
+<pre class="language-javascript"><code>class Block {
+    constructor(timestamp, transactions, previousHash = '') {
+        this.previousHash = previousHash;
+        this.timestamp = timestamp;
+        this.transactions = transactions;
+        this.hash = this.calculateHash();
+        this.nonce = 0;        // </code></pre>
+<p>Trong <code>class Blockchain</code>, sẽ thêm như sau:</p>
+<pre class="language-javascript"><code>class Blockchain{
+    constructor() {
+        this.chain = [this.createGenesisBlock()];
+        // độ khó là 2 chữ số đầu của hash == 00 this.difficulty = 2;
+        // list transaction đang chờ xác nhận
+        this.pendingTransactions = [];  
+        // phần thưởng
+        this.miningReward;
+    }
+    //
+    // sau khi giải được nonce cho block
+    // miner sẽ được thưởng dựa vào fee chuyển của các transaction
+    // trong block đã mine thành công
+    getminingReward() {
+      let reward = 0;
+      for(const trans of this.pendingTransactions){
+          reward += trans.fee;
+      }
+      return reward;
+    }
+    //
+    minePendingTransactions(miningRewardAddress){
+        // tạo block mới và mine tìm số nonce phù hợp
+        let block = new Block(Date.now(), this.pendingTransactions, this.getLatestBlock().hash);
+        block.mineBlock(this.difficulty);
+        console.log('Block successfully mined!');
+        this.chain.push(block);
+        // tạo 1 transaction chuyển tiền thưởng 
+        //cho address đã tham gia mine thành công
+        var miningReward = Number(this.getminingReward())*0.8;
+        this.pendingTransactions = [
+            new Transaction(null, miningRewardAddress, miningReward, miningReward*0.1)
+        ];
+    }
+    //
+    // add transaction muốn xác nhận vào hàng đợi
+    createTransaction(transaction){
+        this.pendingTransactions.push(transaction);
+    }
+    //
+    // đọc lại lịch sử các block trong chuỗi blockchain
+    // tính toán số tiền hiện tại của address đó
+    getBalanceOfAddress(address){
+        let balance = 0;
+        for(const block of this.chain){
+            for(const trans of block.transactions){
+                if(trans.fromAddress === address){
+                    balance -= trans.amount;
+                }
+                if(trans.toAddress === address){
+                    balance += trans.amount;
+                }
+            }
+        }
+        return balance;
+    }
+}</code></pre>
+<p>Còn lại giữ nguyên như code ở phần một nhé.</p>
+<p>Chạy thử xem nhé</p>
+<pre class="language-javascript"><code>let landthCoin = new Blockchain();
+landthCoin.createTransaction(new Transaction('address1', 'address2', 100, 10));
+landthCoin.createTransaction(new Transaction('address2', 'address1', 50, 5));
+
+console.log('\n Starting the miner...');
+landthCoin.minePendingTransactions('landth-address');
+
+console.log('\nBalance of landth is', landthCoin.getBalanceOfAddress('landth-address'));
+
+console.log('\n Starting the miner again...');
+landthCoin.minePendingTransactions('xaviers-address');
+
+console.log('\nBalance of landth is', landthCoin.getBalanceOfAddress('landth-address'));</code></pre>
+<p>Kết quả sau khi chạy console sẽ in ra như sau:</p>
+<pre class="language-javascript"><code> Starting the miner...
+BLOCK MINED: 008b274d75d856de3911f9066b97e587c2d02b4b8b1a86fc4c7a13eca8739060
+Block successfully mined!
+
+Balance of landth is 0
+
+ Starting the miner again...
+BLOCK MINED: 00d687f3c63bfecc871217494e807306eb2d73e952087399a81820dfbd252504
+Block successfully mined!
+
+Balance of landth is 12</code></pre>
+<h3 id="tam-tu"><strong> ■ Tâm tư</strong></h3>
+Thật thú vị phải không? Nhưng hiện nay, độ khó để mine Bitcoin như các bạn cũng đã biết, ngày càng khó. Đòi hỏi các máy tính chạy để giải bài toán phải thật mạnh mẽ và phải chạy suốt ngày đêm. Chính vì điều đó đã gây ra vấn đề môi trường cho nhân loại. Điện tiêu thụ cho các máy đào ngốn không ít. Vì vậy cần tìm ra một cách giải toán mới mà đỡ tốn tiền chạy máy đào nhĩ. Và có lẽ thuật toán Proof-of-Stake (PoS) đang được cân nhắc và thay thế. Hiện nay, Bitcoin với PoS vẫn đang được chạy thí nghiệm. Bên cạnh đó, cũng có những Network mới ra đời sau này đã áp dụng PoS. Nhưng tất cả chỉ đang trong giai đoạn phân tích và test. Liệu PoS có thay thế PoW được không, chúng ta chờ đợi xem nhé.
+<p></p>
+<p></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

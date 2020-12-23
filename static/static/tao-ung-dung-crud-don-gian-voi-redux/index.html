@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tạo ứng dụng CRUD đơn giản với Redux (phần 1) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 1)" />
+    <meta property="og:description" content="Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux. I. Giới thiệu chung về Redux1. Hoàn cảnh ra đời Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-07-28T20:51:24.000Z" />
+    <meta property="article:modified_time" content="2019-10-21T09:42:09.000Z" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="redux" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 1)" />
+    <meta name="twitter:description" content="Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux. I. Giới thiệu chung về Redux1. Hoàn cảnh ra đời Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.Đ.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="react, redux" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="495" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tạo ứng dụng CRUD đơn giản với Redux (phần 1)",
+    "url": "https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/",
+    "datePublished": "2019-07-28T20:51:24.000Z",
+    "dateModified": "2019-10-21T09:42:09.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&export=download",
+        "width": 1200,
+        "height": 495
+    },
+    "keywords": "react, redux",
+    "description": "Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với\nReact và Redux.\n\nI. Giới thiệu chung về Redux\n1. Hoàn cảnh ra đời \nNăm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất\nchậm chạp và nặng nề. Tuy nhiên, ReactJS chỉ là một thư viện để render các\nComponent lên giao diện chứ không có khả năng quản lý trạng thái của ứng dụng.\nSau đó, Facebook có giới thiệu 1 thư viện giúp hỗ trợ React trong việc quản lý\ntrạng thái mang tên Flux. Tuy nhiên, Flux ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-react tag-redux nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-react tag-redux js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tạo ứng dụng CRUD đơn giản với Redux (phần 1)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-07-29">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 29 July 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/react/index.html">react</a>, <a href="../tag/redux/index.html">redux</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" alt="Tạo ứng dụng CRUD đơn giản với Redux (phần 1)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tao-ung-dung-crud-don-gian-voi-redux/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20%E1%BB%A9ng%20d%E1%BB%A5ng%20CRUD%20%C4%91%C6%A1n%20gi%E1%BA%A3n%20v%E1%BB%9Bi%20Redux%20(ph%E1%BA%A7n%201)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux.</p><h3 id="i-gi-i-thi-u-chung-v-redux">I. Giới thiệu chung về Redux</h3><h3 id="1-ho-n-c-nh-ra-i">1. Hoàn cảnh ra đời </h3><p>Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng nề. Tuy nhiên, ReactJS chỉ là một thư viện để render các Component lên giao diện chứ không có khả năng quản lý trạng thái của ứng dụng. Sau đó, Facebook có giới thiệu 1 thư viện giúp hỗ trợ React trong việc quản lý trạng thái mang tên <strong>Flux</strong>. Tuy nhiên, Flux chỉ được FB giới thiệu như 1 kiến trúc tổng quát ngoài ra họ không cung cấp cách implement chi tiết. Hơn nữa, việc áp dụng cấu trúc Flux lúc đó khá rắc rối và có thể nói khiến cho các Lập trình viên "tẩu hoả nhập ma". Khi đó, Dan Abra nghiên cứu về Flux của Facebook và ngôn ngữ ELM. Anh ta đã bị ảnh hưởng bởi kiến trúc của ELM, và nhận thấy sự phức tạp của Flux. Tháng 5/2015 Dan Abramov công bố một thư viện mới có tên <strong>Redux</strong>, được viết trên kiến trúc ELM và cách sử dụng đơn giản hơn rất nhiều so với Flux.</p><h3 id="2-kh-i-qu-t-chung-c-ch-s-d-ng">2. Khái quát chung cách sử dụng</h3><p>Redux có thể nói  chính xác là 1 bản implement của Flux. Tuy nhiên được lược giản đi rất nhiều thứ như là chỉ có 1 store combine các reducers lại thay vì có nhiều store như Flux, sử dụng các stage-changing functions được gọi là reducers (thay vì Dispatcher),etc. Có thể tóm lược cách sử dụng của Redux bằng sơ đồ sau: </p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1BQYhZRPfmuuDwdwl3uaOuKW5MF1w7R1Y&amp;export=download" class="kg-image" alt></figure><p> </p><p>Khi người dùng thực hiện 1 <strong>Action</strong> trên giao diện (có thể là load lại trang, hay click vào 1 button submit,...) thì một đối tượng Action sẽ được tạo ra. Action ở đây được khai báo kiểu hành động và chứa một thông tin nhằm thay đổi state. Action này sẽ được dispatch theo ActionType và được tiếp nhận trực tiếp bởi <strong>Store</strong>. Như đã nói ở trên Store chứa rất nhiều các <strong>Reducer</strong>, và tại đây Reducer sẽ nhận biết các kiểu action đã được định nghĩa và trả về các state cho các React Component mà Action mong muốn. Điều đặc biệt của Redux là Reducer không bao giờ thay đổi state hiện tại của App mà nó sẽ copy và trả về một State mới.</p><p>Ngoài ra trong Redux chúng ta có thể add thêm các <strong>Middleware</strong> layers vào Reducers để xử lý các actions. Các lớp trung gian này sẽ thực hiện các công việc thêm cho các actions ví dụ: chứng thực người dùng, đảm bảo người dùng có đủ quyền để thực hiện action. Vì thế middleware có thể dừng action lại hoặc cho phép action thông qua và kể cả thay đổi action. Hiện nay các middleware phổ biến có thể kể đến: Redux Thunk, Redux Saga,...</p><h3 id="ii-t-o-app-crud-demo">II. Tạo app CRUD demo</h3><p>Thật ra việc để hiểu được lý thuyết tương đối khó khăn đối với những người bắt đầu sử dụng Redux. Vì vậy, chúng ta cùng thực hành tạo 1 app CRUD cơ bản áp dụng Redux để hiểu rõ hơn về cơ chế hoạt động của Redux. Trong ứng dụng lần này, mình tạo một ứng dụng quản lý game yêu thích  sử dụng React, Redux kết hợp với backend sử dụng Node.js và MongoDB.</p><h3 id="1-chu-n-b-">1. Chuẩn bị</h3><p>Các bạn có thể tạo app sử dụng package `create-react-app`  bằng cách chạy lệnh:</p><pre><code>create-react-app crud</code></pre><p>để khởi tạo project.</p><p>Tiếp đến là cài đặt Redux cùng các thư viện liên quan: </p><pre><code>npm install --save redux react-redux
+npm install --save react-router-dom</code></pre><p>rồi sau đó sử dụng lệnh <code>npm start</code> để chạy ứng dụng của mình.</p><h3 id="a-server">a) Server</h3><p>Về phần server, mình viết phần server sử dụng Nodejs và MongoDB. Tất cả được đặt trong cùng project trong thư mục <code>./backend</code>. Các bạn có thể tham khảo source  code của mình tại <a href="https://github.com/tienld235/crud">đây</a>. Server được sử dụng ở đây để liên kết database với app của chúng ta. Tất cả được mình đặt trong thư mục <code>./backend</code>.</p><pre><code>const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+var cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+const dbUrl = 'mongodb://localhost/reduxcrud';
+
+function validate(data) {
+    let errors = {};
+    if (data.title.trim() === '') errors.title = "Can't be empty";
+    if (data.cover.trim() === '') errors.cover = "Can't be empty";
+    const isValid = Object.keys(errors).length === 0;
+    return { errors, isValid };
+}
+
+mongoose.connect(dbUrl, function (err, db) {
+    console.log("connected")
+    app.get('/api/games', (req, res) =&gt; {
+        db.collection('games').find({}).toArray((err, games) =&gt; {
+            res.json(games);
+        });
+    })
+
+    app.post('/api/games', (req, res) =&gt; {
+        const { errors, isValid } = validate(req.body);
+        if (isValid) {
+            const { title, cover } = req.body;
+            db.collection('games').insert({ title, cover }, (err, result) =&gt; {
+                if (err) {
+                    res.status(500).json({ errors: { global: 'Something went wrong ' } })
+                } else {
+                    res.json({ game: result.ops[0] })
+                }
+            })
+        } else {
+            res.status(400).json({ errors });
+        }
+    })
+
+    app.get('/api/games/:_id', (req, res) =&gt; {
+        db.collection('games').findOne({ _id: new mongoose.Types.ObjectId(req.params._id) }, (err, game) =&gt; {
+            res.json(game);
+        })
+    })
+
+    app.put('/api/games/:_id', (req, res) =&gt; {
+        const { errors, isValid } = validate(req.body);
+
+        if (isValid) {
+            const { title, cover } = req.body;
+            db.collection('games').findOneAndUpdate(
+                { _id: new mongoose.Types.ObjectId(req.params._id) },
+                { $set: { title, cover } },
+                { returnOriginal: false },
+                (err, result) =&gt; {
+                    if (err) { res.status(500).json({ errors: { global: err } }); return }
+                    res.json({ game: result.value });
+                }
+            )
+
+        } else {
+            res.status(400).json({ errors })
+        }
+    })
+
+    app.delete('/api/games/:_id', (req, res) =&gt; {
+        console.log('id nè', req.params._id);
+        db.collection('games').deleteOne({ _id: new mongoose.Types.ObjectId(req.params._id) }, (err, r) =&gt; {
+            if (err) { res.status(500).json({ errors: { global: err }}); return }
+            res.json({});
+        })
+    });
+
+    app.use((req, res) =&gt; {
+        res.status(404).json({
+            errors: {
+                global: "Please try again later"
+            }
+        })
+    })
+    app.listen(5000, () =&gt; console.log('Server is running on localhost:5000'));
+});</code></pre><p>Như các bạn thấy server của mình chạy trên localhost:5000. Trên server, mình đã tạo các đường link dùng cho việc lấy dữ liệu data, thêm mới, sửa, xoá. Sử dụng mongoose và MongoDB. hãy chắc chắn rằng trên máy của các bạn đã cài đầy đủ Node.js và MongoDB, đồng thời, tạo database <code>reduxcrud</code> và  collection <code>games</code>. Do chúng ta đi sâu vào phần Redux nên mình sẽ tạm thời không đi sâu giải thích về phần này.</p><h3 id="b-c-u-tr-c-th-m-c">b) Cấu trúc thư mục</h3><pre><code>src
+--actions
+  --action.js
+--actionTypes
+  --index.js
+--components
+  --GamCard.js
+  --GameList.js
+--containers
+  --GameForm.js
+  --GamePage.js
+--reducers
+  --games.js
+  --rootReducer.js
+--App.js
+--index.js</code></pre><p>Trong <code>src/App.js</code> :</p><pre><code>import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import GamesPage from './containers/GamesPage';
+import GameForm from './containers/GameForm';
+
+const App = () =&gt; (
+  &lt;div className='ui container'&gt;
+    &lt;div className='ui three item menu'&gt;
+      &lt;Link className='item' activeOnlyWhenExact to='/'&gt;Home&lt;/Link&gt;
+      &lt;Link className='item' activeOnlyWhenExact to={'/games'}&gt;Games&lt;/Link&gt;
+      &lt;Link className='item' activeOnlyWhenExact to='/games/new'&gt;Add New Game&lt;/Link&gt;
+    &lt;/div&gt;
+
+    &lt;Route exact path={'/games'} component={GamesPage} /&gt;
+    &lt;Route path={'/games/new'} component={GameForm} /&gt;
+    &lt;Route path={'/game/:_id'} component={GameForm} /&gt;
+  &lt;/div&gt;
+);
+
+export default App;</code></pre><p>mình dùng để tại các routers trong app.</p><h3 id="c-t-store">c) Tạọ Store</h3><p><code>src/index.js</code>: </p><pre><code>import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers/rootReducer';
+import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
+
+const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+);
+
+ReactDOM.render(
+    &lt;BrowserRouter&gt;
+        &lt;Provider store={store}&gt;
+            &lt;App /&gt;
+        &lt;/Provider&gt;
+    &lt;/BrowserRouter&gt;, document.getElementById('root'));
+    
+serviceWorker.unregister();</code></pre><p>Đầu tiên chúng ta sẽ tạo store để chứa các State được sử dụng trong Project. Chúng ta sử dụng hàm <code>createStore()</code> để tạo store. Trong store có chứa <code>rootReducer</code> và được apply middleware <code>redux-thunk</code> dùng cho việc xử lý synchronous actions với API . Hãy nhìn qua 1 chút <code>rootReducer</code> trong <code>.src/reducers/rootReducer.js</code>:</p><pre><code>import { combineReducers } from 'redux';
+import games from './games';
+
+export default combineReducers({
+    games
+});</code></pre><p> Như vậy, rootReducers là tập hợp của các reducers rồi được tổng hợp bởi hàm <code>combineReducers()</code>, Store chứa các reducers này sau đó gắn chúng với props store thẻ <code>Provider</code> của thư viện <code>react-redux</code>. Việc này giúp chúng ta có thể gọi các state xuyên suốt, ở mọi các component trong project thay vì phải truyền đi truyền lại giữa các component với nhau.</p><h3 id="d-t-o-c-c-actiontypes">d) Tạo các actionTypes</h3><pre><code>// src/actionTypes/index.js
+
+export const GET_GAMES = 'GET_GAMES';
+export const CREATE_GAME = 'CREATE_GAME';
+export const GET_GAME = 'GET_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const DELETE_GAME = "DELETE_GAME";
+</code></pre><p>Việc khai báo các action types là cực kì quan trọng, nó giúp chúng ta phân loại được kiểu hành động và đồng thời giúp Reducers nhận biết được các action này để trả về được các state hợp lý đúng với nguyện vọng. Ngoài 4 kiểu type CRUD ra, chúng ra có thêm kiểu type <code>GET_GAME</code> để trả về giá trị của 1 bản ghi, dùng để dễ dàng update và xoá.</p><h3 id="2-ch-c-n-ng-read">2. Chức năng Read</h3><p><code>src/containers/GamePage.js</code>:</p><pre><code>import React from 'react';
+import { connect } from 'react-redux';
+import GamesList from '../components/GamesList';
+import { fetchGames, deleteGame } from '../actions/actions';
+
+class GamesPage extends React.Component {
+    componentWillMount = () =&gt; {
+        this.props.fetchGames();
+    }
+
+    render= () =&gt; (
+            &lt;div&gt;
+                &lt;h1&gt;Game List&lt;/h1&gt;
+                &lt;GamesList games={this.props.games} deleteGame={this.props.deleteGame} /&gt;
+            &lt;/div&gt;
+    )
+}
+
+const mapStateToProps = (state) =&gt; ({
+    games: state.games
+});
+
+const mapDispatchToProps = dispatch =&gt; ({
+    fetchGames: () =&gt; dispatch(fetchGames()),
+    deleteGame: (id) =&gt; dispatch(deleteGame(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesPage);</code></pre><p></p><p><code>src/components/GameList.js</code>:</p><pre><code>import React from 'react';
+import GameCard from './GameCard';
+
+const GamesList = ({games, deleteGame}) =&gt; (
+    &lt;div&gt;
+        {games.length === 0 ?
+        &lt;p&gt;There are no games yet in your collection&lt;/p&gt;
+        :
+        &lt;div className="ui four cards"&gt;
+            {games.map((game) =&gt; &lt;GameCard game={game} deleteGame={deleteGame}/&gt;)}
+        &lt;/div&gt;
+        }
+    &lt;/div&gt;
+)
+
+export default GamesList;</code></pre><p></p><p><code>src/components/GameCard.js</code>:</p><pre><code>import React from 'react';
+import {Link} from 'react-router-dom';
+
+const GameCard = ({game, deleteGame}) =&gt; (
+    &lt;div className="ui card"&gt;
+        &lt;div className="image"&gt;
+            &lt;img src={game.cover} alt={'Game Cover'} /&gt;
+        &lt;/div&gt;
+        &lt;div className="content"&gt;
+            &lt;div className="header" &gt;{game.title}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="extra content"&gt;
+            &lt;div className="ui two buttons"&gt;
+                &lt;Link to={`/game/${game._id}`} className="ui basic button green"&gt;Edit&lt;/Link&gt;
+                &lt;Link className="ui basic button red" onClick={()=&gt; deleteGame(game._id)}&gt;Delete&lt;/Link&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+)
+
+export default GameCard;</code></pre><p>Trong container <code>GamePage</code>, chúng ta sử dụng hàm <code>connect()</code> từ thư việc <code>react-redux</code> để liên kết component với store và các action . Cụ thể, thông qua function <code>mapStateToProps()</code>,· Chúng ta đã có thể lấy được dữ liệu của global state trong store của redux và biến chúng thành props games của riêng mình. Tuy nhiên hãy nhìn một chút trong reducer của game: </p><pre><code>// src/reducers/games.js
+...
+export default function games(state = [], action = {}) {
+	switch (action.type) {
+		default: return state;
+	}
+}
+....</code></pre><p>nếu chỉ gọi đến hàm <code>mapStateToProps()</code>, vì chưa có action nào được thực hiện nên hiện tại state từ redux trả về đang là <code>[]</code> - array rỗng và không có dữ liệu, Vậy nên kết quả hiển thị sẽ là <code>There are no games yet in your collection</code>.</p><p></p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1_-5q4sIpByImkJqcfc0gezX7zLfipRux&amp;export=download" class="kg-image" alt></figure><p>Tuy nhiên, trong container <code>GamePage</code>,  cụ thể:</p><pre><code>
+...
+import { fetchGames, deleteGame } from '../actions/actions';
+...
+	componentWillMount = () =&gt; {
+        this.props.fetchGames();
+    }
+
+...
+
+const mapDispatchToProps = dispatch =&gt; ({
+    fetchGames: () =&gt; dispatch(fetchGames()),
+    deleteGame: (id) =&gt; dispatch(deleteGame(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesPage);</code></pre><p>Ta có thể thấy trước khi dữ liệu được render ra view, trong hàm <code>componentWillMount</code> của <code>GamePage</code> đã gọi prop <code>fetchGames</code>. vậy props này từ đâu mà có? Như các bạn thấy,  trong hàm  <code>connect</code> mình  đã truyền tham số thứ 2 là 1 hàm <code>mapDispatchToProps</code>.  hàm <code>mapDispatchToProps</code> này có tác dụng là dispatch action và chuyển hàm chứa action đó thành props của app.</p><pre><code>// src/action/actions.js
+
+import { GET_GAMES } from '../actionTypes/index';
+
+export const fetchGames = () =&gt; (
+    async dispatch =&gt; {
+        const response  = await fetch('http://127.0.0.1:5000/api/games');
+        const games = await response.json();
+        dispatch({
+            type: GET_GAMES,
+            games
+        });
+    }
+)</code></pre><p>trong hàm <code>fetchGame</code> được khai báo trong <code>src/action/actions.js</code>, ta có thể thấy sau khi fetch dữ liệu từ API trả về giá trị  <code>games</code>, nó dispatch 1 hành động với type là <code>GET_GAMES</code> và truyền dữ liệu đi chính là giá trị <code>games</code> vừa được trả về từ API.</p><p>trong <code>src/reducers/games.js</code>:</p><pre><code>import { GET_GAMES } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+	switch (action.type) {
+        case GET_GAMES:
+            return action.games;
+		default: return state;
+    }
+}</code></pre><p>Ta có thể thấy reducer <code>games</code> ngoài params <code>state</code> với giá trị mặc định là [],  param thứ 2 là action. Trong trường hợp type action là <code>GET_GAMES</code>, thì nó sẽ trả về <code>games</code> của object action. Mà ở trên action <code>fetchGames</code> chúng ta đã dispatch 1 hành động với kiểu type <code>GET_GAMES</code> và trả về giá trị games từ API. vậy Reducer <code>game</code> sẽ trả về cho chúng ta chính dữ liệu <code>game</code>  đó từ action. Trong database hiện tại có: </p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1yBOYNY4dpnXbbgp_2lxd00sYXuYQFJlP&amp;export=download" class="kg-image" alt></figure><p>Vậy kết quả hiển thị sẽ là: </p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1__XQ-I754oWO8xdeS05cP3pMu2I00RGO&amp;export=download" class="kg-image" alt></figure><p>Ở bài viết này, mình đã giới thiệu cho các bạn khái quát qua về Redux, cũng như là được chức năng Read trong CRUD để hiển thị kết quả ra màn hình. Ở phần sau mình sẽ tiếp tục hướng dẫn các bạn làm tiếp các phần Create, Update, Delete. Hy vọng bài viết hữu ích với các bạn! Xin chào!</p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tao-ung-dung-crud-don-gian-voi-redux/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20%E1%BB%A9ng%20d%E1%BB%A5ng%20CRUD%20%C4%91%C6%A1n%20gi%E1%BA%A3n%20v%E1%BB%9Bi%20Redux%20(ph%E1%BA%A7n%201)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tao-ung-dung-crud-don-gian-voi-redux/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

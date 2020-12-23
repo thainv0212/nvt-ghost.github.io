@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Phân lớp (Layering) trong kiến trúc mạng Internet</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Phân lớp (Layering) trong kiến trúc mạng Internet" />
+    <meta property="og:description" content="Layering là chính là phân lớp trong kiến trúc mạng internet, nó mô phân chia chi tiết vai trò và nhiệm vụ của từng lớp qua đó giúp cho các kiến trúc sư hệ thống thiết kế mô hình mạng một cách tối ưu và bảo mật hơn. Kiến thức" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/pha/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1XFaezXoUQos7l2x036dK2uxHqNJGTrTU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-10-10T00:01:23.000Z" />
+    <meta property="article:modified_time" content="2020-10-10T00:01:23.000Z" />
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Phân lớp (Layering) trong kiến trúc mạng Internet" />
+    <meta name="twitter:description" content="Layering là chính là phân lớp trong kiến trúc mạng internet, nó mô phân chia chi tiết vai trò và nhiệm vụ của từng lớp qua đó giúp cho các kiến trúc sư hệ thống thiết kế mô hình mạng một cách tối ưu và bảo mật hơn. Kiến thức" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/pha/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1XFaezXoUQos7l2x036dK2uxHqNJGTrTU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.C.Q" />
+    <meta property="og:image:width" content="1118" />
+    <meta property="og:image:height" content="453" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.C.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8HRtTCzrnKzVWCm6NCYy8Hsyei_wlpa&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quytc/",
+        "sameAs": []
+    },
+    "headline": "Phân lớp (Layering) trong kiến trúc mạng Internet",
+    "url": "https://blog.vietnamlab.vn/pha/",
+    "datePublished": "2020-10-10T00:01:23.000Z",
+    "dateModified": "2020-10-10T00:01:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1XFaezXoUQos7l2x036dK2uxHqNJGTrTU&export=download",
+        "width": 1118,
+        "height": 453
+    },
+    "description": "Layering là chính là phân lớp trong kiến trúc mạng internet, nó mô phân chia\nchi tiết vai trò và nhiệm vụ của từng lớp qua đó giúp cho các kiến trúc sư hệ\nthống thiết kế mô hình mạng một cách tối ưu và bảo mật hơn. Kiến thức trong bài\nviết này rất cơ bản nhưng rất cần thiết đối với những bạn có mục tiêu trở thành\nkiến trúc sư hệ thống mạng và chuyên viên bảo mật hệ thống.\n\n1. Layer là gì?\n\nĐầu tiên hãy nhìn lại sự hoạt động của 7 layer ở tầng network. Các\nlayer này có nhiệm vụ kh",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Phân lớp (Layering) trong kiến trúc mạng Internet</h1>
+                <section class="post-meta">
+                    T.C.Q -
+                    <time class="post-date" datetime="2020-10-10">10 Oct 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1XFaezXoUQos7l2x036dK2uxHqNJGTrTU&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Layering là chính là phân lớp trong kiến trúc mạng internet, nó mô phân chia chi tiết vai trò và nhiệm vụ của từng lớp qua đó giúp cho các kiến trúc sư hệ thống thiết kế mô hình mạng một cách tối ưu và bảo mật hơn. Kiến thức trong bài viết này rất cơ bản nhưng rất cần thiết đối với những bạn có mục tiêu trở thành kiến trúc sư hệ thống mạng và chuyên viên bảo mật hệ thống.</p>
+<p><strong>1. Layer là gì?</strong></p>
+<p>Đầu tiên hãy nhìn lại sự hoạt động của 7 layer ở tầng network. Các layer này có nhiệm vụ khác nhau và có liên kết với nhau một cách chặt chẽ với nhau</p>
+<p><amp-img src="https://drive.google.com/uc?id=1ywshz_hQE2ap_R84sUe1_bBS35xdD_qy&amp;export=download" alt="uc?id=1ywshz_hQE2ap_R84sUe1_bBS35xdD_qy&amp;export=download" width="615" height="441" layout="responsive"></amp-img></p>
+<ul>
+<li><span>Là một trong những kỹ thuật chung nhất để giải quyết vấn đề phức tạp của hệ thống phần mềm</span></li>
+<li><span>Dùng để xử lý một phần hệ thống phức tạp</span></li>
+<li><span>Nguyên lý subsystem trong phần mềm được sắp xếp như trong một vài form của layer cake</span></li>
+<li><span>Higher layer dùng những service khác nhau được định nghĩa bởi lower layer, nhưng không thể nào dùng service của lớp dưới lower layer của nó.</span></li>
+<li><span>Phần khó nhất của một kiến trúc layer là quyết định layer nào có và trách nhiệm của mỗi layer là gì.</span></li>
+</ul>
+<p><strong>1.1 Lợi ích của layer</strong></p>
+<ul>
+<li><span>Có thể hiểu rõ một lớp đơn mà không cần biết nhiều về lớp khác.</span></li>
+<li><span>Có thể thay thế các layer bằng việc sửa đổi những thực thi của những service cơ bản giống nhau.  Vi dụ:</span><span> FTP service có thể chạy mà không cần thay đổi ethernet, PPP, hay  cable mạng.</span></li>
+<li><span>Tối thiểu hóa sự phụ thuộc giữa các layers. </span><span>Nếu cable mạng thay đổi hệ thống vật lý, việc cung cấp IP sẽ vẫn làm việc mà không phải thay đổi FTP service</span></li>
+<li><span>Layer tạo ra một chuẩn tốt. Ví dụ: </span><span>TCP và IP là chuẩn bởi vì nó định nghĩa những layer của nó nên hoặt động như thế nào.</span></li>
+<li><span>Tái sử dụng:</span><br />
+<span>          Xây dựng layer một lần có thể sử dụng cho nhiều service ở cập độ cao hơn.</span><br />
+<span>          Thay vì TCP/IP được dùng bởi FTP, telnet, ssh, và HTTP</span></li>
+</ul>
+<p><strong>1.2 Hạn chế của layer</strong></p>
+<ul>
+<li><span>Layers đóng gói ở một vài chỗ nhưng không phải tất cả đều tốt. Đôi khi có một lần thay đổi thì sẽ thế nào:</span><br />
+<span>           </span><span>Ví dụ: Trong một layer của ứng dụng enterprise mà thêm một trường để hiển thị trên UI, phải thêm vào DB và tất cả các layer ở giữa.</span></li>
+<li><span>Extra layers có thể ảnh hưởng tới performance</span><br />
+<span>           Vì nó phải transform từ một cái này tới cái khác. Tuy nhiên việc đóng gói của một chức năng cơ bản thường cho hiệu quả hơn.</span><br />
+<span>           Một layer đơn control một transaction thì sẽ hiệu quả và sẽ làm tất cả mọi thứ nhanh hơn</span></li>
+</ul>
+<p><strong>2. The Evolution of Layers in Enterprise Applications</strong></p>
+<p><amp-img src="https://drive.google.com/uc?id=1trr-gmtE0xkCTC1-soobgER3gi2dl7Xq&amp;export=download" alt="uc?id=1trr-gmtE0xkCTC1-soobgER3gi2dl7Xq&amp;export=download" width="525" height="602" layout="responsive"></amp-img></p>
+<p><span> 2.1 Ban đầu khi chạy batch system:</span><br />
+<span>     No layers</span><br />
+<span> 2.2 Thập kỷ 90 với sự phát triển của client-server systems:</span><br />
+<span>     2-layer systems:</span><br />
+<span>     + Client nắm giữ UI và application code khác</span><br />
+<span>     + Server thường chỉ liên quan tới DB</span><br />
+<span>     + Hạn chế:</span><br />
+<span>        ++ Nhúng logic vào màn hình =&gt; dễ dupplicate code</span><br />
+<span>        ++ domain logic phức tạp thì rất khó code</span><br />
+<span>        ++ Thay thế domain logic xử lý ở DB như stored procedures =&gt; vẫn bị giới hạn với kiến trúc cơ học cũng như dễ xảy ra nhiều rắc rối.</span><br />
+<span>  2.3 Sử dụng 3-layer system:</span><br />
+<span>     + Presentation layer danh cho UI</span><br />
+<span>     + Domain layer cho domain logic</span><br />
+<span>     + Data source</span><br />
+<span>  2.4 Cách này có thể move toàn bộ những phần phức tạp trong domain logic ra ngoài UI và chuyển nó vào một layer nơi xây dụng kiến trúc có đối tượng và các thuộc tính.</span></p>
+<p><strong>3. The Three Principal Layers</strong></p>
+<p><amp-img src="https://drive.google.com/uc?id=1u01ZzAitnB0Ie7p1wH_iztcnV8_2BeHm&amp;export=download" alt="uc?id=1u01ZzAitnB0Ie7p1wH_iztcnV8_2BeHm&amp;export=download" width="576" height="432" layout="responsive"></amp-img></p>
+<ul>
+<li>
+<p><span>Presentation logic: Làm thế nào để tương tác giữa người dùng và phần mềm.</span><br />
+<span>    Trách nhiệm chính của presentation layer là:</span><br />
+<span>      + Hiển thị thông tin tới người dùng</span><br />
+<span>      + Thông dịch lệch từ người dùng bên trong actions trên domain và data source </span></p>
+</li>
+<li>
+<p><span>Domain logic(business logic): Liên quan tới việc tính toán dựa trên những input và stores data, validation những data đên từ presentation, và tìm ra chính xác logic data source nào để dispatch, phụ thuộc vào lệnh nhận được từ presentation.</span></p>
+</li>
+<li>
+<p><span>Data source logic: Liên kết với hệ thống khác mang các task thay cho application.</span></p>
+</li>
+</ul>
+<p><a href="https://i2.wp.com/vietnamlab.vn/wp-content/uploads/2016/12/layer5.png"></a></p>
+<ul>
+<li><span>Thỉnh thoảng các layer được sắp xếp vì domain layer hoàn toàn ẩn data source từ presentation.</span></li>
+<li><span>Tuy nhiên, Presentaion truy cập trực tiếp tới data store. Trong khi cái này kém nguyên vẹn, nó có xu hướng làm tốt hơn trong practice</span><br />
+<span>       – Presentation có thể thông dịch một command từ user, dùng data source để kéo dữ liệu thích hợp ra ngoài database</span><br />
+<span>       – Domain logic vận dụng dữ liệu này trước khi biểu diễn nó trên glass(kính)</span></li>
+</ul>
+<p><a href="https://i2.wp.com/vietnamlab.vn/wp-content/uploads/2016/12/layer6.png"></a></p>
+<p><strong>Separation(sự phân chia):</strong> <span>Phân chia sự phụ thuộc trên những ứng dụng phức tạp.</span></p>
+<ul>
+<li><span>Một script đơn giản pull dữ liệu từ một database và hiển thị nó trong một web page có thể tất cả bằng thủ tục. Nó sẽ tốt hơn nếu tách thành 3 layer. Trong trường hợp đơn giản chúng ta có thể làm nó chỉ bằng việc đặt hành vi vào mỗi layer trong các chương trình con đã được phân chia</span></li>
+<li><span>Hệ thống phức tạp sẽ sẽ chia thành 3 layer bên trong đó sẽ phân chia thành các class.</span></li>
+<li><span>Sự phức tạp đã tăng khi chia các class thành các packages</span></li>
+<li><span>Rule về sự phụ thuộc:</span></li>
+<li><span>Domain và data source có thể chưa bao giờ bị phụ thuộc vào presentation.</span><br />
+<span>      ++ Không thủ tục con nào call từ domain hay data source code bên trong presentation.</span><br />
+<span>      ++  Dễ dàng thay thế các presentaion khác nhau trong tổ chức giống nhau mà không cần phân nhánh xuống sâu hơn. </span></li>
+<li><span>Mối quan hệ giữa domain và data source phức tạp hơn và phụ thuộc vào architectural patterns được dùng cho data source.</span></li>
+</ul>
+<p><strong>4. Choosing Where to Run Your Layers</strong></p>
+<ul>
+<li><span>Data source: Hầu hết luôn luôn chạy trên server</span><br />
+<span>       – Thường xảy ra exception khi bị ngắt kết nối</span><br />
+<span>       – Để thay đổi data source trên client bị ngắt kết nối cần được đồng bộ với server.</span></li>
+<li><span>Domain logic:</span><br />
+<span>       – Có thể chạy business logic toàn bộ trên server hay toàn bộ trên client hay phân tách nó</span><br />
+<span>       – Tất cả trên server là lựa chọn tốt nhất cho việc dễ dàng maintenance.</span><br />
+<span>       – Nhu cầu di chuyển client có thể dùng một trong hai là đáp ứng hay ngắt kết nối</span></li>
+<li><span>Presentaion: Phụ thuộc vào loại UI mình chạy</span></li>
+<li><span>Chạy một rich client có nghĩa là chạy presentation trên client.</span><br />
+<span>       – Chạy Web interface có nghĩa là chạy trên server.</span><br />
+<span>       – Lý do chính để dùng một rich-client presentation là có một vài task phức tap cho user, có thể dùng được application, cần nhiều hơn Web GUI.</span></li>
+<li><span>Nên thử giữ toàn bộ code trên một single process, hoặc là trên một node hay là copy trên một vài node trong một cluster.</span><br />
+<span>       – Đừng thử phân chia layer trong process riêng biệt trừ khi tuyệt đối có. Chú ý tới cả hai việc là performance và thêm những phần phức tạp.</span></li>
+</ul>
+<p><strong>5. Tổng kết</strong><br />
+Cho tới hiện tại hệ thông công nghệ thông tin đã phát triển rất nhanh các hệ thông lớn đã và đang ra đời đỏi hỏi cần phải dùng layer một cách nhuần nhuyễn hơn bao giờ hết. Qua bài viết này này hy vọng mọi người sẽ thiết kế hệ thông của mình tối ưu, dễ quản lý và bảo mật hơn.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu Ethereum và Smart Contract</title>
+
+    <meta name="description" content="Giới thiệu Ethereum và lược sử ra đời của nó.
+Tính năng Smart Contract của Ethereum, một tính năng làm nên sự phát triển mạnh mẽ của công nghệ Blockchain." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu Ethereum và Smart Contract" />
+    <meta property="og:description" content="Giới thiệu Ethereum và lược sử ra đời của nó.
+Tính năng Smart Contract của Ethereum, một tính năng làm nên sự phát triển mạnh mẽ của công nghệ Blockchain." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ethereum-va-smart-contract/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1dJ4zoXDlZvq_0j2_ALLWqM4ruucUx97c&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-02-27T01:40:23.000Z" />
+    <meta property="article:modified_time" content="2018-02-27T01:40:23.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="Smart Contract" />
+    <meta property="article:tag" content="ethereum" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu Ethereum và Smart Contract" />
+    <meta name="twitter:description" content="Giới thiệu Ethereum và lược sử ra đời của nó.
+Tính năng Smart Contract của Ethereum, một tính năng làm nên sự phát triển mạnh mẽ của công nghệ Blockchain." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ethereum-va-smart-contract/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1dJ4zoXDlZvq_0j2_ALLWqM4ruucUx97c&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, Smart Contract, ethereum" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="425" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu Ethereum và Smart Contract",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ethereum-va-smart-contract/",
+    "datePublished": "2018-02-27T01:40:23.000Z",
+    "dateModified": "2018-02-27T01:40:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1dJ4zoXDlZvq_0j2_ALLWqM4ruucUx97c&export=download",
+        "width": 800,
+        "height": 425
+    },
+    "keywords": "blockchain, Smart Contract, ethereum",
+    "description": "Serial bài viết\nMục tiêu bài viết\n * Giới thiệu Ethereum và lược sử ra đời của nó.\n * Tính năng Smart Contract của Ethereum, một tính năng làm nên sự phát triển\n   mạnh mẽ của công nghệ Blockchain.\n\nGiới thiệu Ethereum\nTrong khoảng thời gian gần đây (cuối năm 2017) ở Việt Nam rầm rộ lên phong trào\nđầu tư tiền ảo, nào là Bitcoin, Ethereum, Litecoin, Dash,... rồi đầu tư ICO với\nlợi nhuận x10, x20 thậm chí x100 khiến cho các nhà đầu tư khắp nơi rộn ràng\nnhững câu chuyện coin coin và coin. Bài viết ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu Ethereum và Smart Contract</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2018-02-27">27 Feb 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1dJ4zoXDlZvq_0j2_ALLWqM4ruucUx97c&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="serialbivit">Serial bài viết</h3>
+<h3 id="mctiubivit">Mục tiêu bài viết</h3>
+<ul>
+<li>Giới thiệu Ethereum và lược sử ra đời của nó.</li>
+<li>Tính năng Smart Contract của Ethereum, một tính năng làm nên sự phát triển mạnh mẽ của công nghệ Blockchain.</li>
+</ul>
+<h3 id="giithiuethereum">Giới thiệu Ethereum</h3>
+<p>Trong khoảng thời gian gần đây (cuối năm 2017) ở Việt Nam rầm rộ lên phong trào đầu tư tiền ảo, nào là Bitcoin, Ethereum, Litecoin, Dash,... rồi đầu tư ICO với lợi nhuận x10, x20 thậm chí x100 khiến cho các nhà đầu tư khắp nơi rộn ràng những câu chuyện coin coin và coin. Bài viết này không phải mục đích hướng dẫn các bạn cách đầu tư coin mà là bài viết giới thiệu về công nghệ Ethereum cùng với Smart Contract.</p>
+<p>Các chuyên gia, các nhà phân tích nhận định công nghệ blockchain sẽ thay đổi thế giới, mình đếch tin :D, chỉ thấy là nó sẽ thay đổi cách người dùng giao dịch (dùng tiền ảo) hoặc với Ethereum (hoặc các đồng tiền ảo khác có hỗ trợ Smart Contract) thì sẽ có nhiều ứng dụng sử dụng nó để tạo một hệ thống bảo mật hơn đối với những giao kèo giữa các bên liên quan.</p>
+<p>Tiền ảo mà ta nói ở đây có tên gọi chính xác hơn trong Eng là Cryptocurrency (Tiền tệ mã hóa). Định nghĩa của nó là <em>là một loại tiền kĩ thuật số đồng đẳng được trao đổi bằng cách sử dụng một số nguyên tắc mật mã. Nó có thể được sử dụng như là một loại tiền tệ thông thường như đồng đô la Mỹ hoặc tiền tệ ở quốc gia mà một người sinh sống nhưng với một sự khác biệt lớn là nó không bị điều chỉnh bởi bất kỳ tổ chức nào.</em> Công nghệ Blockchain giúp các giao dịch (transaction) trở nên bảo mật hơn, các đặc tính của giao dịch trong Blockchain là:</p>
+<ul>
+<li><strong>Irreversible (không thể bị đảo ngược)</strong>: Sau khi được xác thực (confirmation) thì giao dịch không ai có thể hủy hay đảo ngược nó được. Không ai có thể sửa đổi hay can thiệp vào những giao dịch đã được thực thi trong mạng Blockchain.</li>
+<li><strong>Pseudonymous (bí danh, bí mật)</strong>: Giao dịch và tài khoản không có liên kết tới bất kỳ thông tin cá nhân ngoài đời của bạn, mỗi tài khoản trong Blockchain được gọi là address (là một dãy 30 ký tự), dùng address ta có thể xem được các giao dịch đi và đến tới address đó mà không cần bất cứ thông tin liên hệ tới ngoài đời của người sở hữu address.</li>
+<li><strong>Fast and global (nhanh và toàn cầu)</strong>: Giao dịch được phát tán trong mạng và xử lý trong vòng vài phút. Vì xử lý được thực hiện trên phạm vi mạng máy tính toàn cầu nên nó không quan tâm tới bạn đang ở đâu. Không có vấn đề khác biệt giữa ta gửi Bitcoin cho hàng xóm hoặc ông nào đó ở đầu bên kia thế giới.</li>
+<li><strong>Secure (bảo mật)</strong>: Tài khoản tiền ảo được khóa bởi public key mà chỉ mở được bằng private key của người sở hữu, với thuật toán mã hóa mạnh mẽ khiến việc bẻ khóa nó là bất khả thi.</li>
+<li><strong>Permissionless (không cần sự cho phép)</strong>: Bạn không cần phải xin cấp phép để tham gia hoạt động tiền ảo, đơn giản bạn chỉ cần download phần mềm miễn phí về cài đặt và bạn có thể gửi và nhận tiền một cách tự do.</li>
+</ul>
+<p><amp-img src="https://blockgeeks.com/wp-content/uploads/2016/11/infographics03-03-1.png" alt width="1984" height="1140" layout="responsive"></amp-img></p>
+<h4 id="lchs">Lịch sử</h4>
+<p>Ethereum được phát mình bởi Vitalik Buterin người Nga sinh năm 1994, một cậu thanh niên chuyên nghiên cứu về lập trình tiền ảo. Nền tảng này phát triển được đến nay nhờ sự huy động vốn của nhiều tổ chức vào hồi tháng 6 – tháng 8/2014 và chính thức ra mắt vào 30/6/2015 từ đó Ethereum được xem như đồng Bitcoin 2.0. Một phiên bản thứ hai của Bitcoin, khắc phục được những khuyết điểm trước đây của BTC.</p>
+<ul>
+<li>Năm <strong>2013</strong> Ethereum được mô tả lần đầu trong <a href="http://www.the-blockchain.com/docs/Ethereum_white_paper-a_next_generation_smart_contract_and_decentralized_application_platform-vitalik-buterin.pdf">bài báo</a> của Vitalik Buterin Bitcoin Magazine, trong bài báo này Vitalik có đề cập tới sự cần thiết của <strong>scripting language</strong> để xây dựng các ứng dụng trên nền tảng Bitcoin, tuy nhiên anh không nhận được nhiều sự đồng thuận cho lắm nên Vitalik đã cam kết sẽ phát triển một nền tảng mới có hỗ trợ <strong>scripting language</strong></li>
+<li>Tháng 01/2014 core team của Ethereum bao gồm Vitalik Buterin, Mihai Alisie, Anthony Di Iorio, và Charles Hoskinson bắt đầu phát triển nền tảng Ethereum tại công ty Ethereum Switzerland GmbH. <a href="https://bitcointalk.org/index.php?topic=428589.0">tham khảo</a></li>
+<li>Tháng <strong>07/2014</strong> Ethereum tổ chức đợt presale đầu tiên trong 42 ngày, có hơn 16 triệu ETH (đơn vị tiền tệ của Ethereum) được phát hành, người mua sẽ mua bằng Bitcoin. Lúc mở bán ETH có giá là 1 BTC sẽ mua được 2000 ETH.</li>
+<li><strong>14/03/2016</strong> phát hành Homestead, sẵn sàng để các công ty và tổ chức có thể sử dụng vào phát triển sản phẩm.</li>
+<li>Vào năm <strong>2016</strong>, một dự án làm việc trên một nhánh của dự án DAO(Decentralized Autonomous Organization) được đặt tên là “The DAO” bị hack. Trên thực tế, The DAO đã gây được quỹ 150 triệu USD và bị đánh cắp 50 triệu USD bởi kẻ tấn công vô danh. Cụ thể, cá nhân hoặc tổ chức này đã khai thác lỗi hệ thống của The DAO và bòn rút số Ether từ quỹ DAO bằng cách bán token của quỹ này. Dù cuộc tấn công được thực hiện bởi một lỗi kỹ thuật trong phần mềm The DAO, chứ không phải là nền tảng Ethereum, thì các nhà phát triển và người sáng lập Ethereum đã buộc phải đối phó với tình trạng hỗn độn này. Cuối cùng, phần lớn cộng đồng Ethereum đã bỏ phiếu biểu quyết để thực hiện phương án hard fork, và hoàn trả tiền cho các nhà đầu tư.Tuy nhiên, không phải ai cũng đồng ý với phương án này. Vì vậy sau hard fork, đã có một sự phân chia tạo ra hai Blockchain song song tồn tại như hiện nay. Ethereum Classic là nhánh Blockchain cũ và được duy trì bởi những thành viên kịch liệt phản đối hard fork. Đối với đa số những người đồng ý viết lại một phần nhỏ của Blockchain và trả lại tiền bị đánh cắp cho chủ sở hữu của họ thì đây chính là đồng Ethereum. Ethereum Classic có trang web riêng và danh mục riêng trên các sàn giao dịch. Trang chủ của đồng Ethereum Classic có lịch sử chi tiết về đồng tiền này, bạn có thể xem ở <a href="https://ethereumclassic.github.io/">đây</a>.</li>
+</ul>
+<p>Tại thời điểm mình viết bài viết này thì giá của ETH đã là 714 USD. (coinmarketcap.com)<br />
+<amp-img src="https://drive.google.com/uc?id=1jxPGRBD1hdv_C4W7xlPFuZQ2u-4IKAfE&amp;export=download" alt width="2136" height="326" layout="responsive"></amp-img></p>
+<h4 id="sosnhvibitcoin">So sánh với Bitcoin</h4>
+<p>Cùng so sánh với Bitcoin, đồng tiền ảo đầu tiên, xem Ethereum có những điểm khác biệt gì nhé:</p>
+<table>
+<thead>
+<tr>
+<th>Bitcoin</th>
+<th>Ethereum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block được tạo ra sau khoảng 10 phút</td>
+<td>Block được tạo ra sau khoảng 14,15 s</td>
+</tr>
+<tr>
+<td>Phần thưởng cho việc tạo ra block giảm 1 nửa sau mỗi 4 năm</td>
+<td>Phần thưởng cho tạo ra block qua các năm là như nhau và là vô hạn</td>
+</tr>
+<tr>
+<td>Bitcoin tính toán chi phí giao dịch dựa trên kích thước của giao dịch</td>
+<td>Ethereum tính toán chi phí giao dịch dựa trên lượng tài nguyên (resource) sử dụng =&gt; gas</td>
+</tr>
+<tr>
+<td>Bitcoin ko có Turing</td>
+<td>Ethereum có Turing (EVM - Ethereum Virtual Machine) là máy ảo độc lập để thực hiện tính toán</td>
+</tr>
+<tr>
+<td>Những Bitcoin đầu tiên là sở hữu bởi các thợ đào (miner)</td>
+<td>Ethereum được gọi vốn nên chỉ có 50% số coin là sở hữu của thợ đào trong 5 năm</td>
+</tr>
+<tr>
+<td>Không có Smart Contract</td>
+<td>Có Smart Contract</td>
+</tr>
+</tbody>
+</table>
+<h3 id="giithiusmartcontract">Giới thiệu Smart Contract</h3>
+<p>Smart Contract được đề cập lần đầu bởi Nick Szabo (Nhà khoa học máy tính) vào năm 1996, ông định nghĩa Smart Contract như sau:</p>
+<p><em><strong>Thể chế mới, cách thức mới để hình thức hóa những mối quan hệ hình thành lên thể chế này, đã trở nên khả thi với sự phát triển của công nghệ. Tôi gọi đó là những hợp đồng thông minh mới, vì nó có nhiều tính năng hơn so với hợp đồng giấy cổ điển. Nó không có nghĩa là có AI(Artificial Intelligence - trí thông minh nhân tạo) trong đó. Smart Contract bao gồm các giao kèo, được thể hiện đưới dạng số, cùng những giao thức trong đó các bên tham gia phải bắt buộc thực hiện các giao kèo đó.</strong></em></p>
+<h4 id="smartcontract">Smart Contract</h4>
+<p><amp-img src="http://www.berkowitzkleinllp.com/wp-content/uploads/2013/04/business21.jpg" alt width="640" height="488" layout="responsive"></amp-img><br />
+Trên thực tế, các hợp đồng luôn cần có một bên thứ 3 đứng ra đảm bảo các điều khoản trong hợp đồng được thực hiện đúng đắn, nếu có bên nào không thực hiện đúng đắn thì sẽ bị truy tố theo pháp luật. Ví dụ hợp đồng mua nhà anh A mua nhà của anh B thì sẽ có điều khoản anh A phải chuyển tiền nhà cho anh B đúng theo số tiền ghi rõ trong hợp đồng, sau đó thì anh B phải chuyển giao tài sản là ngôi nhà lại cho anh A, việc thực thi hợp đồng được pháp luật đảm bảo.<br />
+Hợp đồng truyền thống để thực thi sẽ mất thời gian hơn và tốn kém chi phí cho bên thứ 3. Những nhược điểm này được khắc phục bởi Smart Contract</p>
+<h4 id="ngdngcasmartcontract">Ứng dụng của Smart Contract</h4>
+<ul>
+<li><strong>Ứng dụng trong bảo hiểm:</strong> Những ai đang sử dụng bảo hiểm cũng biết lúc claim bảo hiểm rất lằng nhằng và mất thời gian. Với Smart Contract ta có thể thiết lập giao kèo giữa các bên tham gia để khi có sự kiện xảy ra thì việc bồi thường bảo hiểm sẽ tự động xảy ra chứ ko phải chờ làm thủ tục và duyệt claim bảo hiểm nữa. Ví dụ khi có thiên tai xảy ra, thì khu vực xảy ra thiên tai + mức độ thiệt hại sẽ được tự động phát hiện và tiền bồi thường sẽ tự động được chuyển cho các nạn nhân.<br />
+<amp-img src="https://www.draglet.com/wp-content/uploads/2017/02/Smart-contracts-in-insurance-policies.png" alt width="600" height="348" layout="responsive"></amp-img></li>
+<li><strong>Ứng dụng trong bản quyền:</strong> người sở hữu bản quyền sẽ public thông tin bản quyền của người đó lên mạng Blockchain, chính sách sử dụng bản quyền tác phẩm sẽ được thiết lập trong Smart Contract và mỗi khi tác phẩm của họ được sử dụng thì chính sách sử dụng sẽ được tuân thủ và thực hiện tức thời.<br />
+<amp-img src="https://www.draglet.com/wp-content/uploads/2017/02/Smart-contracts-royalties-ownership-and-copyright.png" alt width="600" height="450" layout="responsive"></amp-img></li>
+<li><strong>Ứng dụng trong IoT:</strong> Trong hệ thống vận chuyển hàng hóa, các sensor dùng để tracking vị trí của món hàng có thể lưu vị trí của món đồ vào Smart Contract, đảm bảo người dùng có thể xác định vị trí món đồ và đảm bảo ko bị thất lạc.<br />
+<amp-img src="https://www.draglet.com/wp-content/uploads/2017/02/Smart-contracts-in-the-Internet-of-Things-delivery.png" alt width="600" height="450" layout="responsive"></amp-img></li>
+</ul>
+<hr></hr>
+<p>Lợi ích của Smart Contract có thể tóm gọn như sau:</p>
+<ul>
+<li><strong>Autonomy (tự trị):</strong> Không cần bên thứ 3 để xác thực cho giao dịch cũng như giao kèo giữa 2 bên.</li>
+<li><strong>Trust(tin cậy):</strong> các dữ liệu được mã hóa vào sổ cái và bất kì ai cũng có thể truy cập xem thông tin được.</li>
+<li><strong>Redundancy (dư thừa):</strong> dữ liệu được tạo thành vô số các bản sao trong blockchain khiến cho nó không thể bị thất lạc hoặc biến mất được.</li>
+<li><strong>Safety (an toàn):</strong> dữ liệu được mã hóa và ko thể bị sửa đổi cũng như hack được.</li>
+<li><strong>Speed (tốc độ):</strong> các smart contract tự thực thi các chức năng của nó ngay trên các node vì vậy giảm thiểu nhiều thời gian.</li>
+<li><strong>Saving (tiết kiệm):</strong> giảm thiểu chi phí, rút ngắn thời gian thực thi hợp đồng, cũng như giảm thiểu sự phiền phức trong triển khai hợp đồng: Theo McKinsey (cty tư vấn quản lý toàn cầu) thì tới năm 2021 công nghệ Blockchain sẽ tiết kiệm cho các giao dịch B2B tới 50 tỷ USD. Còn theo Nick Ayton (CEO của Chainstarter ) thì Blockchain giúp cắt giảm tới 40% chi phí và kết quả giao dịch được tiến hành real-time.</li>
+<li><strong>Precision (chính xác):</strong> Smart contract thực thi chính xác những gì nó đã được định nghĩa, không thể có lỗi xảy ra được.</li>
+<li><strong>Transparency (minh bạch):</strong> minh bạch hoàn toàn với mọi bên.</li>
+</ul>
+<h3 id="tngquancchsdngsmartcontracttrongthct">Tổng quan cách sử dụng Smart Contract trong thực tế</h3>
+<p>Mình chia làm 2 giai đoạn</p>
+<h4 id="giaiondevphttrin">Giai đoạn dev (phát triển)</h4>
+<p>Viết mã code cho Smart Contract bằng Solidity (ngôn ngữ chuyên dụng dành riêng cho việc viết Smart Contract), ta thiết lập môi trường dev bằng các công cụ sau:</p>
+<ul>
+<li>Truffle: framework để viết + test + debug + deploy Smart Contract</li>
+<li>Hoặc ta dùng <a href="https://remix.ethereum.org/#optimize=false">Remix</a> là web IDE của ethereum để viết + test + debug Smart Contract</li>
+<li>NodeJS + web3js để viết ứng dụng kết nối vào Ethereum tương tác với Smart Contract</li>
+</ul>
+<h4 id="giaiontrinkhai">Giai đoạn triển khai</h4>
+<p>Đây là giai đoạn mà sau khi việc dev Smart Contract đã ok rồi thì chúng ta sẽ Deploy nó lên mạng Ethereum. Có những cách sau:</p>
+<ul>
+<li>Sử dụng trực tiếp Mist browser (là trình duyệt phục vụ riêng cho mục đích quản lý account của Ethereum)</li>
+<li>Sử dụng Truffle (command truffle migrate ) với config network là production.</li>
+</ul>
+<p>Việc deploy Smart Contract rất nhanh và đơn giản. Mỗi 1 Smart Contract lúc deploy sẽ có 1 address để client có thể tương tác với nó.</p>
+<h3 id="cht">Chốt</h3>
+<p>Bài viết chia sẻ những cái hay của Smart Contract mang lại, những bài sau mình sẽ giới thiệu cách triển khai thực tế Smart Contract để viết ứng dụng phân tán (decentralized applications).</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://bfsystem.org/ethereum-la-gi/">https://bfsystem.org/ethereum-la-gi/</a></li>
+<li><a href="https://blockgeeks.com/guides/what-is-cryptocurrency/">Cryptocurrency</a></li>
+<li><a href="https://timesofethereum.com/history-timeline/">Ethereum timeline history</a></li>
+<li><a href="https://www.draglet.com/blockchain-applications/smart-contracts/use-cases">Smart Contracts Use Cases</a></li>
+<li><a href="https://www.pcmag.com/image_popup/0,1740,iid=514523,00.asp">Smart Contract Infographic</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

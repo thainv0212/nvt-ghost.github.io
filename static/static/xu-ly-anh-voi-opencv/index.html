@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection)" />
+    <meta property="og:description" content="Series bài viết Tut 1: Cài đặt OpenCV Tut 2: Chuyển đổi ảnh màu Tut 3: Phương pháp lọc ảnh Tut 4: Xác định viền trong ảnh Mục tiêu bài viết Bài viết sẽ cung cấp cho người đọc những kiến thức và tư duy cơ bản để giải quyết" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1yd-8ExA3E_ZM8VE7rZ-wT7NYbU13PiQc&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-10-09T01:01:31.000Z" />
+    <meta property="article:modified_time" content="2019-01-11T10:18:06.000Z" />
+    <meta property="article:tag" content="OpenCV" />
+    <meta property="article:tag" content="Image Processing" />
+    <meta property="article:tag" content="filtering" />
+    <meta property="article:tag" content="edge detection" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection)" />
+    <meta name="twitter:description" content="Series bài viết Tut 1: Cài đặt OpenCV Tut 2: Chuyển đổi ảnh màu Tut 3: Phương pháp lọc ảnh Tut 4: Xác định viền trong ảnh Mục tiêu bài viết Bài viết sẽ cung cấp cho người đọc những kiến thức và tư duy cơ bản để giải quyết" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1yd-8ExA3E_ZM8VE7rZ-wT7NYbU13PiQc&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.M.D" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OpenCV, Image Processing, filtering, edge detection" />
+    <meta property="og:image:width" content="900" />
+    <meta property="og:image:height" content="300" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.M.D",
+        "url": "https://blog.vietnamlab.vn/author/duonghm/",
+        "sameAs": []
+    },
+    "headline": "Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection)",
+    "url": "https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv/",
+    "datePublished": "2018-10-09T01:01:31.000Z",
+    "dateModified": "2019-01-11T10:18:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1yd-8ExA3E_ZM8VE7rZ-wT7NYbU13PiQc&export=download",
+        "width": 900,
+        "height": 300
+    },
+    "keywords": "OpenCV, Image Processing, filtering, edge detection",
+    "description": "Series bài viết\n * Tut 1: Cài đặt OpenCV\n   [https://blog.vietnamlab.vn/2017/12/22/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/]\n * Tut 2: Chuyển đổi ảnh màu\n   [https://blog.vietnamlab.vn/2018/02/27/xu-ly-anh-voi-opencv-tut-2-chuyen-doi-anh-mau/]\n * Tut 3: Phương pháp lọc ảnh\n   [https://blog.vietnamlab.vn/2018/05/30/xu-ly-anh-voi-opencv-tut3/]\n * Tut 4: Xác định viền trong ảnh\n   [https://blog.vietnamlab.vn/2018/10/09/xu-ly-anh-voi-opencv/]\n\nMục tiêu bài viết\nBài viết sẽ cung cấp cho người đọc n",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-opencv tag-image-processing tag-filtering tag-edge-detection nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-opencv tag-image-processing tag-filtering tag-edge-detection js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-10-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 October 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/opencv/index.html">OpenCV</a>, <a href="../tag/image-processing/index.html">Image Processing</a>, <a href="../tag/filtering/index.html">filtering</a>, <a href="../tag/edge-detection/index.html">edge detection</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1yd-8ExA3E_ZM8VE7rZ-wT7NYbU13PiQc&amp;export&#x3D;download" alt="Xử lý ảnh với OpenCV - Tut4: Xác định viền trong ảnh (Edge Detection)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/xu-ly-anh-voi-opencv/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20%E1%BA%A3nh%20v%E1%BB%9Bi%20OpenCV%20-%20Tut4%3A%20X%C3%A1c%20%C4%91%E1%BB%8Bnh%20vi%E1%BB%81n%20trong%20%E1%BA%A3nh%20(Edge%20Detection)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h4 id="seriesbivit">Series bài viết</h4>
+<ul>
+<li><a href="https://blog.vietnamlab.vn/2017/12/22/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/">Tut 1: Cài đặt OpenCV</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/02/27/xu-ly-anh-voi-opencv-tut-2-chuyen-doi-anh-mau/">Tut 2: Chuyển đổi ảnh màu</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/05/30/xu-ly-anh-voi-opencv-tut3/">Tut 3: Phương pháp lọc ảnh</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/10/09/xu-ly-anh-voi-opencv/">Tut 4: Xác định viền trong ảnh</a></li>
+</ul>
+<h3 id="mctiubivit">Mục tiêu bài viết</h3>
+<p>Bài viết sẽ cung cấp cho người đọc những kiến thức và <strong>tư duy cơ bản</strong> để giải quyết bài toán xác định viền trong ảnh (Edge Detection) - một trong những bài toán phổ biến và được ứng dụng rộng rãi trong Xử lý ảnh.</p>
+<h3 id="1edgedetection">1. Edge Detection</h3>
+<p>Trước khi tìm hiểu về các phương pháp xác định viền trong ảnh (Edge Detection), trước tiên ta cùng làm rõ khái niệm cạnh (Edge).</p>
+<h4 id="11edgelg">1.1 Edge là gì ?</h4>
+<h5 id="nhngha">Định nghĩa</h5>
+<ul>
+<li>Trong ảnh, một cạnh (edge) là một ranh giới (boundary) hay một đường viền (contour) mà tại đấy xuất hiện một sự <strong>thay đổi lớn</strong> về một vài khía cạnh vật lý của ảnh (cường độ sáng, bề mặt phản chiếu, etc.)</li>
+<li>Trong ảnh số, một cạnh (edge) là một tập hợp các pixels mà tại pixel đấy xảy ra một sự <strong>thay đổi đột ngột</strong> về cường độ sáng.</li>
+</ul>
+<h5 id="giithch">Giải thích</h5>
+<p><img src="https://drive.google.com/uc?id=1I4l4mNDX5QoU_tE0HcNGKrrJBnc4ZQs-&amp;export=download" alt="hinh1"></p>
+<ul>
+<li>Nhìn vào hình trên, bạn có thể trả lời được đâu là cạnh không ? Mình tin là bất kì bạn nào có thị giác bình thường đều có thể trả lời được. Vậy cùng soi kĩ vào một cạnh xem nó có hình dáng thế nào nhé.<br>
+<img src="https://drive.google.com/uc?id=1VNiUFCImzQmbEac59RDW_NlyRBCdeOqn&amp;export=download" alt="uc?id=1VNiUFCImzQmbEac59RDW_NlyRBCdeOqn&amp;export=download"></li>
+<li>Bạn có để thấy độ sáng của pixel trong khu vực cạnh có điểm gì khác biệt so với những pixel xung quanh nó không không? Nói một cách đơn giản (chưa chính xác tuyệt đối), các pixel cạnh có cường độ sáng <strong>chênh lệch rõ rệt</strong> so với những pixel ở lân cận nó.</li>
+<li>Cụ thể hơn, hãy cùng xem ví dụ phía dưới đây. Những pixel nằm cạnh đường đỏ chính là những pixel có hiện tượng thay đổi đột ngột độ sáng (từ 0 sang 255 và ngược lại). Những pixel đấy được gọi là cạnh (Edge).<br>
+<img src="https://drive.google.com/uc?id=1YKkU6mOJ8oGo2GeP38rZcb2GFX0ys8aG&amp;export=download" alt="hinh3"></li>
+</ul>
+<h4 id="12edgedetectionlg">1.2 Edge detection là gì ?</h4>
+<p>Edge Detection là một kĩ thuật xử ảnh được sử dụng để tìm kiếm viền bao của của các đối tượng trong ảnh. Trong xử lý ảnh, việc kiếm việc thực chất là tìm những khu vực bị mất liên tục về độ sáng (a.k.a những khu vực có sự chênh lệch đột biến về cường độ sáng). [1]<br>
+Edge detection thường được sử dụng để phân vùng ảnh (image segmentation) và trích xuất thông tin từ ảnh phục vụ cho các bài toán trong Thị giác máy (Computer Vision) và Học máy (Machine learning).<br>
+<img src="https://drive.google.com/uc?id=1yUHN5dn1Phogzz17e1GXBhN5pUbRnM4p&amp;export=download" alt="vd2"></p>
+<h3 id="2mtsphngphp">2 Một số phương pháp</h3>
+<h4 id="21sdngmaskfilterngin">2.1 Sử dụng mask filter đơn giản</h4>
+<p><strong>Tư tưởng</strong><br>
+Căn cứ vào định nghĩa về cạnh (Edge) ở phần trên, bạn có thể nghĩ ra cách để tìm cạnh trong ảnh chưa ?<br>
+Nhắc lại định nghĩa, cạnh (Edge) là tập hợp các pixel có tính chất <strong>tại pixel đó, những pixel lân cận theo một hướng có sự thay đổi đột ngột về độ sáng</strong>.<br>
+Một cách đơn giản để xác định pixel có phải là cạnh hay không là kiểm tra giá trị cường độ sáng tại pixel đó trừ đi giá trị cường độ sáng của pixel ở gần đó. Nếu hiệu số cao, điều đấy có nghĩa có sự thay đổi đột ngột về độ sáng tại điểm đấy; và ngược lại, nếu kết quả trả về là một giá trị thấp, thì điểm đấy khả năng cao không phải là cạnh.</p>
+<p><strong>Cách quan sát kết quả</strong><br>
+Vậy bằng cách tính hiệu cường độ sáng <strong>theo một chiều</strong> với pixel lân cận trên toàn ảnh, bạn sẽ thu về được một mảng 2 chiều mang giá trị hiệu số đó và đó sẽ là thông tin về cạnh của ảnh; <strong>và đó cũng chính là hình ảnh về các cạnh trong bức ảnh</strong>. Những điểm sáng (hiệu số mang giá trị cao) là những vị trí có khả năng cao là cạnh và những điểm tối (hiệu số mang giá trị thấp) có khả năng thấp là cạnh.</p>
+<p><strong>Thực hiện</strong><br>
+Vậy làm thế nào để thực hiện việc trừ cường độ sáng của 2 pixel kề nhau trên toàn bộ bức ảnh? Chúng ta sẽ sử dụng cách tính tích chập (convolution) để giải quyết vấn đề này một cách nhanh chóng (xem lại bài hướng dẫn về cách tính convolution [link]).</p>
+<pre><code class="language-python">import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+img = cv2.imread('IMG_2924.JPG', 1)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+kernel = np.array([
+            [1,-1], 
+            [1,-1],            
+        ])
+edge_img = cv2.filter2D(img, -1, kernel)
+
+f, axes = plt.subplots(1,2, figsize=(20,10))
+axes[0].imshow(img)
+axes[0].set_title('origin')
+axes[1].imshow(edge_img)
+axes[1].set_title('result')
+plt.show()
+</code></pre>
+<p>Đoạn code trên thực hiện việc tính hiệu số của một pixel với pixel nằm bên trái nó trên tất cả các pixel của ảnh.<br>
+<img src="https://drive.google.com/uc?id=1jNNhyZEJCQiq4qwwMnL7MYDWMRv5zN4T&amp;export=download" alt="anh_dong_1"><br>
+Bạn cũng có thể thay đổi bằng các loại ma trận khác nhau để xác định hướng trừ và độ lớn áp dụng của phép trừ.</p>
+<pre><code>import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+img = cv2.imread('IMG_2924.JPG', 1)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+kernel = np.array([
+            [1,1,1], 
+            [0,0,0],
+            [-1,-1,-1]
+        ])
+edge_img = cv2.filter2D(img, -1, kernel)
+
+f, axes = plt.subplots(1,2, figsize=(20,10))
+axes[0].imshow(img)
+axes[0].set_title('origin')
+axes[1].imshow(edge_img)
+axes[1].set_title('result')
+plt.show()
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1_jQzj8U35CjvK1vUpdgbLOIsBbEoLWZj&amp;export=download" alt="uc?id=1_jQzj8U35CjvK1vUpdgbLOIsBbEoLWZj&amp;export=download"></p>
+<h4 id="22sobeloperator">2.2 Sobel Operator</h4>
+<p>Cách thực hiện phép toán Sobel thực chất cũng chính là cách tính tích chập (convolution) được đề cập ở phần 2.1 ở trên. Điểm khác biệt lớn nhất ở đây chính là giá trị của kernel (nói đơn giản là ma trận) được phương pháp này sử dụng.<br>
+<img src="https://drive.google.com/uc?id=1978iXSNendDnja1NA35mvD6L4dv7qQWw&amp;export=download" alt="sobel"><br>
+Kết quả được tính từ ma trận này vừa mang tính chất hiệu độ sáng (như trình bày ở phần 2.1) vừa là độ dài của vector gradient (a.k.a vector chỉ hướng tính hiệu) tại điểm đó [2]</p>
+<pre><code>import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+img = cv2.imread('IMG_2924.JPG', 1)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+sobel_x = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=5)
+sobel_y = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=5)
+
+f, axes = plt.subplots(1,3, figsize=(30,10))
+axes[0].imshow(img)
+axes[0].set_title('origin')
+axes[1].imshow(sobel_x)
+axes[1].set_title('sobel_x')
+axes[2].imshow(sobel_y)
+axes[2].set_title('sobel_y')
+plt.show()
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1Bq8cPQMLF0OnwTcHC7iJlGSMXkWYgoXZ&amp;export=download" alt="sobel"></p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Bài viết vừa trình bày tổng quan về cách xác định viền trong ảnh số. Hi vọng qua bài viết này, bạn sẽ có một cái nhìn cụ thể và mới mẻ về cách xử lý hình ảnh số (không chỉ đơn thuần áp dụng, mà nên hiểu cả cốt lõi và cách tư duy giải quyết vấn đề bài toán). Hẹn gặp lại các bạn trong bài viết tới.<br>
+HMD.</p>
+<h3 id="references">References</h3>
+<p>[1] <a href="https://www.mathworks.com/discovery/edge-detection.html">https://www.mathworks.com/discovery/edge-detection.html</a><br>
+[2] <a href="https://en.wikipedia.org/wiki/Sobel_operator">https://en.wikipedia.org/wiki/Sobel_operator</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/xu-ly-anh-voi-opencv/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20%E1%BA%A3nh%20v%E1%BB%9Bi%20OpenCV%20-%20Tut4%3A%20X%C3%A1c%20%C4%91%E1%BB%8Bnh%20vi%E1%BB%81n%20trong%20%E1%BA%A3nh%20(Edge%20Detection)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/xu-ly-anh-voi-opencv/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

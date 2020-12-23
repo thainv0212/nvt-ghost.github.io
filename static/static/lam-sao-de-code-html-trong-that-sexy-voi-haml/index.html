@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Làm sao để code HTML trông thật sexy với HAML | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/lam-sao-de-code-html-trong-that-sexy-voi-haml/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Làm sao để code HTML trông thật sexy với HAML" />
+    <meta property="og:description" content="I.Giới thiệu: Nếu bạn đã từng biết đến ngôn ngữ lập trình LESS, Styles… Chúng đều tạo ra những cách viết CSS nhanh, hiệu quả hơn và nếu bạn đã từng sử dụng, bạn sẽ đánh giá cao sự linh hoạt mà chúng mang lại cho dự án của" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/lam-sao-de-code-html-trong-that-sexy-voi-haml/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1pK8MyZC8q3rdsAXm1ryYXM-ceRrVCnSQ&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-08-08T06:38:27.000Z" />
+    <meta property="article:modified_time" content="2018-08-08T06:38:38.000Z" />
+    <meta property="article:tag" content="html" />
+    <meta property="article:tag" content="haml" />
+    <meta property="article:tag" content="design" />
+    <meta property="article:tag" content="clean" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Làm sao để code HTML trông thật sexy với HAML" />
+    <meta name="twitter:description" content="I.Giới thiệu: Nếu bạn đã từng biết đến ngôn ngữ lập trình LESS, Styles… Chúng đều tạo ra những cách viết CSS nhanh, hiệu quả hơn và nếu bạn đã từng sử dụng, bạn sẽ đánh giá cao sự linh hoạt mà chúng mang lại cho dự án của" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/lam-sao-de-code-html-trong-that-sexy-voi-haml/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1pK8MyZC8q3rdsAXm1ryYXM-ceRrVCnSQ&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.Q.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="html, haml, design, clean" />
+    <meta property="og:image:width" content="1362" />
+    <meta property="og:image:height" content="761" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.Q.M",
+        "url": "https://blog.vietnamlab.vn/author/minhdq/",
+        "sameAs": []
+    },
+    "headline": "Làm sao để code HTML trông thật sexy với HAML",
+    "url": "https://blog.vietnamlab.vn/lam-sao-de-code-html-trong-that-sexy-voi-haml/",
+    "datePublished": "2018-08-08T06:38:27.000Z",
+    "dateModified": "2018-08-08T06:38:38.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1pK8MyZC8q3rdsAXm1ryYXM-ceRrVCnSQ&export=download",
+        "width": 1362,
+        "height": 761
+    },
+    "keywords": "html, haml, design, clean",
+    "description": "I.Giới thiệu:\nNếu bạn đã từng biết đến ngôn ngữ lập trình LESS, Styles… Chúng đều tạo ra những\ncách viết CSS nhanh, hiệu quả hơn và nếu bạn đã từng sử dụng, bạn sẽ đánh giá\ncao sự linh hoạt mà chúng mang lại cho dự án của bạn.\n\nVới HTML bạn sẽ tự hỏi tại sao nó lại quá dài dòng như vậy? Tại sao không ai đó\nđơn giản hóa nó ? Hôm nay, chúng ta sẽ cùng tìm hiểu cách sử dụng Haml để tối ưu\nhóa HTML.\n\nHaml (HTML Abstraction Markup Language) là ngôn ngữ markup thu gọn giúp việc\nviết HTML dễ dàng hơn c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-html tag-haml tag-design tag-clean nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-html tag-haml tag-design tag-clean js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Làm sao để code HTML trông thật sexy với HAML</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-08-08">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 08 August 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/html/index.html">html</a>, <a href="../tag/haml/index.html">haml</a>, <a href="../tag/design/index.html">design</a>, <a href="../tag/clean/index.html">clean</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1pK8MyZC8q3rdsAXm1ryYXM-ceRrVCnSQ&amp;export&#x3D;download" alt="Làm sao để code HTML trông thật sexy với HAML">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/lam-sao-de-code-html-trong-that-sexy-voi-haml/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=L%C3%A0m%20sao%20%C4%91%E1%BB%83%20code%20HTML%20tr%C3%B4ng%20th%E1%BA%ADt%20sexy%20v%E1%BB%9Bi%20HAML">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="igiithiu">I.Giới thiệu:</h3>
+<p>Nếu bạn đã từng biết đến ngôn ngữ lập trình LESS, Styles… Chúng đều tạo ra những cách viết CSS nhanh, hiệu quả hơn và nếu bạn đã từng sử dụng, bạn sẽ đánh giá cao sự linh hoạt mà chúng mang lại cho dự án của bạn.</p>
+<p>Với HTML bạn sẽ tự hỏi tại sao nó lại quá dài dòng như vậy? Tại sao không ai đó đơn giản hóa nó ? Hôm nay, chúng ta sẽ cùng tìm hiểu cách sử dụng Haml để tối ưu hóa HTML.</p>
+<p>Haml (HTML Abstraction Markup Language) là ngôn ngữ markup thu gọn giúp việc viết HTML dễ dàng hơn có thể sử dụng cho nhiều ngôn ngữ PHP, ASP, ERB... được sử dụng nhiều nhất là Ruby on Rails.</p>
+<p>HTML gốc</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Myspace&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;I am the international space station&lt;/h1&gt;
+    &lt;p&gt;Sign my guestbook&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>chuyển sang HAML</p>
+<pre><code>%html
+  %head
+    %title Myspace
+  %body
+    %h1 I am the international space station
+    %p Sign my guestbook
+</code></pre>
+<h3 id="iiskhcbitgiahtlmvhaml">II.Sự khác biệt giữa HTLM và Haml.</h3>
+<p>Bây giờ, bạn đã có một khái niệm cơ bản về Haml, đã đến lúc xem nó hoạt động như thế nào?</p>
+<p>Với HTML:</p>
+<pre><code> &lt;p&gt;Hello World&lt;/p&gt;
+</code></pre>
+<p>Chú ý những cấu trúc đơn giản nhất của HTML đều có sự lặp lại. Trong Haml ta thay điều đó bằng thẻ %p.</p>
+<p>Với Haml:</p>
+<pre><code>%p Hello World
+</code></pre>
+<p>Haml dựa vào khoảng trắng để xác định đầu ra, dưới đây là một minh chứng.</p>
+<p>Haml:</p>
+<pre><code>%h3.title Halloween
+%p.date Tuesday, October 31, 2006
+%div
+  %ul
+    %li
+      %a{:href =&gt; &quot;#devices-tab&quot;} Devices
+    %li
+      %a{:href =&gt; &quot;#options-tab&quot;} System Options
+    %li
+      %a{:href =&gt; &quot;#reports-tab&quot;} Reports
+    %li
+      %a{:href =&gt; &quot;#notes-tab&quot;} Notes
+</code></pre>
+<p>Lần đầu đối với bạn có thể khá khó khăn nhưng đoạn code ở trên chính là đoạn code ở dưới, nghĩa là chúng hoàn toàn tương đương với nhau. Nếu chúng ta viết đoạn Haml ở trên và đưa vào trình phiên dịch, nó sẽ cho ra HTML bên dưới.</p>
+<p>HTML:</p>
+<pre><code>&lt;h3 class='title'&gt;Halloween&lt;/h3&gt;
+ &lt;p class='date'&gt;Tuesday, October 31, 2006&lt;/p&gt;
+&lt;div &gt;
+ &lt;ul&gt;
+  &lt;li &gt;&lt;a href=&quot;#devices-tab&quot;&gt;Devices&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#options-tab&quot;&gt;System Options&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#reports-tab&quot;&gt;Reports&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#notes-tab&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Như bạn có thể thấy, phiên bản HTML yêu cầu rất nhiều ký tự. Sử dụng Haml, chúng ta sẽ tiết kiệm hơn 30 tổ hợp phím trong một đoạn code nhỏ. Nhân lên với toàn bộ website, bạn sẽ thấy đó là một con số khổng lồ.</p>
+<h3 id="iiireference">III.Reference</h3>
+<h4 id="1classesvids">1.Classes và IDs</h4>
+<p>Nếu không có cấu trúc tag truyền thống, bạn tự hỏi làm thế nào để triển khai các mục HTML thêm vào như classed và IDs. Với Haml, bạn hoàn toàn có thể làm được và thậm chí là bạn sẽ cảm thấy quen thuộc một cách kỳ lạ.</p>
+<p>Haml:</p>
+<pre><code>%div
+  %ul.tabs
+    %li#item
+      %a{:href =&gt; &quot;#devices-tab&quot;} Devices
+    %li#item
+      %a{:href =&gt; &quot;#options-tab&quot;} System Options
+    %li#item
+      %a{:href =&gt; &quot;#reports-tab&quot;} Reports
+    %li#item
+      %a{:href =&gt; &quot;#notes-tab&quot;} Notes
+</code></pre>
+<p>Như bạn thấy symbol “.” Và “#” được sử dụng để biểu thị classes và IDs tương ứng. Thật tuyệt vời bởi bạn đã quen thuộc với phương pháp này trong CSS. Một khi bạn đã từng sử dụng CSS, bạn hoàn toàn có thể áp dụng với Haml. Đây là cách thực hiện đoạn code.</p>
+<p>HTML:</p>
+<pre><code>&lt;div &gt;
+ &lt;ul class=&quot;tabs&quot;&gt;
+  &lt;li id=&quot;item&quot;&gt;&lt;a href=&quot;#devices-tab&quot;&gt;Devices&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;item&quot;&gt;&lt;a href=&quot;#options-tab&quot;&gt;System Options&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;item&quot;&gt;&lt;a href=&quot;#reports-tab&quot;&gt;Reports&lt;/a&gt;&lt;/li&gt;
+  &lt;li id=&quot;item&quot;&gt;&lt;a href=&quot;#notes-tab&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+ &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+<h4 id="2divs">2.Divs</h4>
+<p>Hãy thành thật rằng ngay cả những yếu tố mới lạ nhất của HTML5, chúng ta cũng chỉ yêu thích divs. Cho rằng đây là yếu tố phổ biến, Haml đã có một cú pháp đặc biệt đơn giản. Hãy cân nhắc thực hiện với Haml.</p>
+<p>HTML:</p>
+<pre><code>&lt;div id=&quot;someDiv&quot;&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Với những gì chúng ta đã học được, bạn sẽ không nghi ngờ cú pháp “%div” là cần thiết ở đây. Tuy nhiên, Haml cho phép bạn bỏ qua tất cả cú pháp div. Để có đoạn HTML như trên trong Haml, tất cả bạn cần chỉ là:</p>
+<p>Haml:</p>
+<pre><code>#someDiv
+</code></pre>
+<p>Chỉ cần như vậy là đủ. Đoạn code này là div hoàn chỉnh với một ID của “someDiv”. Ngay cả khi bạn hoài nghi rằng nó khá ngắn gọn. Một lần nữa, chúng ta lại thấy được lợi ích rõ ràng của việc viết markup như khi chúng ta viết CSS.</p>
+<p>Khi cần chắc chắn rằng bạn thật sự nắm được cách hoạt động, sau đây là một ví dụ lớn hơn. Lần này chúng ta sẽ sử dụng div chính và hai div bên trong cùng với các yếu tố khác.</p>
+<p>Haml:</p>
+<pre><code>#container
+  .box
+    %h2 Some Headline
+    %p Lorem ipsum doller your mom...
+    %ul.mainList
+      %li One
+      %li Two
+      %li Three
+
+  .box
+    %h2 Some Headline
+    %p Lorem ipsum doller your mom...
+    %ul.mainList
+      %li One
+      %li Two
+      %li Three
+</code></pre>
+<p>HTML:</p>
+<pre><code>&lt;div id='container'&gt;
+  &lt;div class='box'&gt;
+    &lt;h2&gt;Some Headline&lt;/h2&gt;
+    &lt;p&gt;Lorem ipsum doller your mom...&lt;/p&gt;
+    &lt;ul class='mainList'&gt;
+      &lt;li&gt;One&lt;/li&gt;
+      &lt;li&gt;Two&lt;/li&gt;
+      &lt;li&gt;Three&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;div class='box'&gt;
+    &lt;h2&gt;Some Headline&lt;/h2&gt;
+    &lt;p&gt;Lorem ipsum doller your mom...&lt;/p&gt;
+    &lt;ul class='mainList'&gt;
+      &lt;li&gt;One&lt;/li&gt;
+      &lt;li&gt;Two&lt;/li&gt;
+      &lt;li&gt;Three&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Lần này bạn đã thực sự hiểu được sức mạnh của Haml. Sự quyến rũ ở đây vượt xa thực tế rằng bạn tiết kiệm được hàng tấn ký tự và thậm chí là một vài dòng, hãy lưu ý cách thực hiện dễ dàng hơn trong Haml. Tất cả sự lộn xộn kèm theo trong HTML đã được loại bỏ và thay vào đó là hệ thống phân cấp markup rõ ràng mà bạn có thể dễ dàng nhận thấy.</p>
+<h4 id="3thuctnhboolean">3.Thuộc tính Boolean</h4>
+<p>Một số thuộc tính, chẳng hạn như “checked” của input tags hoặc “selected” của option tags, là “boolean” . Trong HTML các thuộc tính này có thể được viết dưới dạng</p>
+<pre><code>&lt;input selected&gt;
+</code></pre>
+<p>để làm điều này trong Haml bằng cách sử dụng các thuộc tính kiểu băm, chỉ cần gán một giá trị true của cho thuộc tính:</p>
+<pre><code>%input{:selected =&gt; true}
+</code></pre>
+<h4 id="4classandidv">4.Class and ID: (.) và (#)</h4>
+<p>Dấu chấm và thăng được mượn từ CSS. Chúng được sử dụng như các phím tắt để xác định các thuộc tính lớp và id của một phần tử. Nhiều tên lớp có thể được chỉ định theo cách tương tự với CSS, bằng cách ghép các tên lớp cùng với dấu chấm. Chúng được đặt ngay sau tag và trước một attributes hash. Ví dụ:</p>
+<pre><code>%div#things
+  %span#rice Chicken Fried
+  %p.beans{ :food =&gt; 'true' } The magical fruit
+  %h1.class.otherclass#id La La La
+</code></pre>
+<p>được biên dịch thành</p>
+<pre><code>&lt;div id='things'&gt;
+  &lt;span id='rice'&gt;Chicken Fried&lt;/span&gt;
+  &lt;p class='beans' food='true'&gt;The magical fruit&lt;/p&gt;
+  &lt;h1 class='class otherclass' id='id'&gt;La La La&lt;/h1&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Và,</p>
+<pre><code>%div#content
+  %div.articles
+    %div.article.title Doogie Howser Comes Out
+    %div.article.date 2006-11-05
+    %div.article.entry
+      Neil Patrick Harris would like to dispel any rumors that he is straight
+</code></pre>
+<p>được biên dịch thành</p>
+<pre><code>&lt;div id='content'&gt;
+  &lt;div class='articles'&gt;
+    &lt;div class='article title'&gt;Doogie Howser Comes Out&lt;/div&gt;
+    &lt;div class='article date'&gt;2006-11-05&lt;/div&gt;
+    &lt;div class='article entry'&gt;
+      Neil Patrick Harris would like to dispel any rumors that he is straight
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h4 id="5filters">5.Filters</h4>
+<p>Ký tự đại diện chỉ định một bộ lọc. Điều này cho phép bạn truyền khối văn bản thụt lề làm đầu vào cho bộ lọc khác và thêm kết quả đầu ra của Haml. Cú pháp chỉ đơn giản là dấu hai chấm, sau đó là tên của bộ lọc. Ví dụ:</p>
+<pre><code>%p
+  :markdown
+    # Greetings
+
+    Hello, *World*
+</code></pre>
+<p>được biên dịch thành</p>
+<pre><code>&lt;p&gt;
+  &lt;h1&gt;Greetings&lt;/h1&gt;
+
+  &lt;p&gt;Hello, &lt;em&gt;World&lt;/em&gt;&lt;/p&gt;
+&lt;/p&gt;
+</code></pre>
+<p>Chức năng của một số bộ lọc như Markdown có thể được cung cấp bởi nhiều thư viện khác nhau. Thông thường bạn không phải lo lắng về điều này.<br>
+Tuy nhiên trong một số trường hợp, bạn muốn sử dụng các bộ lọc một cách cụ thể . Trong trường hợp này, bạn có thể thực hiện điều này thông qua Tilt, thư viện mà Haml sử dụng để thực hiện nhiều bộ lọc của nó:</p>
+<pre><code>Tilt.prefer Tilt::RedCarpetTemplate
+</code></pre>
+<p>Dưới đây là danh sách các filter</p>
+<ul>
+<li>cdata-filter</li>
+<li>coffee-filter</li>
+<li>css-filter</li>
+<li>erb-filter</li>
+<li>escaped-filter</li>
+<li>javascript-filter</li>
+<li>less-filter</li>
+<li>markdown-filter</li>
+<li>maruku-filter</li>
+<li>plain-filter</li>
+<li>preserve-filter</li>
+<li>ruby-filter</li>
+<li>sass-filter</li>
+<li>scss-filter</li>
+<li>textile-filter</li>
+</ul>
+<h4 id="6hmiukinifvlploop">6.Hàm điều kiện IF và lặp LOOP</h4>
+<p>Có một điểm mình rất thích trong HAML là hỗ trợ cú pháp điều kiện IF ELSE rất trực quan và dễ sử dụng . Ngay cả người mới cũng có thể dễ dàng hiểu và nắm bắt được kỹ thuật này .<br>
+Ví dụ<br>
+từ đoạn code if else bình thường trong ERB</p>
+<pre><code>&lt;% if signed_in? %&gt;
+  &lt;li&gt;&lt;%= link_to &quot;Sign out&quot;, sign_out_path %&gt;&lt;/li&gt;
+&lt;% else %&gt;
+  &lt;li&gt;&lt;%= link_to &quot;Sign in&quot;, sign_in_path %&gt;&lt;/li&gt;
+&lt;% end %&gt;
+</code></pre>
+<p>bạn có thể code lại với 1 đoạn trực quan hơn hẳn</p>
+<pre><code>- if signed_in?
+  %li= link_to &quot;Sign out&quot;, sign_out_path
+- else
+  %li= link_to &quot;Sign in&quot;, sign_in_path
+</code></pre>
+<p>Còn hàm loop thì sao</p>
+<pre><code>- @my_patients_list.each do |patient|
+  %tr
+    %td= patient.name
+    %td= patient.date_of_birth
+    %td= patient.gender
+</code></pre>
+<p>quá đơn giản phải ko.</p>
+<h4 id="7rendersubpage">7.Render subpage</h4>
+<p>Hơn nữa HAML còn hỗ trợ lồng các trang phụ vào trang chính bằng cú pháp render, bạn có thể tham khảo một trong những cách sau :</p>
+<p>cách cổ điển</p>
+<pre><code>render partial: 'dog', locals: {dog: dog}
+</code></pre>
+<p>hoặc cách mới hơn</p>
+<pre><code>render 'dog', dog: dog
+</code></pre>
+<p>cách đơn giản nhất</p>
+<pre><code>= render dog
+</code></pre>
+<p>Ngoài ra HAML còn hỗ trợ render cả một tập hợp ActiveRecord models :</p>
+<pre><code>= render partial: &quot;dog&quot;, collection: @dogs
+</code></pre>
+<p>khi viết như thế này thì HAML sẽ tự sinh ra một local variable <code>dog</code> cho bạn.</p>
+<h3 id="ivkt">IV.Kết:</h3>
+<p>Nếu bạn đã từng sử dụng Sass, LESS hoặc Stylus bandwagon và đang tìm kiếm một giải pháp tương tự như HTML, Haml chính là câu trả lời của bạn. Nó cho phép bạn có những đoạn code đơn giản hơn, giúp bạn tiết kiệm thời gian và tất cả thật dễ dàng khi bạn đã quen với nó.</p>
+<p>Điều đáng tiếc duy nhất là Haml mang lại một chút khó khăn cho những ai không phải là Ruby deverloper đơn giản chỉ do các tài liệu hướng dẫn đều hướng đến Ruby. Nhưng tôi đảm bảo rằng ngay cả khi bạn không biết gì về Ruby thì Haml vẫn khá thú vị khi bạn có những trải nghiệm với HTML đơn giản.</p>
+<p>Khi đã nắm được những mục cơ bản, bạn hãy thử dùng Haml cho các dự án của mình. Hãy xem Haml website để có thêm thông tin và bookmarkHaml Cheatsheet để có thể giúp bạn bắt đầu nhanh hơn.</p>
+<p>Cuối cùng, chúc tất cả các bạn sẽ tìm được một công cụ phù hợp cho những dự án tuyệt vời của mình. Hãy cùng nhau thảo luận và chia sẽ nếu bạn có bất kỳ thắc mắc nào nhé!</p>
+<p>Để tìm hiểu sâu hơn về haml bạn có thể vào trang <a href="http://haml.info/">http://haml.info/</a>.</p>
+<h3 id="vngunthamkho">V.Nguồn Tham khảo:</h3>
+<p><a href="http://haml.info/docs/yardoc/file.REFERENCE.html">HAML REFERENCE</a><br>
+<a href="http://www.screencasts.org/episodes/using-haml-with-rails-3">Screencasts</a><br>
+<a href="http://haml.info/tutorial.html">HAML TUTORIAL</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/lam-sao-de-code-html-trong-that-sexy-voi-haml/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=L%C3%A0m%20sao%20%C4%91%E1%BB%83%20code%20HTML%20tr%C3%B4ng%20th%E1%BA%ADt%20sexy%20v%E1%BB%9Bi%20HAML">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/lam-sao-de-code-html-trong-that-sexy-voi-haml/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/lam-sao-de-code-html-trong-that-sexy-voi-haml/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

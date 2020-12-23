@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Từ Developer đến DevOps Engineer (part 1) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Từ Developer đến DevOps Engineer (part 1)" />
+    <meta property="og:description" content="Nội dung: Giới thiệu What is DevOps? DevOps Culture DevOps Phases and Tools DevOps Concepts How to become DevOps Engineer? Giới thiệu tổng quan các tool trong DevOps. The 2019 DevOps RoadMap Learn and Practice 🔰 Giới thiệu Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-08-04T02:29:08.000Z" />
+    <meta property="article:modified_time" content="2020-10-26T16:04:06.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="devops" />
+    <meta property="article:tag" content="Ansible" />
+    <meta property="article:tag" content="CI/CD" />
+    <meta property="article:tag" content="Build Automation" />
+    <meta property="article:tag" content="Infrastructure as Code" />
+    <meta property="article:tag" content="monitoring" />
+    <meta property="article:tag" content="Container orchestration" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Từ Developer đến DevOps Engineer (part 1)" />
+    <meta name="twitter:description" content="Nội dung: Giới thiệu What is DevOps? DevOps Culture DevOps Phases and Tools DevOps Concepts How to become DevOps Engineer? Giới thiệu tổng quan các tool trong DevOps. The 2019 DevOps RoadMap Learn and Practice 🔰 Giới thiệu Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, docker, devops, Ansible, CI/CD, Build Automation, Infrastructure as Code, monitoring, Container orchestration" />
+    <meta property="og:image:width" content="1950" />
+    <meta property="og:image:height" content="734" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Từ Developer đến DevOps Engineer (part 1)",
+    "url": "https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/",
+    "datePublished": "2019-08-04T02:29:08.000Z",
+    "dateModified": "2020-10-26T16:04:06.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&export=download",
+        "width": 1950,
+        "height": 734
+    },
+    "keywords": "kubernetes, docker, devops, Ansible, CI/CD, Build Automation, Infrastructure as Code, monitoring, Container orchestration",
+    "description": "Nội dung:\n * Giới thiệu\n * What is DevOps?\n * DevOps Culture\n * DevOps Phases and Tools\n * DevOps Concepts\n * How to become DevOps Engineer?\n * Giới thiệu tổng quan các tool trong DevOps.\n * The 2019 DevOps RoadMap\n * Learn and Practice\n\n🔰 Giới thiệu\nChào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc các blog trước của mình,\ncác chủ đề thường liên quan đến DevOps, Kubernetes, v.v... Mình sẽ tự giới thiệu\n1 chút.\nTên: N.X.Phong - DevOps công ty GMO Z.com VietNam Lab Center, Số năm kinh nghi",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-kubernetes tag-docker tag-devops tag-ansible tag-ci-cd tag-build-automation tag-infrastructure-as-code tag-monitoring tag-container-orchestration nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-kubernetes tag-docker tag-devops tag-ansible tag-ci-cd tag-build-automation tag-infrastructure-as-code tag-monitoring tag-container-orchestration js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Từ Developer đến DevOps Engineer (part 1)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-08-04">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 04 August 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/docker/index.html">docker</a>, <a href="../tag/devops/index.html">devops</a>, <a href="../tag/ansible/index.html">Ansible</a>, <a href="../tag/ci-cd/index.html">CI/CD</a>, <a href="../tag/build-automation/index.html">Build Automation</a>, <a href="../tag/infrastructure-as-code/index.html">Infrastructure as Code</a>, <a href="../tag/monitoring/index.html">monitoring</a>, <a href="../tag/container-orchestration/index.html">Container orchestration</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;10Gk-T3_AFitg3q9u6fc3gBaAI4BfxOY2&amp;export&#x3D;download" alt="Từ Developer đến DevOps Engineer (part 1)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tu-developer-den-devops-engineer/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BB%AB%20Developer%20%C4%91%E1%BA%BFn%20DevOps%20Engineer%20(part%201)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="nidung">Nội dung:</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>What is DevOps?</li>
+<li>DevOps Culture</li>
+<li>DevOps Phases and Tools</li>
+<li>DevOps Concepts</li>
+<li>How to become DevOps Engineer?</li>
+<li>Giới thiệu tổng quan các tool trong DevOps.</li>
+<li>The 2019 DevOps RoadMap</li>
+<li>Learn and Practice</li>
+</ul>
+<h3 id="giithiu">🔰 Giới thiệu</h3>
+<p>Chào mọi người, lại là mình đây. Có lẽ nhiều bạn đã đọc các blog trước của mình, các chủ đề thường liên quan đến DevOps, Kubernetes, v.v... Mình sẽ tự giới thiệu 1 chút.<br>
+Tên: N.X.Phong - DevOps công ty GMO Z.com VietNam Lab Center, Số năm kinh nghiệm làm DevOps là 2,5 năm (quá ít phải không nhỉ :D ). Hiện tại mình cùng với team 8 thành viên (4 member VN, 4 member ở Nhật) phát triển và vận hành hệ thống web thương mại điện tử (point service) khoảng hơn 20 triệu người dùng, cung cấp API cho khoảng gần 20 site liên kết. Số lượng server cho các môi trường (dev, staging, design, security, pre product, product) trên 150 server, Riêng số server dành riêng cho Product đã hơn 50 server chạy hàng chục service khác nhau. Dưới đây là hầu hết các công nghệ dự án mình đang sử dụng.<br>
+<img src="https://drive.google.com/uc?id=1Je-qpk7jj6PzE1iiPzo6oqmloq0mOS3w&amp;export=download" alt="uc?id=1Je-qpk7jj6PzE1iiPzo6oqmloq0mOS3w&amp;export=download"><br>
+Ngoài ra còn một số công cụ như Rancher, Harbor, Redash, v.v... mình tạm thời chưa liệt kê hết.</p>
+<p>Đối tượng bài viết này là ai? Sẽ hướng đến những bạn sinh viên, những bạn chưa có kiến thức nhiều về DevOps, cho những bạn đang còn loay hoay không biết đi hướng nào để trở thành DevOps. và có thể là tham khảo cho những bạn khác. Các bạn có nhiều kinh nghiệm khi đọc bài này xin hãy để lại ít gạch đá để mình xây nhà nhé! :D Mình mạn phép &quot;mùa rìu qua mắt thợ&quot; tý.</p>
+<p>Mục đích bài viết này? chia sẻ kiến thức thu được trong quá trình làm dự án với các Kỹ sư dày dạn kinh nghiệm ở Nhật. Bản thân tự đánh giá và đưa ra các gợi ý về các kiến thức cũng như các công nghệ cần thiết để vận hành hệ thống.</p>
+<p>Bản thân tự cảm thấy đã hiểu được các lợi ích của DevOps, liên quan trực tiếp đến việc cải thiện quy trình triển khai và phát triển phần mềm. Tuy nhiên, từ kinh nghiệm hạn hẹp của mình, trở thành kỹ sư DevOps không bao giờ là dễ dàng.</p>
+<p>Do yêu cầu sâu rộng về kiến thức, công cụ và nhiều kinh nghiệm thực tiễn, việc chọn đúng con đường để trở thành một kỹ sư DevOps thành công có thể là một nhiệm vụ khó khăn.</p>
+<h3 id="whatisdevops">🔰 What is DevOps?</h3>
+<p>Có lẽ các bạn đã nghe nhiều đến khái niệm devops rồi. Đại khái nó là thế này</p>
+<blockquote>
+<p>DevOps là một văn hóa làm việc đề cao sự hợp tác, kéo hai giai đoạn phát triển (development) và vận hành (operations) xích lại gần nhau hơn. Khái niệm DevOps ra đời nhằm tối ưu hóa chu trình phát triển phần mềm, giúp sản phẩm IT được release nhanh và thường xuyên hơn.</p>
+</blockquote>
+<p><img src="https://drive.google.com/uc?id=1aW44tFxgUmRKAi-nk1aZ-gytsuwBI68t&amp;export=download" alt="uc?id=1aW44tFxgUmRKAi-nk1aZ-gytsuwBI68t&amp;export=download"><br>
+Bạn nào chưa hiểu rõ có đọc thêm ở đây:<br>
+<a href="https://www.quora.com/What-is-DevOps">https://www.quora.com/What-is-DevOps</a><br>
+<a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a></p>
+<h3 id="devopsculture">🔰 DevOps Culture</h3>
+<blockquote>
+<p>DevOps is a culture, not a role!</p>
+</blockquote>
+<p>Ngày nay, mọi cơ quan, tổ chức lớn đều liên quan đên phát triển phần mềm. Có nhiều áp lực đối với việc chuyển giao nhanh hơn mà không phải bỏ qua tính bảo mật hay độ tin cậy. Áp lực này thể hiện ở việc các dự án bị hủy bỏ hoặc tạm dừng. Đây là tính huống mà DevOps phải tìm cách giải quyết: làm thể nào để các nhóm development, operation và các nhóm khác trong tố chức hợp tác xung quanh 1 mục tiêu chung để cung cấp phầm mềm nhanh và tin cậy đến end user. Từ đó nảy sinh ra văn hóa gọi là DevOps để chuẩn hóa bộ quy trình và công cụ cho việc delivery phần mềm, chúng thường bao gồm:</p>
+<ul>
+<li>Automated configuration management, testing and application deployment</li>
+<li>Version control of application and infrastructure code to enable collaboration and rollbacks</li>
+<li>CI (continuous integration) to automate code builds and enable faster feedback and iteration through more frequent, lower risk releases.</li>
+</ul>
+<p>Về văn hoá làm việc của DevOps các bạn cũng có thể đọc ở đây nhé.<br>
+<a href="https://medium.com/@neonrocket/devops-is-a-culture-not-a-role-be1bed149b0">https://medium.com/@neonrocket/devops-is-a-culture-not-a-role-be1bed149b0</a><br>
+<a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a></p>
+<h3 id="devopsphasesandtools">🔰 DevOps Phases and Tools</h3>
+<h4 id="devopsphases">DevOps Phases</h4>
+<p>Các giai đoạn trong quy trình làm việc DevOps các bạn có thể hình dung như hình bên dưới:<br>
+<img src="https://drive.google.com/uc?id=1QZqwRnA2qtZPme53PRxb5XSFxwHJY5Xz&amp;export=download" alt="uc?id=1QZqwRnA2qtZPme53PRxb5XSFxwHJY5Xz&amp;export=download"><br>
+Phần việc của Developer là Plan - Coding -Build - Test, Phần việc của Operation là Deploy - Operator - Monitoring. Và khối chính giữa chính là sự tích hợp giữa Development và Operation tạo nên một quy trình thống nhất.</p>
+<h4 id="devopsphasesandtool">DevOps Phases and Tool</h4>
+<p>Để dễ hình dung các giai đoạn, mình sẽ nêu ra đây vài đại diện các tool được sử dụng.<br>
+<img src="https://drive.google.com/uc?id=1V8qKPXbkTKSfl5s0v7GTqmnJ8OL3HXbQ&amp;export=download" alt="uc?id=1V8qKPXbkTKSfl5s0v7GTqmnJ8OL3HXbQ&amp;export=download"><br>
+<em>Nguồn: <a href="https://www.edureka.co/blog/devops-tools">https://www.edureka.co/blog/devops-tools</a></em></p>
+<p>Có thể có nhiều tool các bạn còn chưa biết, nhưng không sao, chúng ta cứ đi tiếp.</p>
+<h3 id="devopsconcepts">🔰 DevOps Concepts</h3>
+<p>Dưới đây mình sẽ nêu ra những khái niệm mà mình nghĩ nó quan trọng đối với DevOps.</p>
+<h4 id="1buildautomation">1. Build Automation</h4>
+<blockquote>
+<p>Tùy vào ngôn ngữ được sử dụng mà cần phải compile, transform hoặc thực hiện unit test,... đối với code. Thông thường build automation cũng giống như việc chạy một command - line tool để chạy đoạn code đã được viết script hoặc được setting trong file config.</p>
+</blockquote>
+<ul>
+<li>Build Automation là một quy trình tự động để chuẩn bị source code deploy lên môi trường bằng cách sử dụng script hoặc tool.</li>
+<li>Build automation sẽ giúp tiết kiệm thời gian, có thể handle được những task cần phải build theo một quy trình nhất định nào đó.</li>
+<li>Build automation còn giúp thực hiện việc build code trên bất kỳ môi trường nào.</li>
+<li>Bất cứ ai trong team cũng có thể làm được.</li>
+</ul>
+<h4 id="2continuousintegrationcitchhplintc">2. Continuous Integration ( CI - Tích hợp liên tục)</h4>
+<blockquote>
+<p>Tích hợp liên tục (CI) là phương pháp phát triển phần mềm đòi hỏi các thành viên trong nhóm tích hợp công việc thường xuyên.<br>
+Các developer phải thường xuyên merge code thay đổi, build, auto test để detect vấn đề khi merge.<br>
+Khi developer commit source code thay đổi của họ lên, CI Server sẽ thấy sự thay đổi này và bắt đầu thực hiện build, test source code thay đổi một cách tự động. Quá trình này sẽ được thực hiện nhiều lần trong 1 ngày, và nếu CI server phát hiện có vấn đề xảy ra nó sẽ ngay lập tức hiển thị thông báo cho developer.</p>
+</blockquote>
+<p>Các lợi ích khi sử dụng CI</p>
+<ul>
+<li>CI sẽ giúp phát hiện ra bug sớm, thông báo cho developer.</li>
+<li>CI sẽ giúp tránh việc phải merge một lượng code lớn khi release.</li>
+<li>Khi code được build liên tục nó cũng tạo ra Continuos Testing (Test liên tục), QA có thể test ngay lập tức những chỉnh sửa đã được đưa lên mà không cần chờ đến khi mọi thứ hoàn thành.</li>
+</ul>
+<p>Tham khảo thêm tại:</p>
+<ol>
+<li><a href="https://viblo.asia/p/continuous-integration-with-jenkins-bai-1-gioi-thieu-ve-ci-va-jenkins-OeVKBggEZkW">https://viblo.asia/p/continuous-integration-with-jenkins-bai-1-gioi-thieu-ve-ci-va-jenkins-OeVKBggEZkW</a></li>
+<li><a href="https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0">https://viblo.asia/p/tim-hieu-ve-devops-phan-1-ByEZk9Mo5Q0</a><br>
+<img src="https://drive.google.com/uc?id=1OxN-mCXvg3gp7A-fL2kUy8ndEx1BTMOj&amp;export=download" alt="uc?id=1OxN-mCXvg3gp7A-fL2kUy8ndEx1BTMOj&amp;export=download"><br>
+<em>Nguồn: <a href="https://toidicodedao.com/2015/08/27/giai-thich-don-gian-ve-ci-continuous-integration-tich-hop-lien-tuc/">toidicodedao</a></em></li>
+</ol>
+<p>CI tool</p>
+<ul>
+<li><a href="http://www.scmgalaxy.com/tutorials/top-10-continuous-integration-tool/">http://www.scmgalaxy.com/tutorials/top-10-continuous-integration-tool/</a></li>
+</ul>
+<p>Trong các tool để vận hành CI thì có lẽ Jenkins được gợi ý nhiều nhất, có lẽ do Jenkins là open source và free. Hiện tại bên mình đang dùng Bamboo, Bamboo là một trong các sản phẩm của <a href="https://www.atlassian.com/">Atlassian</a>. Nói về Atlassian thì bên mình đang sử dụng Jira(quản lý task theo Agile-Scrum), Confluence(Quản lý tài liệu dự án online, VIP hơn SVN rất nhiều, thay đổi tài liệu có mail bắn về cho team, có thể review và comment tài liệu. Trước đây toàn sử dụng SVN để quản lý tài liệu Excel...), Bitbucket quản lý source code. (Bitbucket thực sự có nhiều chức năng VIP hơn Github, GitLab nhiều, xài rất OK). Nhưng ở mức độ doanh nghiệp nhỏ hay chỉ học thôi thì Jenkins là sự lựa chọn Ok rồi.</p>
+<h4 id="3continuousdeliveryvcontinuousdeployment">3. Continuous Delivery và Continuous Deployment</h4>
+<blockquote>
+<p>Trước hết Continuous Delivery: được hiểu là chuyển giao liên tục, là 1 tập hợp các kỹ thuật nhằm đảm bảo việc triển khai tích hợp souce code trên môi trường staging (một môi trường rất giống với môi trường production). Theo cách này ta có thể đảm bảo source được kiểm thử một cách tỉ mỉ trước khi deploy lên môi trường production. Khi đó source code sẽ không được deploy tự động sang môi trường production.<br>
+Continuous Deployment: là 1 bước phát triển của Coninuous Delivery, giúp hoàn tất giai đoạn triển khai từ môi trường staging ( môi trường kiểm thử) sang môi trường production. Bằng cách này sources code sẽ đuợc tự động deploy lên môi trường production.<br>
+Vì vậy, ta sẽ hiểu CD là Continuous Delivery hay Continuous Deployment thì phụ thuộc vào cách thức mà nó triển khai trai trên môi trường production hay môi trường testing/staging.</p>
+</blockquote>
+<p><img src="https://drive.google.com/uc?id=1CxeCTvZFRPiv1kS34QYUdSkb5KIYq3bH&amp;export=download" alt="uc?id=1CxeCTvZFRPiv1kS34QYUdSkb5KIYq3bH&amp;export=download"><br>
+<em>Nguồn:<a href="https://puppet.com/blog/continuous-delivery-vs-continuous-deployment-what-s-diff">https://puppet.com/blog/continuous-delivery-vs-continuous-deployment-what-s-diff</a></em></p>
+<p>So sánh tổng quan về CI/CD thì như hình bên dưới<br>
+<img src="https://drive.google.com/uc?id=1NZqhU5zc1_K9DhioKD3Wbpnid2oScVv5&amp;export=download" alt="uc?id=1NZqhU5zc1_K9DhioKD3Wbpnid2oScVv5&amp;export=download"><br>
+<em>Nguồn: <a href="https://stackoverflow.com/questions/28608015/continuous-integration-vs-continuous-delivery-vs-continuous-deployment.">stackoverflow</a></em><br>
+Nhìn nhận tổng quan thì CI/CD pipeline thường gồm các bước sau:</p>
+<ul>
+<li><strong>Commit</strong>. Khi lập trình viên hoàn thành một thay đổi thì anh ta sẽ commit thay đổi đó vào một source code repository</li>
+<li><strong>Build</strong>. Thay đổi được lấy ra từ repository và sau đó phần mềm được build để có thể chạy trên máy tính. Bước này phụ thuộc vào ngôn ngữ nào được dùng, đối với các ngôn ngữ phiên dịch (interpreted languages) thì bước này có thể được loại bỏ.</li>
+<li><strong>Automated tests</strong>. Đây là phần chính của CI/CD pipeline. Các thay đổi được test ở nhiều góc độ để đảm bảo nó hoạt động và không làm hại đến những phần khác.</li>
+<li><strong>Deploy</strong>. Phiên bản đã được build sẽ được đưa lên production.</li>
+</ul>
+<p>Với cách làm như vậy Continuous Delivery và Continuous Deployment sẽ đem lại những lợi ích như dưới đây:</p>
+<ul>
+<li>Nhanh chóng đưa sản phẩm đến tay khách hàng</li>
+<li>Giảm thiếu các vấn đề xảy ra khi deploy</li>
+<li>Giảm thiếu risk: lượng deploy trong 1 lần càng nhiều, risk càng cao. Việc chia nhỏ lượng deploy sẽ giảm thiểu risk.</li>
+<li>Rollback lập tức khi xảy ra lỗi</li>
+<li>Giúp developer không còn lo lắng khi deploy khi đã có chức năng roll back automation.</li>
+</ul>
+<p>Đến đây thì mình nhìn nhận lại dự án hiện tại của mình một chút. Hiện tại đang dùng CI/CD, nhưng là Continuous Delivery chứ không phải Continuous Deployment, và Continuous Delivery cũng không áp dụng cho toàn bộ. Mình tự hỏi tại sao lại như thế?<br>
+Hiện tại với mỗi commit của member, sẽ được build và automation test (CI), nhưng có triển khai ngay lên môi trường Staging (gần với Production) không? thì cũng tuỳ trường hợp. Hiện tại đối với những thay đổi của design, sẽ tiến hành Continuous Delivery. còn đối với Developer, sau khi code được merge vào master mới triển khai lên môi trường DEV -&gt; Staging. Sao lại rườm rà và thủ công như vậy. Cái này tuỳ thuộc vào dự án, mà triển khai sao cho hợp lý. Môi trường DEV bên mình có thể tự do deploy, test thoải mái nhưng môi trường Staging còn được dùng bởi gần 20 site liên kết. Vậy nên các thay đổi đến Staging thông thường sẽ được test trước ở môi trường DEV. còn Continuous Deployment thì bên mình không triển khai, thực hiện bằng con người chứ không để tool chạy tự động.</p>
+<h4 id="4infrastructureascodeiac">4. Infrastructure as Code (IaC)</h4>
+<blockquote>
+<p>Infrastructure as Code là method giúp quản lý, xây dựng cơ sở hạ tầng (Infra) cho sản phẩm của bạn. Với Infrastructure as Code, thay vì thực hiện thủ công theo manual. Bạn có thể viết code và cho chạy tự động.<br>
+Các đối tượng xây dựng trong Infra bao gồm: Server, Instance, môi trường, Container,...</p>
+</blockquote>
+<p><img src="https://drive.google.com/uc?id=197da0asrRYl31KC-5IXvX_uYRkVWYiiA&amp;export=download" alt="uc?id=197da0asrRYl31KC-5IXvX_uYRkVWYiiA&amp;export=download"></p>
+<p>Với mình đây thứ tuyệt với nhất với DevOps. Các bạn có thể hình dung thế này. Khi bạn bắt đầu vào dự án, leader hay ai đó đưa cho bạn 1 cái GUI để setup môi trường, và bạn phải hì hục đi tìm các công cụ, rồi chạy command, copy file/folder, v.v... đủ thứ các thể loại. Mất cả ngày nếu như môi trường phức tạp. Chưa kể làm đã đời nó lại không chạy, mà đấy đôi khi chỉ là môi trường để run cái web thôi, chứ chưa nói gì đến các môi trường khác... Thế đấy, chưa kể bạn còn có thể sai sót trong quá trình chọn version, bỏ qua step bla bla.<br>
+Ở đây thật sự Infrastructure as Code rất quan trọng. khi chỉ vài command line, môi trường đồ sộ của bạn đã chạy được. tất cả các member đều dùng 1 môi trường phát triển thống nhất. dù cho bạn xài Windows, Mac hay Linux đều không ảnh hưởng gì. Chúng ta cùng xem qua các lợi ích của IaC.</p>
+<p>Vì sao nên sử dụng IaC?</p>
+<ul>
+<li><strong>Tạo và quản lý resource đúng tiêu chuẩn</strong>. Tất cả mọi việc được thực hiện automation.</li>
+<li><strong>Tính linh hoạt</strong>: IaC cho phép thực hiện cùng một thay đổi giống nhau trên nhiều host, và có thể sử dụng lại trong tương lai.</li>
+<li><strong>Tính co dãn</strong> (Scalability) : khi cần thêm instance bạn chỉ cần cho chạy lại config giống với instance có sẵn và một instance mới được tạo ra chỉ trong vài phút hoặc vài giây.</li>
+<li><strong>Self-documenting</strong>: với IaC để xem những config của hệ thống chỉ cần xem trong source control, bạn không cần phải log lại hoặc tạo 1 tài liệu bất kỳ nào để lưu giữ thông tin config. Chính bản thân code được dùng để build infra chính là document.</li>
+</ul>
+<p>Tất nhiên để sử dụng các công cụ Infrastructure as Code, bạn phải mất nhiều thời gian để học, tối ưu hoá. mục đích hướng đến là tính automation, và quản lý Infrastructure bằng việc viết code.<br>
+Một số Infrastructure as Code Tool:<br>
+<a href="https://www.thorntech.com/2018/04/15-infrastructure-as-code-tools/">https://www.thorntech.com/2018/04/15-infrastructure-as-code-tools/</a><br>
+<img src="https://drive.google.com/uc?id=1-vOgW_1pPu8fU9ec6yIKXJBHbB_vh22-&amp;export=download" alt="uc?id=1-vOgW_1pPu8fU9ec6yIKXJBHbB_vh22-&amp;export=download"><br>
+Có nhiều công cụ được đưa ra, bản thân mình khuyên dùng 3 công cụ trong khung đỏ.</p>
+<h3 id="howtobecomedevopsengineer">🔰 How to become DevOps Engineer?</h3>
+<p>Theo ý kiến cá nhân mình:</p>
+<ul>
+<li>Hiểu được bản chất của DevOps</li>
+<li>Là một Developer (bạn chắc chắn phải lập trình như 1 developer)</li>
+<li>Kỹ năng lập trình Python, shell script.</li>
+<li>Hiểu sâu, thông thạo về HDH đang sử dụng (Linux, Docker, v.v...)</li>
+<li>Khả năng research tốt</li>
+<li>Có tính cẩn thận, tỉ mỉ</li>
+<li>Kinh nghiệm về system và IT operation</li>
+<li>Nắm vững các tiến trình (CI/CD) và các công cụ tự động hóa</li>
+<li>Khả năng sử dụng nhiều công cụ mã nguồn mở, coding/scripting</li>
+</ul>
+<p>Trong các yếu tố trên thì mình muốn nhấn mạnh các điểm sau:<br>
+<strong>Tính cẩn thận, tỉ mỉ:</strong><br>
+Vận hành hệ thống không phải là chuyện ngày một ngày hai, hệ thống có chạy trơn tru thì DevOps mới ngủ ngon được. Vì vậy, không được cẩu thả, command phải chính xác. &quot;Đừng bao giờ thực thi command khi không hình dung được kết quả nhận được là gì &quot;. Bản thân cũng làm chết server nhiều lần rồi nên đúc kết như vậy :D.</p>
+<p><strong>Khả năng research tốt</strong><br>
+Đương nhiên rồi, không chỉ riêng DevOps mà công việc nào cũng đòi hỏi cả. Nhưng DevOps lại càng yêu cầu khắt khe hơn, chuyện gặp lỗi là chuyện hàng ngày, hãy quen với nó và đừng thấy khó chịu, không có chuyện một phát ăn ngay. Ở đây để research hiệu quả còn cần phải có khả năng phân tích vấn đề nữa. Mình sẽ ví dụ về 1 trường hợp phân tích nguyên nhân:<br>
+Ví dụ bạn access đến Nginx thông qua Browser và xảy ra lỗi.<br>
+Phương châm ở đây là nginx lỗi hay network có vấn đề<br>
+Nội dung cần confirm là:<br>
+Login trực tiếp đến nginx server và thực hiện gửi request đến localhost thông qua lệnh curl. Dựa vào kết quả có thể chia ra như sau:</p>
+<ul>
+<li>Có response trả về -&gt; Nginx hoạt động bình thường, vấn đề có thể nằm ở firewall hoặc network (Như vậy có thể hiểu vấn đề không nằm ở nginx)</li>
+<li>Không có response trả về -&gt; Cần kiểm tra nginx có đang hoạt động không? hay nginx config có vấn đề gì không. (Như vậy có thể hiểu vấn đề nằm ở nginx.)</li>
+</ul>
+<p>Có nhiều trường hợp khi triển khai một middleware nào đó gồm nhiều thành phần,  và không hoạt động như mong đợi. Việc phân tách xem vấn nằm ở đâu rất cần thiết.</p>
+<h4 id="dnhchoccbnilntdeveloper">Dành cho các bạn đi lên từ Developer.</h4>
+<p>Bản thân mình cũng là một Developer -&gt; DevOps. Mình gặp những khó khăn khi bắt đầu học DevOps như sau.</p>
+<ol>
+<li>Chưa thông thạo về HDH Linux. (ở trường đại học có môn Linux nhưng mà học dc rất ít :D)</li>
+<li>Rất ngại sử dụng command line (khó nhớ, không có giao diện dể nhìn, toàn màn hình đen)</li>
+<li>Chưa có cái nhìn tổng quát về vận hành hệ thống. (đại khái là web nó chạy dc ở local là dc, còn ở Production họ triển khai như thế nào không biết)</li>
+<li>Kinh nghiệm về system và IT operation (Cái này thì đúng là Developer bình thường không biết được)</li>
+<li>Khá nhiều công cụ dành cho vận hành mình chưa biết đến.</li>
+</ol>
+<p>Vì vậy mình nghĩ các bạn Dev muốn đi lên DevOps thì khắc phục các điểm phía trên của mình. Ngoài ra thì có một tiền bối nào đó chỉ đường nữa là quá tuyệt vời.</p>
+<h4 id="dnhchoccbnilntsystemadminitoperation">Dành cho các bạn đi lên từ System Admin, IT Operation.</h4>
+<p>Với những bạn như vậy chắc là chỉ khuyên các bạn học lập trình như Developer, tham gia dự án để hiểu được hệ thống, hiểu được các chức năng cũng như yêu cầu hệ thống. từ đó có cái nhìn phù hợp để triển khai hệ thống tốt hơn.</p>
+<p>Các bạn System Admin, IT Operation đi lên DevOps có khi lại dễ hơn các bạn DEV.</p>
+<h3 id="giithiutngquancccngnghtooltrongdevops">🔰 Giới thiệu tổng quan các công nghệ/tool trong DevOps</h3>
+<p><img src="https://drive.google.com/uc?id=1TVpp28S6LuXruKe3r11QBcWMaStMxI02&amp;export=download" alt="uc?id=1TVpp28S6LuXruKe3r11QBcWMaStMxI02&amp;export=download"><br>
+Quả thật hệ sinh thái DevOps vô cùng khổng lồ và liên tục gia tăng đến mức choáng ngợp.<br>
+Thế thì học cái gì trong đống này, bản thân mình cũng rất phân vân. Tình cờ mình đọc được 2 bài viết dưới đây và mình nghĩ rất đáng để tham khảo.</p>
+<h3 id="devopsroadmap">🔰 DevOps RoadMap</h3>
+<h4 id="thamkhotitviecblog">Tham khảo từ itviec Blog</h4>
+<p>Mình có đọc 1 bài viết, 1 anh DevOps được phỏng vấn trong bài đó đưa ra các công nghệ/tool cần học.<br>
+<a href="https://itviec.com/blog/devops-engineer-la-gi/">https://itviec.com/blog/devops-engineer-la-gi/</a> Phần 3. Kĩ năng mới.<br>
+<img src="https://drive.google.com/uc?id=1DKo2e5lAKcCxuz8GDTZPAsg0k2Ykg2St&amp;export=download" alt="uc?id=1DKo2e5lAKcCxuz8GDTZPAsg0k2Ykg2St&amp;export=download"><br>
+<em>Nguồn: <a href="https://itviec.com/blog/devops-engineer-la-gi/">https://itviec.com/blog/devops-engineer-la-gi/</a></em></p>
+<p>Mình cũng đồng tình phần lớn với các recommend của anh được phỏng vấn trong bài viết trên.</p>
+<h4 id="the2019devopsroadmapcatcgikamranahmedse">The 2019 DevOps RoadMap của tác giả <a href="https://github.com/kamranahmedse">Kamranahmedse</a></h4>
+<p>Vô tình mình đọc được <a href="https://github.com/kamranahmedse/developer-roadmap">Github</a> của tác giả Kamranahmedse nói về lộ trình hữu ích dành cho các kỹ sư Frontend, kỹ sư Backend cũng như lộ trình dành cho DevOps Engineer.<br>
+Lộ trình này không chỉ giải thích vai trò cụ thể của các kỹ sư DevOps, mà còn chỉ định những công cụ nào cần thiết để bao quát các lĩnh vực công việc của các kỹ sư DevOps. Các bạn có thể in ra, dán lên bàn làm việc để flow theo.<br>
+<img src="https://drive.google.com/uc?id=18VDuHrqTOlVVN5cj8MFznsIdFeLmuwwR&amp;export=download" alt="uc?id=18VDuHrqTOlVVN5cj8MFznsIdFeLmuwwR&amp;export=download"><br>
+<em>Nguồn:<a href="https://github.com/kamranahmedse/developer-roadmap">https://github.com/kamranahmedse/developer-roadmap</a></em></p>
+<p>Trên đây mình đã chia sẻ 2 nguồn để các bạn tham khảo lộ trình để trở thành DevOps Engineer, quả thật lắm chông gai và cần nhiều thời gian công sức để học tập.<br>
+Lộ trình thì có rồi nhưng cũng nhiều quá phải không, mình đã trãi qua việc học các kiến thức và công cụ dưới đây để join vào team DevOps và làm việc cho đến bây giờ (2,5 năm). Mình sẽ giới thiệu đến các bạn mới để các bạn có thể nhanh chóng tiến lên con đường DevOps và cảm nhận được sự thú vị của nó.</p>
+<p>Phần tiếp theo mình sẽ đưa ra 1 practice đơn giản để các bạn mới học và thực hành DevOps.</p>
+<h3 id="learnandpractice">🔰 Learn and Practice</h3>
+<p>Đây cũng gần như là chương trình thực tập DevOps công ty mình, cho các bạn sinh viên năm 4,5.<br>
+Let's get started!</p>
+<ol>
+<li>Hãy bắt đầu với GIT</li>
+<li>Linux (Sử dụng được thành thạo các command cơ bản của linux, thao tác với user, file, ssh, v.v...)</li>
+<li>Vagrant (Công cụ kết hợp với Virtual Box để tạo máo ảo trên local)</li>
+<li>Ansible (Công cụ để thực hiện Infrastructure as Code)</li>
+<li>Docker, Docker Compose (Thời đại container hoá rồi nên phải học cái này :D)</li>
+<li>Web server (Bên mình thì cho các bạn học Nginx - cài đặt, cấu hình cơ bản, học 1 cái này thì các web server khác như Apache, IIS, v.v... cũng gần gần)</li>
+<li>Do Exercise 1</li>
+<li>Học php, Framework Yii2</li>
+<li>Do Exercise 2 (Phát triển và vận hành hệ thống CI/CD, IaC dựa trên các công cụ đã học, sử dụng php, Yii2 FW)</li>
+<li>Triển khai cả môi trường Prodcution (Bên mình cung cấp VPS Conoha cloud)</li>
+</ol>
+<p>---------------------Chương trình thực tập đến đây-------------------</p>
+<p>Các bạn vào chính thức sẽ tiếp tục học</p>
+<ol>
+<li>Kubernetes</li>
+<li>Do Exercise 3</li>
+</ol>
+<p>Bây giờ mình sẽ nói về &quot;Do Exercise 1&quot;. Đây chỉ là bài tập vận dụng đơn giản, hệ thống thật sẽ khác lắm.<br>
+<img src="https://drive.google.com/uc?id=1HV6xLgMbi7YSJT1BD19dkW7iwpBVqFNP&amp;export=download" alt="uc?id=1HV6xLgMbi7YSJT1BD19dkW7iwpBVqFNP&amp;export=download"></p>
+<ol>
+<li>Sử dụng Vagrant tạo 3 máy ảo CI, WEB, DB. CI có thể ssh đến 2 server kia, CI được cài đặt sẵn Git, Ansible. Vì là môi trường local nên có thể syns source playbook với máy CI.</li>
+<li>Chạy provision để cài đặt các thứ cần thiết cho cả 3 server như docker, v.v... WEB cần được triển khai 2 container là nginx và php-fpm, có thể thực hiện bằng docker-compose. DB cần triển khai mysql container, tiện nhất là bằng docker-compose.</li>
+<li>Viết role để có thể copy nginx config đã được chuẩn bị sẵn/khi muốn thay đổi.</li>
+<li>Chuẩn bị source ứng dụng (ở đây chỉ là 1 file php đơn giản có nội dung kết nối đến mysql, nếu thành công thì trả về message &quot;Connection Successful!&quot; ngược lại thì trả về &quot;Connection Failure!&quot;) ở một git repository khác.</li>
+<li>Viết role để triển khai source này vào container php-fpm.</li>
+<li>Viết README</li>
+</ol>
+<p>Kết quả cần đạt được:<br>
+Chỉ vài command có thể chạy được môi trường.</p>
+<h3 id="tngkt">🔰 Tổng kết</h3>
+<p>Bài viết mình đến đây thôi, phần tiếp theo mình sẽ nói về &quot;Do Exercise 2&quot;, &quot;Do Exercise 3&quot;, hy vọng các bạn thu được nhiều kiến thức cũng như quan tâm, có hứng thú hơn với DevOps. Comment thật nhiều để giúp mình hoàn thiện hơn về kiến thức, khả năng trình bày cũng như có thêm động lực cho các bài blog sau nhé!</p>
+<p>Chào thân ái!<br>
+<img src="https://drive.google.com/uc?id=1zcoKQVSALa5dm3V5L6ADT1AYdEFIXTLM&amp;export=download" alt="uc?id=1zcoKQVSALa5dm3V5L6ADT1AYdEFIXTLM&amp;export=download"></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tu-developer-den-devops-engineer/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BB%AB%20Developer%20%C4%91%E1%BA%BFn%20DevOps%20Engineer%20(part%201)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tu-developer-den-devops-engineer/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tu-developer-den-devops-engineer/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

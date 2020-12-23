@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tạo ứng dụng CRUD đơn giản với Redux (phần 2)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 2)" />
+    <meta property="og:description" content="Chào các bạn, hôm nay mình trở lại và viết tiếp phần 2 cũng là phần cuối của &quot;Tạo ứng dụng CRUD với Redux&quot;. Lần trước mình đã viết bài hướng dẫn các bạn tạo ứng dụng, setup phần backend và thực hiện chức năng Read (các bạn có thể" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1vOiwuXEQIcK2hY3Fjgmvw0KtyG0OooZT&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-11-05T01:17:35.000Z" />
+    <meta property="article:modified_time" content="2020-02-06T02:34:30.000Z" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="redux" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 2)" />
+    <meta name="twitter:description" content="Chào các bạn, hôm nay mình trở lại và viết tiếp phần 2 cũng là phần cuối của &quot;Tạo ứng dụng CRUD với Redux&quot;. Lần trước mình đã viết bài hướng dẫn các bạn tạo ứng dụng, setup phần backend và thực hiện chức năng Read (các bạn có thể" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1vOiwuXEQIcK2hY3Fjgmvw0KtyG0OooZT&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.Đ.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="react, redux" />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="400" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tạo ứng dụng CRUD đơn giản với Redux (phần 2)",
+    "url": "https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux-2/",
+    "datePublished": "2019-11-05T01:17:35.000Z",
+    "dateModified": "2020-02-06T02:34:30.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1vOiwuXEQIcK2hY3Fjgmvw0KtyG0OooZT&export=download",
+        "width": 700,
+        "height": 400
+    },
+    "keywords": "react, redux",
+    "description": "Chào các bạn, hôm nay mình trở lại và viết tiếp phần 2 cũng là phần cuối của\n&quot;Tạo ứng dụng CRUD với Redux&quot;. Lần trước mình đã viết bài hướng dẫn các bạn tạo\nứng dụng, setup phần backend và thực hiện chức năng Read (các bạn có thể xem bài\nviết trước tại đây\n[https://blog.vietnamlab.vn/2019/07/29/tao-ung-dung-crud-don-gian-voi-redux/]). \nTrong blog lần này, mình sẽ hướng dẫn các bạn thực hiện các chức năng còn lại:\nCreate, Update, Delete.\n\nTrong bài viết không thể nói hết các phần râu ria của proj",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tạo ứng dụng CRUD đơn giản với Redux (phần 2)</h1>
+                <section class="post-meta">
+                    L.Đ.T -
+                    <time class="post-date" datetime="2019-11-05">05 Nov 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1vOiwuXEQIcK2hY3Fjgmvw0KtyG0OooZT&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Chào các bạn, hôm nay mình trở lại và viết tiếp phần 2 cũng là phần cuối của "Tạo ứng dụng CRUD với Redux". Lần trước mình đã viết bài hướng dẫn các bạn tạo ứng dụng, setup phần backend và thực hiện chức năng Read (các bạn có thể xem bài viết trước tại <a href="https://blog.vietnamlab.vn/2019/07/29/tao-ung-dung-crud-don-gian-voi-redux/">đây</a>)<a>.</a> Trong blog lần này, mình sẽ hướng dẫn các bạn thực hiện các chức năng còn lại: Create, Update, Delete.</p><p>Trong bài viết không thể nói hết các phần râu ria của project, các bạn có thể tham khảo phần  code tại <a href="https://github.com/tienld235/crud">đây</a><a>.</a></p><h3 id="ii-t-o-app-crud-demo"><strong>II. Tạo app CRUD demo</strong></h3><h4 id="2-ch-c-n-ng-create">2. Chức năng Create</h4><p>Đầu tiên cùng lướt qua một chút về phần xử lý chức năng Create ở trong <code>backend/server.js</code>:</p><pre><code>function validate(data) {
+    let errors = {};
+    if (data.title.trim() === '') errors.title = "Can't be empty";
+    if (data.cover.trim() === '') errors.cover = "Can't be empty";
+    const isValid = Object.keys(errors).length === 0;
+    return { errors, isValid };
+}
+
+...
+
+app.post('/api/games', (req, res) =&gt; {
+        const { errors, isValid } = validate(req.body);
+        if (isValid) {
+            const { title, cover } = req.body;
+            db.collection('games').insert({ title, cover }, (err, result) =&gt; {
+                if (err) {
+                    res.status(500).json({ errors: { global: 'Something went wrong ' } })
+                } else {
+                    res.json({ game: result.ops[0] })
+                }
+            })
+        } else {
+            res.status(400).json({ errors });
+        }
+    })
+
+...</code></pre><p>Giải thích sơ qua, sau khi validate 2 trường <code>title</code> và <code>cover</code> được gửi lên từ <code>req.body</code>, nếu dữ liệu valid thì sẽ insert vào database. Khi insert thành công thì api sẽ trả về 1 object với key là <code>game</code>.</p><p>Trong <code>src/containers/GameForm.js</code> chúng ta có 1 form để nhập dữ liệu:</p><pre><code>import React, { Component } from 'react'
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { saveGame } from '../actions/actions';
+import { Redirect } from 'react-router-dom';
+
+class GameForm extends Component {
+    state = {
+        _id:  null,
+        title: '',
+        cover: '',
+        errors: {},
+        loading: false,
+        done: false
+    }
+
+    handleChange = (e) =&gt; {
+        if (!!this.state.errors[e.target.name]) {
+            let errors = Object.assign({}, this.state.errors);
+            delete errors[e.target.name];
+            this.setState({ [e.target.name]: e.target.value, errors });
+        } else {
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
+
+    }
+
+    handleSubmit = (e) =&gt; {
+        const { title, cover } = this.state;
+        e.preventDefault();
+
+        // validation
+        let errors = {};
+        if (title.trim() === '') errors.title = "Can't be empty";
+        if (cover.trim() === '') errors.cover = "Can't be empty";
+        this.setState({ errors });
+
+        const isValid = Object.keys(errors).length === 0;
+
+        if (isValid) {
+            this.setState({ loading: true })
+            this.props.saveGame({ title, cover }).then(
+                () =&gt; { this.setState({ done: true }) },
+                (err) =&gt; err.response.json().then(({ errors }) =&gt; this.setState({ errors, loading: false }))
+            );
+        }
+    }
+
+    renderForm = () =&gt; (
+        &lt;div&gt;
+            &lt;form className={classnames('ui', 'form', { loading: this.state.loading })} onSubmit={this.handleSubmit}&gt;
+                &lt;h1&gt;Add New Game&lt;/h1&gt;
+
+                {!!this.state.errors.global &amp;&amp; &lt;div className="ui negative message"&gt;&lt;p&gt;{this.state.errors.global}&lt;/p&gt;&lt;/div&gt;}
+
+                &lt;div className={classnames('field', { error: !!this.state.errors.title })}&gt;
+                    &lt;label htmlFor="title"&gt;Title&lt;/label&gt;
+                    &lt;input
+                        id="title"
+                        name="title"
+                        value={this.state.title}
+                        onChange={this.handleChange}
+                    /&gt;
+                    &lt;span&gt;{this.state.errors.title}&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div className={classnames('field', { error: !!this.state.errors.cover })}&gt;
+                    &lt;label htmlFor="cover"&gt;Cover URL&lt;/label&gt;
+                    &lt;input
+                        id="cover"
+                        name="cover"
+                        value={this.state.cover}
+                        onChange={this.handleChange}
+                    /&gt;
+                    &lt;span&gt;{this.state.errors.cover}&lt;/span&gt;
+                &lt;/div&gt;
+
+                {this.state.cover.trim() !== '' &amp;&amp;
+                    &lt;div className="field"&gt;
+                        &lt;img src={this.state.cover} alt="cover" className="ui small bordered image" /&gt;
+                    &lt;/div&gt;
+                }
+
+                &lt;div className="field"&gt;
+                    &lt;button className="ui primary button"&gt;Save&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/form&gt;
+        &lt;/div&gt;
+    )
+
+    render = () =&gt; (
+        &lt;div&gt;
+            {this.state.done ? &lt;Redirect to="/games" /&gt; : this.renderForm()}
+        &lt;/div&gt;
+    )
+}
+
+const mapStateToProps = (state, props) =&gt; ({
+    game: null 
+})
+
+const mapDispatchToProps = dispatch =&gt; ({
+    saveGame: (data) =&gt; dispatch(saveGame(data)),
+});
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(GameForm);</code></pre><p>Do <code>GameForm</code> không cần dùng để lấy các state có trong store hiện tại của Redux, nên ta lấy giá trị của <code>game: null</code> trong mapStateToProps. Khi người dùng submit form lên thông qua hàm <code>handleSubmit()</code>, thông qua (function được chuyển thành) props saveGame(), params được gửi lên là object chứa 2 state <code>title</code> và <code>cover</code> . Trong hàm <code>saveGame()</code>:</p><pre><code>import { GET_GAMES, CREATE_GAME } from '../actionTypes';
+
+const handleResponse = (response) =&gt; {
+    if (response.ok) {
+        return response.json();
+    } else {
+        let error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+    }
+}
+
+...
+
+
+export const saveGame = (data) =&gt; (
+    async dispatch =&gt; {
+        const game = await fetch('http://127.0.0.1:5000/api/games', {
+            method: 'post',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }); 
+        handleResponse(game);
+        await dispatch({
+            type: CREATE_GAME,
+            game
+        });
+    }
+)</code></pre><p>Dữ liệu được gửi lên api thông qua method <code>post</code>, nếu không thành công sẽ <code>throw error</code>, còn không thì sẽ trả về response là chính game mới mà chúng ta submit lên. (object với key là <code>game</code> như mình đã nói về phần backend ở trên). Sau đó, nó dispatch một action với type là <code>CREATE_GAME</code> và params là <code>game</code> mà api trả về.</p><pre><code>// src/reducers/games.js
+
+import { ..., CREATE_GAME } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+    switch (action.type) {
+		...
+		case CREATE_GAME:
+            return [...state, action.game]
+        ...
+    }
+}</code></pre><p>Quay trở lại class <code>GameForm</code>, sau khi submit form xong, sẽ redirect về màn <code>games</code>. Lúc này, trong reducer <code>games</code> state sẽ được cập nhập, với case type = <code>CREATE_GAME</code>, state trả về sẽ là state cũ và thêm <code>action.game</code> mà chúng ta vừa dispatch trong function <code>saveGame()</code>.</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1YFr6GYJ-O1iWkkU5qrOpVoq5boPzfuL9&amp;export=download" class="kg-image" alt width="1383" height="808" layout="responsive"></amp-img><figcaption>Create Game</figcaption></figure><h4 id="3-ch-c-n-ng-update">3. Chức năng Update</h4><p>Với chức năng Update, có 2 việc chúng ta phải làm: </p><ul><li>Lấy dữ liệu của các bản ghi hiện có để hiển thị ra khi người dùng bấm vào 1 bản ghi.</li><li>Sau khi người dùng chỉnh sửa, validate dữ liệu và cập nhật lại bản ghi.</li></ul><h5 id="a-l-y-d-li-u-b-n-ghi">a) Lấy dữ liệu bản ghi</h5><p>Để tối ưu code, chúng ta sử dụng lại container <code>GameForm</code> để hiển thị chi tiết của bản ghi. Trong <code>src/App.js</code> chúng ta define đường dẫn:</p><pre><code>// src/App.js
+...
+
+import { Link, Route } from 'react-router-dom';
+import GameForm from './containers/GameForm';
+
+...
+
+    &lt;Route path={'/game/:_id'} component={GameForm} /&gt;
+  &lt;/div&gt;
+);
+
+export default App;</code></pre><p>Rồi sau đó thêm button trỏ đến link trên trong component <code>GameCard.js</code>:</p><pre><code>// src/components/GameCard.js
+...
+import {Link} from 'react-router-dom';
+
+const GameCard = ({game, deleteGame}) =&gt; (
+
+...
+
+            &lt;div className="ui two buttons"&gt;
+                &lt;Link to={`/game/${game._id}`} className="ui basic button green"&gt;Edit&lt;/Link&gt;
+
+                ...
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+)
+
+export default GameCard;</code></pre><p>Việc tiếp theo là cập nhật lại <code>GameForm</code> trong trường hợp update:</p><pre><code>...
+import { saveGame, fetchGame } from '../actions/actions';
+
+class GameForm extends Component {
+	state = {
+        _id: this.props.game ? this.props.game._id : null,
+        title: this.props.game ? this.props.game.title : '',
+        cover: this.props.game ? this.props.game.cover : '',
+        errors: {},
+        loading: false,
+        done: false
+    	}
+	...
+    componentWillReceiveProps = (nextProps) =&gt; {
+        this.setState({
+            _id: nextProps.game._id,
+            title: nextProps.game.title,
+            cover: nextProps.game.cover,
+        })
+    }
+
+    componentDidMount = () =&gt; {
+        if(this.props.match.params._id){
+        this.props.fetchGame(this.props.match.params._id);
+        }
+    }
+
+   ...
+}
+
+const mapStateToProps = (state, props) =&gt; (
+    props.match.params._id ? { game: state.games.find(item =&gt; item._id = props.match.params._id) } : { game: null }
+)
+
+const mapDispatchToProps = dispatch =&gt; ({
+    ...
+    fetchGame: (id) =&gt; dispatch(fetchGame(id)),
+});
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(GameForm);</code></pre><p><code>src/actions/actions.js</code>:</p><pre><code>import { ..., GET_GAME } from '../actionTypes/index';
+
+export const fetchGame = (id) =&gt; (
+    async dispatch =&gt; {
+        const response  = await fetch(`http://127.0.0.1:5000/api/games/${id}`);
+        const game = await response.json();
+        dispatch({
+            type : GET_GAME,
+            game
+        });
+    }
+)</code></pre><p><code>src/reducers/games.js</code>:</p><pre><code>import { ..., GET_GAME } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+    switch (action.type) {
+        ...
+        case GET_GAME:
+            const index = state.findIndex(item =&gt; item._id === action.game._id);
+            if (index &gt; -1) {
+                return state.map(item =&gt; {
+                    if (item._id === action.game._id) return action.game;
+                    return item;
+                })
+            } else {
+                return [
+                    ...state,
+                    action.game
+                ]
+            }
+        ...
+    }
+}</code></pre><p>Logic ở đây có thể hiểu như sau: khi người dùng ấn vào một bản ghi, trong <code>componentDidMount</code> sẽ gọi props <code>fetchGame</code> truyền vào params là id được lấy trên đường dẫn mà chúng ta truyền vào bên <code>GameCard.js</code>. Trong hàm <code>fetchGame()</code> trong actions, lấy dữ liệu bản ghi qua api rồi dispatch hành động type = <code>GET_GAME</code> truyền vào bản ghi lấy được từ api. Reducer lắng nghe action, khi thấy action được thực hiện, thì sẽ return giá trị bản ghi mà action trả về. Trong <code>GameForm</code>,  chíng ta sẽ lọc global states <code>games</code> ở trong hàm <code>mapStateToProps</code> để trả về bản ghi trùng với cả tham số <code>_id</code> truyền vào URL.</p><p>Với việc sử dụng hàm <code>componentWillReceiveProps</code>, chúng ta sẽ render lại <code>GameForm.js</code> đối với các bản ghi khác nhau. Thành quả đạt được:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1auzyngmcybC28HEaMnmcT-MyHutQZCAH&amp;export=download" class="kg-image" alt width="1383" height="808" layout="responsive"></amp-img></figure><h5 id="b-c-p-nh-t-b-n-ghi">b) Cập nhật bản ghi</h5><p><code>src/containers/GameForm.js</code>:</p><pre><code>...
+import { ..., updateGame } from '../actions/actions';
+
+
+class GameForm extends Component {
+    ...
+
+    handleSubmit = (e) =&gt; {
+        const { title, cover, _id } = this.state;
+        e.preventDefault();
+
+        // validation
+        let errors = {};
+        if (title.trim() === '') errors.title = "Can't be empty";
+        if (cover.trim() === '') errors.cover = "Can't be empty";
+        this.setState({ errors });
+
+        const isValid = Object.keys(errors).length === 0;
+
+        if (isValid) {
+            this.setState({ loading: true })
+            if(_id){
+                this.props.updateGame({_id, title, cover}).then(
+                    () =&gt; { this.setState({ done: true }) },
+                    (err) =&gt; err.response.json().then(({ errors }) =&gt; this.setState({ errors, loading: false }))
+                );
+            }else{
+                this.props.saveGame({ title, cover }).then(
+                    () =&gt; { this.setState({ done: true }) },
+                    (err) =&gt; err.response.json().then(({ errors }) =&gt; this.setState({ errors, loading: false }))
+                );
+            }
+        }
+
+    }
+
+    ...
+const mapDispatchToProps = dispatch =&gt; ({
+    ...
+    updateGame: (data)=&gt; dispatch(updateGame(data))
+});
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(GameForm);</code></pre><p>Với trường hợp tồn tại <code>this.state._id</code> , chúng ta sử dụng props <code>updateGame()</code>:</p><pre><code>import { ..., UPDATE_GAME } from '../actionTypes/index';
+
+export const updateGame = (data) =&gt; (
+    async dispatch =&gt; {
+        const game = await fetch(`http://127.0.0.1:5000/api/games/${data._id}`, {
+            method: 'put',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        handleResponse(game);
+        await dispatch({
+            type: UPDATE_GAME,
+            game
+        });
+    }
+)</code></pre><p><code>updateState()</code> với params truyền vào là 1 object chứa id, title và cover mới được gửi tới <code>api/games/id</code> thông qua method PUT. Sau khi cập nhật xong, nó sẽ thực hiện dispatch 1 hành động với type <code>UPDATE_GAME</code> và tham số là game đã được cập nhật. Sau khi action được thực hiện, reducer lập tức xử lý state với type của action tương ứng:</p><pre><code>import { ...,  UPDATE_GAME } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+    switch (action.type) {
+        ...
+        case UPDATE_GAME: 
+            return state.map(item =&gt; {
+                if(item._id === action.game._id) return action.game;
+                return item;
+            })
+        ...
+    }
+}</code></pre><p>Như vậy item trong state hiện tại được thay thế bằng game đã được cập nhật mà api trả về có id tương ứng.</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1FkiOzZMwdd4mllpnbUKW1MM7ipgkqYTx&amp;export=download" class="kg-image" alt width="1383" height="808" layout="responsive"></amp-img><figcaption><em>Update Game</em></figcaption></figure><h4 id="4-ch-c-n-ng-delete">4. Chức năng Delete</h4><p>Chức năng delete thì tương đối đơn giản, mục đích của chúng ta là xoá dữ liệu trên database rồi cập nhật lại global state.</p><p><code>src/actions/actions.js</code>:</p><pre><code>import { ..., DELETE_GAME} from '../actionTypes';
+
+export const deleteGame = (id) =&gt; (
+    async dispatch =&gt; {
+        const game = await fetch(`http://127.0.0.1:5000/api/games/${id}`, {
+            method: 'delete',
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        handleResponse(game);
+        await dispatch({
+            type : DELETE_GAME,
+            id
+        });
+    }
+)
+</code></pre><p>Logic của action deleteGame khá rõ ràng, khi sẽ sử dụng method <code>delete</code>, xoá đi dữ liệu của bản ghi có id được truyền thẳng vào header api.  Sau đó dispatch 1 hành động với type <code>DELETE_GAME</code> và params là <code>id</code> của bản ghi đã xoá.</p><p>Ở trong container <code>GamePage</code>, chúng ta chuyển action <code>deleteGame</code> thành 1 props và truyền vào tới component <code>GameList &gt; GameCard</code>:</p><p><code>src/containers/GamePage.js</code>:</p><pre><code>...
+import { ..., deleteGame } from '../actions/actions';
+
+class GamesPage extends React.Component {
+    ...
+    render= () =&gt; (
+            &lt;div&gt;
+                ...
+                &lt;GamesList games={this.props.games} deleteGame={this.props.deleteGame} /&gt;
+            &lt;/div&gt;
+    )
+}
+
+...
+
+const mapDispatchToProps = dispatch =&gt; ({
+    ...
+    deleteGame: (id) =&gt; dispatch(deleteGame(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesPage);</code></pre><p><code>src/components/GameCard.js</code>:</p><pre><code>import React from 'react';
+import {Link} from 'react-router-dom';
+
+const GameCard = ({game, deleteGame}) =&gt; (
+    &lt;div className="ui card"&gt;
+        &lt;div className="image"&gt;
+            &lt;img src={game.cover} alt={'Game Cover'} /&gt;
+        &lt;/div&gt;
+        &lt;div className="content"&gt;
+            &lt;div className="header" &gt;{game.title}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="extra content"&gt;
+            &lt;div className="ui two buttons"&gt;
+                &lt;Link to={`/game/${game._id}`} className="ui basic button green"&gt;Edit&lt;/Link&gt;
+                &lt;Link className="ui basic button red" onClick={()=&gt; deleteGame(game._id)}&gt;Delete&lt;/Link&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+)
+
+export default GameCard;</code></pre><p>Khi người dùng click vào nút Delete, ngay lập tức action được thực thi và reducer <code>games</code> sẽ lập tức xử lý state theo type <code>DELETE_GAME</code>.</p><pre><code>import { ..., DELETE_GAME } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+    switch (action.type) {
+        ...
+        case DELETE_GAME:
+            return state.filter(item =&gt; item._id !== action.id)
+        ...
+    }
+}</code></pre><p>Như vậy, state sẽ được filter và return tất cả bản ghi có id không trùng với bản ghi đã bị xoá.</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1kzDoQl4eAVGlwREP83MjM2T5EpIKYauC&amp;export=download" class="kg-image" alt width="1383" height="808" layout="responsive"></amp-img><figcaption><em>Delete Game</em></figcaption></figure><h3 id="iii-l-i-k-t">III. Lời kết</h3><p> Trong bài viết mình còn sử dụng một số các thư viện có sẵn nhưng mình chỉ đi sâu vào Redux, Redux và Redux để giúp các bạn hiểu được nội dung chính mà mình muốn đề cập. Qua 2 bài viết, hy vọng đã giúp các bạn hiểu rõ hơn về khái niệm và cơ chế hoạt động của Redux - một trong những state management được sử dụng nhiều nhất nhưng khá khó đối với những người mới. Mong các bạn sẽ thực hành thật nhiều để master Redux nhé! Xin chào!.</p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

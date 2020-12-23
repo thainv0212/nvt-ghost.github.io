@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Blockhain bằng Go, Bước 2: Proof of Work | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Blockhain bằng Go, Bước 2: Proof of Work" />
+    <meta property="og:description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T09:48:32.000Z" />
+    <meta property="article:modified_time" content="2018-06-29T09:48:32.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="golang" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blockhain bằng Go, Bước 2: Proof of Work" />
+    <meta name="twitter:description" content="Tiếp theo series lập trình blockchain bằng ngôn ngữ Go, bài viết này sẽ giới thiệu về thuật toán Proof of Work và implement nó cho blockchain đơn giản của chúng ta" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, golang" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.M.L",
+        "url": "https://blog.vietnamlab.vn/author/linhtm/",
+        "sameAs": []
+    },
+    "headline": "Blockhain bằng Go, Bước 2: Proof of Work",
+    "url": "https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/",
+    "datePublished": "2018-06-29T09:48:32.000Z",
+    "dateModified": "2018-06-29T09:48:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "blockchain, golang",
+    "description": "Series lập trình blockchain với Go\n\n 1. Block và blockchain sơ khai\n    [https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/]\n\nLời mở đầu\nTrong bài viết đầu tiên\n[https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/] \n của series về lập trình blockchain sử dụng ngôn ngữ Go, ta đã tạo được một data\nstructure cơ bản cho blockchain của mình, đồng thời cũng implement các tính năng\nđể các block mới ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-blockchain tag-golang nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-blockchain tag-golang js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Blockchain bằng ngôn ngữ Go - 2nd Step: Proof of Work</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-06-29">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 29 June 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/blockchain/index.html">blockchain</a>, <a href="../tag/golang/index.html">golang</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1ATSqjIAPJ02GU971UbjZkopL7VIB7UA9&amp;export&#x3D;download" alt="Blockchain bằng ngôn ngữ Go - 2nd Step: Proof of Work">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/blockchain-bang-ngon-ngu-go-s/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Blockchain%20b%E1%BA%B1ng%20ng%C3%B4n%20ng%E1%BB%AF%20Go%20-%202nd%20Step%3A%20Proof%20of%20Work">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p><em>Series lập trình blockchain với Go</em></p>
+<ol>
+<li><a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">Block và blockchain sơ khai</a></li>
+</ol>
+<h3 id="limu">Lời mở đầu</h3>
+<p>Trong bài viết <a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">đầu tiên</a> của series về lập trình blockchain sử dụng ngôn ngữ Go, ta đã tạo được một data structure cơ bản cho blockchain của mình, đồng thời cũng implement các tính năng để các block mới có thể được add thêm vào chain. Tuy nhiên, khác với các blockchain hoàn chỉnh, hiện tại ở blockchain của chúng ta, các block được thêm vào 1 cách quá dễ dàng, không tốn công sức gì cả. Bài viết này sẽ giới thiệu bước tiếp theo để giải quyết vấn đề trên: implement Proof-of-Work (PoW), cơ chế hiện tại được dùng trong hầu hết các blockchain của các đồng tiền ảo (Bitcoin, Ethereum...).</p>
+<h3 id="proofofworklg">Proof-of-Work là gì?</h3>
+<p>Trong cuộc sống mưu sinh hàng ngày của các nhân viên làm công ăn lương (như tác giả bài viết này), hầu hết chúng ta cày cuốc làm việc để đến cuối tháng có thể nghe tiếng ting ting báo hiệu tiền về tài khoản. Tuy nhiên, để công ty trả cho chúng ta khoản lương (có thể kèm phụ cấp) đó, các công sức và đóng góp của chúng ta trong vòng 1 tháng phải đã được ghi nhận và kiểm chứng là tương ứng với mức lương như vậy bởi các tầng lớp lãnh đạo bằng một cách nào đó. Trừ 1 số trường hợp đặc biệt, một nhân viên trình độ yếu, không đóng góp gì đáng kể nhưng lại nhận được lương cao chắc chắn báo hiệu một công ty có vấn đề.</p>
+<p>Đối với 1 blockchain thì cũng tương tự như vậy. Một số thành viên tham gia blockchain (miners) phải tốn công sức (điện năng, thời gian) để thêm data vào blockchain (mining -&gt; tạo block mới), khi hoàn thành sẽ chứng minh với hệ thống công sức (hard-work) mình bỏ ra và nhận được phần thưởng tương tứng (coin, token). Cơ chế &quot;cày cuốc bỏ công sức và chứng minh&quot; này được gọi chung là Proof-of-Work. Có thể nói việc đảm bảo một bài toán để khiến việc mining không quá dễ dàng, phải tốn công sức và cung cấp một cơ chế để miner có thể chứng minh công sức mình bỏ ra và nhận phần thưởng có thể nói là vấn đề quyết định sự sống còn của một blockchain.</p>
+<p>Như vậy các thuật toán Proof-of-Work phải giải quyết được hai vấn đề: (1) bài toán phải khó, tiêu tốn nhiều tài nguyên thời gian, (2) bài toán tuy khó, nhưng việc kiểm chứng là bài toán đã giải quyết (công sức giải toán là đúng) phải nhanh và dễ dàng. Trong blockchain của Bitcoin, thì bài toán đó là việc tìm hash của một block và hash này phải đáp ứng một số yêu cầu nhất định, độ khó của việc tìm hash này sẽ thay đổi sao cho tốc độ mining ~ 6 blocks/hour.</p>
+<h3 id="hashcash">Hashcash</h3>
+<p>Trước tiên, mình sẽ nói qua hash là gì? Các hàm hash là các hàm dùng để biểu diễn data bất kì về một chuỗi với độ dài cố định. Chuỗi này được gọi là hash và có các đặc tính sau:</p>
+<ul>
+<li>Từ hash không thể phục hồi lại được data</li>
+<li>Với một data nhất định sẽ chỉ có 1 hash</li>
+<li>Một thay đổi nhỏ nhất của data ban đầu cũng sẽ sinh ra một hash hoàn toàn khác</li>
+</ul>
+<p>Các thuật toán hash hay được dùng có thể kể đến MD5, SHA1, SHA256...</p>
+<p><img src="https://drive.google.com/uc?id=1rTX6BwE7pdLudxchF9wOvHEPIP29jCVg&amp;export=download" alt="uc?id=1rTX6BwE7pdLudxchF9wOvHEPIP29jCVg&amp;export=download"></p>
+<p>Hiện tại Bitcoin đang sử dụng thuật toán <a href="https://en.wikipedia.org/wiki/Hashcash">Hashcash</a>, một thuật toán sinh ra với mục đích để chống spam email, làm thuật toán Proof-of-Work của mình. Hashcash có thể chia ra làm những bước sau:</p>
+<ol>
+<li>Lấy một data mà ai cũng có thể kiểm chứng được (với email thì là email người nhận, với Bitcoin thì là block header)</li>
+<li>Tạo ra một con đếm bắt đầu từ 0</li>
+<li>Tạo ra chuỗi hash của data kết hợp với con đếm đã tạo ra ở trên.</li>
+<li>Kiểm tra xem hash tạo ra có đáp ứng các yêu cầu nhất định hay không.
+<ul>
+<li>Nếu có thì công việc đã hoàn thành .</li>
+<li>Nếu chưa thì tăng con đếm và lặp lại bước 3 và 4.</li>
+</ul>
+</li>
+</ol>
+<p>Ta có thể thấy Hashcash là một thuật toán trâu bò (brute-force): tăng con đếm -&gt; tạo hash -&gt; kiểm tra, lặp đi lặp lại đến khi nào thoả mãn điều kiện thì thôi. Công việc tạo hash lặp đi lặp lại tùy theo điều kiện đưa ra sẽ tốn thời gian và đòi hỏi sức mạnh tính toán của máy tính, đây chính là phần Work mà các miner phải thực hiện. Tuy nhiên do đặc tính của thuật toán hash, việc chứng minh mảng hash tạo ra đã thỏa mãn điều kiện (Proof)  sẽ dễ dàng và tốn ít thời gian.</p>
+<p>Với thuật toán Hashcash nguyên thuỷ thì điều kiện sẽ là chuỗi hash phải có 20 bit đầu là 0. Tuy nhiên, trong Bitcoin thì số lượng bit là 0 này sẽ thay đổi tuỳ theo tình trạng hiện tại của chuỗi blockchain để đảm bảo tốc độ tạo block mới ~ 6 blocks/hour.</p>
+<h3 id="implementation">Implementation</h3>
+<p>Trong folder code đã tạo từ <a href="https://blog.vietnamlab.vn/2018/03/19/blockchain-bang-ngon-ngu-go-1st-step-block-va-blockchain-so-khai/">phần 1</a>. Ta tạo thêm một file mới cho việc implement Proof-of-Work và add đoạn code ban đầu sau:</p>
+<pre><code class="language-go">// pow.go
+const targetBits = 16
+</code></pre>
+<p><code>targetBits</code> ở đây chính là độ dài của chuỗi bit 0 dùng để làm điều kiện trong thuật toán Hashcash. Với Bitcoin thì nó sẽ là một block header chứa độ khó mà block đã được đào ra. Trong phạm vi bài viết này, ta sẽ không thực hiện việc tự điều chỉnh độ khó, nên độ dài chuỗi bit 0 ở đây là cố định. Folder code của chúng ta giờ sẽ như sau:</p>
+<pre><code class="language-go">gochain
+ |-- .gitignore	
+ |-- Gopkg.lock	
+ |-- Gopkg.toml	
+ |-- block.go
+ |-- blockchain.goo
+ |-- gochain
+ |-- main.go
+ |-- pow.go
+ |-- util.go
+</code></pre>
+<p>Tiếp theo cũng trong file <code>pow.go</code>, ta sẽ implement cấu trúc dữ liệu và code khởi tạo thuật toán Proof-of-Work:</p>
+<pre><code class="language-go">// pow.go
+type ProofOfWork struct {
+	block  *Block
+	target *big.Int
+}
+
+// InitProofOfWork Create new POW
+func InitProofOfWork(b *Block) *ProofOfWork {
+	target := big.NewInt(1)
+	target.Lsh(target, uint(256-targetBits))
+
+	pow := &amp;ProofOfWork{b, target}
+
+	return pow
+}
+</code></pre>
+<p>Struct Proof-of-Work có 2 trường, một trường là pointer trỏ đến 1 block, trường <code>target</code> là pointer trỏ đến một số lớn Integer. Số này sẽ dùng để so sánh điều kiện sau khi hashing và như trong hàm khởi tạo Proof-of-Work được tạo thành từ số <code>targetBits</code> ở trên. Biểu diễn của số này dưới dạng HEX sẽ là như sau:</p>
+<pre><code>0x0000100000000000000000000000000000000000000000000000000000000000
+</code></pre>
+<p>Tiếp theo là đoạn code chuẩn bị data cho việc hashing</p>
+<pre><code class="language-go">// pow.go
+func (pow *ProofOfWork) prepareData(nonce int) []byte {
+	data := bytes.Join(
+		[][]byte{
+			pow.block.PrevBlockHash,
+			pow.block.Data,
+			IntToBytes(pow.block.Timestamp),
+			IntToBytes(int64(targetBits)),
+			IntToBytes(int64(nonce)),
+		},
+		[]byte{},
+	)
+
+	return data
+}
+</code></pre>
+<p>Đoạn code này khá đơn giản, gộp thông tin của block với độ khó <code>targetBits</code> và <code>nonce</code>. <code>nonce</code> chính là con đếm trong thuật toán Hashcash, <code>nonce</code> cũng là một thuật ngữ cryptogaphic.</p>
+<p>Sau khi mọi đoạn code chuẩn bị đã hoàn tất thì là đoạn code để chạy Proof-of-Code:</p>
+<pre><code class="language-go">// pow.go
+const maxNonce = math.MaxInt64
+func (pow *ProofOfWork) Run() (int, []byte) {
+	var hashInt big.Int
+	var hash [32]byte
+
+	nonce := 0
+
+	fmt.Printf(&quot;Mining the block containing \&quot;%s\&quot;\n&quot;, pow.block.Data)
+
+	for nonce &lt; maxNonce {
+		data := pow.prepareData(nonce)
+
+		hash = sha256.Sum256(data)
+		fmt.Printf(&quot;\r%x&quot;, hash)
+		hashInt.SetBytes(hash[:])
+
+		if hashInt.Cmp(pow.target) == -1 {
+			break
+		} else {
+			nonce++
+		}
+	}
+
+	fmt.Print(&quot;\n\n&quot;)
+
+	return nonce, hash[:]
+}
+</code></pre>
+<p><code>hashInt</code> là biểu diễn dưới dạng Integer của chuỗi hash, còn <code>maxNonce</code> là giá trị (lấy bằng số Integer lớn nhất) để đề phòng trường hợp <code>nonce</code> bị overflow (khó mà xảy ra với setting độ khó hiện tại). Còn đoạn code trong vòng loop thì tương ứng với thuật toán Hashcash:</p>
+<ol>
+<li>Chuẩn bị data</li>
+<li>Hash với thuật toán SHA256</li>
+<li>Đổi Hash sang dạng Integer</li>
+<li>So sánh với target, nếu nhỏ hơn thì thoả mãn điều kiện -&gt; xong, còn không thì tăng <code>nonce</code> và lặp lại 1-&gt;4</li>
+</ol>
+<p>Với code chạy Proof-of-Work đã sẵn sàng, ta sửa lại code hiện có để sử dụng nó trong việc khởi tạo block.</p>
+<pre><code class="language-go">// block.go
+type Block struct {
+	Timestamp     int64
+	Data          []byte
+	PrevBlockHash []byte
+	Hash          []byte
+	Nonce         int
+}
+
+// SetHash Calculate hash of current block
+func (b *Block) SetHash() {
+	timestamp := []byte(strconv.FormatInt(b.Timestamp, 10))
+	headers := bytes.Join([][]byte{b.PrevBlockHash, b.Data, timestamp}, []byte{})
+	hash := sha256.Sum256(headers)
+
+	b.Hash = hash[:]
+}
+
+// NewBlock Create a new block
+func NewBlock(data string, prevBlockHash []byte) *Block {
+	block := &amp;Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+	pow := InitProofOfWork(block)
+
+	// Run proof of work
+	nonce, hash := pow.Run()
+
+	block.Hash = hash
+	block.Nonce = nonce
+
+	return block
+}
+</code></pre>
+<p>Hash của block mới được tạo sẽ là kết quả của việc chạy Proof-of-Work, đồng thời giá trị <code>nonce</code> thoả mãn điều kiện cũng sẽ được lưu thành một trường của block mới. Vì giá trị này sẽ cần đến khi kiểm chứng xem hash này có đúng là đã được sinh ra từ data của block và thoả mãn điều kiện hay không (chứng minh công sức bỏ ra).</p>
+<p>Cuối cùng là hàm để kiểm chứng hash, thực hiện chức năng như nói ở trên:</p>
+<pre><code>// pow.go
+func (pow *ProofOfWork) Validate() bool {
+	var hashInt big.Int
+
+	data := pow.prepareData(pow.block.Nonce)
+	hash := sha256.Sum256(data)
+	hashInt.SetBytes(hash[:])
+
+	isValid := hashInt.Cmp(pow.target) == -1
+
+	return isValid
+}
+</code></pre>
+<p>Hàm này khá đơn giản, chỉ cần tạo lại hash của thông tin của block kết hợp với giá trị <code>nonce</code> được chọn và check xem có đúng nó thoả mãn điều kiện nhỏ hơn <code>target</code> hay không.</p>
+<p>Vậy là ta đã hoàn tất việc thêm Proof-of-Work vào blockchain đơn giản của mình. Chạy thử thôi, vì giờ có Proof-of-Work rồi nên sẽ tốn thời gian chút:</p>
+<pre><code class="language-go">./gochain                                                                                                                  
+Mining the block containing &quot;Genesis Block&quot;
+0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+
+Mining the block containing &quot;Linh Dep Trai&quot;
+000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+
+Mining the block containing &quot;Linh Dep Trai x2&quot;
+0000c6f30d1b0db83810e01a6db9e319220c3482ef2e074962d79924dcaa202d
+
+Prev block's hash:
+Current block's hash: 0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+Current block's data: Genesis Block
+PoW: true
+
+Prev block's hash: 0000f051d3ec839522770f9acf8d796e7f0952550a3036bb85024fff8d53b73b
+Current block's hash: 000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+Current block's data: Linh Dep Trai
+PoW: true
+
+Prev block's hash: 000017231df3ac466d5b254b3996c593ffe011771d144a7f95ab7e12ac14ea7c
+Current block's hash: 0000c6f30d1b0db83810e01a6db9e319220c3482ef2e074962d79924dcaa202d
+Current block's data: Linh Dep Trai x2
+PoW: true
+</code></pre>
+<h3 id="kt">Kết</h3>
+<p>Vậy là blockchain tối giản của chúng ta đã có thêm tính năng Proof-of-Work, bắt đầu giống một blockchain đầy đủ hơn một chút, tuy còn thiếu rất nhiều các tính năng khác như network, lưu thông tin transaction... Các tính năng này sẽ được giới thiệu và thêm vào ở các phần sau của series.</p>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://jeiwan.cc/posts/building-blockchain-in-go-part-2/">https://jeiwan.cc/posts/building-blockchain-in-go-part-2/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hashcash">https://en.wikipedia.org/wiki/Hashcash</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Proof-of-work_system">https://en.wikipedia.org/wiki/Proof-of-work_system</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/blockchain-bang-ngon-ngu-go-s/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Blockchain%20b%E1%BA%B1ng%20ng%C3%B4n%20ng%E1%BB%AF%20Go%20-%202nd%20Step%3A%20Proof%20of%20Work">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/blockchain-bang-ngon-ngu-go-s/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/blockchain-bang-ngon-ngu-go-s/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

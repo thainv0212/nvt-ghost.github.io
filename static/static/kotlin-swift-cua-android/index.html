@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Kotlin - Swift của Android | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kotlin - Swift của Android" />
+    <meta property="og:description" content="Ngày nay, Apple đã thay thế Object-C bằng Swift cho IOS. Những ngôn ngữ mới xuất hiện để thay thế Java cho lập trình Android là điều hiển nhiên. Những ngôn ngữ như Scala, Groovy thật tiện lợi và mang lại nhiều tính năng mới mẻ.  Nhưng đáng chú ý" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kotlin-swift-cua-android/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSkE2RXdiWnlXRWs&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-05-15T18:49:11.000Z" />
+    <meta property="article:modified_time" content="2017-02-27T04:10:54.000Z" />
+    <meta property="article:tag" content="java" />
+    <meta property="article:tag" content="kotlin" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kotlin - Swift của Android" />
+    <meta name="twitter:description" content="Ngày nay, Apple đã thay thế Object-C bằng Swift cho IOS. Những ngôn ngữ mới xuất hiện để thay thế Java cho lập trình Android là điều hiển nhiên. Những ngôn ngữ như Scala, Groovy thật tiện lợi và mang lại nhiều tính năng mới mẻ.  Nhưng đáng chú ý" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kotlin-swift-cua-android/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSkE2RXdiWnlXRWs&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.92" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="java, kotlin" />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.92",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkclJsTEtLTVF0UDA&export=download",
+            "width": 259,
+            "height": 194
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt92/",
+        "sameAs": []
+    },
+    "headline": "Kotlin - Swift của Android",
+    "url": "https://blog.vietnamlab.vn/kotlin-swift-cua-android/",
+    "datePublished": "2016-05-15T18:49:11.000Z",
+    "dateModified": "2017-02-27T04:10:54.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkSkE2RXdiWnlXRWs&export=download",
+        "width": 1500,
+        "height": 720
+    },
+    "keywords": "java, kotlin",
+    "description": "Ngày nay, Apple đã thay thế Object-C bằng Swift cho IOS. Những ngôn ngữ mới xuất\nhiện để thay thế Java cho lập trình Android là điều hiển nhiên. Những ngôn ngữ\nnhư Scala, Groovy thật tiện lợi và mang lại nhiều tính năng mới mẻ.\n\nNhưng đáng chú ý gần đây chính là Kotlin. Một ngôn ngữ lập trình được tạo ra\nbởi JetBrains – hãng sản xuất ra các IDE tiện lợi và mạnh mẽ như PHPStorm, \nIntelliJ  và Android Studio. Chúng ta hãy cùng đi qua các tính năng mới của\nKotlin mang lại, cũng như tìm hiểu lập trì",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-java tag-kotlin nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-java tag-kotlin js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Kotlin - Swift của Android</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2016-05-16">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 16 May 2016
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/java/index.html">java</a>, <a href="../tag/kotlin/index.html">kotlin</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSkE2RXdiWnlXRWs&amp;export&#x3D;download" alt="Kotlin - Swift của Android">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/kotlin-swift-cua-android/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Kotlin%20-%20Swift%20c%E1%BB%A7a%20Android">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Ngày nay, Apple đã thay thế Object-C bằng Swift cho IOS. Những ngôn ngữ mới xuất hiện để thay thế Java cho lập trình Android là điều hiển nhiên. Những ngôn ngữ như Scala, Groovy thật tiện lợi và mang lại nhiều tính năng mới mẻ.</p>
+<p>Nhưng đáng chú ý gần đây chính là Kotlin. Một ngôn ngữ lập trình được tạo ra bởi JetBrains – hãng sản xuất ra các IDE tiện lợi và mạnh mẽ như <strong>PHPStorm</strong>, <strong>IntelliJ</strong> và <strong>Android Studio</strong>. Chúng ta hãy cùng đi qua các tính năng mới của Kotlin mang lại, cũng như tìm hiểu lập trình Android bằng Kotlin như thế nào.</p>
+<h3 id="1kotlinlg">1. Kotlin là gì?</h3>
+<p>Kotlin là ngôn ngữ lập trình kiểu tĩnh, chạy trên máy ảo JVM, được tạo ra bởi JetBrains. Cái tên Kotlin xuất phát từ một hòn đảo gần thành phố <strong>Saint Petersburg (Nga)</strong> – nơi JetBrains hoạt động nghiên cứu và phát triển. So với Java, Kotlin đang dần trở nên phổ biến bởi cú pháp ngắn gọn, hiện đại, an toàn và được xem là người kế nhiệm của Java.</p>
+<p>Theo JetBrains, Java có những hạn chế và các vấn đề “hoặc không thể hoặc rất khó để sửa chữa do những vấn đề về tính tương thích ngược”. Vào ngày 15/2/2016 <strong>phiên bản 1.0</strong> đã được released. Nếu bạn đang tìm kiếm một ngôn ngữ cho việc <strong>phát triển Android</strong>, thì bạn nên thử qua Kotlin. Nó có thể thay thế hoàn toàn hoặc kết hợp cùng với Java trong dự án Android của bạn.</p>
+<h3 id="2cccimcakotlin">2. Các đặc điểm của Kotlin</h3>
+<h4 id="khaibobin">Khai báo biến</h4>
+<p>Có 2 từ khóa khai báo biến trong Kotlin là <code>var</code> và <code>val</code></p>
+<pre><code>val a: Int = 1
+val b = 1   // `Int` type is inferred
+val c: Int  // Type required when no initializer is provided
+c = 1       // definite assignment
+</code></pre>
+<pre><code>var x = 5 // `Int` type is inferred
+x += 1
+</code></pre>
+<ul>
+<li>Từ khóa <code>var</code> sử dụng khi giá trị của biến thay đổi, <code>val</code> sử dụng khi giá trị của biến không thay đổi</li>
+<li>Từ khóa <code>val</code> giống như <code>readonly</code> trong C# hoặc final trong Java</li>
+<li>Biến <code>val</code> phải được khởi tạo lúc khai báo</li>
+<li>Từ khóa <code>Void</code> trong java hay C# sẽ được thay thế bằng <code>Unit</code> trong Kotlin</li>
+</ul>
+<h4 id="nullsafety">Null Safety</h4>
+<p>Một trong  những cạm bẫy phổ biến trong các ngôn ngữ lập trình, bao gồm cả Java là cho phép 1 thành phần nào đó được Null. Nếu không chắc chắn thành phần đó được phép Null hay không sẽ rất dễ xảy ra lỗi không lường trước được, gây nguy hiểm cho hệ thống của bạn. Cụ thể, trong java sẽ gây ra 1 exception là <em>NullPoiterException</em> hoặc viết ngắn gọi là NPE.</p>
+<p>Kotlin nhằm mục đích xóa bỏ <em>NullPoiterException</em> trong code của chúng ta. Ngay khi khai báo biến với Kotlin, bạn đã phải chỉ rõ biến đó có được phép Null hay không. Có 2 trường hợp được phép đó là : <strong>không thể</strong> Null và <strong>có thể</strong> Null</p>
+<ul>
+<li>Khai báo 1 biến cho phép Null</li>
+</ul>
+<pre><code>var b: String? = &quot;abc&quot; // có thêm dấu ? sau kiểu của biến
+b = null // compilation ok
+val l = b.length // not safe
+</code></pre>
+<ul>
+<li>Khai báo 1 biến không được phép Null</li>
+</ul>
+<pre><code>var a: String = &quot;abc&quot;
+a = null // compilation error
+val l = a.length // safe
+</code></pre>
+<p>Chúng ta có thể thấy Kotlin đã khắc phục được NPE trong Java. Các biến cho phép Null hay không được phép Null đã được xác định ngay trong quá trình khai báo biến, các <strong>IDE</strong> sẽ giúp chúng ta phát hiện ra lỗi ngay khi <strong>compile</strong>. Việc phát hiện ra lỗi sớm khi <strong>compile</strong> sẽ tốt hơn so với khi <strong>runtime</strong>. Nó giúp hệ thống của chúng ta an toàn hơn.</p>
+<h4 id="stringtemplate">String template</h4>
+<p>String trong kotlin có thể chứa các biểu thức template, tức là những kết quả trả về hoặc biến có thể được nối vào trong 1 String. Một biểu thức template bắt đầu với ($) và tên.</p>
+<pre><code>val apples = 4
+valbananas = 3
+println(“I have $apples apples.”)
+println(“I have $apples apples and ” + (apples + bananas) + “ fruits.”)
+
+println(“I have $apples apples and ${apples + bananas} “ fruits.”)
+</code></pre>
+<h4 id="kthavoverride">Kế thừa và Override</h4>
+<p>Mặc định class trong Kotlin đều là final (tức là không được phép kế thừa).</p>
+<pre><code>open class Base {
+    open fun v() {}
+    fun nv() {}
+}
+
+class Derived() : Base() {
+   override fun v() {}
+}
+</code></pre>
+<p>Trong class final (tức là không có từ khóa “open”) thì việc khai báo các hàm, thuộc tính open bị cấm.</p>
+<p>Ở 1 lớp con khác, hàm được đánh dấu là override thì chính nó là open (lại được kế thừa từ lớp khác), nếu muốn chống override thì lại sử dụng từ khóa final.</p>
+<pre><code>open class AnotherDerived() : Base() {
+    final override fun v() {}
+}
+</code></pre>
+<p>Trong interface, các member mặc định là &quot;open&quot;.</p>
+<pre><code>interface B {
+    fun f() { print(&quot;B&quot;) } // interface members are 'open' by default
+    fun b() { print(&quot;b&quot;) }
+}
+</code></pre>
+<p>Kotlin implement interface:</p>
+<pre><code>class C() : A(), B {
+     // The compiler requires f() to be overridden:
+     override fun f() {
+         super&lt;A&gt;.f() // call to A.f()
+         super&lt;B&gt;.f() // call to B.f()
+     }
+}
+</code></pre>
+<h4 id="chnhtruycpvisibilitymodifiers">Chỉ định truy cập (Visibility Modifiers)</h4>
+<ul>
+<li>Có 4 loại Visivility Modifiers trong Kotlin : <strong>private</strong>, <strong>protected</strong>, <strong>internal</strong>, và <strong>public</strong>.</li>
+<li>Nếu không chỉ rõ thì mặc định là <strong>public</strong>.</li>
+<li>Các chỉ định truy cập : <strong>private</strong>, <strong>protected</strong> và <strong>public</strong> giống cách sử dụng trọng java.</li>
+<li>Riêng <strong>internal</strong> ta có thể sử dụng trong cùng module.</li>
+</ul>
+<h4 id="truynthamstronghm">Truyền tham số trong hàm</h4>
+<p>Kotlin cho phép thay đổi vị trí tham số trong hàm.</p>
+<pre><code>fun main(args : Array&lt;String&gt;) { 
+    greet(firstName = &quot;Frasensco&quot;, lastName = &quot;Merini&quot;) 
+    greet(lastName = &quot;John&quot;, firstName = &quot;Stamos&quot;) 
+    greet(&quot;Borat&quot;, &quot;Ismail&quot;) 
+    greet(&quot;Crystal&quot;, lastName = &quot;Stamos&quot;) 
+    call(&quot;Xavier&quot;, age = 20, location = &quot;Portugal&quot;) 
+} 
+
+fun greet(firstName : String, lastName : String){
+    println(&quot;Good morning $firstName $lastName&quot;) 
+} 
+
+fun call(name : String, location : String, age : Int){ 
+    println(&quot;Call $name who lives at $location and he is $age old&quot;) 
+}
+</code></pre>
+<p><strong>Output:</strong></p>
+<pre><code class="language-sh">Good morning Frasensco Merini
+Good morning Stamos John
+Good morning Borat Ismail
+Good morning Crystal Stamos
+Call Xavier who lives at Portugal and he is 20 old
+</code></pre>
+<h3 id="3citkotlintrongandroidstudio">3. Cài đặt Kotlin trong Android Studio</h3>
+<p>Trong màn hình truy xuất nhanh của Android Studio, chọn **Configure &gt; Plugins,  **hoặc chọn menu <strong>Preferences</strong></p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMmpkVkl4X1JJZ0E&amp;export=download" alt="Kotlin 1"></p>
+<p>Trong màn hình kế tiếp , nhấp vào <strong>Install JetBrains plugin…</strong> ở phía dưới.</p>
+<p>Chọn <strong>Kotlin Extensions For Android</strong> từ danh sách và nhấp vào <strong>Install Plugin</strong> ở phía bên phải.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkX1R6dnhPWlQydXM&amp;export=download" alt="Kotlin 2"></p>
+<p><strong>Restart Android Studio</strong> và thưởng thức Kotlin !!!</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRGt4MkhxVHROWjA&amp;export=download" alt="Kotlin 3"></p>
+<h3 id="4ktlun">4. Kết Luận</h3>
+<p><strong>Kotlin</strong> cũng giống như nhiều ngôn ngữ lập trình không phải Java khác, tức là cũng sẽ chạy trên <strong>JVM</strong> và sử dụng các công cụ và thư viện hiện có của <strong>Java</strong>. Và ngược lại <strong>Java</strong> cũng có thể sử dụng các item được xây dựng trong <strong>Kotlin</strong>.</p>
+<p>Theo website <strong>JetBrains</strong>, mục tiêu quan trọng của Kotlin là <strong>tính hữu dụng</strong>. Từ lúc giới thiệu vào năm 2011 cho đến khi phát hành phiên bản 1.0, JetBrains đã luôn chú trọng đến tính <strong>tương hợp với Java.</strong></p>
+<p>Mặc dù Kotlin có một số tính năng hoàn toàn mới chẳng hạn như một <strong>type system</strong> được thiết kế để ngăn chặn các bug như các <strong>null pointer reference</strong>, nhưng quan trọng là nó làm việc cùng với code và cơ sở hạ tầng hiện có của <strong>Java</strong>. Cuối cùng, <strong>Kotlin</strong> không có trình quản lý gói và build system của riêng nó, do Java đã có sẵn.</p>
+<p>Kotlin đã được phát triển phần nào để mang đến sức mạnh cho IntelliJ Idea Java IDE. Thay vì sử dụng <strong>Scala</strong> – một ngôn ngữ dựa trên <strong>JVM</strong> khác – <strong>JetBrains</strong> đã chọn lựa việc xây dựng từ lúc chưa có gì trong khi tạo ra ngôn ngữ mới thu hút các lập trình viên Java hiện có và việc học ngôn ngữ mới dễ dàng hơn Scala.</p>
+<p>Lập trình Android là một trong những lĩnh vực quan trọng mà JetBrains hướng đến với Kotlin. Ngôn ngữ mang đến tính tương thích ngược với Java 6 và 7, các phiên bản của Java hầu hết đều tương thích chặt chẽ với Android. <strong>JetBrains</strong> cũng hy vọng <strong>Kotlin</strong> sẽ được sử dụng trong các lĩnh vực khác chẳng hạn như các ứng dụng lớn và phức tạp, đề cao hiệu suất. Hãy thử Kotlin kết hợp cùng với Java trong dự án của bạn, chắc chắn nó sẽ mang lại cho bạn những tiện ích và trải nghiệm thú vị !</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://kotlinlang.org/docs/reference/java-interop.html">https://kotlinlang.org/docs/reference/java-interop.html</a></li>
+<li><a href="https://kotlinlang.org/docs/tutorials/">https://kotlinlang.org/docs/tutorials/</a></li>
+<li><a href="https://kotlinlang.org/docs/reference/">https://kotlinlang.org/docs/reference/</a></li>
+<li><a href="https://gist.github.com/dodyg/5823184">https://gist.github.com/dodyg/5823184</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/kotlin-swift-cua-android/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Kotlin%20-%20Swift%20c%E1%BB%A7a%20Android">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/kotlin-swift-cua-android/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/kotlin-swift-cua-android/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

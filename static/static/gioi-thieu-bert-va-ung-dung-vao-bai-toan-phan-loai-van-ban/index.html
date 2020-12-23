@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản" />
+    <meta property="og:description" content="Nếu là một người quan tâm tới Deep Learning, chắc hẳn bạn đã từng nghe tới BERT - thứ được nhắc tới liên tục trong vòng 1-2 năm trở lại đây.  Vào cuối năm 2018, các nhà nghiên cứu tại Google AI Language đã công bố mã nguồn mở cho" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/" />
+    <meta property="article:published_time" content="2020-09-17T07:11:31.000Z" />
+    <meta property="article:modified_time" content="2020-09-17T07:11:31.000Z" />
+    <meta property="article:tag" content="NLP" />
+    <meta property="article:tag" content="BERT" />
+    <meta property="article:tag" content="PyTorch" />
+    <meta property="article:tag" content="machine learning" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản" />
+    <meta name="twitter:description" content="Nếu là một người quan tâm tới Deep Learning, chắc hẳn bạn đã từng nghe tới BERT - thứ được nhắc tới liên tục trong vòng 1-2 năm trở lại đây.  Vào cuối năm 2018, các nhà nghiên cứu tại Google AI Language đã công bố mã nguồn mở cho" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.V.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="NLP, BERT, PyTorch, machine learning" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.V.T",
+        "url": "https://blog.vietnamlab.vn/author/thainv/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/",
+    "datePublished": "2020-09-17T07:11:31.000Z",
+    "dateModified": "2020-09-17T07:11:31.000Z",
+    "keywords": "NLP, BERT, PyTorch, machine learning",
+    "description": "Nếu là một người quan tâm tới Deep Learning, chắc hẳn bạn đã từng nghe tới BERT\n- thứ được nhắc tới liên tục trong vòng 1-2 năm trở lại đây.\n\nVào cuối năm 2018, các nhà nghiên cứu tại Google AI Language đã công bố mã nguồn\nmở cho một kỹ thuật mới trong Natural Language Processing (NLP), được gọi là\nBERT (Bidirectional Encoder Representations from Transformers). Với khả năng của\nmình, BERT được coi là một bước đột phá lớn và gây được tiếng vang trong cộng\nđồng Deep Learning. BERT là gì, tại sao B",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-nlp tag-bert tag-pytorch tag-machine-learning nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-nlp tag-bert tag-pytorch tag-machine-learning no-image js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-09-17">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 17 September 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/nlp/index.html">NLP</a>, <a href="../tag/bert/index.html">BERT</a>, <a href="../tag/pytorch/index.html">PyTorch</a>, <a href="../tag/machine-learning/index.html">machine learning</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="../assets/img/featured_default.png?v=52156bd6b0" alt="Giới thiệu BERT và ứng dụng vào bài toán phân loại văn bản">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20BERT%20v%C3%A0%20%E1%BB%A9ng%20d%E1%BB%A5ng%20v%C3%A0o%20b%C3%A0i%20to%C3%A1n%20ph%C3%A2n%20lo%E1%BA%A1i%20v%C4%83n%20b%E1%BA%A3n">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Nếu là một người quan tâm tới Deep Learning, chắc hẳn bạn đã từng nghe tới BERT - thứ được nhắc tới liên tục trong vòng 1-2 năm trở lại đây.</p>
+<p>Vào cuối năm 2018, các nhà nghiên cứu tại Google AI Language đã công bố mã nguồn mở cho một kỹ thuật mới trong Natural Language Processing (NLP), được gọi là BERT (Bidirectional Encoder Representations from Transformers). Với khả năng của mình, BERT được coi là một bước đột phá lớn và gây được tiếng vang trong cộng đồng Deep Learning. BERT là gì, tại sao BERT lại tuyệt vời đến vậy, cách sử dụng BERT cho các bài toán NLP, tất cả sẽ được nhắc tới trong bài viết này.</p>
+<h3 id="bert">BERT</h3>
+<ol>
+<li>
+<p>BERT là gì</p>
+<p>BERT (Bidirectional Encoder Representations from Transformers) là một mô hình ngôn ngữ (Language Model) được tạo ra bởi Google AI. BERT được coi như là đột phá lớn trong Machine Learning bởi vì khả năng ứng dụng của nó vào nhiều bài toán NLP khác nhau: Question Answering, Natural Language Inference,... với kết quả rất tốt.</p>
+</li>
+<li>
+<p>Tại sao lại cần BERT</p>
+<p>Một trong những thách thức lớn nhất của NLP là vấn đề dữ liệu. Trên internet có hàng tá dữ liệu, nhưng những dữ liệu đó không đồng nhất; mỗi phần của nó chỉ được dùng cho một mục đích riêng biệt, do đó khi giải quyết một bài toán cụ thể, ta cần trích ra một bộ dữ liệu thích hợp cho bài toán của mình, và kết quả là ta chỉ có một lượng rất ít dữ liệu. Nhưng có một nghịch lý là, các mô hình Deep Learning cần lượng dữ liệu rất lớn - lên tới hàng triệu - để có thể cho ra kết quả tốt. Do đó một vấn đề được đặt ra: làm thể nào để tận dụng được nguồn dữ liệu vô cùng lớn có sẵn để giải quyết bài toán của mình. Đó là tiền đề cho một kỹ thuật mới ra đời: <b>Transfer Learning</b>. Với <b>Transfer Learning</b>các mô hình (model) &quot;chung&quot; nhất với tập dữ liệu khổng lồ trên internet (<b>pre-training</b>) được xây dựng và có thể được &quot;tinh chỉnh&quot; (<b>fine-tune</b>) cho các bài toán cụ thể. Nhờ có kỹ thuật này mà kết quả cho các bài toán được cải thiện rõ rệt, không chỉ trong NLP mà còn trong các lĩnh vực khác như Computer Vision,... BERT là một trong những đại diện ưu tú nhất trong <b>Transfer Learning</b> cho NLP, nó gây tiếng vang lớn không chỉ bởi kết quả mang lại trong nhiều bài toán khác nhau, mà còn bởi vì nó hoàn toàn miễn phí, tất cả chúng ta đều có thể sử dụng BERT cho bài toán của mình.</p>
+</li>
+<li>
+<p>Nền tảng của BERT</p>
+<p>BERT sử dụng Transformer là một mô hình <b>attention</b> (attention mechanism) học mối tương quan giữa các từ (hoặc 1 phần của từ) trong một văn bản. Transformer gồm có 2 phần chính: Encoder và Decoder, encoder thực hiện đọc dữ liệu đầu vào và decoder đưa ra dự đoán. Ở đây, BERT chỉ sử dụng Encoder.</p>
+<p>Khác với các mô hình directional (các mô hình chỉ đọc dữ liệu theo 1 chiều duy nhất - trái→phải, phải→ trái) đọc dữ liệu theo dạng tuần tự, Encoder đọc toàn bộ dữ liệu trong 1 lần, việc này làm cho BERT có khả năng huấn luyện dữ liệu theo cả hai chiều, qua đó mô hình có thể học được ngữ cảnh (context) của từ tốt hơn bằng cách sử dụng những từ xung quanh nó (phải&amp;trái).</p>
+  <p align="center">
+ <img src="https://drive.google.com/uc?id=1vFCN6yoBChfSTD8N1A1QhUINRFPFGoiu" alt="Mô hình Transformer"/>
+ <sample>Mô hình encoder</sample>
+ </p>
+<p>Hình trên mô tả nguyên lý hoạt động của Encoder. Theo đó, input đầu vào là một chuỗi các token w<sub>1</sub>, w<sub>2</sub>,...được biểu diễn thành chuỗi các vector trước khi đưa vào trong mạng neural. Output của mô hình là chuỗi ccs vector có kích thước đúng bằng kích thước input. Trong khi huấn luyện mô hình, một thách thức gặp phải là các mô hình directional truyền thống gặp giới hạn khi học ngữ cảnh của từ. Để khắc phục nhược điểm của các mô hình cũ, BERT sử dụng 2 chiến lược training như sau:</p>
+<ol>
+<li>
+<p>Masked LM (MLM)</p>
+<p>Trước khi đưa vào BERT, thì 15% số từ trong chuỗi được thay thế bởi token <b>[MASK]</b>, khi đó mô hình sẽ dự đoán từ được thay thế bởi <b>[MASK]</b> với context là các từ không bị thay thế bởi <b>[MASK]</b>. Mask LM gồm các bước xử lý sau :</p>
+<ul>
+<li>Thêm một classification layer với input là output của Encoder.</li>
+<li>Nhân các vector đầu ra với ma trận embedding để đưa chúng về không gian từ vựng (vocabulary dimensional).</li>
+<li>Tính toán xác suất của mỗi từ trong tập từ vựng sử dụng hàm softmax.</li>
+</ul>
+<p>Hàm lỗi (loss function) của BERT chỉ tập trung vào đánh giá các từ được đánh dấu <b>[MASKED]</b> mà bỏ qua những từ còn lại, do đó mô hình hội tụ chậm hơn so với các mô hình directional, nhưng chính điều này giúp cho mô hình hiểu ngữ cảnh tốt hơn.</p>
+<p>(Trên thực tế, con số 15% không phải là cố định mà có thể thay đổi theo mục đích của bài toán.)</p>
+</li>
+<li>
+<p>Next Sentence Prediction (NSP)</p>
+<p>Trong chiến lược này, thì mô hình sử dụng một cặp câu là dữ liệu đầu vào và dự đoán câu thứ 2 là câu tiếp theo của câu thứ 1 hay không. Trong quá trình huấn luyện, 50% lượng dữ liệu đầu vào là cặp câu trong đó câu thứ 2 thực sự là câu tiếp theo của câu thứ 1, 50% còn lại thì câu thứ 2 được chọn ngẫu nhiên từ tập dữ liệu. Một số nguyên tắc được đưa ra khi xử lý dữ liệu như sau:</p>
+<ul>
+<li>Chèn token <b>[CLS]</b> vào trước câu đầu tiên và <b>[SEP]</b> vào cuối mỗi câu.</li>
+<li>Các token trong từng câu được đánh dấu là A hoặc B.</li>
+<li>Chèn thêm vector embedding biểu diễn vị trí của token trong câu (chi tiết về vector embedding này có thể tìm thấy trong bài báo về Transformer).<p align="center">
+<img src="https://drive.google.com/uc?id=1eE5phaQY4bPLSpEEAuc9sPia5-auOsLt" alt="NSP"/>
+<sample>Next Sentence Prediction</sample>
+</p>
+</li>
+</ul>
+<p>Các bước xử lý trong Next Sentence Prediction:</p>
+<ul>
+<li>Toàn bộ câu đầu vào được đưa vào Transformer.</li>
+<li>Chuyển vector output của <b>[CLS]</b> về kích thước <i>2x1</i> bằng một classification layer.</li>
+<li>Tính toán xác suất <i>IsNextSequence</i> bằng softmax.</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>Phương pháp Fine-tuning BERT</p>
+<p>Tùy vào bài toán mà ta có các phương pháp fine-tune khác nhau:</p>
+<ol>
+<li>Đối với bài toán Classification, ta thêm vào một <b>Classification Layer</b> với input là output của <b>Transformer</b> cho token <b>[CLS]</b>.</li>
+<li>Đối với bài toán Question Answering, model nhận dữ liệu input là đoạn văn bản cùng câu hỏi và được huấn luyện để  đánh nhãn cho câu trả lời trong đoạn văn bản đó.</li>
+<li>Đối với bài toán Named Entity Recognition (NER), model được huấn luyện để dự đoán nhãn cho mỗi token (tên người, tổ chức, địa danh,...).</li>
+</ol>
+</li>
+</ol>
+<h3 id="ngdngbertvophnloivnbn">Ứng dụng BERT vào phân loại văn bản</h3>
+<p>Sau khi tìm hiểu về BERT, ta sẽ cùng sử dụng BERT <b>pretrained-model</b> cho bài toán phân loại văn bản (Text Classification). Xin giải thích một chút về Text Classification, Text Classification là một trong những bài toán phổ biến nhất trong NLP, giải quyết nhiều vấn đề thực tế như phân tích ngữ nghĩa, lọc spam, phân loại tin tức... Ở trong bài viết này, ta sẽ sử dụng BERT cho bài toán phân loại tin giả - Fake news detection. Dataset được sử dụng là <a href="https://www.kaggle.com/nopdev/real-and-fake-news-dataset">REAL and FAKE news dataset</a> từ <b>Kaggle</b>.</p>
+<p>Ta sử dụng thư viện <a href="https://huggingface.co/transformers/pretrained_models.html">Huggingface</a> là một thư viện cho phép sử dụng các SOTA (state-of-the-art) transformer trên ngôn ngữ Python bằng framework Pytorch. Trước khi bắt tay vào viết code, ta cần cài đặt một số thư viện sau: Pytorch, torchtext, transformer, matplotlib, pandas, numpy, seaborn.<br>
+Ngoài Pytorch, BERT còn được cài đặt trên nhiều framework khác như <a href="https://github.com/Separius/BERT-keras">tensorflow</a> và <a href="https://github.com/Separius/BERT-keras">keras</a>.</p>
+<ol>
+<li>
+<p>Tiền xử lý dữ liệu<br>
+Trong phần này, ta xử lý dữ liệu từ bộ <b>REAL and FAKE news dataset</b>, mục đích là tách bộ dữ liệu ban đầu thành 3 tập <i>train, validation, test</i>. Ở đây, ta tạo thêm một trường <i>titletext</i> mới bằng cách ghép các trường <i>title</i> và <i>text</i> với nhau.</p>
+<pre><code class="language-python"># Libraries
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+def trim_string(x):
+
+    x = x.split(maxsplit=first_n_words)
+    x = ' '.join(x[:first_n_words])
+
+    return x
+# Read raw data
+df_raw = pd.read_csv(raw_data_path)
+
+# Prepare columns
+df_raw['label'] = (df_raw['label'] == 'FAKE').astype('int')
+df_raw['titletext'] = df_raw['title'] + &quot;. &quot; + df_raw['text']
+df_raw = df_raw.reindex(columns=['label', 'title', 'text', 'titletext'])
+
+# Drop rows with empty text
+df_raw.drop( df_raw[df_raw.text.str.len() &lt; 5].index, inplace=True)
+
+# Trim text and titletext to first_n_words
+df_raw['text'] = df_raw['text'].apply(trim_string)
+df_raw['titletext'] = df_raw['titletext'].apply(trim_string) 
+
+# Split according to label
+df_real = df_raw[df_raw['label'] == 0]
+df_fake = df_raw[df_raw['label'] == 1]
+
+# Train-test split
+df_real_full_train, df_real_test = train_test_split(df_real, train_size = train_test_ratio, random_state = 1)
+df_fake_full_train, df_fake_test = train_test_split(df_fake, train_size = train_test_ratio, random_state = 1)
+
+# Train-valid split
+df_real_train, df_real_valid = train_test_split(df_real_full_train, train_size = train_valid_ratio, random_state = 1)
+df_fake_train, df_fake_valid = train_test_split(df_fake_full_train, train_size = train_valid_ratio, random_state = 1)
+
+# Concatenate splits of different labels
+df_train = pd.concat([df_real_train, df_fake_train], ignore_index=True, sort=False)
+df_valid = pd.concat([df_real_valid, df_fake_valid], ignore_index=True, sort=False)
+df_test = pd.concat([df_real_test, df_fake_test], ignore_index=True, sort=False)
+
+# Write preprocessed data
+df_train.to_csv(destination_folder + '/train.csv', index=False)
+df_valid.to_csv(destination_folder + '/valid.csv', index=False)
+df_test.to_csv(destination_folder + '/test.csv', index=False)
+</code></pre>
+</li>
+<li>
+<p>Khai báo các thư viện cần thiết</p>
+<pre><code class="language-python"># Libraries
+import matplotlib.pyplot as plt
+import pandas as pd
+import torch
+
+# Preliminaries
+from torchtext.data import Field, TabularDataset, BucketIterator, Iterator
+
+# Models
+import torch.nn as nn
+from transformers import BertTokenizer, BertForSequenceClassification
+
+# Training
+import torch.optim as optim
+
+# Evaluation
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import seaborn as sns
+
+</code></pre>
+<p>Phần quan trọng nhất ở đây là thư viện transformer, chứa các class <code>BertTokenizer</code>, <code>BertForSequenceClassification</code> để khởi tạo bộ tách từ và mô hình phân loại.</p>
+</li>
+<li>
+<p>Chuẩn bị dữ liệu và xử lý</p>
+<pre><code class="language-python">tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+
+# Model parameter
+MAX_SEQ_LEN = 128
+PAD_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.pad_token)
+UNK_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.unk_token)
+
+# Fields
+label_field = Field(sequential=False, use_vocab=False, batch_first=True, dtype=torch.float)
+text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=False, include_lengths=False, batch_first=True,
+                   fix_length=MAX_SEQ_LEN, pad_token=PAD_INDEX, unk_token=UNK_INDEX)
+fields = [('label', label_field), ('title', text_field), ('text', text_field), ('titletext', text_field)]
+
+# Tabular Dataset
+train, valid, test = TabularDataset.splits(path=source_folder, train='train.csv', validation='valid.csv',
+                                           test='test.csv', format='CSV', fields=fields, skip_header=True)
+
+# Iterator
+train_iter = BucketIterator(train, batch_size=16, sort_key=lambda x: len(x.text),
+                            device=device, train=True, sort=True, sort_within_batch=True)
+valid_iter = BucketIterator(valid, batch_size=16, sort_key=lambda x: len(x.text),
+                            device=device, train=True, sort=True, sort_within_batch=True)
+test_iter = Iterator(test, batch_size=16, device=device, train=False, shuffle=False, sort=False)
+</code></pre>
+<p>Ở đây, ta sử dụng mô hình &quot;bert-base-uncased&quot; của <code>BertTokenizer</code>và tạo các trường <i>Text</i> chứa nội dung bài viết và <i>Label</i> chứa nhãn. Chiều dài dữ liệu đầu vào cho BERT sẽ giới hạn ở 128 <i>token</i>.</p>
+<p><i>Một điều cần lưu ý ở đây là để sử dụng BERT tokenizer với TorchText, ta cần khai báo <code>use_vocab=False </code> và <code>tokenize=tokenizer.encode</code>. Việc này sẽ giúp cho Torchtext hiểu rằng ta sẽ không xây dựng lại bộ vocabulary từ đầu.</i></p>
+</li>
+<li>
+<p>Xây dựng model</p>
+<pre><code class="language-python">class BERT(nn.Module):
+    def __init__(self):
+        super(BERT, self).__init__()
+        options_name = 'bert-base-uncased'
+        self.encoder = BertForSequenceClassification.from_pretrained(options_name)
+	
+    def forward(self, text, label):
+        loss, text_fea = self.encoder(text, labels=label)[:2]
+        return loss, text_fea
+</code></pre>
+<p>Source code trong bài viết sử dụng phiên bản <i>bert-base-uncased</i> của BERT, đây là bản được huấn luyện trên bộ dữ liệu tiếng Anh lower-cased (chứa 12 layer, 768-hidden, 12-heads, 110M params). Các phiên bản khác của BERT có thể tìm thấy ở tài liệu của <a href="https://huggingface.co/transformers/pretrained_models.html">Huggingface</a>.</p>
+</li>
+<li>
+<p>Huấn luyện mô hình</p>
+<p>Dưới đây là các hàm lưu các tham số của model</p>
+<pre><code class="language-python"># Save and Load functions
+def save_checkpoint(save_path, model, valid_loss):
+    if save_path is None:
+        return
+    
+    state_dict = {
+                     'model_state_dict': model.state_dict(),
+                     'valid_loss': valid_loss
+                 }
+    torch.save(state_dict, save_path)
+    print(f'Model saved to ==&gt; {save_path}')
+
+def load_checkpoint(load_path, model):
+    if load_path is None:
+        return
+    
+    state_dict = torch.load(load_path, map_location=device)
+    print(f'Model loaded from &lt;== {load_path}')
+    
+    model.load_state_dict(state_dict['model_state_dict'])
+    return state_dict['valid_loss']
+
+def save_metrics(save_path, train_loss_list, valid_loss_list, global_steps_list):
+    if save_path is None:
+        return
+    
+    state_dict = {
+                     'train_loss_list': train_loss_list,
+                     'valid_loss_list': valid_loss_list,
+                     'global_steps_list': global_steps_list
+                 }
+    torch.save(state_dict, save_path)
+    print(f'Model saved to ==&gt; {save_path}')
+   
+def load_metrics(load_path):
+    if load_path is None:
+        return
+    
+    state_dict = torch.load(load_path, map_location=device)
+    print(f'Model loaded from &lt;== {load_path}')
+    return state_dict['train_loss_list'], state_dict['valid_loss_list'],state_dict['global_steps_list']
+</code></pre>
+<p>Hàm  huấn luyện mô hình:</p>
+<pre><code class="language-python"># Training function
+def train(model,
+         optimizer,
+         criterion=nn.BCELoss(),
+         train_loader=train_iter,
+         valid_loader=valid_iter,
+         num_epochs=5,
+         eval_every=len(train_iter)//2,
+         file_path=destination_folder,
+         best_valid_loss=float('Inf')):
+    # initialize running values
+    running_loss = 0.0
+    valid_running_loss = 0.0
+    global_step = 0
+    train_loss_list = []
+    valid_loss_list = []
+    global_steps_list = []
+    
+    # training loop
+    model.train()
+    for epoch in range(num_epochs):
+        for (labels, title, text, titletext), _ in train_loader:
+            labels = labels.type(torch.LongTensor)
+            labels = labels.to(device)
+            titletext = titletext.type(torch.LongTensor)
+            titletext = titletext.to(device)
+            output = model(titletext, labels)
+            loss, _ = output
+            
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            
+            # update running values
+            running_loss += loss.item()
+            global_step +=1 
+            
+            # evaluation step
+            if global_step % eval_every == 5:
+                model.eval()
+                with torch.no_grad():
+                    # validation loop
+                    for(labels, title, text, titletext), _ in valid_loader:
+                        labels = labels.type(torch.LongTensor)
+                        labels = labels.to(device)
+                        titletext = titletext.type(torch.LongTensor)
+                        titletext = titletext.to(device)
+                        output = model(titletext, labels)
+                        loss, _ = output
+                        
+                        valid_running_loss += loss.item()
+                # evaluation
+                average_train_loss = running_loss / eval_every
+                average_valid_loss = valid_running_loss / eval_every
+                train_loss_list.append(average_train_loss)
+                valid_loss_list.append(average_valid_loss)
+                global_steps_list.append(global_step)
+                
+                # reset running values
+                running_loss = 0.0
+                valid_running_loss = 0.0
+                model.train()
+                
+                # print progress
+                print('Epoch [{}/{}], Step [{}/{}], Train loss: {:.4f}, Valid loss: {:.4f}'
+                      .format(epoch + 1, num_epochs, global_step, num_epochs * len(train_loader), average_train_loss, average_valid_loss))
+                # checkpoint
+                if best_valid_loss &gt; average_valid_loss:
+                    best_valid_loss = average_valid_loss
+                    save_checkpoint(file_path + '/' + 'model.pt', model, best_valid_loss)
+                    save_metrics(file_path + '/' + 'metrics.pt', train_loss_list, valid_loss_list, global_steps_list)
+	save_metrics(file_path + '/metrics.pt', train_loss_list, valid_loss_list, global_steps_list)
+
+model = BERT().to(device)
+optimizer = optim.Adam(model.parameters(), lr=2e-5)
+train(model=model, optimizer=optimizer)
+</code></pre>
+<p>Do bài toán fake news detection là bài toán phân loại 2 lớp, ta sử dụng <code>BinaryCrossEntropy</code> làm loss function và <code>Sigmoid</code> làm activation function. Trong quá trình huấn luyện, ta đánh giá hiệu năng của mô hình trên tập validation, sau đó lưu lại model mỗi khi <i>validation loss</i> giảm  nhằm giữ lại model tốt nhất. Dưới đây là kết quả huấn luyện model.</p>
+ <p align="center">
+ <img src="https://drive.google.com/uc?id=1ByazSUZd8Ju_5bE4dKMqCl_5Kz_0E_qO" alt="Training progress"/>
+ <sample>Quá trình huấn luyện model</sample>
+ </p>   
+ <p align="center">
+ <img src="https://drive.google.com/uc?id=1bkIz2JKpIw6TTA6zj1oPeh8KgM7M_cVj" alt="Evaluation"/>
+ <sample>Kết quả đánh giá cho thấy mô hình đạt accuracy 92.73%</sample>
+ </p>
+</li>
+<li>
+<p>Kết luận</p>
+<p>Thực nghiệm trên cho thấy chỉ với 5 epoch model BERT được fine-tuning đã cho ra kết quả rất tốt và có thể cải thiện hơn nữa, hơn nữa việc cài đặt được thực hiện dễ dàng với thư viện <a href="https://huggingface.co/transformers/pretrained_models.html">Huggingface</a>. Điều này càng cho thấy khả năng ứng dụng rất lớn của BERT trong các bài toán NLP khác. Source code trong bài viết này có thể được tải về tại <a href="https://github.com/thainv0212/bert-tutorial">đây</a>.</p>
+</li>
+</ol>
+<h3 id="ktlun">Kết luận</h3>
+<p>BERT thực sự là một bước đột phá lớn của <b>Machine Learning</b> trong lĩnh vực <b>Natural Language Processing</b>. Với <b>Transfer Learning</b>, ta hoàn toàn có thể thực hiện fine-tune mô hình có sẵn của BERT để giải quyết nhiều bài toán khác nhau trong lĩnh vực này. Trong bài viết này, tôi không đi quá sâu về kỹ thuật bên trong BERT mà chỉ trình bày những ý tưởng cơ bản của nó. Tuy nhiên, bạn đọc muốn tìm hiểu sâu hơn hoàn toàn có thể tham khảo trong tài liệu đầy của của BERT, <a href="https://arxiv.org/abs/1810.04805">paper</a> và <a href="https://github.com/google-research/bert">source code</a>. Qua bài viết này, tôi hy vọng giúp các bạn hiểu được ý tưởng của BERT và cách sử dụng BERT cho một bài toán cụ thể, qua đó có thể đưa ra một gợi ý nho nhỏ về hướng đi cho các bạn khi giải quyết một bài toán NLP trong thực tế. Nếu các bạn có góp ý về bài viết hay vấn đề cần thảo luận, xin vui lòng comment phía dưới, tôi sẽ cố gắng trả lời trong thời gian sớm nhất. Xin cảm ơn!</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ul>
+<li><a href="https://arxiv.org/abs/1810.04805">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</a></li>
+<li><a href="https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html">Open Sourcing BERT: State-of-the-Art Pre-training for Natural Language Processing</a></li>
+<li><a href="https://towardsdatascience.com/bert-text-classification-using-pytorch-723dfb8b6b5b">BERT Text Classification Using Pytorch</a></li>
+<li><a href="https://huggingface.co/transformers/pretrained_models.html">Huggingface</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20BERT%20v%C3%A0%20%E1%BB%A9ng%20d%E1%BB%A5ng%20v%C3%A0o%20b%C3%A0i%20to%C3%A1n%20ph%C3%A2n%20lo%E1%BA%A1i%20v%C4%83n%20b%E1%BA%A3n">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/gioi-thieu-bert-va-ung-dung-vao-bai-toan-phan-loai-van-ban/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

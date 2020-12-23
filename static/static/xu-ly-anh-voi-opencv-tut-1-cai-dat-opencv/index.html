@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Tại trường “Where is the source code”, chọn địa chỉ source code trong thư mục openCV vừa cài đặt là &#x60;E:/opencv/sources&#x60;, và trường “Where to build the binaries” tại một thư mục sẽ sử dụng để build.." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Tại trường “Where is the source code”, chọn địa chỉ source code trong thư mục openCV vừa cài đặt là &#x60;E:/opencv/sources&#x60;, và trường “Where to build the binaries” tại một thư mục sẽ sử dụng để build.." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV" />
+    <meta property="og:description" content="Tại trường “Where is the source code”, chọn địa chỉ source code trong thư mục openCV vừa cài đặt là &#x60;E:/opencv/sources&#x60;, và trường “Where to build the binaries” tại một thư mục sẽ sử dụng để build.." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1hrQNtvtbkxM43sIEUCcz59r1sGVW00UX&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-12-22T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2019-01-11T10:16:43.000Z" />
+    <meta property="article:tag" content="OpenCV" />
+    <meta property="article:tag" content="Xử lý ảnh" />
+    <meta property="article:tag" content="Thị giác máy" />
+    <meta property="article:tag" content="Image Processing" />
+    <meta property="article:tag" content="Computer Vision" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV" />
+    <meta name="twitter:description" content="Tại trường “Where is the source code”, chọn địa chỉ source code trong thư mục openCV vừa cài đặt là &#x60;E:/opencv/sources&#x60;, và trường “Where to build the binaries” tại một thư mục sẽ sử dụng để build.." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1hrQNtvtbkxM43sIEUCcz59r1sGVW00UX&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.M.D" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OpenCV, Xử lý ảnh, Thị giác máy, Image Processing, Computer Vision" />
+    <meta property="og:image:width" content="900" />
+    <meta property="og:image:height" content="300" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.M.D",
+        "url": "https://blog.vietnamlab.vn/author/duonghm/",
+        "sameAs": []
+    },
+    "headline": "Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV",
+    "url": "https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/",
+    "datePublished": "2017-12-22T01:00:00.000Z",
+    "dateModified": "2019-01-11T10:16:43.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1hrQNtvtbkxM43sIEUCcz59r1sGVW00UX&export=download",
+        "width": 900,
+        "height": 300
+    },
+    "keywords": "OpenCV, Xử lý ảnh, Thị giác máy, Image Processing, Computer Vision",
+    "description": "Series bài viết\n * Tut 1: Cài đặt OpenCV\n   [https://blog.vietnamlab.vn/2017/12/22/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/]\n * Tut 2: Chuyển đổi ảnh màu\n   [https://blog.vietnamlab.vn/2018/02/27/xu-ly-anh-voi-opencv-tut-2-chuyen-doi-anh-mau/]\n * Tut 3: Phương pháp lọc ảnh\n   [https://blog.vietnamlab.vn/2018/05/30/xu-ly-anh-voi-opencv-tut3/]\n * Tut 4: Xác định viền trong ảnh\n   [https://blog.vietnamlab.vn/2018/10/09/xu-ly-anh-voi-opencv/]\n\nMục tiêu của bài viết\nBài viết có 3 mục tiêu chính:\n\n ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-opencv tag-xu-ly-anh tag-thi-giac-may tag-image-processing tag-computer-vision nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-opencv tag-xu-ly-anh tag-thi-giac-may tag-image-processing tag-computer-vision js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-12-22">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 22 December 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/opencv/index.html">OpenCV</a>, <a href="../tag/xu-ly-anh/index.html">Xử lý ảnh</a>, <a href="../tag/thi-giac-may/index.html">Thị giác máy</a>, <a href="../tag/image-processing/index.html">Image Processing</a>, <a href="../tag/computer-vision/index.html">Computer Vision</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1hrQNtvtbkxM43sIEUCcz59r1sGVW00UX&amp;export&#x3D;download" alt="Xử lý ảnh với OpenCV - Tut 1: Cài đặt OpenCV">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20%E1%BA%A3nh%20v%E1%BB%9Bi%20OpenCV%20-%20Tut%201%3A%20C%C3%A0i%20%C4%91%E1%BA%B7t%20OpenCV">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h4 id="seriesbivit">Series bài viết</h4>
+<ul>
+<li><a href="https://blog.vietnamlab.vn/2017/12/22/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/">Tut 1: Cài đặt OpenCV</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/02/27/xu-ly-anh-voi-opencv-tut-2-chuyen-doi-anh-mau/">Tut 2: Chuyển đổi ảnh màu</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/05/30/xu-ly-anh-voi-opencv-tut3/">Tut 3: Phương pháp lọc ảnh</a></li>
+<li><a href="https://blog.vietnamlab.vn/2018/10/09/xu-ly-anh-voi-opencv/">Tut 4: Xác định viền trong ảnh</a></li>
+</ul>
+<h3 id="mctiucabivit">Mục tiêu của bài viết</h3>
+<p>Bài viết có 3 mục tiêu chính:</p>
+<ul>
+<li>Giúp người đọc nắm được một số kiến thức cơ bản về xử lý ảnh</li>
+<li>Cài đặt OpenCV</li>
+<li>Viết một chương trình đơn giản với OpenCV</li>
+</ul>
+<h3 id="1giithiuopencv">1. Giới thiệu OpenCV</h3>
+<p>OpenCV (Open Source Computer Vision Library) là một thư viện mã nguồn mở về thị giác máy (computer vision) và học máy (machine learning). OpenCV được phát hành theo giấy phép BSD, do đó nó hoàn toàn miễn phí cho cả học thuật và thương mại. Nó có các interface C++, C, Python, Java và hỗ trợ Windows, Linux, Mac OS, iOS và Android. OpenCV được thiết kế để tính toán hiệu quả và với sự tập trung nhiều vào các ứng dụng thời gian thực. Được viết bằng tối ưu hóa C/C++, thư viện có thể tận dụng lợi thế của xử lý đa lõi. Được sử dụng trên khắp thế giới, OpenCV có cộng đồng hơn 47 nghìn người dùng và số lượng download vượt quá 6 triệu lần. Phạm vi sử dụng từ nghệ thuật tương tác, cho đến lĩnh vực khai thác mỏ, bản đồ trên web hoặc công nghệ robot.</p>
+<h3 id="2kinthccbnvxlnh">2. Kiến thức cơ bản về xử lý ảnh</h3>
+<h4 id="21nhkthutsdigitalimage">2.1 Ảnh kĩ thuật số (Digital image)</h4>
+<p>Ảnh kĩ thuật số (digital image) là một dạng biểu diễn của ảnh ở dạng ma trận số 2 chiều. Tùy vào độ phân giải của ảnh có cố định hay không, ảnh kĩ thuật số được chia ra làm 2 loại là ảnh vector (độ phân giải không cố định) và ảnh raster (hay còn gọi là bitmapped, độ phân giải cố định). Thuật ngữ ảnh kĩ thuật số thường được dùng để nói đến ảnh raster.</p>
+<h4 id="22phngiicanhresolution">2.2 Độ phân giải của ảnh (Resolution)</h4>
+<p>Độ phân giải ảnh là mức độ chi tiết mà ảnh có thể thể hiện. Thuật ngữ này được dùng cho ảnh raster. Độ phân giải càng cao, ảnh càng nhiều chi tiết. Ví dụ: độ phân giải 640 x 480.</p>
+<h4 id="23imnhpixel">2.3 Điểm ảnh (Pixel)</h4>
+<p>Trong ảnh kĩ thuật số, một điểm ảnh (pixel) là phần tử nhỏ nhất của ảnh raster (raster image). Mỗi một điểm ảnh là một mẫu (sample) của ảnh. Càng nhiều điểm ảnh, ảnh kĩ thuật số càng biểu diễn chính xác hơn về nội dung của ảnh gốc. Đặc trưng của một điểm ảnh gồm 2 thành phần: tọa độ (x,y) và cường độ sáng (intensity).</p>
+<h4 id="24mcxmcanhgrayscale">2.4 Mức xám của ảnh (Grayscale)</h4>
+<p>Mức xám của ảnh (greyscale) là một trong những giá trị số của điểm ảnh biểu diễn mức độ ánh sáng (light intensity) tại điểm ảnh đấy. Thông thường, trong xử lý ảnh hiện tại, mức xám hay sử dụng nhất là mức 256 (có giá trị mức xám từ 0 -&gt; 255).</p>
+<h4 id="25nhmu">2.5 Ảnh màu</h4>
+<p>Để biểu diễn ảnh màu, theo cách biểu diễn RGB, ba ma trận mức xám 256, ứng với ba màu đỏ (R), lục (G), lam(B) được sử dụng. Màu sắc của một điểm ảnh được quyết định bởi giá trị cường độ (intensity) tại ba ma trận màu cùng tọa độ.</p>
+<h3 id="3citopencv">3. Cài đặt OpenCV</h3>
+<h4 id="bc1tiopencv">Bước 1: Tải OpenCV</h4>
+<p>Tải OpenCV tại địa chỉ <a href="https://opencv.org/releases.html">https://opencv.org/releases.html</a><br>
+Ở đây, mình sẽ sử dụng OpenCV cho windows (Win pack)<br>
+<img src="https://image.ibb.co/nLpy9b/hinh1.png" alt="hinh1"></p>
+<h4 id="bc2giinnopencv">Bước 2: Giải nén OpenCV</h4>
+<p>Sau khi tải xong, click vào file vừa tải và tiến hành cài đặt. Trong ví dụ này, mình sẽ cài đặt OpenCV tại ổ E<br>
+<img src="https://image.ibb.co/bKwEFG/hinh2.png" alt="hinh2"><br>
+<img src="https://image.ibb.co/e8v8aG/hinh3.png" alt="hinh3"><br>
+Sau khi cài đặt xong, thư mục OpenCV sẽ xuất hiện tại ổ E:</p>
+<h4 id="31citopencvchopython">3.1 Cài đặt OpenCV cho Python</h4>
+<p>Sau khi cài đặt xong OpenCV, trong thư mục build của openCV, thư viện OpenCV của python đã được chuẩn bị sẵn.<br>
+<img src="https://image.ibb.co/grKqpb/hinh4.png" alt="hinh4"><br>
+Copy file cv2.pyd vào trong Lib/site-packages của thư mục gốc của Python2.7<br>
+<img src="https://image.ibb.co/gkD5Nw/hinh5.png" alt="hinh5"><br>
+Thư viện OpenCV cho python sử dụng numpy. Để cài đặt numpy, hãy cài đặt pip và sử dụng pip để cài đặt numpy.<br>
+Tải file get-pip.py tại địa chỉ: <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a><br>
+Cài đặt pip: <code>python get-pip.py</code><br>
+Cài đặt numpy: <code>pip install numpy</code></p>
+<h4 id="32citopencvchoctsourcecode">3.2 Cài đặt OpenCV cho C++ từ Source Code</h4>
+<ul>
+<li>Tải và cài đặt CMake tại địa chỉ: <a href="https://cmake.org/download/">https://cmake.org/download/</a></li>
+<li>Tải và cài đặt Mingw tại địa chỉ: <a href="https://sourceforge.net/projects/mingw-w64/">https://sourceforge.net/projects/mingw-w64/</a></li>
+</ul>
+<h5 id="buildthvinopencvtsourcecodebngcmake">Build thư viện OpenCV từ Source Code bằng CMake</h5>
+<p>Tại trường “Where is the source code”, chọn địa chỉ source code trong thư mục OpenCV vừa cài đặt là <code>E:/opencv/sources</code>, và trường “Where to build the binaries” tại một thư mục sẽ sử dụng để build. Ở đây mình chọn là <code>E:/opencv/build/x86</code>.<br>
+Sau khi chọn xong ấn vào nút <code>Configure</code>.<br>
+Các bạn chọn genertor bằng <code>MinGW Makefiles</code><br>
+Chú ý: Khi hiển thị config lên, các bạn nhớ bỏ chọn dòng <code>ENABLE_PRECOMPILED_HEADERS</code><br>
+Ấn nút <code>Generate</code><br>
+<img src="https://image.ibb.co/gCDTaG/hinh6.png" alt="hinh6"><br>
+<img src="https://image.ibb.co/nyuC2w/hinh7.png" alt="hinh7"><br>
+Sau khi CMake tạo xong, các bạn hãy chạy lệnh <code>mingw32-make</code> từ thư viện <code>MinGW</code> vừa cài.<br>
+Nếu các bạn muốn chạy nhiều core (tăng tốc thực hiện), có thể thực hiện lệnh <code>mingw32-make -j4</code> (<code>-j4</code> ở đây mang ý nghĩa build trên 4 core CPU)<br>
+<img src="https://image.ibb.co/cjUehw/hinh8.png" alt="hinh8"><br>
+Chú ý: Khi gặp phải lỗi khi build module <code>videoio</code>, hãy mở đến file <code>cap_dshow.cpp</code> và thêm dòng code sau trên đầu file<br>
+<code>#define STRSAFE_NO_DEPRECATE</code><br>
+<img src="https://image.ibb.co/i9VVpb/hinh9.png" alt="hinh9"></p>
+<h3 id="4chngtrnhutinviopencv">4. Chương trình đầu tiên với OpenCV</h3>
+<h4 id="41python">4.1 Python</h4>
+<pre><code class="language-python">import cv2
+img = cv2.imread('E:/cv_example/example.png', 1)
+cv2.imshow('example', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+</code></pre>
+<p>Để sử dụng được OpenCV, bước đầu tiên, ta cần phải khai báo thư viện OpenCV bằng dòng lệnh <code>import cv2</code>. Tiếp đến, để đọc ảnh từ file vào, OpenCV đã hỗ trợ hàm <code>imread</code> với tham số đầu vào là đường dẫn đến file và chế độ màu của ảnh. Để hiển thị ảnh ngoài màn hình, ta có thể sử dụng hàm <code>imshow</code> do OpenCV hỗ trợ với tham số thứ nhất là tên cửa sổ ảnh và tham số thứ hai là nội dung ảnh. Sau khi hiển thị nội dung ảnh, bằng lệnh <code>cv2.waitKey(0)</code>, chương trình sẽ chờ cho đến khi người dùng nhấn một phím bất kì rồi mới thoát khỏi chương trình.<br>
+<img src="https://image.ibb.co/gXNoaG/hinh10.png" alt="hinh10"></p>
+<h4 id="42c">4.2 C++</h4>
+<p>Trong tutorial này, mình sẽ hướng dẫn các bạn sử dụng OpenCV trên CodeBlock<br>
+Tải CodeBlock tại địa chỉ: <a href="http://www.codeblocks.org/downloads/26">http://www.codeblocks.org/downloads/26</a><br>
+Đầu tiên, tạo một project mới với CodeBlock, chọn chế độ Console application<br>
+<img src="https://image.ibb.co/ifBEFG/hinh11.png" alt="hinh11"><br>
+Tiếp theo, đặt tên project và nơi chứa project.<br>
+<img src="https://image.ibb.co/mdVKhw/hinh12.png" alt="hinh12"><br>
+Để sử dụng được OpenCV cho C++, ta cần phải khai báo thư mục chứa header của thư viện OpenCV và linker đến file thư viện<br>
+Đầu tiên, khai báo thư mục chứa các file header của OpenCV<br>
+<img src="https://image.ibb.co/ibd5Nw/hinh13.png" alt="hinh13"><br>
+Tiếp đến, khai báo thư mục chứa các file linker<br>
+<img src="https://image.ibb.co/gw6s2w/hinh14.png" alt="hinh14"><br>
+Thêm các file linker<br>
+<img src="https://image.ibb.co/itOuFG/hinh15.png" alt="hinh15"><br>
+Kết quả sau khi thêm xong<br>
+<img src="https://image.ibb.co/mscMvG/hinh16.png" alt="hinh16"></p>
+<pre><code class="language-cpp">#include &lt;opencv2/core/core.hpp&gt;
+#include &lt;opencv2/highgui/highgui.hpp&gt;
+
+using namespace cv;
+
+int main()
+{
+    cv::Mat img;
+    img = cv::imread(&quot;E:/cv_example/example.png&quot;, 1);
+    cv::imshow(&quot;Demo&quot;, img);
+    cv::waitKey(0);
+    return 0;
+}
+
+</code></pre>
+<p>Cũng giống như với python, để đọc ảnh vào, ta sử dụng <code>imread</code>; và để hiển thị ảnh ra, ta sử dụng <code>imshow</code>.<br>
+<img src="https://image.ibb.co/c8hApb/hinh17.png" alt="hinh17"><br>
+Sau khi compile và chạy chương trình, bạn có thể sẽ gặp phải lỗi như hình dưới. Đây là lỗi thông báo không tìm thấy file thư viện của OpenCV.<br>
+<img src="https://image.ibb.co/mGKqpb/hinh18.png" alt="hinh18"></p>
+<p>Có 2 cách để giải quyết vấn đề này:</p>
+<ul>
+<li>Cách 1: Copy toàn bộ file thư viện vừa build đặt cùng thư mục với file chương trình<br>
+<img src="https://image.ibb.co/fWii9b/hinh19.png" alt="hinh19"><br>
+<img src="https://image.ibb.co/d6e1vG/hinh20.png" alt="hinh20"></li>
+<li>Cách 2: Thêm đường dẫn của thư viện OpenCV vào trong Path của system<br>
+<img src="https://image.ibb.co/fuSoaG/hinh22.png" alt="hinh22"><br>
+Kết quả sau khi chạy file chương trình<br>
+<img src="https://image.ibb.co/g2Ms2w/hinh21.png" alt="hinh21"></li>
+</ul>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Bài viết trên vừa khái quát một số khái niệm cơ bản về xử lý ảnh, hướng dẫn cách build source code, cài đặt OpenCV với python và C++, và viết một chương trình đọc ảnh cơ bản với OpenCV. Hi vọng bài viết sẽ mang lại kiến thức cơ bản cho những bạn mới bắt đầu học xử lý ảnh, cũng như giúp những bạn đang vướng mắc trong việc cài đặt OpenCV từ source code. Bài viết kế tiếp sẽ đề cập đến một số kĩ thuật xử lý ảnh cơ bản như biến đổi từ ảnh màu sang ảnh xám và làm mịn ảnh (blur). Hẹn gặp lại các bạn trong kỳ tới.</p>
+<p>HMD.</p>
+<h3 id="references">References</h3>
+<ul>
+<li>[1] <a href="https://opencv.org/">https://opencv.org/</a></li>
+<li>[2] <a href="http://blog.csdn.net/qq_17550379/article/details/78277313">http://blog.csdn.net/qq_17550379/article/details/78277313</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%E1%BB%AD%20l%C3%BD%20%E1%BA%A3nh%20v%E1%BB%9Bi%20OpenCV%20-%20Tut%201%3A%20C%C3%A0i%20%C4%91%E1%BA%B7t%20OpenCV">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/xu-ly-anh-voi-opencv-tut-1-cai-dat-opencv/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

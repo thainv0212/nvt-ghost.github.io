@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Giải toán tối ưu bằng scipy | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/giai-toan-toi-uu-bang-scipy/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giải toán tối ưu bằng scipy" />
+    <meta property="og:description" content="Bạn đã bao giờ tự tạo, hoặc phải đọc một công thức toán học, với nhiều điều kiện phức tạp, và muốn tìm giá trị nhỏ nhất hoặc cao nhất lấy được từ công thức đó? 
+Bài viết này sẽ hướng dẫn các bạn cách sử dụng scipy trên Python để giải toán các bài toán này." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/giai-toan-toi-uu-bang-scipy/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1U1m567YipWIpWtV990YZKkZCkmLR8rKg&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-04T01:24:57.000Z" />
+    <meta property="article:modified_time" content="2019-01-04T01:24:57.000Z" />
+    <meta property="article:tag" content="scipy" />
+    <meta property="article:tag" content="maths" />
+    <meta property="article:tag" content="optimization" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giải toán tối ưu bằng scipy" />
+    <meta name="twitter:description" content="Bạn đã bao giờ tự tạo, hoặc phải đọc một công thức toán học, với nhiều điều kiện phức tạp, và muốn tìm giá trị nhỏ nhất hoặc cao nhất lấy được từ công thức đó? 
+Bài viết này sẽ hướng dẫn các bạn cách sử dụng scipy trên Python để giải toán các bài toán này." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/giai-toan-toi-uu-bang-scipy/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1U1m567YipWIpWtV990YZKkZCkmLR8rKg&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="scipy, maths, optimization" />
+    <meta property="og:image:width" content="1273" />
+    <meta property="og:image:height" content="450" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.M.L",
+        "url": "https://blog.vietnamlab.vn/author/longlm/",
+        "sameAs": []
+    },
+    "headline": "Giải toán tối ưu bằng scipy",
+    "url": "https://blog.vietnamlab.vn/giai-toan-toi-uu-bang-scipy/",
+    "datePublished": "2019-01-04T01:24:57.000Z",
+    "dateModified": "2019-01-04T01:24:57.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1U1m567YipWIpWtV990YZKkZCkmLR8rKg&export=download",
+        "width": 1273,
+        "height": 450
+    },
+    "keywords": "scipy, maths, optimization",
+    "description": "Bạn đã bao giờ tự tạo, hoặc phải đọc một công thức toán học, với nhiều điều kiện phức tạp, và muốn tìm giá trị nhỏ nhất hoặc cao nhất lấy được từ công thức đó? \nBài viết này sẽ hướng dẫn các bạn cách sử dụng scipy trên Python để giải toán các bài toán này. ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-scipy tag-maths tag-optimization nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-scipy tag-maths tag-optimization js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Giải toán tối ưu bằng scipy</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-01-04">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 04 January 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/scipy/index.html">scipy</a>, <a href="../tag/maths/index.html">maths</a>, <a href="../tag/optimization/index.html">optimization</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1U1m567YipWIpWtV990YZKkZCkmLR8rKg&amp;export&#x3D;download" alt="Giải toán tối ưu bằng scipy">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/giai-toan-toi-uu-bang-scipy/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BA%A3i%20to%C3%A1n%20t%E1%BB%91i%20%C6%B0u%20b%E1%BA%B1ng%20scipy">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="mu">Mở đầu</h3>
+<p>Trong bài viết dưới đây, chúng ta sẽ tìm hiểu cách sử dụng scipy để giải quyết những bài toán yêu cầu tối ưu hóa giá trị của một công thức toán học. Bài viết này sẽ không liên quan đến machine learning. Nhưng phương pháp đề cập trong bài viết này sẽ có một số ứng dụng thực tế. Bài viết này phù hợp với những người biết lập trình về python và phù hợp trong tất cả lĩnh vực.</p>
+<h3 id="bitontithiuha">Bài toán tối thiểu hóa</h3>
+<p>Chúng ta bắt đầu bằng bài toán đầu tiên.</p>
+<p>Một công ty dầu có 2 nhà máy lọc dầu.<br>
+Nhà máy 1 mất \$20,000/ngày để chạy. Mỗi ngày nhà máy sẽ sản xuất được 400 thùng dầu cao cấp, 300 thùng dầu trung cấp, 200 thùng dầu cấp thấp.<br>
+Nhà máy 2 hiện đại hơn, mất \$25,000/ngày để chạy. Mỗi ngày nhà máy sản xuất được 300 thùng dầu cao cấp, 400 thùng dầu trung cấp, 500 thùng dầu cấp thấp mỗi ngày.<br>
+Công ty nhận được đơn hàng yêu cầu 25,000 thùng dầu cao cấp, 27,000 thùng dầu trung cấp, 30,000 thùng dầu cấp thấp.<br>
+Hỏi bao nhiêu ngày mỗi nhà máy lọc dầu cần chạy để giảm chi phí chạy đến mức tối thiểu mà vẫn có thể lọc dầu được đáp ứng được theo đơn hàng?</p>
+<p>Gọi số ngày nhà máy 1 chạy là x1<br>
+Gọi số ngày nhà máy 2 chạy là x2<br>
+Tổng 2 nhà máy phải lọc được dầu với khối lượng lớn hơn hoặc bằng đơn hàng. Ta có các điều kiện sau:</p>
+<ol>
+<li>400x1 + 300x2 &gt;= 25,000</li>
+<li>300x1 + 400x2 &gt;= 27,000</li>
+<li>200x1 + 500x2 &gt;= 30,000<br>
+Và mục tiêu của chúng ta là chi phí đến mức tối thiểu.<br>
+Objective: Minimize 20000x1 + 25000x2<br>
+Ta có thể tạo một chương trình để giải quyết vấn đề sau như thế nào?</li>
+</ol>
+<p>Viết điều kiện dưới dạng code.</p>
+<p>400x1 + 300x2 &gt;= 25,000</p>
+<p>sẽ được viết dưới dạng dictionary sau, thể hiện cho điều kiện</p>
+<p>{&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 400<em>x[0] + 300</em>x[1] - 25000}</p>
+<p>type:&quot;ineq&quot; (inequality condition) có nghĩa là phương trình bất bình vì có dấu &quot;&gt;=&quot;<br>
+Scipy đòi hỏi tất cả các điều kiện phải được chuyển đổi về dạng sau:</p>
+<p>f(x) &gt;= c -&gt; f(x) - c &gt;= 0</p>
+<p>f(x) &lt;= c -&gt; c - f(x) &gt;= 0</p>
+<p>Trong trường hợp:<br>
+400<em>x[0] + 300</em>x[1] &gt;= 25000 sẽ được chuyển thành 400<em>x[0] + 300</em>x[1] - 25000 &gt;= 0</p>
+<p>và bạn chỉ cần để<br>
+{&quot;fun&quot;: 400<em>x[0] + 300</em>x[1] - 25000}</p>
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+</code></pre>
+<pre><code class="language-python">constraints = [
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 400*x[0] + 300*x[1] - 25000},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 300*x[0] + 400*x[1] - 27000},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 200*x[0] + 500*x[1] - 30000},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: x[0]},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: x[1]}
+]
+</code></pre>
+<p>Tạo một function objective thể hiện phương trình bạn muốn tối ưu hóa<br>
+Minimize 20000x1 + 25000x2</p>
+<pre><code class="language-python">def objective(x):
+    return (20000*x[0]) + (25000*x[1])
+</code></pre>
+<p>Giá trị bất kì ban đầu.</p>
+<pre><code class="language-python">x0 = [0, 0]
+</code></pre>
+<pre><code class="language-python">from scipy.optimize import minimize
+sol = minimize(
+    objective, 
+    x0,
+    method = &quot;COBYLA&quot;,
+    constraints = constraints
+)
+</code></pre>
+<p>Số ngày chạy nhà máy lọc dầu</p>
+<pre><code class="language-python">sol.x
+</code></pre>
+<pre><code>array([25., 50.])
+</code></pre>
+<p>Ta tìm thấy chi phí lọc dầu tối thiểu là:</p>
+<pre><code class="language-python">round(objective(sol.x))
+</code></pre>
+<pre><code>1750000.0
+</code></pre>
+<h3 id="bitontiaha">Bài toán tối đa hóa</h3>
+<p>Ứng dụng trong kinh tế: Chọn cách quảng cáo<br>
+Một công ty có lựa chọn quảng cáo thông qua TV, đài, và báo<br>
+Mỗi lần quảng cáo trên TV sẽ mất \$2000, trên báo mất \$600, trên đài mất \$300</p>
+<p>Cho mỗi quảng cáo, TV sẽ quảng cáo được cho 100,000 người, báo cho 40,000 người, đài cho 18,000 người.<br>
+Trên báo, công ty sẽ chỉ được quảng cáo tối đa 10 lần một tuần.</p>
+<p>Để cân bằng các phương tiện quảng cáo, công ty sẽ không được quảng cáo trên 50% cho đài, và phải quảng cáo ít nhất 10% trên TV.</p>
+<p>Tổng ngân sách một tuần cho quảng cáo là $18,200.<br>
+Hỏi mỗi phương tiện sẽ có bao nhiêu quảng cáo, để có được tối đa số người xem quảng cáo.</p>
+<p>Số quảng cáo cho TV, đài, báo là x1, x2, x3.</p>
+<p>Tổng 2 nhà máy phải lọc được dầu với khối lượng lớn hơn hoặc bằng đơn hàng. Ta có các điều kiện sau:</p>
+<ol>
+<li>x1 + x2 + x3 &lt;= 10</li>
+<li>2000x1 + 600x2 + 300x3 &lt;= 18200</li>
+<li>x2/(x1 + x2 + x3) &lt;= 0.5</li>
+<li>x1/(x1 + x2 + x3) &gt;= 0.1</li>
+</ol>
+<p>Và mục tiêu của chúng ta là tối đa hóa.<br>
+Maximize 100000x1 + 40000x2 + 18000x3</p>
+<p>Ta có thể tạo một chương trình để giải quyết vấn đề sau như thế nào?</p>
+<pre><code class="language-python">constraints = [
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 10 - (x[0] + x[1] + x[2])},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 18200 - (2000*x[0] + 600*x[1] + 300*x[2])},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 0.5 - (x[1]/(x[0] + x[1] + x[2]))},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: 0.1 - (x[0]/(x[0] + x[1] + x[2]))},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: x[0]},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: x[1]},
+    {&quot;type&quot;: &quot;ineq&quot;, &quot;fun&quot;: lambda x: x[2]}
+]
+</code></pre>
+<p>Một điểm cần lưu ý là, thay vì tối thiểu hóa, ta đang tối đa hóa phương trình mục tiêu. Ta có thể thay đổi tối đa hóa thành tối thiểu hóa bằng cách biến công thức mục tiêu thành âm. Vì tối thiểu hóa số âm là tối đa hóa số dương</p>
+<pre><code class="language-python">def objective(x):
+    return -(100000*x[0] + 40000*x[1] + 18000*x[2])
+</code></pre>
+<pre><code class="language-python">x0 = [0, 0, 0]
+</code></pre>
+<pre><code class="language-python">from scipy.optimize import minimize
+sol = minimize(
+    objective, 
+    x0,
+    method = &quot;COBYLA&quot;,
+    constraints = constraints
+)
+</code></pre>
+<pre><code>/home/leminhlong/.local/lib/python3.6/site-packages/ipykernel_launcher.py:4: RuntimeWarning: invalid value encountered in double_scalars
+  after removing the cwd from sys.path.
+/home/leminhlong/.local/lib/python3.6/site-packages/ipykernel_launcher.py:5: RuntimeWarning: invalid value encountered in double_scalars
+  &quot;&quot;&quot;
+</code></pre>
+<p>Số quảng cáo cho mỗi phương tiện (TV, đài, báo)</p>
+<pre><code class="language-python">np.round(sol.x)
+</code></pre>
+<pre><code>array([1., 5., 4.])
+</code></pre>
+<p>Số người xem tối đa là</p>
+<pre><code class="language-python">-round(objective(sol.x))
+</code></pre>
+<pre><code>372000.0
+</code></pre>
+<h3 id="cchtthntmgitrthpnht">Cách tốt hơn để tìm giá trị thấp nhất</h3>
+<p>Trong những vấn đề về tối ưu, tìm giá trị ban đầu sẽ ảnh hưởng đến giá trị thấp nhất có thể ta tìm được. Global minima là giá trị nhỏ nhất thực tế có thể. Local minima là giá trị nhỏ nhất mà hiện tại ta tìm thấy được. Về lý tưởng chúng ta muốn tìm global minima.</p>
+<p>Ghi chú: code được lấy từ <a href="https://www.youtube.com/watch?v=ms3aKKW_iRc">https://www.youtube.com/watch?v=ms3aKKW_iRc</a></p>
+<p>Tạo data để tối ưu hóa</p>
+<pre><code class="language-python">import numpy as np
+x = np.linspace(-10, 10, 51)
+x
+
+Phương trình để tối ưu hóa
+
+
+```python
+def f(x):
+    return x**2 + 10*np.sin(x)
+
+y = f(x)
+y
+</code></pre>
+<pre><code class="language-python">fig = plt.figure(figsize=(5, 4), dpi=80)
+plt.plot(x, y)
+plt.grid('on')
+plt.show()
+</code></pre>
+<pre><code>/home/leminhlong/.local/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1OgGaDtdmSvcwbWOxoMfvAAk7C7bRMrlz&amp;export=download" alt="uc?id=1OgGaDtdmSvcwbWOxoMfvAAk7C7bRMrlz&amp;export=download"></p>
+<pre><code class="language-python">x0 =8
+</code></pre>
+<p>Ta tìm giá trị tối thiểu của công thức, giống như hai bài toán trên</p>
+<pre><code class="language-python">from scipy.optimize import minimize
+sol = minimize(
+    f, 
+    x0=x0,
+    method = &quot;COBYLA&quot;,
+)
+</code></pre>
+<pre><code class="language-python">float(sol.x)
+</code></pre>
+<pre><code>3.8376023437500004
+</code></pre>
+<pre><code class="language-python">f(sol.x)
+</code></pre>
+<pre><code>8.315585656391544
+</code></pre>
+<pre><code class="language-python">sol.x**2
+</code></pre>
+<pre><code>14.727191748755496
+</code></pre>
+<p>Nếu sử dụng phương pháp tối ưu hóa thông thường như ở trên, từ điểm xuất phát ban đầu có giá trị là 78 ta đạt được giá trị thấp nhất là 8.3. Nhưng nếu nhìn kỹ trong hình có điểm thấp nhất nhỏ hơn 0, và code của chúng ta bị mắt kẹt tại đây. Điểm ta tìm được là local minima. Local minima ta tìm được phụ thuộc nhiều vào điểm ta bắt đầu</p>
+<pre><code class="language-python">fig = plt.figure(figsize=(5, 4), dpi=80)
+plt.plot(x, y)
+plt.plot([x0, float(sol.x)], [f(x0), f(sol.x)], 'o')
+plt.grid('on')
+plt.show()
+</code></pre>
+<pre><code>/home/leminhlong/.local/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1NQv5ThvMOVRHc3EoHIR9fRchesk5fPKL&amp;export=download" alt="uc?id=1NQv5ThvMOVRHc3EoHIR9fRchesk5fPKL&amp;export=download"></p>
+<p>Có một phương pháp tốt hơn, bằng cách sử dụng basinhopping. Basinhopping sẽ cố gắng tìm giá trị thấp nhất của một phương trình, bằng cách tìm kiếm các điểm dựa vào các xác suất ngẫu nhiên lựa chọn liên tiếp  (stochastic). Tuy vẫn có khả năng bashinhopping không tìm được điểm thấp nhất, nó vẫn có thể tốt hơn phương pháp tối thiểu hóa thông thường của ta ở trên.</p>
+<p>T: temperature - giá trị càng cao thì độ nhảy từ điểm này đến điểm khác càng cao<br>
+stepsize - giá trị quan trọng trong bashinhopping. Một bước đi sẽ có giá trị (x0-stepsize) và (x0+stepsize) theo từng chiều của x0.</p>
+<pre><code class="language-python">from scipy.optimize import basinhopping
+sol = basinhopping(f, 
+                 x0=6, 
+                 T=1,  
+                 stepsize=2)
+sol
+</code></pre>
+<pre><code>                        fun: -7.945823375615284
+ lowest_optimization_result:       fun: -7.945823375615284
+ hess_inv: array([[0.0858273]])
+      jac: array([1.1920929e-07])
+  message: 'Optimization terminated successfully.'
+     nfev: 18
+      nit: 5
+     njev: 6
+   status: 0
+  success: True
+        x: array([-1.30644001])
+                    message: ['requested number of basinhopping iterations completed successfully']
+      minimization_failures: 0
+                       nfev: 1896
+                        nit: 100
+                       njev: 632
+                          x: array([-1.30644001])
+</code></pre>
+<p>Sử dụng basinhopping. Ta đã tìm được điểm có giá trị tối thiểu của phương trình, global minima. Đối với các phương trình phức tạp hơn, có thể basinhopping vẫn chỉ tìm được local minima thôi</p>
+<pre><code class="language-python">fig = plt.figure(figsize=(5, 4), dpi=80)
+plt.plot(x, y)
+plt.plot([x0, float(sol.x)], [f(x0), f(sol.x)], 'o')
+plt.grid('on')
+plt.show()
+</code></pre>
+<pre><code>/home/leminhlong/.local/lib/python3.6/site-packages/matplotlib/cbook/deprecation.py:107: MatplotlibDeprecationWarning: Passing one of 'on', 'true', 'off', 'false' as a boolean is deprecated; use an actual boolean (True/False) instead.
+  warnings.warn(message, mplDeprecation, stacklevel=1)
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1D3Jvj3RuwclnhEeJVfzRQS4XXFBYwQNC&amp;export=download" alt="uc?id=1D3Jvj3RuwclnhEeJVfzRQS4XXFBYwQNC&amp;export=download"></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Tuy có giới hạn về các bài toán có thể áp dụng được. Scipy là một công cụ tốt cho những vấn đề tối ưu hóa công thức toán. Gần đây tôi có sử dụng phương pháp này để tối ưu hóa parameters cho công thức để gợi ý bài viết, mà không sử dụng machine learning. Hi vọng bài viết này sẽ giúp được trong công việc của các bạn trong lĩnh vực khác</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/giai-toan-toi-uu-bang-scipy/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BA%A3i%20to%C3%A1n%20t%E1%BB%91i%20%C6%B0u%20b%E1%BA%B1ng%20scipy">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/giai-toan-toi-uu-bang-scipy/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/giai-toan-toi-uu-bang-scipy/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

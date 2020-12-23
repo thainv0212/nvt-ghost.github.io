@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Sử dụng OpenCV với Swift trong iOS</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sử dụng OpenCV với Swift trong iOS" />
+    <meta property="og:description" content="OpenCV là thư viện xử lý ảnh khá nổi tiếng và thông dụng, nó có thể sử dụng trên hầu hết các platform hiện nay. Trong bài viết này, chúng ta sẽ tìm hiểu cách thiết lập để sử dụng OpenCV trong Swift" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/su-dung-opencv-voi-swift-trong-ios/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;19sH9g9-hZedp5UPcRLA8pQN4An0X0D6S&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-04T01:22:01.000Z" />
+    <meta property="article:modified_time" content="2019-01-04T01:22:01.000Z" />
+    <meta property="article:tag" content="OpenCV" />
+    <meta property="article:tag" content="Swift" />
+    <meta property="article:tag" content="CocoaPods" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta property="article:author" content="https://www.facebook.com/hikaru.nguyenminh" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sử dụng OpenCV với Swift trong iOS" />
+    <meta name="twitter:description" content="OpenCV là thư viện xử lý ảnh khá nổi tiếng và thông dụng, nó có thể sử dụng trên hầu hết các platform hiện nay. Trong bài viết này, chúng ta sẽ tìm hiểu cách thiết lập để sử dụng OpenCV trong Swift" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/su-dung-opencv-voi-swift-trong-ios/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;19sH9g9-hZedp5UPcRLA8pQN4An0X0D6S&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.M.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OpenCV, Swift, CocoaPods" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="800" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.M.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdkxreUhBTFpEaHc&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quangnm/",
+        "sameAs": [
+            "https://www.facebook.com/hikaru.nguyenminh"
+        ]
+    },
+    "headline": "Sử dụng OpenCV với Swift trong iOS",
+    "url": "https://blog.vietnamlab.vn/su-dung-opencv-voi-swift-trong-ios/",
+    "datePublished": "2019-01-04T01:22:01.000Z",
+    "dateModified": "2019-01-04T01:22:01.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=19sH9g9-hZedp5UPcRLA8pQN4An0X0D6S&export=download",
+        "width": 2000,
+        "height": 800
+    },
+    "keywords": "OpenCV, Swift, CocoaPods",
+    "description": "OpenCV là thư viện xử lý ảnh khá nổi tiếng và thông dụng, nó có thể sử dụng trên hầu hết các platform hiện nay. Trong bài viết này, chúng ta sẽ tìm hiểu cách thiết lập để sử dụng OpenCV trong Swift",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Sử dụng OpenCV với Swift trong iOS</h1>
+                <section class="post-meta">
+                    N.M.Q -
+                    <time class="post-date" datetime="2019-01-04">04 Jan 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;19sH9g9-hZedp5UPcRLA8pQN4An0X0D6S&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="i-gi-i-thi-u">I. Giới Thiệu</h3><ul><li>Nói đến thư viện hỗ trợ cho xử lý ảnh, không ai không nghĩ ngay tới OpenCV. Đây là một thư viện mã nguồn mở, được phát hành miễn phí và hỗ trợ khá nhiều các platform khác nhau. OpenCV có khá nhiêu các thuật toán hỗ trợ cho Computer Vision. Hơn thế nữa, cộng đồng sử dụng OpenCV cũng khá là đông đảo, luôn cập nhật các hướng dẫn và fix lỗi cho thư viện.</li><li>Đối với iOS, chúng ta có thể lựa chọn các thư viện xử lý ảnh như <code>GPUImage</code> hoặc <code>CoreImage</code>. Tuy nhiên, chúng ta vẫn có thể sử dụng OpenCV trên iOS một cách bình thường. Bài viết dưới đây sẽ hướng dẫn bạn cách để cài đặt thư viện `OpenCV` cho dự án iOS</li></ul><h3 id="ii-c-i-t">II. Cài Đặt</h3><ul><li>Về cơ bản, OpenCV được viết bằng ngôn ngữ C++ . Để có thể sử dụng trên Swift, chúng ta cần phải có một lớp bridge được viết bằng ngôn ngữ <code>Objective-C</code> ở giữa để có thể gọi các hàm của OpenCV. Cấu trúc sẽ theo như mô hình dưới dây:</li></ul><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1hbPUPaSpw_44LjjTGEfJFeVSM1bKpbY4&amp;export=download" class="kg-image" alt width="600" height="457" layout="responsive"></amp-img></figure><h4 id="1chunb">1. Chuẩn Bị</h4>
+<h5 id="11citcocaopods">1.1 Cài đặt CocaoPods</h5>
+<ul>
+<li>Đầu tiên, chúng ta cần cài đặt CocaoPods cho máy tính. Các bạn có thể tham khảo cách cài đặt ở bài viết dưới đây:<br />
+<a href="https://blog.vietnamlab.vn/2017/03/25/cocoapods-library-manager-cho-ios/">Cài đặt CocaoPods</a></li>
+</ul>
+<h5 id="12toxcodeproject">1.2 Tạo XCode Project</h5>
+<ul>
+<li>Mở Xcode, ta tạo một project, lựa chọn folder để lưu project. Ở đây, chúng ta sẽ tạo project cơ bản là "Single Application Project".<br />
+<amp-img src="https://drive.google.com/uc?id=1atK70kX4jbBQwFst7qcrgnD0lozvP3iW&amp;export=download" alt="uc?id=1atK70kX4jbBQwFst7qcrgnD0lozvP3iW&amp;export=download" width="1460" height="1042" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1QDwVu_qA_jiZ4Q81ZhCYVhmA8LNo9NmE&amp;export=download" alt="uc?id=1QDwVu_qA_jiZ4Q81ZhCYVhmA8LNo9NmE&amp;export=download" width="1460" height="1052" layout="responsive"></amp-img></li>
+</ul>
+<h5 id="13citopencv">1.3 Cài đặt OpenCV</h5>
+<ul>
+<li>Sau khi cài đặt thành công CocaoPods cũng như tạo xong Project, ta tiến hành mở Terminal để cài đặt CocaoPods cho Project hiện tại bằng lệnh:</li>
+</ul>
+<pre><code>pod init
+</code></pre>
+<ul>
+<li>Tiếp theo, ta mở file Pod lên, và thêm vào dòng lệnh</li>
+</ul>
+<pre><code>pod 'OpenCV'
+</code></pre>
+<ul>
+<li>Cuối cùng, ta save lại, tắt file và chạy lệnh để thực hiện cài đặt OpenCV</li>
+</ul>
+<pre><code>pod install
+</code></pre>
+<ul>
+<li>File Pod cuối cùng</li>
+</ul>
+<pre><code># Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'testOpenCVSwift' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for testOpenCVSwift
+  pod 'OpenCV'
+end
+</code></pre>
+<h4 id="2thitlp">2. Thiết Lập</h4>
+<h5 id="21tolpbridge">2.1 Tạo lớp Bridge</h5>
+<ul>
+<li>Ở Project của thư mục, ta tạo một file mới, file type là <code>Cocoa Touch Class</code>, đặt tên <code>OpenCVWarpper</code>. Sau khi tạo, XCode sẽ tự động nhận diện xác nhận chúng ta có muốn tạo 1 lớp Bridge hay không.<br />
+<amp-img src="https://drive.google.com/uc?id=1lVvXyGxlziPO_JvwBrai6QO4WbXa5Hp7&amp;export=download" alt="uc?id=1lVvXyGxlziPO_JvwBrai6QO4WbXa5Hp7&amp;export=download" width="2008" height="1144" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=15tq2B9BaXdsAz0MDwz3gKwDOy2NI7Urc&amp;export=download" alt="uc?id=15tq2B9BaXdsAz0MDwz3gKwDOy2NI7Urc&amp;export=download" width="1468" height="1056" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1ez5tRbqip8dvGmQtp6T6-PK3A3qYAbfq&amp;export=download" alt="uc?id=1ez5tRbqip8dvGmQtp6T6-PK3A3qYAbfq&amp;export=download" width="1464" height="1046" layout="responsive"></amp-img></li>
+<li>Sau khi tạo lớp Bridge, chúng ta sẽ thấy có 3 file xuất hiện là <code>OpenCVWarpper.h</code>, <code>OpenCVWarpper.m</code> và <code>&lt;TenProject&gt;-Bridging-Header.h</code><br />
+<amp-img src="https://drive.google.com/uc?id=1xT9Y4ZBkq2HV7vMdKgSWP5Ol7Mt-arrx&amp;export=download" alt="uc?id=1xT9Y4ZBkq2HV7vMdKgSWP5Ol7Mt-arrx&amp;export=download" width="746" height="444" layout="responsive"></amp-img></li>
+<li>Tiếp theo, ta đổi tên file <code>OpenCVWarpper.m</code> thành <code>OpenCVWarpper.mm</code> để cho XCode nhận diện file này là file Objective-C.</li>
+</ul>
+<h5 id="22thitlpfilebridgingheader">2.2 Thiết lập file Bridging-Header</h5>
+<ul>
+<li>Ở file Bridging-Header, ta thêm vào dòng lệnh</li>
+</ul>
+<pre><code>#import "OpenCVWarpper.h"
+</code></pre>
+<ul>
+<li>Ở file <code>OpenCVWarpper.mm</code>,ta thêm import của thư viện opencv vào</li>
+</ul>
+<pre><code>#import &lt;opencv2/opencv.hpp&gt;
+#import "OpenCVWarpper.h"
+</code></pre>
+<h4 id="3chyth">3. Chạy Thử</h4>
+<h5 id="31cithmvheader">3.1 Cài đặt hàm và header</h5>
+<ul>
+<li>Ở file <code>OpenCVWarpper.mm</code>, ta thêm vào dòng code sau dưới đây. Lưu ý là ta phải import thư viện openCV trước khi import file header của OpenCVWarpper</li>
+</ul>
+<pre><code>#ifdef __cplusplus
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdocumentation"
+
+#import &lt;opencv2/opencv.hpp&gt;
+#import &lt;opencv2/imgcodecs/ios.h&gt;
+#import "OpenCVWarpper.h"
+
+#pragma clang pop
+#endif
+
+using namespace cv;
+using namespace std;
+
+@implementation OpenCVWarpper
++ (NSString *)openCVVersionString {
+    return [NSString stringWithFormat:@"OpenCV Version %s",  CV_VERSION];
+}
+@end
+</code></pre>
+<ul>
+<li>Ở file <code>OpenCVWarpper.h</code>, ta khai báo header của hàm đã tạo phía trên</li>
+</ul>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface OpenCVWarpper : NSObject
++ (NSString *)openCVVersionString;
+@end
+
+NS_ASSUME_NONNULL_END
+</code></pre>
+<h5 id="32gihmtrnswift">3.2 Gọi hàm trên Swift</h5>
+<ul>
+<li>Mở file <code>ViewController.swift</code>, thêm thực hiện việc gọi hàm OpenCV thông qua warpper.</li>
+</ul>
+<pre><code>import UIKit
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        print("\(OpenCVWarpper.openCVVersionString())")
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>Cuối cùng, ta chạy thử ứng dụng, kết quả sẽ được đưa ra ở màn hình console như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1neHSqDrKk2r-7dYtyr1zweUipgS51c5u&amp;export=download" alt="uc?id=1neHSqDrKk2r-7dYtyr1zweUipgS51c5u&amp;export=download" width="1366" height="652" layout="responsive"></amp-img></p>
+</li>
+<li>
+<p>Như vậy, việc cài đặt của chúng ta đã hoàn tất, từ giờ chúng ta có thể viết code ở file <code>OpenCVWarpper.mm</code> để sử dụng các hàm của OpenCV, sau đó trên Swift ta có thể gọi hàm đó.</p>
+</li>
+</ul>
+<h5></h5><h4 id="iii-t-ng-k-t">III. Tổng Kết</h4><ul><li>Nhìn chung, việc kết hợp OpenCV vào Swift khá là dễ dàng, không quá phức tạp. Hơn nữa, do OpenCV được viết bằng C++ nên có thể dễ dàng làm việc với Swift thông qua lớp bridge viết bằng Objectice-C.</li><li>Tuy nhiên, do chúng ta chỉ có thể làm việc với OpenCV qua Objective-C, cho nên việc sử dụng đòi hỏi Developer cũng phải có một chút kiến thức về Objective-C để có thể sử dụng một cách hiệu quả. </li><li>Cấu trúc syntax, việc khai báo biến của C khá chặt chẽ. Vì thế Dev cần phải đọc kỹ tài liệu về thiết kế của từng hàm, giá trị nhận vào, giá trị trả về, cách sử dụng hàm để có thể gọi và truyền vào tham số một cách chính xác (Không giống như Python, khi khai báo biến không cần phải xác định loại của biến).</li></ul><h4 id="iv-tham-kh-o">IV. Tham Khảo</h4><ul>
+<li><a href="https://medium.com/@borisohayon/ios-opencv-and-swift-1ee3e3a5735b">https://medium.com/@borisohayon/ios-opencv-and-swift-1ee3e3a5735b</a></li>
+<li><a href="https://medium.com/pharos-production/using-opencv-in-a-swift-project-679868e1b798">https://medium.com/pharos-production/using-opencv-in-a-swift-project-679868e1b798</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

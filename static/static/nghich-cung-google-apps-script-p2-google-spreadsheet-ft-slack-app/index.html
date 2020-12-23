@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Create Slack App Using Google Apps Script and Google Spreadsheet | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Create Slack App Using Google Apps Script and Google Spreadsheet" />
+    <meta property="og:description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-11-22T01:14:00.000Z" />
+    <meta property="article:modified_time" content="2017-11-22T01:37:56.000Z" />
+    <meta property="article:tag" content="Google Apps Script" />
+    <meta property="article:tag" content="Slack" />
+    <meta property="article:tag" content="Slack App" />
+    <meta property="article:tag" content="Slack Bot" />
+    <meta property="article:tag" content="Google Spreadsheet" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Create Slack App Using Google Apps Script and Google Spreadsheet" />
+    <meta name="twitter:description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Google Apps Script, Slack, Slack App, Slack Bot, Google Spreadsheet" />
+    <meta property="og:image:width" content="768" />
+    <meta property="og:image:height" content="432" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "Create Slack App Using Google Apps Script and Google Spreadsheet",
+    "url": "https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/",
+    "datePublished": "2017-11-22T01:14:00.000Z",
+    "dateModified": "2017-11-22T01:37:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkTy1xM2I0Q0h0QlE&export=download",
+        "width": 768,
+        "height": 432
+    },
+    "keywords": "Google Apps Script, Slack, Slack App, Slack Bot, Google Spreadsheet",
+    "description": "* Phần 1: Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google\n   Calendar\n   [https://vietnamlab.vn/blog/2017/09/05/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/]\n\n1. Lợi điểm khi sử dụng GAS\nChào các bạn, sau hai tháng kể từ bài viết đầu tiên, Enso đã trở lại với bài\nviết thứ hai về Google Apps Script (GAS).\n\nTrong bài viết này, Enso sẽ trình bày về cách tạo Slack Bot bằng GAS. Để tạo Bot\nnói chung hay Slack Bot nói riêng có khá nhiều cách. Trong bài viết Tạo S",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-google-apps-script tag-slack tag-slack-app tag-slack-bot tag-google-spreadsheet nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-google-apps-script tag-slack tag-slack-app tag-slack-bot tag-google-spreadsheet js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Nghịch cùng Google Apps Script (P2) : Google Spreadsheet ft. Slack App</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-11-22">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 22 November 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/google-apps-script/index.html">Google Apps Script</a>, <a href="../tag/slack/index.html">Slack</a>, <a href="../tag/slack-app/index.html">Slack App</a>, <a href="../tag/slack-bot/index.html">Slack Bot</a>, <a href="../tag/google-spreadsheet/index.html">Google Spreadsheet</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" alt="Nghịch cùng Google Apps Script (P2) : Google Spreadsheet ft. Slack App">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ngh%E1%BB%8Bch%20c%C3%B9ng%20Google%20Apps%20Script%20(P2)%20%3A%20Google%20Spreadsheet%20ft.%20Slack%20App">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><ul>
+<li>Phần 1: <a href="https://vietnamlab.vn/blog/2017/09/05/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/">Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google Calendar</a></li>
+</ul>
+<h3 id="1liimkhisdnggas">1. Lợi điểm khi sử dụng GAS</h3>
+<p>Chào các bạn, sau hai tháng kể từ bài viết đầu tiên, Enso đã trở lại với bài viết thứ hai về Google Apps Script (GAS).</p>
+<p>Trong bài viết này, Enso sẽ trình bày về cách tạo Slack Bot bằng GAS. Để tạo Bot nói chung hay Slack Bot nói riêng có khá nhiều cách. Trong bài viết <a href="https://vietnamlab.vn/blog/2017/02/02/tao-skype-bot-voi-microsoft-bot-framework/">Tạo Skype Bot với Microsoft Bot Framework</a>, <a href="https://vietnamlab.vn/blog/author/longtv/">KYO</a> trình bày về cách tạo Bot với Microsoft Bot Framework. Vậy dùng GAS để tạo Slack Bot có lợi điểm gì? Có thể kể đến những lợi điểm sau:</p>
+<ul>
+<li>Không cần phải có hosting riêng, tất cả đều hoạt động trên server của Google.</li>
+<li>Liên kết dễ dàng với các dịch vụ khác của Google (Google Spreadsheet, Google Form, Google Calendar, Gmail,...).</li>
+<li>Dễ dàng thiết lập trigger (giống như cronjob trong linux hay nodejs).</li>
+</ul>
+<p>Enso sẽ sử dụng lại ví dụ của KYO để trình bày cách tạo Slack Bot bằng GAS, đó là ví dụ Quản lý Todo của công ty.</p>
+<h3 id="2ngdngqunltodocacngty">2. Ứng dụng quản lý Todo của công ty</h3>
+<p>Công ty quản lý các task trên Google Spreadsheet. Bot sẽ có các chức năng chính sau:</p>
+<ul>
+<li>Liệt kê danh sách các task có trạng thái Active.</li>
+<li>Thêm một task mới.</li>
+<li>Cập nhật trạng thái của một task (<em>Active, Done, Cancel</em>).</li>
+<li>Xoá một task.</li>
+<li>Vào một thời điểm trong ngày, tự động liệt kê danh sách các task có trạng thái Active.</li>
+</ul>
+<p>Trước khi bắt đầu, chúng ta cần chuẩn bị:</p>
+<ul>
+<li>Một số kiến thức cơ bản về JavaScript.</li>
+<li>Tài khoản Google.</li>
+<li>Quyền tích hợp ứng dụng vào Slack team (Chúng ta có thể tạo một team slack hoàn toàn miễn phí tại <a href="https://slack.com/create">đây</a>).</li>
+</ul>
+<h3 id="3ccbcthchin">3. Các bước thực hiện</h3>
+<h4 id="31togooglespreadsheetqunltodo">3.1. Tạo Google Spreadsheet quản lý Todo</h4>
+<p><img src="https://drive.google.com/uc?id=1Mch2_aiB7ZVXbEZYgwwdmD5eHba50GsB&amp;export=download" alt="Create-Google-Sheet"></p>
+<ul>
+<li>Đầu tiên chúng ta cần tạo một spreadsheet mới. Các task sẽ được lưu theo từng dòng.</li>
+<li>Dòng đầu tiên là tên các cột (ID, Created time, Due time, Created user, Task, Participant, Note, Status).</li>
+<li>Để tiện theo dõi, chúng ta có thể ghim dòng đầu tiên lại bằng <code>View -&gt; Freeze -&gt; 1 row</code>.</li>
+<li>Tiếp đó chúng ta tạo dữ liệu cho cột Status như sau:</li>
+<li>Chọn toàn bộ cột Status (cột H)</li>
+<li>Chọn <code>Data -&gt; Data validation.. -&gt; Criteria: List of items</code></li>
+<li>Nhập dữ liệu <em>Active, Done,Cancel</em></li>
+<li>Lúc này cell H1 sẽ báo lỗi vì tên cột là Status không hợp lệ. Chọn cell H1, chọn <code>Data -&gt; Data validation.. -&gt; Remove validation</code></li>
+</ul>
+<h4 id="32toscriptproject">3.2 Tạo script project</h4>
+<p>Tiếp theo chúng ta sẽ tạo một script project từ <code>Tools -&gt; Script editor...</code>. Sau khi project được tạo, ta đặt tên cho project, đổi tên file thành <code>main.gs</code>, xoá code mặc định được sinh ra và thêm vào dòng code sau:</p>
+<pre><code>function doPost(request) {
+  var params = request.parameters;
+
+  // MORE CODE WILL GO HERE
+
+  return ContentService.createTextOutput().setMimeType(ContentService.MimeType.JSON);
+}
+</code></pre>
+<p>Hãy cùng tìm hiểu các dòng code này.</p>
+<ul>
+<li>Hàm <code>doPost(request)</code> nhận và xử lý dữ liệu được truyền qua POST request. Sau khi script project được triển khai dưới dạng ứng dụng web, GAS sẽ mặc định gọi hàm này khi nhận được POST request.</li>
+<li><code>request.parameters</code> object chứa toàn bộ payload / data của POST request.</li>
+<li>Câu lệnh <code>return</code> để tránh Slack sẽ báo lỗi <code>The script completed but did not return anything.</code></li>
+</ul>
+<p>Tiếp theo, chúng ta triển khai script project dưới dạng ứng dụng web. Chọn <code>Publish -&gt; Deploy as web app...</code>, các thông số thiết lập như sau:</p>
+<ul>
+<li>Project version: <strong>New</strong></li>
+<li>Execute the app as: <strong>Me</strong></li>
+<li>Who has access to the app: <strong>Anyone, even anonymous</strong></li>
+</ul>
+<p>Sau khi triển khai xong, chúng ta sẽ lưu lại <strong>Current web app URL</strong> để thiết lập ở bước kế tiếp.</p>
+<h4 id="33ngkslackapp">3.3 Đăng ký Slack app</h4>
+<p>Trong nhiều bài hướng dẫn cũ, Outgoing Webhooks được sử dụng để gửi dữ liệu ra bên ngoài. Tuy nhiên hiện tại theo như <a href="https://api.slack.com/custom-integrations/outgoing-webhooks">tài liệu hướng dẫn</a> của Slack, cách này đã cũ và có nhiều hạn chế, không tận dụng được nhiều tính năng. Và hiện tại, Enso tìm mãi mà không còn tìm thấy nơi thiết lập Outgoing Webhooks. Do đó, chúng ta sẽ sử dụng Slack app để triển khai ứng dụng quản lý Todo.</p>
+<p><strong>Bước 1</strong>: Đăng nhập vào trang quản lý Slack và truy cập vào <a href="https://api.slack.com/apps/new">https://api.slack.com/apps/new</a> để tạo mới ứng dụng<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQVhYLUVjOEljZ0U&amp;export=download" alt="Create-new-slack-app"></p>
+<ul>
+<li>App Name: tuỳ chọn</li>
+<li>Development Slack Workspace: chọn team mà chúng ta sẽ tích hợp Slack app này vào.</li>
+</ul>
+<p><strong>Bước 2</strong>: Sau khi bấm nút [Create App], chúng ta sẽ được chuyển tới trang thiết lập thông tin cơ bản (Basic Information) cho Slack App này.</p>
+<ul>
+<li>Tìm và lưu <strong>Verification Token</strong> trong mục <strong>App Credentials</strong>. Token này sẽ được gửi kèm theo dữ liệu tới ứng dụng web. Chúng ta sẽ sử dụng token để kiểm tra xem dữ liệu nhận được có đúng là của Slack app của chúng ta hay không.</li>
+</ul>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWndiSlJnWUY5S28&amp;export=download" alt="Verification-Token"></p>
+<ul>
+<li>Chúng ta cũng có thể cập nhật thêm thông tin cho Slack app ở mục <strong>Display Information</strong>, ví dụ như thêm app icon, chỉnh background color (chú ý là app icon phải là hình vuông, có kích thước trong khoảng 512px tới 2000px)</li>
+</ul>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVUR5TkRxcXZFSkE&amp;export=download" alt="App-Icon"></p>
+<p><strong>Bước 3</strong>: Để gửi dữ liệu tới ứng dụng web, thay vì sử dụng Outgoing Webhook, chúng ta sẽ đăng ký Slack command cho Slack app bằng cách chọn <strong>Slack Commands</strong> trong mục <strong>Features</strong> và bấm <strong>Create New Command</strong>.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQmJrRUczcGlwVUU&amp;export=download" alt="Create-Slack-Command"></p>
+<ul>
+<li>Command: bắt đầu bởi /</li>
+<li>Request URL: là địa chỉ nhận POST request khi thực thi Slack command. Ở đây chính là <strong>Current web app URL</strong> được lưu lại tại mục 3.2</li>
+<li>Short Description: mô tả ngắn gọn về Slack command</li>
+<li>Usage Hint: liệt kê các chức năng được hỗ trợ.</li>
+</ul>
+<p><strong>Bước 4</strong>: Đăng ký Incoming Webhook để nhận tin nhắn từ ứng dụng web bằng cách chọn <strong>Incoming Webhooks</strong> trong mục <strong>Feature</strong>, kích hoạt Incoming Webhooks và bấm <strong>Add New Webhook to Workspace</strong>.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkYnlha3RzSTRlZjQ&amp;export=download" alt="Add-New-Webhook"></p>
+<ul>
+<li>Post to: chọn channel mà Slack app sẽ được tích hợp.</li>
+</ul>
+<p>Sau khi tạo Incoming Webhook xong, chúng ta sẽ thu được Webhook URL. URL này được ứng dụng web sử dụng để gửi tin nhắn vào channel của Slack.</p>
+<p>Tại thời điểm này, để kiểm tra có thể gửi được tin nhắn thông qua Webhook URL hay không, chúng ta có thể chạy câu lệnh trong <strong>Sample curl request to post to a channel</strong>.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWFFCMTFsdTNsVVE&amp;export=download" alt="Webhook URL"><br>
+Ngoài <em><strong>Incoming Webhooks</strong></em> và <em><strong>Slack Commands</strong></em>, Slack app còn hỗ trợ các tính năng khác như <em><strong>Interactive Components, OAuth &amp; Permissions, Event Subscriptions, Bot Users, etc.</strong></em> cùng với kho API phong phú. Tuy nhiên bởi tính năng đơn giản của ứng dụng quản lý Todo, chúng ta không sử dụng đến chúng. Nếu các bạn có ý định phát triển những ứng dụng phức tạp hơn, có thể tham khảo <a href="https://api.slack.com/">api document</a> hay <a href="https://api.slack.com/tutorials">các tutorial</a> của Slack.</p>
+<h4 id="34citccchcnngcangdngqunltodo">3.4. Cài đặt các chức năng của ứng dụng quản lý Todo</h4>
+<p>Ứng dụng quản lý Todo sẽ hoạt động như sau. Trong channel của Slack team (ví dụ #todo), các thành viên sử dụng câu lệnh <strong>/todo</strong> để giao tiếp với ứng dụng web. Để nắm được cách sử dụng câu lệnh, gõ <strong>/todo help</strong>, ứng dụng web sẽ gửi về channel hướng dẫn như hình bên dưới.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNUdaZ1prTmpUYWc&amp;export=download" alt="todo-help"><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeGNoSFBUcnZxQzg&amp;export=download" alt="todo-commands"></p>
+<p>Về cài đặt chi tiết, Enso đã đưa code lên trên Github (<a href="https://github.com/ensozen/todo-slackapp">https://github.com/ensozen/todo-slackapp</a>). Các bạn có thể tham khảo để nắm được rõ hơn logic hoạt động của ứng dụng.</p>
+<h4 id="35mtsvncnch">3.5. Một số vấn đề cần chú ý</h4>
+<h5 id="351projectproperties">3.5.1. Project Properties</h5>
+<p>Với các hằng số, đặc biệt các hằng số lưu thông tin config &quot;nhạy cảm&quot; như <em>Verification Token</em> của Slack app, ID của Spreadsheet file hay <em>Incoming Webhook URL</em>, mặc dù có thể sử dụng trực tiếp trong code nhưng để tiện cho việc chia sẻ code, quản lý và thay đổi về sau, chúng ta nên sử dụng Properties Service của GAS.</p>
+<p>Properties service cung cấp cho chúng ta một cơ chế để lưu dữ liệu trong cặp (key-value). Có ba loại properties như sau:</p>
+<ul>
+<li><strong>Script properties</strong>: dữ liệu được chia sẻ giữa tất cả user của một script, một add-on, hay một ứng dụng web. Ví dụ: thông tin config cho toàn bộ ứng dụng web như username, password của database,…</li>
+<li><strong>User properties</strong>: dữ liệu được phân biệt đối với từng user của một script, một add-on, hay một ứng dụng web. Ví dụ: thông tin config của từng user như ngôn ngữ, theme,…</li>
+<li><strong>Document properties</strong>: dữ liệu được chia sẻ giữa tất cả user của một add-on trong một document đang mở. Ví dụ: thông tin config của từng document như URL của đồ thị nhúng trong document.</li>
+</ul>
+<p>Đối với ứng dụng quản lý Todo, chúng ta sẽ sử dụng Script properties. Để thêm một property qua giao diện của Script Editor, ta chọn <code>File -&gt; Project properties -&gt; Script properties</code> và bấm [<strong>Add row</strong>]</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVVXUFphWDE5NDQ&amp;export=download" alt="Properties"></p>
+<p>API của Properties Service, các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/reference/properties/">đây</a>. Tất nhiên ta cũng có thể thêm một property thông qua các API này.</p>
+<h5 id="352lmvicvithvinbnngoiscriptproject">3.5.2. Làm việc với thư viện bên ngoài script project</h5>
+<p>Trong ứng dụng quản lý Todo, để thao tác, xử lý với dữ liệu date, datetime, Enso sử dụng <a href="https://momentjs.com/">thư viện momentjs</a>. Đây là một thư viện rất mạnh về xử lý dữ liệu date, datetime. Tuy nhiên điều mà Enso muốn đề cập ở đây không phải là về thư viện này mà là về cách thêm và sử dụng thư viện bên ngoài trong GAS script project. Có hai loại thư viện bên ngoài như sau:</p>
+<ul>
+<li>Loại thứ nhất: Thư viện là các GAS script project được người khác chia sẻ. Để sử dụng các thư viện này, chúng ta cần phải biết được <strong>project key</strong> của chúng. Ví dụ, có một thư viện về Slack API được viết cho GAS khá nổi tiếng là <a href="https://github.com/soundTricker/SlackApp">SlackApp</a>, nếu chúng ta muốn sử dụng thư viện này, chọn <code>Resources -&gt; Libraries…</code> và nhập project key và bấm [<strong>Add</strong>]. Sau đó chọn Version muốn sử dụng (hiện tại Version mới nhất là 22). <em>Identifier</em> chính là từ khoá giúp chúng ta gọi tới API của thư viện này từ project của chúng ta.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUEdYSkk2SThQNUE&amp;export=download" alt="Slack API Lib for GAS"><br>
+Tuy nhiên theo như khuyến cáo của Google, việc sử dụng các thư viện ngoài như thế này sẽ ảnh hưởng lớn tới tốc độ của ứng dụng, do đó chúng ta nên hạn chế sử dụng nhất có thể. Enso cũng không sử dụng thư viện SlackApp này mà tự viết lại code.</li>
+</ul>
+<p>Chi tiết về loại thư viện thứ nhất này, các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/guides/libraries">đây</a></p>
+<ul>
+<li>Loại thứ hai: chính là các thư viện js như momentjs được Enso sử dụng trong project. Để thêm thư viện này vào trong project chúng ta sử dụng hàm <code>eval()</code>.</li>
+</ul>
+<p>Hàm <code>eval()</code> trong javascript về cơ bản chuyển một string thành code. Bằng cách sử dụng hàm này, chúng ta đã thêm tất cả code của thư viện js vào GAS project, do đó không làm ảnh hưởng tới tốc độ, hiệu năng xử lý của ứng dụng như loại thứ nhất.</p>
+<pre><code>eval(UrlFetchApp.fetch('https://momentjs.com/downloads/moment.min.js').getContentText());
+</code></pre>
+<h5 id="353triggers">3.5.3. Triggers</h5>
+<p>Triggers là một cơ chế giúp Apps Script thực hiện các hàm một cách tự động khi một sự kiện nào đó xảy ra.</p>
+<p>Ví dụ đối với script project triển khai dưới dạng ứng dụng web như ứng dụng quản lý Todo của chúng ta, khi một ứng dụng nào đó gửi một POST request tới thì hàm <code>doPost()</code> sẽ được tự động thực thi.</p>
+<p>Đối với ứng dụng quản lý Todo, một yêu cầu được đặt ra là vào các thời điểm nào đó trong ngày (ví dụ 7-8h sáng và 16-17h chiều), ứng dụng sẽ tự động gửi danh sách các task có trạng thái Active đến channel của Slack. Có hai cách để thực hiện: thông qua giao diện của Script Editor và thông qua code.</p>
+<p><strong>Cách 1</strong>: Chọn <code>Edit -&gt; Current project's triggers</code> và bấm [<em>No triggers set up. Click here to add one now</em>]. Ví dụ để  trong khoảng , chúng ta sẽ thêm hai trigger như sau:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVE0cXVGajA4aEk&amp;export=download" alt="triggers"></p>
+<p><strong>Cách 2</strong>: Có thể tạo trigger bằng code. Để tạo hai trigger giống như Cách 1, chúng ta sẽ viết code như trong file <code>trigger.gs</code></p>
+<pre><code>function createTimeDrivenTriggers() {
+  // Trigger 07:00 -&gt; 08:00.
+  ScriptApp.newTrigger('postTaskList')
+      .timeBased()
+      .everyDays(1)
+      .inTimezone(&quot;Asia/Ho_Chi_Minh&quot;)
+      .atHour(7)
+      .create();
+  
+  // Trigger 16:00 -&gt; 17:00.
+  ScriptApp.newTrigger('postTaskList')
+      .timeBased()
+      .everyDays(1)
+      .inTimezone(&quot;Asia/Ho_Chi_Minh&quot;)
+      .atHour(16)
+      .create();
+}
+</code></pre>
+<p>Sau đó chọn <code>Run -&gt; Run function -&gt; createTimeDrivenTriggers</code>, hai trigger sẽ được tạo ra.</p>
+<p>Các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/guides/triggers/installable">đây</a> để biết thêm chi tiết.</p>
+<h3 id="4ktlun">4. Kết luận</h3>
+<p>Qua ứng dụng quản lý Todo của công ty, chúng ta đã nắm được cách tạo một ứng dụng trên Slack và cách kết nối ứng dụng Slack này với ứng dụng web được tạo ra bằng GAS. Trong đó <code>doPost()</code> là hai hàm đóng vai trò rất quan trọng. Ngoài <code>doPost()</code> còn có <code>doGet()</code>, với hai hàm này, chúng ta có thể triển khai một web service có hỗ trợ RESTful API mà lại hoàn toàn miễn phí. Hai bài viết của Enso với hai ví dụ chỉ là một phần rất nhỏ trong vô vàn ứng dụng mà GAS có thể đem lại. Nếu có ứng dụng nào hay, hy vọng các bạn chia sẻ lại với Enso :) Trong phần 3, cũng là phần cuối cùng trong sê-ri bài viết &quot;Nghịch cùng Google Apps Script&quot; này, Enso sẽ trình bày về cách sử dụng GAS để chia sẻ, cung cấp Slack app Todo này với các team khác trong cộng đồng người dùng Slack. Hẹn gặp lại các bạn vào một ngày gần nhất :)</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/geckoboard-under-the-hood/lunchbot-how-we-combined-google-sheets-with-slack-to-simplify-team-lunch-d309844a22ce">https://medium.com/geckoboard-under-the-hood/lunchbot-how-we-combined-google-sheets-with-slack-to-simplify-team-lunch-d309844a22ce</a></li>
+<li><a href="https://api.slack.com/custom-integrations/outgoing-webhooks">https://api.slack.com/custom-integrations/outgoing-webhooks</a></li>
+<li><a href="https://api.slack.com/tutorials">https://api.slack.com/tutorials</a></li>
+<li><a href="https://api.slack.com/slash-commands">https://api.slack.com/slash-commands</a></li>
+<li><a href="https://api.slack.com/incoming-webhooks">https://api.slack.com/incoming-webhooks</a></li>
+<li><a href="https://api.slack.com/docs/message-formatting">https://api.slack.com/docs/message-formatting</a></li>
+<li><a href="https://developers.google.com/apps-script/guides/triggers/installable">https://developers.google.com/apps-script/guides/triggers/installable</a></li>
+<li><a href="https://developers.google.com/apps-script/guides/libraries">https://developers.google.com/apps-script/guides/libraries</a></li>
+</ul>
+<h3 id="ps">P/S</h3>
+<p>Phiên bản code trong Github <a href="https://github.com/ensozen/todo-slackapp">todo-slackapp</a> có thêm chức năng user mention trong danh sách &quot;Người thực hiện&quot;. Chức năng này sẽ giúp những thành viên chịu trách nhiệm các task chú ý hơn.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRlNtQjRkbUV1bWc&amp;export=download" alt="User-Mention"></p>
+<p>Chức năng này sẽ dựa vào tên của các thành viên trong danh sách &quot;Người thực hiện&quot; để tìm kiếm ID của thành viên và mention tới thành viên bằng ID này. Để chức năng này hoạt động được,</p>
+<ul>
+<li>
+<p>Chúng ta phải cho phép Slack App truy cập thông tin của các thành viên trong team bằng cách truy cập vào <strong>OAuth &amp;&amp; Permissions</strong> trong <strong>Features</strong>, tìm tới mục Scopes và thêm vào quyền <strong>Access your workspace’s profile information</strong> (Slack sẽ yêu cầu cài lại app để cập nhật quyền mới)<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeG4yeTVZdnFaY3M&amp;export=download" alt="Scopes"></p>
+</li>
+<li>
+<p>Để lấy được thông tin tất cả các thành viên trong team, chúng ta sẽ sử dụng API <a href="https://api.slack.com/methods/users.list">users.list</a> trong Slack Web API cùng với OAuth Access Token. Các bạn sẽ tìm thấy token này trong mục <strong>OAuth &amp; Permissions</strong><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkem1XU01aYVFIYlk&amp;export=download" alt="Authen-Token"></p>
+</li>
+<li>
+<p>Sau khi lấy được, chúng ta cần thêm OAuth Access Token vào Script Properties của GAS script project<br>
+thông qua menu bar của Script Editor: <code>File -&gt; Project properties -&gt; Script properties</code><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZXNEN2dpY2F4N0k&amp;export=download" alt=""></p>
+</li>
+</ul>
+<p>Have fun :)</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ngh%E1%BB%8Bch%20c%C3%B9ng%20Google%20Apps%20Script%20(P2)%20%3A%20Google%20Spreadsheet%20ft.%20Slack%20App">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

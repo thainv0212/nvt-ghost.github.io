@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Test tự động với CircleCI và thông báo kết quả lên Slack | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test tự động với CircleCI và thông báo kết quả lên Slack" />
+    <meta property="og:description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2017-09-05T11:19:25.000Z" />
+    <meta property="article:tag" content="automation testing" />
+    <meta property="article:tag" content="CricleCI" />
+    <meta property="article:tag" content="Slack" />
+    <meta property="article:tag" content="CI" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Test tự động với CircleCI và thông báo kết quả lên Slack" />
+    <meta name="twitter:description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="automation testing, CricleCI, Slack, CI" />
+    <meta property="og:image:width" content="1884" />
+    <meta property="og:image:height" content="928" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Test tự động với CircleCI và thông báo kết quả lên Slack",
+    "url": "https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2017-09-05T11:19:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkcGhodkdjV2RnTm8&export=download",
+        "width": 1884,
+        "height": 928
+    },
+    "keywords": "automation testing, CricleCI, Slack, CI",
+    "description": "Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc\nđảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm tốt.\n\nTrong bài viết này, mình sẽ dùng thử CircleCI để\n\n * Test tự động (Java)\n * Push kết quả lên kênh chat trên Slack\n\nĐôi nét về CircleCI\nCircleCI là 1 công cụ CI được tin dùng bởi hơn 100,000 công ty và developers\ntrên toàn thế giới, trong đó có Facebook, Segment, Kickstarter, Percolate,\nSpotify, ...\nVới những ưu điểm như sau:\n\n * Faster Pe",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-automation-testing tag-cricleci tag-slack tag-ci nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-automation-testing tag-cricleci tag-slack tag-ci js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Test tự động với CircleCI và thông báo kết quả lên Slack</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-09-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 September 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/automation-testing/index.html">automation testing</a>, <a href="../tag/cricleci/index.html">CricleCI</a>, <a href="../tag/slack/index.html">Slack</a>, <a href="../tag/ci/index.html">CI</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" alt="Test tự động với CircleCI và thông báo kết quả lên Slack">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Test%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%E1%BB%9Bi%20CircleCI%20v%C3%A0%20th%C3%B4ng%20b%C3%A1o%20k%E1%BA%BFt%20qu%E1%BA%A3%20l%C3%AAn%20Slack">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm tốt.</p>
+<p>Trong bài viết này, mình sẽ dùng thử CircleCI để</p>
+<ul>
+<li>Test tự động (Java)</li>
+<li>Push kết quả lên kênh chat trên Slack</li>
+</ul>
+<h3 id="intvcircleci">Đôi nét về CircleCI</h3>
+<p>CircleCI là 1 công cụ CI được tin dùng bởi hơn 100,000 công ty và developers trên toàn thế giới, trong đó có Facebook, Segment, Kickstarter, Percolate, Spotify, ...<br>
+Với những ưu điểm như sau:</p>
+<ul>
+<li><strong>Faster Performance</strong>: Có thể tùy chọn resource để tối ưu performance cho quá trình building, testing và deploying code</li>
+<li><strong>Granular Control</strong>: Có thể build theo các cách tùy thích bằng cách sử dụng custom job với WorkWorkflows</li>
+<li><strong>Complete Flexibility</strong>: Tất cả ngôn ngữ chạy trên Linux thì đều chạy được với CricleCI. Hỗ trợ First-class Docker giúp ta có thể tùy chỉnh môi trường tùy thích</li>
+</ul>
+<p>CricleCI tương thích với nhiều sản phẩm và dịch vụ được sử dụng nhiều trong quá trình phát triển phần mềm</p>
+<ul>
+<li>Source Code: GitHub, Atlassian Bitbucket, GitHub Enterprise</li>
+<li>Tương thích với rất nhiều test tool</li>
+<li>Deployment: Heroku, Docker, AWS, Azure, Google Cloud, ...</li>
+<li>Collaborations: Jira, HipChat, Slack, ...</li>
+</ul>
+<p>Ngoài bản Enterprise, CricleCI có Free bao gồm:</p>
+<ul>
+<li>Build on Linux</li>
+<li>Không giới hạn repos và user</li>
+<li>1,500 build minutes per month</li>
+<li>1 container</li>
+<li>1 concurrent build</li>
+</ul>
+<p>Bản Free khá thoải mái cho những dự án nhỏ.</p>
+<h3 id="btuvicricleci">Bắt đầu với CricleCI</h3>
+<p>Để sử dụng CricleCI thì chỉ cần 3 bước đơn giản sau đây</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbmlHNnZaTFN2OTg&amp;export=download" alt=""></p>
+<h4 id="ngk">Đăng ký</h4>
+<p>Để đăng ký sử dụng CricleCI ta có thể dùng tài khoản GitHub, Bitbucket hoặc tài khoản Google. Với các dự án cần bảo mật cao, thì có thể sử dụng CricleCI Enterprise để build trực tiếp trên private cloud.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbjN2bk9RZkdhUlU&amp;export=download" alt=""></p>
+<p>Ở đây mình chọn GitHub với Public repo only</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVEhtaVhFcm5tdjg&amp;export=download" alt=""></p>
+<h4 id="addcode">Add Code</h4>
+<p>Mình sẽ tạo 1 public repo trên GitHub để test thử: <a href="https://github.com/minhnc91/cricleci-test">cricleci-test</a></p>
+<p>Ta vào Project &gt; Add Project, rồi chọn project test đã tạo ở trên.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkejU4c1ZIazlyUWM&amp;export=download" alt=""></p>
+<p>Ta có thể chọn</p>
+<ul>
+<li>Môi trường: Linux, OS X</li>
+<li>CricleCI version: Đang hỗ trợ 2 phiên bản 2.0 và 1.0</li>
+<li>Ngôn ngữ: Với khá nhiều lựa chọn. Ở ví dụ này ta chọn Maven (Java)</li>
+</ul>
+<p>Tiếp theo ta làm 5 bước như hướng dẫn dưới hình</p>
+<ul>
+<li>
+<ol>
+<li>Tạo thư mục <code>.circleci</code> và thêm file <code>config.yml</code> vào repo test</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Tham khảo file <code>sample .yml</code> để thêm nội dung cho <code>config.yml</code>. File này được thay đổi tương ứng với setting mình đã chọn ở trên như ngôn ngữ, môi trường, ... Sau đây là file sample của Maven (Java) với CricleCI 2.0 và build trên Linux. CricleCI sẽ chạy thứ tự các bước được định nghĩa trong steps.</li>
+</ol>
+</li>
+</ul>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # CricleCI dùng docker. Ở dưới là mình dùng bản Pre-built có sẵn của CricleCI
+      # Ta có thể dùng image tự tạo
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+    
+    steps:
+      # Pull code về
+      - checkout
+
+      # Download và cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum &quot;pom.xml&quot; }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum &quot;pom.xml&quot; }}
+        
+      # Chạy test
+      - run: mvn integration-test
+</code></pre>
+<ul>
+<li>
+<ol start="3">
+<li>Sửa lại setting cho phù hợp với project</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Push <code>.circleci/config.yml</code> lên GitHub</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Start building!</li>
+</ol>
+</li>
+</ul>
+<p>Cứ mỗi một lần ta push code lên, CricleCI sẽ tự động build như hình</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbHpEZG0tdU1OeW8&amp;export=download" alt=""></p>
+<p>Khá là đơn giản và nhanh chóng để tích hợp CI nhỉ! Ta cũng có thể xem chi tiết 1 lần build như 2 hình sau:</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUWluSDBJUWhOOEU&amp;export=download" alt=""><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkM2ZCY3hremFCOTA&amp;export=download" alt=""></p>
+<h4 id="testing">Testing</h4>
+<p>Ta sẽ thử với 1 test lỗi. Kết quả sẽ fail như hình sau</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMDk0Q1JqNVhYamM&amp;export=download" alt=""></p>
+<p>Ta có thể biết rõ chi tiết fail ở bước nào cùng với lỗi cụ thể</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTENzdG1ScVJpU3M&amp;export=download" alt=""></p>
+<p>Đồng thời, ở giao diện web của GitHub ta cũng có thể phân biệt được commit nào test bị fail</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkOTY3NjdoVkxCU2s&amp;export=download" alt=""></p>
+<h3 id="ginotificationtislack">Gửi notification tới Slack</h3>
+<p>Với mỗi lần push code lên GitHub, CricleCI sẽ tự động build và chạy test. Sau khi xong, mặc định sẽ tự động gửi kết quả tới mail của mình.</p>
+<p>Tuy nhiên để có thể giao tiếp dễ dàng với các member khác trong team, ta có thể setting để kết quả của CricleCI sẽ tự động gửi đến kênh chat của Slack.</p>
+<p>Ở App Directory của Slack ta có thể tìm kiếm và cài đặt CircleCI</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeEU0SlJRYnJveEk&amp;export=download" alt=""></p>
+<p>Sau đó chọn kênh chat mà CricleCI sẽ gửi kết quả</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZ0hsRF9EQjZWWjA&amp;export=download" alt=""></p>
+<p>Add CricleCI Intergration và ta sẽ có 1 webhook URL.</p>
+<p>Tiếp đến, trên CricleCI ta vào Project và chọn setting cho project cần notification tới Slack. Chọn Chat notifications và ta có thể thấy CricleCI tương thích với khá nhiều tool như Slack, Hipchat, Flowdock, Campfire, IRC, ...</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUlhHeFhLcENqcWs&amp;export=download" alt=""></p>
+<p>Và kết quả trên Slack:</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdl9OVmtDRE9uS1E&amp;export=download" alt=""></p>
+<p>Như vậy, cứ mỗi lần ta push code, CricleCI sẽ tự build và test rồi thông báo kết quả lên Slack. Nó giúp cho việc phát triển của team thuận tiện hơn rất nhiều.</p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>
+<p>Test tự động góp phần nâng cao chất lượng của phần mềm. Và với CricleCI, ta có thể tích hợp test tự động vào hệ thống một cách nhanh chóng, dễ dàng.</p>
+</li>
+<li>
+<p>Bài viết này mới chỉ đưa ra ví dụ đơn giản về việc tích hợp CricleCI và dùng nó cho việc test tự động. CricleCI còn rất nhiều tính năng hữu ích khác, các bạn có thể tự tìm hiểu và mày mò thêm ở <a href="https://circleci.com/docs/">CricleCI Documentation</a></p>
+</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li>
+<ol>
+<li><a href="https://circleci.com/docs/">https://circleci.com/docs/</a></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><a href="https://circleci.com/blog/slack-integration/">https://circleci.com/blog/slack-integration/</a></li>
+</ol>
+</li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Test%20t%E1%BB%B1%20%C4%91%E1%BB%99ng%20v%E1%BB%9Bi%20CircleCI%20v%C3%A0%20th%C3%B4ng%20b%C3%A1o%20k%E1%BA%BFt%20qu%E1%BA%A3%20l%C3%AAn%20Slack">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Kubernetes Best Practice P2] - Health Probes</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Kubernetes Best Practice P2] - Health Probes" />
+    <meta property="og:description" content="Mở đầu Khi bạn thiết kế một ứng dụng quan trọng, có tính sẵn sàng cao, khả năng phục hồi là một trong những yếu tố quan trọng nhất cần xem xét. Một ứng dụng có khả năng phục hồi khi nó có thể nhanh chóng phục hồi khi bị" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kubernetes-best-practice-p2-application-process-management-with-poststart-and-prestop-hook/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1MSt-XfOP5ban7klISB--j86YfZl4bJCr&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-11-05T01:13:33.000Z" />
+    <meta property="article:modified_time" content="2019-11-06T04:39:02.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="Health Probes" />
+    <meta property="article:tag" content="Liveness and Readiness Probes" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Kubernetes Best Practice P2] - Health Probes" />
+    <meta name="twitter:description" content="Mở đầu Khi bạn thiết kế một ứng dụng quan trọng, có tính sẵn sàng cao, khả năng phục hồi là một trong những yếu tố quan trọng nhất cần xem xét. Một ứng dụng có khả năng phục hồi khi nó có thể nhanh chóng phục hồi khi bị" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kubernetes-best-practice-p2-application-process-management-with-poststart-and-prestop-hook/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1MSt-XfOP5ban7klISB--j86YfZl4bJCr&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, Health Probes, Liveness and Readiness Probes" />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="300" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Kubernetes Best Practice P2] - Health Probes",
+    "url": "https://blog.vietnamlab.vn/kubernetes-best-practice-p2-application-process-management-with-poststart-and-prestop-hook/",
+    "datePublished": "2019-11-05T01:13:33.000Z",
+    "dateModified": "2019-11-06T04:39:02.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1MSt-XfOP5ban7klISB--j86YfZl4bJCr&export=download",
+        "width": 800,
+        "height": 300
+    },
+    "keywords": "kubernetes, Health Probes, Liveness and Readiness Probes",
+    "description": "Mở đầu\nKhi bạn thiết kế một ứng dụng quan trọng, có tính sẵn sàng cao, khả năng phục\nhồi là một trong những yếu tố quan trọng nhất cần xem xét. Một ứng dụng có khả\nnăng phục hồi khi nó có thể nhanh chóng phục hồi khi bị failures. Các ứng dụng\ncloud-native thường được thiết kế để sử dụng kiến trúc microservice nơi mà mỗi\nthành phần sống trong một container. Để đảm bảo rằng ứng dụng được quản lý bới\nKubernetes có tính sẵn sàng cao, có các patterns cụ thể mà bạn cần tuân theo khi\nthiết kế cluster. ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Kubernetes Best Practice P2] - Health Probes</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-11-05">05 Nov 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1MSt-XfOP5ban7klISB--j86YfZl4bJCr&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="mu">Mở đầu</h3>
+<p>Khi bạn thiết kế một ứng dụng quan trọng, có tính sẵn sàng cao, khả năng phục hồi là một trong những yếu tố quan trọng nhất cần xem xét. Một ứng dụng có khả năng phục hồi khi nó có thể nhanh chóng phục hồi khi bị failures. Các ứng dụng cloud-native thường được thiết kế để sử dụng kiến trúc microservice nơi mà mỗi thành phần sống trong một container. Để đảm bảo rằng ứng dụng được quản lý bới Kubernetes có tính sẵn sàng cao, có các patterns cụ thể mà bạn cần tuân theo khi thiết kế cluster. Một trong số các patterns đó là Health Probe Pattern. Health Probe Pattern định nghĩa cách ứng dụng báo cáo trạng thái sức khỏe của mình cho Kubernetes. Trạng thái sức khỏe không chỉ là về việc pod có hoạt động hay không mà còn có khả năng nhận và trả lời các request hay không. Khi Kubernetes hiểu rõ hơn về tình trạng sức khỏe của pod, nó có thể đưa ra các quyết định thông minh hơn về traffic-routing và load balancing. Do đó, áp dụng Nguyên tắc High Observability Principle (HOP) đảm bảo rằng mọi request mà ứng dụng của bạn nhận được đều có thể phản hồi kịp thời.</p>
+<h3 id="highobservabilityprinciplehop">HIGH OBSERVABILITY PRINCIPLE (HOP)</h3>
+<p>Nguyên tắc này nói như thế nào: Containers cung cấp một cách thống nhất để đóng gói và chạy các ứng dụng bằng cách xem chúng như black box. Những bất cứ container nào muốn trở thành cloud-native citizen phải cung cấp API cho việc check health và các mục đích khác.<br />
+Đây là điều kiện tiên quyết cơ bản để automating container updates và  life cycles theo cách thống nhất, từ đó cải thiện khả năng phục hồi và trải nghiệm người dùng của hệ thống.<br />
+Trong điều kiện thực tế, ở mức tối thiểu, ứng dụng được đóng gói của bạn phải cung cấp API cho các loại health checks như liveness và readiness. Một ứng dụng cloud-native được thiết kế tốt cũng nên ghi log các sự kiện thiết yếu vào các kênh error standard (STDERR) và standard output (STDOUT). Hơn nữa, một helper service như filebeat, logstash hoặc fluentd ships các nhật ký đó đến centralized monitoring, như Prometheus và log aggregation system chẳng hạn như ELK stack. Sơ đồ sau minh họa cách ứng dụng cloud-native tuân theo Health Probe Pattern và High Observability Principle.<br />
+<amp-img src="https://drive.google.com/uc?id=1gkEiJrCABhoCv4vlzUjiL7tcckV1iHTE&amp;export=download" alt="uc?id=1gkEiJrCABhoCv4vlzUjiL7tcckV1iHTE&amp;export=download" width="1283" height="439" layout="responsive"></amp-img><br />
+<em>url: <a href="https://www.redhat.com/en/resources/cloud-native-container-design-whitepaper">https://www.redhat.com/en/resources/cloud-native-container-design-whitepaper</a></em><br />
+Mình sẽ đưa ra một ví dụ cho dễ hiểu, nếu có bạn nào đã tìm hiểu về Elasticsearch ắt sẽ biết ES cung cấp API cho việc check health.<br />
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/cluster-health.html</a><br />
+Trong Kubernetes chúng ta sử dụng Health Check và phương thức http/https để gọi đến API này để kiểm tra xem container ES đã hoặt động Ok chưa. cách config trông như bên dưới:</p>
+<pre><code>        readinessProbe:
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          failureThreshold: 100
+          timeoutSeconds: 5
+          httpGet:
+            scheme: HTTPS
+            path: /_cluster/health
+            port: 9200
+            httpHeaders:
+            - name: Authorization
+              value: Basic KJhKykjHJhb654kLKhkjh4mhjhGKJGHK
+</code></pre>
+<h3 id="kuberneteshealthcheck">Kubernetes Health Check</h3>
+<p>Kubernetes cung cấp các cách health check (Probes)cho container.</p>
+<ul>
+<li>LivenessProbe</li>
+<li>ReadinessProbe</li>
+</ul>
+<p>Đầu tiên chúng ta sẽ cùng xem các probes này hoạt động ở vị trí nào trong pod lifcyle.<br />
+<amp-img src="https://drive.google.com/uc?id=1wwKFC3wBhaISWa0kNEEPKlB-G4PAv6YO&amp;export=download" alt="uc?id=1wwKFC3wBhaISWa0kNEEPKlB-G4PAv6YO&amp;export=download" width="751" height="205" layout="responsive"></amp-img><br />
+<em>url: <a href="https://blog.francium.tech/lifecycle-of-a-kubernetes-pod-1214199ddd2c">https://blog.francium.tech/lifecycle-of-a-kubernetes-pod-1214199ddd2c</a></em><br />
+OK! Bây giờ chúng ta sẽ cùng tìm hiểu xem lợi ích của 2 probes này.</p>
+<h3 id="kuberneteslivenessandreadinessprobes">Kubernetes Liveness and Readiness Probes</h3>
+<p>kubelet sử dụng liveness probes để biết khi nào nên khởi động lại Container. Ví dụ như liveness probes có thể bắt được một deadlock, điều đó làm cho Container không thể hoặt động được. Khởi động lại Container trong các trường hợp như vậy giúp ứng dụng available hơn.<br />
+kubelet sử dụng readiness probes để biết được khi nào Container có thể accepting traffic. 1 Pod được coi là ready khi tất cả các container của nó ready. Một ví dụ sử dụng tín hiệu này là để control các Pods được sử dụng ở các dịch vụ Backend. Khi Pod chưa ready, nó sẽ xóa khỏi bộ cân bằng tải của Service.<br />
+Ví dụ: nếu một container loads một lượng lớn cache khi khởi động và mất vài phút để khởi động, bạn không muốn gửi requests đến container này cho đến khi nó ready, hoặc các request fail để bạn route các request đó đến các Pod khác, cái đó được gọi là khả năng phục vụ request. Cụ thể hơn trong dự án của mình, Mình có 3 Pod Elasticsearch phục vụ cho mục đích lưu trữ log (Fluetd gửi log đến ES realtime). Khi thực hiện hiện rolling update cho Elastisearch, mình phải đặt config readinessProbe để kiểm tra tình trạng health như thế nào thông qua việc request đến path /_cluster/health nếu chưa Ok thì mình chưa cho Pod đó nhận request (nhận log từ fluentd).<br />
+Kubernetes theo dõi trạng thái của Pods bằng một trong những bộ điều khiển của nó (Deployments, ReplicaSets, DaemonSets, StatefulSets, etc.). Nếu bộ điều khiển phát hiện ra rằng pod bị crashed vì một lý do nào đó, nó sẽ cố gắng khởi động lại hoặc đặt lại nó cho một node khác. Tuy nhiên, một Pod có thể báo cáo rằng nó đã up và running; tuy nhiên, nó không hoạt động. Mình sẽ lấy một ví dụ: bạn có một ứng dụng sử dụng Apache làm web server. Bạn đã triển khai nó trên nhiều Pods trong cluster của bạn. Do thư viện bị cấu hình sai, tất cả các request cho ứng dụng này bị response với mã HTTP 500 (Internal Server Error). Khi Deployment kiểm tra trạng thái của Pod, nó phát hiện ra rằng Pod đang running. Nhưng nó không phải là những gì khách hàng của bạn nghĩ. Mình sẽ mô tả tình huống không mong muốn này như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1N4_bg1GGtQNdelnUS4om1Qsx4BM9IoVt&amp;export=download" alt="uc?id=1N4_bg1GGtQNdelnUS4om1Qsx4BM9IoVt&amp;export=download" width="1032" height="608" layout="responsive"></amp-img><br />
+<em>url: <a href="https://www.magalix.com/blog/kubernetes-and-containers-best-practices-health-probes">https://www.magalix.com/blog/kubernetes-and-containers-best-practices-health-probes</a></em></p>
+<p>Trong ví dụ trên, Kubernetes đang thực hiện quá trình health check. Trong loại kiểm tra này, kubelet liên tục thăm dò container. Nếu nó phát hiện ra rằng process không hoạt động, nó sẽ khởi động lại. Nếu lỗi được khắc phục chỉ bằng cách khởi động lại ứng dụng và nếu chương trình được thiết kế để tự tắt khi có bất kỳ lỗi nào xảy ra, thì quá trình health checks là tất cả những gì bạn cần tuân theo HOP và Health Probe Pattern. Thật không may, không phải tất cả các lỗi biến mất bằng cách khởi động lại. Vì lý do này, Kubernetes cung cấp hai cách triệt để hơn để phát hiện các lỗi của pod: liveness probe và readiness probe.</p>
+<p>Với chỉ vài dòng config trong file YAML, bạn có thể bật chế độ auto heaing cho Kubernetes Pod tốt hơn. Nếu chúng ta kết hợp đúng đắn liveness và readiness probes sẽ giúp việc Deployment trong Kubernetes đạt được:</p>
+<ul>
+<li>Cho phép Deployment zero downtime</li>
+<li>Ngăn chặn deployment mà images có vấn đề</li>
+<li>Đảm bảo rằng các container failed được tự động khởi động lại</li>
+</ul>
+<p>Các bạn có thể tham khảo thêm ở tài liệu chính thức của Kubernetes <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">tại đây</a><br />
+Cả 2 Health Probes này cơ bản có syntax cự kỳ đơn giản khá giống nhau, trông như bên dưới:</p>
+<pre><code>livenessProbe:
+  httpGet:
+    path: /monitoring/health
+    port: 3000
+</code></pre>
+<h3 id="livenessprobes">Liveness Probes</h3>
+<p>Giả sử rằng một Pod đang chạy ứng dụng của chúng ta bên trong một containr, nhưng vì lý do nào đó như là memory leak, cpu usage, application deadlock v.v.. ứng dụng không đáp ứng các requestscủa chúng ta và bị kẹt trong trạng thái lỗi.<br />
+Liveness probe kiểm tra sức khỏe của container như mình đã nói, và nếu vì lý do nào đó, Liveness probe không thành công, nó sẽ khởi động lại container. Chúng ta có thể hình dung hoạt động của Liveness probe như hình bên dưới:<br />
+<amp-img src="https://drive.google.com/uc?id=1u104NiIkBhhkaA8oDeVZWw2vqXWj7v0g&amp;export=download" alt="uc?id=1u104NiIkBhhkaA8oDeVZWw2vqXWj7v0g&amp;export=download" width="1010" height="862" layout="responsive"></amp-img><br />
+<em>url: <a href="https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes">https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes</a></em><br />
+Hoặc<br />
+<amp-img src="https://drive.google.com/uc?id=13lTFs0O3wUs4dmOYOs_c2drbVUgvgx_r&amp;export=download" alt="uc?id=13lTFs0O3wUs4dmOYOs_c2drbVUgvgx_r&amp;export=download" width="1242" height="436" layout="responsive"></amp-img><br />
+<em>url:<a href="https://bcho.tistory.com/tag/liveness%20probe">https://bcho.tistory.com/tag/liveness probe</a></em></p>
+<h3 id="readinessprobes">Readiness Probes</h3>
+<p>Hãy để tưởng tượng rằng ứng dụng của bạn mất một phút để warm up và start.<br />
+Dịch vụ của bạn sẽ không hoạt động cho đến khi nó up và running, mặc dù process đã hoặt động. Nghĩa là mặc dù thấy đã chạy rồi nhưng thực tế là hoạt động chưa OK. Hoặc bạn cũng gặp vấn đề khi scale up deployment để có thêm nhiều bản sao. một Pod (bảo sao) mới không nên nhận traffic cho đến khi nó thật sự sẵn sàng, nhưng theo mặc định thì Kubernetes sẽ gửi traffic ngay khi container starts.<br />
+Bằng cách sử dụng readiness probe, Kubernetes sẽ đợi cho đến khi ứng dụng được khởi động hoàn toàn (ở trạng thái có thể nhận traffic) trước khi cho phép service gửi traffic đến Pod mới.<br />
+Chúng ta có thể hình dung mô hình bên dưới:<br />
+<amp-img src="https://drive.google.com/uc?id=1mzbw5Bo1Ep5888BZzB8NdQ0ilBxzjPVw&amp;export=download" alt="uc?id=1mzbw5Bo1Ep5888BZzB8NdQ0ilBxzjPVw&amp;export=download" width="1010" height="862" layout="responsive"></amp-img><br />
+<em>url: <a href="https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes">https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes</a></em><br />
+Hoặc<br />
+<amp-img src="https://drive.google.com/uc?id=15WojeD_PfY2sJXDtDUke3keWvE-twBxM&amp;export=download" alt="uc?id=15WojeD_PfY2sJXDtDUke3keWvE-twBxM&amp;export=download" width="1274" height="276" layout="responsive"></amp-img><br />
+<em>url:<a href="https://bcho.tistory.com/tag/liveness%20probe">https://bcho.tistory.com/tag/liveness probe</a></em></p>
+<h3 id="cccchdefineprobe">Các cách define Probe</h3>
+<p>Có 3 cách để định nghĩa Probe</p>
+<ul>
+<li>exec</li>
+<li>httpGet</li>
+<li>tcpSocket</li>
+</ul>
+<h4 id="exec">exec</h4>
+<p>exec sẽ thực thi một hoặc nhiều command bên trong container. Khi command kết thúc, nếu status trả về là 0 thì healthy, khác 0 thì là unhealthy.</p>
+<pre><code>  exec:
+    command:
+      - find
+      - alive.txt
+      - -mmin
+</code></pre>
+<h4 id="httpget">httpGet</h4>
+<p>httpGet phát hành 1 request HTTP GET. Nếu response trả về có mã lớn hơn hoặc bằng 200 và nhỏ hơn 400 thì xem như thành công và là healthy. Nếu không thì nó được coi là unhealthy.</p>
+<ul>
+<li>host: Host name để kết nối đến, mặc định là pod IP. Bạn cũng có thể muốn set tham số "Host" trong httpHeaders.</li>
+<li>scheme: Scheme dùng để kết nối đến host (HTTP hoặc HTTPS). Defaults là HTTP.</li>
+<li>path: Đường dẫn để truy cập đến HTTP server.</li>
+<li>httpHeaders: Custom headers để set trong request. HTTP cho phép các headers lặp lại.</li>
+<li>port: Tên hoặc số port để truy cập đến container. Số này phải nằm trong khoảng 1 đến 65535.</li>
+</ul>
+<p>Ví dụ:</p>
+<pre><code>httpGet:
+  path: /healthz
+  port: 8080
+  httpHeaders:
+  - name: Host
+    value: www.example.local
+</code></pre>
+<h4 id="tcpsocket">tcpSocket</h4>
+<p>Loại thứ 3 là TCP Socket. Với kiểu config này kubelet sẽ cố gắng mở một kết nối socket đến container của bạn trên port chỉ định. Nếu nó có thể thiết lập một connect thì container của bạn được xem là healthy, ngược lại thì là thất bại.</p>
+<ul>
+<li>host: chỉ định địa chỉ lên kết, mặc định là Pod IP</li>
+<li>port: chỉ định Port khi thực hiện request. Có thể sử dụng sô port hoặc port name</li>
+</ul>
+<p>Ví dụ:</p>
+<pre><code>tcpSocket:
+  port: 6379
+</code></pre>
+<h4 id="mtsparameter">Một số parameter</h4>
+<p>Probes có một số tham số mà bạn có thể sử dụng để kiểm soát chính xác hơn hành vi của liveness và readiness checks:</p>
+<ul>
+<li>initialDelaySeconds: Số giây sau khi container started trước khi liveness hoặc readiness probes thực hiện check. Nghĩa là container start xong, cách bao nhiêu giây thì mới thực hiện check.</li>
+<li>periodSeconds: Tần suất (tính bằng giây) để thực hiện probes. Mặc định là 10 giây. Giá trị tối thiểu là 1.</li>
+<li>timeoutSeconds: Số giây sau khi probes times out. Mặc định là 1 giây. Giá trị tối thiểu là 1.</li>
+<li>successThreshold: Số lần success liên tiếp của probes sau khi failed, nếu nó đạt con số này sẽ được coi là thành công, không thì sẽ thực hiện check tiếp. Mặc định là 1. Phải là 1 cho liveness. Giá trị tối thiểu là 1.</li>
+<li>failureThreshold: Khi một Pod start và probe thất bại, Kubernetes sẽ thử một số lần failureThreshold trước khi bỏ cuộc. Từ bỏ trong trường hợp liveness probe có nghĩa là khởi động lại container. Trong trường hợp readiness probe, Pod sẽ được đánh dấu Unready. Mặc định là 3. Giá trị tối thiểu là 1.</li>
+</ul>
+<h3 id="livenessprobeexample">LivenessProbe Example</h3>
+<p>Chuẩn bị file Manifest</p>
+<pre><code>#liveness-check.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-check
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    livenessProbe:
+      httpGet:
+        port: 80
+        path: /
+      failureThreshold: 5
+      periodSeconds: 5
+</code></pre>
+<pre><code>[vagrant@ci health-probes]$ kubectl apply -f liveness-check.yaml -n kuber-best-practice
+pod "liveness-check" created
+</code></pre>
+<pre><code>[vagrant@ci health-probes]$ kubectl get pods -n kuber-best-practice
+NAME             READY     STATUS    RESTARTS   AGE
+liveness-check   1/1       Running   0          58s
+[vagrant@ci health-probes]$ kubectl describe po/liveness-check -n kuber-best-practice
+Name:         liveness-check
+Namespace:    kuber-best-practice
+Node:         192.168.33.50/192.168.33.50
+Start Time:   Mon, 23 Sep 2019 11:24:46 +0900
+Labels:       &lt;none&gt;
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"liveness-check","namespace":"kuber-best-practice"},"spec":{"containers":[{"image":...
+Status:       Running
+IP:           10.42.0.62
+Containers:
+  nginx:
+    Container ID:   docker://cb1042b72ebe8e504d8bd8a56db033694a6c6c9a85f869247586255c62cbf901
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:9688d0dae8812dd2437947b756393eb0779487e361aa2ffbc3a529dca61f102c
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Mon, 23 Sep 2019 11:24:56 +0900
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:80/ delay=0s timeout=1s period=5s #success=1 #failure=5
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-tml4h (ro)
+Conditions:
+  Type           Status
+  Initialized    True
+  Ready          True
+  PodScheduled   True
+Volumes:
+  default-token-tml4h:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-tml4h
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason                 Age   From                    Message
+  ----    ------                 ----  ----                    -------
+  Normal  Scheduled              1m    default-scheduler       Successfully assigned liveness-check to 192.168.33.50
+  Normal  SuccessfulMountVolume  1m    kubelet, 192.168.33.50  MountVolume.SetUp succeeded for volume "default-token-tml4h"
+  Normal  Pulling                1m    kubelet, 192.168.33.50  pulling image "nginx"
+  Normal  Pulled                 1m    kubelet, 192.168.33.50  Successfully pulled image "nginx"
+  Normal  Created                1m    kubelet, 192.168.33.50  Created container
+  Normal  Started                1m    kubelet, 192.168.33.50  Started container
+</code></pre>
+<p>Chúng ta để ý chổ này</p>
+<pre><code>    Liveness:       http-get http://:80/ delay=0s timeout=1s period=5s #success=1 #failure=5
+</code></pre>
+<p>Vậy là chúng ta đã setting cho Liveness probe Ok rồi. Bây giờ mình sẽ thử xóa file /usr/share/nginx/html/index.html trong container xem sao.</p>
+<pre><code>[vagrant@ci health-probes]$ kubectl exec liveness-check -- rm /usr/share/nginx/html/index.html -n kuber-best-practice
+</code></pre>
+<pre><code>[vagrant@ci health-probes]$ kubectl describe po/liveness-check -n kuber-best-practice | tail
+  Type     Reason                 Age                From                    Message
+  ----     ------                 ----               ----                    -------
+  Normal   Scheduled              15m                default-scheduler       Successfully assigned liveness-check to 192.168.33.50
+  Normal   SuccessfulMountVolume  15m                kubelet, 192.168.33.50  MountVolume.SetUp succeeded for volume "default-token-tml4h"
+  Warning  Unhealthy              42s (x5 over 1m)   kubelet, 192.168.33.50  Liveness probe failed: HTTP probe failed with statuscode: 403
+  Normal   Pulling                41s (x2 over 15m)  kubelet, 192.168.33.50  pulling image "nginx"
+  Normal   Killing                41s                kubelet, 192.168.33.50  Killing container with id docker://nginx:Container failed liveness probe.. Container will be killed and recreated.
+  Normal   Pulled                 36s (x2 over 15m)  kubelet, 192.168.33.50  Successfully pulled image "nginx"
+  Normal   Created                36s (x2 over 15m)  kubelet, 192.168.33.50  Created container
+  Normal   Started                36s (x2 over 15m)  kubelet, 192.168.33.50  Started container
+</code></pre>
+<p>Các bạn có thể thấy Probe thất bại và hiển thị thông báo "Liveness probe failed: HTTP probe failed with statuscode: 403" tuy nhiên chỉ trong chốc lát, container đã được khởi động lại bình thường.</p>
+<h3 id="readinessprobesexample">Readiness Probes Example</h3>
+<p>Chuẩn bị file Manifest</p>
+<pre><code>#readiness-check.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-check
+  labels:
+    app: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    readinessProbe:
+      httpGet:
+        port: 80
+        path: /
+      failureThreshold: 1
+      periodSeconds: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: readiness-check-svc
+spec:
+  selector:
+    app: nginx
+  ports:
+  - port: 80
+
+</code></pre>
+<pre><code>[vagrant@ci health-probes]$ kubectl apply -f readiness-check.yaml -n kuber-best-practice
+pod "readiness-check" created
+service "readiness-check-svc" created
+[vagrant@ci health-probes]$ kubectl get all -n kuber-best-practice
+NAME                  READY     STATUS    RESTARTS   AGE
+pod/readiness-check   1/1       Running   0          13s
+
+NAME                          TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+service/readiness-check-svc   ClusterIP   10.43.175.77   &lt;none&gt;        80/TCP    1m
+</code></pre>
+<pre><code>[vagrant@ci health-probes]$ kubectl describe po/readiness-check -n kuber-best-practice
+Name:         readiness-check
+Namespace:    kuber-best-practice
+Node:         192.168.33.51/192.168.33.51
+Start Time:   Mon, 23 Sep 2019 11:49:49 +0900
+Labels:       app=nginx
+Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"labels":{"app":"nginx"},"name":"readiness-check","namespace":"kuber-best-practice"},"spec...
+Status:       Running
+IP:           10.42.1.7
+Containers:
+  nginx:
+    Container ID:   docker://145a03bb80ed336064ca00219223a013b638c6ebd5a80f42a04e0981c8373c03
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:9688d0dae8812dd2437947b756393eb0779487e361aa2ffbc3a529dca61f102c
+    Port:           &lt;none&gt;
+    Host Port:      &lt;none&gt;
+    State:          Running
+      Started:      Mon, 23 Sep 2019 11:49:56 +0900
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:80/ delay=0s timeout=1s period=1s #success=1 #failure=1
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-tml4h (ro)
+Conditions:
+  Type           Status
+  Initialized    True
+  Ready          True
+  PodScheduled   True
+Volumes:
+  default-token-tml4h:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-tml4h
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  &lt;none&gt;
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason                 Age   From                    Message
+  ----    ------                 ----  ----                    -------
+  Normal  Scheduled              2m    default-scheduler       Successfully assigned readiness-check to 192.168.33.51
+  Normal  SuccessfulMountVolume  2m    kubelet, 192.168.33.51  MountVolume.SetUp succeeded for volume "default-token-tml4h"
+  Normal  Pulling                2m    kubelet, 192.168.33.51  pulling image "nginx"
+  Normal  Pulled                 2m    kubelet, 192.168.33.51  Successfully pulled image "nginx"
+  Normal  Created                2m    kubelet, 192.168.33.51  Created container
+  Normal  Started                2m    kubelet, 192.168.33.51  Started container
+
+</code></pre>
+<p>Vậy là ReadinessProbe đã được setting OK. Bây giờ ta cũng làm như khi nãy, xóa file /usr/share/nginx/html/index.html trong container</p>
+<pre><code>kubectl exec readiness-check -n kuber-best-practice -- rm /usr/share/nginx/html/index.html
+</code></pre>
+<p>Kiểm tra xem tình trạng Pod thế nào</p>
+<pre><code>[vagrant@ci health-probes]$ kubectl describe po/readiness-check -n kuber-best-practice | tail
+Events:
+  Type     Reason                 Age                 From                    Message
+  ----     ------                 ----                ----                    -------
+  Normal   Scheduled              17m                 default-scheduler       Successfully assigned readiness-check to 192.168.33.51
+  Normal   SuccessfulMountVolume  17m                 kubelet, 192.168.33.51  MountVolume.SetUp succeeded for volume "default-token-tml4h"
+  Normal   Pulling                16m                 kubelet, 192.168.33.51  pulling image "nginx"
+  Normal   Pulled                 16m                 kubelet, 192.168.33.51  Successfully pulled image "nginx"
+  Normal   Created                16m                 kubelet, 192.168.33.51  Created container
+  Normal   Started                16m                 kubelet, 192.168.33.51  Started container
+  Warning  Unhealthy              10s (x23 over 32s)  kubelet, 192.168.33.51  Readiness probe failed: HTTP probe failed with statuscode: 403
+</code></pre>
+<p>Vậy là  Readiness probe failed và chắc chắn chúng ta sẽ không access được đến service.<br />
+Bây giờ để ReadinessProbe check Ok thì ta tiến hành tạo lại file /usr/share/nginx/html/index.html</p>
+<pre><code>$ kubectl exec readiness-check -n kuber-best-practice -- sh -c 'echo ok &gt; /usr/share/nginx/html/index.html'
+</code></pre>
+<p>Kiểm tra lại service bạn sẽ thấy không còn lỗi connect nữa. Như vậy chúng ta có thể thấy, Việc rooting của Service sẽ loại những Container nào có ReadinessProbe Unhealthy khỏi đối tượng rooting. Và khi nó Healthy trở lại thì Service sẽ tiến hành rooting đến Pod đó.</p>
+<h3 id="sosnhlivenessandreadinessprobes">So sánh Liveness and Readiness Probes</h3>
+<p>Chúng ta sẽ so sánh một chút về 2 loại probes này.<br />
+<amp-img src="https://drive.google.com/uc?id=13EQ8halhlBuyJ99317qOM5UzYCCvu0KR&amp;export=download" alt="uc?id=13EQ8halhlBuyJ99317qOM5UzYCCvu0KR&amp;export=download" width="1260" height="660" layout="responsive"></amp-img><br />
+<em>url: <a href="https://www.weave.works/blog/resilient-apps-with-liveness-and-readiness-probes-in-kubernetes">https://www.weave.works/blog/resilient-apps-with-liveness-and-readiness-probes-in-kubernetes</a></em></p>
+<h4 id="khinothsdnglivenessvreadinessprobes">Khi nào thì sử dụng liveness và readiness probes</h4>
+<h5 id="livenessusecase">Liveness use case</h5>
+<p>Như đã nói phía trên, các liveness probe được sử dụng để chẩn đoán các container unhealthy. Chúng ta có thể phát hiện sự cố trong dịch vụ của chúng ta khi nó không thể hoạt động OK và sẽ khởi động lại container khi có có vấn đề theo restart policy, hy vọng loại bỏ sự cố dịch vụ.<br />
+Ví dụ, bạn có thể muốn bao gồm một liveness probe Exec bên trong container của mình để phát hiện khi một ứng dụng đã chuyển sang trạng thái bị hỏng và không thể phục hồi trừ khi nó khởi động lại:</p>
+<h5 id="readinessusecase">readiness use case</h5>
+<p>Mặt khác, readiness probe rất hữu ích trong trường hợp ứng dụng tạm thời không thể phục vụ traffic. Ví dụ, có thể ứng dụng cần tải một tập dữ liệu lớn hoặc một số tệp cấu hình trong giai đoạn khởi động. Mặc dù dịch vụ này đang running nhưng nó chưa fully available và trong trường hợp này, Kubernetes có thể gặp khó khăn khi scaling up và có thể thất bại. Với một readiness probe, Kubernetes đợi cho đến khi dịch vụ được khởi động hoàn toàn trước khi nó gửi traffic truy cập đến bản sao mới.<br />
+Ví dụ về Elasticsearch cluster là một điển hình, khi các log được gửi đến liên tục, việc rolling update sẽ tắt và bật các Pod, cho đến ES Pod được khởi động hoàn toàn và có thể nhận traffic, trong thời gian này Service sẽ đưa Pod này ra khỏi đổi tượng nhận traffic.</p>
+<h3 id="ktlun">Kết luận</h3>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/">https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/</a></li>
+<li><a href="https://www.magalix.com/blog/kubernetes-and-containers-best-practices-health-probes">https://www.magalix.com/blog/kubernetes-and-containers-best-practices-health-probes</a></li>
+<li><a href="https://cstoku.dev/posts/2018/k8sdojo-10/">https://cstoku.dev/posts/2018/k8sdojo-10/</a></li>
+<li><a href="https://blog.francium.tech/lifecycle-of-a-kubernetes-pod-1214199ddd2c">https://blog.francium.tech/lifecycle-of-a-kubernetes-pod-1214199ddd2c</a></li>
+<li><a href="https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes">https://cloud.google.com/blog/products/gcp/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes</a></li>
+<li><a href="https://www.weave.works/blog/resilient-apps-with-liveness-and-readiness-probes-in-kubernetes">https://www.weave.works/blog/resilient-apps-with-liveness-and-readiness-probes-in-kubernetes</a></li>
+<li><a href="https://bcho.tistory.com/tag/liveness%20probe">https://bcho.tistory.com/tag/liveness probe</a></li>
+<li><a href="https://www.redhat.com/en/resources/cloud-native-container-design-whitepaper">https://www.redhat.com/en/resources/cloud-native-container-design-whitepaper</a></li>
+<li><a href="https://viblo.asia/p/zero-downtime-voi-kubernetes-p1-truly-stateless-application-ORNZqjErl0n?fbclid=IwAR0HEFTSHxyRpFq_3DXqwjXJxt-iaUsWbt41EtBOgbeqmkxtVcqpALxn5NE">https://viblo.asia/p/zero-downtime-voi-kubernetes-p1-truly-stateless-application-ORNZqjErl0n?fbclid=IwAR0HEFTSHxyRpFq_3DXqwjXJxt-iaUsWbt41EtBOgbeqmkxtVcqpALxn5NE</a></li>
+<li><a href="https://medium.com/@AADota/kubernetes-liveness-and-readiness-probes-difference-1b659c369e17">https://medium.com/@AADota/kubernetes-liveness-and-readiness-probes-difference-1b659c369e17</a></li>
+<li><a href="https://medium.com/spire-labs/utilizing-kubernetes-liveness-and-readiness-probes-to-automatically-recover-from-failure-2fe0314f2b2e">https://medium.com/spire-labs/utilizing-kubernetes-liveness-and-readiness-probes-to-automatically-recover-from-failure-2fe0314f2b2e</a></li>
+<li><a href="https://itnext.io/exploring-kubernetes-liveness-and-readiness-probes-e9bbc7d899be">https://itnext.io/exploring-kubernetes-liveness-and-readiness-probes-e9bbc7d899be</a></li>
+<li><a href="https://www.replex.io/blog/kubernetes-in-production-readiness-checklist-and-best-practiceshttps://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-how-to-avoid-shooting-yourself-in-the-foot/">https://www.replex.io/blog/kubernetes-in-production-readiness-checklist-and-best-practiceshttps://blog.colinbreck.com/kubernetes-liveness-and-readiness-probes-how-to-avoid-shooting-yourself-in-the-foot/</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

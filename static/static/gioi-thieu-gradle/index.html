@@ -1,0 +1,715 @@
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Giới thiệu Gradle Build Tool | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <meta property="fb:app_id" content="703042457154743">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0">
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0">
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0">
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <link rel="canonical" href="index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="amp/index.html">
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Giới thiệu Gradle Build Tool">
+    <meta property="og:description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-gradle/">
+    <meta property="og:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download">
+    <meta property="article:published_time" content="2016-07-24T22:44:50.000Z">
+    <meta property="article:modified_time" content="2017-05-19T07:01:33.000Z">
+    <meta property="article:tag" content="apache">
+    <meta property="article:tag" content="ant">
+    <meta property="article:tag" content="maven">
+    <meta property="article:tag" content="Build Automation">
+    <meta property="article:tag" content="Gradle">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Giới thiệu Gradle Build Tool">
+    <meta name="twitter:description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-gradle/">
+    <meta name="twitter:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="N.C.M">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="apache, ant, maven, Build Automation, Gradle">
+    <meta property="og:image:width" content="549">
+    <meta property="og:image:height" content="268">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Giới thiệu Gradle Build Tool",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-gradle/",
+    "datePublished": "2016-07-24T22:44:50.000Z",
+    "dateModified": "2017-05-19T07:01:33.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&export=download",
+        "width": 549,
+        "height": 268
+    },
+    "keywords": "apache, ant, maven, Build Automation, Gradle",
+    "description": "Gradle là gì?\nTrong quá trình phát triển phần mềm, việc tự động hóa quá trình build và quản lý\ncác thư viện rất quan trọng, nhằm tối ưu hóa công đoạn biên dịch, đóng gói;\nthuận tiện hơn cho việc phát triển phần mềm. Và Gradle (release version 1.0 năm\n2012) là 1 trong những công cụ được nhiều người lựa chọn.\n\nNăm 2000, Apache Ant [https://en.wikipedia.org/wiki/Apache_Ant]  ra đời như là\nmột trong những tool đóng gói hiện đại và nhanh chóng được sử dụng trong các dự\nán sử dụng ngôn ngữ Java. Ant c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36">
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html">
+</head>
+
+<body class="post-template tag-apache tag-ant tag-maven tag-build-automation tag-gradle nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.rss">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-apache tag-ant tag-maven tag-build-automation tag-gradle js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Giới thiệu Gradle Build Tool</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2016-07-25">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 25 July 2016
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/apache/">apache</a>, <a href="../tag/ant/">ant</a>, <a href="../tag/maven/">maven</a>, <a href="../tag/build-automation/">Build Automation</a>, <a href="../tag/gradle/">Gradle</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download" alt="Giới thiệu Gradle Build Tool">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/gioi-thieu-gradle/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Gradle%20Build%20Tool">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="gradlelg">Gradle là gì?</h3>
+<p>Trong quá trình phát triển phần mềm, việc tự động hóa quá trình build và quản lý các thư viện rất quan trọng, nhằm tối ưu hóa công đoạn biên dịch, đóng gói; thuận tiện hơn cho việc phát triển phần mềm. Và Gradle (release version 1.0 năm 2012) là 1 trong những công cụ được nhiều người lựa chọn.</p>
+<p>Năm 2000, <strong><a href="https://en.wikipedia.org/wiki/Apache_Ant">Apache Ant</a></strong> ra đời như là một trong những tool đóng gói hiện đại và nhanh chóng được sử dụng trong các dự án sử dụng ngôn ngữ Java. Ant cho phép nhà phát triển mô tả meta-data của dự án cũng như các hoạt động trong quá trình build thông qua bộ cú pháp XML. Tuy nhiên những đoạn mã viết theo tiêu chuẩn của Ant quá dài và phức tạp.</p>
+<p>Năm 2004, <strong><a href="https://en.wikipedia.org/wiki/Apache_Maven">Apache Maven</a></strong> ra đời và đưa ra các cải thiện so với Ant. Bằng việc đưa ra một cấu trúc dự án tiêu chuẩn, Maven cho phép nhà phát triển sử dụng một trong các plugin của mình thay vì phải viết toàn bộ các dòng code mô tả quá trình đóng gói. Ngoài ra Maven còn cho phép tải về các thư viện phụ thuộc thông qua internet, điều này giúp cho việc chia sẻ cũng như quản lý phiên bản trở nên dễ dàng hơn. Đổi lại, nhà phát triển sẽ mất khá nhiều công sức để tùy chỉnh nếu cấu trúc dự án hiện tại không tuân theo Maven Standard Directory Layout. Và việc vẫn sử dụng XML làm cho file POM (Project Object Model) trở nên dài dòng và phức tạp để nắm bắt logic.</p>
+<p><a href="https://gradle.org">Gradle</a> kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng <strong>Groovy</strong> trong việc giải quyết bài toán đóng gói.</p>
+<h3 id="1ccuimcagradle">1. Các ưu điểm của Gradle</h3>
+<h4 id="11buildchonhiungnng">1.1 Build cho nhiều ngôn ngữ</h4>
+<p>Gradle hỗ trợ build cho <strong>60 ngôn ngữ lập trình</strong> khác nhau bao gồm Java, Scala, Python, C/C++, Android, iOS.</p>
+<h5 id="javajvmlanguages">Java + JVM languages</h5>
+<p>Được thiết kế  để chạy trên JVM, Gradle hỗ trợ mạnh mẽ cho các dự án viết bằng Java và các ngôn ngữ JVM khác như Scala, Groovy,... với việc hỗ trợ nhiều loại ứng dụng và công cụ phát triển thiết yếu như test frameworks (JUnit, TestNG, Spock), application frameworks (Java EE, Grails, Play!), embedded web servers (Jetty) and code analysis cops (Checkstyle, CodeNarc, FindBugs, JDepend, PMD, JaCoCo, Sonar).</p>
+<h5 id="androidsbuildsystem">Android's build system</h5>
+<p>Tích hợp với Android Studio hỗ trợ quản lý dependency, multi-project. Đồng thời tích hợp các test services phổ biến như AppThwack, TestDroid và Manymo. Ngoài ra, có thể tạo nhiều APK từ 1 module và upload chúng lên Google Play và các app store khác với các phiên bản khác nhau (free, paid,...)</p>
+<h5 id="ccobjectiveccassemblycunit">C/C++, Objective-C/C++, Assembly, CUnit</h5>
+<p>Hỗ trợ compiler, assembler và linker; cho phép phân phối các thư viện, file thực thi với nhiều  loại (debug, release), platforms (x86, x86_64), phiên bản (community, enterprise) khác nhau. Tích hợp GCC, CLANG, XCODE, VISUAL C++ …</p>
+<h5 id="javascriptcssvwebtests">JavaScript, CSS và web tests</h5>
+<p>Hỗ trợ các frontend task: consolidate, minify, compress, code quality, compile, source maps.</p>
+<h4 id="12tchhpcngc">1.2 Tích hợp công cụ</h4>
+<p>Từ các IDE (Integrated Development Environment) đến các CI (Continuous Integration) hay các công cụ deploy, Gradle tích hợp với tất cả mọi thứ mà bạn có thể nghĩ đến. Tham khảo danh sách các tool có thể tích hơp: <a href="https://gradle.org/why/integrates-with-everything/">https://gradle.org/why/integrates-with-everything/</a></p>
+<h4 id="13qunldependencymnhm">1.3 Quản lý dependency mạnh mẽ</h4>
+<h5 id="nhnghangin">Định nghĩa đơn giản</h5>
+<pre><code>repositories {
+    jcenter()
+}
+dependencies {
+    compile project(':api')
+    compile 'org.slf4j:slf4j-api:1.7.10'
+    compile 'com.google.guava:guava:18.0'
+    runtime 'org.slf4j:slf4j-simple:1.7.10'
+    testCompile('junit:junit:4.12') {
+        exclude group: 'org.hamcrest'
+    }
+    testCompile 'org.mockito:mockito-core:1.+'
+}
+</code></pre>
+<h5 id="cthnhntbtkrepositorynocbitn">Có thể nhận từ bất kỳ repository nào được biết đến</h5>
+<p>từ public hay private đến local; pha trộn và kết hợp các loại repository</p>
+<ul>
+<li>Maven repositories
+<ul>
+<li>public (Maven Central, jCenter)</li>
+<li>third-party and in-house (Bintray, Artifactory)</li>
+<li>local Maven repository</li>
+</ul>
+</li>
+<li>Ivy repositories</li>
+<li>Custom &amp; legacy repositories</li>
+<li>Flat files</li>
+</ul>
+<h5 id="giiphpdependencytiu">Giải pháp dependency tối ưu</h5>
+<ul>
+<li>Không bao giờ tải 1 artifact nhiều lần</li>
+<li>Cache</li>
+<li>Xác minh qua checksum</li>
+<li>Track nguồn gốc dependency đảm bảo tính hợp lệ và ngăn chặn lỗi</li>
+<li>...</li>
+</ul>
+<h5 id="giiquytxungt">Giải quyết xung đột.</h5>
+<p>Cho phép publish Artifacts lên Ivy hay Maven repositories.</p>
+<h4 id="14fullyprogrammablebuilds">1.4 Fully Programmable builds</h4>
+<p>Cho phép kiểm soát và điều chỉnh không giới hạn để Gradle phù hợp với nhu cầu sử dụng.</p>
+<h4 id="15vienterprisebuildautomationthgradlenhanhnht">1.5 Với Enterprise Build Automation thì Gradle nhanh nhất</h4>
+<ul>
+<li>incremental build</li>
+<li>build caching</li>
+<li>parallelization drive</li>
+</ul>
+<h4 id="16htrbuildreporting">1.6 Hỗ trợ build reporting</h4>
+<ul>
+<li>Phân tích build giúp thấy được những chỗ cần tối ưu hóa</li>
+<li>Báo cáo cho phép hiểu sâu hơn hiệu quả của build tự động với các module và hiệu năng của nó</li>
+</ul>
+<h3 id="2sosnhvimaven">2. So sánh với Maven</h3>
+<p>Dưới đây là 1 số tính năng nổi bật khi so sánh với Maven. Có thể tham khảo chi tiết thêm tại: <a href="https://gradle.org/maven_vs_gradle/">Gradle vs Maven Feature Comparison</a></p>
+<h4 id="buildscriptvitbnggradlengngnvtrcquandchn">Build script viết bằng Gradle ngắn gọn và trực quan dễ đọc hơn</h4>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSDRHZldyM1BSWEE&amp;export=download" alt="Gradle vs Maven"></p>
+<h4 id="thigianbuildcagradlenhanhhn">Thời gian build của gradle nhanh hơn</h4>
+<ul>
+<li>Maven
+<ul>
+<li>quá trình build diễn ra lâu do quá trình clean toàn bộ các artifact và sau đó là quá trình đóng gói lại từ đầu.</li>
+<li>các đoạn Unit Test cũng tiêu tốn khá nhiều thời gian</li>
+</ul>
+</li>
+<li>Gradle
+<ul>
+<li>một task build đều được định nghĩa input và output, nên khi có sự thay đổi nhỏ trong source code, Gradle sẽ chỉ thực hiện build lại một phần cần thiết</li>
+<li>Gradle sẽ tự tìm kiếm các task khác lệ thuộc task này và thực hiện quá trình build lại</li>
+<li>Gradle cho phép chạy parallel các đoạn code test nhờ đó rút ngắn thời gian của quá trình build</li>
+<li>Ngoài ra Gradle cho phép thực hiện việc phân phối các đoạn code test qua nhiều machine khác nhau để giảm thiểu thời gian chờ đợi</li>
+</ul>
+</li>
+</ul>
+<p>Và khi gặp lỗi, sẽ không phải chờ đợi quá lâu để build và gặp lỗi, sửa lỗi và build lại</p>
+<ul>
+<li>Maven
+<ul>
+<li>dừng quá trình build ngay khi gặp lỗi</li>
+</ul>
+</li>
+<li>Gradle
+<ul>
+<li>thực thi hết tất cả các task có thể</li>
+<li>tổng hợp toàn bộ các lỗi gặp phải trong một lần đóng gói</li>
+</ul>
+</li>
+</ul>
+<h4 id="gradletngthchviantmaven">Gradle tương thích với Ant, Maven</h4>
+<p>Cho phép nhà phát triển phần mềm không tốn quá nhiều công sức khi không phải chuyển đổi toàn bộ để sử dụng Gradle.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZlBwS1QzaEU2YW8&amp;export=download" alt="Build"></p>
+<p>Cộng đồng phát triển sử dụng gradle tăng một cách mạnh mẽ trong những năm gần đây đã đóng góp đáng kể trong việc giúp Gradle liên tục có thêm các cải thiện mới.</p>
+<h3 id="3tobuildscriptcbn">3. Tạo Build Script cơ bản</h3>
+<p>Dưới đây là build script đơn giản giúp tạo file jar và upload lên server test.</p>
+<pre><code>configurations {
+    sshAntTask
+}
+
+dependencies {
+    sshAntTask 'org.apache.ant:ant-jsch:1.9.2'
+}
+
+# Task Tạo file jar
+jar {
+    baseName 'xxx' # Tên file
+
+    doFirst {
+        zip64 = true # Zip type
+    }
+
+    exclude 'META-INF/*.RSA', 'META-INF/*SF', 'META-INF/*.DSA'
+
+　　　　# Main class
+    manifest {
+        attributes 'Main-Class' : xxx 
+    }
+
+　　　　# Tập hợp các dependency phụ thuộc
+    from configuration.compile.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
+}
+
+ant.taskdef {
+    name: 'scp'
+    classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+    classpath: configurations.sshAntTask.asPath
+}
+
+# Task copy file jar tới server test
+# Bằng cách sử dụng ssh scp
+task scpJar() {
+    doLast {
+        file: file("xxx"), # Path file cần copy
+        trust: true, 
+        todir: 'user@server_ip:/home/'  # &lt;user name&gt;@&lt;Server IP&gt;:/Path thư mục đích
+        password: 'xxx' # Mật khẩu
+    }
+}
+</code></pre>
+<p>Kết hợp với IDE, ví dụ với <em>IntelliJ &gt; Run &gt; Edit Configurations</em> để có thể nhanh chóng thực hiện các task trên với 1 vài phím tắt.</p>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVhQUVJtcFUwQjA&amp;export=download" alt="Shortcut"></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Gradle là một công cụ mạnh mẽ, có nhiều ưu điểm vượt trội. Hãy thử áp dụng nó trong dự án của bạn!</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://gradle.org/">Gradle Home Page</a></li>
+<li><a href="https://gradle.org/whygradle-build-automation/">#WhyGradle</a></li>
+<li><a href="https://gradle.org/maven_vs_gradle/">Gradle vs Maven Feature Comparison</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/gioi-thieu-gradle/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Gradle%20Build%20Tool">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/gioi-thieu-gradle/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/gioi-thieu-gradle/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <search></search>
+
+    <div class="sidebar-box">
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img style="max-width: 100%" src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf" alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export=download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export=download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export=download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id=13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export=download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../">GMO-Z.com Vietnam Lab Center Technology Blog</a> © 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+

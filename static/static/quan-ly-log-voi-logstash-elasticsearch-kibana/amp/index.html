@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack" />
+    <meta property="og:description" content="Nội dung Giới thiệu Cơ chế hoạt động Tại sao phải dùng EFK Stack? Những lợi ích khi sử dụng EFK Stack Triển khai trong dự án thực tế Kết luận Tài liệu thamn khảo Giới thiệu Với những hệ thống lớn việc quản lý log và phân loại log" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-05-30T01:12:06.000Z" />
+    <meta property="article:modified_time" content="2018-05-30T06:37:04.000Z" />
+    <meta property="article:tag" content="Fluentd" />
+    <meta property="article:tag" content="Elasticsearch" />
+    <meta property="article:tag" content="kibana" />
+    <meta property="article:tag" content="EFK stack" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack" />
+    <meta name="twitter:description" content="Nội dung Giới thiệu Cơ chế hoạt động Tại sao phải dùng EFK Stack? Những lợi ích khi sử dụng EFK Stack Triển khai trong dự án thực tế Kết luận Tài liệu thamn khảo Giới thiệu Với những hệ thống lớn việc quản lý log và phân loại log" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Fluentd, Elasticsearch, kibana, EFK stack" />
+    <meta property="og:image:width" content="1756" />
+    <meta property="og:image:height" content="838" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack",
+    "url": "https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/",
+    "datePublished": "2018-05-30T01:12:06.000Z",
+    "dateModified": "2018-05-30T06:37:04.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&export=download",
+        "width": 1756,
+        "height": 838
+    },
+    "keywords": "Fluentd, Elasticsearch, kibana, EFK stack",
+    "description": "Nội dung\n * Giới thiệu\n * Cơ chế hoạt động\n * Tại sao phải dùng EFK Stack?\n * Những lợi ích khi sử dụng EFK Stack\n * Triển khai trong dự án thực tế\n * Kết luận\n * Tài liệu thamn khảo\n\nGiới thiệu\nVới những hệ thống lớn việc quản lý log và phân loại log bằng việc xem file log\ncủa server để xác định thông tin của log, phân loại log là khá khó khăn. Cần\nthiết phải có một công cụ quản lý log một cách tốt hơn, sớm phát hiện những lỗi\nphát sinh của server hoặc kiểm tra các thông tin về log. Hiện nay cũ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2018-05-30">30 May 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>Cơ chế hoạt động</li>
+<li>Tại sao phải dùng EFK Stack?</li>
+<li>Những lợi ích khi sử dụng EFK Stack</li>
+<li>Triển khai trong dự án thực tế</li>
+<li>Kết luận</li>
+<li>Tài liệu thamn khảo</li>
+</ul>
+<h3 id="giithiu">Giới thiệu</h3>
+<p>Với những hệ thống lớn việc quản lý log và phân loại log bằng việc xem file log của server để xác định thông tin của log, phân loại log là khá khó khăn. Cần thiết phải có một công cụ quản lý log một cách tốt hơn, sớm phát hiện những lỗi phát sinh của server hoặc kiểm tra các thông tin về log. Hiện nay cũng có khá nhiều công cụ để quản lý log khác nhau. Qua tìm hiểu thì bộ công cụ  Fluentd, Elasticsearch, Kibana có nhiều ưu điểm như phần mềm mã nguồn mở hoàn toàn miễn phí, cung cấp dịch vụ quản lý log rất tốt và dễ sử dụng. Dưới đây tôi sẽ giới thiệu về bộ công cụ này.</p>
+<p><strong>Fluentd:</strong></p>
+<ul>
+<li>"Fluentd" is an open-source tool to collect events and logs.<br />
+<a href="http://fluentd.org/">http://fluentd.org/</a></li>
+<li>Fluentd là một phần mềm trung gian tuyệt vời dựa trên Ruby dùng để đọc, xử lý và gửi log.</li>
+<li>Fluentd cũng có thể được mở rộng bằng cách viết plugin, hiện nay có nhiều plugin đã được develop và public.<br />
+<a href="http://fluentd.org/plugin/">http://fluentd.org/plugin/</a></li>
+</ul>
+<p><strong>Elasticsearch:</strong></p>
+<ul>
+<li>sử dụng cơ sở dữ liệu NoSQL dựa trên nền tảng của Apache Lucene engine. Dùng để lưu trữ dữ liệu và cung cấp interface cho phép truy vấn đến cơ sở dữ liệu.</li>
+<li>Elasticsearch là một công cụ tìm kiếm mã nguồn mở được phát triển bởi công ty Elastic.</li>
+<li>Bạn có thể nhanh chóng trích xuất các tài liệu chứa các từ mong muốn từ một số lượng lớn document.</li>
+<li>Vì Elasticsearch không phải là cơ sở dữ liệu quan hệ, nên các câu lệnh SQL không thể được sử dụng.Thay vào đó nó hoạt động bằng cách sử dụng RESTful interface.</li>
+<li>Bạn có thể gặp khó khăn vì đã quen thuộc với cơ sở dữ liệu quan hệ như Oracle, MySQL vv. Tuy nhiên Elasticsearch API rất đơn giản, bạn không cần quá lo lắng nhé.</li>
+</ul>
+<p><strong>Kibana:</strong> Đây là giao diện sử dụng dành cho người dùng trên môi trường web. Kibana sẽ sử dụng Elashtichsearch để tìm kiếm các dữ liệu phù hợp với yêu cầu của người dùng.<br />
+<amp-img src="https://drive.google.com/uc?id=1R2yq0jIhN3iYa0oZrqxYKMpysuJPN8EM&amp;export=download" alt="uc?id=1R2yq0jIhN3iYa0oZrqxYKMpysuJPN8EM&amp;export=download" width="1372" height="805" layout="responsive"></amp-img></p>
+<h3 id="cchhotng">Cơ chế hoạt động:</h3>
+<p>Cơ chế hoạt động của EFK Stack cũng khá đơn giản, các bạn xem hình sẽ hiểu:<br />
+<amp-img src="https://drive.google.com/uc?id=1n6nSeV_MZv16T_n00mlxfCCndyTIV04K&amp;export=download" alt="uc?id=1n6nSeV_MZv16T_n00mlxfCCndyTIV04K&amp;export=download" width="1566" height="480" layout="responsive"></amp-img></p>
+<ol>
+<li>Đầu tiên, log sẽ được đưa đến Fluentd. (Ví dụ như log access server nginx/apache, log do develop setting trong source php/java vv. miễn là có ghi ra file log).</li>
+<li>Fluentd sẽ đọc những log này, thêm những thông tin như thời gian, IP, parse dữ liệu từ log (server nào, độ nghiêm trọng, nội dung log) ra, sau đó ghi xuống database là Elasticsearch.</li>
+<li>Khi muốn xem log, người dùng vào URL của Kibana. Kibana sẽ đọc thông tin log trong Elasticsearch, hiển thị lên giao diện cho người dùng query và xử lý.</li>
+<li>Log có nhiều loại (tag), do developer định nghĩa chẳng hạn access_log error_log, peformance_log, api_log. Khi Fluentd đọc log và phân loại từng loại log rồi gửi đến Elasticsearch, ở giao diện Kibana chúng ta chỉ cần add một số filter như access_log chẳng hạn và query.</li>
+</ol>
+<h3 id="tisaophidngefkstack">Tại sao phải dùng EFK Stack?</h3>
+<p>Với các hệ thống hoặc ứng dụng nhỏ, ta không cần sử dụng EFK stack làm gì! Cứ dùng thư viện ghi log đi kèm với ngôn ngữ, sau đó ghi log ra file rồi đọc thôi!</p>
+<p>Tuy nhiên, với những hệ thống lớn nhiều người dùng, có nhiều service phân tán (microservice), có nhiều server chạy cùng lúc… thì việc ghi log xuống file không còn hiệu quả nữa. Đơn giản 1 ví dụ quản lý log bằng cách ghi xuống file như thông thường nãy sinh vấn đề như sau:</p>
+<p>Giả sử bạn có 10 con server web (có log nginx, apache, log fronted, backend, api, batch vv) chạy cùng lúc, bạn sẽ phải lục tung 10 con server này để đọc và tìm file log, cực quá phải không nào? Lúc này, người ta bắt đầu áp dụng centralized logging, tức ghi log tập trung vào 1 chỗ.</p>
+<p>Việc tập trung 1 chổ và query bằng giao diện Kinaba giúp tìm log nhanh chóng ở bất kỳ server nào, loại log gì. Thật tuyệt vời đúng không.</p>
+<h3 id="nhnglichkhisdngefkstack">Những lợi ích khi sử dụng EFK Stack</h3>
+<ul>
+<li>Đọc log từ nhiều nguồn: Fluentd có thể đọc được log từ rất nhiều nguồn, từ log file cho đến log database cho đến UDP hay REST request.</li>
+<li>Dễ tích hợp: Dù bạn có dùng Nginx hay Apache, dùng MSSQL, MongoDB hay Redis, Fluentd đều có thể đọc hiểu và xử lý log của bạn nên việc tích hợp rất dễ dàng.</li>
+<li>Hoàn toàn free: Chỉ cần tải về, setup và dùng, không tốn một đồng nào cả. Công ty tạo ra EFK Stack kiếm tiền bằng các dịch vụ cloud hoặc các sản phẩm premium phụ thêm.</li>
+<li>Khả năng scale tốt: Fluentd và Elasticsearch chạy trên nhiều node nên hệ thống EFK cực kì dễ scale. Khi có thêm service, thêm người dùng, muốn log nhiều hơn, bạn chỉ việc thêm node cho Fluentd và Elasticsearch là xong.</li>
+<li>Search và filter mạnh mẽ: Elasticsearch cho phép lưu trữ thông tin kiểu NoSQL, hỗ trợ luôn Full-Text Search nên việc query rất dễ dàng và mạnh mẽ.</li>
+<li>Cộng đồng mạnh, tutorial nhiều: Nhiều công ty dùng nên dĩ nhiên là có nhiều tutorial để học và dùng EFK Stack rồi.</li>
+</ul>
+<h3 id="trinkhaitrongthct">Triển khai trong thực tế</h3>
+<p>Về triển khai Elasticsearch Fluentd Kibana. Các bạn có thể cài tất cả cùng trên 1 máy. Việc cài đặt mình nghĩ không khó đối với anh em developer, trong bài viết này mình không trình bày cụ thể việc cài đặt như thế nào.</p>
+<p>Hiện tại dự án mình dùng Ansible và Docker và mình xin chia sẽ cách triển khai trên môi trường test. Việc scale dùng ansible hay docker rất dễ dàng, nên mình chỉ trình bày cấu trúc đơn giản nhất.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1dPHkj_jFhFcxVJ5I-omsojcWMpRW5zxd&amp;export=download" alt="uc?id=1dPHkj_jFhFcxVJ5I-omsojcWMpRW5zxd&amp;export=download" width="594" height="304" layout="responsive"></amp-img></p>
+<ol>
+<li>Về cơ bản mình có rất nhiều server chứa log, cần tập hợp hết các log này lại 1 server.</li>
+<li>Các server chứa log (Fluentd agent) chúng ta cài đặt Fluentd, sử dụng plugin forwarder: plugin đơn giản là cách cấu hình để gửi log đến server Tập hợp log(Fluentd aggregator)</li>
+<li>Tại server tập hợp log (Fluentd aggregator) chúng ta cài Fluentd với plugin Elasticsearch với mục đích là chuyển log đến cơ sở dữ liệu ES (Elasticsearch). chỉ nên dùng đúng 1 server tập hợp log.</li>
+<li>ES server có thể có nhiều hơn 1 server dùng để chứa dữ liệu log được gửi về từ nhiều Fluent forwarder server.</li>
+<li>Kibana có thể tách riêng thành 1 server riêng hoặc cài chung trên ES server, có thể dùng nhiều server cài Kibana (dùng Load Balanceing).</li>
+</ol>
+<p><strong>Ví dụ Fluentd forwarder config:</strong></p>
+<pre><code># vi /fluentd/etc/fluent.conf
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/access.log
+  tag nginx-lb.access
+  pos_file /fluentd/log/nginx-lb.access.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] "(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\"]*) +\S*)?" (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: "(?&lt;referer&gt;[^\"]*)" "(?&lt;agent&gt;[^\"]*)")$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/error.log
+  tag nginx-lb.error
+  pos_file /fluentd/log/nginx-lb.error.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] "(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\"]*) +\S*)?" (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: "(?&lt;referer&gt;[^\"]*)" "(?&lt;agent&gt;[^\"]*)")$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/ac_your_domain_80_log
+  tag nginx-lb.ac_your_domain_log
+  pos_file /fluentd/log/nginx-lb.ac_your_domain_80_log.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] "(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\"]*) +\S*)?" (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: "(?&lt;referer&gt;[^\"]*)" "(?&lt;agent&gt;[^\"]*)")$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/er_your_domain_80_log
+  tag nginx-lb.er_your_domain_80_log
+  pos_file /fluentd/log/nginx-lb.er_your_domain_80_log.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] "(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\"]*) +\S*)?" (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: "(?&lt;referer&gt;[^\"]*)" "(?&lt;agent&gt;[^\"]*)")$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+&lt;match **&gt;
+  @type forward
+
+  &lt;server&gt;
+    host 172.70.70.70
+    port 24224
+  &lt;/server&gt;
+
+  &lt;buffer&gt;
+    flush_interval 1s
+  &lt;/buffer&gt;
+&lt;/match&gt;
+</code></pre>
+<p>**Giải thích 1 tý **</p>
+<pre><code>&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/access.log
+  tag nginx-lb.access
+  pos_file /fluentd/log/nginx-lb.access.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] "(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\"]*) +\S*)?" (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: "(?&lt;referer&gt;[^\"]*)" "(?&lt;agent&gt;[^\"]*)")$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+</code></pre>
+<p>Ở đây mình dùng plugin parser_regexp, log được đọc từ file log sẽ được format lại theo định dạng được config: mục đích để cho dễ nhìn: Như ví dụ trên thì log nhìn thấy ở giao diện Kibana sẽ như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1YYcmYLNlARzUOWiEfjIM_dV88JPHKtF0&amp;export=download" alt="uc?id=1YYcmYLNlARzUOWiEfjIM_dV88JPHKtF0&amp;export=download" width="1418" height="504" layout="responsive"></amp-img></p>
+<pre><code>  &lt;server&gt;
+    host 172.70.70.70
+    port 24224
+  &lt;/server&gt;
+</code></pre>
+<p>Server tâph hợp log (Fluentd aggregator) sẽ có IP là 172.70.70.70, access tới cổng 24224.</p>
+<p><strong>Ví dụ Fluentd aggregator config:</strong></p>
+<pre><code>&lt;source&gt;
+  @type forward
+&lt;/source&gt;
+&lt;match nginx-lb.*&gt;
+  @type copy
+
+  &lt;store&gt;
+    @type elasticsearch
+    host 172.80.80.80
+    port 9200
+
+    index_name ${tag}
+    type_name ${tag}
+
+    include_timestamp
+    &lt;buffer&gt;
+      flush_interval 1s
+    &lt;/buffer&gt;
+  &lt;/store&gt;
+
+  &lt;store&gt;
+    @type file
+    path /fluentd/log/project/nginx-lb/${tag}.%Y%m%d%H%M
+    append true
+    compress gz
+
+    &lt;buffer tag,time&gt;
+      @type file
+      path /fluentd/log/project/nginx-lb/buffer
+      timekey 1d
+      timekey_wait 1m
+    &lt;/buffer&gt;
+  &lt;/store&gt;
+&lt;/match&gt;
+</code></pre>
+<p>Những log nào có tag nginx-lb.* sẽ được gửi đến:</p>
+<ol>
+<li>Cơ sở dữ liệu ES (172.80.80.80 cổng 9200)</li>
+<li>Lưu file ở directory: /fluentd/log/project/nginx-lb/</li>
+</ol>
+<h3 id="ktlun">Kết luận</h3>
+<p>Với việc sử dụng bộ 3 công cụ này, việc quản lý log trở nên dễ dàng và thuận tiện hơn rất nhiều, giảm thời gian điều tra log qua đó giúp vận hành hệ thống tốt hơn, hiệu quả hơn.<br />
+Ngoài Fluentd thì Logstash cũng có chức năng tương tự. các bạn có thể tự tìm hiểu thêm về công cụ này.<br />
+Bạn có thể tham khảo thêm một số hướng dẫn sử dụng Kibana chi tiết cho việc tìm kiếm, tạo biểu đồ, tạo báo cáo tại các link sau:</p>
+<p><a href="https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query_and_filter.html">https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query_and_filter.html </a><br />
+<a href="https://www.digitalocean.com/community/tutorials/how-to-use-kibana-dashboards-and-visualizations">https://www.digitalocean.com/community/tutorials/how-to-use-kibana-dashboards-and-visualizations</a></p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329">https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329</a></li>
+<li><a href="http://pppurple.hatenablog.com/entry/2018/02/17/035403">http://pppurple.hatenablog.com/entry/2018/02/17/035403</a></li>
+<li><a href="https://blog.deimos.fr/2014/08/15/deploy-a-logs-managememt-infrastructure-elasticsearchkibanfluentd-with-ansible/">https://blog.deimos.fr/2014/08/15/deploy-a-logs-managememt-infrastructure-elasticsearchkibanfluentd-with-ansible/</a></li>
+<li><a href="https://viblo.asia/p/quan-ly-log-voi-logstash-elasticsearch-kibana-BAQ3vVj1vbOr">https://viblo.asia/p/quan-ly-log-voi-logstash-elasticsearch-kibana-BAQ3vVj1vbOr</a></li>
+<li><a href="https://toidicodedao.com/2018/03/20/elk-stack-logging/#more-5151">https://toidicodedao.com/2018/03/20/elk-stack-logging/#more-5151</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

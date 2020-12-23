@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Owasp Zap và những vấn đề thực tế</title>
+
+    <meta name="description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Owasp Zap và những vấn đề thực tế" />
+    <meta property="og:description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-31T07:40:30.000Z" />
+    <meta property="article:modified_time" content="2019-01-31T08:05:47.000Z" />
+    <meta property="article:tag" content="OWASP" />
+    <meta property="article:tag" content="secure" />
+    <meta property="article:tag" content="SQL Injection" />
+    <meta property="article:tag" content="Command Injection" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Owasp Zap và những vấn đề thực tế" />
+    <meta name="twitter:description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.T.G" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OWASP, secure, SQL Injection, Command Injection" />
+    <meta property="og:image:width" content="1142" />
+    <meta property="og:image:height" content="447" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.T.G",
+        "url": "https://blog.vietnamlab.vn/author/giangpt/",
+        "sameAs": []
+    },
+    "headline": "Owasp Zap và những vấn đề thực tế",
+    "url": "https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/",
+    "datePublished": "2019-01-31T07:40:30.000Z",
+    "dateModified": "2019-01-31T08:05:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&export=download",
+        "width": 1142,
+        "height": 447
+    },
+    "keywords": "OWASP, secure, SQL Injection, Command Injection",
+    "description": "Như chúng ta đã biết OWASP ZAP là 1 Tool Test Security hoàn toàn mạnh mẽ, giúp\nbạn dễ dàng scan và tìm ra lỗ hổng trong hệ thống ứng dụng của bạn. Bạn nào chưa\nbiết về OWASP ZAP thì có thể tham khảo bài viết trước của mình.\n\nhttps://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/\n\nThực tế là trong bài viết trước, mình chỉ test một chức năng nhỏ trong ứng dụng\ncủa mình, nên chưa gặp và lường trước được những vấn đề có thể xảy ra. Sau khi\ntest một ứng dụng lớn ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">OWASP ZAP và những vấn đề thực tế</h1>
+                <section class="post-meta">
+                    P.T.G -
+                    <time class="post-date" datetime="2019-01-31">31 Jan 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Như chúng ta đã biết OWASP ZAP là 1 Tool Test Security hoàn toàn mạnh mẽ, giúp bạn dễ dàng scan và tìm ra lỗ hổng trong hệ thống ứng dụng của bạn. Bạn nào chưa biết về OWASP ZAP thì có thể tham khảo bài viết trước của mình.</p><p><a href="https://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/">https://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/</a></p><p>Thực tế là trong bài viết trước, mình chỉ test một chức năng nhỏ trong ứng dụng của mình, nên chưa gặp và lường trước được những vấn đề có thể xảy ra. Sau khi test một ứng dụng lớn chính mình cũng gặp phải những vấn đề không lường trước được, nay trong bài viết này mình sẽ trình bày những vấn đề đó và thêm một số mẹo vặt khi sủ dụng OWASP ZAP.</p><h3 id="t-t-internet-tr-c-khi-test">Tắt internet trước khi test</h3><p>Tại sao lại phải làm như vậy, cơ chế của OWASP ZAP là nó sẽ ghi lại các link URL của ứng dụng khi mình thao tác trên Browser, dựa vào những link request đó, OWASP ZAP sẽ thêm các param, chèn script , giả lập hàng ngàn các query khác nhau đánh vào những link URL mà nó bắt được để tìm ra lổ hổng của ứng dụng. </p><p>Bạn thấy là nó chỉ đánh vào những link mà nó bắt được thôi thì mình chỉ cần kiểm soát những link đó thì việc gì phải tắt internet. Nhưng giả sử trong ứng dụng của bạn có chức năng send mail khi thay đổi password chẳng hạn, bạn không tắt internet thì nó sẽ send mail vô tội vạ, hoặc gửi mail thông báo đến bên thứ 3, trừ khi nào bạn nắm bắt và control được toàn bộ hệ thống ứng dụng của bạn thì bạn có thể tự tin không tắt internet. Nếu bạn mới join vào dự án và bị bắt test OWASP ZAP thì lời khuyên là nên tắt internet nếu không muốn ăn hành.</p><p>※　Có 2 cách để tắt internet</p><h4 id="-c-ch-1-">■　Cách 1: </h4><p>Tắt internet trên máy PC mà bạn thực hiện chạy test. Với cách này thì bạn không thê sử dụng được internet để nghe nhạc hay xem phim được nữa, thật bất tiện phải không.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1no8LS4hZ6rhxq-c8GUxzTk9INQCoDTJN&amp;export=download" class="kg-image" alt width="874" height="548" layout="responsive"></amp-img></figure><h4 id="-c-ch-2-">■　Cách 2: </h4><p>Nếu ứng dụng của bạn chạy trên môi trường linux, bạn có thể thực hiện cách sau để ngắt kết nối từ môi trường ứng dụng local của bạn tới internet</p><ul><li>Kiểm tra default getway</li></ul><pre><code>root@vagrant:~# ip route list default
+default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100</code></pre><ul><li>Xóa default getway</li></ul><pre><code>root@vagrant:~# ip route del default</code></pre><ul><li>Kiểm tra xem môi trường local còn kết nối được với internet hay không</li></ul><pre><code>root@vagrant:~# ping www.google.com
+connect: Network is unreachable
+root@vagrant:~# ping 8.8.8.8
+connect: Network is unreachable</code></pre><ul><li>Sau khi test xong bạn muốn kết nối lại với internet</li></ul><pre><code>root@vagrant:~# ip route add default via 10.0.2.2
+
+</code></pre><p>Với 2 cách tắt internet như trên bạn có thể thoải mái test ứng dụng của mình mà không sợ nó làm ảnh hưởng tới bên thứ 3 hoặc các ứng dụng khác, mọi hoạt động test chỉ thực hiện trong môi trường local máy tính của bạn.</p><h3 id="disable-ch-c-n-ng-lock-account-v-c-c-ch-c-n-ng-x-a-t-i-kho-n">Disable chức năng lock account và các chức năng xóa tài khoản</h3><p>Tại sao lại phải làm như vậy, bạn đã cất công thiết lập user password để OWASP ZAP có thể đăng nhập lại mỗi khi nó quét tới chức năng logout, nếu ứng dụng của bạn có chức năng login sai 5 lần thì khóa tài khoản đi, thì OWASP ZAP nó giả lập request đăng nhập 5 lần sai thì tài khoản của bạn bị khóa mẹ rồi, nó đâu còn đăng nhập vô được nữa mà quét được các chức năng cần đăng nhập phải không, tương tự chức năng xóa tài khoản cũng vậy, nếu lỡ nó quét tới chức năng xóa tài khoản thì tài khoản bạn thiết lập cho OWASP ZAP bị xóa luôn nhé,và không test được các chức năng khác đâu.</p><h3 id="ch-c-n-ng-login-ph-c-t-p">Chức năng login phức tạp</h3><p>Ở những hệ thống lớn, đòi hỏi việc bảo mật cao, chức năng login rất phức, nó không chỉ đơn giản là login rồi logout, mà nhiều hệ thống nó còn gửi token OTP tới điện thoại để mình nhập vô rồi mới cho Login. Khi test Zap nó login và nó không bắt được cái regex pattern vì tài khoản chưa thực sự login mà nó đang ở bước nhập token, dẫn đến ta không test được các chức năng cần login. Vậy khi test những hệ thống như thế ta phải làm sao???</p><p>Lời khuyên là ta phải disable cái chức năng đó đi, hoặc là sử dụng một <code>tài khoản test đã được chứng thực</code>, đã được chứng thực nghĩa là sao, tức là tài khoản đã đăng nhập và thỏa mãn các yêu cầu của ứng dụng, thì hệ thống sẽ không yêu cầu phải nhâp token OTP nữa, thì lúc đó ta sẽ login trực tiếp mà không phải thông qua bước nhập token. Các bạn yên tâm là hệ thống bắt buộc phải có chức năng đó, chứ nếu mỗi lần đăng nhặp mà cứ bắt người dùng nhập token , thì người dùng ức chế không thèm sài đâu.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1RmsDKM839emBx01prTq4ujnQIU-Mzpex&amp;export=download" class="kg-image" alt width="800" height="629" layout="responsive"></amp-img></figure><h3 id="b-s-t-c-c-ch-c-n-ng-c-c-api-c-a-ng-d-ng-">Bỏ sót các chức năng, các API của ứng dụng.</h3><p>Bạn muốn test toàn bộ ứng dụng, nhưng thao tác của bạn trên browser chưa đủ hoặc thiếu sót, dẫn đến việc OWASP ZAP không bắt được các link để test, hoặc có những API chạy bằng ajax trong ứng dụng của bạn OWASP ZAP cũng không bắt được.</p><p>Để tránh việc bỏ sót các chức năng, bạn nên liệt kê ra hết tất cả các action của controller, và truy cập vào từng cái một, và bạn có thể dùng postman để đánh vào các API được chạy ngầm bên trong ứng dụng, những thiết lập đã được mình trình bày trong bài viết trước.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1I6FHV3d3CwMB2UGZogrq5z8hkV_OZTYO&amp;export=download" class="kg-image" alt width="1920" height="1080" layout="responsive"></amp-img></figure><h3 id="ki-m-tra-b-nh-heap">Kiểm tra bộ nhớ heap</h3><p>Trong trường hợp khi test những trang web lớn sẽ dẫn đến tính trạng hết bộ nhớ heap, OWASP ZAP được set mặc định là 512MB cho bộ nhớ này, nếu lỗi này xảy ra, OWASP ZAP vẫn sẽ tiếp tục scan và tìm kiếm lỗ hổng, nhưng kết quả của việc tìm kiếm không được ghi vào report.</p><pre><code>Caused by: java.lang.OutOfMemoryError: Java heap space                                                                                
+2019-01-24 08:26:01,823 [ZAP-ActiveScanner-0] ERROR ActiveScan-java.sql.SQLException: java.lang.OutOfMemoryError: Java heap space   
+org.parosproxy.paros.db.DatabaseException: java.sql.SQLException:java.lang.OutOfMemoryError: Java heap space                    </code></pre><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1vtkMs82GTlnSBz2BxpDx5jBm-IsLfLWR&amp;export=download" class="kg-image" alt width="1920" height="1040" layout="responsive"></amp-img><figcaption>`</figcaption></figure><p>Như hình phía trên trong progress nó phát hiện ra 6 lỗi SQL injection mà trong alerts không được ghi lại. Thật là mất thời gian khi ngồi chờ Zap scan xong mà lại chẳng có report phải không, rất là ức chế. Chính vì vậy hãy chú ý đến phần này.</p><p></p><h4 id="c-ch-gi-i-quy-t">Cách giải quyết </h4><ul><li>Trong option chọn JVM và điều chỉnh bộ nhớ heap.</li></ul><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1MHMd0FI1xLYELzNjzFy-bJBFKgK6jmCu&amp;export=download" class="kg-image" alt width="752" height="587" layout="responsive"></amp-img></figure><h3 id="kh-ng-l-u-c-sessions-qu-l-n-v-c-ng-kh-ng-m-c-sessions-qu-l-n">Không lưu được Sessions quá lớn, và cũng không mở được Sessions quá lớn</h3><p>Khi scan toàn bộ ứng dụng lớn, thời gian scan sẽ rất lâu, có thể mất cả tuần, trong thời gian đó đột nhiên bị cúp điện chẳng hạn mà quá trình scan chỉ mới dc 50%, dữ liệu scan được sẽ mất hết, mà ví dụ là có thể scan được 100% đi nhưng ta không thể lưu được session vì file session.data nó quá lớn, OWASP ZAP chỉ lưu được tối đa 16GB.</p><p>Chính vì những vấn đề trên ta nên chia nhỏ các ra các phần để test, sau đó sẽ tổng hợp các file report lại. Ví dụ như chỉ quét folder account, quét xong rồi quét tiếp các folder khác, như vậy thời gian quét sẽ không quá lâu và file session.data cũng không quá lớn.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1GRRspB-0mGYlY52Uq3nsY32JUPJzoI7m&amp;export=download" class="kg-image" alt width="1920" height="1040" layout="responsive"></amp-img></figure><p>Còn 1 cách  nữa quét từng progress. Trong tab progress tích skip các progress khác và chỉ quét progress mà mình cần quét ví dụ SQL Injection chẳng hạn. Cách này cũng giống như cách trên, thời gian quét sẽ ngắn, và dữ liệu không quá lớn. Mình thích cách này hơn.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1x6WqX-pIXJX2EowvF1nzHDKI7TD7PSVH&amp;export=download" class="kg-image" alt width="1920" height="1040" layout="responsive"></amp-img></figure><h3 id="k-t-lu-n-">Kết luận:</h3><p>OWASP ZAP là công cụ test security cực kì hữu ích, với rất nhiều tính năng, những tính năng chính thì hầu như đã có rất nhiều bài Blog đã trình bày, nhưng những thủ thuật hay những vấn đề gặp khi test thực tế, thì hầu như rất ít.</p><p>Đã ăn hành và đúc kết được những kinh nghiệm, viết bài blog này hy vọng có thể giúp ích được những thế hệ mai sau. Còn rất nhiều điều phải tìm hiểu viết thêm về OWASP ZAP, hy vọng sẽ có thêm ít kinh nghiệm khi test thực tế, để chia sẽ với mọi người ở bài blog tiếp theo.</p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

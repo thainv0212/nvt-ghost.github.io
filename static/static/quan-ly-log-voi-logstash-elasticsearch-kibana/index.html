@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack" />
+    <meta property="og:description" content="Nội dung Giới thiệu Cơ chế hoạt động Tại sao phải dùng EFK Stack? Những lợi ích khi sử dụng EFK Stack Triển khai trong dự án thực tế Kết luận Tài liệu thamn khảo Giới thiệu Với những hệ thống lớn việc quản lý log và phân loại log" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-05-30T01:12:06.000Z" />
+    <meta property="article:modified_time" content="2018-05-30T06:37:04.000Z" />
+    <meta property="article:tag" content="Fluentd" />
+    <meta property="article:tag" content="Elasticsearch" />
+    <meta property="article:tag" content="kibana" />
+    <meta property="article:tag" content="EFK stack" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack" />
+    <meta name="twitter:description" content="Nội dung Giới thiệu Cơ chế hoạt động Tại sao phải dùng EFK Stack? Những lợi ích khi sử dụng EFK Stack Triển khai trong dự án thực tế Kết luận Tài liệu thamn khảo Giới thiệu Với những hệ thống lớn việc quản lý log và phân loại log" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Fluentd, Elasticsearch, kibana, EFK stack" />
+    <meta property="og:image:width" content="1756" />
+    <meta property="og:image:height" content="838" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack",
+    "url": "https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/",
+    "datePublished": "2018-05-30T01:12:06.000Z",
+    "dateModified": "2018-05-30T06:37:04.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&export=download",
+        "width": 1756,
+        "height": 838
+    },
+    "keywords": "Fluentd, Elasticsearch, kibana, EFK stack",
+    "description": "Nội dung\n * Giới thiệu\n * Cơ chế hoạt động\n * Tại sao phải dùng EFK Stack?\n * Những lợi ích khi sử dụng EFK Stack\n * Triển khai trong dự án thực tế\n * Kết luận\n * Tài liệu thamn khảo\n\nGiới thiệu\nVới những hệ thống lớn việc quản lý log và phân loại log bằng việc xem file log\ncủa server để xác định thông tin của log, phân loại log là khá khó khăn. Cần\nthiết phải có một công cụ quản lý log một cách tốt hơn, sớm phát hiện những lỗi\nphát sinh của server hoặc kiểm tra các thông tin về log. Hiện nay cũ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-fluentd tag-elasticsearch tag-kibana tag-efk-stack nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-fluentd tag-elasticsearch tag-kibana tag-efk-stack js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-05-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 May 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/fluentd/index.html">Fluentd</a>, <a href="../tag/elasticsearch/index.html">Elasticsearch</a>, <a href="../tag/kibana/index.html">kibana</a>, <a href="../tag/efk-stack/index.html">EFK stack</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1EDMJ2czQgkG1mAetFWntj3wclmmzMRhh&amp;export&#x3D;download" alt="Quản lý log với EFK (Elasticsearch + Fluentd + Kibana) Stack">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/quan-ly-log-voi-logstash-elasticsearch-kibana/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Qu%E1%BA%A3n%20l%C3%BD%20log%20v%E1%BB%9Bi%20EFK%20(Elasticsearch%20%2B%20Fluentd%20%2B%20Kibana)%20Stack">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>Cơ chế hoạt động</li>
+<li>Tại sao phải dùng EFK Stack?</li>
+<li>Những lợi ích khi sử dụng EFK Stack</li>
+<li>Triển khai trong dự án thực tế</li>
+<li>Kết luận</li>
+<li>Tài liệu thamn khảo</li>
+</ul>
+<h3 id="giithiu">Giới thiệu</h3>
+<p>Với những hệ thống lớn việc quản lý log và phân loại log bằng việc xem file log của server để xác định thông tin của log, phân loại log là khá khó khăn. Cần thiết phải có một công cụ quản lý log một cách tốt hơn, sớm phát hiện những lỗi phát sinh của server hoặc kiểm tra các thông tin về log. Hiện nay cũng có khá nhiều công cụ để quản lý log khác nhau. Qua tìm hiểu thì bộ công cụ  Fluentd, Elasticsearch, Kibana có nhiều ưu điểm như phần mềm mã nguồn mở hoàn toàn miễn phí, cung cấp dịch vụ quản lý log rất tốt và dễ sử dụng. Dưới đây tôi sẽ giới thiệu về bộ công cụ này.</p>
+<p><strong>Fluentd:</strong></p>
+<ul>
+<li>&quot;Fluentd&quot; is an open-source tool to collect events and logs.<br>
+<a href="http://fluentd.org/">http://fluentd.org/</a></li>
+<li>Fluentd là một phần mềm trung gian tuyệt vời dựa trên Ruby dùng để đọc, xử lý và gửi log.</li>
+<li>Fluentd cũng có thể được mở rộng bằng cách viết plugin, hiện nay có nhiều plugin đã được develop và public.<br>
+<a href="http://fluentd.org/plugin/">http://fluentd.org/plugin/</a></li>
+</ul>
+<p><strong>Elasticsearch:</strong></p>
+<ul>
+<li>sử dụng cơ sở dữ liệu NoSQL dựa trên nền tảng của Apache Lucene engine. Dùng để lưu trữ dữ liệu và cung cấp interface cho phép truy vấn đến cơ sở dữ liệu.</li>
+<li>Elasticsearch là một công cụ tìm kiếm mã nguồn mở được phát triển bởi công ty Elastic.</li>
+<li>Bạn có thể nhanh chóng trích xuất các tài liệu chứa các từ mong muốn từ một số lượng lớn document.</li>
+<li>Vì Elasticsearch không phải là cơ sở dữ liệu quan hệ, nên các câu lệnh SQL không thể được sử dụng.Thay vào đó nó hoạt động bằng cách sử dụng RESTful interface.</li>
+<li>Bạn có thể gặp khó khăn vì đã quen thuộc với cơ sở dữ liệu quan hệ như Oracle, MySQL vv. Tuy nhiên Elasticsearch API rất đơn giản, bạn không cần quá lo lắng nhé.</li>
+</ul>
+<p><strong>Kibana:</strong> Đây là giao diện sử dụng dành cho người dùng trên môi trường web. Kibana sẽ sử dụng Elashtichsearch để tìm kiếm các dữ liệu phù hợp với yêu cầu của người dùng.<br>
+<img src="https://drive.google.com/uc?id=1R2yq0jIhN3iYa0oZrqxYKMpysuJPN8EM&amp;export=download" alt="uc?id=1R2yq0jIhN3iYa0oZrqxYKMpysuJPN8EM&amp;export=download"></p>
+<h3 id="cchhotng">Cơ chế hoạt động:</h3>
+<p>Cơ chế hoạt động của EFK Stack cũng khá đơn giản, các bạn xem hình sẽ hiểu:<br>
+<img src="https://drive.google.com/uc?id=1n6nSeV_MZv16T_n00mlxfCCndyTIV04K&amp;export=download" alt="uc?id=1n6nSeV_MZv16T_n00mlxfCCndyTIV04K&amp;export=download"></p>
+<ol>
+<li>Đầu tiên, log sẽ được đưa đến Fluentd. (Ví dụ như log access server nginx/apache, log do develop setting trong source php/java vv. miễn là có ghi ra file log).</li>
+<li>Fluentd sẽ đọc những log này, thêm những thông tin như thời gian, IP, parse dữ liệu từ log (server nào, độ nghiêm trọng, nội dung log) ra, sau đó ghi xuống database là Elasticsearch.</li>
+<li>Khi muốn xem log, người dùng vào URL của Kibana. Kibana sẽ đọc thông tin log trong Elasticsearch, hiển thị lên giao diện cho người dùng query và xử lý.</li>
+<li>Log có nhiều loại (tag), do developer định nghĩa chẳng hạn access_log error_log, peformance_log, api_log. Khi Fluentd đọc log và phân loại từng loại log rồi gửi đến Elasticsearch, ở giao diện Kibana chúng ta chỉ cần add một số filter như access_log chẳng hạn và query.</li>
+</ol>
+<h3 id="tisaophidngefkstack">Tại sao phải dùng EFK Stack?</h3>
+<p>Với các hệ thống hoặc ứng dụng nhỏ, ta không cần sử dụng EFK stack làm gì! Cứ dùng thư viện ghi log đi kèm với ngôn ngữ, sau đó ghi log ra file rồi đọc thôi!</p>
+<p>Tuy nhiên, với những hệ thống lớn nhiều người dùng, có nhiều service phân tán (microservice), có nhiều server chạy cùng lúc… thì việc ghi log xuống file không còn hiệu quả nữa. Đơn giản 1 ví dụ quản lý log bằng cách ghi xuống file như thông thường nãy sinh vấn đề như sau:</p>
+<p>Giả sử bạn có 10 con server web (có log nginx, apache, log fronted, backend, api, batch vv) chạy cùng lúc, bạn sẽ phải lục tung 10 con server này để đọc và tìm file log, cực quá phải không nào? Lúc này, người ta bắt đầu áp dụng centralized logging, tức ghi log tập trung vào 1 chỗ.</p>
+<p>Việc tập trung 1 chổ và query bằng giao diện Kinaba giúp tìm log nhanh chóng ở bất kỳ server nào, loại log gì. Thật tuyệt vời đúng không.</p>
+<h3 id="nhnglichkhisdngefkstack">Những lợi ích khi sử dụng EFK Stack</h3>
+<ul>
+<li>Đọc log từ nhiều nguồn: Fluentd có thể đọc được log từ rất nhiều nguồn, từ log file cho đến log database cho đến UDP hay REST request.</li>
+<li>Dễ tích hợp: Dù bạn có dùng Nginx hay Apache, dùng MSSQL, MongoDB hay Redis, Fluentd đều có thể đọc hiểu và xử lý log của bạn nên việc tích hợp rất dễ dàng.</li>
+<li>Hoàn toàn free: Chỉ cần tải về, setup và dùng, không tốn một đồng nào cả. Công ty tạo ra EFK Stack kiếm tiền bằng các dịch vụ cloud hoặc các sản phẩm premium phụ thêm.</li>
+<li>Khả năng scale tốt: Fluentd và Elasticsearch chạy trên nhiều node nên hệ thống EFK cực kì dễ scale. Khi có thêm service, thêm người dùng, muốn log nhiều hơn, bạn chỉ việc thêm node cho Fluentd và Elasticsearch là xong.</li>
+<li>Search và filter mạnh mẽ: Elasticsearch cho phép lưu trữ thông tin kiểu NoSQL, hỗ trợ luôn Full-Text Search nên việc query rất dễ dàng và mạnh mẽ.</li>
+<li>Cộng đồng mạnh, tutorial nhiều: Nhiều công ty dùng nên dĩ nhiên là có nhiều tutorial để học và dùng EFK Stack rồi.</li>
+</ul>
+<h3 id="trinkhaitrongthct">Triển khai trong thực tế</h3>
+<p>Về triển khai Elasticsearch Fluentd Kibana. Các bạn có thể cài tất cả cùng trên 1 máy. Việc cài đặt mình nghĩ không khó đối với anh em developer, trong bài viết này mình không trình bày cụ thể việc cài đặt như thế nào.</p>
+<p>Hiện tại dự án mình dùng Ansible và Docker và mình xin chia sẽ cách triển khai trên môi trường test. Việc scale dùng ansible hay docker rất dễ dàng, nên mình chỉ trình bày cấu trúc đơn giản nhất.</p>
+<p><img src="https://drive.google.com/uc?id=1dPHkj_jFhFcxVJ5I-omsojcWMpRW5zxd&amp;export=download" alt="uc?id=1dPHkj_jFhFcxVJ5I-omsojcWMpRW5zxd&amp;export=download"></p>
+<ol>
+<li>Về cơ bản mình có rất nhiều server chứa log, cần tập hợp hết các log này lại 1 server.</li>
+<li>Các server chứa log (Fluentd agent) chúng ta cài đặt Fluentd, sử dụng plugin forwarder: plugin đơn giản là cách cấu hình để gửi log đến server Tập hợp log(Fluentd aggregator)</li>
+<li>Tại server tập hợp log (Fluentd aggregator) chúng ta cài Fluentd với plugin Elasticsearch với mục đích là chuyển log đến cơ sở dữ liệu ES (Elasticsearch). chỉ nên dùng đúng 1 server tập hợp log.</li>
+<li>ES server có thể có nhiều hơn 1 server dùng để chứa dữ liệu log được gửi về từ nhiều Fluent forwarder server.</li>
+<li>Kibana có thể tách riêng thành 1 server riêng hoặc cài chung trên ES server, có thể dùng nhiều server cài Kibana (dùng Load Balanceing).</li>
+</ol>
+<p><strong>Ví dụ Fluentd forwarder config:</strong></p>
+<pre><code># vi /fluentd/etc/fluent.conf
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/access.log
+  tag nginx-lb.access
+  pos_file /fluentd/log/nginx-lb.access.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] &quot;(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\&quot;]*) +\S*)?&quot; (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: &quot;(?&lt;referer&gt;[^\&quot;]*)&quot; &quot;(?&lt;agent&gt;[^\&quot;]*)&quot;)$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/error.log
+  tag nginx-lb.error
+  pos_file /fluentd/log/nginx-lb.error.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] &quot;(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\&quot;]*) +\S*)?&quot; (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: &quot;(?&lt;referer&gt;[^\&quot;]*)&quot; &quot;(?&lt;agent&gt;[^\&quot;]*)&quot;)$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/ac_your_domain_80_log
+  tag nginx-lb.ac_your_domain_log
+  pos_file /fluentd/log/nginx-lb.ac_your_domain_80_log.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] &quot;(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\&quot;]*) +\S*)?&quot; (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: &quot;(?&lt;referer&gt;[^\&quot;]*)&quot; &quot;(?&lt;agent&gt;[^\&quot;]*)&quot;)$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/er_your_domain_80_log
+  tag nginx-lb.er_your_domain_80_log
+  pos_file /fluentd/log/nginx-lb.er_your_domain_80_log.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] &quot;(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\&quot;]*) +\S*)?&quot; (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: &quot;(?&lt;referer&gt;[^\&quot;]*)&quot; &quot;(?&lt;agent&gt;[^\&quot;]*)&quot;)$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+&lt;match **&gt;
+  @type forward
+
+  &lt;server&gt;
+    host 172.70.70.70
+    port 24224
+  &lt;/server&gt;
+
+  &lt;buffer&gt;
+    flush_interval 1s
+  &lt;/buffer&gt;
+&lt;/match&gt;
+</code></pre>
+<p>**Giải thích 1 tý **</p>
+<pre><code>&lt;source&gt;
+  @type tail
+  path /fluentd/log/nginx/access.log
+  tag nginx-lb.access
+  pos_file /fluentd/log/nginx-lb.access.log.pos
+  &lt;parse&gt;
+    time_format %d/%b/%Y:%H:%M:%S %z
+    expression /^(?&lt;remote&gt;[^ ]*) (?&lt;host&gt;[^ ]*) (?&lt;user&gt;[^ ]*) \[(?&lt;time&gt;[^\]]*)\] &quot;(?&lt;method&gt;\S+)(?: +(?&lt;path&gt;[^\&quot;]*) +\S*)?&quot; (?&lt;code&gt;[^ ]*) (?&lt;size&gt;[^ ]*)(?: &quot;(?&lt;referer&gt;[^\&quot;]*)&quot; &quot;(?&lt;agent&gt;[^\&quot;]*)&quot;)$/
+    @type regexp
+  &lt;/parse&gt;
+&lt;/source&gt;
+</code></pre>
+<p>Ở đây mình dùng plugin parser_regexp, log được đọc từ file log sẽ được format lại theo định dạng được config: mục đích để cho dễ nhìn: Như ví dụ trên thì log nhìn thấy ở giao diện Kibana sẽ như sau:<br>
+<img src="https://drive.google.com/uc?id=1YYcmYLNlARzUOWiEfjIM_dV88JPHKtF0&amp;export=download" alt="uc?id=1YYcmYLNlARzUOWiEfjIM_dV88JPHKtF0&amp;export=download"></p>
+<pre><code>  &lt;server&gt;
+    host 172.70.70.70
+    port 24224
+  &lt;/server&gt;
+</code></pre>
+<p>Server tâph hợp log (Fluentd aggregator) sẽ có IP là 172.70.70.70, access tới cổng 24224.</p>
+<p><strong>Ví dụ Fluentd aggregator config:</strong></p>
+<pre><code>&lt;source&gt;
+  @type forward
+&lt;/source&gt;
+&lt;match nginx-lb.*&gt;
+  @type copy
+
+  &lt;store&gt;
+    @type elasticsearch
+    host 172.80.80.80
+    port 9200
+
+    index_name ${tag}
+    type_name ${tag}
+
+    include_timestamp
+    &lt;buffer&gt;
+      flush_interval 1s
+    &lt;/buffer&gt;
+  &lt;/store&gt;
+
+  &lt;store&gt;
+    @type file
+    path /fluentd/log/project/nginx-lb/${tag}.%Y%m%d%H%M
+    append true
+    compress gz
+
+    &lt;buffer tag,time&gt;
+      @type file
+      path /fluentd/log/project/nginx-lb/buffer
+      timekey 1d
+      timekey_wait 1m
+    &lt;/buffer&gt;
+  &lt;/store&gt;
+&lt;/match&gt;
+</code></pre>
+<p>Những log nào có tag nginx-lb.* sẽ được gửi đến:</p>
+<ol>
+<li>Cơ sở dữ liệu ES (172.80.80.80 cổng 9200)</li>
+<li>Lưu file ở directory: /fluentd/log/project/nginx-lb/</li>
+</ol>
+<h3 id="ktlun">Kết luận</h3>
+<p>Với việc sử dụng bộ 3 công cụ này, việc quản lý log trở nên dễ dàng và thuận tiện hơn rất nhiều, giảm thời gian điều tra log qua đó giúp vận hành hệ thống tốt hơn, hiệu quả hơn.<br>
+Ngoài Fluentd thì Logstash cũng có chức năng tương tự. các bạn có thể tự tìm hiểu thêm về công cụ này.<br>
+Bạn có thể tham khảo thêm một số hướng dẫn sử dụng Kibana chi tiết cho việc tìm kiếm, tạo biểu đồ, tạo báo cáo tại các link sau:</p>
+<p><a href="https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query_and_filter.html">https://www.elastic.co/guide/en/beats/packetbeat/current/_kibana_query_and_filter.html </a><br>
+<a href="https://www.digitalocean.com/community/tutorials/how-to-use-kibana-dashboards-and-visualizations">https://www.digitalocean.com/community/tutorials/how-to-use-kibana-dashboards-and-visualizations</a></p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329">https://qiita.com/nskydiving/items/1c2dc4e0b9c98d164329</a></li>
+<li><a href="http://pppurple.hatenablog.com/entry/2018/02/17/035403">http://pppurple.hatenablog.com/entry/2018/02/17/035403</a></li>
+<li><a href="https://blog.deimos.fr/2014/08/15/deploy-a-logs-managememt-infrastructure-elasticsearchkibanfluentd-with-ansible/">https://blog.deimos.fr/2014/08/15/deploy-a-logs-managememt-infrastructure-elasticsearchkibanfluentd-with-ansible/</a></li>
+<li><a href="https://viblo.asia/p/quan-ly-log-voi-logstash-elasticsearch-kibana-BAQ3vVj1vbOr">https://viblo.asia/p/quan-ly-log-voi-logstash-elasticsearch-kibana-BAQ3vVj1vbOr</a></li>
+<li><a href="https://toidicodedao.com/2018/03/20/elk-stack-logging/#more-5151">https://toidicodedao.com/2018/03/20/elk-stack-logging/#more-5151</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/quan-ly-log-voi-logstash-elasticsearch-kibana/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Qu%E1%BA%A3n%20l%C3%BD%20log%20v%E1%BB%9Bi%20EFK%20(Elasticsearch%20%2B%20Fluentd%20%2B%20Kibana)%20Stack">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/quan-ly-log-voi-logstash-elasticsearch-kibana/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/quan-ly-log-voi-logstash-elasticsearch-kibana/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

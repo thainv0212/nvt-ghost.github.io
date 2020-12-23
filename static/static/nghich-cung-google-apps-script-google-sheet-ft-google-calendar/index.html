@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar" />
+    <meta property="og:description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2018-01-25T03:21:47.000Z" />
+    <meta property="article:tag" content="Google Apps Script" />
+    <meta property="article:tag" content="GAS" />
+    <meta property="article:tag" content="Google Calendar" />
+    <meta property="article:tag" content="Google Spreadsheet" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar" />
+    <meta name="twitter:description" content="Google Apps Script là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets, Forms." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Google Apps Script, GAS, Google Calendar, Google Spreadsheet" />
+    <meta property="og:image:width" content="655" />
+    <meta property="og:image:height" content="437" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "Nghịch cùng Google Apps Script : Google Spreadsheet ft. Google Calendar",
+    "url": "https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2018-01-25T03:21:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkSXA2eU9OMWk4OWc&export=download",
+        "width": 655,
+        "height": 437
+    },
+    "keywords": "Google Apps Script, GAS, Google Calendar, Google Spreadsheet",
+    "description": "I. Mào đầu câu chuyện\nNhớ hồi còn đi học, chả phải để tâm, lo lắng đến điều gì, chỉ có đến dịp Tết là\nmình ngồi đếm lịch âm để biết số ngày nghỉ còn lại. Mỗi năm mỗi tuổi, cái tuổi\nnó đuổi xuân đi, giờ đây khi đã lập gia đình, có nhiều việc phải lo lắng suy\nnghĩ, mình dần dần để tâm đến lịch âm, đến ngày xấu, ngày đẹp nhiều hơn vì các\ncụ nhà ta từ xưa đã có câu &quot;có thờ có thiêng, có kiêng có lành&quot;. Ngẫm ra thì\nkhông phải là không có cái lý của nó.\n\nThế là mình đi tìm một ứng dụng lịch vạn niên c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-google-apps-script tag-gas tag-google-calendar tag-google-spreadsheet nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-google-apps-script tag-gas tag-google-calendar tag-google-spreadsheet js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google Calendar</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-09-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 September 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/google-apps-script/index.html">Google Apps Script</a>, <a href="../tag/gas/index.html">GAS</a>, <a href="../tag/google-calendar/index.html">Google Calendar</a>, <a href="../tag/google-spreadsheet/index.html">Google Spreadsheet</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkSXA2eU9OMWk4OWc&amp;export&#x3D;download" alt="Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google Calendar">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ngh%E1%BB%8Bch%20c%C3%B9ng%20Google%20Apps%20Script%20(P1)%20%3A%20Google%20Spreadsheet%20ft.%20Google%20Calendar">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h4 id="imoucuchuyn">I. Mào đầu câu chuyện</h4>
+<p>Nhớ hồi còn đi học, chả phải để tâm, lo lắng đến điều gì, chỉ có đến dịp Tết là mình ngồi đếm lịch âm để biết số ngày nghỉ còn lại. Mỗi năm mỗi tuổi, cái tuổi nó đuổi xuân đi, giờ đây khi đã lập gia đình, có nhiều việc phải lo lắng suy nghĩ, mình dần dần để tâm đến lịch âm, đến ngày xấu, ngày đẹp nhiều hơn vì các cụ nhà ta từ xưa đã có câu &quot;có thờ có thiêng, có kiêng có lành&quot;. Ngẫm ra thì không phải là không có cái lý của nó.</p>
+<p>Thế là mình đi tìm một ứng dụng lịch vạn niên cài vào điện thoại. Mình có thể xem ngày xấu, ngày đẹp qua ứng dụng, tuy nhiên các ứng dụng mình thử qua đều không có tính năng nhắc nhở sắp đến những ngày lễ âm lịch như mồng một, rằm, lễ ông công, ông táo để thắp hương. Hơn nữa, những sự kiện ngày âm lịch này, mình muốn hiển thị chúng luôn trên lịch trình hàng ngày để tiện theo dõi mà không phải sử dụng thêm một ứng dụng nữa.</p>
+<h4 id="iigiiphp">II. Giải pháp</h4>
+<p>Mình đang dùng ứng dụng Google Calendar để quản lý lịch trình hằng ngày. Google Calendar cũng có cung cấp sẵn một số bộ lịch mặc định như Ngày nghỉ lễ của Việt Nam, tuy nhiên mình lại không tìm thấy bộ lịch nào đáp ứng được nhu cầu của mình. Do vậy, mình đã quyết định tự tạo ra 4 bộ lịch &quot;made by Enso&quot; như sau:</p>
+<ul>
+<li>
+<p><strong>Ngày Âm Lịch</strong>: mỗi ngày dương lịch được thêm một sự kiện (full day) có tiêu đề chính là ngày âm lịch của ngày đó. Ví dụ ngày 20/7/2017 có một sự kiện với tiêu đề 27/6/2017. Thực ra Google Calendar đã có sẵn tính năng hiển thị lịch âm. Chúng ta có thể kích hoạt bằng cách vào <code>Calendar Settings &gt;&gt; General &gt;&gt; Alternate Calendar &gt;&gt; Chinese calendar (Simplified hoặc Traditional)</code>. Tuy nhiên có thể Google mặc định chỉ người Trung Quốc mới dùng lịch này nên hiển thị ngày bằng hán tự @_@.</p>
+</li>
+<li>
+<p><strong>Ngày Lễ Âm Lịch</strong>: những ngày dương lịch tương ứng với các ngày lễ âm lịch trong năm như mồng một, ngày rằm, tết nguyên đán, phật đản, ông công ông táo, giỗ tổ Hùng Vương,… thì sẽ có một sự kiện (full day) với tiêu đề là tên các ngày lễ âm lịch đó.</p>
+</li>
+<li>
+<p><strong>Tam Nương – Ly sào</strong>: những ngày dương lịch tương ứng với các ngày Tam nương hay Ly sào (ngày xấu cần tránh) trong âm lịch thì sẽ có một sự kiện (full day) với tiêu đề Tam nương hoặc Ly sào. Nếu có hứng thú các bạn có thể tìm trên Google để hiểu rõ hơn về ngày Tam Nương hay Ly sào. Đây là blog kỹ thuật nên mình xin phép không dẫn link hay nói sâu hơn :)</p>
+</li>
+<li>
+<p><strong>Xem Ngày Đẹp</strong>: mỗi ngày dương lịch được thêm một sự kiện (full day) có tiêu đề là Xem ngày, và mục mô tả (description) là thông tin về ngày đó (sao xấu, sao tốt, giờ xuất hành,…).</p>
+</li>
+</ul>
+<p>Câu hỏi bây giờ là làm thế nào để tạo ra các sự kiện cho 4 bộ lịch này. Đây chính là lúc Google App Script (GAS) thể hiện được khả năng thần thánh của mình. Chúng ta hãy cùng bỏ thời gian tìm hiểu một chút về GAS.</p>
+<h4 id="iiigaslg">III. GAS là gì?</h4>
+<p>GAS là ngôn ngữ scripting dựa trên JavaScript cho phép người dùng thao tác với các sản phẩm của gói dịch vụ G Suite như Docs, Sheets hay Forms. Một số việc chúng ta có thể làm được với GAS như:</p>
+<ul>
+<li>
+<p>Thêm menu, dialog hay sidebar vào Google Doc, Sheet và Form.</p>
+</li>
+<li>
+<p>Viết function cho Google Spreadsheet.</p>
+</li>
+<li>
+<p>Tạo các ứng dụng web độc lập hay ứng dụng web nhúng trong Google Sites.</p>
+</li>
+<li>
+<p>Giao tiếp với các dịch vụ khác của Google như AdSense, Analytics, Calendar, Drive, Gmail và Maps.</p>
+</li>
+<li>
+<p>Xây dựng các add-on mở rộng cho Google Docs, Sheets, Forms và đưa chúng lên Add-on store.</p>
+</li>
+<li>
+<p>Chuyển một ứng dụng Android thành add-on Android có thể trao đổi dữ liệu với Google Doc hay Google Spreadsheet của người dùng trên thiết bị di động.</p>
+</li>
+</ul>
+<p>Những điều GAS làm được quả thật rất thú vị. Vậy bạn cần những gì để có thể sử dụng được GAS. Rất đơn giản, bạn chỉ cần một chút kiến thức lập trình cơ bản về JavaScript là có thể viết được GAS. Editor và môi trường chạy tất cả đã có Google lo :D. Google cũng cung cấp bộ tài liệu hướng dẫn khá chi tiết về GAS trên trang web của họ. Bạn có thể truy cập theo đường dẫn <a href="https://developers.google.com/apps-script/">này</a>.</p>
+<h4 id="ivthcthinhimv">IV. Thực thi nhiệm vụ</h4>
+<p>Sau khi đã có những kiến thức cơ bản về GAS, giờ thì chúng ta hãy quay lại với mục tiêu ban đầu tạo ra 4 bộ lịch về ngày âm của mình.</p>
+<h5 id="1tmngundliu">1. Tìm nguồn dữ liệu:</h5>
+<p>Theo mình, đây có lẽ là công đoạn mất công nhất. Mình phải vào Google tìm các trang web về ngày đẹp trên mạng. Để được lựa chọn, trang web phải thoả mãn hai tiêu chí sau:</p>
+<ul>
+<li>Thứ nhất, hỗ trợ tra cứu thông tin của từng ngày qua phương thức GET.</li>
+<li>Thứ hai, thông tin cung cấp phải đầy đủ, chi tiết và chính xác.</li>
+</ul>
+<p>Sau một buổi sáng đỏ mắt tìm kiếm cuối cùng mình cũng đã tìm được một trang web đáp ứng được hai tiêu chí (Cũng vì lý do đây là một blog về kỹ thuật, chúng ta hãy tạm gọi là <strong>www.trang-web-ma-ai-cung-biet-la-gi-day.com</strong>).</p>
+<h5 id="2thaotcvigooglespreadsheet">2. Thao tác với Google Spreadsheet</h5>
+<p>Thực ra, mình không tạo Google Spreadsheet này cũng không sao vì dữ liệu lấy từ trang web <strong>www.trang-web-ma-ai-cung-biet-la-gi-day.com</strong> có thể lưu trực tiếp vào Google Calendar. Tuy nhiên, để phòng lỡ mai này trang web không còn hoạt động, mình vẫn còn nơi lưu trữ thông tin mà xem lại :).</p>
+<p><strong>Bước 1</strong>: Để tạo được Google Spreadsheet thì điều đầu tiên là phải có một tài khoản Google. Bạn có thể sử dụng tài khoản hiện tại của bạn hoặc tạo một tài khoản mới tại <a href="https://accounts.google.com/SignUp">đây</a>.</p>
+<p><strong>Bước 2</strong>: Bạn truy cập vào đường dẫn <a href="https://docs.google.com/spreadsheets">https://docs.google.com/spreadsheets</a>, chọn Blank và nhập tên cho Google Spreadsheet (ví dụ <em>XemNgayDep</em>).</p>
+<p><strong>Bước 3</strong>: Tạo GAS project to Google Spreadsheet vừa tạo bằng cách truy cập <code>Tools -&gt; Script editor...</code><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd2NOeDY3R1NwZTQ&amp;export=download" alt=""></p>
+<p><strong>Bước 4</strong>: Bạn hãy xoá hàm <code>myFunction()</code> mặc định và thêm vào hàm <code>createYearSheet()</code> như sau.</p>
+<pre><code>function createYearSheet() {
+  var ss = SpreadsheetApp.openById(&quot;Google-Sheet-ID&quot;);
+  var startYear = 2017;
+  var endYear = 2027;
+  for (var i = startYear; i &lt;= endYear; i++) {
+    var curYear = i.toString();
+    //Tạo sheet mới với tên là năm
+    ss.insertSheet(curYear);
+    var curSheet = ss.getSheetByName(curYear);
+
+    // Kiểm tra xem có phải năm nhuận hay không
+    var range = (i % 4 == 0) ? curSheet.getRange('A1:E366') : curSheet.getRange('A1:E365');
+
+    //Điền vào cột A, ngày của năm theo format MM/DD/YYYY
+    var start = new Date(&quot;01/01/&quot; + curYear);
+    var end = new Date(&quot;12/31/&quot; + curYear);
+    var cellIdx = 1;
+    while(start &lt;= end){
+      range.getCell(cellIdx,1).setValue(start);
+      var newDate = start.setDate(start.getDate() + 1);
+      start = new Date(newDate);
+      cellIdx++;
+    }
+  }
+  //Xoá sheet mặc định Sheet1
+  var defaultSheet = ss.getSheetByName(&quot;Sheet1&quot;);
+  ss.deleteSheet(defaultSheet);
+}
+</code></pre>
+<p>Hàm <code>createYearSheet()</code> sẽ tạo ra các sheet có tên là các năm trong khoảng thời gian được định nghĩa bởi 2 biến <code>startYear</code> và <code>endYear</code>.</p>
+<p>Trong dòng code <code>var ss = SpreadsheetApp.openById(&quot;Google-Sheet-ID&quot;);</code>, <strong>Google-Sheet-ID</strong> là ID của Google Spreadsheet <strong>XemNgayDep</strong> vừa tạo. Nhờ có ID này, Google mới phân biệt được Google Spreadsheet của bạn với hàng trăm triêụ tài liệu của những người dùng khác. Bạn có thể lấy ID của Google Spreadsheet trong chính URL của nó. Đó là chuỗi ký tự nằm giữa <code>d/</code> và <code>/edit</code>.</p>
+<p>Ví dụ:</p>
+<p><code>https://docs.google.com/spreadsheets/d/**4U_UZ8y2Swm6YBAZHcm9oVxiCXEs-pEzbDGNXYAjTwtY**/edit#gid=0</code></p>
+<p><strong>Bước 5</strong>: Lưu project. Khi đó Google sẽ yêu cầu bạn nhập tên project (ví dụ <em>XemNgayDep</em>).</p>
+<p><strong>Bước 6</strong>: Chạy hàm <code>createYearSheet()</code> để tạo các sheet từ Menu-bar của project <code>Run -&gt; createYearSheet</code>. Khi đó Google sẽ yêu cầu bạn cấp quyền truy cập vào Google Spreadsheet. Sau khi hàm chạy xong, bạn hãy chuyển sang Google Spreadsheet <strong>XemNgayDep</strong> để kiểm tra kết quả.</p>
+<h5 id="3toblchtrngooglecalendar">3. Tạo bộ lịch trên Google Calendar</h5>
+<p>Mục đích chính của bài viết này không phải là 4 bộ lịch &quot;made by Enso&quot; của mình mà là cách thức GAS tương tác với Google Spreadsheet và Google Calendar nên mình sẽ chỉ trình bày về cách tạo bộ lịch <strong>Ngày lễ âm lịch</strong>.</p>
+<p><strong>Bước 1</strong>: Truy cập <code>Calendar Settings -&gt; Calendars tab -&gt; Create new calendar</code>.</p>
+<p><strong>Bước 2</strong>: Calendar Name: NgayLeAmLich (hoặc bất cứ tên nào mà bạn thích).</p>
+<ul>
+<li>Nếu bạn muốn chia sẻ bộ lịch với tất cả mọi người, bạn có thể chọn <strong>Make this calendar public</strong>.</li>
+<li>Nếu bạn chỉ muốn chia sẻ bộ lịch với một số người, bạn có thể thêm email của người đó vào mục <strong>Share with specific people</strong>.</li>
+<li>Nếu bạn muốn giữ bộ lịch cho riêng bạn thì không cần làm gì cả. Và một ngày đẹp trời, khi bạn muốn chia sẻ bộ lịch này thì hãy yên tâm rằng những thiết lập này luôn nằm ở đó đợi bạn.</li>
+</ul>
+<p><strong>Bước 3</strong>: Lấy ID của bộ lịch. Cũng giống như Google-Sheet-ID, Google sử dụng ID này để phân biệt bộ lịch của bạn với những bộ lịch của người khác. Tuy nhiên thì ID của bộ lịch hơi lắt léo khó tìm một chút.</p>
+<ul>
+<li>Bạn truy cập vào <code>Calendar Settings</code></li>
+<li>Trong <code>Calendars tab</code> có danh sách các bộ lịch của bạn. Bạn tìm đến bộ lịch mà bạn vừa tạo bên trên, bấm vào nó.</li>
+<li>Cuối cùng tìm đến mục <code>Calendar Address</code> và copy lấy chuỗi kí tự bôi đậm như sau:</li>
+</ul>
+<p>(Calendar ID: <strong><a href="mailto:necfejcfetmd9n75on4reaq99c@group.calendar.google.com">necfejcfetmd9n75on4reaq99c@group.calendar.google.com</a></strong>)</p>
+<h5 id="4thmeventvoblch">4. Thêm event vào bộ lịch</h5>
+<p>Trong GAS project, bạn mở file <code>Code.gs</code> và thêm đoạn code dưới đây vào sau hàm <code>createYearSheet()</code></p>
+<pre><code>function createEvents() {
+  // NgayLeAmLich calendar
+  var ngayleamlichCal = CalendarApp.getOwnedCalendarById('Calendar-ID');
+  
+  // Mở sheet của từng năm trong Google Spreadsheet.
+  var ss = SpreadsheetApp.openById('Google-Sheet-ID');
+  var curYear = 2017;
+  var sheet = ss.getSheetByName(curYear.toString());
+  
+  // Kiểm tra xem có phải năm nhuận hay không
+  var range = (curYear % 4 == 0) ? sheet.getRange('A1:C366') : sheet.getRange('A1:C365');
+
+  //Chuyển format của 3 cột A, B, C sang plain text
+  range.setNumberFormat(&quot;@&quot;);
+  
+  var numRows = range.getNumRows();
+  for (var i = 1; i &lt;= numRows; i++) {
+    // Tạo request URL cho từng ngày trong năm
+    var value = range.getCell(i,1).getValue();
+    var parts = value.split('/');
+    var requestURL = &quot;https://www.trang-web-ma-ai-cung-biet-la-gi-day.com/xem-ngay-tot-xau/&quot; + &quot;ngay-&quot; + parts[1] + &quot;-thang-&quot; + parts[0] + &quot;-nam-&quot; + parts[2];
+
+    // Set link request cho cột B
+    range.getCell(i,2).setValue(requestURL);
+    
+    // Lấy về code HTML kết quả tra cứu ngày đẹp
+    var page = UrlFetchApp.fetch(requestURL);
+    var pageHTML = page.getContentText();
+    var amLich = getLunarDay(pageHTML);
+    
+    // Set ngày âm lịch cho cột C
+    range.getCell(i,3).setValue(amLich);
+  }
+}
+
+// Hàm tách lấy ngày âm lịch từ code HTML trả về.
+function getLunarDay(htmlCode) {
+  var pattern = /&lt;td&gt; &lt;b&gt;Ngày&lt;\/b&gt; (.*?) - &lt;span style=&quot;color:#990000&quot;&gt;/
+  var match = pattern.exec(htmlCode)
+  return match[1];
+}
+</code></pre>
+<p>Dòng code <code>CalendarApp.getOwnedCalendarById('Calendar-ID');</code>, <strong>Calendar-ID</strong> là ID của bộ lịch NgayLeAmLich vừa tạo.</p>
+<p>Dòng code <code>var ss = SpreadsheetApp.openById('Google-Sheet-ID');</code>, <strong>Google-Sheet-ID</strong> là ID của Google Spreadsheet.</p>
+<p>Hàm getLunarDay() sử dụng regular expression tách đoạn xâu kí tự chứa ngày âm lịch trong mã HTML của trang web được trả về. Tiếc là GAS hỗ trợ parse HTML không được tốt nên hiện tại mình thấy regular expression là phương án khả thi nhất.</p>
+<p>Sau khi lấy được ngày âm lịch tương ứng cho ngày dương lịch, ta sẽ dựa vào ngày âm lịch này để tạo các sự kiện. Bạn hãy thêm đoạn code bên dưới này vào dưới dòng code <code>range.getCell(i,3).setValue(amLich);</code></p>
+<pre><code>    // Tạo event cac ngay le am lich
+    var lunarDay = parseInt(amLich.split('/')[0]);
+    var lunarMonth = parseInt(amLich.split('/')[1]);
+    
+    var leamlichEvent = null;
+    if (lunarDay == 1) {
+      if (lunarMonth == 1) leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Tết Nguyên Đán&quot;, new Date(value));
+      else leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Mồng một&quot;, new Date(value));
+    }
+    
+    if (lunarDay == 15) {
+      if (lunarMonth == 8) leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Trung thu&quot;, new Date(value));
+      else if (lunarMonth == 7) leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Vu Lan&quot;, new Date(value));
+      else if (lunarMonth == 1) leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Rằm tháng giêng&quot;, new Date(value));
+      else if (lunarMonth == 4) leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Rằm - Phật đản&quot;, new Date(value));
+      else leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Rằm&quot;, new Date(value));
+    }
+    
+    if (lunarDay == 23 &amp;&amp; lunarMonth == 12) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Ông công ông táo&quot;, new Date(value));
+    }
+    
+    if (lunarDay == 5 &amp;&amp; lunarMonth == 5) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Tết Đoan Ngọ&quot;, new Date(value));
+    }
+    
+    if (lunarDay == 10 &amp;&amp; lunarMonth == 3) {
+      leamlichEvent = ngayleamlichCal.createAllDayEvent(&quot;Giỗ tổ Hùng Vương&quot;, new Date(value));
+    }
+
+    // Reminder bằng email trước 6 tiếng (có nghĩa là 18h00 của ngày hôm trước)
+    if (leamlichEvent) leamlichEvent.addEmailReminder(360);
+</code></pre>
+<p>Để tạo event cho bộ lịch, chỉ cần chạy hàm <code>createEvents()</code> qua Menu-bar của project <code>Run -&gt; createEvents</code> và chờ đợi kết quả.</p>
+<p>Chỉ có một chú ý nho nhỏ đó là ở đây mình tạo event cho từng năm một dựa vào biến <code>curYear</code>. Thực tế mình không chỉ tạo event cho 1 bộ lịch mà cho hẳn 4 bộ lịch (trong đó bộ lịch Ngày lễ âm lịch ít sự kiến nhất). Trong một lần chạy do Google hạn chế số query tạo event, mình chỉ tạo được sự kiện cho khoảng 9 tháng mà thôi. Nếu muốn bạn có thể tạo thêm một vòng lặp bên ngoài để tạo event cho tất cả các năm :D</p>
+<p>Sau khi hàm <code>createEvents()</code> chạy xong, bạn có thể kiểm tra kết quả trong Google Spreadsheet và google calendar.</p>
+<h4 id="vktlun">V. Kết luận</h4>
+<p>Có lẽ đến đây, bạn đã phần nào thấy được sự tiện dụng của GAS. Nó có thể làm được rất nhiều thứ, tất cả phụ thuộc vào sự phong phú của trí tưởng tượng của bạn. Mình xin được kết thúc bài viết tại đây. Trong phần tiếp theo, mình sẽ trình bày về sự giao lưu và kết hợp giữa GAS và Slack bot. Hẹn gặp lại các bạn trong một tương lai không xa :D.</p>
+<p><strong>P/S</strong>:</p>
+<ul>
+<li>Các ID của Google Spreadsheet hay Google Calendar đều là ID không có thật. Mình chỉ sử dụng như ví dụ mà thôi.</li>
+<li>Cuối cùng mình xin chia sẻ một số hình ảnh về ứng dụng Google Calendar sau khi thêm 4 bộ lịch &quot;made by Enso&quot;.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSkxtTkQxR3FsNkU&amp;export=download" alt=""><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZjlpTExyejZkMFU&amp;export=download" alt=""><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbHVFb0NCVDE5eUE&amp;export=download" alt=""></li>
+</ul>
+<hr>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<ul>
+<li><a href="https://developers.google.com/apps-script/overview">https://developers.google.com/apps-script/overview</a></li>
+<li><a href="https://developers.google.com/apps-script/reference/calendar/">https://developers.google.com/apps-script/reference/calendar/</a></li>
+<li><a href="https://developers.google.com/apps-script/reference/spreadsheet/">https://developers.google.com/apps-script/reference/spreadsheet/</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ngh%E1%BB%8Bch%20c%C3%B9ng%20Google%20Apps%20Script%20(P1)%20%3A%20Google%20Spreadsheet%20ft.%20Google%20Calendar">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

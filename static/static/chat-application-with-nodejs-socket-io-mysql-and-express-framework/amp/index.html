@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Chat application with NodeJS, Socket.IO, Mysql and Express framework</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Chat application with NodeJS, Socket.IO, Mysql and Express framework" />
+    <meta property="og:description" content="Nội dung: Giới thiệu NodeJS Sơ lược về Socket và SocketIO Chat application Chat application advance Kết luận Tài liệu tham khảo 1. Giới thiệu NodeJS Nodejs là gì?  Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-05-09T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2019-09-03T10:21:23.000Z" />
+    <meta property="article:tag" content="Chat application" />
+    <meta property="article:tag" content="NodeJS" />
+    <meta property="article:tag" content="Socket.IO" />
+    <meta property="article:tag" content="Chat application with NodeJS" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chat application with NodeJS, Socket.IO, Mysql and Express framework" />
+    <meta name="twitter:description" content="Nội dung: Giới thiệu NodeJS Sơ lược về Socket và SocketIO Chat application Chat application advance Kết luận Tài liệu tham khảo 1. Giới thiệu NodeJS Nodejs là gì?  Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Chat application, NodeJS, Socket.IO, Chat application with NodeJS" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Chat application with NodeJS, Socket.IO, Mysql and Express framework",
+    "url": "https://blog.vietnamlab.vn/chat-application-with-nodejs-socket-io-mysql-and-express-framework/",
+    "datePublished": "2017-05-09T01:00:00.000Z",
+    "dateModified": "2019-09-03T10:21:23.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&export=download",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "Chat application, NodeJS, Socket.IO, Chat application with NodeJS",
+    "description": "Nội dung:\n * Giới thiệu NodeJS\n * Sơ lược về Socket và SocketIO\n * Chat application\n * Chat application advance\n * Kết luận\n * Tài liệu tham khảo\n\n1. Giới thiệu NodeJS\nNodejs là gì?\n\nNodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript\nruntime của chrome’s mà chúng ta có thể xây dựng được ứng dụng mạng nhanh chóng\nvà dễ dàng mở rộng.\n\nNodejs được xây dựng và phát triển từ năm 2009 và được bảo trợ từ công ty\nJoyent. Khả năng đáp ứng của nodejs là rất nhanh bởi nodejs được ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Chat application with NodeJS, Socket.IO, Mysql and Express framework</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2017-05-09">09 May 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkQWRDVnQ3ZWdCbEU&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3>Nội dung:</h3>
+<ul>
+<li><em>Giới thiệu NodeJS</em></li>
+<li><em>Sơ lược về Socket và SocketIO</em></li>
+<li><em>Chat application</em></li>
+<li><em>Chat application advance</em></li>
+<li><em>Kết luận</em></li>
+<li><em>Tài liệu tham khảo</em></li>
+</ul>
+<h3>1. Giới thiệu NodeJS</h3>
+<p><strong>Nodejs là gì?</strong></p>
+<p>Nodejs là một nền tảng được phát triển độc lập được xây dựng trên javascript runtime của chrome’s mà chúng ta có thể xây dựng được  ứng dụng mạng nhanh chóng và dễ dàng mở rộng.</p>
+<p>Nodejs được xây dựng và phát triển từ năm 2009 và được bảo trợ từ công ty Joyent. Khả năng đáp ứng của nodejs là rất nhanh bởi nodejs được viết hầu hết bởi ngôn ngữ C.</p>
+<p><strong>Những ứng dụng nào có thể viết bằng nodejs?</strong></p>
+<p>Các chương trình như các kênh chat với tốc độ thời gian thực runtime.<br />
+Các chương trình upload file<br />
+Các máy chủ quảng cáo<br />
+Các dịch vụ đám mây<br />
+Và bất kỳ ứng dụng dữ liệu thời gian thực nào.</p>
+<p><strong>Những kết luận sai lầm về nodejs cần tránh.</strong></p>
+<p>Nodejs không phải là một web framework mà là một nền tảng để phát triển các ứng dụng.</p>
+<p>Nodejs không giành cho những người mới.</p>
+<p>Chúng ta phải lập trình từ những tầng rất thấp ví dụ như chúng ta phải nhận các requests  từ client xử lý dữ liệu và response trả về cho client, thêm vào đó nodejs yêu cầu cần chúng ta phải thành thạo ngôn ngữ javascript có thể cần 1 chút html và css để chúng ta phát triển các ứng dụng web bằng nodejs</p>
+<p>Nodejs không hỗ trợ chúng ta lập trình đa luồng tức là không tạo ra nhiều luồng hay tiến trình để xử lý đoạn mã của chúng ta 1 cách đồng thời. Các bạn hãy tưởng tượng nodejs như là 1 máy chủ đơn luồng.</p>
+<p>Bài sau ta sẽ tìm hiểu  cơ chế thực thi của nodejs và khái niệm làm cho nodejs trở nên nhanh và mạnh mẽ</p>
+<p>Như vậy chúng ta đã hiểu cơ bản nodejs là gì?</p>
+<p><strong>Lý do gì để tự tin sử dụng nodejs?</strong></p>
+<p>Các ứng dụng nodejs được viết hoàn toản bởi ngôn ngữ javascript và javacript thì có 1 số đặc tính làm cho nó rất khác so với các ngôn ngữ lập trình động khác, cụ thể là nó không có khái niệm đa luồng.</p>
+<p>Nodejs là một môi trường pt đa nền tảng phía server và các ứng dụng mạng.</p>
+<p>Nodejs cho phéo chúng ta chạy các ứng dụng ở trên các hệ điều hành khác nhau.</p>
+<p>Như Mac OS X, Window, Linux.</p>
+<p>Mô hình nodejs hoàn toàn dựa trên các sự kiện và các cơ chế non-blocking điều này làm cho nodejs trở nên nhẹ nhanh và hiệu quả ở các ứng dụng  free-time chạy đa nền tảng và đa thiết bị.</p>
+<p>Cho tới thời điểm này số lượng thư viện miễn phí trên NPM đã lên tới con số hơn 95000 modules và chưa dừng lại ở con số này.</p>
+<p>Nếu chúng ta sử dụng CSDL noSQL ví dụ như mongodb thì  nodejs cho phép chúng ta sử dụng dữ liệu JSON trực tiếp như nhau ở client , server và CSDL mà ko cần chuyển đổi gì cả.</p>
+<p><strong>Ông lớn nào đang sử dụng nodejs?</strong></p>
+<p>Có rất nhiều công ty lớn đã sử dụng nodejs để phát triển ứng dụng của họ ở mức độ bộ phận hoặc toàn bộ như:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkY3pwM0F2ZDZyLXM&amp;export=download" alt width="949" height="570" layout="responsive"></amp-img><br />
+Trước khi đọc tiếp bài viết này, Nếu bạn là người mới và chưa biết gì về nodejs thì hãy tham khảo link sau để có những kiến thức cơ bản.</p>
+<p><a href="http://freetuts.net/hoc-nodejs/nodejs-can-ban">http://freetuts.net/hoc-nodejs/nodejs-can-ban</a></p>
+<h3>2. Sơ lược về Socket và SocketIO :</h3>
+<p>Trước tiên, Socket là 1 công nghệ. Đừng nhầm lẫn giữa Socket.IO và Socket. Socket.IO không phải là mô hình Socket duy nhất hiện nay, và cũng không phải là mô hình web socket duy nhất hiện nay. Socket là cách bạn tổ chức mô hình client-server để một trong 2 bên luôn trong tình trạng sẵn sàng trả lời bên kia và ngược lại. Để đảm bảo việc này, kết nối giữa Client và Server phải ở trạng thái “keep-alive” và phải luôn xảy ra quá trình đồng bộ giữa Client-Server. Socket sẽ mang lại khả năng trả lời tức thì từ một trong 2 bên khi bên kia đưa ra một sự kiện, thay vì phải thực thi lại một loạt các thủ tục kết nối phức tạp như trước, và ứng dụng của bạn sẽ trở thành ứng dụng thời gian thực ví dụ: Yahoo Messenger, Skype v.v… đều là các ứng dụng được xây dựng theo mô hình Socket.</p>
+<p>Trong lập trình web trước đây, việc xây dựng client-server theo mô hình socket phải thông qua các phần mềm thứ 3. Vì mô hình socket không phù hợp với các ngôn ngữ lập trình Server như: PHP, ASP.NET, JSP v.v… Các ngôn ngữ này luôn làm việc theo cách: Die ngay connection khi Server trả lời Client xong. Tuy nhiên, mình nhấn mạnh: Chúng ta có thể làm được web-socket với bất kỳ ngôn ngữ lập trình nào. Chỉ có điều, với các ngôn ngữ cũ, việc làm này cần bạn phải am hiểu các giao thức http, tcp; hiểu thế nào là 1 request header, v.v…</p>
+<p>Nodejs là một nền tảng mới, xây dựng thuần túy bằng javascript. Đây là một điểm lợi thế của Node.js để lập trình web-socket:</p>
+<p>Thứ nhất: javascript là ngôn ngữ lập trình hướng sự kiện, mà trong lập trình thời gian thực, cách tiếp cận bằng lập trình sự kiện là cách tiếp cận khôn ngoan nhất.</p>
+<p>Thứ hai: Node.js chạy non-blocking việc hệ thống không phải tạm ngừng để xử lý xong một request sẽ giúp cho server trả lời client gần như ngay tức thì.</p>
+<p>Thứ ba: lập trình socket yêu cầu bạn phải xây dựng được mô hình lắng nghe - trả lời từ cả 2 bên. Nói khác đi, vai trò của client và server phải tương đương nhau, mà client thì chạy bằng javascript, nên nếu server cũng chạy bằng javascript nữa, thì việc lập trình sẽ dễ dàng và thân thiện hơn.</p>
+<p>Chính vì những đặc điểm này, socket.io ra đời. Tuy nhiên, khi bạn thực sự am hiểu về Node.js, http request header, bạn hoàn toàn có thể viết một socket cho riêng mình.</p>
+<h3>3. Chat application.</h3>
+<p>Sau khi đã tìm hiểu về node.js và socket.io thì bây giờ, chúng ta sẽ ứng dụng để làm 1 demo nhỏ. Trong hướng dẫn này chúng ta sẽ tạo một ứng dụng chat cơ bản.</p>
+<p><strong>Giới thiệu</strong></p>
+<p>Viết một ứng dụng chat với hầu hết các web application như LAMP(PHP) là điều rất khó khăn. Nó đòi hỏi việc polling server cho những thay đổi, theo dõi timestamps và nó chậm hơn rất nhiều so với mong đợi của người sử dụng.</p>
+<p>Socket có thể giải quyết các vấn đề xung quanh, nhưng vấn đề mà hầu hết các hệ thống chat thời gian thực được kiến trúc. Cung cấp kênh thông tin liên lạc giữa client và server.</p>
+<p>Điều này có nghĩa là server có thể push message đến client, bất cứ khi nào bạn viết một message, ý tưởng là client sẽ nhận được message và push nó đến tất cả các client đang có kết nối khác.</p>
+<p><strong>The web framework</strong></p>
+<p>Mục tiêu đầu tiên là thiết lập 1 trang html, nó sẽ chứa 1 form để nhập nội dung message và nơi chứa list message chat giữa các client. Chúng ta sẽ sử dụng Express framework để thực hiện việc này. Hãy chắc chắn rằng NodeJS đã được cài đặt trên máy của bạn nhé.</p>
+<p>Đầu tiên chúng ta sẽ tạo file package.json nơi sẽ mô tả project của chúng ta. Chúng ta sẽ tạo một thư mục cho project này (chẳng hạn tôi đặt là chat-example).</p>
+<pre><code>{
+"name": "chat-example",
+"version": "1.0.0",
+"description": "chat-examole",
+"main": "index.js",
+"scripts": {
+"test": "echo \"Error: no test specified\" &amp;&amp; exit 1"
+},
+"author": "PhongNX",
+"license": "ISC"
+}
+</code></pre>
+<p>Bây giờ chúng ta sẽ cài đặt module mà chúng ta cần. sử dụng npm install --save:</p>
+<pre><code>npm install --save express@4.15.2
+</code></pre>
+<p>Bây giờ express đã được cài đặt, chúng ta có thể tạo một tập tin index.js mà nó sẽ thiết lập ứng dụng của chúng ta</p>
+<pre><code>var app = require('express')();
+var http = require('http').Server(app);
+
+app.get('/', function(req, res){
+  res.send('&lt;h1&gt;Hello world&lt;/h1&gt;');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+</code></pre>
+<ul>
+<li>Express khởi tạo app như 1 function handle mà bạn có thể cung cấp cho máy chủ HTTP (Như ở dòng 2)</li>
+<li>Chúng ta định nghĩa function get, sử lý xự kiện khi chúng ta di chuyển đến trang home của website.</li>
+<li>Tạo http server lắng nghe trên cổng 3000</li>
+</ul>
+<p>Bây giờ, nếu chúng ta chạy file index.js, chúng ta sẽ thấy như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQmx4V3c2X1IteXc&amp;export=download" alt width="844" height="399" layout="responsive"></amp-img></p>
+<p>Và nếu chúng ta chạy trên trình duyệt với đường dẫn <a href="http://localhost:3000">http://localhost:3000</a><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbE1jUXdIeTVCcGc&amp;export=download" alt width="854" height="418" layout="responsive"></amp-img><br />
+<strong>Serving HTML</strong></p>
+<p>Để ứng dụng của chúng ta dễ hình dung hơn. Tôi sẽ tạo riêng 1 file html cho phần giao diện.</p>
+<p>Trong file index.js chúng ta sẽ thay thế đoạn code này, để gọi đến trang index.html</p>
+<pre><code>app.get('/', function(req, res){
+res.sendFile(__dirname + '/index.html');
+});
+</code></pre>
+<p>Và bây giờ chúng ta tạo 1 trang index.html như bên dưới<br />
+&lt;!doctype html&gt;</p>
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Socket.IO chat&lt;/title&gt;
+    &lt;style&gt;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages li { padding: 5px 10px; }
+      #messages li:nth-child(odd) { background: #eee; }
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;ul id="messages"&gt;&lt;/ul&gt;
+    &lt;form action=""&gt;
+      &lt;input id="m" autocomplete="off" /&gt;&lt;button&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Bây giờ chúng ta thự hiện reset server (nhấn Ctr C và chạy lại lệnh node index.js). Kết quả là<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUUFnbnpfQ0RLSEU&amp;export=download" alt width="908" height="835" layout="responsive"></amp-img><br />
+<strong>Integrating Socket.IO</strong></p>
+<p>Socket.IO gồm có hai phần:</p>
+<ul>
+<li>Một Server tích hợp(hoặc gắn kết) các Node.js HTTP Server: socket.io</li>
+<li>Một thư viện client mà tải ở phía trình duyệt: socket.io-client<br />
+Trong development, socket.io phục vụ các client tự động cho chúng ta, như chúng ta sẽ thấy sau đây, vì vậy bây giờ chúng ta chỉ cần cài đặt một module:</li>
+</ul>
+<pre><code>npm install --save socket.io
+</code></pre>
+<p>Bây giờ chúng ta sẽ sửa file index.js</p>
+<pre><code>var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
+
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
+</code></pre>
+<p>Tiếp theo, add nội dung dưới đây vào file index.html trước thẻ </p>
+<pre><code>&lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var socket = io();
+&lt;/script&gt;
+</code></pre>
+<p>Đó là tất cả những gì cần thiết để load các socket.io-client, và sau đó là kết nối. Bây giờ nếu có một người dung nào kết nối đến server. Một thông báo sẽ xuất hiện ở console “a user connected”.</p>
+<p>Thử mở nhiều tab, bạn sẽ thấy nhiều thông điệp.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd3VCc05RMkZXSGs&amp;export=download" alt width="842" height="405" layout="responsive"></amp-img><br />
+Mỗi soket cũng có sự kiến ngắt kết nối đặc biệt.</p>
+<pre><code>io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+</code></pre>
+<p><strong>Emitting events</strong></p>
+<p>Ý tưởng chính là khi người dung nhập một tin nhắn và nhấn Enter/Send SocketIO sẽ bắt sự kiện này và gửi lên seser xử lý, sau đó trả về lại cho người dung, nhưng người đang connect đến server nội dung message.</p>
+<p>Bây giờ chúng ta sẽ sửa file index.html như bên dưới</p>
+<pre><code>&lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+&lt;script src="https://code.jquery.com/jquery-1.11.1.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<p>Trong file index.js, chúng ta them xử lý out message cho client</p>
+<pre><code>io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+  });
+});
+</code></pre>
+<p><strong>Broadcasting</strong></p>
+<p>Mục tiêu tiếp theo là để chúng ta phát ra sự kiện từ máy chủ đến các người sử dụng còn lại.</p>
+<p>Để gửi một sự kiện để tất cả mọi người, Socket.IO cho chúng ta io.emit:</p>
+<pre><code>io.emit('some event', { for: 'everyone' });
+</code></pre>
+<p>Nếu bạn muốn gửi message đến tất cả các client, ngoại trừ người nào đó</p>
+<pre><code>io.on('connection', function(socket){
+  socket.broadcast.emit('hi');
+});
+</code></pre>
+<p>Trong trường hợp này, để đơn giản, tôi gửi đến tất cả các client kể cả người gửi.</p>
+<pre><code>io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+</code></pre>
+<p>Về phía client, tôi sẽ tạo một xử lý bắt sự kiến mà server trả message về.</p>
+<pre><code>&lt;script&gt;
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('&lt;li&gt;').text(msg));
+    });
+  });
+&lt;/script&gt;
+</code></pre>
+<p>Và cuối cùng ứng dụng chat đơn giản của chúng ta đã hoàn thành. Cùng xem kết quả nhé.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRlM3SnVyaTB5SDA&amp;export=download" alt width="1270" height="664" layout="responsive"></amp-img></p>
+<h3>4. Chat application advance</h3>
+<p>Vậy là chúng ta đã cơ bản xây dựng được 1 ứng dụng chat, phải nói là cực kỳ đơn giản, thô sơ. Chỉ bao gồm chức năng chính là chat giữa các client với nhau.</p>
+<p>Bây giờ, để nâng cao, phát triển thêm các tính năng cho ứng dụng này tôi có các gợi ý sau</p>
+<ul>
+<li>Sử dựng cơ sở dữ liệu mysql để lưu thông tin đăng nhập của client (bao gồm loginID và pass)</li>
+<li>Mỗi khi có client join vào group chat, hiện thông báo cho các thành viên khác cùng biết</li>
+<li>Hiện tên của mỗi client riêng biệt tại ô chat để biết đó là message của client nào</li>
+<li>Nếu đăng nhập group chat thất bại, có thể tùy ý xử lý như là di chuyển đến trang Error v.v</li>
+<li>Thêm các biểu tượng cảm xúc, có thể chèn vào ô chat.<br />
+Phía trên là nhưng gợi ý để chúng ta có thể phát triển them cho ứng dụng này.</li>
+</ul>
+<p><strong>Kết nối với Mysql</strong></p>
+<p>Để thực hiện kết nối đến Mysql, đầu tiên chúng ta sẽ tạo một table trên cơ sở dữ liệu Mysql như sau<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbFNmbGJNdVlxN3c&amp;export=download" alt width="1079" height="723" layout="responsive"></amp-img><br />
+Để cài đặt module mysql trên nodejs sử dụng lệnh sau</p>
+<pre><code>npm install mysql@2.10.2
+</code></pre>
+<p><strong>Source code</strong></p>
+<p>Và đây là source code đầy đủ cho các tính năng mở rộng trên. Các bạn có thể tham khảo và bổ sung thêm nhưng tính năng cần thiết để hoàn thiện ứng dụng nhé.</p>
+<p><a href="https://github.com/phongnx1/NodeJS_ChatApp">https://github.com/phongnx1/NodeJS_ChatApp</a></p>
+<p><strong>Demo application</strong></p>
+<p>Khởi động server<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkT3VWTkpZY1RQbkE&amp;export=download" alt width="949" height="405" layout="responsive"></amp-img><br />
+Join chat group<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkemRTUTFNeFd2TlE&amp;export=download" alt width="512" height="675" layout="responsive"></amp-img><br />
+Trường hợp Login name không tồn tại trong DB<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdHVRSHRseEpFd28&amp;export=download" alt width="442" height="671" layout="responsive"></amp-img><br />
+Thông báo khi có client nào đó join vào group<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkODR1YVVXVHdYbGc&amp;export=download" alt width="510" height="672" layout="responsive"></amp-img><br />
+Và kết quả nhiều client cùng chat<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSlFPeGpRTkVNZDQ&amp;export=download" alt width="1344" height="671" layout="responsive"></amp-img></p>
+<h3>5. Kết luận.</h3>
+<p>Bài viết này cơ bản đã giới thiệu đến các bạn về nodejs, sử các module trong nodejs như thế nào. Sơ lược về SocketIO, Express framework và demo một ứng dụng chat mô phỏng. Bài viết cũng cung cấp cho các bạn cách kết nối với cơ sở dữ liệu Mysql, các bạn có thể phát triển các ứng dụng khác sau này.</p>
+<h3>6. Tài liệu tham khảo</h3>
+<ul>
+<li>
+<p><a href="http://freetuts.net/hoc-nodejs/nodejs-can-ban">http://freetuts.net/hoc-nodejs/nodejs-can-ban</a></p>
+</li>
+<li>
+<p><a href="https://landolatui.wordpress.com/2016/06/06/ket-noi-voi-mysql-nodejs-05/">https://landolatui.wordpress.com/2016/06/06/ket-noi-voi-mysql-nodejs-05/</a></p>
+</li>
+<li>
+<p><a href="http://www.programwitherik.com/getting-started-with-socket-io-node-js-and-express/">http://www.programwitherik.com/getting-started-with-socket-io-node-js-and-express/</a></p>
+</li>
+<li>
+<p><a href="http://danielnill.com/nodejs-tutorial-with-socketio">http://danielnill.com/nodejs-tutorial-with-socketio</a></p>
+</li>
+<li>
+<p><a href="http://devpro.edu.vn/gioi-thieu-nodejs/">http://devpro.edu.vn/gioi-thieu-nodejs/</a></p>
+</li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

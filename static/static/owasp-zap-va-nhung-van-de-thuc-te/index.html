@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Owasp Zap và những vấn đề thực tế | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Owasp Zap và những vấn đề thực tế" />
+    <meta property="og:description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-31T07:40:30.000Z" />
+    <meta property="article:modified_time" content="2019-01-31T08:05:47.000Z" />
+    <meta property="article:tag" content="OWASP" />
+    <meta property="article:tag" content="secure" />
+    <meta property="article:tag" content="SQL Injection" />
+    <meta property="article:tag" content="Command Injection" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Owasp Zap và những vấn đề thực tế" />
+    <meta name="twitter:description" content="Những vấn đề gặp khi test sercurity bằng Owasp Zap cho những ứng dụng lớn." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.T.G" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="OWASP, secure, SQL Injection, Command Injection" />
+    <meta property="og:image:width" content="1142" />
+    <meta property="og:image:height" content="447" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.T.G",
+        "url": "https://blog.vietnamlab.vn/author/giangpt/",
+        "sameAs": []
+    },
+    "headline": "Owasp Zap và những vấn đề thực tế",
+    "url": "https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/",
+    "datePublished": "2019-01-31T07:40:30.000Z",
+    "dateModified": "2019-01-31T08:05:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&export=download",
+        "width": 1142,
+        "height": 447
+    },
+    "keywords": "OWASP, secure, SQL Injection, Command Injection",
+    "description": "Như chúng ta đã biết OWASP ZAP là 1 Tool Test Security hoàn toàn mạnh mẽ, giúp\nbạn dễ dàng scan và tìm ra lỗ hổng trong hệ thống ứng dụng của bạn. Bạn nào chưa\nbiết về OWASP ZAP thì có thể tham khảo bài viết trước của mình.\n\nhttps://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/\n\nThực tế là trong bài viết trước, mình chỉ test một chức năng nhỏ trong ứng dụng\ncủa mình, nên chưa gặp và lường trước được những vấn đề có thể xảy ra. Sau khi\ntest một ứng dụng lớn ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-owasp tag-secure tag-sql-injection tag-command-injection nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-owasp tag-secure tag-sql-injection tag-command-injection js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">OWASP ZAP và những vấn đề thực tế</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-01-31">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 31 January 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/owasp/index.html">OWASP</a>, <a href="../tag/secure/index.html">secure</a>, <a href="../tag/sql-injection/index.html">SQL Injection</a>, <a href="../tag/command-injection/index.html">Command Injection</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1CphhlEV2OTSASD9WXO46vwFIUrta_wjm&amp;export&#x3D;download" alt="OWASP ZAP và những vấn đề thực tế">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/owasp-zap-va-nhung-van-de-thuc-te/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=OWASP%20ZAP%20v%C3%A0%20nh%E1%BB%AFng%20v%E1%BA%A5n%20%C4%91%E1%BB%81%20th%E1%BB%B1c%20t%E1%BA%BF">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Như chúng ta đã biết OWASP ZAP là 1 Tool Test Security hoàn toàn mạnh mẽ, giúp bạn dễ dàng scan và tìm ra lỗ hổng trong hệ thống ứng dụng của bạn. Bạn nào chưa biết về OWASP ZAP thì có thể tham khảo bài viết trước của mình.</p><p><a href="https://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/">https://blog.vietnamlab.vn/2018/08/08/owasp-zap-de-test-security-cho-web-application-va-api/</a></p><p>Thực tế là trong bài viết trước, mình chỉ test một chức năng nhỏ trong ứng dụng của mình, nên chưa gặp và lường trước được những vấn đề có thể xảy ra. Sau khi test một ứng dụng lớn chính mình cũng gặp phải những vấn đề không lường trước được, nay trong bài viết này mình sẽ trình bày những vấn đề đó và thêm một số mẹo vặt khi sủ dụng OWASP ZAP.</p><h3 id="t-t-internet-tr-c-khi-test">Tắt internet trước khi test</h3><p>Tại sao lại phải làm như vậy, cơ chế của OWASP ZAP là nó sẽ ghi lại các link URL của ứng dụng khi mình thao tác trên Browser, dựa vào những link request đó, OWASP ZAP sẽ thêm các param, chèn script , giả lập hàng ngàn các query khác nhau đánh vào những link URL mà nó bắt được để tìm ra lổ hổng của ứng dụng. </p><p>Bạn thấy là nó chỉ đánh vào những link mà nó bắt được thôi thì mình chỉ cần kiểm soát những link đó thì việc gì phải tắt internet. Nhưng giả sử trong ứng dụng của bạn có chức năng send mail khi thay đổi password chẳng hạn, bạn không tắt internet thì nó sẽ send mail vô tội vạ, hoặc gửi mail thông báo đến bên thứ 3, trừ khi nào bạn nắm bắt và control được toàn bộ hệ thống ứng dụng của bạn thì bạn có thể tự tin không tắt internet. Nếu bạn mới join vào dự án và bị bắt test OWASP ZAP thì lời khuyên là nên tắt internet nếu không muốn ăn hành.</p><p>※　Có 2 cách để tắt internet</p><h4 id="-c-ch-1-">■　Cách 1: </h4><p>Tắt internet trên máy PC mà bạn thực hiện chạy test. Với cách này thì bạn không thê sử dụng được internet để nghe nhạc hay xem phim được nữa, thật bất tiện phải không.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1no8LS4hZ6rhxq-c8GUxzTk9INQCoDTJN&amp;export=download" class="kg-image" alt></figure><h4 id="-c-ch-2-">■　Cách 2: </h4><p>Nếu ứng dụng của bạn chạy trên môi trường linux, bạn có thể thực hiện cách sau để ngắt kết nối từ môi trường ứng dụng local của bạn tới internet</p><ul><li>Kiểm tra default getway</li></ul><pre><code>root@vagrant:~# ip route list default
+default via 10.0.2.2 dev eth0 proto dhcp src 10.0.2.15 metric 100</code></pre><ul><li>Xóa default getway</li></ul><pre><code>root@vagrant:~# ip route del default</code></pre><ul><li>Kiểm tra xem môi trường local còn kết nối được với internet hay không</li></ul><pre><code>root@vagrant:~# ping www.google.com
+connect: Network is unreachable
+root@vagrant:~# ping 8.8.8.8
+connect: Network is unreachable</code></pre><ul><li>Sau khi test xong bạn muốn kết nối lại với internet</li></ul><pre><code>root@vagrant:~# ip route add default via 10.0.2.2
+
+</code></pre><p>Với 2 cách tắt internet như trên bạn có thể thoải mái test ứng dụng của mình mà không sợ nó làm ảnh hưởng tới bên thứ 3 hoặc các ứng dụng khác, mọi hoạt động test chỉ thực hiện trong môi trường local máy tính của bạn.</p><h3 id="disable-ch-c-n-ng-lock-account-v-c-c-ch-c-n-ng-x-a-t-i-kho-n">Disable chức năng lock account và các chức năng xóa tài khoản</h3><p>Tại sao lại phải làm như vậy, bạn đã cất công thiết lập user password để OWASP ZAP có thể đăng nhập lại mỗi khi nó quét tới chức năng logout, nếu ứng dụng của bạn có chức năng login sai 5 lần thì khóa tài khoản đi, thì OWASP ZAP nó giả lập request đăng nhập 5 lần sai thì tài khoản của bạn bị khóa mẹ rồi, nó đâu còn đăng nhập vô được nữa mà quét được các chức năng cần đăng nhập phải không, tương tự chức năng xóa tài khoản cũng vậy, nếu lỡ nó quét tới chức năng xóa tài khoản thì tài khoản bạn thiết lập cho OWASP ZAP bị xóa luôn nhé,và không test được các chức năng khác đâu.</p><h3 id="ch-c-n-ng-login-ph-c-t-p">Chức năng login phức tạp</h3><p>Ở những hệ thống lớn, đòi hỏi việc bảo mật cao, chức năng login rất phức, nó không chỉ đơn giản là login rồi logout, mà nhiều hệ thống nó còn gửi token OTP tới điện thoại để mình nhập vô rồi mới cho Login. Khi test Zap nó login và nó không bắt được cái regex pattern vì tài khoản chưa thực sự login mà nó đang ở bước nhập token, dẫn đến ta không test được các chức năng cần login. Vậy khi test những hệ thống như thế ta phải làm sao???</p><p>Lời khuyên là ta phải disable cái chức năng đó đi, hoặc là sử dụng một <code>tài khoản test đã được chứng thực</code>, đã được chứng thực nghĩa là sao, tức là tài khoản đã đăng nhập và thỏa mãn các yêu cầu của ứng dụng, thì hệ thống sẽ không yêu cầu phải nhâp token OTP nữa, thì lúc đó ta sẽ login trực tiếp mà không phải thông qua bước nhập token. Các bạn yên tâm là hệ thống bắt buộc phải có chức năng đó, chứ nếu mỗi lần đăng nhặp mà cứ bắt người dùng nhập token , thì người dùng ức chế không thèm sài đâu.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1RmsDKM839emBx01prTq4ujnQIU-Mzpex&amp;export=download" class="kg-image" alt></figure><h3 id="b-s-t-c-c-ch-c-n-ng-c-c-api-c-a-ng-d-ng-">Bỏ sót các chức năng, các API của ứng dụng.</h3><p>Bạn muốn test toàn bộ ứng dụng, nhưng thao tác của bạn trên browser chưa đủ hoặc thiếu sót, dẫn đến việc OWASP ZAP không bắt được các link để test, hoặc có những API chạy bằng ajax trong ứng dụng của bạn OWASP ZAP cũng không bắt được.</p><p>Để tránh việc bỏ sót các chức năng, bạn nên liệt kê ra hết tất cả các action của controller, và truy cập vào từng cái một, và bạn có thể dùng postman để đánh vào các API được chạy ngầm bên trong ứng dụng, những thiết lập đã được mình trình bày trong bài viết trước.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1I6FHV3d3CwMB2UGZogrq5z8hkV_OZTYO&amp;export=download" class="kg-image" alt></figure><h3 id="ki-m-tra-b-nh-heap">Kiểm tra bộ nhớ heap</h3><p>Trong trường hợp khi test những trang web lớn sẽ dẫn đến tính trạng hết bộ nhớ heap, OWASP ZAP được set mặc định là 512MB cho bộ nhớ này, nếu lỗi này xảy ra, OWASP ZAP vẫn sẽ tiếp tục scan và tìm kiếm lỗ hổng, nhưng kết quả của việc tìm kiếm không được ghi vào report.</p><pre><code>Caused by: java.lang.OutOfMemoryError: Java heap space                                                                                
+2019-01-24 08:26:01,823 [ZAP-ActiveScanner-0] ERROR ActiveScan-java.sql.SQLException: java.lang.OutOfMemoryError: Java heap space   
+org.parosproxy.paros.db.DatabaseException: java.sql.SQLException:java.lang.OutOfMemoryError: Java heap space                    </code></pre><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://drive.google.com/uc?id=1vtkMs82GTlnSBz2BxpDx5jBm-IsLfLWR&amp;export=download" class="kg-image" alt><figcaption>`</figcaption></figure><p>Như hình phía trên trong progress nó phát hiện ra 6 lỗi SQL injection mà trong alerts không được ghi lại. Thật là mất thời gian khi ngồi chờ Zap scan xong mà lại chẳng có report phải không, rất là ức chế. Chính vì vậy hãy chú ý đến phần này.</p><p></p><h4 id="c-ch-gi-i-quy-t">Cách giải quyết </h4><ul><li>Trong option chọn JVM và điều chỉnh bộ nhớ heap.</li></ul><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1MHMd0FI1xLYELzNjzFy-bJBFKgK6jmCu&amp;export=download" class="kg-image" alt></figure><h3 id="kh-ng-l-u-c-sessions-qu-l-n-v-c-ng-kh-ng-m-c-sessions-qu-l-n">Không lưu được Sessions quá lớn, và cũng không mở được Sessions quá lớn</h3><p>Khi scan toàn bộ ứng dụng lớn, thời gian scan sẽ rất lâu, có thể mất cả tuần, trong thời gian đó đột nhiên bị cúp điện chẳng hạn mà quá trình scan chỉ mới dc 50%, dữ liệu scan được sẽ mất hết, mà ví dụ là có thể scan được 100% đi nhưng ta không thể lưu được session vì file session.data nó quá lớn, OWASP ZAP chỉ lưu được tối đa 16GB.</p><p>Chính vì những vấn đề trên ta nên chia nhỏ các ra các phần để test, sau đó sẽ tổng hợp các file report lại. Ví dụ như chỉ quét folder account, quét xong rồi quét tiếp các folder khác, như vậy thời gian quét sẽ không quá lâu và file session.data cũng không quá lớn.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1GRRspB-0mGYlY52Uq3nsY32JUPJzoI7m&amp;export=download" class="kg-image" alt></figure><p>Còn 1 cách  nữa quét từng progress. Trong tab progress tích skip các progress khác và chỉ quét progress mà mình cần quét ví dụ SQL Injection chẳng hạn. Cách này cũng giống như cách trên, thời gian quét sẽ ngắn, và dữ liệu không quá lớn. Mình thích cách này hơn.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1x6WqX-pIXJX2EowvF1nzHDKI7TD7PSVH&amp;export=download" class="kg-image" alt></figure><h3 id="k-t-lu-n-">Kết luận:</h3><p>OWASP ZAP là công cụ test security cực kì hữu ích, với rất nhiều tính năng, những tính năng chính thì hầu như đã có rất nhiều bài Blog đã trình bày, nhưng những thủ thuật hay những vấn đề gặp khi test thực tế, thì hầu như rất ít.</p><p>Đã ăn hành và đúc kết được những kinh nghiệm, viết bài blog này hy vọng có thể giúp ích được những thế hệ mai sau. Còn rất nhiều điều phải tìm hiểu viết thêm về OWASP ZAP, hy vọng sẽ có thêm ít kinh nghiệm khi test thực tế, để chia sẽ với mọi người ở bài blog tiếp theo.</p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/owasp-zap-va-nhung-van-de-thuc-te/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=OWASP%20ZAP%20v%C3%A0%20nh%E1%BB%AFng%20v%E1%BA%A5n%20%C4%91%E1%BB%81%20th%E1%BB%B1c%20t%E1%BA%BF">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/owasp-zap-va-nhung-van-de-thuc-te/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/owasp-zap-va-nhung-van-de-thuc-te/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

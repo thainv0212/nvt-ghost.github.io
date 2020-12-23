@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Xây dựng ứng dụng AR với ARToolkit | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới thực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong thực tại" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới thực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong thực tại" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xây dựng ứng dụng AR với ARToolkit" />
+    <meta property="og:description" content="AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới thực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong thực tại" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xay-dung-ung-dung-ar-voi-artoolkit/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkX3BTdWlmUFJkblU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2017-09-06T00:37:36.000Z" />
+    <meta property="article:tag" content="ar" />
+    <meta property="article:tag" content="artoolkit" />
+    <meta property="article:tag" content="unity" />
+    <meta property="article:tag" content="vr" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xây dựng ứng dụng AR với ARToolkit" />
+    <meta name="twitter:description" content="AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới thực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong thực tại" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xay-dung-ung-dung-ar-voi-artoolkit/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkX3BTdWlmUFJkblU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="ar, artoolkit, unity, vr" />
+    <meta property="og:image:width" content="520" />
+    <meta property="og:image:height" content="245" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Xây dựng ứng dụng AR với ARToolkit",
+    "url": "https://blog.vietnamlab.vn/xay-dung-ung-dung-ar-voi-artoolkit/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2017-09-06T00:37:36.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkX3BTdWlmUFJkblU&export=download",
+        "width": 520,
+        "height": 245
+    },
+    "keywords": "ar, artoolkit, unity, vr",
+    "description": "Giới thiệu về AR\nNói đến AR hẳn là ai không biết thì cũng từng nghe qua rồi.\n\nhttps://en.wikipedia.org/wiki/Augmented_reality\n\nHiểu nôm na nó AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới\nthực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong\nthực tại (như chạm vào, phủ vật thể lên trên - nói dễ hiểu là ghép ảnh theo dạng\n3D),...\n\nVà với phần cứng mạnh mẽ như hiện nay VR/AR sẽ &quot;ảo tung chảo&quot; nhờ Snapdragon 835\nmới nhất từ Qualcomm hay A10X của Apple.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-ar tag-artoolkit tag-unity tag-vr nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-ar tag-artoolkit tag-unity tag-vr js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Xây dựng ứng dụng AR với ARToolkit</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-09-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 September 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/ar/index.html">ar</a>, <a href="../tag/artoolkit/index.html">artoolkit</a>, <a href="../tag/unity/index.html">unity</a>, <a href="../tag/vr/index.html">vr</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkX3BTdWlmUFJkblU&amp;export&#x3D;download" alt="Xây dựng ứng dụng AR với ARToolkit">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/xay-dung-ung-dung-ar-voi-artoolkit/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%C3%A2y%20d%E1%BB%B1ng%20%E1%BB%A9ng%20d%E1%BB%A5ng%20AR%20v%E1%BB%9Bi%20ARToolkit">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="giithiuvar">Giới thiệu về AR</h3>
+<p>Nói đến AR hẳn là ai không biết thì cũng từng nghe qua rồi.</p>
+<blockquote>
+<p><a href="https://en.wikipedia.org/wiki/Augmented_reality">https://en.wikipedia.org/wiki/Augmented_reality</a></p>
+</blockquote>
+<p>Hiểu nôm na nó AR là một công nghệ cho phép lồng ghép thông tin ảo vào thế giới thực (và ngược lại), nó giúp người sử dụng tương tác với những nội dung số trong thực tại (như chạm vào, phủ vật thể lên trên - nói dễ hiểu là ghép ảnh theo dạng 3D),...</p>
+<p>Và với phần cứng mạnh mẽ như hiện nay VR/AR sẽ &quot;ảo tung chảo&quot; nhờ Snapdragon 835 mới nhất từ Qualcomm hay A10X của Apple.</p>
+<h4 id="vrarcinoangphttrinhn">VR/AR cái nào đang phát triển hơn?</h4>
+<p>Tính đến thời điểm hiện tại, công nghệ AR đang phổ biến hơn so với VR, nhất là sau đợt Pokemon Go. AR có thể xài ngay chiếc điện thoại của bạn để chạy, vì hiện tại hầu hết điện thoại đều đã có camera cũng như các cảm biến đủ mạnh để nhận biết về thế giới bên ngoài của bạn. CEO Facebook cũng tin rằng smartphone sẽ là công cụ đưa AR đến với mọi người ở thời điểm ban đầu chứ không phải những thiết bị phức tạp như HoloLens. Hãy nhìn vào cách mà AR được Pokemon Go sử dụng, chẳng phải đó là một đợt bùng nổ hay sao?</p>
+<p>Trong khi đó, VR do đòi hỏi phải có phần cứng chuyên dụng nên chưa thể phát triển mạnh như AR. Ít nhất bạn sẽ cần có một chiếc kính thực tế ảo, dù giá rẻ hay mắc thì vẫn phải đi mua. Để trải nghiệm tốt hơn, bạn sẽ cần thêm một dạng tay cầm nào đó, có thể là tay cầm chơi game hay những thiết bị được phát triển riêng. Ở khoảng giá rẻ, chiếc kính Google Cardboard chỉ có giá 10-15$ mà thôi. Còn lên cao hơn, xịn hơn, hình ảnh rõ hơn, nét hơn thì có Oculus Rift giá 600$ hay HTC Vive Pre giá 800$. Ngoài ra, những chiếc kính Rift hay Vive còn đòi hỏi máy tính phải có cấu hình mạnh, thứ mà không phải ai cũng dễ dàng mua được.</p>
+<h4 id="ccthvintoolhtrxydngngdngarhinnay">Các thư viện (tool) hỗ trợ xây dựng ứng dụng AR hiện nay</h4>
+<table>
+    <thead>
+        <tr>
+            <th>Tool</th>
+            <th>Ưu điểm</th>
+            <th>Nhược điểm</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://developer.vuforia.com/">Vuforia</a></td>
+            <td>
+                Mạnh nhất luôn, nhiều người chọn nhất, fps cao, có Cloud riêng của của nó
+            </td>
+            <td>
+                Khi build product thì phải mất tiền ($499 / one-time per app) chưa kể tiền Cloud ($99 / mo.)
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://www.easyar.com/">EasyAR</a></td>
+            <td>
+                Đúng như cái tên của nó, khá là đơn giản mà lại free
+            </td>
+            <td>
+                Mặc dù free nhưng bản Pro của nó lại mất phí. chất lượng chưa được cao
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://www.wikitude.com/">Wikitude</a></td>
+            <td>
+                Cũng khá mạnh, hỗ trợ cả Smart Glasses
+            </td>
+            <td>
+                Giá thành siêu đắt(€2490 / yr. per app)
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://artoolkit.org/">ARToolKit</a></td>
+            <td>
+                Hoàn toàn free, open source, nhẹ và nhanh
+            </td>
+            <td>
+                Chỉ hỗ trợ 2D Recognition, tính năng còn ít
+            </td>
+        </tr>
+        <tr>
+            <td><a href="http://nyatla.jp/nyartoolkit/wp/">NyARToolkit</a></td>
+            <td colspan="2">
+                Base trên ARToolKit
+            </td>
+        </tr>
+        <tr>
+            <td><a href="https://developer.apple.com/arkit/">ARKit</a></td>
+            <td>
+                Được phát triển bới Apple, fps cao, chất lượng tốt
+            </td>
+            <td>
+                Chỉ chạy được trên iOS, mới ra nên cộng đồng vẫn đang kiểm định 
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h3 id="tichnartoolkit">Tôi chọn ARToolkit</h3>
+<p>Thư viện thực tại ảo ARToolKit cho phép các lập trình viên phát triển ứng dụng thực tại ảo. Với các phiên bản khác nhau ra đời từ năm 2001, ARToolKit đã được triển khai trong hàng ngàn dự án thương mại và mã nguồn mở và được hưởng ứng bởi một cộng đồng chuyên gia lớn của các nhà phát triển và sáng tạo.</p>
+<p>ARToolKit là thư viện C/C++ giúp dễ dàng phát triển các ứng dụng thực tại ảo (AR). AR là các hình ảnh máy tính được xây dựng overlay trên thế giới thực. Một trong những ưu điểm của ARToolkit là Open Source nên có thể tim hiểu qua source code bên trong của nó được viết như thế nào nên sẽ hứa hẹn rất nhiều tiềm năng trong nghiên cứu khoa học cũng như ứng dụng thực tế.</p>
+<p>Một trong những vấn đề khó nhất khi phát triển các ứng dụng AR là phải tính toán chính xác góc nhìn (user's viewpoint) theo thời gian thực để hình ảnh ảo được gắn (aligned) chính xác vào các vật thể của thế giới thực. ARToolKit sử dụng kĩ thuật computer vision để tính toán vị trí tương đối của camera và card đánh dấu vị trí. Từ thông tin này, programmer có thể gắn các vật thể ảo lên card. Kĩ thuật tracking nhanh, chính xác của ARToolKit hỗ trợ rất nhiều trong việc phát triển các ứng dụng AR vô cùng thú vị.</p>
+<h4 id="tnhnngnitricaartoolkit">Tính năng nổi trội của ARToolkit</h4>
+<ul>
+<li>Robust Tracking, including Natural Feature Tracking</li>
+<li>Strong Camera Calibration Support</li>
+<li>Simultaneous tracking and Stereo Camera Support</li>
+<li>Multiple Languages Supported</li>
+<li>Optimized for Mobile Devices</li>
+<li>Full Unity3D and OpenSceneGraph Support</li>
+</ul>
+<h4 id="mtvivdsdngartoolkit">Một vài ví dụ đã sử dụng ARToolkit</h4>
+<ul>
+<li>iNVENtor 2014 AR Showcase</li>
+</ul>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pVyFxdJ5lcI" frameborder="0" allowfullscreen></iframe>
+* ARToolKit + iPhone Video
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5M-oAmBDcZk" frameborder="0" allowfullscreen></iframe>
+* ARToolKit + Solar System
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OKcWp7NLVz4" frameborder="0" allowfullscreen></iframe>
+<h3 id="artoolkitcnbn">ARToolkit căn bản</h3>
+<h4 id="cchhotngcaartoolkit">Cơ chế hoạt động của ARToolkit</h4>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkckhlZzloMllVdmc&amp;export=download" alt="alt"></p>
+<ol>
+<li>Camera sẽ quay video lại và gửi đến máy tính hoặc điện thoại</li>
+<li>Phần mềm trên máy tính tìm kiếm thông qua mỗi khung hình trong video bất kỳ hình dạng vuông (dấu vuông).</li>
+<li>Nếu một ô vuông được tìm thấy sẽ xác định các nội dung hình ảnh hay mô hình nhúng trong ô vuông đó phù hợp. Phần mềm sử dụng toán học để tính toán vị trí của các hình mẫu bên trong ô vuông màu đen và kiểm tra xem nó có phù hợp với pattern đang cần tìm không.</li>
+<li>Khi các vị trí và hướng của máy ảnh được xác định, một mô hình đồ họa máy tính được vẽ vào vị trí đó và nó định hướng luôn mô hinh này quay đi đâu.</li>
+<li>Mô hình này được vẽ ở mặt trước của video và theo dõi sự di chuyển của marker để mô hình đồ họa có thể luôn được gắn theo marker.</li>
+<li>Kết quả cuối cùng mô hình được hiển thị trở lại trên màn hình, Và như vậy người dùng sẽ thấy mô hình đồ họa được đưa lồng vào video thế giới thực; cảm giác giống như nó đồng nhất với marker qua máy ảnh</li>
+</ol>
+<h4 id="thuttoncomputervision">Thuật toán Computer Vision</h4>
+<p>Để thực hiện phát hiện marker cần phải có một thuật toán ước lượng nhanh. Đó là Computer Vision<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTjMxUHA4WUN4VTg&amp;export=download" alt="alt"><br>
+Computer Vision là một lĩnh vực bao gồm các phương pháp thu nhận, xử lý ảnh kỹ thuật số, phân tích và nhận dạng các hình ảnh và, nói chung là dữ liệu đa chiều từ thế giới thực để cho ra các thông tin số hoặc biểu tượng, ví dụ trong các dạng quyết định. Việc phát triển lĩnh vực này có bối cảnh từ việc sao chép các khả năng thị giác con người bởi sự nhận diện và hiểu biết một hình ảnh mang tính điện tử. Sự nhận diện hình ảnh có thể xem là việc giải quyết vấn đề của các biểu tượng thông tin từ dữ liệu hình ảnh qua cách dùng các mô hình được xây dựng với sự giúp đỡ của các ngành lý thuyết học, thống kê, vật lý và hình học. Thị giác máy tính cũng được mô tả là sự tổng thể của một dải rộng các quá trình tự động và tích hợp và các thể hiện cho các nhận thức thị giác.</p>
+<p>Thị giác máy tính là một môn học khoa học liên quan đến lý thuyết đằng sau các hệ thống nhân tạo có trích xuất các thông tin từ các hình ảnh. Dữ liệu hình ảnh có thể nhiều dạng, chẳng hạn như chuỗi video, các cảnh từ đa camera, hay dữ liệu đa chiều từ máy quét y học. Thị giác máy tính còn là một môn học kỹ thuật, trong đó tìm kiếm việc áp dụng các mô hình và các lý thuyết cho việc xây dựng các hệ thống thị giác máy tính.</p>
+<p>Các lĩnh vực con của thị giác máy tính bao gồm tái cấu trúc cảnh, dò tìm sự kiện, theo dõi video, nhận diện bố cục đối tượng, học, chỉ mục, đánh giá chuyển động và phục hồi ảnh.</p>
+<h4 id="mtvibivitvthutton">Một vài bài viết về thuật toán</h4>
+<ul>
+<li><a href="http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf">http://szeliski.org/Book/drafts/SzeliskiBook_20100903_draft.pdf</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Computer_vision">https://en.wikipedia.org/wiki/Computer_vision</a></li>
+<li><a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.14.7673">http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.14.7673</a></li>
+</ul>
+<h4 id="htrcta">Hệ trục tọa độ</h4>
+<p>ARToolkit định nghĩa 2 hệ trục tọa độ khác nhau để sử dụng cho 2 mục đích: <em>Computer vision algorithm</em> và <em>Rendering</em><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVW94TFlQX3B3Q2c&amp;export=download" alt="alt"></p>
+<p>Như trong hình phía trên, tạo độ trên marker sẽ được chuyển về tọa độ của camere (qua một ma trận được tính từ thuật toán Computer Vision). Trên camera sẽ chuyển về 2 chiều trên màn hình (xd, yd). Khi chúng ta render thì đương nhiên chỉ hiện thị được trên hệ trục tọa đô 2 chiều và giờ chỉ việc render nên điểm (xd, yd).<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSUdTOTZ3WGdaeFU&amp;export=download" alt="alt"></p>
+<blockquote>
+<p>Tọa độ mô hình trên hệ trục gắn với camera = Tọa độ mô hình trên hệ trục gắn với marker x Ma trận chuyển tọa độ</p>
+</blockquote>
+<h3 id="sdngartoolkitviunity">Sử dụng ARToolkit với Unity</h3>
+<h4 id="chunb">Chuẩn bị</h4>
+<ul>
+<li>Unity bản mới nhất</li>
+<li>Các tool hỗ trợ build như là Android SDK, XCode</li>
+<li>Kiến thức về Unity(Cách tạo Model, C#, đưa model vào scene, Animation, ..)</li>
+<li>Import thư ARToolkit cho Unity
+<ul>
+<li><a href="https://github.com/artoolkit/arunity5">https://github.com/artoolkit/arunity5</a></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNWtJUXBiZGpFMTA&amp;export=download" alt="alt"><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeDdVZVBLVWNra00&amp;export=download" alt="alt"></p>
+<h4 id="tomtarscene">Tạo một AR Scene</h4>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNkFaYzNBZEpuMzQ&amp;export=download" alt="alt"><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbV85OWpHYW1yY28&amp;export=download" alt="alt"></p>
+<ul>
+<li>Tạo 1 GameObject và thêm vào script ARController và ARMarker. Trong Component ARMarker có thể chọn loại marker(Type): Square, Square Barcode, Multimarker, NTF(dành cho marker là hình ảnh cụ thể)</li>
+<li>Đổi tên GameObject thành ARToolkit và chuyển Layer thành AR background. Tạo GameObject Scene root như hình dưới.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkM1p0NU1YWlcyTVk&amp;export=download" alt="alt"></li>
+<li>Thêm script ARCamera vào Camera và chuyển Layer thành AR foreground.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWEd4YzJDSXYxMHc&amp;export=download" alt="alt"></li>
+<li>Khối cầu là một model để hiển thị bên trên marker, chúng ta có thể thây thế bằng các mô hình khác(người chơi, nhân vật game). Mô hình này cần được chỉnh Layer là AR foreground.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ2NXTklBNnBneWc&amp;export=download" alt="alt"><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdUI1d0cxY3ROV2c&amp;export=download" alt="alt"></li>
+</ul>
+<h4 id="chititcclpcsdng">Chi tiết các lớp được sử dụng</h4>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkLXVKdzM5eFpKTEk&amp;export=download" alt="alt"></p>
+<ul>
+<li>
+<p>ARController: Điều chỉnh các thông số cài đặt cho từng thiết bị và các cài đặt điều khiển các hoạt động của việc Tracking marker<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkd2I3MV9VQnp4Sms&amp;export=download" alt="alt"></p>
+</li>
+<li>
+<p>ARMarker là lớp để nhận biết marker và chứa các Object của Model để đưa đến ARCamera. Các thông số cần thiết:</p>
+<ul>
+<li>Tag: Là một tên định nghĩa marker</li>
+<li>ID: Một id tự tăng</li>
+<li>Marker: Chọn marker để sử dụng danh sách các marker tương ứng với các file trong thư mục <code>Assets/Resources/ardata/markers</code></li>
+<li>Width: Độ rộng marker tính bằng mét</li>
+</ul>
+</li>
+<li>
+<p>ARCamera có chức năng kết nối đến camera và hiển thị các model trên camera</p>
+</li>
+</ul>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ul>
+<li><a href="https://archive.artoolkit.org/documentation">https://archive.artoolkit.org/documentation</a></li>
+<li><a href="https://github.com/artoolkit/arunity5">https://github.com/artoolkit/arunity5</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/xay-dung-ung-dung-ar-voi-artoolkit/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=X%C3%A2y%20d%E1%BB%B1ng%20%E1%BB%A9ng%20d%E1%BB%A5ng%20AR%20v%E1%BB%9Bi%20ARToolkit">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/xay-dung-ung-dung-ar-voi-artoolkit/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/xay-dung-ung-dung-ar-voi-artoolkit/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

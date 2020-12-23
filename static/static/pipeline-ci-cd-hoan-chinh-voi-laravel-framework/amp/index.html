@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Pipeline CI/CD hoàn chỉnh với Laravel Framework</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Pipeline CI/CD hoàn chỉnh với Laravel Framework" />
+    <meta property="og:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/pipeline-ci-cd-hoan-chinh-voi-laravel-framework/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1u-yF6ILW18gC8dUHg7XJL2aKzDs0hRdR&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-12-22T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-12-22T01:53:34.000Z" />
+    <meta property="article:tag" content="Jenkins" />
+    <meta property="article:tag" content="CI" />
+    <meta property="article:tag" content="CD" />
+    <meta property="article:tag" content="laravel" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pipeline CI/CD hoàn chỉnh với Laravel Framework" />
+    <meta name="twitter:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/pipeline-ci-cd-hoan-chinh-voi-laravel-framework/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1u-yF6ILW18gC8dUHg7XJL2aKzDs0hRdR&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Jenkins, CI, CD, laravel" />
+    <meta property="og:image:width" content="888" />
+    <meta property="og:image:height" content="388" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Pipeline CI/CD hoàn chỉnh với Laravel Framework",
+    "url": "https://blog.vietnamlab.vn/pipeline-ci-cd-hoan-chinh-voi-laravel-framework/",
+    "datePublished": "2017-12-22T01:00:00.000Z",
+    "dateModified": "2017-12-22T01:53:34.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1u-yF6ILW18gC8dUHg7XJL2aKzDs0hRdR&export=download",
+        "width": 888,
+        "height": 388
+    },
+    "keywords": "Jenkins, CI, CD, laravel",
+    "description": "Chuỗi bài về Jenkins\n\n1. Pipeline trong jenkins\n[https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/]\n\n2. Hướng dẫn tạo Jenkinsfile\n[https://vietnamlab.vn/blog/2017/11/22/huong-dan-tao-jenkinsfile/]\n\n3. Pipeline CI/CD hoàn chỉnh với Laravel Framework\n\nMục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:\n\n * Docker: sử dụng nền tảng container để triển khai\n * Laravel: framework PHP để làm website\n * Unit testing: Unit test cho PHP\n * Feature testing: test chức năng cho s",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Pipeline CI/CD hoàn chỉnh với Laravel Framework</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2017-12-22">22 Dec 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1u-yF6ILW18gC8dUHg7XJL2aKzDs0hRdR&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><strong>Chuỗi bài về Jenkins</strong></p>
+<p><em>1. <a href="https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/">Pipeline trong jenkins</a></em></p>
+<p><em>2. <a href="https://vietnamlab.vn/blog/2017/11/22/huong-dan-tao-jenkinsfile/">Hướng dẫn tạo Jenkinsfile</a></em></p>
+<p><em><strong>3. Pipeline CI/CD hoàn chỉnh với Laravel Framework</strong></em></p>
+<p><strong>Mục đích cuối cùng của chuỗi bài</strong>: xây dựng 1 CI/CD hoàn chỉnh bao gồm:</p>
+<ul>
+<li>Docker: sử dụng nền tảng container để triển khai</li>
+<li>Laravel: framework PHP để làm website</li>
+<li>Unit testing: Unit test cho PHP</li>
+<li>Feature testing: test chức năng cho service</li>
+<li>Deploy: CD deploy container bằng Pipeline</li>
+</ul>
+<hr></hr>
+<h3 id="giithiunhngkeywordtrngyu">Giới thiệu những keyword trọng yếu</h3>
+<h4 id="laravel">Laravel</h4>
+<p>Ai làm PHP thì đều biết về Laravel, framework PHP phổ biến và mạnh mẽ nhất hiện nay. Laravel tích hợp nhiều kỹ thuật vào giúp cho phát triển những ứng dụng trở nên dễ dàng hơn đối với developer. Điển hình:<br />
+*</p>
+<p>Ngoài ra với cộng đồng những nhà phát triển lớn và hoạt động tích cực thì cũng có vô vàn các package hỗ trợ thêm nhiều tính năng cho Laravel khiến cho framework này ngày càng có nhiều người sử dụng.</p>
+<p><amp-img src="https://i2.wp.com/zenofcoding.com/wp-content/uploads/2017/02/php_mvc_frameworks_2017.png?w=1760" alt width="1760" height="860" layout="responsive"></amp-img><br />
+<em>Laravel vượt mặt các PHP Framework đình đám vào giữa năm 2013 và vẫn trở nên phổ biến rộng rãi hơn</em></p>
+<p><strong>Testing trong Laravel :</strong> các bạn có thể tham khảo thêm tại <a href="https://laravel.com/docs/5.5/testing">đây</a></p>
+<ul>
+<li><strong>Unit testing :</strong> thư mục chứa code Unit test của Laravel là <code>&lt;project_root_path&gt;/tests/Unit</code> ở đây ta khai báo các class mới extended từ class <code>TestCase</code> để viết code unit test cho project. Sử dụng <code>$this-&gt;assertXXX()</code> để kiểm tra output của các module cần test. Ví dụ</li>
+</ul>
+<pre><code>    public function testExample()
+    {
+        $this-&gt;assertEquals(true, Tools::compare(1,1)); // test kết quả trả về của Tools::compare(1,1) là true
+    }
+</code></pre>
+<ul>
+<li><strong>Feature testing :</strong> thư mục chứa code Unit test của Laravel là <code>&lt;project_root_path&gt;/tests/Feature</code> ở đây ta khai báo các class mới extended từ class <code>TestCase</code> để viết code unit test cho project. các method so sánh kiểm tra chức năng sẽ được call từ object <code>\Illuminate\Foundation\Testing\TestResponse</code> mỗi lần ta thực hiện 1 request. Ví dụ:</li>
+</ul>
+<pre><code>  public function testAddPostTitleInvalid()
+  {
+    $title = 'Post's title';
+    $content = 'Post's content';
+    $user = User::all()-&gt;first(); // lấy user đầu tiên trong db để xác thực
+
+    $this-&gt;actingAs($user)
+      -&gt;get(route('post.add')); // mở url add post với user vừa lấy từ db
+
+    $response = $this-&gt;followingRedirects() 
+      -&gt;post(route('post.confirm'), [
+        'title'   =&gt; $title,
+        'content' =&gt; $content,
+        '_token'  =&gt; csrf_token(),
+      ]); // gửi post request lên server, follow theo page khi bị redirect
+
+    $response-&gt;assertSeeText('The title must be at least 10 characters'); // Kiểm tra có lỗi cảnh báo title phải có ít nhất 10 ký tự
+  }
+</code></pre>
+<h4 id="docker">Docker</h4>
+<p>Một thuật ngữ quá hot trong giới DevOps trong khoảng 4 năm trở lại đây, Docker ứng dụng công nghệ container hoá, đóng gói service vào container nhẹ và nhanh. Docker đã thay đổi tư duy về hệ thống từ kiến trúc phần mềm tổ chức bằng các server, máy ảo chuyển hoá sang tổ chức bằng container, Docker giúp cho quá trình phát triển cũng như vận hành các hệ thống trở nên nhanh và hiệu quả hơn bao giờ hết. Jenkins cũng bắt kịp theo xu hướng và đã hỗ trợ rất nhiều cho Docker, vì vậy bài viết này sẽ hướng dẫn cách thiết lập CI/CD cho Laravel trên nền tảng Docker.</p>
+<p></p>
+<p><strong>Docker compose</strong>: là 1 trong 3 công cụ <strong>orchestration</strong> (điều phối cụm container, docker daemon), ngoài compose ra còn có Docker machine và Docker swarm, Docker compose là công cụ quản lý tập trung nhiều container trên 1 file meta là file <strong>docker-compose.yml</strong>, file này sẽ định nghĩa mọi thiết lập về các container để tất cả có thể phối hợp với nhau tạo hành 1 service hoàn chỉnh. Bài viết này sử dụng Docker compose để xây dựng 1 web service hoàn chỉnh (bao gồm Nginx + PHP-Fpm + MySQL)</p>
+<p><amp-img src="https://foxutech.com/wp-content/uploads/2017/06/docker-compose1.png" alt width="1000" height="400" layout="responsive"></amp-img></p>
+<h3 id="biton">Bài toán</h3>
+<p>Các yêu cầu của bài toán đặt ra như sau:</p>
+<ul>
+<li>Ta có 1 web service:
+<ul>
+<li>Được viết bằng framework Laravel</li>
+<li>Web service này có 2 loại automation test là Unit test và Feature test (Integration test)</li>
+</ul>
+</li>
+<li>Tất cả thành phần về infrastructure của web service đều được xây dựng trên nền tảng Docker</li>
+<li>Yêu cầu đặt ra: mỗi commit lên repo của project web service này đều sẽ thực hiện những công việc sau:
+<ol>
+<li>Build lại những image được sử dụng trong hệ thống</li>
+<li>Chạy Unit test trên container chứa source code PHP của service</li>
+<li>Unit test ok thì sẽ deploy lại web service sử dụng Docker compose</li>
+<li>Sau khi deloy xong thì sẽ chạy Feature test để kiểm tra các chức năng của hệ thống đã hoạt động đúng đắn chưa.</li>
+</ol>
+</li>
+</ul>
+<p><em><strong>Hình mô phỏng</strong></em><br />
+<amp-img src="https://drive.google.com/uc?id=1_GSldOZn0aYQnHTMsmlWS9cnH7FllAhg&amp;export=download" alt width="1202" height="677" layout="responsive"></amp-img></p>
+<hr></hr>
+<h3 id="trinkhai">Triển khai</h3>
+<p>Công việc chính sẽ có 2 giai đoạn sau:</p>
+<ul>
+<li><strong>Thiết kế container :</strong> Build hoặc lựa chọn các image cần thiết để xây dựng nên service hoàn chỉnh + thiết lập file <code>docker-compose.yml</code> để quản lý các container.</li>
+<li><strong>Thiết lập Pipeline trên Jenkins :</strong> Tạo file Jenkinsfile để định nghĩa các stage cho mô hình CI/CD bao gồm: build image, chạy Unit testing, Deploy, chạy Feature tesing.</li>
+</ul>
+<h4 id="thitkcontainer">Thiết kế container</h4>
+<p>Bố cục container như sau:</p>
+<ol>
+<li>Container web service: là container chạy nginx để xử lý các HTTP request</li>
+<li>Container PHP-FPM: là container chạy PHP-FPM để chạy các PHP script tương ứng với request HTTP từ Nginx đẩy qua.</li>
+<li>Container MySQL: chạy MySQL</li>
+</ol>
+<blockquote>
+<p><strong>※Chú ý:</strong> Các bạn chưa quen vs Docker có thể đặt câu hỏi là tại sao lại tách Nginx và PHP-FPM ra? -&gt; bạn có thể cho Nginx và PHP-FPM chung 1 container, tuy nhiên tư tưởng của Docker là container ko phải là Virtual Machine, mà nó tương đương với 1 service vì vậy tách Nginx và PHP-FPM ra 2 container ta cũng hiểu như là 2 service thôi, hơn nữa việc tách ra như vậy cho ta một số lợi điểm như là:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>quản lý container dễ dàng hơn, log của Nginx và PHP-FPM không bị lẫn lộn vào nhau.</em></li>
+</ul>
+</blockquote>
+<ul>
+<li><em>Scale Nginx và PHP-FPM là độc lập -&gt; tiết kiệm tài nguyên và giúp sacle linh hoạt hơn.</em></li>
+</ul>
+<p><strong>1. Container web service</strong>: ta sử dụng image <code>nginx:latest</code> (latest là tag của image, ý là sử dụng version mới nhất) để build lại image Nginx mới với config mới phù hợp với service của ta. File <code>Dockerfile</code> có nội dung như dưới đây (giải thích sẽ được comment ngay trong <code>Dockerfile</code>)</p>
+<pre><code>FROM nginx:latest
+
+ADD ./default.conf /etc/nginx/conf.d/default.conf # config server web
+
+ADD ./src /var/www/blog # copy source code của service vào image
+RUN chown www-data:www-data -R /var/www/blog # đổi sở hữu của thư mục web thành user www-data
+
+RUN apt-get update # update package [Option]
+RUN apt-get install net-tools -y # cài đặt một số tools để quản lý network [Option]
+</code></pre>
+<p>Nội dung của file <code>default.conf</code> như dưới đây:</p>
+<pre><code>server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name localhost;
+
+    index index.php index.html;
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    root /var/www/blog/public;
+
+    location / {
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass web:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+</code></pre>
+<p>Trong file <code>default.conf</code> thì quan trọng nhất là phần config cho xử lý từ URL của HTTP request gọi đến PHP-FPM để chạy script PHP tương ứng. Trong đó <code>fastcgi_pass web:9000;</code> các bạn hãy chú ý config này, thông thường khi Nginx và PHP-FPM cài chung trên 1 host (không sử dụng Docker) thì việc giao tiếp giữa Nginx và PHP-FPM hay sử dụng socket (<code>fastcgi_pass  unix:/var/run/php-fpm/marketplace.sock;</code>) còn khi ta tách Nginx và PHP-FPM ra 2 container thì ta sử dụng kiểu tương tác là TCP/IP.<br />
+Build image thì ta sử dụng command <code>docker build -f &lt;Dockerfile path&gt; . -t &lt;tag_name&gt;</code></p>
+<p><strong>2. Container PHP-FPM :</strong> Ta sử dụng base image là <code>php:7-fpm</code> (PHP 7), Dockerfile sẽ có nội dụng như dưới đây (giải thích sẽ được comment ngay trong <code>Dockerfile</code>):</p>
+<pre><code>FROM php:7-fpm
+
+RUN apt-get update &amp;&amp; apt-get install -y libmcrypt-dev mysql-client \
+    &amp;&amp; docker-php-ext-install mcrypt pdo_mysql # cài một số package cần thiết
+
+ADD ./php.conf /usr/local/etc/php-fpm.conf # Config PHP
+COPY ./php.ini /usr/local/etc/php/ # Config PHP
+
+ADD ./src /var/www/blog # Add source code của service vào image
+RUN chown www-data:www-data -R /var/www/blog # đổi sở hữu của thư mục web thành user www-data
+
+RUN apt-get install net-tools -y # cài đặt một số tools để quản lý network [Option]
+
+WORKDIR /var/www/blog # khai báo path của work directory ( mọi tương tác vs container sẽ bắt đầu từ đây)
+</code></pre>
+<p>Nội dung những file config của PHP bạn có thể xem tại <a href="https://github.com/kyo88/laravel-5v5-blog">link</a></p>
+<p><strong>3. Container MySQL :</strong> sử dụng image <code>mysql:5.6</code></p>
+<p><strong>4. Xây dựng file <code>docker-compose.yml</code></strong>: trong file <code>docker-compose.yml</code> ta thiết lập cho các container bao gồm những việc như là:</p>
+<ul>
+<li>Port mapping: public những port nào trong container ra ngoài</li>
+<li>Thiết lập network giữa các container</li>
+<li>Khai báo các biến môi trường truyền vào cho container</li>
+<li>Thiết lập resource cho container</li>
+<li>...</li>
+</ul>
+<p>Dockerfile có nội dung như sau:</p>
+<pre><code>version: '3'
+services:
+    nginx:
+        image: kyo88kyo/nginx
+        ports:
+            - "9999:80"
+        networks:
+            - mynet
+        links:
+            - web
+        deploy:
+            placement:
+                constraints: [node.role == manager]
+    web:
+        image: kyo88kyo/blog
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
+        networks:
+            - mynet
+        deploy:
+            mode: replicated
+            replicas: 4
+            placement:
+                constraints: [node.role == worker]
+            resources:
+                limits:
+                    cpus: '0.1'
+                    memory: 256M
+    database:
+        image: mysql:5.6
+        environment:
+            - "MYSQL_ROOT_PASSWORD=Calldb@123456"
+            - "MYSQL_USER=blog"
+            - "MYSQL_PASSWORD=Blog@123456"
+            - "MYSQL_DATABASE=kyo"
+        ports:
+            - "33061:3306"
+        networks:
+            - mynet
+        deploy:
+            mode: replicated
+            replicas: 1
+            placement:
+                constraints: [node.role == worker]
+
+networks:
+    mynet:
+</code></pre>
+<p>Để test thử ta sử dụng lệnh <code>docker-compose up</code> thì sẽ thấy có 3 container được tạo ra:<br />
+<amp-img src="https://drive.google.com/uc?id=1pUqCqDFTHkVOYsEt3A6k4dBFoG4igycN&amp;export=download" alt width="1426" height="100" layout="responsive"></amp-img><br />
+<strong>Do các image sử dụng trong <code>docker-compose.yml</code> đều đã được mình public trên <a href="https://hub.docker.com/">docker hub</a> nên chỉ cần bạn sử dụng file <code>docker-compose.yml</code> trên và up nó lên thì sẽ truy cập vào web service được</strong></p>
+<p>Access vào port 9999 (mapping từ container nginx ra) ta sẽ thấy truy cập được vào web service<br />
+<amp-img src="https://drive.google.com/uc?id=1H9EO95jegVGR8Q4LrdKQvNImDmKL0RWw&amp;export=download" alt width="992" height="430" layout="responsive"></amp-img></p>
+<p>Ok vậy là việc thiết lập docker đã xong 99% rồi. Giờ ta thiết lập Pipeline cho web service thôi!!!</p>
+<h4 id="thitlppipelinetrnjenkins">Thiết lập Pipeline trên Jenkins</h4>
+<p>Các bước thiết lập:</p>
+<ul>
+<li>Trên web Jenkins tạo item type là <strong>Multibranch Pipeline</strong> (mới trigger git push được) và thiết lập git như ảnh dưới ( cần phải fork project <a href="https://github.com/kyo88/laravel-5v5-blog">laravel-5v5-blog</a> của mình về acc github của bạn )<br />
+<amp-img src="https://drive.google.com/uc?id=1651D9D_sqlytFAjIGG47tD3kuzx_LyrC&amp;export=download" alt width="448" height="234" layout="responsive"></amp-img></li>
+<li>Trong project <a href="https://github.com/kyo88/laravel-5v5-blog">laravel-5v5-blog</a> có sẵn file Jenkinfile với thiết lập như dưới đây</li>
+</ul>
+<pre><code>node ('slave'){ // run trên node có label là slave
+    checkout scm
+
+    stage('Build') {
+        checkout scm
+        sh 'pwd &amp;&amp; cd src &amp;&amp; /usr/local/bin/composer install'
+        docker.build("kyo88kyo/nginx", "-f Dockerfile-nginx .")
+        docker.build("kyo88kyo/blog")
+    }
+
+    stage('Test') {
+        docker.image('kyo88kyo/blog').inside {
+            sh 'php --version'
+            sh 'cd /var/www/blog &amp;&amp; ./vendor/bin/phpunit --testsuite Unit'
+        }
+    }
+
+    stage('Deploy') {
+        sh 'cd src &amp;&amp; /usr/local/bin/docker-compose down'
+        sh 'cd src &amp;&amp; /usr/local/bin/docker-compose up -d'
+        sh 'sleep 10 &amp;&amp; cd src &amp;&amp; /usr/local/bin/docker-compose run web php artisan migrate'
+    }
+
+    stage ('Test Feature') {
+        sh 'cd src &amp;&amp; /usr/local/bin/docker-compose run web ./vendor/bin/phpunit --testsuite Feature'
+    }
+}
+</code></pre>
+<p>Giải thích các stage:<br />
+* <strong>Build :</strong> build lại 2 image là <code>kyo88kyo/nginx</code> và <code>kyo88kyo/blog</code><br />
+* <strong>Test Unit :</strong> chạy unit testing ngay bên trong docker container tạo ra từ image <code>kyo88kyo/blog</code> (container tạo ra rồi bị xóa luôn lúc chạy xong)<br />
+* <strong>Deploy :</strong> dùng docker compose deploy toàn bộ web service ( xóa tất cả container cũ rồi tạo mới lại, đây chỉ làm trên môi trường test thôi còn thực tế trên production sẽ ko làm vậy vì sẽ mất hết database, ta cũng có thể mount volume chứa data vào cho container MySQL thì sẽ ko bị mất dữ liệu)<br />
+* <strong>Test Feature :</strong> chạy feature testing trên container PHP đã deploy</p>
+<h4 id="demo">Demo</h4>
+<p>Nội dung:</p>
+<ol>
+<li>Add thêm 1 dòng text với nội dung <strong>" Test webhook"</strong> vào homepage của web service</li>
+<li>Push commit thay đổi trên lên github repo</li>
+<li>Kiểm tra trên Jenkins để xem Jenkins trigger tự động từ github và chạy lại pipeline của project</li>
+<li>Sau khi build trên Jenkins chạy xong ta reload lại url của web service để xem thay đổi, xem dòng text <strong>" Test webhook"</strong> hiển thị trên homepage.</li>
+</ol>
+<p>Mời các bạn xem ảnh gif sau để xem lại quá trình demo trên<br />
+<amp-anim src="https://image.ibb.co/igLAQR/jenkins_pipeline_docker2.gif" alt width="1593" height="882" layout="responsive"></amp-anim></p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Bài viết này là bài viết cuối cùng trong serial bài về Jenkins, hy vọng các bạn đã nắm rõ được cách thiết lập Pipeline trong Jenkins và hình dung được quá trình CI/CD với Docker cho Laravel framework hoạt động như thế nào.</li>
+<li>Mọi thắc mắc xin để comment trong post này hoặc liên hệ skype <code>longkyo1988</code> để hỏi nhé.</li>
+</ul>
+<h5 id="linkthamkho">Link tham khảo</h5>
+<ul>
+<li><a href="https://docs.docker.com/compose/">Docker composer</a></li>
+<li><a href="https://laravel.com/docs/5.5/testing">Laravel Testing</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

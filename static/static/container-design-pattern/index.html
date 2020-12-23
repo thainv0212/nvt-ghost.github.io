@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1] | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1]" />
+    <meta property="og:description" content="Cũng giống trong thập niên 80 của thế kỉ trước, lập trình hướng đối tượng đã cách mạng hóa cách phát triển phần mềm, khi đó một ứng dụng được tạo bởi rất nhiều thành phần module khác nhau. Hiện nay, chúng ta cũng chứng kiến sự thay đổi tương" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/container-design-pattern/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EMDHQfMfILazFf9v6MDeLr62m_7lzt2U&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-09-10T00:54:10.000Z" />
+    <meta property="article:modified_time" content="2019-09-10T00:54:10.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="distributed system" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="design pattern" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="software development" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1]" />
+    <meta name="twitter:description" content="Cũng giống trong thập niên 80 của thế kỉ trước, lập trình hướng đối tượng đã cách mạng hóa cách phát triển phần mềm, khi đó một ứng dụng được tạo bởi rất nhiều thành phần module khác nhau. Hiện nay, chúng ta cũng chứng kiến sự thay đổi tương" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/container-design-pattern/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1EMDHQfMfILazFf9v6MDeLr62m_7lzt2U&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, distributed system, kubernetes, design pattern, k8s, software development" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1]",
+    "url": "https://blog.vietnamlab.vn/container-design-pattern/",
+    "datePublished": "2019-09-10T00:54:10.000Z",
+    "dateModified": "2019-09-10T00:54:10.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1EMDHQfMfILazFf9v6MDeLr62m_7lzt2U&export=download",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "docker, distributed system, kubernetes, design pattern, k8s, software development",
+    "description": "Cũng giống trong thập niên 80 của thế kỉ trước, lập trình hướng đối tượng đã\ncách mạng hóa cách phát triển phần mềm, khi đó một ứng dụng được tạo bởi rất\nnhiều thành phần module khác nhau. Hiện nay, chúng ta cũng chứng kiến sự thay\nđổi tương tự cho việc tạo dựng các hệ thống phân tán, kéo theo sự phổ biến của\nkiến trúc micro service được tạo bởi nhiều thành phần container khác nhau.\nCũng giống như design pattern của các ngôn ngữ lập trình, tạo dựng và sắp xếp\ncác container cho hệ thống phân tán ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-docker tag-distributed-system tag-kubernetes tag-design-pattern tag-k8s tag-software-development nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-docker tag-distributed-system tag-kubernetes tag-design-pattern tag-k8s tag-software-development js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1]</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-09-10">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 10 September 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/docker/index.html">docker</a>, <a href="../tag/distributed-system/index.html">distributed system</a>, <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/design-pattern/index.html">design pattern</a>, <a href="../tag/k8s/index.html">k8s</a>, <a href="../tag/software-development/index.html">software development</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1EMDHQfMfILazFf9v6MDeLr62m_7lzt2U&amp;export&#x3D;download" alt="Container Design Pattern cho hệ thống phân tán: Sidecar pattern [Kỳ 1]">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/container-design-pattern/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Container%20Design%20Pattern%20cho%20h%E1%BB%87%20th%E1%BB%91ng%20ph%C3%A2n%20t%C3%A1n%3A%20Sidecar%20pattern%20%5BK%E1%BB%B3%201%5D">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Cũng giống trong thập niên 80 của thế kỉ trước, lập trình hướng đối tượng đã cách mạng hóa cách phát triển phần mềm, khi đó một ứng dụng được tạo bởi rất nhiều thành phần module khác nhau. Hiện nay, chúng ta cũng chứng kiến sự thay đổi tương tự cho việc tạo dựng các hệ thống phân tán, kéo theo sự phổ biến của kiến trúc micro service được tạo bởi nhiều thành phần container khác nhau.<br>Cũng giống như design pattern của các ngôn ngữ lập trình, tạo dựng và sắp xếp các container cho hệ thống phân tán cũng có các pattern của riêng nó. Việc áp dụng các pattern giúp ta biết phải làm gì trong các trường hợp phổ biến, tiết kiệm thời gian và công sức vắt óc suy nghĩ nên sắp xếp và vận hành các container thế nào cho đúng.</p><p>Nội dung của blog này sẽ trình bày về single node pattern đầu tiên và đơn giản nhất là sidecar pattern.</p><!--kg-card-begin: markdown--><p><img src="https://drive.google.com/uc?id=1KuQ-3oKgcpEoJxCors_pzikN4IdRNUk4&amp;export=download" alt="uc?id=1KuQ-3oKgcpEoJxCors_pzikN4IdRNUk4&amp;export=download"></p>
+<h4 id="lu">Lưu ý:</h4>
+<p>Để hiểu bài viết này bạn phải cần có kiến thức về docker.</p>
+<h4 id="1ccsinglenodepattern">1. Các single node pattern.</h4>
+<p>Tiêu đề của blog là &quot;cho hệ thống phân tán&quot; thì tại sao ta lại bàn về các single node pattern. Lý do như sau: container là khối xây dựng cơ sở cho các container design pattern, nhưng cuối cùng thì, nhóm các container cùng nằm trên một máy (node) sẽ tạo nên thành phần nguyên tử (thành phần đơn vị) của các pattern sử dụng trong hệ thống phân tán.</p>
+<h4 id="2sidecarpattern">2. Sidecar pattern</h4>
+<p>Định nghĩa của sidecar pattern rất đơn giản. Đây là một single node pattern được tạo bởi hai container. Cái đầu tiên là application container chứa core<br>
+logic của ứng dụng. Cái thứ hai là sidecar container. Vai trò của container thêm này là để tăng cường và củng cố chức năng cho application container, mà không phải biết chi tiết về application container.<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=1WK1EEWZjyWJ96a9X3cD9lXMXh3F_2PEF&amp;export=download" alt="uc?id=1WK1EEWZjyWJ96a9X3cD9lXMXh3F_2PEF&amp;export=download"><br>
+</br><br>
+Ở dạng đơn giản nhất, sidecar container có thể được dùng để thêm chức năng cho application container mà nó khó có thể cải thiện thêm (update code chẳng hạn).</p>
+<p>Sidecar container được cùng schedule trên cùng một máy với application container có thể qua một nhóm container nguyên tử (automic container group) như pod API object trong Kubernetes.</p>
+<p>Ngoài cùng được schedule trên cùng một máy, application container và sidecar container chia sẻ một số lượng các resource như là filesystem, hostname, network,…</p>
+<h4 id="3mtsusecasephbin">3. Một số use-case phổ biến</h4>
+<p>Sau đây là một số use-case phổ biến mà theo đó bạn có thể áp dụng luôn hoặc biển thể trong các trường hợp xác định.</p>
+<h5 id="31thmhttpschomtlegacyservice">3.1. Thêm HTTPS cho một legacy service</h5>
+<p>Ví dụ công ty X có một web service cũ. Nhiều năm trước khi nó được tạo, vấn đề internal network security không được chú trọng, vì thế web service này chỉ phục vụ cho các request HTTP. Theo như các mối lo ngại security gần đây, công ty X bắt đầu bắt buộc dùng HTTPS cho tất cả website trong công ty. Ngặt nỗi khổ cho team devops là source code của web service này dùng phiên bản rất cũ trong hệ thống build của công ty, và nó đã dừng phát triển từ lâu.</p>
+<p>Container hóa web service này rất dễ nhưng thêm phần chức năng HTTPS cho nó thì phải làm sao. Team devops đang cố gắng chọn giữa tiếp tục phát triển hệ thống build cũ hoặc port source app sang hệ thống build mới. Sau đó một thành viên đề nghị một giải pháp đơn giản hơn là dùng sidecar pattern.<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=1mb0TP-4kTQrm5ULI3vjm20e0KFQb99Ga&amp;export=download" alt="uc?id=1mb0TP-4kTQrm5ULI3vjm20e0KFQb99Ga&amp;export=download"><br>
+</br><br>
+Legacy web service đó sẽ được đóng gói thành một container và được config chỉ phục vụ cho request từ localhost, nghĩa là chỉ những service khác mà được chia sẻ local network của máy server mới truy cập được web service này. Ngoài ra, team devops chỉ việc tạo thêm nginx sidecar container. Container này nằm ở cùng network với legacy web service container nên có thể access được. Như thế, chỉ cần config nginx tiếp nhận HTTPS request và redirect sang HTTP request của Legacy web service thì vấn đề sẽ được giải quyết dễ dàng. Ở đây nginx sidecar container sẽ đóng vai trò như một SSL Proxy.</p>
+<p>Vì những unencrypted traffic (HTTP) chỉ được gởi nội bộ trong local network qua các container, do đó team devops sẽ hài lòng rằng thế này là đủ security. Tương tự như vậy, bằng cách sử dụng sidecar pattern, team devops công ty X đã hiện đại hóa một legacy application mà không phải viết thêm một dòng code nào trong source code của ứng dụng.</p>
+<h5 id="32configngvisidecar">3.2. Config động với Sidecar</h5>
+<p>Nhiều ứng dụng thường sử dụng các file config để truyền tham số cho ứng dụng. Trên môi trường cloud-native thì rất hữu ích khi dùng API để update config cho ứng dụng. Điều này cho phép linh hoạt trong việc push thông tin config thông qua API thay vì log vào từng server và update từng file config bằng tay.</p>
+<p>Điều này cũng khiến tự động hóa các thao tác như rollback, reconfiguring an toàn và dễ dàng hơn.<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=1V3RvB5rpWAbcSih2peNaExiMzkTEpOoJ&amp;export=download" alt="uc?id=1V3RvB5rpWAbcSih2peNaExiMzkTEpOoJ&amp;export=download"><br>
+</br><br>
+Áp dụng sidecar như sau: tạo 2 container, một là application container và container còn lại đóng vai trò là config manager. Hai container được nhóm lại thành một pod nơi mà chúng sẽ chia sẻ một thư mục chung. Thư mục này là nơi chưa config file.</p>
+<p>Nguyên tắc hoạt động như sau: Khi legacy application khởi động, nó load config từ config file. Khi config manager khởi động, nó sẽ kiểm tra API config và kiểm tra xem có khác nhau không. Nếu có, sẽ download file config mới và bắn một tín hiệu cho legacy application để load lại config file. Loại tín hiệu thì tùy ứng dụng (có thể là restart, hoặc kill luôn application container).</p>
+<h4 id="4thitksidecarchovicmodulehavtisdng">4. Thiết kế sidecar cho việc module hóa và tái sử dụng</h4>
+<p>Ngoài dùng để cải thiện legacy application mà không đụng đến source code thì còn có vài lý do khác để áp dụng sidecar pattern. Trong đó, một trong những ưu điểm chính của việc sử dụng sidecar đó là việc module hóa và tái sử dụng thành phần sidecar.</p>
+<p>Ở ví dụ 3.1 về thêm HTTPS, nếu nginx sidecar container được parameterized tốt (tức các tham số về ip, port,… được lấy từ biến) thì nginx sidecar container sẽ là một thành phần tách rời hoàn toàn với ứng dụng cụ thể và có thể được tái sử dụng cho các ứng dụng khác.<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=18aXkebKaBxntIiVKuVcI0pHEUhwkJLOy&amp;export=download" alt="uc?id=18aXkebKaBxntIiVKuVcI0pHEUhwkJLOy&amp;export=download"><br>
+</br><br>
+Việc thiết kế sidecar để đạt được khả năng module hóa và tái sử dụng, giống như để đạt được khả năng module tốt trong việc phát triển phần mềm chất lượng thì cũng cần có sự tập trung và kỷ luật trong team. Cụ thể, cần phải lưu ý và tập trung vào các yếu tố sau:</p>
+<ul>
+<li>Parameter hóa các container.</li>
+<li>Định nghĩa các API surface cho các container.</li>
+<li>Viết Doc cho các hoạt động của container.</li>
+</ul>
+<h5 id="41parameterhacccontainer">4.1. Parameter hóa các container</h5>
+<p>Đây là điều quan trọng nhất cần phải lưu ý để tạo nên các container có tính module và tái sử dụng bất kể là có áp dụng sidecar hay không.<br>
+Nói một cách ngắn gọn, parameter hóa container là những thông tin mà container đó sử dụng mà không cần thiết phải fix cứng thì nên được lấy từ biến (biến môi trường,…) hoặc từ file config,…</p>
+<h5 id="42nhnghaapichomicontainer">4.2. Định nghĩa API cho mỗi container</h5>
+<p>Khi thiết kế các container có tính module, tái sử dụng, điều quan trọng là phải nhận ra rằng mọi khía cạnh của container tương tác với bên ngoài là một phần của API được định nghĩa khi thiết kế. Như trong microservice, các micro container dựa trên API để đảm bảo rằng có sự tách biệt rõ ràng giữa container ứng dụng chính và sidecar container. Ngoài ra API tồn tại để đảm bảo tất cả đối tượng sử dụng sidecar (consumer) sẽ tiếp tục hoạt động đúng khi các phiên bản sau của sidecar được release. Tương tự như vậy, có API rõ ràng cho sidecar khiến sidecar developer phát triển nhanh hơn vì chúng có định nghĩa rõ ràng, dễ bảo trì và phát triển.</p>
+<h5 id="43vitdocchocchotngcacontainer">4.3. Viết Doc cho các hoạt động của container</h5>
+<p>Như các library, chìa khóa để tạo thứ gì đó thật sự có ích là giải thích làm thế nào để sử dụng chúng. Buồn thay là hiện tại có rất ít tool chuẩn để viết doc cho container image, tuy nhiên có một vài best practice có thể dùng để thực hiện.</p>
+<p>Như là viết comment cho các lệnh trong dockerfile như expose và các biến môi trường<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=1MuOr1_lCaUsuUiKXDS6UjxPiYjjWMTgk&amp;export=download" alt="uc?id=1MuOr1_lCaUsuUiKXDS6UjxPiYjjWMTgk&amp;export=download"><br>
+<img src="https://drive.google.com/uc?id=1X_CFO23_qJ0ZoWyyWI3UQ2IBMB9iKcWr&amp;export=download" alt="uc?id=1X_CFO23_qJ0ZoWyyWI3UQ2IBMB9iKcWr&amp;export=download"><br>
+</br><br>
+Và các các label<br>
+</br><br>
+<img src="https://drive.google.com/uc?id=1AtlMzTkr1_hra7Bq_TTXTjqdzlpQGXKX&amp;export=download" alt="uc?id=1AtlMzTkr1_hra7Bq_TTXTjqdzlpQGXKX&amp;export=download"></p>
+<h4 id="5tngkt">5. Tổng kết</h4>
+<p>Qua blog này anh em devops chúng ta đã biết được định nghĩa, cách áp dụng sidecar cho các trường hợp phổ biến và cách thiết kế triển khai container sao cho module hóa và tái sử dụng tốt. Bài viết kỳ sau sẽ là pattern thứ hai trong chương mục Single Node Pattern: Ambassadors</p>
+<h4 id="6thamkho">6. Tham khảo</h4>
+<p><a href="https://www.oreilly.com/library/view/designing-distributed-systems/9781491983638/">Sách Designing Destributed Systems của OREILLY</a><br>
+<a href="https://medium.com/tech-bits/container-design-patterns-7020b132675">Blog Container Design Patterns for Distributed Systems</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/container-design-pattern/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Container%20Design%20Pattern%20cho%20h%E1%BB%87%20th%E1%BB%91ng%20ph%C3%A2n%20t%C3%A1n%3A%20Sidecar%20pattern%20%5BK%E1%BB%B3%201%5D">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/container-design-pattern/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/container-design-pattern/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

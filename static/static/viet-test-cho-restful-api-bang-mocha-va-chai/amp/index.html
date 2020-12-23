@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Viết test cho RESTful API bằng Mocha và Chai</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Viết test cho RESTful API bằng Mocha và Chai" />
+    <meta property="og:description" content="Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-09-04T01:24:53.000Z" />
+    <meta property="article:modified_time" content="2018-09-04T01:24:53.000Z" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="testing" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Viết test cho RESTful API bằng Mocha và Chai" />
+    <meta name="twitter:description" content="Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript, testing" />
+    <meta property="og:image:width" content="730" />
+    <meta property="og:image:height" content="356" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Viết test cho RESTful API bằng Mocha và Chai",
+    "url": "https://blog.vietnamlab.vn/viet-test-cho-restful-api-bang-mocha-va-chai/",
+    "datePublished": "2018-09-04T01:24:53.000Z",
+    "dateModified": "2018-09-04T01:24:53.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&export=download",
+        "width": 730,
+        "height": 356
+    },
+    "keywords": "javascript, testing",
+    "description": "Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của\nAPI mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó\ndễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha và Chai,\nmà được trình bày theo case study là ta viết 1 RESTful API bằng nodejs, sau đó\náp dụng Mocha và Chai để viết test cho API mà ta vừa viết, đồng thời giải thích\ný nghĩa của những hàm hay phương thức mà ta vừa sử dụng. Để biết đầy đủ những gì\nMocha và Chai hỗ trợ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Viết test cho RESTful API bằng Mocha và Chai</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2018-09-04">04 Sep 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1iOu__jMD0pvt3X0Yky4n9n2eZuyErQkI&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Việc viết unit test đóng vai trò quan trọng trong việc đảm bảo chất lượng của API mà ta phát triển. Mocha và Chai sẽ giúp chúng ta thực hiện được công việc đó dễ dàng hơn. Phạm vi bài viết không bao phủ toàn bộ tính năng của Mocha và Chai, mà được trình bày theo case study là ta viết 1 RESTful API bằng nodejs, sau đó áp dụng Mocha và Chai để viết test cho API mà ta vừa viết, đồng thời giải thích ý nghĩa của những hàm hay phương thức mà ta vừa sử dụng. Để biết đầy đủ những gì Mocha và Chai hỗ trợ, bạn có thể link ở mục tài liệu tham khảo.</p>
+<h3 id="mochatestingenvironment">Mocha: Testing Environment</h3>
+<p>Mocha là một framework cho phép ta viết test cho code NodeJS không đồng bộ. Nó cung cấp môi trường mà trong đó ta có thể sử dụng các thư viện assertion mà ta ưu thích để viết test.<br />
+<amp-img src="https://drive.google.com/uc?id=1GuKsUvhQkztQK0Lqk4M1THrmmIDU1Llv&amp;export=download" alt="uc?id=1GuKsUvhQkztQK0Lqk4M1THrmmIDU1Llv&amp;export=download" width="994" height="450" layout="responsive"></amp-img><br />
+Mocha có rất nhiều tính năng tuyệt vời, bên dưới là 1 số tính năng mà ta thường dùng:</p>
+<ul>
+<li>Hỗ trợ viết test cho code bất đồng bộ 1 cách đơn giản, bao gồm việc sử dụng promise.</li>
+<li>Hỗ trợ viết test timeout cho cho code bất đồng bộ.</li>
+<li>Sử dụng các thuật ngữ như before, after, before each, after each hooks: rất hữu dụng trong việc chuẩn bị môi trường test.</li>
+<li>Cho phép sử dụng thư việc assertion bên ngoài (mà trong trường hợp này viết này, chúng ta sử dụng thư viện Chai).</li>
+</ul>
+<h3 id="chaiassertionlibrary">Chai: Assertion Library</h3>
+<p>Với Mocha, chúng ta có môi trường để thực hiện các test của mình, nhưng làm cách nào để chúng ta test các HTTP call chẳng hạn? Hơn nữa, làm thế nào để chúng ta test xem liệu một GET request với input mà ra truyền vào có thực sự trả về JSON đúng như mong đợi của chúng hay không? Với nhu cầu đó, chúng ta cần một thư viện assertion.<br />
+<amp-img src="https://drive.google.com/uc?id=1R8myFDb6zCwN_6FHhiB0QEJvloi19znW&amp;export=download" alt="uc?id=1R8myFDb6zCwN_6FHhiB0QEJvloi19znW&amp;export=download" width="1270" height="689" layout="responsive"></amp-img></p>
+<h3 id="projectsetup">Project setup</h3>
+<h4 id="cutrcproject">Cấu trúc project</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1tU-6pCjFL7IcnMtPXrF0gEeGiCttpNZ9&amp;export=download" alt="uc?id=1tU-6pCjFL7IcnMtPXrF0gEeGiCttpNZ9&amp;export=download" width="399" height="341" layout="responsive"></amp-img></p>
+<p>Chú ý là thư mục config chứa 3 file JSON, chúng được đặt tên và config theo những mục đích nhất định. Trong bài viết này ta sẽ sử dụng 2 databases, 1 cho mục đích phát triển và database còn lại cho mục đích test. Việc dùng 2 databases giúp ta hạn chế lỗi phát sinh do dùng cùng 1 database cho cả mục đích phát triển và mục đích test. Lỗi này thường phát sinh khi ta chuẩn bị dữ liệu test, dẫn đến xóa hoặc thay đổi dữ liệu mà ta dùng cho mục đích phát triển.</p>
+<ul>
+<li>default.json</li>
+</ul>
+<pre><code class="language-js">{
+	"DBHost" : "YOUR_DB_URI"
+}
+</code></pre>
+<ul>
+<li>dev.json</li>
+</ul>
+<pre><code class="language-js">{
+	"DBHost": "YOUR_DB_URI"
+}
+</code></pre>
+<ul>
+<li>test.json</li>
+</ul>
+<pre><code class="language-js">{
+	"DBHost": "YOUR_TEST_DB_URI"
+}
+</code></pre>
+<h4 id="packagejson">Package.json</h4>
+<p>Ta tạo file package.json với nội dung như bên dưới</p>
+<pre><code class="language-js">{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "A bookstore API",
+  "main": "server.js",
+  "author": "Sam",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "config": "^1.20.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.15",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
+  },
+  "scripts": {
+    "start": "SET NODE_ENV=dev &amp;&amp; node server.js",
+    "test": "mocha --timeout 10000"
+  }
+}
+</code></pre>
+<p>mocha, chai, chai-http được lưu trong devDependencies (flag --save-dev từ command line)<br />
+Ta thêm flag --timeout 10000 vì dữ liệu fetch từ mongodb mặc định là 2 giây thì có thể không đủ. Bây giờ ta có thể tiến hành viết code cho server và viết test cho nó.</p>
+<h3 id="phaserver">Phía server</h3>
+<h4 id="main">Main</h4>
+<p>Ta tạo file server.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let express = require('express');
+let app = express();
+let mongoose = require('mongoose');
+let morgan = require('morgan');
+let bodyParser = require('body-parser');
+let port = 8080;
+let book = require('./app/routes/book');
+let config = require('config'); //we load the db location from the JSON files
+//db options
+let options = { 
+				server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
+              }; 
+
+//db connection      
+mongoose.connect(config.DBHost, options);
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+	//use morgan to log at command line
+	app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
+
+//parse application/json and look for raw text                                        
+app.use(bodyParser.json());                                     
+app.use(bodyParser.urlencoded({extended: true}));               
+app.use(bodyParser.text());                                    
+app.use(bodyParser.json({ type: 'application/json'}));  
+
+app.get("/", (req, res) =&gt; res.json({message: "Welcome to our Bookstore!"}));
+
+app.route("/book")
+	.get(book.getBooks)
+	.post(book.postBook);
+app.route("/book/:id")
+	.get(book.getBook)
+	.delete(book.deleteBook)
+	.put(book.updateBook);
+
+
+app.listen(port);
+console.log("Listening on port " + port);
+
+module.exports = app; // for testing
+</code></pre>
+<p>Lưu ý:</p>
+<ul>
+<li>Như đã đề cập bên trên, tùy vào môi trường ta đang sử dụng là gì, ta sẽ sử dụng database tương ứng được quy định trong file mà ta đã config. Khi viết test ta sẽ sử dụng "datase test" từ đó giữ "real database" được clean.</li>
+<li>Dòng cuối cùng, ta export server ra để sử dụng.</li>
+</ul>
+<h4 id="modelvroutes">Model và Routes</h4>
+<p>Trong như mục /app/model. Ta tạo file book.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+
+//book schema definition
+let BookSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    year: { type: Number, required: true },
+    pages: { type: Number, required: true, min: 1 },
+    createdAt: { type: Date, default: Date.now },    
+  }, 
+  { 
+    versionKey: false 
+  }
+);
+
+// Sets the createdAt parameter equal to the current time
+BookSchema.pre('save', next =&gt; {
+  now = new Date();
+  if(!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
+
+//Exports the BookSchema for use elsewhere.
+module.exports = mongoose.model('book', BookSchema);
+</code></pre>
+<p>Trong như mục /app/routes. Ta tạo file book.js với nội dung như bên dưới</p>
+<pre><code class="language-js">let mongoose = require('mongoose');
+let Book = require('../models/book');
+
+/*
+ * GET /book route to retrieve all the books.
+ */
+function getBooks(req, res) {
+	//Query the DB and if no errors, send all the books
+	let query = Book.find({});
+	query.exec((err, books) =&gt; {
+		if(err) res.send(err);
+		//If no errors, send them back to the client
+		res.json(books);
+	});
+}
+
+/*
+ * POST /book to save a new book.
+ */
+function postBook(req, res) {
+	//Creates a new book
+	var newBook = new Book(req.body);
+	//Save it into the DB.
+	newBook.save((err,book) =&gt; {
+		if(err) {
+			res.send(err);
+		}
+		else { //If no errors, send it back to the client
+			res.json({message: "Book successfully added!", book });
+		}
+	});
+}
+
+/*
+ * GET /book/:id route to retrieve a book given its id.
+ */
+function getBook(req, res) {
+	Book.findById(req.params.id, (err, book) =&gt; {
+		if(err) res.send(err);
+		//If no errors, send it back to the client
+		res.json(book);
+	});		
+}
+
+/*
+ * DELETE /book/:id to delete a book given its id.
+ */
+function deleteBook(req, res) {
+	Book.remove({_id : req.params.id}, (err, result) =&gt; {
+		res.json({ message: "Book successfully deleted!", result });
+	});
+}
+
+/*
+ * PUT /book/:id to updatea a book given its id
+ */
+function updateBook(req, res) {
+	Book.findById({_id: req.params.id}, (err, book) =&gt; {
+		if(err) res.send(err);
+		Object.assign(book, req.body).save((err, book) =&gt; {
+			if(err) res.send(err);
+			res.json({ message: 'Book updated!', book });
+		});	
+	});
+}
+
+//export all the functions
+module.exports = { getBooks, postBook, getBook, deleteBook, updateBook };
+</code></pre>
+<p>Sau đây là 1 số khái niệm cơ bản:</p>
+<ul>
+<li>Route sẽ phụ trách điều hướng để thực hiện các thao tác  GET, POST, DELETE, PUT.</li>
+<li>Trong hàm updateBook (), chúng ta sử dụng Object.assign, một hàm mới được giới thiệu trong ES6, trong trường hợp này, ghi đè các thuộc tính chung của sách với req.body.</li>
+<li>Cuối cùng, chúng ta export đối tượng bằng cách sử dụng cú pháp nhanh với cặp khóa và giá trị để tránh lặp lại vô ích.</li>
+</ul>
+<h3 id="tinhnhvittest">Tiến hành viết test</h3>
+<p>Trong đường dẫn /test, ta tạo file book.js vào dán vào nội dung như bên dưới</p>
+<pre><code class="language-js">//During the test the env variable is set to test
+process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+//Require the dev-dependencies
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+//Our parent block
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; { //Before each test we empty the database
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+/*
+  * Test the /GET route
+  */
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+
+});
+</code></pre>
+<p>Ở đây có 1 số thứ mới ta cần chú ý:</p>
+<ul>
+<li>Ta set giá trị cho NODE_ENV là test. Khi đó server sẽ connect vào test database.</li>
+<li>Ta định nghĩa should bằng việc set giá trị cho nó bằng chai.should(). should ở đây có nghĩ là "sẽ", dùng để ta so sánh giá trị thực và giá trị mà ta mong muốn. Ví dụ dòng 'res.should.have.status(200);' có nghĩ là ta mong muốn res sẽ có status bằng giá trị mà ta mong muốn là 200.</li>
+<li>describe sẽ giúp ta mô ta là ta đang test cái gì. Ví dụ ở đoạn code phía trên, ta đang test link '/GET book'</li>
+<li>beforeEach là block code sẽ được chạy trước mỗi describe block ở cùng level.</li>
+</ul>
+<h4 id="testphnget">Test phần GET</h4>
+<p>Chai sẽ thực hiện một yêu cầu GET đến máy chủ và các xác nhận trên biến res trong it block có thỏa mãn các giá trị mà ta mong đợi hay không. Ở phần describe ta sẽ mô tả là ta đang viết test cho đường link '/GET book'. Trong đó mỗi it là case của thao tác test đường link '/GET book'. Có thể có 1 hoặc nhiều it tương ứng với có bao nhiêu case. Những gì mà ta mong đợi sẽ là:</p>
+<ul>
+<li>Trạng thái 200.</li>
+<li>Kết quả phải là một mảng.</li>
+<li>Vì cửa hàng không có sách nào nên ta cho length = 0.</li>
+</ul>
+<p>Bây giờ, từ command line, ta chạy lệnh</p>
+<pre><code class="language-js">npm test
+</code></pre>
+<p>Và đây là output:<br />
+<amp-img src="https://drive.google.com/uc?id=1_Fx0VFHqh578URgLUKXZ3P31gm8pYDOB&amp;export=download" alt="uc?id=1_Fx0VFHqh578URgLUKXZ3P31gm8pYDOB&amp;export=download" width="518" height="208" layout="responsive"></amp-img></p>
+<h4 id="testphnpost">Test phần POST</h4>
+<p>Giả sử chúng ta đang cố gắng thêm một cuốn sách có field bị thiếu đến máy chủ. Khi đó ta sẽ phải viết các assertion sau:</p>
+<ul>
+<li>Trạng thái là 200.</li>
+<li>response body là một đối tượng.<br />
+Một trong những properties của body là errors.</li>
+<li>Errors có thuộc tính là các trang trường bị thiếu.</li>
+<li>pages có propertiy là kind và kind =  required.</li>
+</ul>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  /*
+  * Test the /POST route
+  */
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+
+  });
+});
+</code></pre>
+<p>Run command line và ta có được output như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1aIeURIz0oMtMIKG9SB-uZmMw7dSKQvm7&amp;export=download" alt="uc?id=1aIeURIz0oMtMIKG9SB-uZmMw7dSKQvm7&amp;export=download" width="617" height="243" layout="responsive"></amp-img></p>
+<p>Bây giờ ta viết test cho POST request với nội dung đầy đủ các field</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+        chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  /*
+  * Test the /POST route
+  */
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954,
+            pages: 1170
+        }
+        chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+});
+</code></pre>
+<p>Lần này ta mọng đợi message trả về với nội dung ta đã thành công trong việc add quyển sách.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1toLLsgg_9FwHmGRvjR2ckDpKjyHuMUjZ&amp;export=download" alt="uc?id=1toLLsgg_9FwHmGRvjR2ckDpKjyHuMUjZ&amp;export=download" width="560" height="249" layout="responsive"></amp-img></p>
+<h4 id="testphngetid">Test phần /GET/:id</h4>
+<p>Ta tạo 1 quyển sách, lưu nó lại. Sau đó get quyển sách vừa lưu bằng id.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+ /*
+  * Test the /GET/:id route
+  */
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: "The Lord of the Rings", author: "J.R.R. Tolkien", year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+});
+</code></pre>
+<p>Lần này ta assert status là 200, body là object và có chứa đầy đủ các thuộc tính.</p>
+<p>Run command line và ta được output như hình bên dưới.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1HNN_ME0ueDzPrLugsftgBema0DP5a7qE&amp;export=download" alt="uc?id=1HNN_ME0ueDzPrLugsftgBema0DP5a7qE&amp;export=download" width="545" height="293" layout="responsive"></amp-img></p>
+<h4 id="testphnputidroute">Test phần /PUT/:id Route</h4>
+<p>Giờ là lúc để update. Đầu tiên ta save book, sau đó update năm xuất bản dựa trên id.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: "The Lord of the Rings", author: "J.R.R. Tolkien", year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+ /*
+  * Test the /PUT/:id route
+  */
+  describe('/PUT/:id book', () =&gt; {
+      it('it should UPDATE a book given the id', (done) =&gt; {
+        let book = new Book({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .put('/book/' + book.id)
+                .send({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1950, pages: 778})
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book updated!');
+                    res.body.book.should.have.property('year').eql(1950);
+                  done();
+                });
+          });
+      });
+  });
+});
+</code></pre>
+<p>Ta assert phần message xem có đúng như mong đợi là "Book updated!" và năm xuất bản có được cập nhật đúng hay không.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1h6sr6zCVx_IDjvnbf7OoVGKjAPW_OZ4j&amp;export=download" alt="uc?id=1h6sr6zCVx_IDjvnbf7OoVGKjAPW_OZ4j&amp;export=download" width="550" height="338" layout="responsive"></amp-img></p>
+<h4 id="testphndeleteidroute">Test phần /DELETE/:id Route</h4>
+<p>Quy trình cũng tương tự: save book, sau đó delete book và ta vừa save và check response.</p>
+<pre><code class="language-js">process.env.NODE_ENV = 'test';
+
+let mongoose = require("mongoose");
+let Book = require('../app/models/book');
+
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../server');
+let should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Books', () =&gt; {
+    beforeEach((done) =&gt; {
+        Book.remove({}, (err) =&gt; { 
+           done();         
+        });     
+    });
+  describe('/GET book', () =&gt; {
+      it('it should GET all the books', (done) =&gt; {
+            chai.request(server)
+            .get('/book')
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('array');
+                res.body.length.should.be.eql(0);
+              done();
+            });
+      });
+  });
+  describe('/POST book', () =&gt; {
+      it('it should not POST a book without pages field', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('errors');
+                res.body.errors.should.have.property('pages');
+                res.body.errors.pages.should.have.property('kind').eql('required');
+              done();
+            });
+      });
+      it('it should POST a book ', (done) =&gt; {
+        let book = {
+            title: "The Lord of the Rings",
+            author: "J.R.R. Tolkien",
+            year: 1954,
+            pages: 1170
+        }
+            chai.request(server)
+            .post('/book')
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('message').eql('Book successfully added!');
+                res.body.book.should.have.property('title');
+                res.body.book.should.have.property('author');
+                res.body.book.should.have.property('pages');
+                res.body.book.should.have.property('year');
+              done();
+            });
+      });
+  });
+  describe('/GET/:id book', () =&gt; {
+      it('it should GET a book by the given id', (done) =&gt; {
+        let book = new Book({ title: "The Lord of the Rings", author: "J.R.R. Tolkien", year: 1954, pages: 1170 });
+        book.save((err, book) =&gt; {
+            chai.request(server)
+            .get('/book/' + book.id)
+            .send(book)
+            .end((err, res) =&gt; {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('title');
+                res.body.should.have.property('author');
+                res.body.should.have.property('pages');
+                res.body.should.have.property('year');
+                res.body.should.have.property('_id').eql(book.id);
+              done();
+            });
+        });
+
+      });
+  });
+  describe('/PUT/:id book', () =&gt; {
+      it('it should UPDATE a book given the id', (done) =&gt; {
+        let book = new Book({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .put('/book/' + book.id)
+                .send({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1950, pages: 778})
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book updated!');
+                    res.body.book.should.have.property('year').eql(1950);
+                  done();
+                });
+          });
+      });
+  });
+ /*
+  * Test the /DELETE/:id route
+  */
+  describe('/DELETE/:id book', () =&gt; {
+      it('it should DELETE a book given the id', (done) =&gt; {
+        let book = new Book({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
+        book.save((err, book) =&gt; {
+                chai.request(server)
+                .delete('/book/' + book.id)
+                .end((err, res) =&gt; {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book successfully deleted!');
+                    res.body.result.should.have.property('ok').eql(1);
+                    res.body.result.should.have.property('n').eql(1);
+                  done();
+                });
+          });
+      });
+  });
+});
+</code></pre>
+<p>Trong phần assertion, ta cũng check giá trị của response xem có đúng các giá trị mà ta mong đợi hay không. Sau đó run và được kết quả như bên dưới:</p>
+<p><amp-img src="https://drive.google.com/uc?id=19x30_uKiCifLvgw3BdAbrw8f78TnHNw7&amp;export=download" alt="uc?id=19x30_uKiCifLvgw3BdAbrw8f78TnHNw7&amp;export=download" width="623" height="370" layout="responsive"></amp-img></p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<p><a href="https://mochajs.org/">https://mochajs.org/</a><br />
+<a href="http://www.chaijs.com/">http://www.chaijs.com/</a><br />
+<a href="https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai">https://scotch.io/tutorials/test-a-node-restful-api-with-mocha-and-chai</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

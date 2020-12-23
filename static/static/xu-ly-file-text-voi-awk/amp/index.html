@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Xử lý file text với AWK</title>
+
+    <meta name="description" content="AWK là một công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý file text với AWK" />
+    <meta property="og:description" content="AWK là một công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-ly-file-text-voi-awk/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdmRwdXM2QmM3TU0&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-01-23T08:40:32.000Z" />
+    <meta property="article:modified_time" content="2017-05-19T07:24:28.000Z" />
+    <meta property="article:tag" content="awk" />
+    <meta property="article:tag" content="text processing" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý file text với AWK" />
+    <meta name="twitter:description" content="AWK là một công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-ly-file-text-voi-awk/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdmRwdXM2QmM3TU0&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="awk, text processing" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="900" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Xử lý file text với AWK",
+    "url": "https://blog.vietnamlab.vn/xu-ly-file-text-voi-awk/",
+    "datePublished": "2017-01-23T08:40:32.000Z",
+    "dateModified": "2017-05-19T07:24:28.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdmRwdXM2QmM3TU0&export=download",
+        "width": 2400,
+        "height": 900
+    },
+    "keywords": "awk, text processing",
+    "description": "Gần đây khi phải xử lý dữ liệu là các file text lớn, AWK đã giúp mình rất nhiều.\nVì vậy, mình muốn viết 1 chút về nó, để note lại tham khảo sau này.\n\nVậy, AWK là gì?\nAWK là một ngôn ngữ lập trình thông dịch (interpreted programming language). Là\nmột công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text.\n\nAWK được đặt tên dựa theo 3 chữ cái đầu tiên của những tác giả, Alfred V. Aho,\nPeter J. Weinberger, và Brian W. Kernighan. Phiên bản đầu tiên của AWK được viết\nvào năm 1977 tại A",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Xử lý file text với AWK</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2017-01-23">23 Jan 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdmRwdXM2QmM3TU0&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Gần đây khi phải xử lý dữ liệu là các file text lớn, AWK đã giúp mình rất nhiều. Vì vậy, mình muốn viết 1 chút về nó, để note lại tham khảo sau này.</p>
+<h3 id="vyawklg">Vậy, AWK là gì?</h3>
+<p>AWK là một ngôn ngữ lập trình thông dịch (interpreted programming language). Là một công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text.</p>
+<p>AWK được đặt tên dựa theo 3 chữ cái đầu tiên của những tác giả, Alfred V. <strong>A</strong>ho, Peter J. <strong>W</strong>einberger, và Brian W. <strong>K</strong>ernighan. Phiên bản đầu tiên của AWK được viết vào năm 1977 tại AT&amp;T Bell Lab.</p>
+<p>Các phiên bản của AWK</p>
+<ul>
+<li><strong>AWK</strong> − Phiên bản nguyên thủy AWK từ AT &amp; T Laboratory</li>
+<li><strong>NAWK</strong> − Phiên bản AWK mới với nhiều cải tiến từ AT &amp; T Laboratory</li>
+<li><strong>GAWK</strong> − Nó là GNU AWK (AWK cho GNU). Tất cả GNU/Linux distributions đều dùng GAWK. Và nó hoàn toàn tương thích với  AWK và NAWK</li>
+</ul>
+<p>Rất nhiều task có thể thực hiện được với AWK. Sau đây là 1 số ví dụ:</p>
+<ul>
+<li>Text processing</li>
+<li>Producing formatted text reports</li>
+<li>Performing arithmetic operations</li>
+<li>Performing string operations, and many more</li>
+</ul>
+<h3 id="cit">Cài đặt?</h3>
+<p>Thông thường, AWK được cài đặt mặc định ở hầu hết GNU/Linux distributions. Nếu không có, có thể tham khảo link sau để cài đặt.</p>
+<p><a href="https://www.tutorialspoint.com/awk/awk_environment.htm">https://www.tutorialspoint.com/awk/awk_environment.htm</a></p>
+<h3 id="workflow">Workflow</h3>
+<p>Khá là đơn giản. Read, Execute, and Repeat.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZ1N5QUJxdGJFUlU&amp;export=download" alt="AWK WorkFlow" width="600" height="530" layout="responsive"></amp-img></p>
+<h3 id="basic">Basic</h3>
+<p>Sử dụng AWK thì khá đơn giản. Có thể thực thi trực tiếp từ command line hoặc từ script file.</p>
+<pre><code class="language-sh"># AWK Command Line
+awk [options] file ...
+ 
+awk '{print}' file.txt
+ 
+# AWK Program File
+awk [options] -f file ....
+ 
+awk -f command.awk file.txt
+</code></pre>
+<p>Ngoài ra AWK cũng cung cấp rất nhiều option mặc định nữa. Chạy <code>awk –help</code> để xem chi tiết.</p>
+<p>Ta sẽ thử thực hiện một số ví dụ cơ bản, với file text **marks.txt **sau. Mình lấy luôn ví dụ từ trang <a href="https://www.tutorialspoint.com">https://www.tutorialspoint.com</a></p>
+<p>Nội dung file text</p>
+<pre><code class="language-sh">$ cat marks.txt 
+1) Amit     Physics   80
+2) Rahul    Maths     90
+3) Shyam    Biology   87
+4) Kedar    English   85
+5) Hari     History   89
+</code></pre>
+<p>Và, thử:</p>
+<pre><code class="language-sh"># Printing Column or Field
+# Ở đây dữ liệu được chia thành các cột
+# và cột số 3 là $3, tương tự $4 là cột số 4
+# $0 là toàn bộ text của 1 dòng
+$ awk '{print $3 "\t" $4}' marks.txt
+Physics 80
+Maths   90
+Biology 87
+English 85
+History 89
+ 
+# Printing All Lines
+# Ta dùng pattern /a/ (có chữ a) và in ra các dòng match với pattern này
+$ awk '/a/' marks.txt
+2) Rahul    Maths     90
+3) Shyam    Biology   87
+4) Kedar    English   85
+5) Hari     History   89
+ 
+# Counting
+# Đếm số dòng có điểm &gt;= 90
+$ awk '{ if($4 &gt;= 90) ++cnt } END {print "&gt;= 90 ppoints:", cnt}' marks.txt
+&gt;= 90 ppoints: 1
+</code></pre>
+<h3 id="builtin">Built-in</h3>
+<p>AWK còn hỗ trợ nhiều Built-in Variables rất hữu ích khi viết AWK script. Ví dụ như:</p>
+<ul>
+<li>FILENAME: tên của file đầu vào hiện tại</li>
+<li>NF: số lượng trường của bản ghi hiện tại</li>
+<li>NR: thứ tự hiện tại của bản ghi so với khởi điểm của đầu vào</li>
+<li>FNR: thứ tự hiện tại của bản ghi trong file</li>
+<li>...</li>
+</ul>
+<p>Có thể tham khảo thêm ở: <a href="https://www.tutorialspoint.com/awk/awk_built_in_variables.htm">AWK - Built-in Variables</a></p>
+<p>Đồng thời là nhiều Built-in Functions như các hàm toán học, hàm xử lý chuỗi, thời gian... Có thể tham khảo tại: <a href="https://www.tutorialspoint.com/awk/awk_built_in_functions.htm">AWK - Built-in Functions</a></p>
+<h3 id="mtsbitonthcttrongdn">Một số bài toán thực tế trong dự án</h3>
+<p>Giả sử khi muốn biết thời gian xử lý của 1 phần nào đó trong ứng dụng. Ta có thể thêm log cho ứng dụng như sau</p>
+<pre><code class="language-java">long startTime = System.currentTimeMillis();
+ 
+// Phần muốn xác định thời gian xử lý
+ 
+long endTime = System.currentTimeMillis();
+long executeTime = endTime - startTime;
+log.info("executeTime:" + executeTime);
+ 
+// Và log sẽ có dạng
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:xxx
+</code></pre>
+<p>Đã có log thời gian xử lý cần biết, tuy nhiên, ứng dụng của bạn có phần xử lý đó được request rất nhiều lần với nhiều server, có nghĩa là sẽ có 1 lượng lớn log như trên. Làm thế nào để có được thông tin có ý nghĩa?</p>
+<p>Đầu tiên, ta nghĩ đến việc xác định giá trị thời gian xử lý ngắn nhất và dài nhất. Để thực hiện ví dụ, ta sẽ dùng dữ liệu input như sau (Tất nhiên log thực tế sẽ có nhiều loại log hơn, ta có thể dùng câu lệnh grep của linux để lọc ra các log cần thiết).</p>
+<pre><code class="language-sh">$ cat app.2017-01-22.log 
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:1
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:2
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:3
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:4
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:2
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:1
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:10
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:15
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:3
+yyyy-mm-dd hh:mm:ss INFO CLASSNAME - executeTime:1
+</code></pre>
+<p>Giá trị thời gian xử lý ở cột thứ 6, tuy nhiên nó còn chứa text nên ta sẽ tách ra và chỉ lấy giá trị thời gian xử lý.</p>
+<pre><code class="language-sh">$ awk '{ split($6, time, ":"); print time[2] }' app.2017-01-22.log 
+1
+2
+3
+4
+2
+1
+10
+15
+3
+1
+ 
+# Tìm giá trị lớn nhất, nhỏ nhất
+$ awk '{ split($6, time, ":"); if(max &lt; time[2]) max=time[2] } END { print max }' app.2017-01-22.log
+15
+
+$ awk 'BEGIN { min = 99999999 } { split($6, time, ":"); if(min &gt; time[2]) min=time[2] } END { print min }' app.2017-01-22.log
+1
+ 
+# Có thể kết hợp các linux command khác để tìm giá trị lớn nhất, nhỏ nhất
+$ awk '{ split($6, time, ":"); print time[2] }' app.2017-01-22.log | sort -n | head -n 1
+1
+
+$ awk '{ split($6, time, ":"); print time[2] }' app.2017-01-22.log | sort -n | tail -n 1
+15
+</code></pre>
+<p>Sau đó, ta có thể nghĩ tới giá trị thời gian xử lý trung bình hay thời gian xử lý trung vị (<a href="https://vi.wikipedia.org/wiki/S%E1%BB%91_trung_v%E1%BB%8B">Số trung vị</a>) sau khi sắp xếp.</p>
+<pre><code class="language-sh"># Trung bình
+$ awk '{ split($6, time, ":"); sum += time[2] }; END { print sum / NR }' app.2017-01-22.log 
+4.2
+ 
+# Giá trị ở giữa sau khi sắp xếp
+$ awk '{ split($6, time, ":"); print time[2] }' app.2017-01-22.log | sort -n
+1
+1
+1
+2
+2
+3
+3
+4
+10
+15
+ 
+$ awk '{ split($6, time, ":"); print time[2] }' app.2017-01-22.log | sort -n | awk '{ time_list[NR] = $1 }; END {  mid = int(NR / 2); print "Mid index:", mid; print "Mid time:", time_list[mid] }'
+Mid index: 5
+Mid time: 2
+</code></pre>
+<p>Ngoài ra độ lệch chuẩn cũng là 1 khái niệm giúp cho thông tin về thời gian xử lý rõ ràng hơn. Công thức tính <a href="https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99_l%E1%BB%87ch_chu%E1%BA%A9n">độ lệch chuẩn</a> như sau</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ29JcWN3Y0lNRzA&amp;export=download" alt="Độ lệch chuẩn" width="773" height="129" layout="responsive"></amp-img></p>
+<p>Ta có thể tính toán nó bằng AWK</p>
+<pre><code class="language-sh">$ awk '{ split($6, time, ":"); sum+=time[2]; sumsq+=time[2]*time[2] } END { print sqrt(sumsq/NR - (sum/NR)**2) }' app.2017-01-22.log 
+4.4
+</code></pre>
+<h3 id="ktlun">Kết luận</h3>
+<p>AWK là một công cụ mạnh mẽ và được thiết kế đặc biệt cho việc xử lý dữ liệu text.</p>
+<p>Thường được cài sẵn trong hầu hết GNU/Linux distributions.</p>
+<p>Sử dụng thành thạo AWK sẽ giúp ích khá nhiều khi làm các tác vụ liên quan đến file log trên unix.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://www.tutorialspoint.com/awk/index.htm">https://www.tutorialspoint.com/awk/index.htm</a></li>
+<li><a href="https://en.wikipedia.org/wiki/AWK">https://en.wikipedia.org/wiki/AWK</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Standard_deviation">https://en.wikipedia.org/wiki/Standard_deviation</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

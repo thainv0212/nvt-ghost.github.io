@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Type system trong ngôn ngữ Dart | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Type system trong ngôn ngữ Dart" />
+    <meta property="og:description" content="I. Lời mở đầuNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu runtime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu static của biến đó, điều này đôi khi được gọi bằng thuật" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-09-17T07:10:11.000Z" />
+    <meta property="article:modified_time" content="2020-09-17T07:10:11.000Z" />
+    <meta property="article:tag" content="Dart" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Type system trong ngôn ngữ Dart" />
+    <meta name="twitter:description" content="I. Lời mở đầuNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu runtime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu static của biến đó, điều này đôi khi được gọi bằng thuật" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Dart" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Type system trong ngôn ngữ Dart",
+    "url": "https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/",
+    "datePublished": "2020-09-17T07:10:11.000Z",
+    "dateModified": "2020-09-17T07:10:11.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&export=download",
+        "width": 1000,
+        "height": 500
+    },
+    "keywords": "Dart",
+    "description": "I. Lời mở đầu\nNgôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu static và kiểu dữ liệu \nruntime để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu \nstatic của biến đó, điều này đôi khi được gọi bằng thuật ngữ sound typing .\nTrong ngôn ngữ Dart, về bản chất một biến bắt buộc phải có kiểu dữ liệu, nhưng\nlập trình viên đôi khi không nhất thiết phải dùng type annotations để chỉ ra\nkiểu dữ liệu của biến đó vì Dart có thể tự suy luận ra kiểu dữ liệu. Ta gọi kiểu\ndữ liệu được suy",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-dart nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-dart js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Type system trong ngôn ngữ Dart</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2020-09-17">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 17 September 2020
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/dart/index.html">Dart</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1Y6mrUiVqX7ZY0M8hSCYElSSa2ykF6PnV&amp;export&#x3D;download" alt="Type system trong ngôn ngữ Dart">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/type-system-trong-ngon-ngu-dart/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Type%20system%20trong%20ng%C3%B4n%20ng%E1%BB%AF%20Dart">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <h3 id="i-l-i-m-u">I. Lời mở đầu</h3><p>Ngôn ngữ Dart kết hợp kết hợp việc kiểm tra kiểu dữ liệu <code>static</code> và kiểu dữ liệu <code>runtime</code> để đảm bảo giá trị của một biến luôn luôn phù hợp với kiểu dữ liệu <code>static</code> của biến đó, điều này đôi khi được gọi bằng thuật ngữ <code>sound typing</code> . Trong ngôn ngữ Dart, về bản chất một biến bắt buộc phải có kiểu dữ liệu, nhưng lập trình viên đôi khi không nhất thiết phải dùng <code>type annotations</code> để chỉ ra kiểu dữ liệu của biến đó vì Dart có thể tự suy luận ra kiểu dữ liệu. Ta gọi kiểu dữ liệu được suy ra đó là <code>type inference</code>.</p><p>Một trong những lợi ích của việc kiểm tra kiểu dữ liệu đó là khả năng phát hiển bug lúc <code>compile time</code> sử dụng <code>static analyzer</code>.</p><!--kg-card-begin: markdown--><pre><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  var list = [];
+  list.add(1);
+  list.add(&quot;2&quot;);
+  printInts(list); 
+}
+// Unhandled exception: type 'List&lt;dynamic&gt;' is not a subtype of type 'List&lt;int&gt;'
+</code></pre>
+<!--kg-card-end: markdown--><p>Ở đoạn code phía trên, ta thấy biến <code>list</code> không được chỉ ra kiểu dữ liệu cụ thể nên <code>type inference</code>của nó sẽ là <code>List&lt;dynamic&gt;</code>. Việc add các giá trị <code>1</code> và <code>"2"</code> vào là hoàn toàn hợp lệ. Nhưng đến khi truyền <code>list</code> vào hàm <code>printInts</code> thì sẽ bị lỗi vì hàm <code>printInts</code> trong muốn nhận vào tham số có kiểu dữ liệu là <code>List&lt;int&gt;</code>. Nhưng biến <code>list</code> lại có kiểu dữ liệu là <code>List&lt;dynamic&gt;</code> tức không phải là <code>List&lt;int&gt;</code> và cũng không phải là <code>subtype</code>của <code>List&lt;int&gt;</code>.</p><p>Để sửa lỗi, ta sẽ sử code lại thành như sau:</p><!--kg-card-begin: markdown--><pre><code>void printInts(List&lt;int&gt; a) =&gt; print(a);
+
+void main() {
+  var list = &lt;int&gt;[];
+  list.add(1);
+  list.add(2);
+  printInts(list);
+}
+</code></pre>
+<!--kg-card-end: markdown--><h3 id="ii-soundness-l-g-">II. Soundness là gì?</h3><p><code>Soundness</code> là 1 khái niệm nhằm thể hiện rằng mong muốn đảm bảo có chương trình không thể rơi vào trạng thái chứa các giá trị không hợp lệ. Một <code>sound type system</code> có nghĩa là chương trình không bao giờ có trạng thái mà chứ một giá trị không phù hợp với <code>static type</code> của nó. Ví dụ như một <code>expression</code> thể hiện <code>static type</code> của nó là <code>String</code> thì tại thời điểm <code>runtime</code> ta đảm bảo nó chỉ có thể thể vào giá trị là <code>String</code>.</p><p><code>Type system</code> của Dart cũng giống như <code>type system</code> trong các ngôn ngữ như Java, C#, .. chúng là <code>sound</code>. Điều này đảm bảo rằng ta kiểm tra cả dữ liệu kiểu <code>static</code> và kiểu <code>runtime</code>. Ví dụ như việc gán một <code>String</code> cho một <code>int</code> là một <code>compile-time error</code>. </p><h3 id="iii-l-i-ch-c-a-soundness-l-g-">III. Lợi ích của soundness là gì?</h3><!--kg-card-begin: markdown--><ul>
+<li>Phát hiện bug liên quan đến kiểu dữ liệu ở thời điểm <code>compile time</code>. Một <code>sound type system</code> bắt buộc code không được mơ hồ về kiểu dữ liệu của nó. Nên một số bug mà có phát hiện ở <code>runtime</code> có thể được phát hiện từ sớm về dễ dàng ở thời điểm <code>compile time</code>.</li>
+<li>Code dễ đọc. Code sẽ trở nên dễ đọc vì ta có thể nhìn thấy kiểu dữ liệu của nó là gì.</li>
+<li>Code dễ được bảo trì. Khi ta sửa 1 phần code nhỏ. <code>type system</code> cá thể cảnh báo rằng việc thay đổi đó có thể làm ảnh hưởng hoặc hư hại để những phần code khác.</li>
+<li>Thuận lợi hơn cho <code>ahead of time (AOT) compilation</code>. Mặc dù <code>AOT compilation</code> vẫn khả thi khi không có kiểu dữ liệu, nhưng phần code được <code>generate</code> ra sẽ không tối ưu bằng code được <code>generate</code> ra khi có kiểu dữ liệu.</li>
+</ul>
+<!--kg-card-end: markdown--><h3 id="iv-m-t-s-tips-kh-ng-b-l-i-b-c-static-analysis">IV. Một số tips để không bị lỗi ở bước static analysis</h3><!--kg-card-begin: markdown--><ol>
+<li>Sử dụng <code>sound return type</code> khi override phương thức:</li>
+</ol>
+<!--kg-card-end: markdown--><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1KTiNR8DlRrxo6w1s3yiKbsOFU-1eUMCn&amp;export=download" class="kg-image" alt></figure><p>Kiểu dữ liệu trả về của phương thức trong <code>subclass</code> phải cùng kiểu hoặc là <code>subtype</code> của phương thức tương ứng trong <code>superclass</code>. Ta xét phương thức <code>getter</code> trong <code>Animal</code> class bên dưới:</p><!--kg-card-begin: markdown--><pre><code>class Animal {
+  void chase(Animal a) { ... }
+  Animal get parent =&gt; ...
+}
+</code></pre>
+<!--kg-card-end: markdown--><p>Phương thức getter cha trả về một <code>Animal</code>. Trong lớp con <code>HoneyBadger</code>, bạn có thể thay thế kiểu trả về getter bằng <code>HoneyBadger</code> (hoặc bất kỳ kiểu con nào khác của <code>Animal</code>), nhưng không được phép sử dụng loại không liên quan.</p><!--kg-card-begin: markdown--><pre><code>// static analysic: success
+class HoneyBadger extends Animal {
+  void chase(Animal a) { ... }
+  HoneyBadger get parent =&gt; ...
+}
+
+// static analysic: error/warning
+class HoneyBadger extends Animal {
+  void chase(Animal a) { ... }
+  Root get parent =&gt; ...
+}
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><ol start="2">
+<li>Sử dụng <code>sound parameter  type</code> khi override phương thức:</li>
+</ol>
+<!--kg-card-end: markdown--><p>Tham số của phương thức được bị <code>overridden</code>  phải có cùng loại hoặc là <code>supertype</code> của tham số tương ứng trong <code>superclass</code>.</p><p>Xét phương thức <code>chase (Animal)</code> bên dưới:</p><!--kg-card-begin: markdown--><pre><code>class Animal {
+  void chase(Animal a) { ... }
+  Animal get parent =&gt; ...
+}
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><ol start="3">
+<li>Không sử dụng <code>dynamic list</code> dưới dạng <code>typed list</code>:</li>
+</ol>
+<!--kg-card-end: markdown--><p><code>Dynamic list</code> hữu dùng khi bạn muốn có một danh sách với các loại khác nhau trong đó. Tuy nhiên ta không thể sử dụng <code>dynamic list</code> như một <code>typed list</code></p><p>Đoạn code sau tạo một <code>Dynamic list</code> của <code>Dog</code> và gán nó vào danh sách kiểu <code>Cat</code>.</p><!--kg-card-begin: markdown--><pre><code>// static analysic: error/warning
+class Cat extends Animal { ... }
+
+class Dog extends Animal { ... }
+
+void main() {
+  List&lt;Cat&gt; foo = &lt;dynamic&gt;[Dog()]; // Error
+  List&lt;dynamic&gt; bar = &lt;dynamic&gt;[Dog(), Cat()]; // OK
+}
+
+</code></pre>
+<!--kg-card-end: markdown--><p></p><h3 id="v-runtime-checks">V. Runtime checks</h3><p>Các công cụ kiểm tra kiểu dữ liệu tại thời điểm <code>runtime</code> như <code>Dart VM</code> và <code>dartdevc</code> có thể bắt được lỗi mà <code>analyzer</code> không bắt được.</p><!--kg-card-begin: markdown--><pre><code>// runtime: error
+void main() {
+  List&lt;Animal&gt; animals = [Dog()];
+  List&lt;Cat&gt; cats = animals;
+}
+</code></pre>
+<!--kg-card-end: markdown--><h3 id="vi-type-inference">VI. Type inference</h3><p><code>Analyzer</code>  có thể suy ra các kiểu cho các trường, phương thức, biến cục bộ và hầu hết các <code>generic type argument</code>. Khi <code>analyzer</code> không có đủ thông tin để suy ra một loại cụ thể, nó sẽ sử dụng kiểu <code>dynamic</code>.</p><p>Sau đây là một ví dụ thể hiện cách <code>type inference</code> làm việc với <code>generic</code>. Trong ví dụ này, biến <code>arguments</code> có giá trị là <code>map</code> với key kiểu <code>String</code> và với <code>value</code> có nhiều kiểu khác nhau. Nếu ta ghi ra kiểu dữ liệu, code được viết như bên dưới:</p><!--kg-card-begin: markdown--><pre><code>Map&lt;String, dynamic&gt; arguments = {'argA': 'hello', 'argB': 42};
+</code></pre>
+<!--kg-card-end: markdown--><p>Trường hợp ta không muốn phải ghi rõ kiểu dữ liệu mà muốn Dart hỗ trợ ta tự suy ra kiểu dữ liệu thì code sẽ như bên dưới:</p><!--kg-card-begin: markdown--><pre><code>var arguments = {'argA': 'hello', 'argB': 42}; // Map&lt;String, Object&gt;
+</code></pre>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><ol>
+<li>Field and method inference</li>
+</ol>
+<!--kg-card-end: markdown--><p>Một trường hoặc phương thức không có kiểu dữ liệu được chỉ định cụ thể và <code>override</code> trường hoặc phương thức của class cha sẽ kế thừa kiểu dữ liệu tương ứng từ phương thức hoặc trường của class cha</p><p>Một trường không có loại khai báo hoặc kế thừa nhưng được khai báo với giá trị ban đầu, sẽ có loại được suy ra dựa trên giá trị ban đầu đó.</p><!--kg-card-begin: markdown--><ol start="2">
+<li>Static field inference</li>
+</ol>
+<!--kg-card-end: markdown--><p><code>Static field</code> và biến sẽ nhận kiểu dữ liệu từ <code>initializer</code> của chúng.</p><!--kg-card-begin: markdown--><ol start="3">
+<li>Local variable inference</li>
+</ol>
+<!--kg-card-end: markdown--><p>Kiểu dữ liệu của biến cục bộ được suy ra từ <code>initializer</code> (nếu có). Các phép gán sau đó sẽ không được tính tới. Điều này có nghĩa là nếu như ta biết trước kiểu dữ liệu được suy ra không phù hợp, thì ngay từ đầu ta chỉ định rõ kiểu dữ liệu chứ không phó thác cho Dart làm.</p><!--kg-card-begin: markdown--><pre><code>// static analysic: error/warning
+var x = 3; // x is inferred as an int
+x = 4.0;
+
+// static analysic: success
+num y = 3; // a num can be double or int
+y = 4.0;
+</code></pre>
+<!--kg-card-end: markdown--><p></p><!--kg-card-begin: markdown--><ol start="4">
+<li>Type argument inference</li>
+</ol>
+<!--kg-card-end: markdown--><!--kg-card-begin: markdown--><pre><code>// Inferred as if you wrote &lt;int&gt;[].
+List&lt;int&gt; listOfInt = [];
+
+// Inferred as if you wrote &lt;double&gt;[3.0].
+var listOfDouble = [3.0];
+
+// Inferred as Iterable&lt;int&gt;
+var ints = listOfDouble.map((x) =&gt; x.toInt());
+</code></pre>
+<!--kg-card-end: markdown--><p>Trong ví dụ trên <code>x</code> có kiểu được suy ra là <code>double</code> và <code>ints</code> có kiểu dữ liệu được suy ra là <code>Iterable&lt;int&gt;</code></p><h3 id="vii-substituting-types">VII. Substituting types</h3><p>Khi <code>override</code> một phương thức, ta thay thế một số thứ (trong phương thức cũ) thành một thứ khác (trong phương thức mới), tương tự như vậy khi ta truyền tham số cho một hàm, ta thay một thứ có kiểu dữ liệu được khai báo trong định nghĩa hàm bằng 1 thứ có kiểu dữ liệu (có thể khác) tương ứng với giá trị của tham số mà ta truyền vào. Câu hỏi là đặt ra là việc thay thế như vậy khi nào đúng khi nào sai? Kiểu dự liệu nào có thể thay thế cho kiểu dữ liệu nào?</p><p>Khi bàn về vấn đề trên, ta thường sẽ sử dụng 2 thuật ngữ là <code>consumer</code> và <code>producer</code>. <code>Consumer</code> là cái mà nhận kiểu dữ liệu và <code>producer</code> là cái mà tạo ra kiểu dữ liệu. Nguyên tắc là ta có thể thay kiểu dữ liệu của <code>comsumer</code> bằng <code>supertype</code> của nó, và có thể thay kiểu dữ liệu của <code>producer</code> bằng <code>subtype</code> của nó.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1lwHkTjV5Oxdi29NryJI5EYxH-0yYU3K3&amp;export=download" class="kg-image" alt></figure><p>Xét sơ đồ kế thừa bên trên, ta gán 1 phép gán đơn giản như sau:</p><!--kg-card-begin: markdown--><pre><code>Cat c = Cat();
+</code></pre>
+<!--kg-card-end: markdown--><p><code>c</code> sẽ đóng vai trò là <code>consumer</code> và <code>Cat()</code> đóng vai trò là <code>producer</code>.</p><!--kg-card-begin: markdown--><pre><code>// static analysic: success
+Animal c = Cat();
+// static analysic: error/warning
+MaineCoon c = Cat();
+</code></pre>
+<!--kg-card-end: markdown--><p>Tương tự ta có ví dụ như bên dưới:</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1trNVYhvCzlh6E3BEN10PLrUa3F33ZF0j&amp;export=download" class="kg-image" alt></figure><!--kg-card-begin: markdown--><pre><code>// static analysic: success
+List&lt;Cat&gt; myCats = List&lt;MaineCoon&gt;();
+
+</code></pre>
+<!--kg-card-end: markdown--><p>Chuyện gì sẽ xảy ra nên ta gán <code>List&lt;Animal&gt;</code> cho <code>List&lt;Cat&gt;</code> ?</p><!--kg-card-begin: markdown--><pre><code>// static analysic: success
+List&lt;Cat&gt; myCats = List&lt;MaineCoon&gt;();
+</code></pre>
+<!--kg-card-end: markdown--><p>Ta thấy vẫn pass được <code>static analysic</code> vì nó được dịch thành code như bên dưới:</p><!--kg-card-begin: markdown--><pre><code>List&lt;Cat&gt; myCats = List&lt;Animal&gt;() as List&lt;Cat&gt;;
+</code></pre>
+<!--kg-card-end: markdown--><p>Tuy nhiên đoạn code trên có thể bị fail tại thời điểm <code>runtime</code>. Để chặn việc ép kiểu ngầm ta có thể setting bằng <code>implicit-casts</code></p><h3 id="viii-ngu-n-tham-kh-o">VIII. Nguồn tham khảo</h3><p><a href="https://dart.dev/guides/language/type-system">https://dart.dev/guides/language/type-system</a></p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/type-system-trong-ngon-ngu-dart/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Type%20system%20trong%20ng%C3%B4n%20ng%E1%BB%AF%20Dart">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/type-system-trong-ngon-ngu-dart/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/type-system-trong-ngon-ngu-dart/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

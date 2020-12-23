@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Typescript] Phần 1 - Giới thiệu</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Typescript] Phần 1 - Giới thiệu" />
+    <meta property="og:description" content="Hiện nay, c&amp;oacute; nhiều dự &amp;aacute;n đang chuyển qua viết bằng Angular2. &amp;nbsp;B&amp;agrave;i viết n&amp;agrave;y m&amp;igrave;nh kh&amp;ocirc;ng n&amp;oacute;i về&amp;nbsp;Angular2, nhưng sẽ giới thiệu đến c&amp;aacute;c bạn một ng&amp;ocirc;n ngữ mới m&amp;" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-05-09T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-09T02:26:08.000Z" />
+    <meta property="article:tag" content="angular2" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="ES6" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Typescript] Phần 1 - Giới thiệu" />
+    <meta name="twitter:description" content="Hiện nay, c&amp;oacute; nhiều dự &amp;aacute;n đang chuyển qua viết bằng Angular2. &amp;nbsp;B&amp;agrave;i viết n&amp;agrave;y m&amp;igrave;nh kh&amp;ocirc;ng n&amp;oacute;i về&amp;nbsp;Angular2, nhưng sẽ giới thiệu đến c&amp;aacute;c bạn một ng&amp;ocirc;n ngữ mới m&amp;" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="angular2, typescript, ES6" />
+    <meta property="og:image:width" content="1556" />
+    <meta property="og:image:height" content="498" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "[Typescript] Phần 1 - Giới thiệu",
+    "url": "https://blog.vietnamlab.vn/typescript-phan-1-gioi-thieu/",
+    "datePublished": "2017-05-09T01:00:00.000Z",
+    "dateModified": "2017-05-09T02:26:08.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdDlKUDJpZlN0X0k&export=download",
+        "width": 1556,
+        "height": 498
+    },
+    "keywords": "angular2, typescript, ES6",
+    "description": "Hiện nay, có nhiều dự án đang chuyển qua viết bằng Angular2.  Bài viết này mình\nkhông nói về Angular2, nhưng sẽ giới thiệu đến các bạn một ngôn ngữ mới mà\nAngular2 sử dụng. Đó là Typescript.\n\nBài viết gồm các mục:\n\n 1. Lịch sử Javascript\n 2. ES6 là gì?\n 3. Typescript là gì?\n 4. Tính năng mới\n 5. Kết luận\n\n 1LỊCH SỬ JAVASCRIPT\nLướt sơ qua về các cột mốc lịch sử Javascript 1 tẹo nhé.\n\n * 1995: Ngôn ngữ Javascript đầu tiên ra đời, được tích hợp trên trình\n   duyệt Netscape.\n * 1996: Trình duyệt IE ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Typescript] Phần 1 - Giới thiệu</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2017-05-09">09 May 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkdDlKUDJpZlN0X0k&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><span>Hiện nay, có nhiều dự án đang chuyển qua viết bằng Angular2.  Bài viết này mình không nói về Angular2, nhưng sẽ giới thiệu đến các bạn một ngôn ngữ mới mà Angular2 sử dụng. Đó là <strong><span>Typescript</span></strong>. </span></p>
+<p><span>Bài viết gồm các mục:</span></p>
+<ol>
+<li><span>Lịch sử Javascript</span></li>
+<li><span>ES6 là gì?</span></li>
+<li><span>Typescript là gì?</span></li>
+<li><span>Tính năng mới</span></li>
+<li><span>Kết luận</span></li>
+</ol>
+<h3 id="mcetoc_1bcenu0v80"><strong><span> 1 </span> <span>LỊCH SỬ JAVASCRIPT</span></strong></h3>
+<p><span>Lướt sơ qua về các cột mốc lịch sử Javascript 1 tẹo nhé.</span></p>
+<ul>
+<li><span>1995: Ngôn ngữ Javascript đầu tiên ra đời, được tích hợp trên trình duyệt Netscape.</span></li>
+<li><span>1996: Trình duyệt IE 3.0 cũng trang bị cho mình 1 bộ script khác có tên là JScript. Lúc này nhiều trình duyệt khác cũng đang rục rịch ra đời. Từ đó, để một website có thể chạy ok hết trên các trình duyệt cũng trở nên khó khăn, vì mỗi trình duyệt là sử dụng bộ biên dịch script khác nhau. Nên ECMA Inernational (hiệp hội các nhà sản xuất máy tính Châu Âu) ngồi lại với nhau và cho ra đời ECMAScript để làm tiêu của cho Javascript.</span></li>
+<li><span>2006: Jquery ra đời bởi John Resig<em>.</em></span></li>
+<li><span>2009: Ryan Dahi cho ra đời Nodejs.</span></li>
+<li><span>2013: Typescript lần đầu tiên xuất hiện.</span></li>
+<li><span>2015: ES6 ra đời</span></li>
+<li><span>2016: Angular2 sử dụng Typescript được tung ra thị trường.</span></li>
+</ul>
+<p><amp-img src="https://lh3.googleusercontent.com/LcPIe7xHo6B8u-DbaDrj6h2RjtBjQxUCn-SlbNL_I1lDYsnKOF73Hc6JYzq7aFNj2TMEaCysvHFc5mPOE0NEJgb-hj17-l8xlYiCrGDUGPsGGqN7cFy53CPGw4EfTwWvXH87shPIWX7jKvFsYpsQZGlALbaHzsTkeCH1N6HoWy2CIqBs7qC0Z0fJ_d-mBtwFZ0XKQg5GL4cFqTpBrZuy63bE7Nhozh5FRnWsrYvORtw9pPk31-OMx7M3EQ7PIgbFbGiDVhqZWkdLUl4gV5AszmoZa5_Jn1GfFTA9zSXGpFwRy7oh2NADpsVV1xRPe4tzDwLmExFhOYyCcS1ZEacb8sZMsx37o18HbiH67K4ZnYbKIQCCh27IAv9WBvl1vTUX-NBjNqDe_4Y3_kUehxl0AARK1DxYv1fdQdA31-UYnlxSo-KAgS_38-00TB2wYPe_P_KXQ-YkHJ3p2nrCi7e0PUuBrpAftF3VY15XJBIChhExgI_gvAmR7-Jp4T8lh0QHuGSrTdPkfGlkEJ8KEy1cmV-qoAy55-dSGH6rHcdlZtDzUytdcrxE4GXMT4EHtUKLgmAUHwhGZ9h1wP7BdnXS-GFbnHKJZNSTgjlNOGSy-hYojEaCZsiQ=w1514-h662-no" alt width="1514" height="662" layout="responsive"></amp-img></p>
+<h3 id="mcetoc_1bcenu0v81"><strong><span><span> 2 </span> <span>ES6 LÀ GÌ?</span></span></strong></h3>
+<p><span>ES6 là cách gọi ngắn gọn của ngôn ngữ ECMAScript 2015. ES6 là phần mở rộng của Javascript. Thật ra nó cũng là Javascript cùng chung một cha (cũng được tạo bởi hiện hội Ecma International), nhưng được mở rộng thêm với những cú pháp hoàn thiện hơn, ngắn gọn hơn, dễ lập tình hơn, hỗ trợ nhiều từ khóa, thậm chí kiểu dữ liệu cũng được cải tiến, nhằm hỗ trợ cho các ứng dụng lớn với quy mô thư viện lớn. Hiện tại nó tập hợp các kỹ thuật cao của Javascript và đang là chuẩn mới nhất của chuẩn ECMAScript.</span></p>
+<p><span>ES7 cũng đang rục rịch sắp ra mắt, và sẽ có những tính năng nổi trội hơn như Sync.</span></p>
+<h3 id="mcetoc_1bcenu0v82"><span><strong><span> 3 </span> <span>TYPESCRIPT LÀ GÌ?</span></strong></span></h3>
+<p><span>Trước tiên, Typescript là dự án kéo dài hơn 3 năm của Microsoft, nhằm tạo ra một ngôn ngữ mở rộng cho Javascript và hỗ trợ các dự án lớn xây dựng dễ dàng hơn. Thủ lãnh của dự án Typescript là ông Anders. Ông cũng từng tham gia các dự án tên tuổi như Pascal, Delphi, C#. Với bề dầy kinh nghiệm của ông, chúng ta cũng cảm nhận được độ mạnh của dự án Typescript nhỉ.</span></p>
+<p><span>Trước Typescript cũng có vài đàn anh như Coffescript hay Dart của Google. Nhưng những ngôn ngữ này không được ưa chuộng lâu dài bởi cú pháp của nó quá khác với Javascript, nên việc chuyển code từ Javascript sang Coffescript thật sự là một cực hình với các dev. Thấy được vết xe đổ đó, Typescript đã khôn ngoan hơn khi dựa vào Javascript làm nên tảng. Bạn có thể copy code Javascript vào trong file Typescript rồi chạy mà không cần chỉnh sửa gì thêm. Bởi vì nó là phần mở rộng của ES6, mà ES6 lại mở rộng từ Javascript.</span></p>
+<p><span>Hiện tại, do chưa có nhiều trình duyệt hỗ sợ đủ tính năng của ES6, nên để đảm bảo code của bạn có thể chạy được trên các trình duyệt, thì nên biên dịch về Javascript chuẩn.</span></p>
+<p><span>Làm sao để có thể biên dịch ES6 về Javascript?</span></p>
+<p><span>Vấn đề này bạn không cần phải quá lo lắng, vì các IDE sẽ làm giúp bạn.</span></p>
+<p><span>Nếu bạn viết script bằng ES6, thì bạn cần bộ biên dịch Babel để biên dịch về Javascript.</span></p>
+<p><span>Nếu bạn viết script bằng Typescript, thì có rất nhiều IDE đã hỗ trợ sẵn cho bạn như Visual Studio, Sublime Text, Eclipse, Vim, v.v...</span></p>
+<p><span>Mã Javascript được sinh ra vừa nhỏ gọn, vừa đúng chuẩn, nên có thể yên tâm chạy mà không sợ bị lỗi.</span></p>
+<p><amp-img src="https://lh3.googleusercontent.com/o8w90pC48ZYkC9qGgM7DkfUoPbP4PlovHEaM3-xPG4qkTJi98dAIE3fHlcO8e_m5U7wvoeEWpH7z_KHYYgfJy3KEBvzhYQFkr-RtiyU09ao8Te82-VDPsLNF1TIJSehkVgWnOn1qPB15DQ1F5XXz75wAXDJ0GJQAz3-Y5uCDvIi8h6VVyjJeGLfTiCgGUzXc9KG-l51WJnsIwigmBE-IbNCM8pOBlejmGfsg5lV8NpBkiKq-HVq4FnZgQsl8Avx5JGrCqUolsDals43bzHy5B6Dbzq4T1SNcK2Gwq-VPSoWy8JYBfKcwnXidHyCL9lgHcyixe0yaI7URvibN4khQVorV7nG8oujt4lK9SxGPdoHKon4ZFLEM3ZqoBe0wNz0ZDAJrnw0fXJfs2C8jgOZFK6tF7CfYgHGX-KB8B4GZ55LOtj1aokJSk4JPKcYR4emRHzOk4D7U-ymHtNZyiXsAPvovPr3N9885uyYC6VEcx0V4pcOouNrTzO00xg3qJo6s45n9XixwDG1cmizbDVAW9pUUIfnJu82k0HbHyG1CcP5gfaNHxDfQs002cicegggRp9CbO6oPmHgpn3Ei8D4Bu7p8gr5mvHDNXlhv8camEn6Zz4j2Q3--=w1514-h662-no" alt width="1514" height="662" layout="responsive"></amp-img></p>
+<h3 id="mcetoc_1bcenu0v83"><span><strong><span> 4 </span> TÍNH NĂNG MỚI</strong></span></h3>
+<p><span>Như đã giới thiệu trên, thì ES6 có khá nhiều tính năng mới. Lưu ý đây chỉ mới là bài giới thiệu, nên mình chỉ liệt kê tính năng mà ES6 hỗ trợ và giải thích 1 tính năng đầu tiên thôi nhé. Loạt bài sau mình sẽ trình bày cụ thể hơn.</span></p>
+<p><span>Dưới đây là danh sách các keywork. Keywork tô màu xanh là những keywork mới của ES6.</span></p>
+<table>
+<tbody>
+<tr>
+<td>break</td>
+<td> default</td>
+<td> for</td>
+<td> new</td>
+<td> typeof</td>
+</tr>
+<tr>
+<td> case</td>
+<td> delete</td>
+<td>function </td>
+<td>return </td>
+<td>var </td>
+</tr>
+<tr>
+<td><strong><span>class </span></strong></td>
+<td>do </td>
+<td>if </td>
+<td><strong><span>super </span></strong></td>
+<td>void </td>
+</tr>
+<tr>
+<td>catch </td>
+<td>else </td>
+<td><span><strong>import </strong></span></td>
+<td>switch </td>
+<td>while </td>
+</tr>
+<tr>
+<td><strong><span>const </span></strong></td>
+<td><strong><span>export </span></strong></td>
+<td>in </td>
+<td>this </td>
+<td>with </td>
+</tr>
+<tr>
+<td>continue </td>
+<td><strong><span>extends</span> </strong></td>
+<td>instanceof </td>
+<td>throw </td>
+<td><strong><span>yield </span></strong></td>
+</tr>
+<tr>
+<td>debugger </td>
+<td>finally </td>
+<td><span><strong>let </strong></span></td>
+<td>try </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p><span>Tiếp theo là tính năng mới của ES6</span></p>
+<table>
+<tbody>
+<tr>
+<td>Arrow Function</td>
+<td>iterators + for..of</td>
+<td>Symbols</td>
+</tr>
+<tr>
+<td>Classes</td>
+<td>Generators</td>
+<td>Subclassable built-ins</td>
+</tr>
+<tr>
+<td>Enhanced object literals</td>
+<td>Unicode</td>
+<td>Promises</td>
+</tr>
+<tr>
+<td>Template strings</td>
+<td>Modules</td>
+<td>math + number + string + array + object APIs</td>
+</tr>
+<tr>
+<td>Destructuring</td>
+<td>Module loaders</td>
+<td>Binary and Octal literals</td>
+</tr>
+<tr>
+<td>default + rest + spread</td>
+<td>Map + set + weakmap + weakset</td>
+<td>Reflect API</td>
+</tr>
+<tr>
+<td>let + const</td>
+<td>Proxies</td>
+<td>Tail calls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyword_let"><strong><span>Từ khóa Let</span></strong></h3>
+<p>Let là từ khóa để khai báo một biến. Nó cũng giống như var, nhưng khác với var ở tầm vực sử dụng và giá trị của biến được khai báo bằng let sẽ tường minh hơn var. Xem thử demo sau:</p>
+<table>
+<tbody>
+<tr>
+<td><span><strong>let</strong></span></td>
+<td><span><strong>var</strong></span></td>
+</tr>
+<tr>
+<td>
+<pre class="language-javascript"><code>function letTest() {
+  let x = 1;
+  if (true) {
+    let x = 2;  // different variable
+    console.log(x);  // 2
+  }
+  console.log(x);  // 1
+}</code></pre>
+</td>
+<td>
+<pre class="language-javascript"><code>function varTest() {
+  var x = 1;
+  if (true) {
+    var x = 2;  // same variable!
+    console.log(x);  // 2
+  }
+  console.log(x);  // 2
+}</code></pre>
+</td>
+</tr>
+</tbody>
+</table>
+<h3 id="keyword_arrow"><span><strong>Arrow</strong></span></h3>
+<p>Arrow là cách viết ngắn để khai báo một hàm bằng cú pháp <strong><span>=&gt;</span></strong> thay vì dùng function. </p>
+<table>
+<tbody>
+<tr>
+<td rowspan="2"><span><strong>Javascript</strong></span></td>
+<td>
+<pre class="language-javascript"><code>var helloWorld = function (message) {…}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Từ khóa function là cách khao báo một hàm quen thuộc trong javascript.</td>
+</tr>
+<tr>
+<td rowspan="2"><span><strong>ES6</strong></span></td>
+<td>
+<pre class="language-javascript"><code>let helloWorld = (message)  =&gt; {…}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Ở ES6, thay thế từ khóa function bằng <strong><span>=&gt;</span></strong> , và param message đặt trước <span><strong>=&gt;</strong></span></td>
+</tr>
+<tr>
+<td rowspan="2"><span><strong>Typescript</strong></span></td>
+<td>
+<pre class="language-javascript"><code>let helloWorld = (message: string)  =&gt; {…}</code></pre>
+</td>
+</tr>
+<tr>
+<td>Ở Typescript, thì yêu cầu cao hơn một tẹo, là biến message của bạn phải được khai báo kèm với kiểu dữ liệu. Việc khai báo kiểu dữ liệu giống thế này cũng khá quen thuộc khi ở các ngôn ngữ khác như C#, Java, v.v...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mcetoc_1bcenu0v84"><span><strong><span> 5 </span> KẾT LUẬN</strong></span></h3>
+<p><span>Hiện nay, không chỉ Angular2 sử dụng Typescript, mà các framework JS khác cũng đang nâng cấp từ JS sang Typescript, như framework Dojo Toolkit, Ember, v.v...  Với những kĩ thuật mới và lập trình hướng đối tượng, nên Typescript cũng giúp chúng ta xây dựng dự án lớn dễ dàng hơn.  </span></p>
+<p><span>Bản chất của Typescript là Javascript, bạn vẫn có thể viết js trong file typescript, nhưng để viết js nhẹ nhàng hơn, nên khai thác các tính năng mà Typescript cung cấp.</span></p>
+<h3 id="referent"><strong><span>Tham khảo</span></strong></h3>
+<p>https://www.typescriptlang.org/</p>
+<p> </p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

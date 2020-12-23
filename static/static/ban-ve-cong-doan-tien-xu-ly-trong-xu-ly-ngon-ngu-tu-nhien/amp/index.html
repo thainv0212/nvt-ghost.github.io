@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tiền xử lý trong xử lý ngôn ngữ tự nhiên</title>
+
+    <meta name="description" content="Bước đầu tiên và không thể thiếu trong việc xử lý ngôn ngữ tự nhiên là tiền xử lý. Vì văn bản vốn dĩ được liệt kê mà không có cấu trúc..." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tiền xử lý trong xử lý ngôn ngữ tự nhiên" />
+    <meta property="og:description" content="Bước đầu tiên và không thể thiếu trong việc xử lý ngôn ngữ tự nhiên là tiền xử lý. Vì văn bản vốn dĩ được liệt kê mà không có cấu trúc..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/ban-ve-cong-doan-tien-xu-ly-trong-xu-ly-ngon-ngu-tu-nhien/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1R4bXtQ4VUX4at1TqwI4glupSZgC2zZ6f&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:17:29.000Z" />
+    <meta property="article:modified_time" content="2018-01-24T04:17:29.000Z" />
+    <meta property="article:tag" content="NLP" />
+    <meta property="article:tag" content="xử lý ngôn ngữ tự nhiên" />
+    <meta property="article:tag" content="one-hot" />
+    <meta property="article:tag" content="stop-words" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tiền xử lý trong xử lý ngôn ngữ tự nhiên" />
+    <meta name="twitter:description" content="Bước đầu tiên và không thể thiếu trong việc xử lý ngôn ngữ tự nhiên là tiền xử lý. Vì văn bản vốn dĩ được liệt kê mà không có cấu trúc..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/ban-ve-cong-doan-tien-xu-ly-trong-xu-ly-ngon-ngu-tu-nhien/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1R4bXtQ4VUX4at1TqwI4glupSZgC2zZ6f&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="NLP, xử lý ngôn ngữ tự nhiên, one-hot, stop-words" />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="342" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Tiền xử lý trong xử lý ngôn ngữ tự nhiên",
+    "url": "https://blog.vietnamlab.vn/ban-ve-cong-doan-tien-xu-ly-trong-xu-ly-ngon-ngu-tu-nhien/",
+    "datePublished": "2018-01-24T04:17:29.000Z",
+    "dateModified": "2018-01-24T04:17:29.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1R4bXtQ4VUX4at1TqwI4glupSZgC2zZ6f&export=download",
+        "width": 700,
+        "height": 342
+    },
+    "keywords": "NLP, xử lý ngôn ngữ tự nhiên, one-hot, stop-words",
+    "description": "Mở đầu\nChào các bạn, chắc hẳn ít nhiều các bạn đã từng nghe đến công việc xử lý ngôn\nngữ tự nhiên. Nói một cách ngắn gọn như sau:\n\nXử lý ngôn ngữ tự nhiên (natural language processing - NLP) là một nhánh của trí\ntuệ nhân tạo tập trung vào các ứng dụng trên ngôn ngữ của con người. Trong trí\ntuệ nhân tạo thì xử lý ngôn ngữ tự nhiên là một trong những phần khó nhất vì nó\nliên quan đến việc phải hiểu ý nghĩa ngôn ngữ-công cụ hoàn hảo nhất của tư duy\nvà giao tiếp. (wikipedia)\n\nVà bước đầu tiên và khô",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Bàn về công đoạn tiền  xử lý trong xử lý ngôn ngữ tự nhiên</h1>
+                <section class="post-meta">
+                    T.T.T -
+                    <time class="post-date" datetime="2018-01-24">24 Jan 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1R4bXtQ4VUX4at1TqwI4glupSZgC2zZ6f&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="mu">Mở đầu</h3>
+<p>Chào các bạn, chắc hẳn ít nhiều các bạn đã từng nghe đến công việc xử lý ngôn ngữ tự nhiên. Nói một cách ngắn gọn như sau:</p>
+<p><em>Xử lý ngôn ngữ tự nhiên (natural language processing - NLP) là một nhánh của trí tuệ nhân tạo tập trung vào các ứng dụng trên ngôn ngữ của con người. Trong trí tuệ nhân tạo thì xử lý ngôn ngữ tự nhiên là một trong những phần khó nhất vì nó liên quan đến việc phải hiểu ý nghĩa ngôn ngữ-công cụ hoàn hảo nhất của tư duy và giao tiếp. (wikipedia)</em></p>
+<p>Và bước đầu tiên và không thể thiếu trong việc xử lý ngôn ngữ tự nhiên là <strong>tiền xử lý</strong>. Vì văn bản vốn dĩ được liệt kê mà không có cấu trúc, để nguyên vậy để xử lý là rất khó khăn. Đặc biệt là loại văn bản trên web có lẫn các HTML tag, code JS, đó chính là <strong>noise</strong>.</p>
+<p>Bước tiền xử lý nhìn chung sẽ được mô tả tóm tắt như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1IWEfP_fnfcZWr7eN83q6PiCnE8Rc-OFH&amp;export=download" alt width="2558" height="444" layout="responsive"></amp-img><br />
+Trích từ: <a href="http://msb.embopress.org/content/12/7/878">Deep learning for computational biology</a></p>
+<p>Và bây giờ chúng ta cùng đi đến chi tiết xem bước <strong>tiền xử lý</strong> cần giải quyết những vấn đề gì ?</p>
+<h3 id="ccloitinxl">Các loại tiền xử lý</h3>
+<p>Lần này mình sẽ lần lượt giới thiệu với các bạn 5 bước tiền xử lý như dưới đây.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1DUo1oWgBZU6uzZPF6cGRCL_SRVr6ygcP&amp;export=download" alt width="1276" height="735" layout="responsive"></amp-img></p>
+<h3 id="lmschtext">Làm sạch text</h3>
+<p>Mục đích bước này là loại bỏ noise trong data của bạn. Đa phần noise là các thẻ HTML, JavaScript, và đương nhiên nếu cứ để noise để tiến hành xử lý sẽ dẫn đến kết quả xử lý không tốt.</p>
+<p>Ví dụ đơn giản như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1DXWRoZmdxCHddPcU12ROcvmEimsvex1Q&amp;export=download" alt width="1126" height="245" layout="responsive"></amp-img></p>
+<p>Thông thường chúng ta hay loại bỏ noise là các thẻ HTML và JS như trên tuy nhiên thực tế noise có thể không chỉ là HTML, JS, cũng có thể là những cụm từ không cần thiết, hay ký tự không có ý nghĩa ($%&amp;##").</p>
+<p>Với các trường hợp thông thường, cách đơn giản và dễ nhất là sử dụng filter theo regx, mình thường sử dụng trang web sau để viết regx:</p>
+<p><a href="https://regex101.com/">https://regex101.com/</a></p>
+<p><amp-img src="https://drive.google.com/uc?id=1Y7rIYhpD7eOZdB4CYZMNHAYPdVuwJfkq&amp;export=download" alt width="600" height="400" layout="responsive"></amp-img></p>
+<p>Với code Python, <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">BeautifulSoup</a> và <a href="http://lxml.de/">lxml</a> là 2 thư viện được cộng đồng sử dụng nhiều nhất và vô cùng mạnh mẽ, tiện lợi.</p>
+<h3 id="tcht">Tách từ</h3>
+<p>Trong tiếng Việt, dấu cách (space) không được sử dụng như 1 kí hiệu phân tách từ, nó chỉ có ý nghĩa phân tách các âm tiết với nhau. Vì thế, để xử lý tiếng Việt, công đoạn tách từ (word segmentation) là 1 trong những bài toán cơ bản và quan trọng bậc nhất.</p>
+<p>Ví dụ : từ “đất nước” được tạo ra từ 2 âm tiết “đất” và “nước”, cả 2 âm tiết này đều có nghĩa riêng khi đứng độc lập, nhưng khi ghép lại sẽ mang một nghĩa khác. Vì đặc điểm này, bài toán tách từ trở thành 1 bài toán tiền đề cho các ứng dụng xử lý ngôn ngữ tự nhiên khác như phân loại văn bản, tóm tắt văn bản, máy dịch tự động, …</p>
+<p>Như ví dụ sau:<br />
+<amp-img src="https://drive.google.com/uc?id=11LmD1a91HjGJbDdM-BYDODbmX088AbO2&amp;export=download" alt width="628" height="273" layout="responsive"></amp-img></p>
+<p>Tách từ chính xác hay không là công việc rất quan trọng, nếu không chính xác rất có thể dẫn đến việc ý nghĩa của câu sai, ảnh hưởng đến tính chính xác của chương trình.</p>
+<p>Về phương pháp, hiện nay cũng có khá nhiều mã nguồn nghiên cứu được public, bạn có thể tham khảo tại <a href="https://github.com/magizbox/underthesea/wiki/Vietnamese-NLP-Tools#word-segmentation">word-segmentation</a>.</p>
+<h3 id="chunhot">Chuẩn hoá từ</h3>
+<p>Mục đích là đưa văn bản từ các dạng không đồng nhất về cùng một dạng. Dưới góc độ tối ưu bộ nhớ lưu trữ và tính chính xác cũng rất quan trọng.</p>
+<p>Ví dụ: U.S.A = USA</p>
+<p>Ví dụ trong từ điển, training data của chúng ta không có U.S.A, chỉ có USA, thì việc convert những từ như U.S.A về USA là điều cần thiết để các bước xử lý sau như text classification, intent detection được chính xác.</p>
+<p>Ngoài ra với tiếng Nhật: 猫＝ねこ＝ネコ(full size)＝ﾈｺ(half size)</p>
+<p>Có nhiều cách viết, mỗi cách viết khi lưu trữ sẽ tốn lượng memory khác nhau, như half size chỉ tốn 1/2 dung lượng so với full size nên tuỳ theo nhu cầu, tình hình thực tế, chúng ta sẽ đưa văn bản về 1 dạng đồng nhất.</p>
+<p>Ngoài ra trong một vài trường hợp, nếu ký tự số không mang lại lợi ích gì thì cũng sẽ tiến hành loại bỏ các ký tự số đó, nếu cứ để nguyên rất có thể các ký tự số sẽ trở thành noise, ảnh hưởng đến tính chính xác của model sau này.</p>
+<h3 id="loibstopwords">Loại bỏ StopWords</h3>
+<p>StopWords là những từ xuất hiện nhiều trong ngôn ngữ tự nhiên, tuy nhiên lại không mang nhiều ý nghĩa. Ở tiếng việt StopWords là những từ như: để, này, kia... Tiếng anh là những từ như: is, that, this... Tham khảo thêm tại <a href="https://github.com/stopwords/vietnamese-stopwords/blob/master/vietnamese-stopwords.txt">danh sách stopwords trong tiếng việt</a></p>
+<p>Có rất nhiều cách để loại bỏ StopWords nhưng có 2 cách chính là:</p>
+<ul>
+<li>
+<p>Dùng từ điển</p>
+</li>
+<li>
+<p>Dựa theo tần suất xuất hiện của từ</p>
+</li>
+</ul>
+<p><strong>Dùng từ điển</strong></p>
+<p>Cách này đơn giản nhất, chúng ta tiến hành filter văn bản, loại bỏ những từ xuất hiện trong từ điển StopWords:</p>
+<pre><code class="language-python">cậu
+của
+cứ
+dù
+nọ
+phóc
+này
+kia
+để
+...
+</code></pre>
+<p>Ví dụ:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1Rsqxe9CdrXWt2QHDzPEOWCMDjqB8iQFx&amp;export=download" alt width="585" height="350" layout="responsive"></amp-img></p>
+<p><strong>Dựa theo tần suất xuất hiện của từ</strong></p>
+<p>Với cách này, chúng ta tiến hành đếm số lần xuất hiện của từng từ trong data sau đó sẽ loại bỏ những từ xuất hiện nhiều lần (cũng có thể là ít lần). Khoa học đã chứng minh những từ xuất hiện nhiều nhất thường là những từ không mang nhiều ý nghĩa. ^^</p>
+<p>Như ví dụ dưới đây:</p>
+<p><amp-img src="https://drive.google.com/uc?id=19wXiQf-PS0G8Et6_I0nk4EI1h9HUJpda&amp;export=download" alt width="1036" height="581" layout="responsive"></amp-img></p>
+<p>Trên là top 50 từ xuất hiện nhiều nhất trong mỗi cuốn sách, dễ dàng nhận thấy chúng không mang nhiều ý nghĩa. Chính vì thế chúng ta sẽ loại bỏ những từ như thế này.</p>
+<h3 id="vectorhot">Vector hoá từ</h3>
+<p>Bước này mục đích là vector hoá từ trong từng câu. Thông thường chúng ta nên vector hoá theo từng câu chứ không vector hoá cả đoạn. Vì nếu vector hoá theo đoạn văn dài sẽ dẫn đến vector của bạn nhiều chiều quá, nếu dữ liệu của bạn nhiều chiều, sẽ dẫn đến tình trạng thiếu tính chính xác, khó xử lý. Phương pháp vector hoá có 2 cách:</p>
+<ul>
+<li>
+<p>Sử dụng one-hot</p>
+</li>
+<li>
+<p>Biểu thị sự phân tán</p>
+</li>
+</ul>
+<p><strong>Sử dụng one-hot</strong></p>
+<p>Phương pháp này là phổ biến nhất, cũng rất dễ sử dụng. Giả sử ta có danh sách các từ sau: (nlp, python, word, ruby, one-hot) khi vector hoá từ python, ta sẽ được:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1XaK4cMgpKFDsNQWtqf16XACsG9c-MovU&amp;export=download" alt width="944" height="456" layout="responsive"></amp-img></p>
+<p>Tương tự với nlp thì vị trí nlp sẽ là 1, còn lại là 0, cứ như vậy ta sẽ biểu diễn được tất cả các từ. Lấy luôn hình trên làm ví dụ ta sẽ được:</p>
+<ul>
+<li>nlp: 10000</li>
+<li>python: 01000</li>
+<li>word: 00100</li>
+<li>ruby: 00010</li>
+<li>one-hot: 00001</li>
+</ul>
+<p>Biểu diễn bằng one-hot rất đơn giản nhưng có một điểm yếu là không có mối liên hệ giữa các từ.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1WVONdh5Ag7-mDydwvCFTjEl85fqp6qOo&amp;export=download" alt width="1472" height="628" layout="responsive"></amp-img></p>
+<p>Ví dụ như bạn muốn tính độ tương tự giữa các từ, việc cần làm là tính tích vô hướng 2 từ đó, tuy nhiên với cách biểu diễn bằng one-hot, tích vô hướng luôn bằng 0 nên không có ý nghĩa gì cả.</p>
+<p><strong>Biểu thị sự phân tán</strong></p>
+<p>Phân tán ở đây nghĩa là tần suất phân bố, xuất hiện của từ đó trên mỗi chủ đề(topic), hoặc là mỗi đoạn văn bản khác nhau. Thực tế thông thường số chiều khoảng 50-500. Như ví dụ sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=1euiikeZK8SIwVaah2doSkBpKjeNMHTsm&amp;export=download" alt width="1190" height="724" layout="responsive"></amp-img></p>
+<p>Như trên ví dụ số chủ để khoảng 50-300 chủ đề, khi biểu diễn theo kiểu này, dễ dàng nhận thấy vấn đề của one-hot đã được giải quyết, khi tính tích vô hướng sẽ nhận thấy ngay python và ruby có mối liên quan rất lớn, ngược lại so với word không có nhiều mối tương đồng.</p>
+<p>Việc phân loại từ như trên rất quan trọng trong NLP, ví dụ như bài toán Text Classification, bạn cần phân biệt, tìm ra các từ cùng chủ đề. Hay bài toán Intent detection, bạn cũng cần tìm ra mối quan hệ giữa input và training data.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Trên đây mình đã giới thiệu với các bạn cái nhìn tổng quan về những gì mình cần làm ở bước tiền xử lý dữ liệu trong NLP. Bước này là bước rất quan trọng để nâng cao hiệu suất cũng như tính chính xác của model sau này. NLP cũng là một bài toán khó trong lĩnh vực AI, chúng ta từng bước giải từng bài toán một, dần dần bạn sẽ làm được điều mình muốn, mong rằng bài viết này sẽ giúp ích cho các bạn mới tìm hiểu về NLP.</p>
+<p>Hẹn gặp lại các bạn với các bài viết về NLP tiếp theo.</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<p><a href="http://ahogrammer.com/2017/03/22/why-is-word-embeddings-important-for-natural-language-processing/">http://ahogrammer.com/2017/03/22/why-is-word-embeddings-important-for-natural-language-processing/</a></p>
+<p><a href="https://github.com/magizbox/underthesea/wiki/Vietnamese-NLP-Tools#text-classification">https://github.com/magizbox/underthesea/wiki/Vietnamese-NLP-Tools#text-classification</a></p>
+<p><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">https://www.crummy.com/software/BeautifulSoup/bs4/doc/</a></p>
+<p><a href="https://datascience.stackexchange.com/questions/11402/preprocessing-text-before-use-rnn">https://datascience.stackexchange.com/questions/11402/preprocessing-text-before-use-rnn</a></p>
+<p><a href="http://pages.cs.wisc.edu/~jerryzhu/cs769/text_preprocessing.pdf">http://pages.cs.wisc.edu/~jerryzhu/cs769/text_preprocessing.pdf</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

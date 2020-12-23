@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Từ Neural Network đến Deep Learning | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Từ Neural Network đến Deep Learning" />
+    <meta property="og:description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1EahFzWEnKQLoYZk2dAoPmPkkdJFZm0K-&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T10:02:31.000Z" />
+    <meta property="article:modified_time" content="2018-09-24T14:46:28.000Z" />
+    <meta property="article:tag" content="deep learning" />
+    <meta property="article:tag" content="perceptron" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="neural network" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Từ Neural Network đến Deep Learning" />
+    <meta name="twitter:description" content="Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="deep learning, perceptron, machine learning, neural network" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Từ Neural Network đến Deep Learning",
+    "url": "https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/",
+    "datePublished": "2018-06-29T10:02:31.000Z",
+    "dateModified": "2018-09-24T14:46:28.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "deep learning, perceptron, machine learning, neural network",
+    "description": "Bắt đầu với ví dụ về neuron của chính hệ thần kinh con người, cùng tìm hiểu mối liên quan với Neuron Network(NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường nhé.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-deep-learning tag-perceptron tag-machine-learning tag-neural-network nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-deep-learning tag-perceptron tag-machine-learning tag-neural-network js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Từ Neural Network đến Deep Learning</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-06-29">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 29 June 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/deep-learning/index.html">deep learning</a>, <a href="../tag/perceptron/index.html">perceptron</a>, <a href="../tag/machine-learning/index.html">machine learning</a>, <a href="../tag/neural-network/index.html">neural network</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1MBkeK9CJpETSXjgEfYCrocLTvXrELLu8&amp;export&#x3D;download" alt="Từ Neural Network đến Deep Learning">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tu-neural-network-den-deep-learning/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BB%AB%20Neural%20Network%20%C4%91%E1%BA%BFn%20Deep%20Learning">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Chào các bạn, hôm nay đẹp trời lại có thời gian rảnh mình sẽ viết tiếp chuỗi bài về Deep Learning. Như bài trước mình đã giới thiệu với các bạn về Perceptron, nếu bạn chưa biết thì bạn có thể xem lại <a href="https://codetudau.com/deeplearning-perceptron-la-gi/">tại đây</a>.<br>
+Và bài này mình sẽ giới thiệu về Neural Network (NN) và Deep Learning cũng như chỉ ra sự khác nhau giữa Deep Learning và Machine Learing thông thường.</p>
+<p>Mục tiêu chính của bài viết:</p>
+<ul>
+<li>Hiểu được Neuron Network là gì</li>
+<li>Deep Learning là gì</li>
+<li>Khác nhau giữa Deep Learning và Machine Learning thông thường</li>
+</ul>
+<h3 id="neuralnetworklg">Neural Network là gì ?</h3>
+<h4 id="khiuvinron">Khởi đầu với nơron</h4>
+<p>Một cách ngắn gọn nhất thì Neural là mô hình toán học mô phỏng nơron trong hệ thống thần kinh con người. Model đó biểu hiện cho một số chức năng của nơron (neuron) thần kinh con người.</p>
+<p><img src="https://drive.google.com/uc?id=1l_RGG_pfR6QWLse_rA6zlOSYJira_Yjx&amp;export=download" alt="uc?id=1l_RGG_pfR6QWLse_rA6zlOSYJira_Yjx&amp;export=download"></p>
+<p>Đầu tiên, nhìn hình thôi các bạn đã thấy có sự tương đồng rồi đúng không ^^. Tuy nhiên mục đích bài viết là giúp các bạn hiểu gốc rễ vấn đề, biết ý nghĩa từng tham số, chắc chắn sẽ giúp bạn hiểu rõ hơn về cái mà mình đang làm, đang tìm hiểu. Với phần gốc rễ đã chắc thì chắc chắn sẽ dễ dàng hơn khi tiếp cận những bài báo mới hiện nay.</p>
+<p>Đầu tiên là tính chất truyền đi của thông tin trên neuron, khi neuron nhận tín hiệu đầu vào từ các dendrite, khi tín hiệu vượt qua một ngưỡng(threshold) thì tín hiệu sẽ được truyền đi sang neuron khác (Neurons Fire) theo sợi trục (axon). Neural của model toán học ở đây cũng được mô phỏng tương tự như vậy. Công thức tính output y sẽ như sau:</p>
+<p>$$ y= a( w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3} -  \theta ) (1) $$</p>
+<p><em>Ái chà, cái gì vậy trời, từ đâu lòi ra công thức loằng ngoằng vậy.</em></p>
+<p>Không phải vội từ từ mình sẽ giải thích.</p>
+<p>Việc <strong>Neurons Fire</strong> khi nhận tín hiệu từ các neuron khác được tính phép cộng thông thường ( $ x_{1} + x_{2} $ ). Tuy nhiên lại không chỉ đơn giản như thế. Tại sao ?</p>
+<p><em>Ví dụ như này:</em></p>
+<p><em>Bạn đang tham gia 1 trận đấu tennis, não của bạn sẽ nhận các tín hiệu từ các giác quan như hình ảnh từ mắt, âm thanh từ tai, cảm giác từ các tế bào ở tứ chi, thậm chí là cả mùi vị từ mũi ... Và bạn đang thi đấu, bạn sẽ tập trung vào điều gì, bạn có dễ bị phân tâm từ mùi hôi hôi từ chính đôi tất 2 bữa nay chưa giặt không, hay bạn đang chỉ chú tâm tới từng động tác của đối thủ ?<br>
+Tại sao lại thế nhỉ, rõ ràng thông tin não bộ nhận được là đầy đủ... Đó, bạn đã mường tượng ra vấn đề gì chưa. Đó chính là nhờ cấu trúc phức tạp của từng neuron của hệ thần kinh.<br>
+Cụ thể là từ input nhận được, việc xử lý từng thông tin đó được gắn với 1 trọng số (weight), mấy thông tin không quan trọng sẽ có weight thấp hơn, cái ta cần là các thông tin có ích cho trận đấu</em></p>
+<p>Trong neural, weight (ký hiệu: w) cũng mang ý nghĩa như vậy.</p>
+<p>Và  $\theta$ chính là ngưỡng (threshold) như mình đề cập ở trên.</p>
+<p><strong>a</strong> là một function mà người tạo ra model ký hiệu, có tên trên giấy khai sinh là <strong>activation function</strong>, có nhiệm vụ là chuẩn hoá output. Bạn thử tưởng tượng công thức trên bỏ đi activation function thì output y sẽ là 1 giá trị không có giới hạn (-inf -&gt; inf), vậy làm sao biết khi nào fired hoặc không. Ở điểm này, đã chứng minh được bộ não con người quá siêu việt, mặc dù không có activation function nhưng cũng đã quản lý được trạng thái fired hoặc not fire. Activation Function có các đại diện tiêu biểu như:</p>
+<ul>
+<li>Step function</li>
+<li>Linear function</li>
+<li>Sigmoid function</li>
+<li>Tanh function</li>
+<li>ReLu</li>
+</ul>
+<p>Trong phạm vi bài viết này, bạn chỉ cần hiểu Activation Function có nhiệm vụ là chuẩn hoá output của neural là được. Có lẽ mình sẽ viết 1 bài riêng nói về chi tiết về các Activation Function nêu trên (nếu nhận được sự ủng hộ nhiệt tình từ các bạn ^^).</p>
+<p>Từ công thức (1), thực tế threshold trong phạm vi toán học có thể mang cả dấu (-) và (+) nên các bác đầu to hơn bình thường 1 chút đã đưa vào thuật ngữ <strong>bias</strong>: $ bias = b = - \theta$ . Đơn giản ta sẽ có công thức sau:<br>
+$$ y= a( w_{1}x_{1} + w_{2}x_{2} + w_{3}x_{3} + b ) (2) $$</p>
+<p>Đến đây chắc hẳn bạn đã thấy sự liên quan với Perceptron mà mình đã giới thiệu ở bài trước. Nếu chưa, chắc hẳn bạn chưa đọc hoặc đã quên mất rồi, xin mời bạn đọc lại bài đó <a href="https://codetudau.com/deeplearning-perceptron-la-gi/">tại đây</a> nhé.</p>
+<h4 id="inneuralnetwork">Đi đến Neural Network</h4>
+<p>Ở trên là công thức tính output của 1 unit trong một mạng lưới neural (Neural Network). Vậy rốt cục Neural Network có mặt mũi ra sao ?</p>
+<p><img src="https://drive.google.com/uc?id=1Too689kFxosm2LBJFj-GKtqw8VXirXID&amp;export=download" alt="uc?id=1Too689kFxosm2LBJFj-GKtqw8VXirXID&amp;export=download"></p>
+<p>Ồ, thì ra là sự kết hợp từ nhiều unit. Và tín hiệu sẽ được xử lý theo từng tầng (layer), như trên hình, tầng ở giữa được gọi là tầng ẩn (hidden layer), còn lại là tầng input và output.<br>
+Tầng sau sẽ nhận giá trị output của tầng trước để tiến hành xử lý. Còn xử lý ra sao là một chuyện khác, phụ thuộc vào từng bài toán mà công việc xử lý sẽ khác nhau. Và số lượng Hidden layer là không giới hạn, việc lựa chọn số tầng ẩn và cách xử lý ở mỗi tầng là chuyện không hề đơn giản. Nhưng đều có công thức cơ bản như (2) chỉ khác là thay đổi <strong>Activation function</strong>, <strong>Input</strong> Nói chung công thức ở trên là công thức tổng quát.</p>
+<h3 id="deeplearning">Deep Learning</h3>
+<p>Cái tên <strong>Deep Learning</strong> ra đời với mục đích nhấn mạnh các <strong>Hidden layers</strong> của Neural Network. Có thể hiểu Deep Learning chính là Neural Network với nhiều <strong>Hidden layers</strong>.</p>
+<p><img src="https://drive.google.com/uc?id=19ZKP7DWvJh9PjsCvGACHMZsW2xzD9wfj&amp;export=download" alt="uc?id=19ZKP7DWvJh9PjsCvGACHMZsW2xzD9wfj&amp;export=download"></p>
+<p>À thế sao lại cần nhiều <strong>Hidden layers</strong> làm gì ?</p>
+<p>Ví dụ như quá trình trưởng thành của &quot;bướm&quot;. Mà bạn đang nghĩ đi đâu đấy... nhưng mình thích cách suy nghĩ của bạn. ^^ Thôi nghiêm túc, quá trình trưởng thành gồm các bước:</p>
+<ul>
+<li>Đầu tiên là trạng thái trong trứng</li>
+<li>Sau đó nở thành sâu</li>
+<li>Sâu ăn rất nhiều và đóng kén thành nhộng</li>
+<li>Và tada.. nở thành bướm</li>
+</ul>
+<p>Ở Deep Learning cũng vậy, không có cách nào đi tắt đón đầu, mỗi Hidden layers sẽ có một nhiệm vụ, output của tầng này sẽ là input của tầng sau. Ở các bài viết sau (về CNN chẳng hạn) mình sẽ cho các bạn thấy rõ điều này.</p>
+<h3 id="ngdngcadeeplearning">Ứng dụng của Deep Learning</h3>
+<p>Không thể phủ nhận được những thành công ngoài mong đợi của Deep Learning ở khắp các lĩnh vực phổ biến.</p>
+<ul>
+<li>Self-driving cars</li>
+<li>Voice Search &amp; Voice-Activated Assistants</li>
+<li>Automatic Machine Translation</li>
+<li>Automatic Text Generation</li>
+<li>Nhận dạng ảnh (Image Recognition)</li>
+<li>...</li>
+</ul>
+<p>Bạn có thể tham khảo trend hiện nay <a href="https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01">tại đây</a>.</p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Tiếp nối bài trước về Perceptron, ở bài này mình đã giới thiệu với các bạn về Neural Network từ ví dụ đầy sinh động về chính bộ não con người. ^^ Và đưa đến khái niệm về Deep Learning. Mong những kiến thức trên sẽ có ích cho bạn. Và hẹn gặp lại các bạn ở các bài viết sau tiếp tục đi sâu và rộng hơn về Deep Learning.</p>
+<h3 id="linkthamkho">Link tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01">https://medium.com/@vratulmittal/top-15-deep-learning-applications-that-will-rule-the-world-in-2018-and-beyond-7c6130c43b01</a></li>
+<li><a href="http://neuralnetworksanddeeplearning.com/chap1.html">http://neuralnetworksanddeeplearning.com/chap1.html</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tu-neural-network-den-deep-learning/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BB%AB%20Neural%20Network%20%C4%91%E1%BA%BFn%20Deep%20Learning">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tu-neural-network-den-deep-learning/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tu-neural-network-den-deep-learning/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

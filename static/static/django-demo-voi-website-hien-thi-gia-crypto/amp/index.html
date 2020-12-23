@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Django - Demo với website hiển thị giá Crypto - Phần 1</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Django - Demo với website hiển thị giá Crypto - Phần 1" />
+    <meta property="og:description" content="Kiến trúc Django Kiến trúc Django gồm ba phần chính:  Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…). Phần framework, xử lý luồng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:20:59.000Z" />
+    <meta property="article:modified_time" content="2019-12-25T02:37:32.000Z" />
+    <meta property="article:tag" content="Python" />
+    <meta property="article:tag" content="django" />
+    <meta property="article:tag" content="crypto" />
+    <meta property="article:tag" content="Bitcoin" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Django - Demo với website hiển thị giá Crypto - Phần 1" />
+    <meta name="twitter:description" content="Kiến trúc Django Kiến trúc Django gồm ba phần chính:  Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…). Phần framework, xử lý luồng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Python, django, crypto, Bitcoin" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="422" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Django - Demo với website hiển thị giá Crypto - Phần 1",
+    "url": "https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/",
+    "datePublished": "2019-10-09T01:20:59.000Z",
+    "dateModified": "2019-12-25T02:37:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&export=download",
+        "width": 750,
+        "height": 422
+    },
+    "keywords": "Python, django, crypto, Bitcoin",
+    "description": "Kiến trúc Django\nKiến trúc Django gồm ba phần chính:\n\n 1. Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn.\n 2. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào\n    đó, v.v…).\n 3. Phần framework, xử lý luồng chạy giữa thao thác của user với database.\n\nDưới đây là sơ đồ mô tả phần 1 với 2\n\n\n * Model là các tools làm việc với data và database.\n * Template là các văn bản giao diện mà bạn sẽ nhận từ các designers.\n * Còn View, nó có phải là một cont",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Django - Demo với website hiển thị giá Crypto - Phần 1</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2019-10-09">09 Oct 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h1 id="kintrcdjango">Kiến trúc Django</h1>
+<p>Kiến trúc Django gồm ba phần chính:</p>
+<ol>
+<li>Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn.</li>
+<li>Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…).</li>
+<li>Phần framework, xử lý luồng chạy giữa thao thác của user với database.</li>
+</ol>
+<p>Dưới đây là sơ đồ mô tả phần 1 với 2<br />
+<amp-img src="https://drive.google.com/uc?id=19mjA2k48aFb_rvOjChRpnPEffkjsCJlU&amp;export=download" alt="uc?id=19mjA2k48aFb_rvOjChRpnPEffkjsCJlU&amp;export=download" width="496" height="376" layout="responsive"></amp-img></p>
+<ul>
+<li>Model là các tools làm việc với data và database.</li>
+<li>Template là các văn bản giao diện mà bạn sẽ nhận từ các designers.</li>
+<li>Còn View, nó có phải là một controller không.</li>
+</ul>
+<p>Nhìn vào mô hình của Django, ta có thể thấy phần nào khá giống với những mô hình framework ngoài thị trường với cấu trúc MVC (Model - View - Controller). Nhưng với Django thì có tên khác là MTV (Model - Template - View). Lúc này View của Django sẽ đóng vai trò như controller của mô hình MVC, chỉ là cách gọi tên khác nhau thôi.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1yH4Wg5Ox8PQ-sv8gQhrLTsAZ1evlVQbp&amp;export=download" alt="uc?id=1yH4Wg5Ox8PQ-sv8gQhrLTsAZ1evlVQbp&amp;export=download" width="250" height="196" layout="fixed"></amp-img></p>
+<p>Cụ thể trong view sẽ là những gì.<br />
+<amp-img src="https://drive.google.com/uc?id=1ZPPgmaKHUI1gI36KJJVakH-rp91IQUvH&amp;export=download" alt="uc?id=1ZPPgmaKHUI1gI36KJJVakH-rp91IQUvH&amp;export=download" width="300" height="258" layout="responsive"></amp-img></p>
+<p><strong>Cấu trúc của Django</strong>:<br />
+Đơn vị cơ bản của ứng dụng web Django là một project Django. Một project Django được tạo thành bởi một hoặc nhiều ứng dụng Django.<br />
+<amp-img src="https://drive.google.com/uc?id=1UdbCV7U-e8PydGExGzGPACHKAHQD3Y4P&amp;export=download" alt="uc?id=1UdbCV7U-e8PydGExGzGPACHKAHQD3Y4P&amp;export=download" width="250" height="331" layout="fixed"></amp-img></p>
+<p>App Django là một gói độc lập chỉ nên làm một việc. Nghĩa là trong 1 <code>project</code> có nhìu <code>apps</code> con, mỗi <code>app</code> con có công năng riêng, như app về blog, app quản lý users hoặc app quản lý lịch sự kiện. Bạn có thể xem trong file config <code>settings.py</code>, sẽ thấy tên các gói <code>apps</code> trong <code>project</code>, khi bạn có ứng dụng muốn thêm vào <code>project</code>, bạn sẽ khai báo ở đây.</p>
+<pre><code class="language-python"># ...\myclub_project\myclub_site\myclub_site\settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'crypto',
+]
+</code></pre>
+<p>Như trong file config trên, bạn có thể thấy Django đã thêm sẵn cho bạn một vài ứng dụng hữu ích cơ bản để viết một chương trình. Ngoài ra còn rất nhiều ứng dụng khác mà chưa được cài mặc định, bạn có thể thêm vào trong file <code>INSTALLED_APPS</code>.</p>
+<p>Xem thử cấu trúc thư mục trong Django:</p>
+<pre><code class="language-bash"># ...\my_clubproject
+
+\env_myclub
+\myclub_site        &lt;= This is your Django project
+    \myclub_site    &lt;= This is a Django app
+    db.sqlite3      &lt;= Your project database
+    manage.py       &lt;= Django project management utility
+</code></pre>
+<ul>
+<li>Thư mục <code>env_myclub</code>: là nơi chứa các định nghĩa về môi trường chạy. Bạn có thể định nghĩa nhưng môi trường thường có khi lập trình như local, dev, honban.</li>
+<li>Thư mục <code>myclub_site</code>: là thư mục bao code dự án của bạn. Django không quan tâm đến tên thư mục, nên bạn có thể đổi tên tuỳ thích.</li>
+<li>File <code>db.sqlite3</code>: file này sẽ được tạo khi bạn chạy lệnh <code>migrate</code>. Đó là cơ sở dữ liệu.</li>
+<li>File <code>manage.py</code>: chỉ là một tiện ích giúp bạn run project của bạn.</li>
+<li>Thư mục <code>myclub_site</code> mà nằm trong  thư mục <code>myclub_site</code>: Đây là một ứng dụng web mà Django tạo sẵn cho bạn. Vì Django là framework cho web, nên nó mặc định bạn muốn tạo web, nên nó tạo sẵn một ứng dụng web đơn giản cho bạn.</li>
+</ul>
+<p>Vì thư mục ngoài và thư mục con bên trong lại bị trùng tên, nên đôi khi gây ra nhầm lẫn cho nhiều người mới bắt đầu với Django. Như đã nói ở trên, Django không quan tâm đến tên thư mục lắm, nên thay vì với cấu trúc như sau:</p>
+<pre><code class="language-bash">\myclub_project
+    \myclub_site
+        \myclub_site
+</code></pre>
+<pre><code class="language-bash">\myclub_project
+    \myclub_root
+        \myclub_site
+</code></pre>
+<p>Bây giờ nhìn sau hơn một chút trong thư mục <code>myclub_site</code> xem có gì.</p>
+<pre><code class="language-bash"># \myclub_project\myclub_root\
+
+\myclub_site
+    __init.py__
+    settings.py
+    urls.py
+    wsgi.py
+</code></pre>
+<ul>
+<li>File <code>init.py</code>: Trước khi rờ tới Django, chắc hẳn bạn đã biết sơ qua python. File này chỉ cho python biết những file trong thư mục ấy là một gói.</li>
+<li>File <code>settings.py</code>: chứa các cài đặt cho project. Mỗi project Django phải có một file như vậy.</li>
+<li>File <code>urls.py</code>: như tên gọi của nó, chứa các config về đường dẫn.</li>
+<li>File <code>wsgi.py</code>: cho phép máy server tương thích với WSGI.</li>
+</ul>
+<p><strong>Cấu trúc của Apps</strong></p>
+<p>Bây giờ chúng ta thử tạo một ứng dụng cơ bản, để xem trong ứng dụng của ta có gì khác với ứng dụng web mà Django đã tạo sẵn.</p>
+<p>Di chuyển vào ứng dụng <code>myclub_root</code>, run lệnh:</p>
+<pre><code class="language-bash">python manage.py startapp events
+</code></pre>
+<p>Tạo ứng dụng mang tên <code>events</code>. Sau khi tạo xong, bạn mở file <code>settings.py</code>, và khai báo tên ứng dụng của bạn.</p>
+<pre><code class="language-python">INSTALLED_APPS = [
+    'events.apps.EventsConfig',
+    'django.contrib.admin',
+    # more apps
+]
+</code></pre>
+<p>Bên trong thư mục <code>events</code> vừa tạo, sẽ thấy file <code>apps.py</code>. Tên <code>class</code> của file được đặt theo tên ứng dụng mà bạn vừa tạo. Trong trường hợp này là <code>EventsConfig</code>. Nên là để khai báo ứng dụng mới với Django, ta cần trỏ đến <code>class</code> trên. Tức thêm <code>events.apps.EventsConfig</code> vào file config.</p>
+<p>Trong thư mục <code>events</code> vừa tạo cụ thể sẽ có những thành phần sau:</p>
+<pre><code class="language-bash">\events
+    \migrations
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    views.py
+</code></pre>
+<ul>
+<li>File <code>__init__</code>.py: như đã nói trên, để khai báo với python đây là một gói dữ liệu.</li>
+<li>File <code>admin.py</code>: nơi quản lý các model trong ứng dụng.</li>
+<li>File <code>models.py</code>: nơi định nghĩa các models trong ứng dụng.</li>
+<li>File <code>tests.py</code>: viết mã test cho ứng dụng của bạn trước khi release sản phẩm.</li>
+<li>File <code>views.py</code>: nơi cài đặt giao diện cho ứng dụng.</li>
+</ul>
+<p>Đến đây chúng ta đã có được một bức tranh hoàn chỉnh một cách cơ bản khi làm việc với Django.</p>
+<p>Khi bạn muốn định nghĩa code mới và của riêng bạn mà không phải view (không phải html), thì bạn chỉ cần tạo file python mới <code>(*.py)</code> trong ứng dụng của bạn, và khai báo tên class, function định nghĩa. Và bạn cũng nên phân các hàm liên quan đến database và các hàm không liên quan đến database riêng ra các file. Hạn chế không gộp lại tất cả trong một file.</p>
+<p>Khi bạn thêm một <code>module</code> mới vào trong <code>project</code>, bạn cũng nên xem xét phạm vi sử dụng của <code>module</code>, tức nên đặt mở cấp <code>global</code> hay chỉ định nghĩa đặt biệt cho một ứng dụng nào đó thôi thì đặt riêng biệt trong ứng dụng.</p>
+<h1 id="nhnghaurls">Định nghĩa URLs</h1>
+<p><amp-img src="https://drive.google.com/uc?id=1GTiErpb01zECvjVYwluJYlpbBXwDh4DR&amp;export=download" alt="uc?id=1GTiErpb01zECvjVYwluJYlpbBXwDh4DR&amp;export=download" width="543" height="331" layout="responsive"></amp-img></p>
+<p>Ví dụ bạn có một trang web là <a href="http://www.mycoolsite.com">http://www.mycoolsite.com</a>. Và bạn muốn xử lý gì đó khi truy cập và link <a href="http://www.mycoolsite.com/app1/">http://www.mycoolsite.com/app1/</a>. Lúc này, khi nhận được địa chỉ <code>/app1</code> bạn muốn chạy vào function <code>some_view()</code> trong module <code>views</code> của ứng dụng <code>app1</code>, bạn sẽ khai báo với hàm <code>path()</code> như sau:</p>
+<pre><code class="language-python">path(‘app1/’, app1.views.some_view()) 
+</code></pre>
+<p>Và tất nhiên bạn có thể trỏ đường dẫn đến bất cứ đâu mà bạn muốn xử lý.</p>
+<h1 id="models">Models</h1>
+<p>Như trong phần kiến trúc của Django đã viết trên, thì <code>Models</code> là phần sẽ giúp ứng dụng giao tiếp với database dễ dàng hơn.</p>
+<p><code>Models</code> của Django cũng gần như giống với những framework hiện đại đang có trên thị trường. Hầu như bạn không cần phải viết hay đụng đến câu lệnh SQL trừ khi bạn muốn viết, vì những <code>models</code> vi diệu này gần như được ánh xạ với database.</p>
+<p>Database mà Django cung cấp hầu như là:</p>
+<ul>
+<li>PostgreSQL</li>
+<li>MySQL</li>
+<li>SQLite</li>
+<li>Oracle</li>
+</ul>
+<p>Như mặc định ban đầu thì Django đã cài sẵn <code>SQLite</code> cho chúng ta. Bạn có thể sử dụng mà không cần bận tâm phải cài đặt như thế nào.</p>
+<p>Ví dụ chúng ta muốn tạo một table trong database, thay vì viết SQL bằng tay, bạn có thể dùng <code>models</code> mà Django cung cấp để tạo table như sau:</p>
+<pre><code class="language-python"># \myclub_root\events\models.py
+
+from django.db import models
+ 
+class Event(models.Model):
+    name = models.CharField('Event Name', max_length=120)
+    event_date = models.DateTimeField('Event Date')
+    venue = models.CharField(max_length=120)
+    manager = models.CharField(max_length = 60)
+    description = models.TextField(blank=True)
+</code></pre>
+<p>Sau khi đã định nghĩa models, bạn chạy lệnh sau để tạo bảng:</p>
+<pre><code class="language-bash">python manage.py makemigrations events
+python manage.py migrate events
+</code></pre>
+<p>Như vậy đã tạo xong table trong Database rồi đấy. Bạn có thể query vào db để xem table đã được thêm vào. Hoặc để thấy được câu lệnh SQL mà Django đã tạo giúp bạn để create table, bạn gõ:</p>
+<pre><code class="language-bash">python manage.py sqlmigrate events 0001_initial
+</code></pre>
+<p>Output sẽ như sau:</p>
+<pre><code class="language-bash">BEGIN;
+--
+-- Create model Event
+--
+CREATE TABLE "events_event" (
+    "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    "name" varchar(120) NOT NULL,
+    "event_date" datetime NOT NULL, 
+    "venue" varchar(120) NOT NULL, 
+    "manager" varchar(60) NOT NULL, 
+    "description" text NOT NULL
+);
+COMMIT;
+</code></pre>
+<p>Cũng như những framework khác, <code>Models</code> của Django cũng cung cấp cho bạn đủ bốn chức năng cơ bản để thao tác với database, đó là <code>insert</code>, <code>update</code>, <code>delete</code> và <code>select</code>.</p>
+<p>Bây giờ chúng ta thử thao tác cơ bản với chức năng <code>insert</code> để xem chúng làm việc ra sao.</p>
+<p>Thay vì viết thẳng vào code rồi run, thì mình viết trong môi trường run shell của python cho nhanh nhé. Đầu tiên vào truy cập vào môi trường python mà Django cũng đã cung cấp:</p>
+<pre><code class="language-bash">python manage.py shell
+</code></pre>
+<p>Lúc mới học python, muốn vào môi trường python bạn cũng phải gõ python rồi viết các hàm đơn giản. Thì đây cũng vậy nhưng mình chạy python theo cách mà Django cung cấp. Vừa rồi đã tạo <code>models Event</code> như trên. Để sử dụng <code>models Event</code> đã tạo, bạn cần import models đấy vào:</p>
+<pre><code class="language-bash">&gt;&gt;&gt; from events.models import Event
+</code></pre>
+<p>Hiện tại table chỉ vừa được tạo và chưa có record nào cả. Bây giờ sẽ thêm một record vào table. Để thêm record mới, bạn cần tạo một object event và khai báo giá trị muốn lưu.</p>
+<pre><code class="language-bash">&gt;&gt;&gt; from events.models import Event
+&gt;&gt;&gt; event1 = Event(name="Test Event1", event_date="2018-12-17",
+...     venue="somewhere", manager="Bob")
+&gt;&gt;&gt;
+</code></pre>
+<p>Sau khi khai báo xong, bạn chỉ việc gọi hàm <code>save()</code> để insert object đã khai báo đó vào table.</p>
+<pre><code class="language-bash">event1.save()
+</code></pre>
+<p>Những chức năng khác cũng tương tự, bạn có thể tham khảo thêm trên document của Django.</p>
+<h1 id="views">Views</h1>
+<p>Nếu bạn đã làm quen với các framework với mô hình MVC, thì trong Django, Views đóng vai trò gần giống như controller. <code>Views</code> là nơi xử lý, điều hướng luồng đi. Nó sẽ quyết định dữ liệu nào sẽ gửi đến <code>models</code> để được xử lý, dữ liệu nào sẽ được trả về cho user. Để hiểu rõ hơn, hãy xem vài dòng code đơn giản trong <code>views.py</code></p>
+<pre><code class="language-python"># \myclub_root\events\views.py
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("&lt;h1&gt;MyClub Event Calendar&lt;/h1&gt;")
+</code></pre>
+<ul>
+<li>Đầu tiên là import hàm <code>render()</code>. Đây là sự import tự động trong Django. Hàm <code>render</code> sẽ giúp bạn chỉ định template nào sẽ được trả về và hiển thị cho user. Hàm cho phép bạn truyền dữ liệu động vào template để hiển thị.</li>
+<li>Kế đến là import <code>HttpResponse</code>. Hàm giúp truyền và nhận dữ liệu đến user.</li>
+<li>Cuối cùng là phần định nghĩa hàm <code>index()</code>. Đây là phần quan trọng trong <code>views</code>. Ở đây hàm <code>index()</code> chỉ là ví dụ đơn giản nhất. Hàm sẽ nhận dữ liệu từ phía user, dữ liệu đó được ném vào biến request. Bạn đọc biến request này và xử lý dữ liệu theo yêu cầu của user, sau đó dùng hàm <code>HttpResponse()</code> để trả dữ liệu đã xử lý về cho user.</li>
+</ul>
+<p>Đến đây, câu hỏi đặt ra là nếu chúng ta có nhiều <code>views</code>, mỗi <code>views</code> xử lý nhiệm vụ khác nhau. Ví dụ với url <code>http;//yourexample.com/</code> sẽ hiển thị <code>“Welcome"</code>, với url <code>http://yourexample.com/books</code> sẽ hiển thị <code>danh sách tên các cuốn sách</code>. Làm sao Django nhận biết với url nào sẽ chạy vào <code>views</code> nào để xử lý dữ liệu. Như đã giới thiệu ở trên, bạn cần khai bao cho Django biết cụ thể url nào sẽ do view nào đảm nhiệm. Việc khai báo sẽ trong <code>urls.py</code>.</p>
+<pre><code class="language-python"># \myclub_root\events\urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('books/', views.books, name='books'),
+]
+</code></pre>
+<h1 id="templates">Templates</h1>
+<p>Cuối cùng là phần <code>templates</code>. Đây là phần hầu như sẽ chứa code HTML. Tức nội dung sẽ hiển thị về cho user. Views sẽ quyết định template nào sẽ được gọi hiển thị.</p>
+<p>Trong <code>templates</code>, bạn có thể xử lý dữ liệu động từ views gửi tới. Việc xử lý biến trong template cũng khá đơn giản. Hầu như sẽ không một chút gì xa lạ nếu bạn là một nhà lập trình website.</p>
+<table>
+<thead>
+<tr>
+<th>Ý nghĩa</th>
+<th>Cú pháp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cấu trúc logic</td>
+<td>{% if %}...{% endif %}</td>
+</tr>
+<tr>
+<td>Cấu trúc vòng lặp</td>
+<td>{% for x in y %}...{% endfor %}</td>
+</tr>
+<tr>
+<td>import file khác</td>
+<td>{% include "header.html" %}</td>
+</tr>
+<tr>
+<td>Thể hiện giá trị của biến</td>
+<td>{{ title }}</td>
+</tr>
+<tr>
+<td>More...</td>
+<td>v.v...</td>
+</tr>
+</tbody>
+</table>
+<h1 id="tmli">Tóm lại</h1>
+<p>Django là một framework viết bằng python và hầu như để lập trình website. Ngoài các framework thịnh hành trên thị trường hiện nay được viết bằng PHP thì Django cũng là một lựa chọn cho các fan python khi muốn tạo website mà mà không cần phải học thêm ngôn ngữ khác. Về phần template thì các cấu trúc, lệnh, hàm khác giống với các template hiện nay, nên việc tiếp cận cũng không mấy khó khăn. Trong phần hai, chúng ta sẽ demo cụ thể cách viết một website với Django.</p>
+<h1 id="thamkho">Tham khảo</h1>
+<p><a href="https://djangobook.com/">https://djangobook.com/</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

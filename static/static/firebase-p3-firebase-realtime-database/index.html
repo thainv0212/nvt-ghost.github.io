@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Firebase: (P3) Firebase Realtime Database | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Firebase lưu trữ dữ liệu database dưới dạng JSON và thực hiện đồng bộ database tới tất cả các client realtime và vẫn available khi app của bạn offline" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Firebase lưu trữ dữ liệu database dưới dạng JSON và thực hiện đồng bộ database tới tất cả các client realtime và vẫn available khi app của bạn offline" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/firebase-p3-firebase-realtime-database/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Firebase: (P3) Firebase Realtime Database" />
+    <meta property="og:description" content="Firebase lưu trữ dữ liệu database dưới dạng JSON và thực hiện đồng bộ database tới tất cả các client realtime và vẫn available khi app của bạn offline" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/firebase-p3-firebase-realtime-database/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkOGl2N3doU00ySG8&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2019-10-28T06:42:40.000Z" />
+    <meta property="article:tag" content="firebase" />
+    <meta property="article:tag" content="Google Firebase" />
+    <meta property="article:tag" content="firebase realtime database" />
+    <meta property="article:tag" content="realtime database" />
+    <meta property="article:tag" content="firebase realtime DB" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Firebase: (P3) Firebase Realtime Database" />
+    <meta name="twitter:description" content="Firebase lưu trữ dữ liệu database dưới dạng JSON và thực hiện đồng bộ database tới tất cả các client realtime và vẫn available khi app của bạn offline" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/firebase-p3-firebase-realtime-database/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkOGl2N3doU00ySG8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="firebase, Google Firebase, firebase realtime database, realtime database, firebase realtime DB" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Firebase: (P3) Firebase Realtime Database",
+    "url": "https://blog.vietnamlab.vn/firebase-p3-firebase-realtime-database/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2019-10-28T06:42:40.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkOGl2N3doU00ySG8&export=download",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "firebase, Google Firebase, firebase realtime database, realtime database, firebase realtime DB",
+    "description": "Nội dung:\n * Giới thiệu Firebase Realtime DB\n * Những đặc điểm nổi bật của Firebase Realtime DB\n * Firebase Realtime DB Rule\n * Chạy ứng dụng Android\n * Kết luận\n * Tài liệu tham khảo\n\nI. Giới thiệu Firebase Realtime Database\nCác bạn có thể than khảo qua 2 phần trước của loạt bài về Firebase\n\n * Firebase: (P1) Giới thiệu Firebase\n   [https://vietnamlab.vn/blog/2017/06/30/firebase-p1-gioi-thieu-firebase/]\n * Firebase: (P2) Firebase Cloud Messaging\n   [https://vietnamlab.vn/blog/2017/06/30/firebas",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-firebase tag-google-firebase tag-firebase-realtime-database tag-realtime-database tag-firebase-realtime-db nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-firebase tag-google-firebase tag-firebase-realtime-database tag-realtime-database tag-firebase-realtime-db js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Firebase: (P3) Firebase Realtime Database</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-09-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 September 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/firebase/index.html">firebase</a>, <a href="../tag/google-firebase/index.html">Google Firebase</a>, <a href="../tag/firebase-realtime-database/index.html">firebase realtime database</a>, <a href="../tag/realtime-database/index.html">realtime database</a>, <a href="../tag/firebase-realtime-db/index.html">firebase realtime DB</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkOGl2N3doU00ySG8&amp;export&#x3D;download" alt="Firebase: (P3) Firebase Realtime Database">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/firebase-p3-firebase-realtime-database/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Firebase%3A%20(P3)%20Firebase%20Realtime%20Database">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="nidung">Nội dung:</h3>
+<ul>
+<li><em>Giới thiệu Firebase Realtime DB</em></li>
+<li><em>Những đặc điểm nổi bật của Firebase Realtime DB</em></li>
+<li><em>Firebase Realtime DB Rule</em></li>
+<li><em>Chạy ứng dụng Android</em></li>
+<li><em>Kết luận</em></li>
+<li><em>Tài liệu tham khảo</em></li>
+</ul>
+<h3 id="igiithiufirebaserealtimedatabase">I. Giới thiệu Firebase Realtime Database</h3>
+<p>Các bạn có thể than khảo qua 2 phần trước của loạt bài về Firebase</p>
+<ul>
+<li><a href="https://vietnamlab.vn/blog/2017/06/30/firebase-p1-gioi-thieu-firebase/" target="_blank">Firebase: (P1) Giới thiệu Firebase</a></li>
+<li><a href="https://vietnamlab.vn/blog/2017/06/30/firebase-p2-firebase-cloud-messaging/" target="_blank">Firebase: (P2) Firebase Cloud Messaging</a></li>
+</ul>
+<p>Firebase lưu trữ dữ liệu database dưới dạng JSON và thực hiện đồng bộ database tới tất cả các client theo thời gian thực và vẫn available khi app của bạn trong trạng thai offline (điển hình như các ứng dụng chat). Cụ thể hơn là bạn có thể xây dựng được client đa nền tảng (cross-platform client) và tất cả các client này sẽ cùng sử dụng chung 1 database đến từ Firebase và có thể tự động cập nhật mỗi khi dữ liệu trong database được thêm mới hoặc sửa đổi.</p>
+<p>Ngoài ra Firebase còn cho phép bạn phân quyền một các đơn giản bằng cú pháp tương tự như javascript.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNnNjSGFTZmhmdEE&amp;export=download" alt=""></p>
+<h3>II. Những đặc điểm nổi bật của Firebase Realtime DB</h3>
+![](https://drive.google.com/uc?id=0B05rqFCwNCjkeHc4U19LSTAycDQ&export=download)
+<p>Chi tiết:</p>
+<ul>
+<li><em>Cơ sở dữ liệu NoSQL.</em></li>
+<li><em>Dữ liệu được lưu trữ ở local trong khi offline và thực hiện đồng bộ khi dc kết nối</em></li>
+<li><em>Khi thiết bị khôi phục kết nối, Realtime DB sẽ tự động đồng bộ hóa các thay đổi trong dữ liệu local với các bản cập nhật từ xa xảy ra khi client ở trạng thái offline, Tự động tích hợp nếu có xung đột.</em></li>
+<li><em>Realtime Database API được thiết kế để cho phép hoạt động chỉ có thể được thực hiện trong một thời gian ngắn.</em></li>
+<li><em>Firebase Realtime Database Security Rules cung cấp một ngôn ngữ quy tắc dựa trên biểu thức linh hoạt xác định cấu trúc dữ liệu và thời gian để cho phép đọc và ghi dữ liệu.</em><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUnppN2RLOVRMZUE&amp;export=download" alt=""></li>
+</ul>
+<h4 id="1csdliunosql">1. Cơ sở dữ liệu NoSQL.</h4>
+<p>Firebase realtime database lưu trữ dữ liệu theo định dạng JSON. Về cơ bản thì toàn bộ dữ liệu là một JSON tree lớn cùng với nhiều điểm node. Nên khi bạn xây dựng dữ liệu, bạn cần chuẩn bị một cấu trúc json để dễ dàng cho việc truy cập tránh việc các node con bị lồng nhau<br>
+Sau đây là ví dụ:</p>
+<pre><code>{
+  &quot;users&quot;: [
+    {
+      &quot;name&quot;: &quot;Ravi Tamada&quot;,
+      &quot;email&quot;: &quot;ravi@androidhive.info&quot;,
+      &quot;address&quot;: &quot;XXX, XXXX, 1234&quot;
+    }
+  ],
+  &quot;posts&quot;: [
+    {
+      &quot;id&quot;: 100,
+      &quot;author&quot;: &quot;Ravi Tamada&quot;,
+      &quot;content&quot;: &quot;This is awesome firebase realtime database...&quot;,
+      &quot;timestamp&quot;: &quot;13892733894&quot;
+    }
+  ]
+}
+</code></pre>
+<h4 id="2dliuclutrlocaltrongkhiofflineh4">2. Dữ liệu được lưu trữ ở local trong khi offline</h4></h4>
+<p>Trong trường hợp offline vẫn có khả năng sử dụng FB Realtime database. Firebase có cơ chế đồng bộ sự sai khác data khi chuyển từ offline sang online. Nó tự động lưu trữ offline khi không có kết nối internet.<br>
+Xem thêm <a href="https://firebase.google.com/docs/database/android/offline-capabilities" target="_blank">tại đây</a><br>
+Khi thiết bị khôi phục kết nối, Realtime DB sẽ tự động đồng bộ hóa các thay đổi trong dữ liệu local với các bản cập nhật từ xa xảy ra khi client ở trạng thái offline, Tự động tích hợp nếu có xung đột.</p>
+<h4>3. Thực hiện các thao tác CRUD</h4>
+Trước khi vào ứng dụng android cụ thể, tôi muốn cung cấp cho bạn các thông tin cơ bản về thực hiện các thao tác CRUD trên cơ sở dữ liệu thời gian thực. Sau đó chúng ta sẽ kết hợp tất cả các khái niệm này với nhau để xây dựng một ứng dụng đơn giản với firebase realtime database.
+Các mã dưới đây cho phép bạn tham chiếu đến nút trên cùng của cơ sở dữ liệu JSON. Từ đây bạn cần phải sử dụng các tên nút con phải đi qua các nút khác.
+<pre><code>private DatabaseReference mDatabase;
+mDatabase = FirebaseDatabase.getInstance().getReference();
+</code></pre>
+<h5 id="31insertingdata">3.1 Inserting Data</h5>
+<p>Để chèn dữ liệu, bạn có thể sử dụng phương thức setValue () trên đường dẫn tham chiếu cơ sở dữ liệu. Điều này sẽ tạo ra hoặc cập nhật giá trị trên đường dẫn được cung cấp. Ví dụ dưới đây thêm vào một nút có tên là &quot;artists&quot; trên cây json ở mức đỉnh.</p>
+<pre><code>DatabaseReference databaseArtists;
+databaseArtists = FirebaseDatabase.getInstance().getReference(&quot;artists&quot;);
+databaseArtists .setValue(&quot;Something&quot;);
+</code></pre>
+<p>Realtime database chấp nhận nhiều loại dữ liệu: String, Long, Double, Boolean, Map, List để lưu trữ dữ liệu. Bạn cũng có thể sử dụng dữ liệu tùy biến của đối tượng để lưu trữ dữ liệu, điều này rất hữu dụng khi lưu trữ đối tượng vào database một cách trực tiếp.</p>
+<p>Giả sử bạn muốn lưu trữ thông tin Artists vào database. Đầu tiên bạn cần tạo Artists model cùng với constructor rỗng và những thuộc tính khác.</p>
+<pre><code>public class Artist {
+    String artistId;
+    String artistName;
+    String artistGenre;
+
+    public Artist(){
+
+    }
+    public Artist(String artistId, String artistName, String artistGenre){
+        this.artistId = artistId;
+        this.artistName = artistName;
+        this.artistGenre = artistGenre;
+    }
+
+    public String getArtistId() {
+        return artistId;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public String getArtistGenre() {
+        return artistGenre;
+    }
+}
+</code></pre>
+<p>Mọi Artist cần một ID duy nhất, bạn có thể tạo ra một bằng cách gọi phương thức push () để tạo ra một nút trống rỗng, với khóa duy nhất. Sau đó, được tham chiếu đến nút 'artists' bằng phương thức child(). Cuối cùng sử dụng phương thức setValue() để lưu trữ dữ liệu artists.</p>
+<pre><code>// get a unique id using for push().getKey() method
+// It will create a unique id as Artist ID
+String id = databaseArtists.push().getKey();
+
+// Create Artist Object
+Artist artist = new Artist(id, name, genre);
+
+// Save the Artist
+databaseArtists.child(id).setValue(artist);
+</code></pre>
+<p>Bằng việc chạy đoạn code ở dưới, các nút người dùng mới sẽ được chèn vào database cùng với giá trị khóa duy nhất.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkcDA0UE5HOEFkQjQ&amp;export=download" alt=""></p>
+<h5 id="32readingdata">3.2. Reading Data</h5>
+<p>Để đọc dữ liệu, bạn cần đính kèm phương thức ValueEventListener() để tham chiếu database. Sự kiện này sẽ được kích hoạt bất cứ khi nào có sự thay đổi trong dữ liệu trong thời gian thực. Trong onDataChange(), bạn có thể thực hiện các phương thức mong muốn vào dữ liệu mới.<br>
+Dưới đây là sự kiện lắng nghe được kích hoạt bất cứ khi nào có sự thay đổi trong dữ liệu hồ sơ người dùng mà đã tạo ra trước đó.</p>
+<pre><code>    @Override
+    protected void onStart(){
+        super.onStart();
+
+        databaseArtists.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                artistList.clear();
+
+                for(DataSnapshot artistSnapshot : dataSnapshot.getChildren()){
+                    Artist artist = artistSnapshot.getValue(Artist.class);
+                    artistList.add(artist);
+                }
+
+                ArtistList adapter = new ArtistList(MainActivity.this, artistList);
+
+                // attaching adapter to the listview
+                listViewArtists.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+</code></pre>
+<h5 id="33updatingdata">3.3. Updating Data</h5>
+<p>Để cập nhật dữ liệu, bạn có thể sử dụng cùng phương pháp setValue() để passing giá trị mới. Bạn cũng có thể sử dụng phương thức updateChildren() để passing đường dẫn để cập nhật dữ liệu mà không làm ảnh hưởng đến các nút con khác.</p>
+<p>Ví dụ, nếu bạn muốn cập nhật artists name, bạn có thể sử dụng đoạn code bên dưới</p>
+<pre><code>// get values to update
+String name = editTextName.getText().toString().trim();
+
+// Update the Artist name
+databaseArtists.child(id).child(&quot;name&quot;).setValue(name );
+</code></pre>
+<h5 id="34deletingdata">3.4 Deleting Data</h5>
+<p>Để xóa dữ liệu, bạn có thể gọi phương thức removeValue() trong database reference. Bạn cũng có thể pass null để gọi phương thức setValue(), nó giống như phương thức xóa<br>
+Bạn có thể tìm hiểu nhiều hơn về CRUD thông qua tài liệu nâng cao <a href="https://firebase.google.com/docs/database/android/lists-of-data" target="_blank">tại đây</a></p>
+<h3 id="iiifirebaserealtimedbrule">III. Firebase Realtime DB Rule</h3>
+<p>Firebase Rule cung cấp một cách xác định vai trò người dùng trong khi thực hiện các thao tác đọc và ghi. Các quy tắc này sẽ hoạt động một lớp bảo mật trên máy chủ trước khi thực hiện bất kỳ hoạt động CRUD nào. Theo mặc định, các quy tắc cho phép người dùng thực hiện thao tác đọc và ghi chỉ sau khi xác thực.<br>
+Các quy tắc dưới đây cho phép người dùng xác thực chỉ đọc hoặc ghi dữ liệu.</p>
+<pre><code>{
+  &quot;rules&quot;: {
+    &quot;.read&quot;: &quot;auth != null&quot;,
+    &quot;.write&quot;: &quot;auth != null&quot;
+  }
+}
+</code></pre>
+<p>Dưới đây quy tắc cho phép mọi người đọc và ghi dữ liệu mà không cần xác thực.</p>
+<pre><code>{
+  &quot;rules&quot;: {
+    &quot;.read&quot;: true,
+    &quot;.write&quot;: true
+  }
+}
+</code></pre>
+<p>Bạn cũng có thể sử dụng các quy tắc này để validate dữ liệu trước khi insert vào cơ sở dữ liệu. Ví dụ dưới đây các quy tắc xác nhận tên có ít hơn 50 ký tự và email là hợp lệ sử dụng biểu thức chính quy email.</p>
+<pre><code>{
+    &quot;rules&quot;: {
+        &quot;.read&quot;: true,
+        &quot;.write&quot;: true,
+        &quot;users&quot;: {
+            &quot;$user&quot;: {
+                &quot;name&quot;: {
+                    &quot;.validate&quot;: &quot;newData.isString() &amp;&amp; newData.val().length &lt; 50&quot;
+                },
+                &quot;email&quot;: {
+                    &quot;.validate&quot;: &quot;newData.isString() &amp;&amp; newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)&quot;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>Bạn có thể tìm kiểu kỹ hơn về firebase realtime database rules <a href="https://firebase.google.com/docs/database/security/" target="_blank">tại đây</a>.</p>
+<h3 id="ivchyngdngandroid">IV. Chạy ứng dụng Android</h3>
+<h5 id="1createfirebaseproject">1. Create firebase project</h5>
+<p>Điều đầu tiên bạn cần làm là vào <a href="https://firebase.google.com/">https://firebase.google.com/</a> và tạo tài khoản để truy cập vào giao diện firebase console. Sau khi bạn truy cập vào giao diện console bạn có thể bắt đầu bằng cách tạo project đầu tiên của bạn.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkY2pfX2xpZlJHWEk&amp;export=download" alt=""></p>
+<h5 id="2addandroidapp">2. Add android app</h5>
+<p>Cung cấp tên packge android app của bạn (của mình là com.phongnx.firebaserealtimedatabase), trong đó bạn sẽ tích hợp Firebase. Ở đây, file google-services.json sẽ được tải xuống khi bạn nhấn nút REGISTER APP.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZjBRLVFSZHhCcmM&amp;export=download" alt=""></p>
+<h5 id="3createanewprojectinandroidstudio">3. Create a new project in Android Studio</h5>
+<p>Create a new project in Android Studio from File ⇒ New Project. Trong khi điền các thông tin chi tiết của project, sử dụng cùng package name mà bạn đã đăng ký lên firebase console. trường hợp của mình là com.phongnx.firebaserealtimedatabase.</p>
+<h5 id="4ktnivifirebase">4. Kết nối với Firebase</h5>
+<p><strong>4.1.</strong> Dán tệp google-services.json vào project’s app folder. Bước này rất quan trọng vì dự án của bạn sẽ không xây dựng mà không có tệp tin này.</p>
+<p><strong>4.2.</strong> Bây giờ mở file <strong>build.gradle</strong> trong project’s home directory và thêm google playstore dependency.</p>
+<pre><code>    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+</code></pre>
+<p><strong>4.3.</strong> Mở file app/build.gradle và thêm firebase database dependency. Ở cuối file, add apply plugin: ‘com.google.gms.google-services’</p>
+<pre><code>dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.firebase:firebase-database:10.0.1'
+    testCompile 'junit:junit:4.12'
+}
+
+apply plugin: 'com.google.gms.google-services'
+</code></pre>
+<h5 id="5sourcecode">5. SOURCE CODE</h5>
+<p><a href="https://github.com/phongnx1/AndroidApp/tree/master/FirebaseRealtimeDatabase" target="_blank">https://github.com/phongnx1/AndroidApp/tree/master/FirebaseRealtimeDatabase</a></p>
+<h5 id="6thitlprule">6. Thiết lập Rule</h5>
+<p><img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNFFqZ0tmM2ZVSDg&amp;export=download" alt=""></p>
+<h5 id="7demo">7. Demo</h5>
+<p>Đây là app đơn giản demo tính năng realtime database của firebase, Các bạn có thể test thêm data trên app, muốn xóa data, các bạn thực hiện ở firebase console nhé :D. Để demo chức năng offline thì các bạn ngắt kết nối internet, thực hiện add artist, sau đó bật kết nối internet và confirm data đã được đồng bộ trên firebase console hoặc các điện thoại có cài app này nhé.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkc2tFNXpCcUlfODQ&amp;export=download" alt=""></p>
+<h3 id="vktlun">V. Kết Luận</h3>
+<p>Với bài viết này, mình đã cung cấp cho các bạn cái nhìn tổng quát về Firebase realtime database, Cách khởi tạo một ứng dụng android kết nối với firebase. Thật nhanh chóng và dễ dàng khi Firebase cung cấp cho chúng ta các kết nối cũng như Realtime DB để phát triển ứng dụng.<br>
+Như bạn đã thấy, Firebase Realtime DB được tổ chức theo dạng cây – nhánh chứ không phải dạng hàng – cột và đây có thể là một vấn đề hết sức nan giải cho những lập trình viên đã và đang thiết kế cơ sở dữ liệu dạng bảng. Thực ra không hẳn là một hạn chế, vì FRD được tạo ra dựa trên ý tưởng này ngay từ đầu. Và họ cũng không có ý định cho ra mắt thêm một dạng cơ sở dữ liệu dạng bảng, ít nhất là cho tới thời điểm hiện tại.<br>
+Tuy nhiên, nếu bạn cần lắm sự kết nối giữa các hàng trong một bảng, chẳng hạn như việc quản lí tiền lương thì SQLD cũ kĩ vẫn sẽ tỏ ra vượt trội hơn, mặc dù bạn vẫn có khả năng xoay sở đối với FRD. Còn nếu bạn phải quản lí các dữ liệu theo kiểu liên bảng, tức là bạn phải thực hiện thao tác JOIN các dữ liệu trong SQLD, có thể việc thực hiện các thao tác thay thế trên FRD trên thực tế sẽ khó khăn hơn là bạn nghĩ.<br>
+Một vấn đề quan trọng hơn nữa, là PRIMARY KEY. Các bạn ít nhiều đã biết rồi, PRIMARY KEY là một trong những điều cần thiết để quản lí hiệu quả CSDL SQLD. Tuy nhiên trong FRD thì hoàn toàn không tồn tại khái niệm PRIMARY KEY, do đó bạn sẽ cần cẩn thận trong việc quản lí các objects để tránh bị cập nhật sai các dữ liệu đã có sẵn.<br>
+Tóm lại, Firebase Realtime Database ngoài ưu điểm mang tính realtime thì còn có tính linh hoạt rất cao, dễ dàng trong việc bổ sung hoặc cắt bớt các trường trong một Object. Tuy nhiên, sự liên hệ tương ứng giữa các đối tượng trong Firebase Realtime DB sẽ là một bài toán không hề dễ và cách xử lí phụ thuộc rất nhiều vào trình độ và kinh nghiệm của lập trình viên, cũng như bản chất và mục đích của bản thân CSDL được tạo.</p>
+<h3 id="vitiliuthamkho">VI. Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/" target="_blank">https://www.androidhive.info/2016/10/android-working-with-firebase-realtime-database/</a></li>
+<li><a href="https://firebase.google.com/docs/database/" target="_blank">https://firebase.google.com/docs/database/</a></li>
+<li><a href="https://viblo.asia/p/lam-viec-voi-firebase-realtime-database-ZjlvalVXkqJ" target="_blank">https://viblo.asia/p/lam-viec-voi-firebase-realtime-database</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/firebase-p3-firebase-realtime-database/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Firebase%3A%20(P3)%20Firebase%20Realtime%20Database">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/firebase-p3-firebase-realtime-database/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/firebase-p3-firebase-realtime-database/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

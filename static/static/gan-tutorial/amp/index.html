@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>GAN tutorial</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="GAN tutorial" />
+    <meta property="og:description" content="0. Giới thiệu Neural network vẫn đang phát triển rất mạnh trong những năm gần đây. Trong năm 2017, 1 loại neural network có tên là GAN ( Generative adversarial network ) đã phát triển rất mạnh mẽ. Nhằm mục đích giúp các bạn tiếp cận nhanh chóng với mô hình này." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gan-tutorial/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1E8s6mVL63aiuPNpURR1iQIEiGZq7t_Ys&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-06-29T09:55:08.000Z" />
+    <meta property="article:modified_time" content="2018-07-02T04:18:13.000Z" />
+    <meta property="article:tag" content="GAN tutorial" />
+    <meta property="article:tag" content="GAN" />
+    <meta property="article:tag" content="neural network" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="deep learning" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GAN tutorial" />
+    <meta name="twitter:description" content="0. Giới thiệu Neural network vẫn đang phát triển rất mạnh trong những năm gần đây. Trong năm 2017, 1 loại neural network có tên là GAN ( Generative adversarial network ) đã phát triển rất mạnh mẽ. Nhằm mục đích giúp các bạn tiếp cận nhanh chóng với mô hình này." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gan-tutorial/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1E8s6mVL63aiuPNpURR1iQIEiGZq7t_Ys&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.93" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="GAN tutorial, GAN, neural network, machine learning, deep learning" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.93",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1-XBWW3IcmcrT-vofa_Y0HG7QUGdyF28t&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt93/",
+        "sameAs": []
+    },
+    "headline": "GAN tutorial",
+    "url": "https://blog.vietnamlab.vn/gan-tutorial/",
+    "datePublished": "2018-06-29T09:55:08.000Z",
+    "dateModified": "2018-07-02T04:18:13.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1E8s6mVL63aiuPNpURR1iQIEiGZq7t_Ys&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "GAN tutorial, GAN, neural network, machine learning, deep learning",
+    "description": "0. Giới thiệu\nNeural network vẫn đang phát triển rất mạnh trong những năm gần đây. Trong năm\n2017, 1 loại neural network có tên là GAN ( Generative adversarial network ) đã\nphát triển rất mạnh mẽ. Nhằm mục đích giúp các bạn tiếp cận nhanh chóng với mô\nhình này. Mình sẽ giới thiệu qua nguyên lý và cách thức train 1 mô hình GAN cơ\nbản cho các bạn.\n\nBài viết gồm có 3 phần:\n1. Ý tưởng cở bản về GAN\n2. Cách thức train 1 GAN về mặt lý thuyết với mã giá\n3. Train GAN với keras cho tập dataset MNIST\n\nVới",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">GAN tutorial</h1>
+                <section class="post-meta">
+                    N.T.A.93 -
+                    <time class="post-date" datetime="2018-06-29">29 Jun 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1E8s6mVL63aiuPNpURR1iQIEiGZq7t_Ys&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="0giithiu">0. Giới thiệu</h3>
+<p>Neural network vẫn đang phát triển rất mạnh trong những năm gần đây. Trong năm 2017, 1 loại neural network có tên là GAN ( Generative adversarial network ) đã phát triển rất mạnh mẽ. Nhằm mục đích giúp các bạn tiếp cận nhanh chóng với mô hình này. Mình sẽ giới thiệu qua nguyên lý và cách thức train 1 mô hình GAN cơ bản cho các bạn.</p>
+<p>Bài viết gồm có 3 phần:<br />
+<em><strong>1. Ý tưởng cở bản về GAN<br />
+2. Cách thức train 1 GAN về mặt lý thuyết với mã giá<br />
+3. Train GAN với keras cho tập dataset MNIST</strong></em></p>
+<p>Với các bạn muốn có code ngay thì có thể check ở đây : <a href="https://gist.github.com/astrung/0af1899cd73f1eaab60157fc9f14242b">https://gist.github.com/astrung/0af1899cd73f1eaab60157fc9f14242b</a></p>
+<h3 id="1tngcbnvgan">1.Ý tưởng cơ bản về GAN</h3>
+<p>Chúng ta hãy bắt đầu với một câu chuyện thực tế trong cuộc sống của chúng ta để hiểu về nguyên tắc hoạt động của GAN, đó là cuộc đấu tranh giữa cảnh sát và người làm tiền giả :</p>
+<ul>
+<li>
+<p>Người làm tiền giả không hề biết cách để tạo ra tiền thật, họ chỉ cố gắng mô phỏng lại đồng tiền thật.</p>
+</li>
+<li>
+<p>Cảnh sát có nhiệm vụ phát hiện tiền giả - tiền thật.</p>
+</li>
+<li>
+<p>Người làm tiền giả cố gắng lừa cảnh sát rằng tiền mình tạo ra là thật.</p>
+</li>
+<li>
+<p>Dựa trên việc tiền giả có bị phát hiện hay không, người làm tiền giả sẽ cải tiến phương pháp.</p>
+</li>
+<li>
+<p>Tiền giả ngày càng được cải tiến tinh vi để qua mặt cảnh sát. Bởi vậy cảnh sát sẽ cải tiến phương pháp phát hiện.</p>
+</li>
+<li>
+<p>2 bên cạnh tranh, dẫn đến tiền giả ngày càng giống tiền thật và các phương pháp phát hiện của cảnh sát cũng hiện đại hơn.</p>
+</li>
+</ul>
+<p>Trong câu chuyện trên, chúng ta có thể thấy rằng sự cạnh tranh giữa 2 bên đã làm 2 bên ngày cành cải tiến các phương pháp để qua mặt lẫn nhau. Nhưng nếu xét trên 1 khía cạnh khác, cả 2 bên đang ngày càng tốt lên.<br />
+GAN là 1 mô hình cũng mô phỏng quá trình cạnh tranh này để nhằm mục đích cải tiến mô hình. Tất nhiên là để cạnh tranh thì trước tiên cần phải có 2 thực thể có mục đích đối lập nhau đã. Vậy nên khi nói về mô hình GAN và train GAN, thục chất chúng ta đang nói tới 2 mô hình neural network:</p>
+<ul>
+<li>Generator neural network ( Người làm tiền giả ) : sinh ra những dữ liệu<br />
+giống thực tế nhất có thể ( sinh ra tiền giả đó ) từ 1 nguồn noise nào đó ( thông thường là 1 phân bố xác suất ), có nhiệm vụ đánh lừa Discriminator rằng những dữ liệu mình sinh ra là thật ( dữ liệu gần với thực tế nhất có thể ).</li>
+<li>Discriminator neural network ( Cảnh sát ): phát hiện đó là dữ liệu thực tế hay dữ liệu giả do Generator sinh ra.</li>
+</ul>
+<p>Vậy 1 mô hình GAN thường được sử dụng để tạo ra các dữ liệu giống như trong thực tế. Ví dụ như chúng ta có 1 tập ảnh các chữ số đen trắng ( MNIST dataset ), và giờ chúng ta muốn sinh ra các ảnh chữ số đen trắng mới thì nhiệm vụ của Generator sẽ là sinh ra các ảnh đó, còn Discriminator sẽ có nhiệm vụ phân biệt giữa những bức ảnh được Generator sinh ra và những bức ảnh từ thực tế, và sau đó phản hồi sự khác nhau để Discriminator có thể chỉnh sửa những bức ảnh mình sinh ra.Thông qua sự cạnh tranh giữa Discriminator và Generator, các bức ảnh được sinh ra sẽ ngày càng tốt hơn. Bạn có thể xem thêm trong hình sau :</p>
+<p><amp-img src="https://drive.google.com/uc?id=18j2IaZFHPIFGjLZ25yIhNJeQ0_h2CiX7&amp;export=download" alt="uc?id=18j2IaZFHPIFGjLZ25yIhNJeQ0_h2CiX7&amp;export=download" width="638" height="359" layout="responsive"></amp-img></p>
+<h3 id="2training1mhnhgan">2.Training 1 mô hình GAN :</h3>
+<p>Như các bạn đã thấy ở mục trên, thực chất 1 mô hình GAN là tổng hợp của 2 mô hình : Generator và Discriminator. Vậy thì thực chất việc training GAN sẽ bao gồm việc training 2 mô hình :</p>
+<h4 id="21trainingdiscriminator">2.1 Training discriminator :</h4>
+<p>Mục tiêu của chúng ta là giúp Discriminator học để có thể phân biệt được giữa data thực tế và fake data từ generator. Đây thực chất là bài toán classification. Vậy chúng ta sẽ train discriminator theo các bước sau :</p>
+<ul>
+<li>Sử dụng generator (chưa được train ) để sinh ra một số dữ liệu giả - fake data</li>
+<li>Chúng ta sẽ đánh nhãn : real data có giá trị 1, fake data có giá trị 0 =&gt; tạo training set cho discriminator.Đến đây chúng ta đã quay lại với 1 bài toán binary classification đơn giản.</li>
+<li>Chúng ta sẽ train discriminator với training set vừa mới tạo ở bước trên.<br />
+<amp-img src="https://drive.google.com/uc?id=1z67Rqsro5mQyngFOZ9kRc6P1-fwxdcwc&amp;export=download" alt="uc?id=1z67Rqsro5mQyngFOZ9kRc6P1-fwxdcwc&amp;export=download" width="581" height="415" layout="responsive"></amp-img></li>
+</ul>
+<h4 id="22traininggenerator">2.2 Training generator :</h4>
+<p>Sau khi training Discriminator, chúng ta sẽ training Generator dựa trên sự phản hồi của Discriminator theo các bước sau :</p>
+<ul>
+<li>Sử dụng generator (chưa được train ) để sinh ra một số dữ liệu giả - fake data</li>
+<li>Chúng ta sẽ đánh nhãn : fake data có giá trị 1, và sử dụng đây như là training set trong bước này . <strong>Vậy khi train generator, chúng ta không sử dụng real data.</strong></li>
+<li>Chúng ta chain mô hình generator vào sau mô hình discriminator - output của generator sẽ được nối với input của discriminator. Như vậy các framework deeplearning có thể sử dụng quá trình backpropagation để học cho cả 2 mô hình.</li>
+<li>Khi generator tạo ảnh và được chuyển tiếp cho discriminator, discriminator sẽ phân biệt thật giả và truyền sự phản hồi thông qua backpropagation tới generator để generator sửa đổi mô hình.</li>
+<li>Tuy nhiên, chúng ta chỉ muốn train generator. Việc backpropagation sửa đổi mô hình của discriminator ( mà chúng ta vừa mới train trước đó ) có thể khiên mô hình tệ đi &gt; trong quá trình train generator, chúng ta cần freeze mô hình của discriminator để tránh việc các framework deeplearning tự động chỉnh sửa mô hình discriminator.</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=1VDT-jw3YktE3LQN5XF8WNakNQQ4A7fPT&amp;export=download" alt="uc?id=1VDT-jw3YktE3LQN5XF8WNakNQQ4A7fPT&amp;export=download" width="620" height="240" layout="responsive"></amp-img></p>
+<p>Chúng ta sẽ train 2 mô hình tuần tự với nhau. Thông thường ở mỗi bước, chúng ta sẽ train discriminator 1 lần, sau đó train generator 1 lần, sau đó cứ thê lặp lại. Tuy nhiên chúng ta cúng có thể train 2,...n lần 1 mô hình ở mỗi bước, tùy theo sự phức tạp của bài toán.</p>
+<h3 id="3trainganvikeraschotpdatasetmnist">3.Train GAN với keras cho tập dataset MNIST:</h3>
+<p>Trong ví dụ này, chúng ta sẽ sử dụng tập MNIST cho mô hình GAN, nhằm mục đích tạo ra những bức ảnh "fake" của số viết tay bằng framework keras. Bạn nào chưa biết về keras có thể tham khảo ở đây : <a href="https://keras.io/">https://keras.io/</a></p>
+<p>Đầu tiên chúng ta sẽ định nghĩa cấu trúc của Discriminator. Vì chúng ta đang nhận dạng ảnh nên sẽ sử dụng mô hình convolution :</p>
+<pre><code>class DCGAN(object):
+    def __init__(self, img_rows=28, img_cols=28, channel=1):
+
+        self.img_rows = img_rows
+        self.img_cols = img_cols
+        self.channel = channel
+        self.D = None   # discriminator builder
+        self.G = None   # generator builder
+        self.AM = None  # generator model
+        self.DM = None  # discriminator model
+        
+    def discriminator(self):
+        if self.D:
+            return self.D
+        self.D = Sequential()
+        depth = 64
+        dropout = 0.4
+        # In: 28 x 28 x 1, depth = 1
+        # Out: 14 x 14 x 1, depth=64
+        input_shape = (self.img_rows, self.img_cols, self.channel)
+        self.D.add(Conv2D(depth*1, 5, strides=2, input_shape=input_shape,\
+            padding='same'))
+        self.D.add(LeakyReLU(alpha=0.2))
+        self.D.add(Dropout(dropout))
+
+        self.D.add(Conv2D(depth*2, 5, strides=2, padding='same'))
+        self.D.add(LeakyReLU(alpha=0.2))
+        self.D.add(Dropout(dropout))
+
+        self.D.add(Conv2D(depth*4, 5, strides=2, padding='same'))
+        self.D.add(LeakyReLU(alpha=0.2))
+        self.D.add(Dropout(dropout))
+
+        self.D.add(Conv2D(depth*8, 5, strides=1, padding='same'))
+        self.D.add(LeakyReLU(alpha=0.2))
+        self.D.add(Dropout(dropout))
+
+        # Out: 1-dim probability
+        self.D.add(Flatten())
+        self.D.add(Dense(1))
+        self.D.add(Activation('sigmoid'))
+        self.D.summary()
+        return self.D
+</code></pre>
+<p>Tiếp theo chúng ta sẽ xây dựng cấu trúc của Generator. Đầu ra của chúng ta là 1 bức ảnh bất kì, đầu vào là 100 giá trị từ 1 hàm noise.</p>
+<pre><code>def generator(self):
+    if self.G:
+        return self.G
+    self.G = Sequential()
+    dropout = 0.4
+    depth = 64+64+64+64
+    dim = 7
+    # In: 100
+    # Out: dim x dim x depth
+    self.G.add(Dense(dim*dim*depth, input_dim=100))
+    self.G.add(BatchNormalization(momentum=0.9))
+    self.G.add(Activation('relu'))
+    self.G.add(Reshape((dim, dim, depth)))
+    self.G.add(Dropout(dropout))
+
+    # In: dim x dim x depth
+    # Out: 2*dim x 2*dim x depth/2
+    self.G.add(UpSampling2D())
+    self.G.add(Conv2DTranspose(int(depth/2), 5, padding='same'))
+    self.G.add(BatchNormalization(momentum=0.9))
+    self.G.add(Activation('relu'))
+
+    self.G.add(UpSampling2D())
+    self.G.add(Conv2DTranspose(int(depth/4), 5, padding='same'))
+    self.G.add(BatchNormalization(momentum=0.9))
+    self.G.add(Activation('relu'))
+
+    self.G.add(Conv2DTranspose(int(depth/8), 5, padding='same'))
+    self.G.add(BatchNormalization(momentum=0.9))
+    self.G.add(Activation('relu'))
+
+    # Out: 28 x 28 x 1 grayscale image [0.0,1.0] per pix
+    self.G.add(Conv2DTranspose(1, 5, padding='same'))
+    self.G.add(Activation('sigmoid'))
+    self.G.summary()
+    return self.G
+</code></pre>
+<p>Giờ chúng ta cần phải định nghĩa loss function cho từng mô hình. Với discriminator, chúng ta cần phân biệt 2 loại nhãn ( giả và thật ), vậy chúng ta sẽ sử dụng binary cross entropy :</p>
+<pre><code>def discriminator_model(self):
+    if self.DM:
+        return self.DM
+    optimizer = RMSprop(lr=0.0002, decay=6e-8)
+    self.DM = Sequential()
+    self.DM.add(self.discriminator())
+    self.DM.compile(loss='binary_crossentropy', optimizer=optimizer,\
+        metrics=['accuracy'])
+    return self.DM
+</code></pre>
+<p>Tiếp theo chúng ta sử dụng loss function và optimizer cho generator. Như mình đã trình bày ở trên , chúng ta sẽ nối 2 mô hình với nhau để kết quả cuối cùng của discriminator ( 0 và 1 - thật hay giả ) có thể lan truyền ngược trở về generator. Đầu ra cuối cùng của chúng ta vẫn là output 0 và 1 của generator, vậy chúng ta sẽ dùng loss function giống như lúc trước.</p>
+<pre><code> def adversarial_model(self):
+    if self.AM:
+        return self.AM
+    optimizer = RMSprop(lr=0.0001, decay=3e-8)
+    self.AM = Sequential()
+    self.AM.add(self.generator())
+    self.AM.add(self.discriminator())
+    self.AM.compile(loss='binary_crossentropy', optimizer=optimizer,\
+        metrics=['accuracy'])
+    return self.AM
+</code></pre>
+<p>Cuối cùng là quá trình train của cả 2 mô hình. Đầu tiên , chúng ta sẽ train discriminator</p>
+<pre><code>    images_train = self.x_train[np.random.randint(0,
+        self.x_train.shape[0], size=batch_size), :, :, :]
+    noise = np.random.uniform(-1.0, 1.0, size=[batch_size, 100])
+    images_fake = self.generator.predict(noise)
+    x = np.concatenate((images_train,images_fake))#data có cả real data + fake data
+    y = np.ones([2*batch_size, 1])
+    y[batch_size:, :] = 0 
+    #y[0:batch_size] là real data sẽ có nhãn là 1
+    #y[batch_size:] là fake data sẽ có nhãn là 0
+    d_loss = self.discriminator.train_on_batch(x, y)
+</code></pre>
+<p>Sau đó chúng ta train generator :</p>
+<pre><code>        y = np.ones([batch_size, 1]) # fake data bây giờ sẽ có nhãn là 1.
+        noise = np.random.uniform(-1.0, 1.0, size=[batch_size, 100])
+        a_loss = self.adversarial.train_on_batch(noise, y)
+</code></pre>
+<p>Đây là kết quả do mình thực hiện :</p>
+<p><amp-img src="https://drive.google.com/uc?id=1DVW4Mntq0DbJZGOHAv5eX_8F-6adPDnT&amp;export=download" alt="uc?id=1DVW4Mntq0DbJZGOHAv5eX_8F-6adPDnT&amp;export=download" width="622" height="620" layout="responsive"></amp-img></p>
+<p>Các bạn có thể tìm full code ở đây : <a href="https://gist.github.com/astrung/0af1899cd73f1eaab60157fc9f14242b">https://gist.github.com/astrung/0af1899cd73f1eaab60157fc9f14242b</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

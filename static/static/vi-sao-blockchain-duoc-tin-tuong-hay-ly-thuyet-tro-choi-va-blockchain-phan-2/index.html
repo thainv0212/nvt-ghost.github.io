@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)" />
+    <meta property="og:description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:14:26.000Z" />
+    <meta property="article:modified_time" content="2018-01-24T04:14:26.000Z" />
+    <meta property="article:tag" content="Bitcoin" />
+    <meta property="article:tag" content="minning" />
+    <meta property="article:tag" content="game theory" />
+    <meta property="article:tag" content="hash" />
+    <meta property="article:tag" content="thợ mỏ" />
+    <meta property="article:tag" content="Proof Of Work" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)" />
+    <meta name="twitter:description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="B.V.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Bitcoin, minning, game theory, hash, thợ mỏ, Proof Of Work" />
+    <meta property="og:image:width" content="765" />
+    <meta property="og:image:height" content="457" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "B.V.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1fF2_O50gnEdEyVwfVmj_a2A6zIAjyqxh&export=download",
+            "width": 605,
+            "height": 681
+        },
+        "url": "https://blog.vietnamlab.vn/author/manhbv/",
+        "sameAs": []
+    },
+    "headline": "Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)",
+    "url": "https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/",
+    "datePublished": "2018-01-24T04:14:26.000Z",
+    "dateModified": "2018-01-24T04:14:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&export=download",
+        "width": 765,
+        "height": 457
+    },
+    "keywords": "Bitcoin, minning, game theory, hash, thợ mỏ, Proof Of Work",
+    "description": "Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về\nviệc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại\nsống và sống khỏe được trong xã hội khốc liệt hiện nay.\n\nDành cho bạn nào chưa đọc một số khái niệm về lý thuyết trò chơi.\nPhần 1: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?\n[https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/]\n\nMục lục\n * Blockchain",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-bitcoin tag-minning tag-game-theory tag-hash tag-tho-mo tag-proof-of-work nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-bitcoin tag-minning tag-game-theory tag-hash tag-tho-mo tag-proof-of-work js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-01-24">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 24 January 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/bitcoin/index.html">Bitcoin</a>, <a href="../tag/minning/index.html">minning</a>, <a href="../tag/game-theory/index.html">game theory</a>, <a href="../tag/hash/index.html">hash</a>, <a href="../tag/tho-mo/index.html">thợ mỏ</a>, <a href="../tag/proof-of-work/index.html">Proof Of Work</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" alt="Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=V%C3%AC%20sao%20blockchain%20%C4%91%C6%B0%E1%BB%A3c%20tin%20t%C6%B0%E1%BB%9Fng%20hay%20l%C3%BD%20thuy%E1%BA%BFt%20tr%C3%B2%20ch%C6%A1i%20v%C3%A0%20blockchain%3F%20(Ph%E1%BA%A7n%202)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội khốc liệt hiện nay.</p>
+<p>Dành cho bạn nào chưa đọc một số khái niệm về lý thuyết trò chơi.<br>
+<a href="https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/">Phần 1: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?</a></p>
+<h3 id="mclc">Mục lục</h3>
+<ul>
+<li>Blockchain là gì</li>
+<li>Các khái niệm liên quan tới blockchain</li>
+<li>Đào block (minning)</li>
+<li>Các thợ mỏ có xu hướng gian lận, cách blockchain phòng chống việc đó</li>
+<li>Grim Trigger có mặt để giải cứu</li>
+<li>Liệu Proof Of Work có kiểm soát được vấn đề?</li>
+<li>Kết luận</li>
+</ul>
+<h3 id="blockchainlg">Blockchain là gì?</h3>
+<p>Thời gian gần đây chúng ta thường nghe về BitCoin, về blockchain. Với các đặc điểm hay được nhắc tới như...</p>
+<ul>
+<li>Một cơ sở dữ liệu phân cấp, lưu trữ thông tin trong các khối thông tin được liên kết với nhau bằng mã hóa và mở rộng theo thời gian. Mỗi khối thông tin đều chứa thông tin về thời gian khởi tạo và được liên kết tới khối trước đó, kèm một mã thời gian và dữ liệu giao dịch.</li>
+<li>Blockchain được thiết kế để chống lại việc thay đổi của dữ liệu: Một khi dữ liệu đã được mạng lưới chấp nhận thì sẽ không có cách nào thay đổi được nó.<br>
+Nghe có vẻ thú vị, nhưng chính xác nó là cái gì ?</li>
+</ul>
+<p>Blockchain theo nghĩa đen của từng từ thì: block nghĩa là khối, chain là chuỗi. Blockchain nghĩa là chuỗi các khối kết nối với nhau. Khối sau sẽ lấy thông tin của khối trước tạo thành một mắt xích không thể phá vỡ, thay đổi hay giả mạo.</p>
+<p>Giải thích mang tính kĩ thuật hơn:<br>
+Một blockchain (chuỗi khối) là một loạt các block mà chứa các giao dịch riêng biệt bên trong nó. Mỗi block có chứa thông tin (kết quả băm của block trước), và do đó hình thành lên một chuỗi các block (khối). Vì thế nên gọi là &quot;blockchain&quot;.<br>
+Một số hình ảnh minh họa về blockchain.<br>
+<img src="http://dataconomy.com/wp-content/uploads/2015/10/bitcoin-block-chain-small.png" alt="alt"></p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bitcoin_Block_Data.png/800px-Bitcoin_Block_Data.png" alt="alt"></p>
+<h3 id="cckhinimlinquantiblockchain">Các khái niệm liên quan tới blockchain</h3>
+<p>1. <strong>Genesis block</strong>: khối ban đầu của blockchain.<br>
+2. <strong>Proof of work</strong>: bằng chứng công việc<br>
+Khối lượng tính toán cần để tạo block<br>
+3. <strong>Parent block</strong>: block cha<br>
+The block that immediately precedes a block is the parent block of that block. So in the diagram above, Block 50 is the parent block of Block 51.<br>
+4. <strong>Hàm tính điểm</strong>: các khối trong block chain có một hàm tính điểm.<br>
+Score (genesis) = 0.<br>
+Score (Block) = Score (parent block) + Proof of work<br>
+Trạng thái hiện tại của chuỗi là block với điểm cao nhất.<br>
+5. <strong>Đối tượng</strong>: hệ thống block chain gồm 2 đối tượng như sau:</p>
+<ul>
+<li><strong>Users</strong>: người dùng, trong bitcoin, chỉ có 2 function cho họ:</li>
+<li>Send coins.</li>
+<li>Receive coins.</li>
+<li><strong>Miner</strong>: thợ mỏ. Người chứng thực cho các giao dịch. Minning là cách mà một block mới được tạo và nối vào blockchain.</li>
+</ul>
+<ol start="7">
+<li><strong>Hàm băm (hash)</strong>: Làm thế nào để tính hash? Giá trị hash là một trị số với độ dài cố định, giúp nhận diện dữ liệu. Các hash được tính bằng cách lấy trị số của block hash trước đó, timestamp, block data, and nonce như là giá trị đầu vào .</li>
+<li><strong>Nonce</strong>: một số ngẫu nhiên để thỏa mãn bài toán về độ khó. hoặc có thể hiểu là số lần được lặp lại trước khi chúng ta tìm thấy một block hợp lệ? Để hiểu nonce là gì và tại sao nó quan trọng, điều này sẽ được giải thích ở bên dưới.</li>
+</ol>
+<p>Theo những dữ kiện bên trên, bạn đã biết khái niệm cơ bản về blockchain. Vậy hãy thử tạo cho mình blockchain một cách dễ dàng và trực quan trên nền web qua trang web ví dụ sau:<br>
+<a href="https://blockchaindemo.io/">https://blockchaindemo.io/</a></p>
+<h3 id="oblockminning">Đào block (minning)</h3>
+<p><img src="https://media.coindesk.com/uploads/2013/08/how-to-mine-bitcoins.jpg" alt="alt"></p>
+<p>Minning là thông qua một chuỗi tính toán, thợ mỏ tìm được dữ liệu(số nonce) để hoàn thành một khối và add nó vào blockchain, qua đó sẽ được mạng lưới phát cho phần thưởng là một số coin xác định.<br>
+Trong ethereum thì phần thưởng là  5 ether, với bitcoin là 12.5 BTC (tại thời điểm viết bài 2017 và dự tính đến 2020 thì sẽ giảm một nửa còn 6.25 BTC).</p>
+<p>Khi đọc qua các lời giới thiệu về bitcoin, mọi người thường gặp đoạn nói về các thợ mỏ sẽ giải bài toán gì gì đó. Ai giải ra nhanh hơn thì sẽ nhận được phần thưởng. Nhưng cụ thể bài toán đó như thế nào thì ít có bài nào nói sâu vào.<br>
+Sau đây là cách thức mà minning thực hiện:</p>
+<h4 id="hmbm">Hàm băm</h4>
+<p>Hàm băm là hàm mà đầu vào là dữ liệu gốc X, có độ dài bất kỳ. Đầu ra là một chuỗi chữ số Y có độ dài cố định. Ví dụ Y của hàm băm SHA256 có độ dài là 64 ký tự,  Y = SHA256(X).<br>
+Ví dụ:</p>
+<pre><code>sha256('hello') = &quot;2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824&quot;  
+sha256(&quot;&quot;)      = &quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;  
+</code></pre>
+<p>Và người ta đã nghĩ ra cách để mã hóa dữ liệu như thế này: Ở đầu vào, ngoài dữ liệu gốc X ra thì người ta sẽ thêm vào đó một đoạn dữ liệu nữa. Đoạn này được gọi là nonce (key/salt/). Và áp dụng vào hàm băm SHA256(X + nonce) = Z. Z sẽ khác hoàn toàn so với Y ban đầu.<br>
+Đây chính là ứng dụng cho việc mã hóa dữ liệu và truyền đi trong mạng internet. Giá trị của nonce sẽ đóng vai trò như một chìa khóa (key) bí mật để bảo vệ phần dữ liệu X được truyền đi. Ở phía người nhận chỉ khi có được key nonce thì người ta mới có thể xác nhận được X họ đang có là đúng.</p>
+<p>Ví dụ hay gặp của SHA256 là dùng cho việc đăng nhập vào các tài khoản online:</p>
+<ul>
+<li>Khi đăng kí máy chủ sẽ lưu trữ Y của các bạn.</li>
+<li>Khi đăng nhập, bạn gõ email+ mật khẩu vào ô nhưng thứ truyền đi tới máy chủ sẽ là Y' = SHA256(&quot;email+mật khẩu&quot;)</li>
+<li>Máy chủ sẽ so sánh Y và Y' có khớp với nhau hay không, nếu khớp thì bạn sẽ được cấp token sử dụng chức năng của trang vừa đăng nhập. Do đó, dù hacker có lấy được database của máy chủ thì họ cũng không thể biết được mật khẩu và email của bạn. Y của hàm băm SHA256 là không thể dịch ngược.</li>
+</ul>
+<h4 id="quaylibitoncathmcngviccahlg">Quay lại bài toán của thợ mỏ. Công việc của họ là gì?</h4>
+<p>Sổ cái lưu trữ các giao dịch của bitcoin là dạng blockchain. Là một chuỗi của các khối SHA256 nối đuôi vào nhau. Khối sau sẽ chứa thông tin|sự thay đổi|thời gian thay đổi của khối trước nó. Cho nên muốn tạo giả một thông tin ở khối hiện tại cho nó sai đi, bạn cần thay đổi dữ liệu khối trước đó và kéo theo bạn cần sửa dữ liệu khối trước đó nữa... Và nghĩa là bạn phải tạo ra một sổ cái mới hoàn toàn. Khi đó những người đang giữ bản sao của sổ cái cũ sẽ đối chiếu và dễ dàng thấy sổ cái của bạn là giả, hoặc chẳng ai dùng vì không có tính xác thực.</p>
+<p>Và ở đây sẽ có phần công việc cho các thợ mỏ. Ngoài việc tham gia hệ thống để xác minh tính chính xác của sổ cái. Một phần việc khác của các thợ mỏ, đó là tạo ra khối SHA256 mới. Họ sẽ quyết định cái khối SHA256 nào sẽ được ghi tiếp vào sổ cái.<br>
+Khối mới được ghi vào sổ cái sẽ là [SHA256(các giao dịch|thời gian|dữ liệu sổ cũ)]. Nhưng với dữ liệu có sẵn thế thì hàm băm này chả có gì khó cả, nó sẽ được giải quyết trong vòng một phần tỷ của một nốt nhạc. Và đây chính là chỗ để sinh ra bài toán cho các thợ mỏ.</p>
+<p>Các thợ mỏ sẽ được yêu cầu tìm ra một chuỗi SHA256 khác sao cho chuỗi này có giá trị nhỏ hơn một số D cho trước. Chuỗi này vẫn sẽ chứa các thông tin về giao dịch|thời gian|dữ liệu sổ cũ. Nhưng sẽ được gắn thêm một đoạn nonce nữa vào trước khi hash.<br>
+Công thức như sau:</p>
+<blockquote>
+<p>SHA256(X + nonce) &lt; D.</p>
+</blockquote>
+<p>Với:</p>
+<ul>
+<li>X là dữ liệu của hệ thống đã biết gồm các giao dịch,thời gian,dữ liệu sổ cũ</li>
+<li>D là giá trị yêu cầu.</li>
+</ul>
+<p>Việc làm của thợ mỏ là tìm xem cái nonce nào hợp lệ cho công thức trên. Ai tìm được nonce trước thì người đó sẽ thắng và khối mới sẽ sử dụng nonce của người đó để tạo ra khối mới và đồng thời hệ thống cũng sẽ ghi nhận luôn rằng chính người thợ mỏ đó sở hữu lượng bitcoin (phần thưởng) mới được sinh ra.<br>
+Số D này sẽ có liên hệ với giá trị độ khó difficulty của hệ thống. Nếu hệ thống có tổng hash rate (tốc độ tính toán) càng cao thì difficulty sẽ càng lớn, số D này sẽ càng nhỏ và việc tìm ra nonce sẽ càng khó. Số D này sẽ được hệ thống tính toán lại sau mỗi 2016 blocks được sinh ra, nhằm đảm bảo khoản thời gian 10 phút cho mỗi lượt sinh coin mới.</p>
+<p>Lấy một ví dụ cho dễ hiểu. Giả sử bài toán yêu cầu hàm SHA256(X + nonce) &lt; 0x64 nghĩa là D = x64 ( = 100 ở hệ thập phân). Dữ liệu X có rồi. Thì ta sẽ có 99 kết quả của nonce thỏa mãn yêu cầu sao cho SHA256(X+nonce) &lt; 100. SHA256(X+nonce) có thể là bất kỳ giá trị nào từ [1-99].<br>
+Giả sử độ khó difficulty tăng lên gấp đôi, thì giá trị D này sẽ giảm đi một nửa và sẽ bằng 50. Khi đó bài toán sẽ khó hơn với yêu cầu là SHA256(X+nonce) &lt; 50, chúng ta chỉ có 49 khả năng cho nonce đúng. Các giá trị thõa mãn D cũ như 78, 65, 69 sẽ không được chấp nhận với D mới này. Tương tự như vậy, nếu độ khó difficulty giảm đi 3 lần, thì số đáp án có thể đạt được cũng tăng lên 3 lần. Điều này sẽ giúp đảm bảo thời gian tính toán sinh coin mới luôn nằm trong khoản 10 phút. Điều này cũng là nguyên nhân dẫn đến việc càng nhiều thợ mỏ tham gia thì việc đào ra coin càng có tỉ lệ thấp.<br>
+Đây là một ví dụ thực tế của D = 0x00000000000404CB000000000000000000000000000000000000000000000000<br>
+Như vậy ta có thể trả lời được câu hỏi thợ mỏ làm gì và bitcoint từ đâu ra.</p>
+<p>Số 21 triệu bitcoin là giới hạn. Không phải là cái mốc. Vì cứ 4 năm một lần thì số coin sinh ra giảm đi một nửa sau mỗi 10 phút. Đến năm 2140 thì số coin sẽ đạt gần đến mức 21 triệu chứ không phải đúng 21 triệu. Số lượng sinh ra coin lúc đó sẽ rất nhỏ. Vì mỗi 4 năm chia đôi một lần mà. Chia đôi mãi một số thì nó không bao giờ về 0 cả. Nó chỉ về con số rất nhỏ thôi.</p>
+<h4 id="trnhbyliminningbngcode">Trình bày lại minning bằng code</h4>
+<p>Giả sử ta đã có Genesis block<br>
+Chúng ta thử tìm khối thứ 2.<br>
+Nội dung khối thứ 2 sẽ như sau:</p>
+<blockquote>
+<p>Index: 0+1 = 1<br>
+Previous Hash: 0000018035a828da0…<br>
+Timestamp: khi nào block được thêm vào<br>
+Data: &quot;Chúng tôi là VNLab&quot;<br>
+Hash: ??<br>
+Nonce: ??</p>
+</blockquote>
+<p>Vậy giờ chúng ta đi tính hash và nonce.<br>
+Cách tính hash:</p>
+<pre><code>hash('sha256', index . previousHash . timestamp . data . nonce);
+</code></pre>
+<p>Bạn có nhận thấy bốn đầu 0 trong &quot;Previous Hash&quot;?<br>
+Trong trường hợp này bốn cột đầu của hash là 0. Đó yêu cầu tối thiểu cho một hash hợp lệ. Số cột đầu tiên là 0 sẽ được gọi là difficulty.</p>
+<p>Hàm để kiểm tra xem một hash có phải là hash thỏa mãn độ khó chưa:</p>
+<pre><code>function isValidHashDifficulty($hash, $difficulty) {  
+  for ($i = 0; $i &lt; $hash.length; $i++) {  
+      if ($hash[$i] !== '0') {  
+          break;  
+      }  
+  }  
+  return $i &gt;= $difficulty;  
+}
+</code></pre>
+<p>Đoạn code theo cách đơn giản để tính số nonce:</p>
+<pre><code>$nonce = 0;
+$hash;
+$input;
+while(!isValidHashDifficulty($hash)) {     
+  $nonce = $nonce + 1;
+  $input = $index + $previousHash + $timestamp + $data + $nonce;
+  $hash = SHA256($input)
+}
+</code></pre>
+<p>Vòng lặp trên cứ tăng dần nonce lên cho tới khi tìm được nonce thỏa mãn độ khó của hash. Quá trình tìm một nonce tương ứng với một hash hợp lệ là mining.</p>
+<p>Difficulty tăng lên, số lượng các hash hợp lệ giảm. Với hàm hash hợp lệ ít hơn có thể cần phải mất nhiều thời gian xử lý hơn để tìm một hash hợp lệ.</p>
+<p>** Tại sao việc tìm nonce, với độ khó nhất định của hàm hash lại quan trọng? **<br>
+Nó quan trọng vì nó giữ cho blockchain không thay đổi. Nếu chúng ta có blockchain A → B → C, và ai đó muốn thay đổi dữ liệu trên Block A. Điều gì sẽ xảy ra:</p>
+<p>Dữ liệu thay đổi trên block A<br>
+Thay đổi hash của Block A vì dữ liệu được sử dụng để tính toán hash.<br>
+Block A trở nên không hợp lệ vì hash của nó không còn có bốn đầu của 0.<br>
+Thay đổi hash của Block B vì hash của Block A được sử dụng để tính toán hash của Block B.<br>
+hash B trở nên không hợp lệ bởi vì hash của nó không còn có bốn hàng đầu của 0.<br>
+Thay đổi hash của Block C vì sử dụng hash của Block B để tính toán hash của Block C.<br>
+Block C trở nên không hợp lệ vì hash của nó không còn có bốn đầu của 0. Cách duy nhất để biến đổi một khối sẽ là xây dựng lại một blockchain khác bắt đầu từ khối bị thay đổi. Ngoài ra còn việc các block mới luôn luôn được thêm vào, nên rất khó trong việc thay đổi cả blockchain.</p>
+<p><strong>Tổng kết về minning</strong><br>
+Qua những điều trên chúng ta thấy: thở mỏ có nhiều sức mạnh trong hệ thống blockchain, nên nếu họ chọn cách cheat cho họ, thì họ sẽ ảnh hưởng xấu tới hệ thống.</p>
+<h3 id="ccthmcxuhnggianln">Các thợ mỏ có xu hướng gian lận?</h3>
+<p>Để tránh điều đó xảy ra: blockchain đã làm gì, blockchain đã có trong mình nó lý thuyết trò chơi để giải quyết vấn đề.</p>
+<p>Trong hệ thống peer-to-peer thì torrent là phổ biến nhất. Nhưng có một vấn đề là người ta download nhưng ko seeding… Nguyên nhân là không có cơ chế phạt phù hợp.</p>
+<h4 id="vyblockchainslmnhthnotrnhthmgianln">Vậy blockchain sẽ làm như thế nào để tránh thợ mỏ gian lận?</h4>
+<p>Đầu tiên phải làm rõ một vấn đề thợ mỏ sẽ gian lận như thế nào:</p>
+<ul>
+<li>
+<p>Họ có thể bao gồm một giao dịch không hợp lệ và tự cho mình thêm tiền xu.</p>
+</li>
+<li>
+<p>Thêm các khối ngẫu nhiên mà không cần lo lắng về bằng chứng của công việc.</p>
+</li>
+<li>
+<p>Mỏ trên đầu trang của các khối không hợp lệ để có được nhiều hơn BTC.</p>
+</li>
+<li>
+<p>Mỏ trên đầu trang của một khối ghi điểm phụ tối ưu.</p>
+</li>
+</ul>
+<p>Tại sao thợ mỏ lại làm như thế? Vì đơn giản không ai bắt họ phải là những người tốt? Chúng ta không thể tạo một hệ thống gồm toàn những người tốt. Blockchain được thiết kế bằng cách tự thực thi cân bằng Nash. Nguyên nhân là do khai thác có một hệ thống trừng phạt đệ quy.</p>
+<p><img src="https://manhbv7488.files.wordpress.com/2017/08/what-is-cryptocurrency-game-theory-a-basic-introduction-12-e1502212222697-1.png?w=680" alt="alt"></p>
+<p><strong>Double spending.</strong><br>
+Đây là khái niệm hay được nhắc tới trên hệ thống blockchain. Double spending là vấn đề lớn với bất cứ cái gì gọi là tiền. Dưới đây là ví dụ:</p>
+<p>Tại blue block 51 thợ mỏ sử dụng 20 bitcoins để mua 500 litecoins, sau đó anh ta tạo 1 chuỗi song song với block 51 mới (block đỏ), ở đó anh ta chưa hề giao dịch. Như vậy anh ta vừa còn 20 bitcoins, vừa có 500 litecoins. Đó chính là double spending.</p>
+<p>Như vậy double spending phá hủy hệ thống, vì làm cho hệ thống không công bằng.</p>
+<p><strong>Cân bằng Nash trong mining và hệ thống trừng phạt system.</strong></p>
+<p>Chúng ta xem xét tại sao thợ mỏ sẽ không double spending</p>
+<ul>
+<li>Nếu một thợ mỏ tạo ra một khối không hợp lệ thì những người khác sẽ không tiếp tục vào nó bởi vì một quy tắc đã được xác định trong cơ chế blockchain. Bất kỳ khối nào được khai thác trên một khối không hợp lệ sẽ trở thành một khối không hợp lệ. Sử dụng quy tắc này, thợ mỏ sẽ đơn giản bỏ qua các khối không hợp lệ và tiếp tục khai thác mỏ trên chuỗi chính chuỗi màu xanh trong sơ đồ.</li>
+<li>Không thợ mỏ nào muốn khai thác trên Red Block 52 vì Blue Block 53 sẽ có số điểm cao hơn red block.</li>
+</ul>
+<p>Cả 2 kịch bản đều sẽ xảy ra vì các thợ mỏ, là những người mà họ sẽ luôn chọn trạng thái ổn định nhất theo cân bằng Nash, luôn chọn cái có lợi cho mình nhất để làm. Tất nhiên, bạn có thể làm tất cả các thợ mỏ khai thác tiếp trên red block và biến nó thành blockchain mới, tuy nhiên số lượng thợ mỏ là rất lớn nên điều này khó có thể xảy ra. Cũng giống như trong một game trạng thái, hầu hết những người trong group không thay đổi trạng thái của họ. Thiểu số sẽ không có bất kì động lực nào để ở lại trạng thái mới. Hiểu điều này, một thợ mỏ sẽ không sử dụng tất cả sức mạnh tính toán vào một trạng thái rủi ro để rồi kết quả là vô ích.</p>
+<p><strong>Như vậy thợ mỏ không gian lận bởi nếu gian lận họ sẽ mất chính công sức, tiền bạc của họ.</strong></p>
+<p><strong>Lý do vì sao thợ mỏ lại hướng về chuỗi thường dùng blue chain?</strong><br>
+Trong game blockchain thì có 2 thành phần là các thợ mỏ và các user. Tại sao nguời dùng sẽ dùng blue chain hơn là red chain? Một lần nữa, nguyên nhân là vì cơ chế lý thuyết trò chơi.</p>
+<p>Điều đầu tiên là bạn phải giữ trong đầu bạn là tiền ảo có giá trị bởi con người cho chúng giá trị. Vậy, vì sao người dùng bình thường sẽ gán giá trị cho coins của blue chain và không làm thế với red chain. Lý do rất đơn giản, chuỗi chính là một <a href="https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/">schelling point</a> từ quan điểm người dùng. Họ cho chúng giá trị vì main chain dường như là tự nhiên và đặc biệt với họ.</p>
+<h3 id="liuproofofworkckimsotcvn">Liệu Proof Of Work có kiểm soát được vấn đề?</h3>
+<p>Trước khi bắt đầu giải thích, cùng xem lại sơ đồ của chúng ta một lần nữa.<br>
+<img src="https://manhbv7488.files.wordpress.com/2017/08/what-is-cryptocurrency-game-theory-a-basic-introduction-12-e1502212222697-1.png?w=680" alt="alt"></p>
+<p>Vitalik Buterin (người tạo ra ethereum) đưa ra một ví dụ điển hình về vấn đề kiểm soát và chúng tôi sẽ mở rộng nó.<br>
+Trong ethereum có một khái niệm nổi tiếng là hợp đồng thông minh (smart contract).</p>
+<p><strong>Giả sử ai đó làm một hợp đồng thông minh với các điều khoản của hợp đồng đi như sau:</strong></p>
+<ul>
+<li>Bất kỳ người khai thác mỏ nào cũng có thể tham gia vào hoạt động bằng cách gửi một khoản tiền gửi rất lớn vào hợp đồng.</li>
+<li>Các thợ mỏ phải gửi cổ phần của các khối đã hoàn thành một phần mà họ đã khai thác vào hợp đồng và hợp đồng xác minh nó và cũng xác minh rằng bạn là một người khai thác mỏ và rằng bạn có đủ sức mạnh băm.</li>
+<li>Trước khi 60% các thợ mỏ trong hệ thống tham gia, bạn có thể bỏ tham gia vào hợp đồng này bất cứ lúc nào bạn muốn.</li>
+<li>Sau khi 60% thợ mỏ tham gia, bạn sẽ bị ràng buộc với hợp đồng này cho đến khi 20 khối đã được thêm vào chuỗi màu đỏ.</li>
+</ul>
+<p>Vâng, thực sự là rất nguy hiểm và bạn có thể thấy được vấn đề mà cuộc tấn công này có thể xảy ra. Không chỉ chain mới phát triển ngày càng lớn hơn, bởi vì 60% của toàn bộ thợ mỏ bị ràng buộc theo hợp đồng với chuỗi mới này, điều này sẽ nhanh chóng làm cho chuỗi gốc cũ hơn. Điều này sẽ làm cho tăng double spend trên khắp nơi và giá trị của đồng tiền sẽ giảm nhanh.</p>
+<p><strong>Chúng ta sẽ thử phân tích vì sao thợ mỏ sẽ tham gia vào một cuộc kiểm soát này?</strong></p>
+<ul>
+<li><strong>Phần thưởng</strong> cuối cùng rất hấp dẫn.</li>
+<li><strong>Không có nguy cơ</strong> khi tham gia vào hợp đồng này.</li>
+<li><strong>Động lực</strong> của họ để làm theo thông qua hợp đồng là gì?</li>
+<li>Số tiền khổng lồ mà họ đã gửi vào đầu.</li>
+<li>Lại một lần nữa, phần thưởng rất lớn đang chờ họ.</li>
+</ul>
+<p>Về mặt lý thuyết, việc tiếp quản như thế này có thể kết thúc bất kỳ loại tiền tệ nào, nhưng điều này không có khả năng xảy ra vì ... lại là: ... Lý thuyết trò chơi.</p>
+<h3 id="grimtriggercmtgiicu">Grim Trigger có mặt để giải cứu!</h3>
+<p>Hãy suy nghĩ về tham số nhà vua khi chúng ta nghĩ về grim triggers. Nếu một vị vua bị giết và chiếm đoạt, thì điều gì sẽ ngăn lại vị vua mới khỏi bị giết và từ đó trở thành một chu kỳ đẫm máu vô tận? Để ngăn chặn điều này xảy ra, cách tốt nhất của hành động là không giết vị vua ban đầu ở nơi đầu tiên.</p>
+<p>Tương tự, chúng ta hãy sử dụng logic này cho các blockchain. Nếu một blockchain bị chiếm đoạt và bị phá hủy và các thợ mỏ được chuyển hướng vào một chuỗi mới, không có gì ngăn cản chuỗi mới bị chiếm đa số trong thời gian sớm nhất? Để ngăn chặn vòng lặp đẫm máu đó không xảy ra, thì tốt nhất là không giết vị vua đầu tiên.<br>
+Do đó để mọi công sức đã xây dựng lên blockchain đầu tiên không bị mất đi, thì các thợ mỏ sẽ không tiêu diệt nó bằng cách tạo 1 blockchain mới, vì mọi thứ sẽ lặp lại, và chính họ sẽ mất tất cả.</p>
+<p><strong>Có một số nơi mà đối số Grim Trigger thất bại, và rõ ràng, có những nơi mà nó hoạt động khá ngoạn mục:</strong></p>
+<ul>
+<li>Grim Trigger không thành công khi các thợ mỏ không bị ràng buộc vào một loại tiền tệ. Nếu các thợ mỏ đang làm việc trên nhiều loại tiền tệ, họ chỉ có thể nhóm để kiểm soát một loại tiền tệ có giá trị thấp.</li>
+<li>Grim Trigger duy trì nếu họ bị ràng buộc và trung thành với một loại tiền tệ cụ thể. Xét cho cùng, nó là mối quan tâm trực tiếp của họ để duy trì và duy trì giá trị và tính hợp pháp của đồng tiền.</li>
+<li>Nếu đồng tiền yêu cầu các ASIC chuyên biệt, sau đó là đối số kích hoạt nặng nề giữ lên. Nếu một đồng tiền chỉ có thể được khai thác bằng phần mềm chuyên dụng, thì các thợ mỏ sẽ đảm bảo rằng không có gì xảy ra với loại tiền tệ đó và nó không mất giá trị (mất giá trị thì thở mỏ chả được đồng nào). ASICs chuyên biệt thì chỉ có thể làm việc cho một loại tiền tệ cụ thể. Nếu không sử dụng vào việc đó, nó là vô tích sự. Thêm nữa, chúng rất đắt.</li>
+<li>Lập luận không giữ được nếu tiền tệ có thể được khai thác bằng cách sử dụng CPU. CPU không phải là đắt tiền, và nó có thể được sử dụng để khai thác các loại tiền tệ khác.</li>
+<li>Tuy nhiên, nếu các thợ mỏ sở hữu các CPU có cổ phần trong đồng tiền, lập luận này vẫn được duy trì bởi vì họ không muốn mất cổ phần mà họ đầu tư vào đồng tiền đó. Đây là một loại chứng cứ cổ phần (proof-of-stake).</li>
+</ul>
+<p>Nhờ những lý do trên, các thợ mỏ sẽ không tham gia vào hợp đồng tưởng như béo bở mà chết chóc bên trên.</p>
+<p><img src="http://static.wixstatic.com/media/79f944_023d6b8a20ae46ce9ee7de791a250a53~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01/79f944_023d6b8a20ae46ce9ee7de791a250a53~mv2.webp" alt="alt"></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Như có thể thấy, cơ học lý thuyết trò chơi làm cho blockchain rất đặc biệt. Không có gì về công nghệ hoặc cơ học (mechanics) là mới, nhưng đó là sự kết hợp của hai khái niệm hấp dẫn đó đã làm cho cryptocurrency an toàn để chống tham nhũng từ trong nội bộ. Ngay cả khi bitcoin và Ethereum thất bại vì bất cứ lý do nào, cryptocurrency sẽ luôn tồn tại vì những lợi ích nó mang lại.<br>
+P/s: Các bạn thấy có phần nào chưa được xin comment bên dưới để chúng ta cùng suy nghĩ thêm về các vấn đề liên quan tới blockchain nhé.</p>
+<h3 id="linhthamkho">Linh tham khảo</h3>
+<p><a href="https://blockgeeks.com/guides/cryptocurrency-game-theory/">https://blockgeeks.com/guides/cryptocurrency-game-theory/</a><br>
+<a href="https://spiderum.com/bai-dang/Bitcoin-Bai-toan-cua-cac-tho-mo-6z8">https://spiderum.com/bai-dang/Bitcoin-Bai-toan-cua-cac-tho-mo-6z8</a><br>
+<a href="https://techtalk.vn/blockchain-thuc-su-hoat-dong-nhu-the-nao.html">https://techtalk.vn/blockchain-thuc-su-hoat-dong-nhu-the-nao.html</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=V%C3%AC%20sao%20blockchain%20%C4%91%C6%B0%E1%BB%A3c%20tin%20t%C6%B0%E1%BB%9Fng%20hay%20l%C3%BD%20thuy%E1%BA%BFt%20tr%C3%B2%20ch%C6%A1i%20v%C3%A0%20blockchain%3F%20(Ph%E1%BA%A7n%202)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

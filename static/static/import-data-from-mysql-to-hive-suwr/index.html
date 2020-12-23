@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Import Data từ MySQL vào Hive sử dụng Sqoop | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Import Data từ MySQL vào Hive sử dụng Sqoop" />
+    <meta property="og:description" content="ETL là gì ? Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ?  ETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-09-10T00:50:37.000Z" />
+    <meta property="article:modified_time" content="2019-09-10T00:50:37.000Z" />
+    <meta property="article:tag" content="sqoop" />
+    <meta property="article:tag" content="Apache Hive" />
+    <meta property="article:tag" content="docker mysql" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Import Data từ MySQL vào Hive sử dụng Sqoop" />
+    <meta name="twitter:description" content="ETL là gì ? Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ?  ETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.A.92" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="sqoop, Apache Hive, docker mysql" />
+    <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="260" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.A.92",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkclJsTEtLTVF0UDA&export=download",
+            "width": 259,
+            "height": 194
+        },
+        "url": "https://blog.vietnamlab.vn/author/anhnt92/",
+        "sameAs": []
+    },
+    "headline": "Import Data từ MySQL vào Hive sử dụng Sqoop",
+    "url": "https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/",
+    "datePublished": "2019-09-10T00:50:37.000Z",
+    "dateModified": "2019-09-10T00:50:37.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&export=download",
+        "width": 400,
+        "height": 260
+    },
+    "keywords": "sqoop, Apache Hive, docker mysql",
+    "description": "ETL là gì ?\nTrong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì\n? \n\nETL là viết tắt của Extract Transform Load gọi là quá trình làm thế nào dữ liệu\nđược đưa vào từ các nguồn dữ liệu vào kho dữ liệu.\n\nETL gồm 3 bước là :\n\n 1. Extracts : đi thu gom dữ liệu từ nhiều nguồn khác nhau\n 2. Transforms : chuyển đổi dữ liệu, như mô hình ở trên mục đích của chúng ta là\n    chuyển đổi dữ liệu nghiệp vụ thành dạng dữ liệu có thể phân tích được. Ngoài\n    ra ở bước này chúng ta ph",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-sqoop tag-apache-hive tag-docker-mysql nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-sqoop tag-apache-hive tag-docker-mysql js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Import Data từ MySQL vào Hive sử dụng Sqoop</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-09-10">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 10 September 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/sqoop/index.html">sqoop</a>, <a href="../tag/apache-hive/index.html">Apache Hive</a>, <a href="../tag/docker-mysql/index.html">docker mysql</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1QM1tQ3L0Zg1LPxV6n6L2gaCN7vQOIU_n&amp;export&#x3D;download" alt="Import Data từ MySQL vào Hive sử dụng Sqoop">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/import-data-from-mysql-to-hive-suwr/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Import%20Data%20t%E1%BB%AB%20MySQL%20v%C3%A0o%20Hive%20s%E1%BB%AD%20d%E1%BB%A5ng%20Sqoop">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="etllg">ETL là gì ?</h3>
+<!--kg-card-end: markdown--><p>Trong thời gian gần đây, tôi có điều kiện làm việc trong team ETL. Vậy ETL là gì ? </p><p><strong><strong>ETL </strong></strong>là viết tắt của <strong><strong>Extract Transform Load</strong></strong> gọi là quá trình <strong><strong><em><em>làm thế nào</em></em></strong></strong> dữ liệu được đưa vào từ các nguồn dữ liệu vào kho dữ liệu.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1T5KqOOH2PpKcRFRNamm7l05Fp0AZYJ1z&amp;export=download" class="kg-image" alt></figure><p>ETL gồm 3 bước là :</p><ol><li><strong><strong>Extracts</strong> : </strong>đi thu gom dữ liệu từ nhiều nguồn khác nhau</li><li><strong><strong>Transforms</strong> : </strong>chuyển đổi dữ liệu, như mô hình ở trên mục đích của chúng ta là chuyển đổi dữ liệu nghiệp vụ thành dạng dữ liệu có thể phân tích được. Ngoài ra ở bước này chúng ta phải làm sạch dữ liệu.</li><li><strong><strong>Load</strong>ing : </strong>Sau khi chuyển đổi và lưu trữ, dữ liệu được đưa vào một datawarehouse. Dữ liệu này dùng cho mục đích phân tích và phát triển của 1 team khác đó chính là team phân tích</li></ol><p>Trong các bước ở trên, mình thường xuyên phải sử dụng một công cụ để import dữ liệu từ bên ngoài và import vào hive. Đó chính là Sqoop. </p><p>Vậy chúng ta cùng nhau làm 1 ví dụ để xem sqoop import dữ liệu từ MySQL vào hive như thế nào nhé.</p><!--kg-card-begin: markdown--><h3 id="tobngtrongmysql">Tạo bảng trong MySQL</h3>
+<!--kg-card-end: markdown--><p>Kiểm tra MySQL đã được cài đặt hay chưa, nếu chưa bạn tự cài đặt nhé.</p><pre><code>shell&gt; mysql --version
+mysql  Ver 14.14 Distrib 5.1.66, for redhat-linux-gnu (x86_64) using readline 5.
+</code></pre><p>Tạo 1 database, ta đặt tên là sqoop</p><pre><code>mysql&gt; create database sqoop;</code></pre><p>Sau đó</p><pre><code>
+mysql&gt; use sqoop;
+
+mysql&gt; create table customer(id varchar(3), name varchar(20), age varchar(3), salary integer(10));
+Query OK, 0 rows affected (0.09 sec)
+mysql&gt; desc customer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| id     | varchar(3)  | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| age    | varchar(3)  | YES  |     | NULL    |       |
+| salary | int(10)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+</code></pre><pre><code>mysql&gt; select * from customer;
++------+--------+------+--------+
+| id   | name   | age  | salary |
++------+--------+------+--------+
+| 1    | John   | 30   |  80000 |
+| 2    | Kevin  | 33   |  84000 |
+| 3    | Mark   | 28   |  90000 |
+| 4    | Jenna  | 34   |  93000 |
+| 5    | Robert | 32   | 100000 |
+| 6    | Zoya   | 40   |  60000 |
+| 7    | Sam    | 37   |  75000 |
+| 8    | George | 31   |  67000 |
+| 9    | Peter  | 23   |  70000 |
+| 19   | Alex   | 26   |  74000 |
++------+--------+------+-----</code></pre><!--kg-card-begin: markdown--><h3 id="sdngsqoop">Sử dụng Sqoop</h3>
+<!--kg-card-end: markdown--><p>Như chúng ta đã thấy, ở trên bảng sqoop tôi không tạo khóa chính và thêm một vài bản ghi trong bảng customer. Mặc định, sqoop sẽ xác định primary key là splitting column. Ví dụ <em>--split-by id </em></p><p>Tôi muốn import dữ liệu này vào hive, tôi sử dụng command</p><pre><code>sqoop import --connect jdbc:mysql://localhost:3306/sqoop 
+--username root 
+-P 
+--split-by id 
+--columns id,name 
+--table customer  
+--target-dir /user/cloudera/ingest/raw/customers 
+--fields-terminated-by "," 
+--hive-import 
+--create-hive-table 
+--hive-table sqoop_workspace.customers</code></pre><p>Trong đó</p><ul><li><strong><strong>connect </strong>-</strong> jdbc string của mysql</li><li><strong><strong>username</strong> - </strong>Database username</li><li><strong><strong>P</strong> : Database password </strong></li><li><strong><strong>table </strong>: Tên bảng cần import. Ở đây chính là bảng customer</strong></li><li><strong><strong>split-by</strong> : chính là split column đã nói ở trên. Ở đây là Id</strong></li><li><strong><strong>target-dir</strong> : Path lưu trữ trên hệ thống HDFS</strong></li><li><strong><strong>fields-terminated-by</strong> : Các giá trị phân cách nhau giữa các field, ở đây là dấu phẩy</strong></li><li><strong><strong>create-hive-table</strong> : Tạo bảng trên hive để lưu trữ dữ liệu từ bảng customer. Sẽ fail nếu bảng đc tạo rồi</strong></li><li><strong><strong>hive-table</strong> : Chỉ định database name và tên table trên hive</strong></li></ul><p>Chạy lệnh import bằng sqoop</p><pre><code>sqoop import --connect jdbc:mysql://localhost:3306/sqoop --username root -P --split-by id --columns id,name --table customer  --target-dir /user/cloudera/ingest/raw/customers --fields-terminated-by "," --hive-import --create-hive-table --hive-table sqoop_workspace.customers
+Warning: /usr/lib/sqoop/../accumulo does not exist! Accumulo imports will fail.
+Please set $ACCUMULO_HOME to the root of your Accumulo installation.
+16/03/01 12:59:44 INFO sqoop.Sqoop: Running Sqoop version: 1.4.6-cdh5.5.0
+Enter password:
+16/03/01 12:59:54 INFO manager.MySQLManager: Preparing to use a MySQL streaming resultset.
+16/03/01 12:59:54 INFO tool.CodeGenTool: Beginning code generation
+16/03/01 12:59:55 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 12:59:56 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 12:59:56 INFO orm.CompilationManager: HADOOP_MAPRED_HOME is /usr/lib/hadoop-mapreduce
+Note: /tmp/sqoop-cloudera/compile/6471c43b5c867834458d3bf5a67eade2/customer.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+16/03/01 13:00:01 INFO orm.CompilationManager: Writing jar file: /tmp/sqoop-cloudera/compile/6471c43b5c867834458d3bf5a67eade2/customer.jar
+16/03/01 13:00:01 WARN manager.MySQLManager: It looks like you are importing from mysql.
+16/03/01 13:00:01 WARN manager.MySQLManager: This transfer can be faster! Use the --direct
+16/03/01 13:00:01 WARN manager.MySQLManager: option to exercise a MySQL-specific fast path.
+16/03/01 13:00:01 INFO manager.MySQLManager: Setting zero DATETIME behavior to convertToNull (mysql)
+16/03/01 13:00:01 INFO mapreduce.ImportJobBase: Beginning import of customer
+16/03/01 13:00:01 INFO Configuration.deprecation: mapred.job.tracker is deprecated. Instead, use mapreduce.jobtracker.address
+16/03/01 13:00:02 INFO Configuration.deprecation: mapred.jar is deprecated. Instead, use mapreduce.job.jar
+16/03/01 13:00:04 INFO Configuration.deprecation: mapred.map.tasks is deprecated. Instead, use mapreduce.job.maps
+16/03/01 13:00:05 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+16/03/01 13:00:11 INFO db.DBInputFormat: Using read commited transaction isolation
+16/03/01 13:00:11 INFO db.DataDrivenDBInputFormat: BoundingValsQuery: SELECT MIN(`id`), MAX(`id`) FROM `customer`
+16/03/01 13:00:11 WARN db.TextSplitter: Generating splits for a textual index column.
+16/03/01 13:00:11 WARN db.TextSplitter: If your database sorts in a case-insensitive order, this may result in a partial import or duplicate records.
+16/03/01 13:00:11 WARN db.TextSplitter: You are strongly encouraged to choose an integral split column.
+16/03/01 13:00:11 INFO mapreduce.JobSubmitter: number of splits:4
+16/03/01 13:00:12 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1456782715090_0004
+16/03/01 13:00:13 INFO impl.YarnClientImpl: Submitted application application_1456782715090_0004
+16/03/01 13:00:13 INFO mapreduce.Job: The url to track the job: http://quickstart.cloudera:8088/proxy/application_1456782715090_0004/
+16/03/01 13:00:13 INFO mapreduce.Job: Running job: job_1456782715090_0004
+16/03/01 13:00:47 INFO mapreduce.Job: Job job_1456782715090_0004 running in uber mode : false
+16/03/01 13:00:48 INFO mapreduce.Job:  map 0% reduce 0%
+16/03/01 13:01:43 INFO mapreduce.Job:  map 25% reduce 0%
+16/03/01 13:01:46 INFO mapreduce.Job:  map 50% reduce 0%
+16/03/01 13:01:48 INFO mapreduce.Job:  map 100% reduce 0%
+16/03/01 13:01:48 INFO mapreduce.Job: Job job_1456782715090_0004 completed successfully
+16/03/01 13:01:48 INFO mapreduce.Job: Counters: 30
+    File System Counters
+        FILE: Number of bytes read=0
+        FILE: Number of bytes written=548096
+        FILE: Number of read operations=0
+        FILE: Number of large read operations=0
+        FILE: Number of write operations=0
+        HDFS: Number of bytes read=409
+        HDFS: Number of bytes written=77
+        HDFS: Number of read operations=16
+        HDFS: Number of large read operations=0
+        HDFS: Number of write operations=8
+    Job Counters 
+        Launched map tasks=4
+        Other local map tasks=5
+        Total time spent by all maps in occupied slots (ms)=216810
+        Total time spent by all reduces in occupied slots (ms)=0
+        Total time spent by all map tasks (ms)=216810
+        Total vcore-seconds taken by all map tasks=216810
+        Total megabyte-seconds taken by all map tasks=222013440
+    Map-Reduce Framework
+        Map input records=10
+        Map output records=10
+        Input split bytes=409
+        Spilled Records=0
+        Failed Shuffles=0
+        Merged Map outputs=0
+        GC time elapsed (ms)=2400
+        CPU time spent (ms)=5200
+        Physical memory (bytes) snapshot=418557952
+        Virtual memory (bytes) snapshot=6027804672
+        Total committed heap usage (bytes)=243007488
+    File Input Format Counters 
+        Bytes Read=0
+    File Output Format Counters 
+        Bytes Written=77
+16/03/01 13:01:48 INFO mapreduce.ImportJobBase: Transferred 77 bytes in 104.1093 seconds (0.7396 bytes/sec)
+16/03/01 13:01:48 INFO mapreduce.ImportJobBase: Retrieved 10 records.
+16/03/01 13:01:49 INFO manager.SqlManager: Executing SQL statement: SELECT t.* FROM `customer` AS t LIMIT 1
+16/03/01 13:01:49 INFO hive.HiveImport: Loading uploaded data into Hive
+Logging initialized using configuration in jar:file:/usr/jars/hive-common-1.1.0-cdh5.5.0.jar!/hive-log4j.properties
+OK
+Time taken: 2.163 seconds
+Loading data to table sqoop_workspace.customers
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00000': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00001': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00002': User does not belong to supergroup
+chgrp: changing ownership of 'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers/part-m-00003': User does not belong to supergroup
+Table sqoop_workspace.customers stats: [numFiles=4, totalSize=77]
+OK
+Time taken: 1.399 seconds</code></pre><p>Cuối cùng, chúng ta kiểm tra dữ liệu đã được import vào hive chưa ?</p><pre><code>hive&gt; show databases;
+OK
+default
+sqoop_workspace
+Time taken: 0.034 seconds, Fetched: 2 row(s)
+hive&gt; use sqoop_workspace;
+OK
+Time taken: 0.063 seconds
+hive&gt; show tables;
+OK
+customers
+Time taken: 0.036 seconds, Fetched: 1 row(s)
+hive&gt; show create table customers;
+OK
+CREATE TABLE `customers`(
+  `id` string, 
+  `name` string)
+COMMENT 'Imported by sqoop on 2016/03/01 13:01:49'
+ROW FORMAT DELIMITED 
+  FIELDS TERMINATED BY ',' 
+  LINES TERMINATED BY '\n' 
+STORED AS INPUTFORMAT 
+  'org.apache.hadoop.mapred.TextInputFormat' 
+OUTPUTFORMAT 
+  'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
+LOCATION
+  'hdfs://quickstart.cloudera:8020/user/hive/warehouse/sqoop_workspace.db/customers'
+TBLPROPERTIES (
+  'COLUMN_STATS_ACCURATE'='true', 
+  'numFiles'='4', 
+  'totalSize'='77', 
+  'transient_lastDdlTime'='1456866115')
+Time taken: 0.26 seconds, Fetched: 18 row(s)</code></pre><pre><code>hive&gt; select * from customers;
+OK
+1    John
+2    Kevin
+19    Alex
+3    Mark
+4    Jenna
+5    Robert
+6    Zoya
+7    Sam
+8    George
+9    Peter
+Time taken: 1.123 seconds, Fetched: 10 row(s).</code></pre><p>Đến đây, chúng ta đã thực hành xong việc import dữ liệu từ MySQL sang hive, việc tiếp theo, dữ liệu trên Hive sẽ được sử dụng để team phân tích sử dụng tiếp. Cảm ơn các bạn đã đọc bài viết.</p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/import-data-from-mysql-to-hive-suwr/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Import%20Data%20t%E1%BB%AB%20MySQL%20v%C3%A0o%20Hive%20s%E1%BB%AD%20d%E1%BB%A5ng%20Sqoop">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/import-data-from-mysql-to-hive-suwr/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/import-data-from-mysql-to-hive-suwr/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

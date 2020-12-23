@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>DialogFlow</title>
+
+    <meta name="description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="DialogFlow" />
+    <meta property="og:description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-12-22T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-12-22T02:09:44.000Z" />
+    <meta property="article:tag" content="AI" />
+    <meta property="article:tag" content="DialogFlow" />
+    <meta property="article:tag" content="Chatbot" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DialogFlow" />
+    <meta name="twitter:description" content="Api.ai DialogFlow Facebook Messenger GCP Google Cloud Function API Chatbot AI" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Q_N.V.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="AI, DialogFlow, Chatbot" />
+    <meta property="og:image:width" content="801" />
+    <meta property="og:image:height" content="276" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_N.V.H",
+        "url": "https://blog.vietnamlab.vn/author/hungnv/",
+        "sameAs": []
+    },
+    "headline": "DialogFlow",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-ve-dialogflow/",
+    "datePublished": "2017-12-22T01:00:00.000Z",
+    "dateModified": "2017-12-22T02:09:44.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&export=download",
+        "width": 801,
+        "height": 276
+    },
+    "keywords": "AI, DialogFlow, Chatbot",
+    "description": "Giới thiệu\nCó rất nhiều framework để xây dựng AI chatbot. Và Api.ai (bây giờ là DialogFlow)\nlà một trong những chatbot framework nổi tiếng.\nApi.ai là một startup về natural language conversations, đã được Google mua lại\nvà đổi tên thành DialogFlow.\nBài viết này sẽ huớng dẫn cách tạo một chatbot kiểm tra thời tiết đơn giản sử\ndụng Facebook Messenger để giao tiếp với người dùng, DialogFlow để nhận dạng các\nđặc trưng của ngôn ngữ trong tin nhắn của nguời dùng , Google Cloud Function API\nđể xây dựng",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Hướng dẫn xây dựng AI chatbot với DialogFlow</h1>
+                <section class="post-meta">
+                    Q_N.V.H -
+                    <time class="post-date" datetime="2017-12-22">22 Dec 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1mkEqP0_hpnUQrG4rQGs8gvN9vBPdmAUT&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3>
+Giới thiệu</h3>
+Có rất nhiều framework để xây dựng AI chatbot. Và Api.ai (bây giờ là DialogFlow) là một trong những chatbot framework nổi tiếng.<br />
+Api.ai là một startup về natural language conversations, đã được Google mua lại và đổi tên thành DialogFlow.<br />
+Bài viết này sẽ huớng dẫn cách tạo một chatbot kiểm tra thời tiết đơn giản sử dụng Facebook Messenger để giao tiếp với người dùng, DialogFlow để nhận dạng các đặc trưng của ngôn ngữ trong tin nhắn của nguời dùng , Google Cloud Function API để xây dựng webhook, Weather API của worldweatheronline để lấy thông tin về thời tiết.<br />
+<br />
+<div class="separator">
+<a href="https://4.bp.blogspot.com/-4R-tKdnNG1A/WizJF3192wI/AAAAAAAABWo/dtYSceb6jKIAQUsii6K87K7COFlvCcs6wCKgBGAs/s1600/WeatherBot.png"><amp-img data-original-height="191" data-original-width="671" height="182" src="https://4.bp.blogspot.com/-4R-tKdnNG1A/WizJF3192wI/AAAAAAAABWo/dtYSceb6jKIAQUsii6K87K7COFlvCcs6wCKgBGAs/s640/WeatherBot.png" width="640" layout="responsive"></amp-img></a></div>
+<h3>
+Yêu cầu</h3>
+<ul>
+<li>tài khoản Google Cloud (bạn phải có thẻ mastercard hoặc visa thì mới tạo đuợc)</li>
+<li>tài khoản Facebook và Facebook Developer</li>
+</ul>
+<h3>
+</h3>
+<h3>
+DialogFlow</h3>
+<h4>
+Tạo mới Agent </h4>
+Trước hết bạn vào <a href="http://dialogflow.com/">dialogflow.com</a> sử dụng tài khoản Google Cloud để đăng ký, sau đó vào Create Agent để tạo 1 agent. Agent sẽ xử lý tin nhắn nguời dùng để trích xuất các đặc trưng.<br />
+Các đặc trưng trong 1 tin nhắn nguời sử dụng bao gồm:<br />
+<ul>
+<li>Intent: là 'ý định' của nguời dùng khi nhắn tin đó. Dựa vào đó mà agent đưa ra các hành động tuơng ứng</li>
+<li>Entity: là các ‘thực thể’ trong tin nhắn</li>
+</ul>
+Ví dụ như khi gái nhắn tin “anh ơi tối nay đưa em đi hồ tây nhé!” thì intent là “đưa đi chơi”, còn entity bao gồm địa điểm là "hồ tây", còn thời gian là “tối nay” =))<br />
+Bạn chọn ngôn ngữ là “english” sau đó ấn Create.<br />
+<div class="separator">
+<a href="https://4.bp.blogspot.com/-imz9NYDawfs/Wiy2QDz57DI/AAAAAAAABTg/rVRq0HQRBjQE19Shh0J-jwFHaSVSBMtXACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B19-05-08.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://4.bp.blogspot.com/-imz9NYDawfs/Wiy2QDz57DI/AAAAAAAABTg/rVRq0HQRBjQE19Shh0J-jwFHaSVSBMtXACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B19-05-08.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<h4>
+Tạo mới Intent </h4>
+Bây giờ chúng ta tạo 1 intent mới. Bạn click vào mục Intent ở menu bên trái rồi chọn Create Intent. Bạn đặt tên cho intent mới là “weather” rồi ấn nút Save.<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-NJ3R8BHJ0R4/Wiy2Vn4icaI/AAAAAAAABTs/z1O2y7p633Iu6CrE7HJgOHq7SXJityJxwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B19-29-06.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-NJ3R8BHJ0R4/Wiy2Vn4icaI/AAAAAAAABTs/z1O2y7p633Iu6CrE7HJgOHq7SXJityJxwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B19-29-06.png" width="640" layout="responsive"></amp-img></a></div>
+<div class="separator">
+<br /></div>
+<br />
+<h4>
+Phần “User says”</h4>
+Bạn nhập vào những câu mà nguời dùng sẽ hỏi<br />
+<ul>
+<li>What is the weather like</li>
+<li>What is the weather supposed to be</li>
+<li>Weather forecast</li>
+<li>What is the weather today</li>
+<li>Weather for tomorrow</li>
+<li>Weather forecast in San Francisco tomorrow</li>
+</ul>
+Hiện tại thì DialogFlow chưa hỗ trợ tiếng Việt nên chúng ta dùng tạm tiếng Anh vậy<br />
+Sau khi nhập vào bạn sẽ thấy từ “today” và "tomorrow" được bôi màu vàng, còn từ “San Francisco” đuợc bôi màu đỏ. Đây là những system entity được định nghiã từ trước. Những entity này cho phép DialogFlow hiểu những thời gian và địa điểm khác mà nguời dùng nhập vào<br />
+<br />
+<div class="separator">
+<a href="https://3.bp.blogspot.com/-Fakzyp_YioA/WizLRkV0P6I/AAAAAAAABXA/-tnsVJF390ktBVWNKkUHZPzGkl6vjI52ACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-09-45.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://3.bp.blogspot.com/-Fakzyp_YioA/WizLRkV0P6I/AAAAAAAABXA/-tnsVJF390ktBVWNKkUHZPzGkl6vjI52ACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-09-45.png" width="640" layout="responsive"></amp-img></a></div>
+<h4>
+Phần “Add response”</h4>
+Là những câu trả lời của hệ thống<br />
+<ul>
+<li>Sorry I don't know the weather</li>
+<li>I'm not sure about the weather on $date</li>
+<li>I don't know the weather for $date in $geo-city but I hope it's nice!</li>
+</ul>
+<br />
+$date và $geo-city sẽ tham chiếu đến thời gian và thành phố mà nguời dùng đã gửi.<br />
+<h4>
+Thay đổi các intent mặc định</h4>
+Bạn click vào phần Intent ở menu bên trái sẽ thấy có 3 intent là welcome, Default Fallback Intent và Default Welcome Intent <br />
+<h5>
+Default Fallback Intent</h5>
+Phần response kích vào biểu tuợng thùng rác để xóa hết các response mặc định<br />
+sau đó thêm 2 response mới sau:<br />
+<ul>
+<li>I didn't understand. Can you try again?</li>
+<li>I don't understand what you're saying. You can say things like "What's the weather in Paris today?" to get the weather forecast.</li>
+</ul>
+<br />
+<div class="separator">
+</div>
+<h5>
+Default Welcome Intent</h5>
+Xóa hết các response mặc định và thay bằng:<br />
+<ul>
+<li>Welcome to Weather Bot! You can say things like "What's the weather in Mountain View tomorrow?" to get the weather forecast.</li>
+</ul>
+<br />
+<div class="separator">
+</div>
+<b><i>(Nhớ click vào save để lưu các thay đổi)</i></b><br />
+<br />
+Như vậy là phần agent xử lý tin nhắn để trích xuất đặc trưng đã tạm ổn. Bây giờ chúng ta sẽ nhảy qua phần webhook<br />
+<h3>
+Webhook</h3>
+Webhook là gì? Nói cho đơn giản thì nó là một HTTP Callback lắng nghe trên một URL, chờ khi có 1 HTTP Post gọi đến thì nó sẽ đuợc kích hoạt.<br />
+Khi agent gửi request là  tin nhắn nguời dùng cùng những đặc trưng thì webhook sẽ xử lý để trả về response. Ở đây chúng ta đang dùng DialogFlow của Google, nên cũng tận dụng xài luôn Google Cloud Functions để làm webhook.<br />
+<h4>
+Google Project</h4>
+Khi bạn tạo mới 1 agent thì DialogFlow mặc định sẽ tạo 1 Google Project cho bạn. Bạn vào setting sẽ thấy nó ở trong Project ID<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-F49N1UtJasc/Wiy2nrj4JgI/AAAAAAAABT0/Qp-zfyDtRtIhKeKJrllWWkSdh16vEpefwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-48-16.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-F49N1UtJasc/Wiy2nrj4JgI/AAAAAAAABT0/Qp-zfyDtRtIhKeKJrllWWkSdh16vEpefwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-48-16.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+Click vào sẽ nhảy đến giao diện Console của Google Project.<br />
+<h5>
+Billing</h5>
+Click vào menu bên trái chọn mục Billing. Ở đây bạn sẽ chọn tài khoản billing để Google trừ tiền :)) (đùa thôi chứ khi mới tạo tài khoản Google Cloud thì sẽ đuợc 300$ và 1 năm sử dụng miễn phí)<br />
+<div class="separator">
+</div>
+<br />
+<div class="separator">
+</div>
+<div class="separator">
+</div>
+<h5>
+Cloud Functions</h5>
+ Bạn vào Cloud Functions ở menu bên trái để enable.<br />
+<br />
+<div class="separator">
+<a href="https://4.bp.blogspot.com/-Q8GvuKn_yE0/Wiy5325cvWI/AAAAAAAABUo/7mYW40X-uF89NWvHliQVtQIg9v_W4InggCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-17-57.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://4.bp.blogspot.com/-Q8GvuKn_yE0/Wiy5325cvWI/AAAAAAAABUo/7mYW40X-uF89NWvHliQVtQIg9v_W4InggCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-17-57.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<h5>
+Cấu hình Cloud Function</h5>
+Name: weatherWebhook<br />
+Trigger: chọn HTTP trigger<br />
+Stage bucket: click vào browse để chọn bucket <br />
+Function to execute: weatherWebhook<br />
+Index.js: bạn paste phần sau vào<br />
+```
+'use strict';
+const http = require('http');
+const host = 'api.worldweatheronline.com';
+const wwoApiKey = '[YOUR_API_KEY]';
+exports.weatherWebhook = (req, res) =&gt; {
+  // Get the city and date from the request
+  let city = req.body.result.parameters['geo-city']; // city is a required param
+  // Get the date for the weather forecast (if present)
+  let date = '';
+  if (req.body.result.parameters['date']) {
+    date = req.body.result.parameters['date'];
+    console.log('Date: ' + date);
+  }
+  // Call the weather API
+  callWeatherApi(city, date).then((output) =&gt; {
+    // Return the results of the weather API to Dialogflow
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
+  }).catch((error) =&gt; {
+    // If there is an error let the user know
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ 'speech': error, 'displayText': error }));
+  });
+};
+function callWeatherApi (city, date) {
+  return new Promise((resolve, reject) =&gt; {
+    // Create the path for the HTTP request to get the weather
+    let path = '/premium/v1/weather.ashx?format=json&amp;num_of_days=1' +
+      '&amp;q=' + encodeURIComponent(city) + '&amp;key=' + wwoApiKey + '&amp;date=' + date;
+    console.log('API Request: ' + host + path);
+    // Make the HTTP request to get the weather
+    http.get({host: host, path: path}, (res) =&gt; {
+      let body = ''; // var to store the response chunks
+      res.on('data', (d) =&gt; { body += d; }); // store each response chunk
+      res.on('end', () =&gt; {
+        // After all the data has been received parse the JSON for desired data
+        let response = JSON.parse(body);
+        let forecast = response['data']['weather'][0];
+        let location = response['data']['request'][0];
+        let conditions = response['data']['current_condition'][0];
+        let currentConditions = conditions['weatherDesc'][0]['value'];
+        // Create response
+        let output ='Current conditions in the ${location['type']} 
+        ${location['query']} are ${currentConditions} with a projected high of
+        ${forecast['maxtempC']}°C or ${forecast['maxtempF']}°F and a low of 
+        ${forecast['mintempC']}°C or ${forecast['mintempF']}°F on 
+        ${forecast['date']}.';
+        // Resolve the promise with the output text
+        console.log(output);
+        resolve(output);
+      });
+      res.on('error', (error) =&gt; {
+        reject(error);
+      });
+    });
+  });
+}
+```
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-aF_K9DEHkCE/Wiy3X1Nw-vI/AAAAAAAABUM/EjsyCpapUS48TE8My5zsgz7svXpdOjdhQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-22-10.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-aF_K9DEHkCE/Wiy3X1Nw-vI/AAAAAAAABUM/EjsyCpapUS48TE8My5zsgz7svXpdOjdhQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-22-10.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-JVrRRIEh3mE/Wiy3X40rzZI/AAAAAAAABUM/n-noZEq1Jawp9t1cxAGYH5tSULhb5dIBwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-22-42.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-JVrRRIEh3mE/Wiy3X40rzZI/AAAAAAAABUM/n-noZEq1Jawp9t1cxAGYH5tSULhb5dIBwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-22-42.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<h3>
+Weather API </h3>
+Vào <a href="https://developer.worldweatheronline.com/api/">https://developer.worldweatheronline.com/api/</a> để đăng ký tài khoản mới rồi lấy API key<br />
+<div class="separator">
+<a href="https://3.bp.blogspot.com/-kbmOjFbzPa8/Wiy3fR9i7lI/AAAAAAAABUQ/2w-ddSwrWOUjjwqIhPktj_DRbg3CAh5bQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B20-42-23.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://3.bp.blogspot.com/-kbmOjFbzPa8/Wiy3fR9i7lI/AAAAAAAABUQ/2w-ddSwrWOUjjwqIhPktj_DRbg3CAh5bQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B20-42-23.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<br />
+<h3>
+Kết nối DialogFlow và Cloud Function API</h3>
+<h4>
+Cập nhật Fullfilment trong DialogFlow</h4>
+Quay trở lại console của DialogFlow và chọn Fulfillment ở menu bên trái<br />
+Click chọn enable rồi chèn callback url của Google Cloud Function vào rồi lưu lại<br />
+<br />
+<div class="separator">
+</div>
+<br />
+<div class="separator">
+</div>
+<br />
+<div class="separator">
+<a href="https://4.bp.blogspot.com/-ATJkChvWQT0/Wiy3t7mPUzI/AAAAAAAABUU/JfO_XjqkEIU8pMkeAzv2ccgAB2bRJZEIACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-47-27.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://4.bp.blogspot.com/-ATJkChvWQT0/Wiy3t7mPUzI/AAAAAAAABUU/JfO_XjqkEIU8pMkeAzv2ccgAB2bRJZEIACKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-47-27.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+Quay trở lại mục Intents chọn weather intent<br />
+Kéo xuống dưới cùng kích vào Fulfillment<br />
+check vào use webhook rồi lưu lại<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-dvxhYmGQItU/Wiy6182Xo0I/AAAAAAAABU0/nzxYP3vEce4s2Ei0nKoGLx0xMSfNYOqPwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-50-32.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-dvxhYmGQItU/Wiy6182Xo0I/AAAAAAAABU0/nzxYP3vEce4s2Ei0nKoGLx0xMSfNYOqPwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-50-32.png" width="640" layout="responsive"></amp-img></a></div>
+<div class="separator">
+</div>
+<br />
+<br />
+<h4>
+Chạy thử</h4>
+Cột  bên phải trong console của DialogFlow là mục “try it now”<br />
+bạn thử nhập câu hỏi như “<span class="text"><span class="ng-binding" id="test-client-resolved-query">Weather forecast in hanoi tomorrow</span></span>” thì sẽ nhận đuợc câu trả lời lấy từ weather API thông qua webhook<br />
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-s--UfjtO7Jc/Wiy36kvblkI/AAAAAAAABUc/tp0ThbWvTn8TkgulgeSF_7zCYe_IWulXQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-11-26%2B21-57-15.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-s--UfjtO7Jc/Wiy36kvblkI/AAAAAAAABUc/tp0ThbWvTn8TkgulgeSF_7zCYe_IWulXQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-11-26%2B21-57-15.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<h3>
+Đưa lên Facebook Messenger</h3>
+<h4>
+Tạo Facebook Fanpage</h4>
+Bạn tạo 1 fanpage có tên là “Weatherbot”<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-e1Ek-vKJps0/Wiz5UCqs0nI/AAAAAAAABZ0/qPNX3PVDcxEy3dH-USZrZ54rFXZyaU34ACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B16-01-47.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-e1Ek-vKJps0/Wiz5UCqs0nI/AAAAAAAABZ0/qPNX3PVDcxEy3dH-USZrZ54rFXZyaU34ACKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B16-01-47.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<div class="separator">
+<a href="https://4.bp.blogspot.com/-zYmKbhPu2TM/Wiz5UIqTl8I/AAAAAAAABZ0/ykLNWDaWxOsAvjAztuKNSJ-X3TWSuOdQgCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B16-03-39.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://4.bp.blogspot.com/-zYmKbhPu2TM/Wiz5UIqTl8I/AAAAAAAABZ0/ykLNWDaWxOsAvjAztuKNSJ-X3TWSuOdQgCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B16-03-39.png" width="640" layout="responsive"></amp-img></a></div>
+<div class="separator">
+</div>
+<h4>
+</h4>
+<h4>
+Tạo Facebook App</h4>
+Bạn tạo 1 App có tên là "Weatherbot"<br />
+<div class="separator">
+<a href="https://3.bp.blogspot.com/-HqIkARxgIJA/Wiy_cDaZmDI/AAAAAAAABV8/BcK0wpfV58A_uvS9nylNuZm0RVx1e3EjACKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-42-21.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://3.bp.blogspot.com/-HqIkARxgIJA/Wiy_cDaZmDI/AAAAAAAABV8/BcK0wpfV58A_uvS9nylNuZm0RVx1e3EjACKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-42-21.png" width="640" layout="responsive"></amp-img></a></div>
+Phần ‘Add Product’ chọn Messenger rồi kick vào set up<br />
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-yUluw60h5QE/Wiy_cL5uh3I/AAAAAAAABV8/5_lJrGoySU4drfl2n_cLG7tWHzR260CVQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-42-44.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-yUluw60h5QE/Wiy_cL5uh3I/AAAAAAAABV8/5_lJrGoySU4drfl2n_cLG7tWHzR260CVQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-42-44.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-eHXzdSjS80k/Wiy_cHDxprI/AAAAAAAABV8/af9WlZYG1QMjzdj1HVtkb6wihEz-7f6MQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-21.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-eHXzdSjS80k/Wiy_cHDxprI/AAAAAAAABV8/af9WlZYG1QMjzdj1HVtkb6wihEz-7f6MQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-21.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-vhyP5LEH7Hk/Wiy_cEJccyI/AAAAAAAABV8/PqufWAIXwugpJUhN6E1JXC-Th80wm66_wCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-27.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-vhyP5LEH7Hk/Wiy_cEJccyI/AAAAAAAABV8/PqufWAIXwugpJUhN6E1JXC-Th80wm66_wCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-27.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+Sau khi add product xông thì bạn vào product “messenger” , phần token generation chọn fanpage “Weatherbot”<br />
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-tWZllo8xVZw/Wiy_cNp_FgI/AAAAAAAABV8/fxEZnYzFDnYLgp7YOVAVodlHxWO5i6B8QCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-43-40.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-tWZllo8xVZw/Wiy_cNp_FgI/AAAAAAAABV8/fxEZnYzFDnYLgp7YOVAVodlHxWO5i6B8QCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-43-40.png" width="640" layout="responsive"></amp-img></a></div>
+<h5>
+Cấu hình webhook ở DialogFlow </h5>
+<ul>
+<li>Verify Token: bất cứ cái gì cũng đuợc, chỉ cần đảm bảo là Messenger biết đuợc token này</li>
+<li>Page Access Token: là token vừa tạo ra ở messenger</li>
+</ul>
+<i><b><u>Sau đó nhớ ấn nút start =))</u></b></i><br />
+<br />
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-rJUZ6j4Kj90/Wiy_xGQwttI/AAAAAAAABWA/0IZTG2yedsA-cr1my3bQz7G8a5E6bEXCQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-44-27.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-rJUZ6j4Kj90/Wiy_xGQwttI/AAAAAAAABWA/0IZTG2yedsA-cr1my3bQz7G8a5E6bEXCQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-44-27.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<br />
+<h5>
+<b>Cấu hình </b><b>Callback URL ở Messenger</b></h5>
+<ul>
+<li>Callback URL: là địa chỉ của webhook vừa đuợc tạo ra ở phía trên</li>
+<li>Verify Token: phía trên</li>
+<li>Check vào messages và messaging_postbacks </li>
+</ul>
+<div class="separator">
+<a href="https://1.bp.blogspot.com/-hOTtZDABRZo/WizAlJWF89I/AAAAAAAABWM/sJcTdbDA3XcQajjQ6cBrzy0N2A5fZpVcwCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-44-55.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://1.bp.blogspot.com/-hOTtZDABRZo/WizAlJWF89I/AAAAAAAABWM/sJcTdbDA3XcQajjQ6cBrzy0N2A5fZpVcwCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-44-55.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+Đăng ký App này cho Fanpage<br />
+<br />
+<div class="separator">
+<a href="https://3.bp.blogspot.com/-UTs7kIXQQTs/WizAlJAHvsI/AAAAAAAABWM/I0OeeFf0VUYVEv-3MX9iYHUHtLX8mSG1QCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B08-45-12.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://3.bp.blogspot.com/-UTs7kIXQQTs/WizAlJAHvsI/AAAAAAAABWM/I0OeeFf0VUYVEv-3MX9iYHUHtLX8mSG1QCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B08-45-12.png" width="640" layout="responsive"></amp-img></a></div>
+<br />
+<div class="separator">
+</div>
+<h3>
+Thành quả</h3>
+<div class="separator">
+<a href="https://2.bp.blogspot.com/-RTYi8Mxm4wQ/Wi0Lct503kI/AAAAAAAABag/lru8UeKbgLwDrqJMQQj5a6OV8AEXA7DpQCKgBGAs/s1600/Screenshot%2Bfrom%2B2017-12-10%2B17-23-02.png"><amp-img data-original-height="768" data-original-width="1366" height="360" src="https://2.bp.blogspot.com/-RTYi8Mxm4wQ/Wi0Lct503kI/AAAAAAAABag/lru8UeKbgLwDrqJMQQj5a6OV8AEXA7DpQCKgBGAs/s640/Screenshot%2Bfrom%2B2017-12-10%2B17-23-02.png" width="640" layout="responsive"></amp-img></a></div>
+<div class="separator">
+<br /></div>
+<br />
+<h3>
+</h3>
+<h3>
+Kết luận</h3>
+Qua bài viết này mình đã giới thiệu qua về DialogFlow và cách sử dụng nó với Facebook Messenger.<br />
+Để làm cho con chatbot này thông minh thì cần rất nhiều dữ liệu mẫu:chat của người dùng, các thông tin được extract từ đó như intent và entity, phản hồi mẫu của chatbot. Ngoài ra DialogFlow vẫn chưa hỗ trợ tiếng Việt nên việc phát triển những chatbot tiếng Việt gặp khá nhiều khó khăn
+<h3>
+Tham khảo</h3>
+<a href="https://dialogflow.com/docs">https://dialogflow.com/docs</a><br />
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

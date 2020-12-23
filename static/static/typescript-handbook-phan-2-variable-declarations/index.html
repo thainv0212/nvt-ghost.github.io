@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>TypeScript Handbook (Phần 2) - Variable Declarations | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="TypeScript Handbook (Phần 2) - Variable Declarations" />
+    <meta property="og:description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/" />
+    <meta property="og:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-06-30T01:55:45.000Z" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="TypeScript Handbook" />
+    <meta property="article:tag" content="Variable Declarations" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TypeScript Handbook (Phần 2) - Variable Declarations" />
+    <meta name="twitter:description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/" />
+    <meta name="twitter:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="typescript, javascript, TypeScript Handbook, Variable Declarations" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "TypeScript Handbook (Phần 2) - Variable Declarations",
+    "url": "https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2017-06-30T01:55:45.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg"
+    },
+    "keywords": "typescript, javascript, TypeScript Handbook, Variable Declarations",
+    "description": "Nội dung được giới thiệu trong bài viết này\nĐây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/]. Nối\ntiếp thành công vài bài viết thứ nhất giới thiệu về BasicType\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-1-basictype/],\nlần này mình sẽ tổng hợp lại về khai báo biến(Variable Declarations\n[https://www.typescriptlang.org/docs/handbook/variable-declarations.html]) trong\nTypeScript.\n\nvar  declara",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-typescript tag-javascript tag-typescript-handbook tag-variable-declarations nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-typescript tag-javascript tag-typescript-handbook tag-variable-declarations js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">TypeScript Handbook (Phần 2) - Variable Declarations</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-06-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 June 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/typescript/index.html">typescript</a>, <a href="../tag/javascript/index.html">javascript</a>, <a href="../tag/typescript-handbook/index.html">TypeScript Handbook</a>, <a href="../tag/variable-declarations/index.html">Variable Declarations</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" alt="TypeScript Handbook (Phần 2) - Variable Declarations">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/typescript-handbook-phan-2-variable-declarations/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=TypeScript%20Handbook%20(Ph%E1%BA%A7n%202)%20-%20Variable%20Declarations">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h1 id="nidungcgiithiutrongbivitny">Nội dung được giới thiệu trong bài viết này</h1>
+<p>Đây là bài viết thứ 2 trong loạt bài giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/">TypeScript</a>. Nối tiếp thành công vài bài viết thứ nhất giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-1-basictype/">BasicType</a>, lần này mình sẽ tổng hợp lại về khai báo biến(<a href="https://www.typescriptlang.org/docs/handbook/variable-declarations.html">Variable Declarations</a>) trong TypeScript.</p>
+<h3 id="vardeclarations"><code>var</code> declarations</h3>
+<p>Thông thường khi khai báo biến trong javascript chúng ta có thể sử dụng từ khóa <code>var</code>.</p>
+<pre><code class="language-js:JavaScript">var a = 10;
+</code></pre>
+<p>Trong method cũng có thể định nghĩa biến giống như vậy</p>
+<pre><code class="language-js:JavaScript">function f() {
+    var message = &quot;Hello, world!&quot;;
+
+    return message;
+}
+</code></pre>
+<p>Và trong method khác cũng có thể truy cập đến biến đó</p>
+<pre><code class="language-js:JavaScript">function f() {
+    var a = 10;
+    return function g() {
+        var b = a + 1;
+        return b;
+    }
+}
+
+var g = f();
+g(); // 11
+</code></pre>
+<p>Trong cùng môt lần, nếu sử lý của hàm <code>f()</code> kết thúc. Dù gọi hàm <code>g()</code> thì cũng có thể đọc và thay đổi biến <code>a</code></p>
+<pre><code class="language-js:JavaScript">function f() {
+    var a = 1;
+
+    a = 2;
+    var b = g();
+    a = 3;
+
+    return b;
+
+    function g() {
+        return a;
+    }
+}
+
+f(); // 2
+</code></pre>
+<ul>
+<li>Mình không biết là ví dụ đã đầy đủ chưa nhưng trong ví dụ này có thể hiểu thêm là khi thay thế <code>b</code> sau đó thay đổi <code>a</code> cũng không ảnh hưởng đến kết quả</li>
+</ul>
+<h4 id="scopingrules">Scoping rules</h4>
+<p>Biến khi khai báo bằng từ khóa <code>var</code> có phạm vi không giống với các ngôn ngữ. Biến, method, module, định danh không tên,... đã được khai báo thì có thể truy cập ở bất cứ đâu.</p>
+<pre><code class="language-js:JavaScript">function f(shouldInitialize: boolean) {
+    if (shouldInitialize) {
+        var x = 10;
+    }
+
+    return x;
+}
+
+f(true);  // 10
+f(false); // undefined (`var x = ...` mặc dù chưa được khai báo nhưng vẫn có thế truy cập được)
+</code></pre>
+<p>Ngoài ra, nhiều lần khai báo biến cũng không phát sinh lỗi</p>
+<pre><code class="language-js:JavaScript">function sumMatrix(matrix: number[][]) {
+    var sum = 0;
+    for (var i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (var i = 0; i &lt; currentRow.length; i++) { // Ở đây nó lại khai báo lần nữa
+            sum += currentRow[i];
+        }
+    }
+
+    return sum;
+}
+</code></pre>
+<h4 id="variablecapturingquirksnhngkiubtbinkhngminhbch">Variable capturing quirks (những kiểu bắt biến không minh bạch)</h4>
+<p>Liệu sau khi thực hiện đoặn code gì sẽ xẩy ra?</p>
+<pre><code class="language-js:JavaScript">for (var i = 0; i &lt; 10; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+</code></pre>
+<p>Kết quả thu được sẽ như thế này:</p>
+<pre><code>10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+</code></pre>
+<p>Đây là một lỗi thường gặp mà giá trí biến giống nhau không như mong muốn. Để tránh những lỗi như này xẩy ra nên dùng <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IIFE</a>. Đây là pattern khá phổ biến để 1 function expression và thực thi function đó ngay lập tức. Pattern này đặc biệt hữu dụng khi bạn không muốn làm lộn xộn global namespace, bởi mọi biến hay function trong function đó đều không thể được truy cập từ bên ngoài.</p>
+<pre><code class="language-js:JavaScript">for (var i = 0; i &lt; 10; i++) {
+    // Biên `i` này sẽ được chuyền giá trị vào function
+    // Ở đây sẽ bắt biến đã chuyền vào
+    (function(i) {
+        setTimeout(function() { console.log(i); }, 100 * i);
+    })(i);
+}
+</code></pre>
+<h3 id="letdeclarations"><code>let</code> declarations</h3>
+<p>Để giải quyết vấn đề của biến <code>var</code>, TypeScript sử dụng từ khóa <code>let</code></p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let hello = &quot;Hello!&quot;;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">var hello = &quot;Hello!&quot;;
+</code></pre>
+<h4 id="blockscoping">Block-scoping</h4>
+<p>Khác với <code>var</code>, dùng <code>let</code> để khai báo biên có phạm vi cụ thể.</p>
+<pre><code class="language-ts:TypeScript">function f(input: boolean) {
+    let a = 100;
+
+    if (input) {
+        // Có thể dùng biên 'a' ở đấy
+        let b = a + 1;
+        return b;
+    }
+
+    // Lỗi, Không thể sử dụng biến 'b ở đây'
+    return b;
+}
+</code></pre>
+<p>Trong khối <code>catch</code> cũng áp dụng quy tắc tương tự</p>
+<pre><code class="language-ts:TypeScript">try {
+    throw &quot;oh no!&quot;;
+}
+catch (e) {
+    console.log(&quot;Oh well.&quot;);
+}
+
+// Lỗi, Không thể sử dụng biến 'e' ở đây
+console.log(e);
+</code></pre>
+<p>Một điểm đặc trưng khác nữa là không thể sử dụng biến nếu chưa được khai báo</p>
+<pre><code class="language-ts:TypeScript">a++; // Lỗi, biến 'a' chưa được định nghĩa
+let a;
+</code></pre>
+<p>Trước khi khai báo biên vẫn có thể capture(không phải access luôn như trên) được nhưng khi gọi hàm để thực hiện nó thì vẫn bắt buộc phải khai báo</p>
+<pre><code class="language-ts:TypeScript">function foo() {
+    // Chưa khai báo 'a' nhưng capture vẫn OK
+    return a;
+}
+
+// gọi hàm foo() trước khi khai báo 'a'
+// Khi thực hiện sẽ bi lỗi
+foo();
+
+let a;
+</code></pre>
+<h4 id="redeclarationsandshadowing">Re-declarations and Shadowing</h4>
+<p>Dùng <code>var</code> có thể khai báo nhiều lần cũng không lỗi.</p>
+<pre><code class="language-js:JavaScript">function f(x) {
+    var x;
+    var x;
+
+    if (true) {
+        var x;
+    }
+}
+</code></pre>
+<p>Khai báo bằng <code>let</code> chỉ có thể khai báo 1 lần</p>
+<pre><code class="language-ts:TypeScript">let x = 10;
+let x = 20; // Lỗi, Trong cùng một block chỉ được khai báo biến 1 lần
+</code></pre>
+<pre><code class="language-ts:TypeScript">function f(x) {
+    let x = 100; // Lỗi, bị lập lại với tham số truyền vào hàm
+}
+
+function g() {
+    let x = 100;
+    var x = 100; // Lỗi. Đã khai báo x bằng let rồi
+}
+</code></pre>
+<p>Tuy nhiên có thể khai báo biến trong block khác nhau</p>
+<pre><code class="language-ts:TypeScript">function f(condition, x) {
+    if (condition) {
+        let x = 100;
+        return x;
+    }
+
+    return x;
+}
+
+f(false, 0); // 0 (Trả về tham số 'x')
+f(true, 0);  // 100 (Trả về 'x' trong câu lệnh if)
+</code></pre>
+<p>Việc mà khai báo biến trong các block lồng nhau gọi la Shadowing. Thông thường nên tránh làm vậy nhưng trong một số trường hợp nó lại có ích.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function sumMatrix(matrix: number[][]) {
+    let sum = 0;
+    for (let i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (let i = 0; i &lt; currentRow.length; i++) { // Lại khai báo 'i'
+            sum += currentRow[i];
+        }
+    }
+;
+    return sum;
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function sumMatrix(matrix) {
+    var sum = 0;
+    for (var i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (var i_1 = 0; i_1 &lt; currentRow.length; i_1++) {
+            sum += currentRow[i_1];
+        }
+    }
+    return sum;
+}
+</code></pre>
+<ul>
+<li>Tên biến tự động đổi tên bằng cách thêm số vào</li>
+</ul>
+<h4 id="blockscopedvariablecapturing">Block-scoped variable capturing</h4>
+<p>Cũng giống như phần <a href="index.html#-var-declarations"><code>var</code> declarations</a> mình đã giới thiệu rồi. Biến mà được khai báo 1 lần rồi sau khi gọi nó ở block con khác thì vẫn có thể truy cập được.</p>
+<pre><code class="language-ts:TypeScript">function theCityThatAlwaysSleeps() {
+    let getCity;
+
+    if (true) {
+        let city = &quot;Seattle&quot;;
+        getCity = function() {
+            return city;
+        }
+    }
+
+    return getCity();
+}
+</code></pre>
+<p>Nếu sử dụng từ khóa let trong vòng lặp, mỗi lần lặp nó đều tạo 1 phạm vi mới cho biến</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">for (let i = 0; i &lt; 10 ; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">var _loop_1 = function (i) {
+    setTimeout(function () { console.log(i); }, 100 * i);
+};
+for (var i = 0; i &lt; 10; i++) {
+    _loop_1(i);
+}
+</code></pre>
+<pre><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<h3 id="constdeclarations"><code>const</code> declarations</h3>
+<p><code>const</code> cũng giống với <code>let</code> nhưng giống như tên của nó dùng để khai báo hằng số</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">const numLivesForCat = 9;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var numLivesForCat = 9;
+</code></pre>
+<p>Dùng từ khóa này sẽ giúp tránh những nhầm lẫn không đáng có</p>
+<pre><code class="language-ts:TypeScript">const numLivesForCat = 9;
+const kitty = {
+    name: &quot;Aurora&quot;,
+    numLives: numLivesForCat,
+}
+
+// Lỗi, không thể thay đổi 'kitty'
+kitty = {
+    name: &quot;Danielle&quot;,
+    numLives: numLivesForCat
+};
+
+// Tất cả đều OK, 'kitty' là hằng số nhưng thuộc tính của nó không phải hằng số.
+kitty.name = &quot;Rory&quot;;
+kitty.name = &quot;Kitty&quot;;
+kitty.name = &quot;Cat&quot;;
+kitty.numLives--;
+</code></pre>
+<p>Thuộc tính không phải là hằng số nhưng để sử dụng trong thực tế có thể thêm keyword <code>readonly</code> vào thuộc tính của object.</p>
+<h3 id="destructuring">Destructuring</h3>
+<p>TypeScript thực hiện việc phân chia, tách biến mà ECMAScript2015 không làm được</p>
+<h4 id="arraydestructuring">Array destructuring</h4>
+<p>Phân tách biến được thực hiện đơn giản giống như ví dụ dưới đây.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let input = [1, 2];
+let [first, second] = input;
+console.log(first); // 1
+console.log(second); // 2
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var input = [1, 2];
+var first = input[0], second = input[1];
+console.log(first); // 1
+console.log(second); // 2
+</code></pre>
+<p>Có thể cập nhật lại các biến đã khai báo rồi.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">// Đổi giá trị biến
+[first, second] = [second, first];
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">// Đổi giá trị biến
+_a = [second, first], first = _a[0], second = _a[1];
+var _a;
+</code></pre>
+<ul>
+<li>Việc phải khai báo biến tạm thời hơi khó chịu</li>
+</ul>
+<p>Thàm só truyền vào hàm cũng có thể làm vậy.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f([first, second]: [number, number]) {
+    console.log(first);
+    console.log(second);
+}
+f(input);
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">// Đổi giá trị biến
+function f(_a) {
+    var first = _a[0], second = _a[1];
+    console.log(first);
+    console.log(second);
+}
+f(input);
+</code></pre>
+<p>Sử dụng <code>...</code> để lấy các phần còn lại.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // 1
+console.log(rest); // [ 2, 3, 4 ]
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var _a = [1, 2, 3, 4], first = _a[0], rest = _a.slice(1);
+console.log(first); // 1
+console.log(rest); // [ 2, 3, 4 ]
+</code></pre>
+<p>Bỏ bớt đi phần tử phía sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [first] = [1, 2, 3, 4];
+console.log(first); // 1
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var first = [1, 2, 3, 4][0];
+console.log(first); // 1
+</code></pre>
+<p>Các phần tử khác cũng có thể bỏ đi được</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [, second, , fourth] = [1, 2, 3, 4];
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var _a = [1, 2, 3, 4], second = _a[1], fourth = _a[3];
+</code></pre>
+<h4 id="objectdestructuring">Object destructuring</h4>
+<p>Không chỉ mảng mà object cũng có thể phân tách các phần tử được.</p>
+<ul>
+<li>Có chút khác biệt là các tên biến để nhận giá trị bắt buộc phải giống với tên thuộc tính của Object</li>
+</ul>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let o = {
+    a: &quot;foo&quot;,
+    b: 12,
+    c: &quot;bar&quot;
+}
+let { a, b } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var o = {
+    a: &quot;foo&quot;,
+    b: 12,
+    c: &quot;bar&quot;
+};
+var a = o.a, b = o.b;
+</code></pre>
+<p>Khi soạn lại các biến từ thuộc tính cũng giống như mảng, không cần khai báo cũng được.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">({ a, b } = { a: &quot;baz&quot;, b: 101 });
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">(_a = { a: &quot;baz&quot;, b: 101 }, a = _a.a, b = _a.b);
+var _a;
+</code></pre>
+<ul>
+<li>Chú ý nếu loại bỏ dấu ngoặc () thì compile sẽ không được ngon lắm</li>
+</ul>
+<p>Giống như mảng dùng <code>...</code> để lấy những phần tử còn lại</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a, ...passthrough } = o;
+let total = passthrough.b + passthrough.c.length;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __rest = (this &amp;&amp; this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) &amp;&amp; e.indexOf(p) &lt; 0)
+        t[p] = s[p];
+    if (s != null &amp;&amp; typeof Object.getOwnPropertySymbols === &quot;function&quot;)
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i &lt; p.length; i++) if (e.indexOf(p[i]) &lt; 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+var a = o.a, passthrough = __rest(o, [&quot;a&quot;]);
+var total = passthrough.b + passthrough.c.length;
+</code></pre>
+<ul>
+<li>Code sau khi được compile quả là ...</li>
+</ul>
+<h5 id="propertyrenaming">Property renaming</h5>
+<p>Có thể thay đổi tên thuộc tính lấy được</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a: newName1, b: newName2 } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var newName1 = o.a, newName2 = o.b;
+</code></pre>
+<p>Chú ý dấu <code>:</code> không được dùng để định nghĩa kiểu. Nếu muốn chỉ định kiểu cho nó  sẽ viết như sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a, b }: { a: string, b: number } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var a = o.a, b = o.b;
+</code></pre>
+<p>Nếu đồng thời vừa đổi tên vừa chỉ định kiểu</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a: newName1, b: newName2 }: { a: string, b: number } = o;
+</code></pre>
+<h5 id="defaultvalues">Default values</h5>
+<p>Trường hợp thuộc tính của Object chưa được gán giá trị, có thể để giá trị mặc định như sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function keepWholeObject(wholeObject: { a: string, b?: number }) {
+    // Trường hợp mà 'wholeObject' không tồn tại 'b' sẽ được gán mắc định là 1001
+    let { a, b = 1001 } = wholeObject;
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function keepWholeObject(wholeObject) {
+    // Trường hợp mà 'wholeObject' không tồn tại 'b' sẽ được gán mắc định là 1001
+    var a = wholeObject.a, _a = wholeObject.b, b = _a === void 0 ? 1001 : _a;
+}
+</code></pre>
+<h4 id="functiondeclarations">Function declarations</h4>
+<p>Có thể sử dụng chức năng phân tách biến để truyền tham số vào hàm</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">type C = { a: string, b?: number }
+function f({ a, b }: C): void {
+    // ...
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var a = _a.a, b = _a.b;
+    // ...
+}
+</code></pre>
+<p>Chú ý sử dụng giá trị mặc định một cách khôn ngoan</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f({ a, b } = { a: &quot;&quot;, b: 0 }): void {
+    // ...
+}
+f(); // OK. Có thể sử dụng giá trị mặc định là { a: &quot;&quot;, b: 0 }
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var _b = _a === void 0 ? { a: &quot;&quot;, b: 0 } : _a, a = _b.a, b = _b.b;
+    // ...
+}
+f(); // OK. Có thể sử dụng giá trị mặc định là { a: &quot;&quot;, b: 0 }
+</code></pre>
+<p>Có thể kết hợp với giá trị mặc định đối với Object</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f({ a, b = 0 } = { a: &quot;&quot; }): void {
+    // ...
+}
+;
+f({ a: &quot;yes&quot; }) // OK. Sử dụng phân tách mạc định b = 0
+f() // OK. Sử dụng giá trị mặc định của tham số truyền vào và giá trị mặc định của Object
+f({}) // Lỗi tham số truyền vào cần phải có thuộc tính 'a'
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var _b = _a === void 0 ? { a: &quot;&quot; } : _a, a = _b.a, _c = _b.b, b = _c === void 0 ? 0 : _c;
+    // ...
+}
+;
+f({ a: &quot;yes&quot; }) // OK. Sử dụng phân tách mạc định b = 0
+f() // OK. Sử dụng giá trị mặc định của tham số truyền vào và giá trị mặc định của Object
+f({}) // Lỗi tham số truyền vào cần phải có thuộc tính 'a'
+</code></pre>
+<blockquote>
+<p>Đến đây là cấp độ khó tin rồi</p>
+</blockquote>
+<h4 id="spread">Spread</h4>
+<p>Toán tử spread không chỉ được dùng trong trường hợp phân tách biến từ mảng, ngược lại nó còn dùng để mở rộng từ mảng đã có vào trong mảng khác.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5]; // [0, 1, 2, 3, 4, 5]
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var first = [1, 2];
+var second = [3, 4];
+var bothPlus = [0].concat(first, second, [5]); // [0, 1, 2, 3, 4, 5]
+</code></pre>
+<p>Còn có thể thêm vào Object</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+let search = { ...defaults, food: &quot;rich&quot; }; // { food: &quot;rich&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __assign = (this &amp;&amp; this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i &lt; n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+var search = __assign({}, defaults, { food: &quot;rich&quot; }); // { food: &quot;rich&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+</code></pre>
+<p>Những thuộc tính giống nhau, thì những thuộc tính đặt phía sau sẽ được ghi đè lên các thuộc tình phía trước theo thứ tự</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+let search = { food: &quot;rich&quot;, ...defaults }; // { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __assign = (this &amp;&amp; this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i &lt; n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var defaults = { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+var search = __assign({ food: &quot;rich&quot; }, defaults); // { food: &quot;spicy&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; };
+</code></pre>
+<p>Sự hạn chế của mở rộng Object có 2 điểm. Một là việc lấy các thuộc tính không bao gồm các method</p>
+<pre><code class="language-ts:TypeScript">class C {
+  p = 12;
+  m() {
+  }
+}
+let c = new C();
+let clone = { ...c };
+clone.p; // OK
+clone.m(); // Lỗi
+</code></pre>
+<p>Hai là TypeScript không cho phép dùng với các tham số <code>type</code> từ các hàm generic. Có thể sẽ được khắc phục trong tương lai.</p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/typescript-handbook-phan-2-variable-declarations/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=TypeScript%20Handbook%20(Ph%E1%BA%A7n%202)%20-%20Variable%20Declarations">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/typescript-handbook-phan-2-variable-declarations/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Test tự động với CircleCI và thông báo kết quả lên Slack</title>
+
+    <meta name="description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test tự động với CircleCI và thông báo kết quả lên Slack" />
+    <meta property="og:description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-09-05T10:47:00.000Z" />
+    <meta property="article:modified_time" content="2017-09-05T11:19:25.000Z" />
+    <meta property="article:tag" content="automation testing" />
+    <meta property="article:tag" content="CricleCI" />
+    <meta property="article:tag" content="Slack" />
+    <meta property="article:tag" content="CI" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Test tự động với CircleCI và thông báo kết quả lên Slack" />
+    <meta name="twitter:description" content="Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="automation testing, CricleCI, Slack, CI" />
+    <meta property="og:image:width" content="1884" />
+    <meta property="og:image:height" content="928" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Test tự động với CircleCI và thông báo kết quả lên Slack",
+    "url": "https://blog.vietnamlab.vn/test-tu-dong-voi-circleci-va-thong-bao-ket-qua-len-slack/",
+    "datePublished": "2017-09-05T10:47:00.000Z",
+    "dateModified": "2017-09-05T11:19:25.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkcGhodkdjV2RnTm8&export=download",
+        "width": 1884,
+        "height": 928
+    },
+    "keywords": "automation testing, CricleCI, Slack, CI",
+    "description": "Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc\nđảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm tốt.\n\nTrong bài viết này, mình sẽ dùng thử CircleCI để\n\n * Test tự động (Java)\n * Push kết quả lên kênh chat trên Slack\n\nĐôi nét về CircleCI\nCircleCI là 1 công cụ CI được tin dùng bởi hơn 100,000 công ty và developers\ntrên toàn thế giới, trong đó có Facebook, Segment, Kickstarter, Percolate,\nSpotify, ...\nVới những ưu điểm như sau:\n\n * Faster Pe",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Test tự động với CircleCI và thông báo kết quả lên Slack</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2017-09-05">05 Sep 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkcGhodkdjV2RnTm8&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong quá trình phát triển phần mềm, CI/CD có vai trò rất quan trọng trong việc đảm bảo phát triển phần mềm liên tục, mà vẫn giữ được chất lượng sản phẩm tốt.</p>
+<p>Trong bài viết này, mình sẽ dùng thử CircleCI để</p>
+<ul>
+<li>Test tự động (Java)</li>
+<li>Push kết quả lên kênh chat trên Slack</li>
+</ul>
+<h3 id="intvcircleci">Đôi nét về CircleCI</h3>
+<p>CircleCI là 1 công cụ CI được tin dùng bởi hơn 100,000 công ty và developers trên toàn thế giới, trong đó có Facebook, Segment, Kickstarter, Percolate, Spotify, ...<br />
+Với những ưu điểm như sau:</p>
+<ul>
+<li><strong>Faster Performance</strong>: Có thể tùy chọn resource để tối ưu performance cho quá trình building, testing và deploying code</li>
+<li><strong>Granular Control</strong>: Có thể build theo các cách tùy thích bằng cách sử dụng custom job với WorkWorkflows</li>
+<li><strong>Complete Flexibility</strong>: Tất cả ngôn ngữ chạy trên Linux thì đều chạy được với CricleCI. Hỗ trợ First-class Docker giúp ta có thể tùy chỉnh môi trường tùy thích</li>
+</ul>
+<p>CricleCI tương thích với nhiều sản phẩm và dịch vụ được sử dụng nhiều trong quá trình phát triển phần mềm</p>
+<ul>
+<li>Source Code: GitHub, Atlassian Bitbucket, GitHub Enterprise</li>
+<li>Tương thích với rất nhiều test tool</li>
+<li>Deployment: Heroku, Docker, AWS, Azure, Google Cloud, ...</li>
+<li>Collaborations: Jira, HipChat, Slack, ...</li>
+</ul>
+<p>Ngoài bản Enterprise, CricleCI có Free bao gồm:</p>
+<ul>
+<li>Build on Linux</li>
+<li>Không giới hạn repos và user</li>
+<li>1,500 build minutes per month</li>
+<li>1 container</li>
+<li>1 concurrent build</li>
+</ul>
+<p>Bản Free khá thoải mái cho những dự án nhỏ.</p>
+<h3 id="btuvicricleci">Bắt đầu với CricleCI</h3>
+<p>Để sử dụng CricleCI thì chỉ cần 3 bước đơn giản sau đây</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbmlHNnZaTFN2OTg&amp;export=download" alt width="1784" height="324" layout="responsive"></amp-img></p>
+<h4 id="ngk">Đăng ký</h4>
+<p>Để đăng ký sử dụng CricleCI ta có thể dùng tài khoản GitHub, Bitbucket hoặc tài khoản Google. Với các dự án cần bảo mật cao, thì có thể sử dụng CricleCI Enterprise để build trực tiếp trên private cloud.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbjN2bk9RZkdhUlU&amp;export=download" alt width="690" height="502" layout="responsive"></amp-img></p>
+<p>Ở đây mình chọn GitHub với Public repo only</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVEhtaVhFcm5tdjg&amp;export=download" alt width="2560" height="1904" layout="responsive"></amp-img></p>
+<h4 id="addcode">Add Code</h4>
+<p>Mình sẽ tạo 1 public repo trên GitHub để test thử: <a href="https://github.com/minhnc91/cricleci-test">cricleci-test</a></p>
+<p>Ta vào Project &gt; Add Project, rồi chọn project test đã tạo ở trên.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkejU4c1ZIazlyUWM&amp;export=download" alt width="2552" height="935" layout="responsive"></amp-img></p>
+<p>Ta có thể chọn</p>
+<ul>
+<li>Môi trường: Linux, OS X</li>
+<li>CricleCI version: Đang hỗ trợ 2 phiên bản 2.0 và 1.0</li>
+<li>Ngôn ngữ: Với khá nhiều lựa chọn. Ở ví dụ này ta chọn Maven (Java)</li>
+</ul>
+<p>Tiếp theo ta làm 5 bước như hướng dẫn dưới hình</p>
+<ul>
+<li>
+<ol>
+<li>Tạo thư mục <code>.circleci</code> và thêm file <code>config.yml</code> vào repo test</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>Tham khảo file <code>sample .yml</code> để thêm nội dung cho <code>config.yml</code>. File này được thay đổi tương ứng với setting mình đã chọn ở trên như ngôn ngữ, môi trường, ... Sau đây là file sample của Maven (Java) với CricleCI 2.0 và build trên Linux. CricleCI sẽ chạy thứ tự các bước được định nghĩa trong steps.</li>
+</ol>
+</li>
+</ul>
+<pre><code># Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # CricleCI dùng docker. Ở dưới là mình dùng bản Pre-built có sẵn của CricleCI
+      # Ta có thể dùng image tự tạo
+      # specify the version you desire here
+      - image: circleci/openjdk:8-jdk
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      MAVEN_OPTS: -Xmx3200m
+    
+    steps:
+      # Pull code về
+      - checkout
+
+      # Download và cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "pom.xml" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+        
+      # Chạy test
+      - run: mvn integration-test
+</code></pre>
+<ul>
+<li>
+<ol start="3">
+<li>Sửa lại setting cho phù hợp với project</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>Push <code>.circleci/config.yml</code> lên GitHub</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>Start building!</li>
+</ol>
+</li>
+</ul>
+<p>Cứ mỗi một lần ta push code lên, CricleCI sẽ tự động build như hình</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbHpEZG0tdU1OeW8&amp;export=download" alt width="2560" height="1246" layout="responsive"></amp-img></p>
+<p>Khá là đơn giản và nhanh chóng để tích hợp CI nhỉ! Ta cũng có thể xem chi tiết 1 lần build như 2 hình sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUWluSDBJUWhOOEU&amp;export=download" alt width="2560" height="1246" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkM2ZCY3hremFCOTA&amp;export=download" alt width="2560" height="1246" layout="responsive"></amp-img></p>
+<h4 id="testing">Testing</h4>
+<p>Ta sẽ thử với 1 test lỗi. Kết quả sẽ fail như hình sau</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMDk0Q1JqNVhYamM&amp;export=download" alt width="2560" height="1246" layout="responsive"></amp-img></p>
+<p>Ta có thể biết rõ chi tiết fail ở bước nào cùng với lỗi cụ thể</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTENzdG1ScVJpU3M&amp;export=download" alt width="2560" height="1246" layout="responsive"></amp-img></p>
+<p>Đồng thời, ở giao diện web của GitHub ta cũng có thể phân biệt được commit nào test bị fail</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkOTY3NjdoVkxCU2s&amp;export=download" alt width="2560" height="2054" layout="responsive"></amp-img></p>
+<h3 id="ginotificationtislack">Gửi notification tới Slack</h3>
+<p>Với mỗi lần push code lên GitHub, CricleCI sẽ tự động build và chạy test. Sau khi xong, mặc định sẽ tự động gửi kết quả tới mail của mình.</p>
+<p>Tuy nhiên để có thể giao tiếp dễ dàng với các member khác trong team, ta có thể setting để kết quả của CricleCI sẽ tự động gửi đến kênh chat của Slack.</p>
+<p>Ở App Directory của Slack ta có thể tìm kiếm và cài đặt CircleCI</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeEU0SlJRYnJveEk&amp;export=download" alt width="2552" height="1137" layout="responsive"></amp-img></p>
+<p>Sau đó chọn kênh chat mà CricleCI sẽ gửi kết quả</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZ0hsRF9EQjZWWjA&amp;export=download" alt width="2546" height="1156" layout="responsive"></amp-img></p>
+<p>Add CricleCI Intergration và ta sẽ có 1 webhook URL.</p>
+<p>Tiếp đến, trên CricleCI ta vào Project và chọn setting cho project cần notification tới Slack. Chọn Chat notifications và ta có thể thấy CricleCI tương thích với khá nhiều tool như Slack, Hipchat, Flowdock, Campfire, IRC, ...</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUlhHeFhLcENqcWs&amp;export=download" alt width="2560" height="1240" layout="responsive"></amp-img></p>
+<p>Và kết quả trên Slack:</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdl9OVmtDRE9uS1E&amp;export=download" alt width="1424" height="182" layout="responsive"></amp-img></p>
+<p>Như vậy, cứ mỗi lần ta push code, CricleCI sẽ tự build và test rồi thông báo kết quả lên Slack. Nó giúp cho việc phát triển của team thuận tiện hơn rất nhiều.</p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>
+<p>Test tự động góp phần nâng cao chất lượng của phần mềm. Và với CricleCI, ta có thể tích hợp test tự động vào hệ thống một cách nhanh chóng, dễ dàng.</p>
+</li>
+<li>
+<p>Bài viết này mới chỉ đưa ra ví dụ đơn giản về việc tích hợp CricleCI và dùng nó cho việc test tự động. CricleCI còn rất nhiều tính năng hữu ích khác, các bạn có thể tự tìm hiểu và mày mò thêm ở <a href="https://circleci.com/docs/">CricleCI Documentation</a></p>
+</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li>
+<ol>
+<li><a href="https://circleci.com/docs/">https://circleci.com/docs/</a></li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li><a href="https://circleci.com/blog/slack-integration/">https://circleci.com/blog/slack-integration/</a></li>
+</ol>
+</li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

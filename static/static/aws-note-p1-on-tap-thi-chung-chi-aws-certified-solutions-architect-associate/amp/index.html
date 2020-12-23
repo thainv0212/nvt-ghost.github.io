@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[AWS - Note P1] - Ôn tập thi chứng chỉ AWS Certified Solutions Architect – Associate</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[AWS - Note P1] - Ôn tập thi chứng chỉ AWS Certified Solutions Architect – Associate" />
+    <meta property="og:description" content="Giới thiệu AWS Certification là chứng chỉ được câp bởi Amazon đánh giá mức độ hiểu biết về aws cloud, cụ thể là các dịch vụ của Amazon Web Services (AWS) cũng như việc áp dụng các dịch vụ đó 1 cách hiệu quả vào trong các bài toán thực" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/aws-note-p1-on-tap-thi-chung-chi-aws-certified-solutions-architect-associate/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1jjw4zKOWzAUKJZIMYItJUciJaQxY-htF&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-08-14T09:45:00.000Z" />
+    <meta property="article:modified_time" content="2020-08-14T09:45:00.000Z" />
+    <meta property="article:tag" content="AWS" />
+    <meta property="article:tag" content="Solutions Architect" />
+    <meta property="article:tag" content="AWS Certified" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[AWS - Note P1] - Ôn tập thi chứng chỉ AWS Certified Solutions Architect – Associate" />
+    <meta name="twitter:description" content="Giới thiệu AWS Certification là chứng chỉ được câp bởi Amazon đánh giá mức độ hiểu biết về aws cloud, cụ thể là các dịch vụ của Amazon Web Services (AWS) cũng như việc áp dụng các dịch vụ đó 1 cách hiệu quả vào trong các bài toán thực" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/aws-note-p1-on-tap-thi-chung-chi-aws-certified-solutions-architect-associate/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1jjw4zKOWzAUKJZIMYItJUciJaQxY-htF&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="AWS, Solutions Architect, AWS Certified" />
+    <meta property="og:image:width" content="1600" />
+    <meta property="og:image:height" content="643" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[AWS - Note P1] - Ôn tập thi chứng chỉ AWS Certified Solutions Architect – Associate",
+    "url": "https://blog.vietnamlab.vn/aws-note-p1-on-tap-thi-chung-chi-aws-certified-solutions-architect-associate/",
+    "datePublished": "2020-08-14T09:45:00.000Z",
+    "dateModified": "2020-08-14T09:45:00.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1jjw4zKOWzAUKJZIMYItJUciJaQxY-htF&export=download",
+        "width": 1600,
+        "height": 643
+    },
+    "keywords": "AWS, Solutions Architect, AWS Certified",
+    "description": "Giới thiệu\nAWS Certification là chứng chỉ được câp bởi Amazon đánh giá mức độ hiểu biết về\naws cloud, cụ thể là các dịch vụ của Amazon Web Services (AWS) cũng như việc áp\ndụng các dịch vụ đó 1 cách hiệu quả vào trong các bài toán thực tế. Bộ chứng chỉ\nnày được chia thành các phần: Cloud Practitioner, Architect, Developer và\nOperations, ngoài ra có thêm Specialty.\nVề độ khó thì có 3 mức:\n\n * Foundational\n * Asociate\n * Professional\n\nChi tiết về các chứng chỉ các bạn tham khảo ở hình dưới đây:\n\nTh",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[AWS - Note P1] - Ôn tập thi chứng chỉ AWS Certified Solutions Architect – Associate</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2020-08-14">14 Aug 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1jjw4zKOWzAUKJZIMYItJUciJaQxY-htF&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="giithiu">Giới thiệu</h3>
+<p>AWS Certification là chứng chỉ được câp bởi Amazon đánh giá mức độ hiểu biết về aws cloud, cụ thể là các dịch vụ của Amazon Web Services (AWS) cũng như việc áp dụng các dịch vụ đó 1 cách hiệu quả vào trong các bài toán thực tế. Bộ chứng chỉ này được chia thành các phần: Cloud Practitioner, Architect, Developer và Operations, ngoài ra có thêm Specialty.<br />
+Về độ khó thì có 3 mức:</p>
+<ul>
+<li>Foundational</li>
+<li>Asociate</li>
+<li>Professional</li>
+</ul>
+<p>Chi tiết về các chứng chỉ các bạn tham khảo ở hình dưới đây:<br />
+<amp-img src="https://drive.google.com/uc?id=1VvxRrjCSyxyPgOrUToUOzO4P9Qhf5i51&amp;export=download" alt="uc?id=1VvxRrjCSyxyPgOrUToUOzO4P9Qhf5i51&amp;export=download" width="2024" height="1148" layout="responsive"></amp-img><br />
+<em>Tham khảo: <a href="https://aws.amazon.com/certification/">https://aws.amazon.com/certification/</a></em></p>
+<h3 id="khochhcthi">Kế hoạch học thi</h3>
+<p>Đầu tiên mình chọn mục tiêu là chứng chỉ: AWS Certified Solutions Architect – Associate. Chứng chỉ này có độ khó trung bình theo mình biết thì ngang tầm 1 năm kinh nghiệm sử dụng AWS, sở dĩ mình chọn chứng chỉ này vì các lý do sau:</p>
+<ol>
+<li>Bản thân cũng có 2 năm kinnh nghiệm về Architect nhưng là một cloud khác, ngoài phần infrastrcuture ra thì team mình control toàn bộ, và không có nhiều service support như AWS.</li>
+<li>Chứng chỉ với độ khó trung bình trước mắt phù hợp với năng lực bản thân.</li>
+</ol>
+<p>Mình chọn khoá học ở <a href="https://linuxacademy.com/">https://linuxacademy.com/</a> và vì chưa từng có kinnh nghiêmh sử dụng AWS nên mình sẽ phải học qua khoá AWS Cloud Practitioner, khoá này mất khoảng 17 giờ học online và thời gian thực tế mình hoàn thành khoá học này mấy khoảng 10 ngày học. Tiếp theo mình sẽ học AWS Certified Solutions Architect – Associate - khoá học này có thời lượng 57 giờ học online, mình lên plan dự kiến hoàn thành trong một tháng.<br />
+Mình đã hoàn thành khóa học AWS Cloud Practitioner và AWS Certified Solutions Architect – Associate trong khoảng 2 tháng, mỗi ngày 1-2h và 2-3h vào cuối tuần.</p>
+<h3 id="ithi">Đi thi</h3>
+<p>Sau 2 tháng học và khoảng 1 tuần để ôn tập kiến thức thì mình đi thi, mình đã book lịch thi từ thời điểm bắt đầu khóa Solutions Architect – Associate. Vì vậy ở thời điểm thi mình còn nhiều kiến thức chưa chuyên sâu, mập mờ giữa các service.<br />
+Kết quả: 674/1000 =&gt; FAIL<br />
+Đề thi có 65, 720/1000 trở lên là điểm pass. Hơi tiết một chút nhưng dù sao nó cũng năm trong dự đoán của mình (từ 650-700). Vì mình có làm một số đề thi thử nhưng cũng chỉ đạt khoảng 50-70%, trong khi đề thi thật thì dài và khó hơn 1 chút.</p>
+<h3 id="ccchntp">Các chủ đề ôn tập</h3>
+<p>Sau khi sumit bài thi thì bạn biết luôn kết quả là PASS hay FAIL, nhưng để biết điểm thì bạn phải vào trang aws training - nơi mà bạn đăng ký online.<br />
+OK fail rồi, thế thì để rút kinh nghiệm cho lần thi sau mình đã nhớ lại các câu hỏi làm mình mập mờ giữa 2 đáp án, hay những câu mà mình thấy có nhiều phương án đúng nhưng lựa chọn thằng nào là tốt nhất cho trường hợp tiết kiệm chi phí hay là high availbility nhất v.v.., sau đó mình lục lại tài liệu ở khóa học trên trang <a href="https://linuxacademy.com/">https://linuxacademy.com/</a> bản pdf để lướt qua lại một lần và note lại những điểm cần phải tìm hiểu kỹ hơn cũng như so sánh những service giống nhau.<br />
+Và dưới đây là các chủ đề mà mình note nhanh lại và sẽ lên kế hoạch để cường hóa kiến thức cho lần thi sắp tới. Mình đã book lịch thi vào đầu tháng 8/2020 nhưng do dịch covid-19 bùng phát tại Đà Nẵng nên mình đã dời sang đầu tháng 10/2020.</p>
+<ul>
+<li>DataSync</li>
+<li>VPN và Direct Connect</li>
+<li>on-premise to Cloud</li>
+<li>Snowball, Snowball Edge và Snowmobile (chú ý đến dung lượng)</li>
+<li>Dung lượng data chuyển lên Cloud</li>
+<li>NAT gatewate và NAT Instance</li>
+<li>S3</li>
+<li>SNS, SQS, (FIFO, Standard)</li>
+<li>So sánh Amazon MQ, SQS, SNS</li>
+<li>Data từ on-premeise to Cloud thông qua EFS, File Storage gatewate, Volume storage gatewate.</li>
+<li>Storage Gateway</li>
+<li>EBS Throughput Optimized HDD , provisined, popular purpose</li>
+<li>Tìm hiểu về CloudFoudation và Elast ic Beanstalk</li>
+<li>CloudFront hạn chế user theo khu vực địa lý : Geo.. và Geoxy...</li>
+<li>Athena và Redshift</li>
+<li>Tìm hiểu kỹ về DynamoDB, Aurora</li>
+<li>Secure</li>
+<li>Khi nào dùng NAT, VPC endpoint, VPC privatelink. Best Pract ice and HA</li>
+<li>Kiness và Lampda trigger</li>
+<li>DB nào cho phép AZ, hay replicate another region</li>
+<li>EFS: performance method: General purpose and Max I/O, thoughput model: Bursting Throughput and Provisioned</li>
+<li>I/O liên quan đến RAM hay CPU</li>
+<li>Cloudfront và OAI</li>
+<li>Encryption: S3, DB, bucket</li>
+<li>S3: versioning and presigned URL, MFA Delete and Encrypt, Cross-Origin Resource Sharing (CORS)</li>
+<li>Rout 53: Rout e 53 and Healt h Checks, các loại record</li>
+<li>ELB</li>
+<li>VPC: NAT gatewate and NAT Insrance, Egress-only int ernet gat eways, VPC Endpoint</li>
+<li>Net work Access Cont rol List s (NACLs):</li>
+<li>Sercurity group</li>
+<li>Bast ion Hosts</li>
+<li>ECS: EC2 mode và Fargate Mode</li>
+<li>Lamda</li>
+<li>các loại Instance trong Ec2</li>
+<li>Role and policy</li>
+<li>DynamoDB Accelerator (DAX)</li>
+<li>auto scaling group is configured with default termination policy</li>
+<li>EBS cross region or create snapshot</li>
+<li>So sanh Dynamo Redshift Aurora</li>
+<li>using standard SQL and existing business intelligence tools</li>
+<li>Amazon GuardDuty</li>
+<li>CloudWatch Event</li>
+<li>VNP Cloudhub</li>
+</ul>
+<p>Mình sẽ không viết kỹ về các service vì cái này có nhiều blog khác đã viết (tiếng Việt và tiếng Anh). Mình sẽ nêu ra những điểm cần lưu ý khi nói về các service đó, và đưa link tham khảo để các bạn tìm hiểu kỹ hơn.</p>
+<h3 id="s3">S3</h3>
+<p>Khá nhiều câu hỏi liên quan đến service này, một service kinh điển của AWS.<br />
+<amp-img src="https://drive.google.com/uc?id=1pzGUYvWrUd6hdecaWLRRRxgsN216KpcJ&amp;export=download" alt="uc?id=1pzGUYvWrUd6hdecaWLRRRxgsN216KpcJ&amp;export=download" width="944" height="683" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://www.msp360.com/resources/blog/amazon-s3-storage-classes-guide/">https://www.msp360.com/resources/blog/amazon-s3-storage-classes-guide/</a></em></p>
+<h4 id="lu">Lưu ý</h4>
+<p><strong>S3 Standard:</strong> Chi phí lưu trữ cao nhất, tốc độ truy cập nhanh<br />
+<strong>S3 Standard Infrequent Access:</strong> Giống như cái tên của nó, khi chúng ta cần lưu trữ dữ liệu nhưng không truy cập thường xuyên, tuy nhiên khi cần truy cập phải được phản hồi ngay lập tức.<br />
+<strong>S3 Intelligent Tiering:</strong> có thể nói đây không phải là một storage class, vậy khi nào thì bạn chọn loại này - khi chúng ta không dự đoán được tấn suất truy cập cho những dữ liệu này. AWS sẽ monitor và sẽ chuyển qua chuyển lại giữa các class tùy theo tần suất truy cập đến dữ liệu để đảm bảo tiết kiệm chi phí cho bạn.<br />
+<strong>Amazon Glacier:</strong> Đây là class dành cho dữ liệu truy cập không thường xuyên và chi phí rẻ, và tùy thuộc vào thời gian bạn muốn lấy giữ liệu mà nó chia làm các retrieval options như sau (cái này hay hỏi bài thi):</p>
+<ul>
+<li>expedite retrieval - 1-5 minutes</li>
+<li>standard - 3-5 hours</li>
+<li>bulk - 5-12 hours</li>
+</ul>
+<p><strong>Amazon Glacier Deep Archive:</strong> Đây là class có chi phí lưu trữ rẻ nhất, cùng với đó là thời gian để truy xuất dữ liệu cũng chậm 12 - 48 hours.</p>
+<h4 id="cuhimu">Câu hỏi mẫu</h4>
+<p><amp-img src="https://drive.google.com/uc?id=14KdTftgXqiPhCLq05aVPPAkqk6pmGPic&amp;export=download" alt="uc?id=14KdTftgXqiPhCLq05aVPPAkqk6pmGPic&amp;export=download" width="691" height="573" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1Y-rVkgr8fNVaDfT3pIf7ffufOGU5qq2x&amp;export=download" alt="uc?id=1Y-rVkgr8fNVaDfT3pIf7ffufOGU5qq2x&amp;export=download" width="692" height="653" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1Yf3WtYA_6rwXck6MJaea6tBB0-f15fKx&amp;export=download" alt="uc?id=1Yf3WtYA_6rwXck6MJaea6tBB0-f15fKx&amp;export=download" width="692" height="610" layout="responsive"></amp-img></p>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<p><a href="https://aws.amazon.com/s3/?nc1=h_ls">https://aws.amazon.com/s3/?nc1=h_ls</a><br />
+<a href="https://aws.amazon.com/s3/storage-classes/?nc=sn&amp;loc=3">https://aws.amazon.com/s3/storage-classes/?nc=sn&amp;loc=3</a><br />
+<a href="https://www.msp360.com/resources/blog/amazon-s3-storage-classes-guide/">https://www.msp360.com/resources/blog/amazon-s3-storage-classes-guide/</a></p>
+<h3 id="ec2">EC2</h3>
+<p>Một số lưu ý để ước tính chi phí Amazon EC2 là: Operating systems, Clock hours of server time, Pricing Model, Instance type and Number of instances</p>
+<p>Pricing models for Amazon EC2:</p>
+<ul>
+<li>On-Demand Instances</li>
+<li>Reserved Instances</li>
+<li>Spot Instances</li>
+<li>Dedicated Hosts</li>
+</ul>
+<h4 id="ondemandinstances">On-Demand Instances</h4>
+<p>Không cần trả trước, bạn có thể tăng giảm khả năng compute để đáp ứng như cầu của bạn và bạn sẽ chi trả cho những gì bạn dùng. Phù hợp với các công việc thử nghiệm trong thời gian ngắn và không đoán trước được. Vd cho trường hợp sử dụng On-Demand Instances là khi bạn scale OUT instances để phục vụ lượng request lớn tăng đột ngột ramdom trong ngày mà bạn không đoán trước được thời gian nào.</p>
+<h4 id="reservedinstances">Reserved Instances</h4>
+<p>Amazon EC2 Reserved cung cấp cho bạn mức chiếc khấu lên đến 75% so với On-Demand Instance. Khi chúng ta có một ứng dụng chạy dài hạn 1-3 năm và chúng ta có thể dự đoán được khả năng tính toán (compute) của instance thì loại instance này là phù hợp để tiết kiệm chi phí.</p>
+<h4 id="spotinstances">Spot Instances</h4>
+<blockquote>
+<p>Amazon EC2 Spot instances allow you to request spare Amazon EC2 computing capacity for up to 90% off the On-Demand price.</p>
+</blockquote>
+<p>Amazon EC2 Spot Instances cho phép bạn tận dụng EC2 capacity chưa được sử dụng trên AWS cloud. Nói cách khác, là có thể sử dụng hàng ngon với giá rẻ. Khi sử dụng loại instance này, bạn phải chấp nhận việc các xử lý có thể bị gián đoạn (interrupted). và EC2 bị terminated.<br />
+Tham khảo thêm tại:<br />
+<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html</a><br />
+<a href="https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-leveraging-ec2-spot-instances/when-to-use-spot-instances.html">https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-leveraging-ec2-spot-instances/when-to-use-spot-instances.html</a></p>
+<h4 id="dedicatedhosts">Dedicated Hosts</h4>
+<p>Giống như cái tên, Nó là một physical EC2 server dành riêng cho bạn. Dedicated Hosts giúp bạn giảm chi phí bằng cách cho phép bạn sử dụng các software licenses như Windows server, SQL server v.v... đang có.<br />
+Tìm hiểu thêm tại: <a href="https://aws.amazon.com/ec2/dedicated-hosts/">https://aws.amazon.com/ec2/dedicated-hosts/</a></p>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<p><a href="https://aws.amazon.com/ec2/pricing/?nc1=h_ls">https://aws.amazon.com/ec2/pricing/?nc1=h_ls</a><br />
+<a href="https://cuongquach.com/tim-hieu-ve-amazon-ec2-amazon-elastic-compute-cloud.html">https://cuongquach.com/tim-hieu-ve-amazon-ec2-amazon-elastic-compute-cloud.html</a></p>
+<h4 id="cuhimu">Câu hỏi mẫu</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1YNMQgqbmme-PyR82rhFQXgHQnIRjWGar&amp;export=download" alt="uc?id=1YNMQgqbmme-PyR82rhFQXgHQnIRjWGar&amp;export=download" width="701" height="533" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1a3JuwyQSL8rt_Zy511WWfUmFl_4KHaJV&amp;export=download" alt="uc?id=1a3JuwyQSL8rt_Zy511WWfUmFl_4KHaJV&amp;export=download" width="688" height="812" layout="responsive"></amp-img></p>
+<h3 id="migratingdatatothecloud">Migrating Data to the Cloud</h3>
+<p>Trong rất nhiều tình huống được đưa ra, đa phần sẽ có các caai hỏi liên quan đến việc migrate data từ on-premise lên AWS cloud. Mình sẽ tổng hợp lại một số cách thức và chỉ ra điểm lưu ý ở các service này.</p>
+<h4 id="onlinedatatransfer">Online data transfer</h4>
+<h5 id="awsvirtualprivatenetwork">AWS Virtual Private Network</h5>
+<ul>
+<li>Thiết lập nhanh</li>
+<li>Chi phí thấp</li>
+<li>Không đảm bảo băng thông ổn định, và mức độ bảo mật không cao</li>
+</ul>
+<h5 id="awsdatabasemigrationservice">AWS Database Migration Service</h5>
+<ul>
+<li>Database của bạn vẫn hoạt động bình thường trong lúc tranfer</li>
+<li>Chuyển và phân tích data nhạy cảm</li>
+<li>Đơn giản, tự động và tăng tốc</li>
+</ul>
+<h5 id="awsdirectconnect">AWS Direct Connect</h5>
+<ul>
+<li>Thiết lâp kết nối private chuyên dụng với cáp quang 1G hoặc 10G</li>
+<li>Sử dụng khi chúng ta cần 1 kênh nhanh, tin cậy và bảo mật để truyền dữ liệu</li>
+<li>Tốn chi phí và mất nhiều thời gian set up hơn so với VPN</li>
+<li>Với chi phí và thời gian cần thiết để thiết lập, nó không phải là một tùy chọn truyền dữ liệu lý tưởng nếu bạn chỉ cần nó để thực hiện di chuyển một lần.</li>
+</ul>
+<h5 id="awss3transferacceleration">AWS S3 Transfer Acceleration</h5>
+<p>Nếu bạn đang chuyển dữ liệu của mình sang nền tảng lưu trữ AWS phổ biến S3 ở một khoảng cách xa, thì AWS S3 Transfer Acceleration giúp bạn thực hiện nhanh hơn: trung bình nhanh hơn 171%, theo AWS.</p>
+<ul>
+<li>Nhanh chóng, an toàn thông qua public internet</li>
+<li>Tiết kiệm thời gian khi chuyển data từ các location khác nhau</li>
+<li>Dữ liệu được truyền thông qua Amazon CloudFront - tối đa hóa băng thông</li>
+</ul>
+<h5 id="awsdatasync">AWS DataSync</h5>
+<p><amp-img src="https://drive.google.com/uc?id=1EOQlvi9XQLn-RngKnKd_4RwY5c4s9W8B&amp;export=download" alt="uc?id=1EOQlvi9XQLn-RngKnKd_4RwY5c4s9W8B&amp;export=download" width="2257" height="817" layout="responsive"></amp-img><br />
+Nguồn: <a href="https://aws.amazon.com/datasync/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc">https://aws.amazon.com/datasync/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc</a></p>
+<h4 id="offlinedatatransfer">Offline data transfer</h4>
+<h5 id="awssnowball">AWS Snowball</h5>
+<p>AWS Snowball là em bé của gia đình Snowball: một thiết bị siêu bền, có kích thước bằng vali, có thể được tải lên tới 80TB dữ liệu.</p>
+<ul>
+<li>50 - 80TB</li>
+<li>Mã hóa 256 bit</li>
+<li>Encryption keys được quản lý thông qua AWS Key Management Service (KMS)</li>
+</ul>
+<h5 id="awssnowballedge">AWS Snowball Edge</h5>
+<p>Có kích thước lớn lơn Snowball với khả năng tải lên tới 100TB. Snowball Edge cũng có thể chạy các ứng dụng dựa trên Lambda và EC2, ngay cả khi không có kết nối mạng.</p>
+<p>Điều này làm cho nó lý tưởng cho các trường hợp sử dụng cần xử lý hoặc phân tích cục bộ trước khi dữ liệu được đưa lên AWS Cloud.<br />
+Giá của nó dĩ nhiên sẽ đắt hơn Snowball.</p>
+<h5 id="awssnowmobile">AWS Snowmobile</h5>
+<p>AWS Snowmobile là một giải pháp di chuyển dữ liệu quy mô exabyte, đóng gói tương đương với 1.250 thiết bị AWS Snowball vào container vận chuyển dài 45ft.</p>
+<p>AWS Snowmobile có thể vận chuyển tới 100PB dữ liệu trong một chuyến đi, với chi phí chỉ bằng 1/5 chi phí chuyển dữ liệu qua kết nối internet tốc độ cao.<br />
+Snowmobile không chỉ là cách nhanh nhất và rẻ nhất để chuyển lượng dữ liệu khổng lồ lên cloud, nó còn có tính bảo mật cao.<br />
+Nhân viên an ninh chuyên dụng, theo dõi GPS, giám sát báo động và giám sát video 24/7 phối hợp với nhau để giữ an toàn cho dữ liệu của bạn trong suốt hành trình. Dữ liệu được mã hóa bằng các khóa mã hóa 256 bit.</p>
+<h4 id="tiliuthamkho">Tài liệu tham khảo</h4>
+<p><a href="https://www.jeffersonfrank.com/aws-blog/aws-data-transfer-costs/#AWSDC">https://www.jeffersonfrank.com/aws-blog/aws-data-transfer-costs/#AWSDC</a><br />
+<a href="https://www.slideshare.net/AmazonWebServices/migrating-data-to-the-cloud-exploring-your-options-from-aws-stg205r1-aws-reinvent-2018">https://www.slideshare.net/AmazonWebServices/migrating-data-to-the-cloud-exploring-your-options-from-aws-stg205r1-aws-reinvent-2018</a></p>
+<h4 id="cuhimu">Câu hỏi mẫu</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1g2vBgJnAkk2AWfpwGJnUDc6hKxt-nCJ-&amp;export=download" alt="uc?id=1g2vBgJnAkk2AWfpwGJnUDc6hKxt-nCJ-&amp;export=download" width="691" height="504" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1P32t5JmKvv7_2_fKoVJZn61B1n-WrNhR&amp;export=download" alt="uc?id=1P32t5JmKvv7_2_fKoVJZn61B1n-WrNhR&amp;export=download" width="696" height="941" layout="responsive"></amp-img></p>
+<h3 id="likt">Lời kết</h3>
+<p>Ở phần 1 này mình tạm thời memo lại bấy nhiêu thôi, mình không chắc những cái mình memo ở đây đầy đủ và chính xác, quan điểm của mình là đưa ra các chủ đề có trong bài thi và những điểm mập mờ cần làm rõ để phân biệt các service và khi nào nên sử dụng cái nào. Lượng kiến thức dành cho bài thi này không đến mức chuyên sâu nhưng trãi đều các nội dung. Nắm vững khái niệm, khi nào sử dụng và một số lưu ý để so sánh giữa các service giống nhau sẽ là chìa khóa để bạn chinh phục bài test này. Trên cả việc pass chứng chỉ hay không pass chứng chỉ đó là kiến thức bạn nắm được, hiểu được để có thể vận dụng trong thực tế, vì vậy sẽ hoàn hảo hơn khi chúng ta tìm hiểu các service này ở một mức độ tương đối chứ không qua loa.<br />
+Nếu các bạn có gặp các câu hỏi nào hay service này cần thảo luận, hãy để lại comment và chúng ta cùng thảo luận nhé.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

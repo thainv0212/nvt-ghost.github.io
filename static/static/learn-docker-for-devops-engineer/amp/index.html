@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Learn Docker for DevOps Engineers P1] Kiến trúc Docker và Dockerfile.</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Learn Docker for DevOps Engineers P1] Kiến trúc Docker và Dockerfile." />
+    <meta property="og:description" content="Nội dung Mở đầu Đối tượng đọc bài viết này So sánh Docker và Virtual Machine Kiến trúc và các khái niệm cơ bản trong Docker Dockerfile Instructions (P1 đến đây) Lightweight Your Docker Images. Kết luận Mở đầu Có lẽ khái niệm docker đã không còn quá xa lạ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/learn-docker-for-devops-engineer/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1x7Y_TVnsYW3dgMAWQzmOPUhI-glEpCWu&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-06-28T10:17:57.000Z" />
+    <meta property="article:modified_time" content="2019-07-08T01:55:19.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="dockerfile" />
+    <meta property="article:tag" content="Container orchestration" />
+    <meta property="article:tag" content="container images" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Learn Docker for DevOps Engineers P1] Kiến trúc Docker và Dockerfile." />
+    <meta name="twitter:description" content="Nội dung Mở đầu Đối tượng đọc bài viết này So sánh Docker và Virtual Machine Kiến trúc và các khái niệm cơ bản trong Docker Dockerfile Instructions (P1 đến đây) Lightweight Your Docker Images. Kết luận Mở đầu Có lẽ khái niệm docker đã không còn quá xa lạ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/learn-docker-for-devops-engineer/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1x7Y_TVnsYW3dgMAWQzmOPUhI-glEpCWu&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, kubernetes, dockerfile, Container orchestration, container images" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Learn Docker for DevOps Engineers P1] Kiến trúc Docker và Dockerfile.",
+    "url": "https://blog.vietnamlab.vn/learn-docker-for-devops-engineer/",
+    "datePublished": "2019-06-28T10:17:57.000Z",
+    "dateModified": "2019-07-08T01:55:19.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1x7Y_TVnsYW3dgMAWQzmOPUhI-glEpCWu&export=download",
+        "width": 750,
+        "height": 350
+    },
+    "keywords": "docker, kubernetes, dockerfile, Container orchestration, container images",
+    "description": "Nội dung\n * Mở đầu\n * Đối tượng đọc bài viết này\n * So sánh Docker và Virtual Machine\n * Kiến trúc và các khái niệm cơ bản trong Docker\n * Dockerfile Instructions (P1 đến đây)\n * Lightweight Your Docker Images.\n * Kết luận\n\nMở đầu\nCó lẽ khái niệm docker đã không còn quá xa lạ với dân IT chúng ta nữa, trong bài\nviết này mình sẽ trình bày docker không phải ở khía cạnh &quot;HOW TO USE&quot; mà là\nnhững kiến thức có thể nếu bạn chỉ muốn biết dùng docker thế nào, buil image\nphục vụ công việc ra sao thì cũng c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Learn Docker for DevOps Engineers P1] Kiến trúc Docker và Dockerfile.</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-06-28">28 Jun 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1x7Y_TVnsYW3dgMAWQzmOPUhI-glEpCWu&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Mở đầu</li>
+<li>Đối tượng đọc bài viết này</li>
+<li>So sánh Docker và Virtual Machine</li>
+<li>Kiến trúc và các khái niệm cơ bản trong Docker</li>
+<li>Dockerfile Instructions (P1 đến đây)</li>
+<li>Lightweight Your Docker Images.</li>
+<li>Kết luận</li>
+</ul>
+<h3 id="mu">Mở đầu</h3>
+<p>Có lẽ khái niệm docker đã không còn quá xa lạ với dân IT chúng ta nữa, trong bài viết này mình sẽ trình bày docker không phải ở khía cạnh "HOW TO USE" mà là những kiến thức có thể nếu bạn chỉ muốn biết dùng docker thế nào, buil image phục vụ công việc ra sao thì cũng chỉ cần đọc qua là được, nhưng với Devops thì cần hiễu cặn kẽ về nó, nó sẽ cung cấp nhiều kiến thức cho việc vận hành hệ thống lớn sử dụng hàng chục, hàng trăm container.<br />
+Trong quá trình vận hành hệ thống Microservice sử dụng CI/CD cùng với việc áp dụng công nghệ Kubernetes vào dự án, mình thường xuyên tiếp xúc với docker container. Vì thế, mình sẽ tổng hợp một số kiến thức dưới góc nhìn của Devops.<br />
+<amp-img src="https://drive.google.com/uc?id=1ondBzDwPBuwbG2tX1WvijjZZ0PwGDilR&amp;export=download" alt="uc?id=1ondBzDwPBuwbG2tX1WvijjZZ0PwGDilR&amp;export=download" width="336" height="287" layout="responsive"></amp-img></p>
+<h3 id="itngcbivitny">Đối tượng đọc bài viết này</h3>
+<p>Với các bạn mới bắt đầu tìm hiểu về docker thì bài viết này vừa thừa lại vừa thiếu, thừa những kiến thức các bạn chưa cần đến, vì có thể bạn chỉ cần kéo 1 image về chạy thôi. Những bạn cần biết cách dùng ngay thì bài viết này chưa đủ vì nó không đề cập nhiều đến cụ thể các command, cách pull, run..vv như thế nào.<br />
+Vậy đối tượng nào sẽ phù hợp cho bài viết này?<br />
+Bài viết này theo mình là phù hợp với những bạn đã biết sơ sơ hoặc đã có chút kinh nghiệm về docker rồi nhưng chưa hiểu hết bản chất của nó, hoặc là bạn chưa hề suy nghĩ đến việc làm sao để lightweight container của mình.</p>
+<h3 id="sosnhdockervvirtualmachine">So sánh Docker và Virtual Machine</h3>
+<p>Vitural Machines (VMs) về bản chất là một giả lập của một máy tính để thực thi các ứng dụng giống như một máy tính thật. VMs chạy trên một máy vật lý sử dụng một thứ gọi là “hypervisor”. <a href="https://viblo.asia/p/tan-man-ao-hoa-ai-cung-biet-nhung-cu-the-no-la-gi-Do754NV3ZM6">Hypervisor</a> có thể là phần cứng, phần mềm hoặc là một bản firmware nào đó có thể chạy trực tiếp trên máy thật (host machine) có chức năng cho nhiều máy ảo chạy trên nó. Host machine sẽ cung cấp cho VMs những tài nguyên như là RAM, CPU. Những tài nguyên đó sẽ được phân bổ giữa các VMs theo cách mà bạn cho là hợp lý. Nếu một VM chạy nhiều ứng dụng hoặc nặng thì bạn phải cung cấp tài nguyên cho nó nhiều tài nguyên hơn những VMs khác trên cùng một host machine.</p>
+<p>Những VMs chạy trên host machine thường được gọi là guest machine. Guest machine này sẽ chứa tất cả những thứ mà hệ thống cần để chạy ứng dụng như hệ điều hành (OS), system binaries và libraries. VMs chạy trên hệ điều hành của host machine và không thể truy cập trực tiếp đến phần cứng mà phải thông qua hệ điều hành.</p>
+<p>Container không giống như VMs, Container không cung cấp sự ảo hóa về phần cứng. Một Container cung cấp ảo hóa ở cấp hệ điều hành bằng một khái niệm trừu tượng là “user space”. Sự khác nhau lớn nhất của Container và VMs là Container có thể chia sẻ host system’s kernel với các container khác. Cùng xem mô hình bên dưới để hiểu rõ hơn về Container.<br />
+<amp-img src="https://drive.google.com/uc?id=16LfD5NkETnqEYE-pS77BEoDbwC_IpRTj&amp;export=download" alt="uc?id=16LfD5NkETnqEYE-pS77BEoDbwC_IpRTj&amp;export=download" width="862" height="488" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://techglimpse.com/docker-installation-tutorial-centos/">https://techglimpse.com/docker-installation-tutorial-centos/</a></em><br />
+<amp-img src="https://drive.google.com/uc?id=1G4u9-n0qgjpCFyY39nEFBVWe6c_KxQ2Z&amp;export=download" alt="uc?id=1G4u9-n0qgjpCFyY39nEFBVWe6c_KxQ2Z&amp;export=download" width="751" height="458" layout="responsive"></amp-img></p>
+<p>Dựa vào sơ đồ bên trên. Các bạn có thể thấy các gói container chỉ là một user space bao gồm ứng dụng, system binaries và libraries mà không cần guest OS hoặc ảo hóa phần cứng như VMs.  Đây là cái mà làm cho các container nhẹ hơn (lightweight). Các container sẽ chạy trên công nghệ cụ thể ở đây là Docker Engine.</p>
+<h3 id="kintrcvcckhinimcbntrongdocker">Kiến trúc và các khái niệm cơ bản trong Docker.</h3>
+<p>Để dễ hình dung thì mình chia ra thành Khái niệm cơ bản và mở rộng:</p>
+<h4 id="khinimcbn">Khái niệm cơ bản</h4>
+<h5 id="dockerplatform">Docker Platform:</h5>
+<p><a href="https://docs.docker.com/engine/docker-overview/#the-docker-platform">Docker Platform</a> là phầm mềm docker cung cấp khả năng đóng gói và chạy một ứng dụng trong một môi trường tách biệt lỏng lẻo gọi là container trên bất kỳ máy chủ Linux nào. Docker Platform gói các code files và các thành phần phụ thuộc. Nó dễ dàng mở rộng với khả năng tái tạo và tính di động.</p>
+<h5 id="dockerengine">Docker Engine</h5>
+<p><a href="https://docs.docker.com/engine/docker-overview/#docker-engine">Docker Engine</a> là một ứng dụng client-server. Công ty Docker chia Docker Engine thành 2 sản phẩm. Docker Community Edition (CE) miễn phí dựa trên các công cụ mã nguồn mở, đó có lẽ là những gì bạn sẽ sử dụng. Docker Enterprise đi kèm với những tính năng bổ sung như: support, quản lý, bảo mật.</p>
+<h5 id="dockerclient">Docker Client</h5>
+<p><a href="https://docs.docker.com/engine/docker-overview/">Docker Client</a> là cách chính để bạn tương tác với docker. Khi bạn sử dụng Docker Command Line Interface (CLI) và đánh command vào terminal, nó sẽ bắt đầu bằng "docker". Docker Client sau đó sẽ sử dụng Docker API để gửi command đến Docker Daemon.<br />
+<amp-img src="https://drive.google.com/uc?id=1jVgVeVhhlpm1AQZhyUYZjTc4_1OMpPuD&amp;export=download" alt="uc?id=1jVgVeVhhlpm1AQZhyUYZjTc4_1OMpPuD&amp;export=download" width="800" height="417" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://docs.docker.com/engine/docker-overview/#docker-architecture">https://docs.docker.com/engine/docker-overview/#docker-architecture</a></em></p>
+<h5 id="dockerdaemon">Docker Daemon</h5>
+<p><a href="https://docs.docker.com/engine/docker-overview/#the-docker-daemon">Docker Daemon</a> là máy chủ Docker lắng nghe yêu cầu API Docker. Docker Daemon quản lý image, container, network và volumes.</p>
+<h5 id="dockervolumes">Docker Volumes</h5>
+<p><a href="https://docs.docker.com/storage/volumes/">Docker volumes</a> là cách tốt nhất lưu trữ dữ liệu liên tục mà application sử dụng và tạo ra.</p>
+<h5 id="dockerregistry">Docker Registry</h5>
+<p><a href="https://hub.docker.com/">Docker Registry </a>là một khu vực lưu trữ từ xa, nơi mà Docker Images được lưu trữ. Chúng ta thường pull/push docker image từ Docker Registry. Chúng ta có thể tự xây dựng Docker Registry cho riêng mình hoặc sử dụng Registry của nhà cung cấp như AWS và Google Cloud.</p>
+<h5 id="dockerhub">Docker Hub</h5>
+<p>Docker Hub là một registry lớn nhất của Docker Images, nó cũng là registry default. Bạn có thể tìm kiếm và lưu trữ Docker Images của bạn trên Docker Hub miễn phí.</p>
+<h5 id="dockerrepository">Docker Repository</h5>
+<p>Docker Repository là tập hợp những docker images có cùng tên nhưng khác nhau tags. Tags là định danh cho docker images. Thông thường thì một repostory sẽ có nhiều version khác nhau cho cùng 1 images. Ví dụ như <a href="https://hub.docker.com/_/python">Python</a> là một image rất phổ biến của<br />
+official Docker trên Docker Hub. Python:3.7-slim dùng để chỉ phiên bản của images với tag 3.7-slim trong Python repository. Bạn có thể push một repository hoặc 1 images đơn đến registry.</p>
+<h4 id="khinimmrng">Khái niệm mở rộng</h4>
+<p>Những khái niệm dưới đây liên quan đến sử dụng nhiều container trên 1 máy.</p>
+<h5 id="dockernetwork">Docker Network</h5>
+<p><a href="https://docs.docker.com/engine/tutorials/networkingcontainers/">Docker Network</a> cho phép bạn kết nối nhiều container lại với nhau, các container có thể nằm trên cùng 1 host hoặc nhiều host khác nhau. Các bạn có thể tìm hiểu chi tiết <a href="https://www.oreilly.com/learning/what-is-docker-networking">tại đây</a>.<br />
+<amp-img src="https://drive.google.com/uc?id=18DQlYyjby2kmb6bK7ozx36o-wgwZCzJb&amp;export=download" alt="uc?id=18DQlYyjby2kmb6bK7ozx36o-wgwZCzJb&amp;export=download" width="300" height="367" layout="responsive"></amp-img><br />
+<em>nguồn: <a href="https://docs.docker.com/engine/tutorials/networkingcontainers/">https://docs.docker.com/engine/tutorials/networkingcontainers/</a></em></p>
+<h5 id="dockercompose">Docker Compose</h5>
+<p><a href="https://docs.docker.com/compose/">Docker Compose</a> là một công cụ giúp bạn dễ dàng hơn trong việc chạy ứng dụng trên nhiều container. Docker Compose cho phép bạn di chuyển các command vào bên trong file docker-compose.yml cho việc sử dụng lại. Docker Compose command line interface (CLI) giúp chúng ta dễ tương tác hơn với ứng nhiều nhiều container. Docker Compose là miễn phí.</p>
+<h5 id="dockerswarm">Docker Swarm</h5>
+<p><a href="https://docs.docker.com/engine/swarm/">Docker Swarm</a> được gọi là orchestrate container. Các bạn có thể tham khảo thêm ở phần tài liệu chính thức của Docker <a href="https://docs.docker.com/get-started/part4/">Docker tutorial</a></p>
+<h4 id="kubernetes">Kubernetes</h4>
+<p>Kubernetes tự động hóa việc triển khai, Scaling, và quản lý các ứng dụng chạy bằng container. K8s áp đảo hoàn toàn trong số các công cụ container orchestration. Thay vì sử dụng Docker Swarm, hãy sử dụng K8s để scale up project của bạn với hàng chục, hàng trăm container.<br />
+<amp-img src="https://drive.google.com/uc?id=1e2mdb5wmndZKsWy9plkb8fTHtsctgHV3&amp;export=download" alt="uc?id=1e2mdb5wmndZKsWy9plkb8fTHtsctgHV3&amp;export=download" width="465" height="100" layout="responsive"></amp-img><br />
+Bản thân mình đã có hơn 4 năm kinh nghiệm phát triển web và hơn 2 năm kinh nghiệm về vận hành hệ thống thì mình đánh giá K8s rất tuyệt vời. Mình đã được tiếp xúc với k8s trong khoảng 1 năm trở lại đây khi project của mình quyết định container hóa ứng dụng. Quả thật còn rất nhiều điều thú vị nữa mà K8s cung cấp, mới chỉ sử dụng khoảng 50% thôi đã thấy quá tuyệt vời rồi. :D</p>
+<h3 id="dockerfileinstructions">Dockerfile Instructions</h3>
+<p>Dockerfile là file định nghĩa nội dung của một Docker Images, Lệnh trong Dockerfile được viết hoa theo sau là các đối số của nó. Mỗi dòng trong Dockerfile có thể chứa 1 lệnh. Các lệnh trong Dockerfile được xử lý từ trên xuống dưới khi images được build. Một Dockerfile đơn giản trông như dưới đây:</p>
+<pre><code>FROM ubuntu:18.04
+COPY . /app
+</code></pre>
+<p>Chỉ các lệnh như FROM, RUN, COPY và ADD sẽ tạo ra các layer khi build image. Các lệnh khác dùng để cấu hình mọi thứ, add metadata, hoặc nói với Docker làm một số việc gì đó trong quá trình runtime như là expose port hoặc run command.</p>
+<h4 id="tmttcclnhtrongdockerfile">Tóm tắt các lệnh trong Dockerfile</h4>
+<p>FROM — Chỉ định images gốc (parent image).<br />
+LABEL — cung cấp metadata. Nơi để viết thông tin maintainer.<br />
+ENV — thiết lập biến môi trường.<br />
+RUN — Chạy 1 command để tạo 1 images layer. Được sử dụng để cài đặt các gói vào container.<br />
+COPY — copy files và thư mục vào trong container.<br />
+ADD — copy files và thư mục vào trong container. Bao gồm việc giải nén các tập tin .tar<br />
+CMD — Cung cấp command và arguments cho việc thực thi container. Parameters có thể được ghi đè.<br />
+WORKDIR — Thiết lập thư mục làm việc, nơi thực hiện các lệnh trong Dockerfile.<br />
+ARG — định nghĩa một biến để truyền đến Docker trong khi build-time.<br />
+ENTRYPOINT — cung cấp lệnh và đối số cho một container thực thi.<br />
+EXPOSE — exposes một port.<br />
+VOLUME — tạo thư mục để truy cập và lưu trữ dữ liệu liên tục. Thư mục trên máy host sẽ đồng bộ với thư mục trong container, dữ liệu sẽ không bị mất khi khởi động lại container.</p>
+<h4 id="from"><a href="https://docs.docker.com/engine/reference/builder/#from">FROM</a></h4>
+<p>Chúng ta có 1 Dockerfile đơn giản như sau:</p>
+<pre><code>FROM ubuntu:18.04
+</code></pre>
+<p>Dockerfile phải bắt đầu bằng lệnh FROM hoặc lệnh ARG theo sau là lệnh FROM. Lệnh FROM sẽ nói với Docker là nó sẽ sử dụng một base images được cung cấp bởi repository và tag. Base images còn được gọi là <a href="https://docs.docker.com/develop/develop-images/baseimages/">parent images</a>.</p>
+<p>Trong ví dụ này thì Ubuntu là một images repository, Ubuntu là một tên của official Docker repository được cung cấp phiên bản cơ bản của trong các phiên bản phổ biến của Linux operating system.<br />
+Lưu ý rằng file Dockerfile trong ví dụ của chúng ta bao gồm phiên bản 18.04, tag này sẽ cho Docker biết chúng ta sẽ pull phiên bản nào của Ubuntu, nếu không gắn tag, mặc định sẽ pull phiên bản latest (default).<br />
+Khi Dockerfile phí trên được sử dụng để build images lần đầu tiên, Docker sẽ download các layer chỉ định trong ubuntu images. Các layer có thể được xếp chồng lên nhau, mỗi layer là một tệp khác với các layer trước đó.<br />
+Khi run 1 container, chúng ta sẽ add một writable layer lên phía trên read-only layers.<br />
+<amp-img src="https://drive.google.com/uc?id=1Rd7eyjZAJWGyfaOezjaPic-s5oBUs7wJ&amp;export=download" alt="uc?id=1Rd7eyjZAJWGyfaOezjaPic-s5oBUs7wJ&amp;export=download" width="675" height="469" layout="responsive"></amp-img><br />
+<em>Nguồn: <a href="https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/#images-and-layers">https://docs.docker.com/v17.09/engine/userguide/storagedriver/imagesandcontainers/#images-and-layers</a></em></p>
+<p>Cùng tìm hiểu một images phức tạp hơn:</p>
+<pre><code>FROM python:3.7.2-alpine3.8
+LABEL maintainer="jeffmshale@gmail.com"
+ENV ADMIN="jeff"
+RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash
+COPY . ./app
+ADD https://raw.githubusercontent.com/discdiver/pachy-vid/master/sample_vids/vid1.mp4 \
+/my_app_directory
+RUN ["mkdir", "/a_directory"]
+CMD ["python", "./my_script.py"]
+</code></pre>
+<p>Base image là images của official Python với tag 3.7.2-alpine3.8. Image Alpine thường rất phổ biến vì chúng nhỏ, nhanh và an toàn. Tuy nhiên cũng vì thế mà Alpine không bao gồm nhiều gói phầm mềm trong đó, chúng ta phải tự cài đặt nhưng gói cần thiết để sử dụng.</p>
+<h4 id="label"><a href="https://docs.docker.com/engine/reference/builder/#label">LABEL</a></h4>
+<p>Lệnh LABEL thêm metadata vào image, trong trường hợp phía trên, nó cung cấp thông tin của maintainer image. Labels không làm chậm hoặc chiếm không gian trong lúc build images và nó cung cấp thông tin hữu ích về Docker images, vì vậy chúng ta nên sử dụng nó. Thông tin thêm <a href="https://docs.docker.com/config/labels-custom-metadata/">tại đây</a>.</p>
+<h4 id="env"><a href="https://docs.docker.com/engine/reference/builder/#env">ENV</a></h4>
+<p>ENV thiết lập biến môi trường, biến này sẽ được sử dụng trong quá trình container run time. Trong ví dụ trên, chúng ta có thể sử dụng biến ADMIN khi container được khởi chạy.<br />
+ENV thường dùng để setting cho hằng số. Nếu bạn sử dụng constants nhiều vị trí trong Dockerfile và bạn muốn thay đổi giá trị của nó sau đó, bạn có thể thực hiện việc đó trong 1 vị trí cụ thể.</p>
+<p>Với Dockerfiles thường có nhiều cách để thực hiện cùng một việc. Phương pháp tốt nhất cho trường hợp của bạn là vấn đề cân bằng các conventions, tính minh bạch và tốc độ của Docker. Ví dụ, RUN, CMD và ENTRYPOINT phục vụ các mục đích khác nhau và tất cả đều có thể được sử dụng để thực thi các command.</p>
+<h4 id="run"><a href="https://docs.docker.com/engine/reference/builder/#run">RUN</a></h4>
+<p>Lệnh RUN sẽ tạo ra một layer trong quá trình build-time, Docker sẽ commits trạng thái của mối image sau mỗi lệnh RUN.<br />
+RUN thường được dùng để cài đặt các gói vào images, trong ví dụ phía trên RUN apk update &amp;&amp; apk upgrade nói với Docker để update các package từ base images. và &amp;&amp; apk add bash nói với Docker là cài đặt bash vào trong images.<br />
+apk viết tắt của Alpine Linux package manager, nếu bạn đang sử dụng một base image khác của Linux khác với Alpine, thì chúng ta sẽ sử dụng RUN apt-get thay vì RUN apk.<br />
+RUN - người anh em của nó là CMD và ENTRYPOINT - có thể được sử dụng ở dạng exec hoặc shell. Dạng exec sử dụng JSON aray có syntax như: RUN ["my_executable", "my_first_param1", "my_second_param2"].<br />
+Ví dụng trên chúng ta đã sử dụng dạng shell với format là: RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash, và cũng đã sử dụng định dạng exec: RUN ["mkdir", "/a_directory"]  để tạo thư mục, bạn đừng quên dấu ngoặc kép nhé !</p>
+<h4 id="copy"><a href="https://docs.docker.com/engine/reference/builder/#copy">COPY</a></h4>
+<p>Lệnh COPY . ./app bên trên nói với Docker rằng lấy tất cả files và thư mục ở thư mục hiện tại (cùng cấp với Dockerfile) và thêm chúng vào thư mục làm việc hiện tại của Docker Images (app). Copy sẽ tạo đường dẫn directory nếu chúng chưa tồn tại.</p>
+<h4 id="add"><a href="https://docs.docker.com/engine/reference/builder/#add">ADD</a></h4>
+<p>ADD hoạt động giống với COPY nhưng có 2 trường hợp sử dụng, ADD có thể sử dụng để move files từ remove URL đến container và ADD có thể giải nén các tập tin TAR.<br />
+Phía trên mình đã sử dụng ADD để coppy file từ URL vào thư mục my_app_directory trong container, Tài liệu Docker không khuyến khích việc này vì các tập tin ở remote URL có thể bị xóa, Nhưng file mở rộng sẽ làm tăng kích thước của images.<br />
+<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy">Tài liệu Docker</a> cũng khuyến khích sử dụng COPY thay vì ADD bất cứ khi nào có thể để cải thiện sự rõ ràng. Tại sao Docker không kết hợp COPY và ADD là một cho khỏe nhỉ? :D<br />
+Lưu ý lệnh ADD chưa ký tự tiếp tục <code>"\"</code>. Sử dụng nó để Dockerfile trông rõ ràng, dể đọc hơn bằng cách chia thành nhiều dòng.</p>
+<h4 id="cmd"><a href="https://docs.docker.com/engine/reference/builder/#cmd">CMD</a></h4>
+<p>CMD cung cấp cho Docker một command để run khi container được khởi động. Nó không commit kết quả của command cho image tại thời điểm build time. Trong ví dụ trên CMD sẽ thực hiện chạy file my_script.py tại thời điểm runtime.<br />
+Một vài điều cần biết về CMD:</p>
+<ul>
+<li>Chỉ có duy nhất một lệnh CMD cho mỗi Dockerfile.</li>
+<li>CMD có thể bao một một lệnh executable. Nếu CMD tồn tại mà không có executable thì phải tồn tại ENTRYPOINT. Trong trường hợp đó, cả CMD và ENTRYPOINT phải có định dạng JSON.</li>
+<li>Các đối số để docker run override được cung cấp cho CMD trong Dockerfile.</li>
+</ul>
+<p>Chúng ta cùng xem xét một ví dụ về Dockerfile khác</p>
+<pre><code>FROM python:3.7.2-alpine3.8
+LABEL maintainer="jeffmshale@gmail.com"
+# Install dependencies
+RUN apk add --update git
+
+# Set current working directory
+WORKDIR /usr/src/my_app_directory
+
+# Copy code from your local context to the image working directory
+COPY . .
+
+# Set default value for a variable
+ARG my_var=my_default_value
+
+# Set code to run at container run time
+ENTRYPOINT ["python", "./app/my_script.py", "my_var"]
+
+# Expose our port to the world
+EXPOSE 8000
+
+# Create a volume for data storage
+VOLUME /my_volume
+</code></pre>
+<h4 id="workdir"><a href="https://docs.docker.com/v17.09/engine/reference/builder/#workdir">WORKDIR</a></h4>
+<p>WORKDIR sẽ thay đổi working directory trong container cho các lệnh COPY, ADD, RUN, CMD, và ENTRYPOINT theo sau nó. Một vài lưu ý:</p>
+<ul>
+<li>Nên chỉ định đưỡng dẫn tuyệt đối thay vì điều hướng bằng các lệnh hệ thống như 'cd' trong Dockerfile.</li>
+<li>WORKDIR tự động tạo directory nếu nó không tồn tại</li>
+<li>Có thể sử dụng nhiều lệnh WORKDIR. Nếu chúng ta cung cấp các đường dẫn tương đối, thì mỗi lệnh WORKDIR sẽ thay đổi thư mục làm việc hiện tại.</li>
+</ul>
+<h4 id="arg"><a href="https://docs.docker.com/engine/reference/builder/#arg">ARG</a></h4>
+<p>ARG định nghĩa một biến để truyền từ command line đến image tại thời điểm build time. Một giá trị mặc định có thể được cung cấp cho ARG trong Dockerfile giống như trong ví dụ trên: ARG my_var=my_default_value<br />
+Không giống như biến ENV, biến ARG không available để chạy container. Tuy nhiên, bạn có thể thiết lập giá trị mặc định cho một biến ENV từ giao diện command line khi bạn build image, Sau đó, biến ENV sẽ tồn tại trong suốt thời gian container run. Tìm hiểu thêm <a href="https://vsupalov.com/docker-build-time-env-values/">tại đây.</a></p>
+<h4 id="entrypoint"><a href="https://docs.docker.com/engine/reference/builder/#entrypoint">ENTRYPOINT</a></h4>
+<p>ENTRYPOINT cũng cho phép bạn cung cấp một command và một đối số mặc định khi container start. Nó trông có vẻ như CMD, nhưng các tham số ENTRYPOINT không bị ghi đè nếu một container chạy với tham số ở command line.<br />
+Thay vào đó, các tham số dòng lệnh được truyền cho docker chạy my_image_name sẽ được gắn vào đối số của ENTRYPOINT. Ví dụ 'docker run my_image bash' thêm tham số bash vào cuối các tham số của ENTRYPOINT.<br />
+Một Dockerfile nên có ít nhất 1 CMD hoặc ENTRYPOINT.<br />
+<a href="https://docs.docker.com/v17.09/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact">Tài liệu Docker</a> có một số gợi ý để chọn CMD hoặc ENTRYPOINT cho lệnh init container.</p>
+<ul>
+<li>Ưu tiên ENTRYPOINT khi bạn cần chạy cùng một lệnh mỗi lần.</li>
+<li>Ưu tiên ENTRYPOINT khi một container sẽ được sử dụng như một chương trình thực thi.</li>
+<li>Ưu tiên CMD khi bạn cần cung cấp thêm các đối số mặc định có thể được ghi đè từ dòng lệnh.<br />
+Trong ví dụ trên, ENTRYPOINT ["python", "my_script.py", "my_var"] sẽ chạy một python script my_script.py với tham số là my_var với my_var là tham số khi container bắt đấu chạy. my_var có thể được sử dụng bởi my_script thông qua <a href="https://docs.python.org/3/library/argparse.html">argparse</a>. Lưu ý my_var có một giá trị default được cung cấp bởi lệnh ARG trong Dockerfile. Vì vậy nến chung ta không gửi tham số từ giao diện command line, thì giá trị default được sử dụng.<br />
+Docker khuyên bạn nên sử dụng định dạng exec form của ENTRYPOINT: ENTRYPOINT ["executable", "param1", "param2"] - đây là định dạng với format JSON.</li>
+</ul>
+<h4 id="expose"><a href="https://docs.docker.com/engine/reference/builder/#expose">EXPOSE</a></h4>
+<p>Lệnh EXPOSE sẽ chỉ ra cổng nào được publish ra ngoài để cung cấp việc truy cập đến container.</p>
+<blockquote>
+<p><em>EXPOSE does not actually publish the port. Rather, it acts as a documentation between the person who builds the image and the person who runs the container.</em></p>
+</blockquote>
+<p>Sử dụng docker run với flag -p để publish và map một hoặc nhiều ports tại thời điểm runtime. flag -P sẽ publish tất cả các exposed ports.</p>
+<h4 id="volume"><a href="https://docs.docker.com/engine/reference/builder/#volume">VOLUME</a></h4>
+<p>VOLUME sẽ chỉ định nơi bạn sẽ lưu trữ và/hoặc truy cập đến dữ liệu liên tục (persistent data). Liên quan đến Docker Volume, các bạn có thể tham khảo <a href="https://viblo.asia/p/lam-viec-voi-docker-data-volumes-EoDGQOaNkbV">tại đây!</a></p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Như vậy trong phần 1 này mình đã cơ bản tổng kết lại các kiến thức cơ bản về Docker. Hơi nhiều lý thuyết, tuy nhiên các bạn đọc và kiểm chứng vì mình nghĩ đọc bài này đa số các bạn cũng từng làm việc hoặc chạm đến nó rồi. Phần 2 sẽ có nhiều demo hơn.</p>
+<ul>
+<li>So sánh với Hypervisor</li>
+<li>Các khái niệm cơ bản trong Docker</li>
+<li>Các lệnh trong Dockerfile</li>
+</ul>
+<p>Phần 2 mình sẽ trình bày làm thế nào để xây dựng docker image hiệu quả nhất:</p>
+<ul>
+<li>Dung lượng nhẹ</li>
+<li>Build nhanh</li>
+<li>Giảm bớt số lượng layer</li>
+<li>Khả năng tái sử dụng Layer</li>
+<li>vv.<br />
+Mong các bạn đọc và đóng góp ý kiến!</li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

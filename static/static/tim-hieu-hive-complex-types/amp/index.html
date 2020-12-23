@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tìm hiểu Hive Complex Types</title>
+
+    <meta name="description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tìm hiểu Hive Complex Types" />
+    <meta property="og:description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-11-08T08:59:35.000Z" />
+    <meta property="article:modified_time" content="2017-05-19T07:08:57.000Z" />
+    <meta property="article:tag" content="apache" />
+    <meta property="article:tag" content="Apache Hive" />
+    <meta property="article:tag" content="complex types" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tìm hiểu Hive Complex Types" />
+    <meta name="twitter:description" content="Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.C.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="apache, Apache Hive, complex types" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="159" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Tìm hiểu Hive Complex Types",
+    "url": "https://blog.vietnamlab.vn/tim-hieu-hive-complex-types/",
+    "datePublished": "2016-11-08T08:59:35.000Z",
+    "dateModified": "2017-05-19T07:08:57.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkUGlNbTFLXzVONG8&export=download",
+        "width": 300,
+        "height": 159
+    },
+    "keywords": "apache, Apache Hive, complex types",
+    "description": "Mở đầu\nApache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ\nliệu lớn lưu trữ phân tán trên nền tảng Hadoop. Hive dùng SQL nên dễ tiếp cận\nvới đa số mọi người (đã quá quen thuộc với SQL).\n\nTrong quá trình làm việc với Hive, chủ yếu mình thường dùng các kiểu dữ liệu cơ\nbản như\n\n * Numeric Types\n * Date/Time Types\n * String Types\n * Boolean Types\n\nNhưng, trong dự án gần đây thì mình có dùng đến Complex Types của Hive. Sau đây\nlà 1 vài tóm tắt về nó.\n\nI. Complex Types\nComple",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tìm hiểu Hive Complex Types</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2016-11-08">08 Nov 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUGlNbTFLXzVONG8&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="mu">Mở đầu</h3>
+<p>Apache Hive là một kho lưu trữ dữ liệu (data warehouse) giúp xử lý các tập dữ liệu lớn lưu trữ phân tán trên nền tảng Hadoop. Hive dùng SQL nên dễ tiếp cận với đa số mọi người (đã quá quen thuộc với SQL).</p>
+<p>Trong quá trình làm việc với Hive, chủ yếu mình thường dùng các kiểu dữ liệu cơ bản như</p>
+<ul>
+<li>Numeric Types</li>
+<li>Date/Time Types</li>
+<li>String Types</li>
+<li>Boolean Types</li>
+</ul>
+<p>Nhưng, trong dự án gần đây thì mình có dùng đến Complex Types của Hive. Sau đây là 1 vài tóm tắt về nó.</p>
+<h3 id="icomplextypes">I. Complex Types</h3>
+<p>Complex Types của Hive bao gồm các kiểu dữ liệu sau</p>
+<ul>
+<li>arrays: <code>ARRAY&lt;data_type&gt;</code></li>
+<li>maps: <code>MAP&lt;primitive_type, data_type&gt;</code></li>
+<li>structs: <code>STRUCT&lt;col_name : data_type [COMMENT col_comment],...&gt;</code></li>
+<li>union: <code>UNIONTYPE&lt;data_type, data_type,...&gt;</code></li>
+</ul>
+<h4 id="1array">1. Array</h4>
+<h5 id="builtinoperators">Built-in Operators</h5>
+<p>Đầu tiên ta sẽ thử với kiểu Array. Ta tạo 1 table để test với kiểu dữ liệu của các phần tử là 4 kiểu cơ bản. Constructor Function của array có dạng <code>array(val1, val2,...)</code> sẽ tạo 1 array với các phần tử truyền vào. Dùng nó để chèn dữ liệu test vào.</p>
+<pre><code class="language-sql">CREATE TABLE array_test(
+  col_a array&lt;int&gt;
+  ,col_b array&lt;string&gt;
+  ,col_c array&lt;timestamp&gt;
+  ,col_d array&lt;boolean&gt;
+);
+
+INSERT INTO TABLE array_test
+VALUES (
+  array(1,2,3)
+  ,array("c", "b", "a")
+  ,array(current_timestamp)
+  ,array(true, false)
+);
+</code></pre>
+<p><strong>Lỗi !!!</strong></p>
+<pre><code class="language-sh">FAILED: SemanticException [Error 10293]: Unable to create temp file for insert values 
+Expression of type TOK_FUNCTION not supported in insert/values
+</code></pre>
+<p>Nguyên nhân là do ta không thể chèn trực tiếp Complex Types trực tiếp vào 1 bảng Hive. Ngoài các chèn trực tiếp bằng cách dùng insert/values ta còn có thể dùng chèn thông qua insert/select dữ liệu từ một bảng khác</p>
+<pre><code class="language-sql">INSERT INTO TABLE tablename VALUES values_row [, values_row ...]
+INSERT INTO TABLE tablename select_statement FROM from_statement
+</code></pre>
+<p>Ta sẽ tạo 1 dummy table cho mục đích này. Và thử lại việc chèn dữ liệu</p>
+<pre><code class="language-sql">CREATE TABLE dummy(a string);
+
+# Cần chèn 1 row dữ liệu cho dummy table này
+INSERT INTO TABLE dummy VALUES ('a');
+
+# Nếu không select_statement FROM dummy ở câu querry phía dưới sẽ không hoạt động như mong muốn
+INSERT INTO TABLE array_test
+SELECT
+  array(1,2,3)
+  ,array("c", "b", "a")
+  ,array(current_timestamp)
+  , array(true, false)
+FROM dummy;
+
+Query ID = mendy_20161106225212_b82ff420-e431-43b9-b283-1ef0d4db1a8a
+Total jobs = 1
+Launching Job 1 out of 1
+
+Status: Running (Executing on YARN cluster with App id application_1472439789844_24559)
+
+--------------------------------------------------------------------------------
+        VERTICES      STATUS  TOTAL  COMPLETED  RUNNING  PENDING  FAILED  KILLED
+--------------------------------------------------------------------------------
+Map 1 ..........   SUCCEEDED      1          1        0        0       0       0
+--------------------------------------------------------------------------------
+VERTICES: 01/01  [==========================&gt;&gt;] 100%  ELAPSED TIME: 0.61 s
+--------------------------------------------------------------------------------
+Loading data to table test_db.array_test
+Table test_db.array_test stats: [numFiles=1, numRows=1, totalSize=47, rawDataSize=46]
+OK
+Time taken: 1.356 seconds
+</code></pre>
+<pre><code class="language-sh"># Kiểm tra lại
+hive&gt; select * from array_test;
+OK
+[1,2,3] ["c","b","a"]   ["2016-11-06 22:52:12.393"]     [true,false]
+Time taken: 0.68 seconds, Fetched: 1 row(s)
+</code></pre>
+<p>Vậy truy cập các element trong array như thế nào? Toán tử <strong>A[n]</strong> trả về phần tử thứ n trong array. Phần tử đầu tiên có index là 0.</p>
+<pre><code class="language-sh">hive&gt; select col_a[1], col_b[2], col_c[3], col_d[0] from array_test;
+OK
+2       a       NULL    true
+
+# Nếu index &gt; size của array thì giá trị trả về là NULL
+</code></pre>
+<h5 id="builtinfunctions">Built-in Functions</h5>
+<p>Dưới đây là 1 số hàm được Hive hỗ trợ</p>
+<ul>
+<li><code>size</code>: Trả về số phần tử của array</li>
+<li><code>array_contains</code>: Kiểm tra xem array có chứa giá trị truyền vào không</li>
+<li><code>sort_array</code>: Sắp xếp array theo thứ tự tăng dần</li>
+</ul>
+<pre><code class="language-sql"># Test size
+&gt; select size(col_a), size(col_b), size(col_c), size(col_d) from array_test;
+OK
+3       3       1       2
+
+# Test array_contains
+&gt; select array_contains(col_a, 1), array_contains(col_b, "d") from array_test;
+OK
+true    false
+
+# Test sort_array
+&gt; select sort_array(col_a), sort_array(col_b) from array_test;
+OK
+[1,2,3] ["a","b","c"]
+</code></pre>
+<h4 id="2map">2. Map</h4>
+<h5 id="builtinoperators">Built-in Operators</h5>
+<p>Tương tự ta sẽ tạo table và thử constructor của Map: <code>map(key1, value1, key2, value2,...)</code> và cách truy cập phần tử của map bằng toán tử <code>M[key]</code></p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE map_test(
+  col_a map&lt;string, string&gt;
+  ,col_b map&lt;string, string&gt;
+);
+
+# Chèn dữ liệu test
+INSERT INTO TABLE map_test
+SELECT
+  map("a_key", "a_val", "b_key", "b_val", "c_key", "c_val")
+  ,map("3_key", "3_val", "2_key", "2_val", "1_key", "1_val")
+FROM dummy;
+
+# Check
+&gt; select * from map_test;
+OK
+{"a_key":"a_val","b_key":"b_val","c_key":"c_val"}     {"3_key":"3_val","4_key":"4_val","2_key":"2_val","1_key":"1_val"}
+
+# Truy cập phần tử của map
+# Nếu map không chứa key đó thì sẽ trả về NULL
+&gt;  select col_a["a_key"], col_b["1_key"], col_b["a_key"] from map_test;
+OK
+a_val   1_val   NULL
+</code></pre>
+<h5 id="builtinfunctions">Built-in Functions</h5>
+<p>Dưới đây là 1 số hàm của Map</p>
+<ul>
+<li><code>size</code>: Trả về số phần tử của Map</li>
+<li><code>map_key</code>: Trả về array gồm các key của Map</li>
+<li><code>map_values</code>: Trả về array gồm các value của Map</li>
+</ul>
+<pre><code class="language-sql"># Test size
+&gt; select size(col_a), size(col_b) from map_test;
+OK
+3       4
+
+# Test map_keys
+&gt; select map_keys(col_a), map_keys(col_b) from map_test;
+OK
+["a_key","b_key","c_key"]       ["3_key","4_key","2_key","1_key"]
+
+# Test map_values
+&gt; select map_values(col_a), map_values(col_b) from map_test;
+OK
+["a_val","b_val","c_val"]       ["3_val","4_val","2_val","1_val"]
+</code></pre>
+<h4 id="3struct">3. Struct</h4>
+<p>Với struct thì các hàm built-in của nó không có nhiều. Ít hơn hẳn so với map và array.</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE struct_test(
+  col_a struct&lt;a: string, b: string&gt;
+  ,col_b struct&lt;c: int, d: int&gt;
+);
+
+# Chèn dữ liệu test
+# Có 2 constructor:
+# 1. struct(val1, val2, val3, ...) -&gt; tên của các trường sẽ là col1, col2, ....
+# 2. named_struct(name1, val1, name2, val2, ...)
+INSERT INTO TABLE struct_test
+SELECT
+  named_struct("a", "a_val", "b", "b_val")
+  ,named_struct("c", 1, "d", 2)
+FROM dummy;
+
+&gt; SELECT struct("a_val", "b_val") FROM dummy;
+OK
+{"col1":"a_val","col2":"b_val"}
+
+# Check
+&gt; select * from struct_test;
+OK
+{"a":"a_val","b":"b_val"}       {"c":1,"d":2}
+
+# Truy cập phần tử của struct
+&gt; select col_a.a, col_b.d from struct_test;
+OK
+a_val   2
+</code></pre>
+<h4 id="4union">4. Union</h4>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE union_test(
+  col_a UNIONTYPE&lt;int, boolean, array&lt;string&gt;, map&lt;string, string&gt;&gt;
+)
+
+# Chèn dữ liệu test
+# create_union(tag, val1, val2, ...)
+# tag nhằm chỉ định phần dữ liệu của union, bắt đầu từ 0
+# Ví dụ: tag=0 -&gt; int, tag=2 -&gt; array&lt;string&gt;
+INSERT INTO TABLE union_test
+SELECT
+  create_union(0, 1, true, array("a", "b"), map("a_key", "a_val", "b_key", "b_val"))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(1, 1, true, array("a", "b"), map("a_key", "a_val", "b_key", "b_val"))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(2, 1, true, array("a", "b"), map("a_key", "a_val", "b_key", "b_val"))
+FROM dummy;
+
+INSERT INTO TABLE union_test
+SELECT
+  create_union(3, 1, true, array("a", "b"), map("a_key", "a_val", "b_key", "b_val"))
+FROM dummy;
+
+# Check
+hive&gt; select * from union_test;
+OK
+{0:1}
+{1:true}
+{2:["a","b"]}
+{3:{"a_key":"a_val","b_key":"b_val"}}
+</code></pre>
+<p>Việc dùng create_union để chèn dữ liệu như trên không hiệu quả cho lắm. Tuy nhiên trên thực tế, với union việc load dữ liệu từ file vào thì rất dễ dàng. Tuy nhiên, với các Complex Types thì union chưa được như mong muốn.</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE union_test(
+  col_a UNIONTYPE&lt;int, boolean, array&lt;string&gt;, map&lt;string, string&gt;&gt;
+)
+row format delimited
+fields terminated by ','
+COLLECTION ITEMS TERMINATED BY '|'
+map keys terminated by '#'
+LINES TERMINATED BY '\n';
+
+# Tạo file dữ liệu
+&gt; vi unionfile
+0|1
+1|true
+2|a|b|c
+3|a_key#a_val|b_key#b_val,
+0|2
+1|false
+
+# Load dữ liệu từ file
+load data local inpath 'unionfile' overwrite into table union_test2;
+
+# Check
+hive&gt; select * from union_test2;
+OK
+{0:1}
+{1:true}
+{2:["a|b|c"]}
+{3:{"a_key":null,"a_val|b_key":null,"b_val":null}}
+{0:2}
+{1:false}
+</code></pre>
+<h3 id="iivncacomplextypes">II. Vấn đề của Complex Types</h3>
+<p>Complex Types hiện tại đang khá ít Built-in Operators và Built-in Functions được hỗ trợ từ Hive. Do đó sẽ gặp khó khăn khi xử lý các dữ liệu kiểu này. Ví dụ trong dự án hiện tại, với kiểu dữ liệu Map&lt;String, String&gt; khi ta muốn thay đổi 1 key trong các key của Map đó, thì Hive chưa có hàm hỗ trợ việc này.</p>
+<p>Ta có thể thay đổi bằng cách hard coding key như sau:</p>
+<pre><code class="language-sql"># Tạo table test
+CREATE TABLE map_change_key(
+  col_a map&lt;string, string&gt;
+);
+ 
+# Chèn dữ liệu test
+INSERT INTO TABLE map_change_key
+SELECT
+  map("a_key", "a_val", "b_key", "b_val", "c_key", "c_val")
+FROM dummy;
+
+# List danh sách key
+SELECT sort_array(map_keys(col_a)) FROM map_change_key;
+
+OK
+["a_key","b_key","c_key"]
+Time taken: 0.17 seconds, Fetched: 1 row(s)
+
+# Thay đổi key bằng cách hard coding key
+INSERT OVERWRITE TABLE map_change_key
+SELECT
+  map(
+    "a_key", col_a["a_key"],
+    "b_key", col_a["b_key"],
+    "c_key_changed", col_a["c_key"]
+  )
+FROM map_change_key;
+
+# Check
+SELECT sort_array(map_keys(col_a)) FROM map_change_key;
+
+OK
+["a_key","b_key","c_key_changed"]
+Time taken: 0.171 seconds, Fetched: 1 row(s)
+
+# =&gt; đã thay đổi
+</code></pre>
+<p>Tuy nhiên, trong dữ liệu thực tế thì số lượng key của Map có thể rất nhiều, từ vài chục đến hơn 1 trăm key hoặc hơn. Lúc đó thì việc thay đổi key bằng cách hard coding như trên sẽ rất mất thời gian cho việc viết script và kiểm tra kết quả. Script cũng sẽ rất dài và dễ dàng gặp sai sót.</p>
+<p>Thay vì chờ Hive hỗ trợ các hàm mới, ta có thể tự viết UDF (User-Defined Functions) để thực hiện các xử lý mong muốn. Đón đọc blog sắp tới của anh <a href="https://blog.vietnamlab.vn/blog/author/linhtm/">Linh Trần</a> để biết thêm chi tiết.</p>
+<p>Ngoài ra, cũng có thể tham khảo các UDF đã được chia sẻ và nhiều người dùng như</p>
+<ul>
+<li><a href="https://github.com/klout/brickhouse/wiki">brickhouse</a></li>
+<li>...</li>
+</ul>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Hiểu rõ các Complex Type của Hive giúp ta có nhiều lựa chọn hơn khi thiết kế</li>
+<li>Hive chưa hỗ trợ nhiều các hàm built-in cho Complex Type</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://hive.apache.org/">https://hive.apache.org/</a></li>
+<li><a href="https://community.hortonworks.com/questions/22262/insert-values-in-array-data-type-hive.html">Insert values in Array data type</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Types">Hive Data Types</a></li>
+<li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF">Hive Operators and User-Defined Functions</a></li>
+<li><a href="http://blog.matthewrathbone.com/2013/08/10/guide-to-writing-hive-udfs.html">http://blog.matthewrathbone.com/2013/08/10/guide-to-writing-hive-udfs.html</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3</title>
+
+    <meta name="description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3" />
+    <meta property="og:description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-11-30T02:37:13.000Z" />
+    <meta property="article:modified_time" content="2018-11-30T02:51:09.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="Lightning Network" />
+    <meta property="article:tag" content="Liquid Network" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3" />
+    <meta name="twitter:description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, Lightning Network, Liquid Network" />
+    <meta property="og:image:width" content="1804" />
+    <meta property="og:image:height" content="722" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/",
+    "datePublished": "2018-11-30T02:37:13.000Z",
+    "dateModified": "2018-11-30T02:51:09.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&export=download",
+        "width": 1804,
+        "height": 722
+    },
+    "keywords": "blockchain, Lightning Network, Liquid Network",
+    "description": "Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ\nLightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta\ncùng tìm hiểu nhé.\nINhìn lại sự khó khăn trong mạng lưới của Bitcoin\nNhư các bạn đã biết, mạng lưới Bitcoin là mạng lưới kiểu Blockchain. Tức là một\nmạng lưới được cấu tạo từ nhiều block, mỗi block được nối kết với nhau nên gọi\nlà chain (chuỗi). Block sau sẽ chứa 1 phần thông tin của block ngay trước nó,\nphần thông tin đó sẽ phải giống nhau ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3</h1>
+                <section class="post-meta">
+                    D.T.H.L -
+                    <time class="post-date" datetime="2018-11-30">30 Nov 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé.<br />
+<h3 id="nhin-lai-su-kho-khan-trong-mang-luoi-cua-blockchain"><strong><span> I </span> <span>Nhìn lại sự khó khăn trong mạng lưới của Bitcoin</span></strong></h3>
+Như các bạn đã biết, mạng lưới Bitcoin là mạng lưới kiểu Blockchain. Tức là một mạng lưới được cấu tạo từ nhiều block, mỗi block được nối kết với nhau nên gọi là chain (chuỗi). Block sau sẽ chứa 1 phần thông tin của block ngay trước nó, phần thông tin đó sẽ phải giống nhau ở 2 block. Chính vì có sự kết nối này nên ta mới gọi là blockchain.<br />
+
+Khi bạn muốn chuyển Bitcoin cho người khác, bạn sẽ cần phải tạo ra 1 giao dịch (transaction). Trong transaction này sẽ chứa thông tin địa chỉ gửi, địa chỉ đến, số tiền muốn gửi và phí chuyển (fee). Sau khi transaction được tạo, nó sẽ được đẩy vào 1 block nào đó và chờ đợi để được xử lý (chờ được mining).<br />
+
+Hiện tại 1 block thì chỉ có kích thước tầm 1MB. Điều này có nghĩa là 1 block chỉ chứa được 1 vài transaction. Khi số lượng transaction tăng lên, thì số lượng block được tạo ra cũng tăng lên và xếp hàng chờ xử lý.<br />
+
+Về phía bên bộ phận xử lý (mining) thì sao? Liệu nó có xử lý nhanh không? Hiện nay, trung bình 10 phút thì sẽ có 1 block được xử lý. Như vậy cũng đủ cho thấy sẽ có rất nhiều giao dịch phải chờ đợi và chờ đợi cực lâu để được xử lý, đôi khi mất cả hơn 1 ngày đấy. Chưa kể nếu bạn trả fee cao cho giao dịch của mình thì giao dịch của bạn sẽ được ưu tiên xử lý sớm.<br />
+
+Chính vì vậy, Lightning Network được tạo ra để giải quyết vấn đề chậm chạp trên.<figure class="kg-card kg-image-card"></figure><h3 id="lightning-network-la-gi"><strong><span> II </span> Lightning Network là gì</strong></h3>
+Nếu blockchain của bitcoin là mạng lưới chính, thì Lightning Network sẽ là mạng lưới phụ của bitcoin. Nó không phải là mạng lưới hoàn toàn mới, hoàn toàn độc lập với blockchain, mà giống như kỹ thuật phân tầng trong công nghệ blockchain.<br />
+
+Tính năng chính của Lightning Network là giải quyết ngay lập tức. Hiện tại nó đang được test và coi là giải pháp cho các đồng như Bitcoin, Litecoin...
+<h3 id="lightning-network-hoat-dong-ra-sao"><strong><span> III </span> Lightning Network hoạt động ra sao</strong></h3>
+Lấy ví dụ như sau:
+<figure class="kg-card kg-image-card"></figure>
+A là người đi mua cafe, B là chủ shop cafe. Nếu A thanh toàn bằng Bitcoin và dùng mạng lưới hiện nay để gửi bitcoin cho B, thì vấn đề xảy ra là khi nào B mới nhận được tiền vì thời gian xử lý giao dịch khá lâu, chưa kể ly cafe có tầm 30k mà fee giao dịch khá cao hơn nhiều so với ly cafe.<br />
+
+Nên thay vì dùng mạng lưới chính của bitcoin, A và B sẽ dùng mạng lưới Lightning Network.<br /><figure class="kg-card kg-image-card"></figure>Lúc này, A và B sẽ mở ra 1 kênh giao dịch riêng. Khi A chuyển tiền cho B, thông tin thanh toán sẽ được ghi vào cuốn sổ riêng của cả A và B. Và cứ thế A cứ mua cafe và thanh toán cho B. Giao dịch xảy ra tức thì, nhưng tất cả chỉ trên mạng lưới phụ Lightning Network thôi, chứ trên mạng lưới chính của Bitcoin thì vẫn chưa được update. Đến cuối tuần, B muốn nhận toàn bộ số tiền của A trên mạng lưới chính, lúc này, B sẽ đưa cuốn sổ của mình lên mạng lưới chỉnh và chờ xử lý. Lúc này các giao dịch sẽ được tính tổng và giải quyết chung 1 lúc thay vì giải quyết từng giao dịch.<br />
+
+Nhưng rồi nếu có người C đến cửa hàng của B để mua cafe và muốn thanh toán bằng bitcoin, lúc này nếu B lại tạo ra 1 kênh riêng với C thì hơi phiền, vì không chỉ A với C mà sẽ còn nhiều khách khác và cứ thế mỗi người khách một kệnh thì B sẽ quản lý khá mệt. Do đó C có thể mượn kênh của A để thanh toán B, như vậy B sẽ giảm bớt được kênh giao dịch.<br />
+
+■ A -&gt; B
+<br />
+■ C -&gt; A -&gt; B
+<br />
+■ D -&gt; A -&gt; B
+<br />
+Khi C mượn kênh của A để thanh toán cho B, tất nhiên với cơ chế của Lightning Network, thì giao dịch đó sẽ hoàn toàn tự động chuyển từ C sang A rồi tự động chuyển tiếp cho B. A không phải can thiệp bất cứ gì.<br />
+
+<h3 id="han-che-cua-lightning-network"><strong><span> IV </span> Hạn chế của Lightning Network</strong></h3>
+Nhưng mà khoan hãy vui mừng, vì Lightning Network vẫn đang có một hạn chế khá lớn đấy. Đó là số tiền giao dịch đang bị hạn chế. Tức là mỗi một giao dịch chỉ được phép chuyển tối đa tầm \$20. Nếu A muốn thanh toán một số tiền lớn hơn là \$50 thì sao. Tất nhiên cũng sẽ có cách. Là A sẽ mượn các kênh bạn để gửi chia nhỏ số tiền \$50 ra và gửi cho B.
+<figure class="kg-card kg-image-card"></figure><p>Thao tác tìm mượn các kênh bạn sẽ do Lightning Network thực hiện, A không phải quan tâm vấn đề đó, A chỉ cần thao tác gửi $50 cho B, Lightning Network sẽ tự động chia nhỏ số tiền và tìm các kênh liên kết với B để gửi cho B số tiền đó, B cũng ko cần quan tâm tiền nhận từ những kênh nào.</p>
+<p>Lúc này lại có thêm vấn đề xảy ra. Nếu A muốn gửi số tiền lên đến $5000 thì sao nhĩ, tất nhiên là Lightning Network vẫn OK, nhưng có thấy phiền phức không khi phải chia nhỏ quá nhiều phần, và nó cũng sẽ dẫn đến việc làm chậm giao dịch. Vậy thì có cách gì để giải quyết không.</p>
+<p>Các bạn có nghe nói đến Liquid Network chưa. Vâng, là nó đó. Nó là giải pháp cho sự phiền phức trên.</p>
+<h3 id="liquid-network-la-gi"><strong><span> V </span> Liquid Network là gì</strong></h3><figure class="kg-card kg-image-card"></figure>Nó cũng giống như Lightning Network, đều là mạng lưới phụ cho Bitcoin. Nhưng nếu Lightning Network là chuyển dùng cho C2C thì Liquid Network được sinh ra để dành cho B2B. Tức là dành cho những công ty lớn hay các sàn giao dịch khi bạn muốn gửi một lượng tiền lớn và nhanh. Liquid Network cũng được lập trình trên công nghệ của Bitcoin, do đó độ tin cậy khá cao. Ngoài ra, nó còn có chức năng giấu đi lượng tiền giao dịch, nên được đánh giá có tính bảo mật cao.<br />
+<h3 id="ket-luan"><strong><span> VI </span> Kết luận</strong></h3>
+Hiện tại thì hay mạng lưới Lightning Network và Liquid Network vẫn đang được chạy test. Mình cũng hy vọng trong tương lai gần, Bitcoin sẽ sớm đưa Lighting Network vào thực tế, lúc đó các giao dịch sẽ gần như là ngay lập tức và chi phí cực rẻ.<br />
+<h3 id="tham-khao"><strong><span> VII </span> Tham khảo</strong></h3>
+<a href="https://diar.co/volume-2-issue-25/">https://diar.co/volume-2-issue-25/</a>
+<br />
+<a href="https://blockstream.com/liquid/">https://blockstream.com/liquid/</a>
+
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

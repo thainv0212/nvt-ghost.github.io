@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Monitoring systems with Nagios</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitoring systems with Nagios" />
+    <meta property="og:description" content="I. Giới thiệu Nagios là gì? Nagios Core là tool free và opensource. Sử dụng để monitoring systems, networks và infrastructure. Các công cụ sử dụng trong bài viết Nagios Core : Đây chính là thành phần chính, trung tâm xử lý của Nagios ( Có thể gọi là Coordinator, Orchestrator) Nagios" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/monitoring-systems-with-nagios/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUU1Sc0ZjMnV0aWM&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-12-27T08:01:31.000Z" />
+    <meta property="article:modified_time" content="2017-09-27T10:33:41.000Z" />
+    <meta property="article:tag" content="monitoring" />
+    <meta property="article:tag" content="nagios" />
+    <meta property="article:tag" content="nrpe" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Monitoring systems with Nagios" />
+    <meta name="twitter:description" content="I. Giới thiệu Nagios là gì? Nagios Core là tool free và opensource. Sử dụng để monitoring systems, networks và infrastructure. Các công cụ sử dụng trong bài viết Nagios Core : Đây chính là thành phần chính, trung tâm xử lý của Nagios ( Có thể gọi là Coordinator, Orchestrator) Nagios" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/monitoring-systems-with-nagios/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUU1Sc0ZjMnV0aWM&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="monitoring, nagios, nrpe" />
+    <meta property="og:image:width" content="1000" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "Monitoring systems with Nagios",
+    "url": "https://blog.vietnamlab.vn/monitoring-systems-with-nagios/",
+    "datePublished": "2016-12-27T08:01:31.000Z",
+    "dateModified": "2017-09-27T10:33:41.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkUU1Sc0ZjMnV0aWM&export=download",
+        "width": 1000,
+        "height": 350
+    },
+    "keywords": "monitoring, nagios, nrpe",
+    "description": "I. Giới thiệu\nNagios là gì?\n * Nagios Core là tool free và opensource.\n * Sử dụng để monitoring systems, networks và infrastructure.\n\nCác công cụ sử dụng trong bài viết\n * Nagios Core  : Đây chính là thành phần chính, trung tâm xử lý của Nagios ( Có\n   thể gọi là Coordinator, Orchestrator)\n * Nagios Plugin  : Cài trên các remote host để gửi thông tin về cho Nagios Core\n * NRPE (Nagios Remote Plugin Executor)  : Là Nagios agent () cho phép chạy các\n   script được đặt trên các remote host. Nagios ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Monitoring systems with Nagios</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2016-12-27">27 Dec 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkUU1Sc0ZjMnV0aWM&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="igiithiu">I. Giới thiệu</h3>
+<h4 id="nagioslg">Nagios là gì?</h4>
+<ul>
+<li>Nagios Core là tool free và opensource.</li>
+<li>Sử dụng để monitoring systems, networks và infrastructure.</li>
+</ul>
+<h4 id="cccngcsdngtrongbivit">Các công cụ sử dụng trong bài viết</h4>
+<ul>
+<li><strong>Nagios Core</strong> : Đây chính là thành phần chính, trung tâm xử lý của Nagios ( Có thể gọi là Coordinator, Orchestrator)</li>
+<li><strong>Nagios Plugin</strong> : Cài trên các remote host để gửi thông tin về cho Nagios Core</li>
+<li><strong>NRPE (Nagios Remote Plugin Executor)</strong> : Là Nagios agent () cho phép chạy các script được đặt trên các remote host. Nagios gọi thực thi các command trên các host thông qua check_nrpe plugin</li>
+<li><strong>Nagiosgraph</strong>: nagiosgraph parses các output và performance data từ Nagios plugins và lưu trữ chúng trong các RRD files. Từ giữ liệu đó nagiosgraph tạo ra các đồ thị và HTML page để trực quan hơn các dữ liệu + cho phép người dùng theo dõi lịch sử của dữ liệu check (kết quả check).</li>
+</ul>
+<h3 id="iicit">II. Cài đặt</h3>
+<h4 id="tngquan">Tổng quan</h4>
+<p>Việc cài đặt chia làm 2 công đoạn như sau:</p>
+<ol>
+<li>Cài trên Remote Host: Các host sẽ được kiểm tra</li>
+</ol>
+<ul>
+<li>Nagios Plugin</li>
+<li>NRPE</li>
+</ul>
+<ol start="2">
+<li>Cài trên Monitoring Host: Host trung tâm của Nagios</li>
+</ol>
+<ul>
+<li>Apache</li>
+<li>Nagios Core</li>
+<li>Nagios Plugin</li>
+<li>NRPE</li>
+<li>Nagiosgraph</li>
+</ul>
+<h4 id="citremotehost">Cài đặt Remote Host</h4>
+<h5 id="cinagiosplugin">Cài Nagios Plugin</h5>
+<p>Cài các package cần thiết</p>
+<pre><code class="language-sh">yum install -y gcc glibc glibc-common gd gd-devel make net-snmp openssl-devel
+</code></pre>
+<p>Download Nagios Plugin</p>
+<pre><code class="language-sh">cd /tmp wget
+http://nagios-plugins.org/download/nagios-plugins-2.1.2.tar.gz
+</code></pre>
+<p>Tạo user + group</p>
+<pre><code class="language-sh">useradd nagios
+passwd nagios
+</code></pre>
+<p>Giải nén + Install</p>
+<pre><code class="language-sh">cd /tmp
+tar zxvf nagios-plugins-2.1.2.tar.gz
+cd nagios-plugins-2.1.2
+./configure
+make
+make install
+</code></pre>
+<p>Thay đổi owner cho các thư mục sau</p>
+<pre><code class="language-sh">chown nagios.nagios /usr/local/nagios
+chown -R nagios.nagios /usr/local/nagios/libexec
+</code></pre>
+<h5 id="citnrpe">Cài đặt NRPE</h5>
+<p>Tải NRPE</p>
+<pre><code class="language-sh">cd /tmp
+wget http://liquidtelecom.dl.sourceforge.net/project/nagios/nrpe-3.x/nrpe-3.0.tar.gz
+</code></pre>
+<p>Giải nén và cài đặt</p>
+<pre><code class="language-sh">cd /tmp tar xzf nrpe-3.0.tar.gz
+cd nrpe-3.0/configure --enable-command-args
+make all
+make install-groups-users
+make install
+make install-config
+make install-init
+</code></pre>
+<p>Config allowed_hosts trong file <code>/usr/local/nagios/etc/nrpe.cfg</code> : mục đích để từ monitoring host ta có thể thực thi các nrpe command tới các remote host</p>
+<pre><code>allowed_hosts=127.0.0.1,&lt;ip_monitoring_host&gt;
+</code></pre>
+<p>Add thêm dòng sau vào file <code>/etc/services</code></p>
+<pre><code class="language-sh"># Nagios services
+nrpe 5666/tcp
+</code></pre>
+<p>Config iptables cho phép các host ngoài sử dụng port 5666</p>
+<pre><code class="language-sh">iptables -I INPUT -p tcp --destination-port 5666 -j ACCEPT
+service iptables save
+</code></pre>
+<p>Start NRPE</p>
+<pre><code class="language-sh">start nrpe
+</code></pre>
+<p>Kiểm tra NRPE</p>
+<pre><code class="language-sh"></code></pre>
+<h4 id="citmonitoringhost">Cài đặt Monitoring Host</h4>
+<h5 id="ciapachenagioscore">Cài Apache + Nagios Core</h5>
+<p>Install Apache + các package cần thiết</p>
+<pre><code class="language-sh">yum install httpd php
+yum install gcc glibc glibc-common
+yum install gd gd-devel
+</code></pre>
+<p>Add user, group cần thiết (root user)</p>
+<pre><code class="language-sh">useradd -m nagios
+passwd nagios
+groupadd nagcmd
+usermod -a -G nagcmd nagios
+usermod -a -G nagcmd apache
+</code></pre>
+<p>Download + giải nén + cài Nagios Core</p>
+<pre><code class="language-sh">cd /tmp wget
+http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.2.1.tar.gz
+tar xzf nagios-4.2.1.tar.gz cd nagios-4.2.1
+
+# Check
+./configure --with-command-group=nagcmd
+
+# Install
+make all
+make install
+make install-init
+make install-config
+make install-commandmode
+</code></pre>
+<p>Config thông số <code>/usr/local/nagios/etc/objects/contacts.cfg</code></p>
+<pre><code class="language-sh"># Config mail address để nhận alert mail từ Nagios
+
+define contact{
+   contact_name nagiosadmin ; Short name of user
+   use generic-contact ; Inherit default values from generic-contact template (defined above)
+   alias Nagios Admin ; Full name of user
+
+   email &lt;CHANGE_HERE&gt; ; &lt;&lt;***** CHANGE THIS TO YOUR EMAIL ADDRESS ******
+}
+</code></pre>
+<p>Config apache</p>
+<ul>
+<li>Tạo file web config cho nagios</li>
+</ul>
+<pre><code class="language-sh">cd /tmp/nagios-4.2.1
+make install-webconf
+</code></pre>
+<ul>
+<li>Tạo basic authentication cho nagios web</li>
+</ul>
+<pre><code class="language-sh">htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+</code></pre>
+<ul>
+<li>Restart apache service</li>
+</ul>
+<pre><code class="language-sh">httpd restart
+</code></pre>
+<p>Truy cập vào địa chỉ http:///nagios ta sẽ sử dụng được Nagios Core.</p>
+<h5 id="cinagiospluginnhtrn">Cài Nagios Plugin (như trên)</h5>
+<h5 id="cinrpenhtrn">Cài NRPE (như trên)</h5>
+<p>Để kiểm tra nrpe trên monitoring host tới các remote host ta chạy command sau</p>
+<pre><code class="language-sh"></code></pre>
+<h5 id="cinagiosgraph">Cài Nagiosgraph</h5>
+<p>Cài các package cần thiết</p>
+<pre><code class="language-sh">yum -y install perl-GD php-gd rrdtool-perl rrdtool-php rrdtool perl-CGI perl-Time-HiRes
+</code></pre>
+<p>Download + giải nén + cài Nagiosgraph (lúc cài ấn enter liên tục để chọn default trừ 2 cái note phía dưới đây)</p>
+<pre><code class="language-sh">cd /tmp
+wget http://downloads.sourceforge.net/project/nagiosgraph/nagiosgraph/1.4.4/nagiosgraph-1.4.4.tar.gz
+tar -xzf nagiosgraph-1.4.4.tar.gz
+
+# Install
+cd nagiosgraph-1.4.4
+./install.pl --check-prereq # kiểm tra 
+./install.pl --layout overlay --prefix /usr/local/nagios 
+
+-----Chú ý-----
+ Modify the Nagios configuration? [n] -&gt; chọn y
+ Modify the Apache configuration? [n] -&gt; chọn y
+---------------
+</code></pre>
+<p>Config apache: thay mới config của <code>nagiosgraph.conf</code></p>
+<pre><code class="language-sh">vim /etc/httpd/nagiosgraph.conf
+
+----
+# enable nagiosgraph CGI scripts
+ScriptAlias /nagiosgraph/cgi-bin "/usr/local/nagiosgraph/cgi"
+&lt;Directory "/usr/local/nagiosgraph/cgi"&gt;
+ Options ExecCGI
+ AllowOverride None
+ Require all granted
+&lt;/Directory&gt;
+# enable nagiosgraph CSS and JavaScript
+Alias /nagiosgraph "/usr/local/nagiosgraph/share"
+&lt;Directory "/usr/local/nagiosgraph/share"&gt;
+ Options None
+ AllowOverride None
+ Require all granted
+&lt;/Directory&gt;
+----
+</code></pre>
+<p>Config host: add thêm config sau trong mỗi block host được định nghĩa</p>
+<pre><code class="language-sh">vim /usr/local/nagios/etc/host.cfg
+------
+action_url /nagiosgraph/cgi-bin/showhost.cgi?host=$HOSTNAME$
+------
+</code></pre>
+<p>Config service</p>
+<ul>
+<li>Add thêm config sau cho từng service mà ta muốn show ra graph</li>
+</ul>
+<pre><code class="language-sh">vim /usr/local/nagios/etc/services.cfg
+-----
+use generic-service ==&gt; use generic-service,graphed-service
+-----
+</code></pre>
+<ul>
+<li>Add thêm config sau dưới cùng file</li>
+</ul>
+<pre><code class="language-sh">vim /usr/local/nagios/etc/services.cfg
+-----
+define service {
+ name graphed-service
+ action_url /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&amp;service=$SERVICEDESC$
+ action_url /nagiosgraph/cgi-bin/show.cgi?host=$HOSTNAME$&amp;service=$SERVICEDESC$' onMouseOver='showGraphPopup(this)' onMouseOut='hideGraphPopup()' rel='/nagiosgraph/cgi-bin/showgraph.cgi?host=$HOSTNAME$&amp;service=$SERVICEDESC$
+
+ register 0
+}
+-----
+</code></pre>
+<h3 id="iiibsung">III. BỔ SUNG</h3>
+<h4 id="nagiosplugin">Nagios Plugin?</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdko5dkdVc2VtS3c&amp;export=download" alt="Nagios Plugin" width="408" height="266" layout="responsive"></amp-img></p>
+<ul>
+<li>Khác với những tool monitoring khác, những tác vụ kiểm tra host, service không được đưa vào nền tảng của Nagios mà được đẩy ra ngoài thông qua việc sửa dụng các <strong>compiled executables or scripts</strong> (Perl scripts, shell scripts, etc.) hay còn gọi là Plugins.</li>
+<li>Plugins của Nagios hoạt động như là 1 Abstract Layer giữa Nagios và những hosts hay services được monitoring. (xem ảnh trên)</li>
+<li>Ta có thể tự viết các plugin các plugin hoặc tải về từ <a href="https://exchange.nagios.org">https://exchange.nagios.org</a></li>
+</ul>
+<h4 id="cchvitpluginnagios">Cách viết Plugin Nagios</h4>
+<p>Như đã nói ở trên, để tạo 1 plugin trong Nagios thì ta phải compile hoặc sử dụng những ngôn ngữ script để viết các tác vụ monitoring.</p>
+<p>Một plugin phải tuân thủ tối thiểu 2 quy định sau:</p>
+<ul>
+<li>Exit chương trình mới RETURN CODE hợp lệ trong list sau:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Plugin Return Code</th>
+<th>Service State</th>
+<th>Host State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>OK</td>
+<td>UP</td>
+</tr>
+<tr>
+<td>1</td>
+<td>WARNING</td>
+<td>UP or DOWN/UNREACHABLE*</td>
+</tr>
+<tr>
+<td>2</td>
+<td>CRITICAL</td>
+<td>DOWN/UNREACHABLE</td>
+</tr>
+<tr>
+<td>3</td>
+<td>UNKNOWN</td>
+<td>DOWN/UNREACHABLE</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Phải trả về ít nhất 1 dòng text(<strong>text output</strong>) ra STDOUT</li>
+</ul>
+<p><strong>Text ouput</strong>:</p>
+<ul>
+<li>Từ nagios 3 thì ta có thể sử dụng được nhiều dòng text ouput. text ouput sẽ cho biết thông tin trạng thái kết quả của check tool.</li>
+<li>Ngoài ra ta có thể add thêm thông tin về performance data như format sau:<br />
+<span>TEXT OUTPUT</span> | <span>OPTIONAL PERFDATA</span><br />
+<span>LONG TEXT LINE 1<br />
+LONG TEXT LINE 2<br />
+…<br />
+LONG TEXT LINE N </span>| <span>PERFDATA LINE 2</span><br />
+<span>PERFDATA LINE 3<br />
+…<br />
+PERFDATA LINE N</span></li>
+</ul>
+<p><strong>Performance data</strong>:</p>
+<ul>
+<li>Tách biệt với text ouput bởi ký tự gạch đứng: |</li>
+<li>Sẽ được lưu vào marco tách biệt với textouput để sử dụng cho mục đích sau này. ( ví dụ như với Nagiosgraph sẽ sử dụng perf data để vẽ chart)</li>
+</ul>
+<p><strong>Chú ý</strong>: output của plugin mặc định là bị giới hạn 4K thôi, nếu ta muốn tăng lên thì thay đổi</p>
+<p>MAX_PLUGIN_OUTPUT_LENGTH trong file  include/nagios.h và recompile lại nagios.</p>
+<h4 id="vdvitplugin">Ví dụ viết plugin</h4>
+<p>Ta sẽ viết plugin sử dụng bash script để check disk usage = df command  có nội dung như sau:</p>
+<pre><code class="language-bash">#!/bin/bash
+used_space=`df -h / | grep -v Filesystem | awk '{print $5}' | sed 's/%//g'`
+case $used_space in
+[1-84]*)
+echo "OK - $used_space% of disk space used."
+exit 0
+;;
+[85]*)
+echo "WARNING - $used_space% of disk space used."
+exit 1
+;;
+[86-100]*)
+echo "CRITICAL - $used_space% of disk space used."
+exit 2
+;;
+*)
+echo "UNKNOWN - $used_space% of disk space used."
+exit 3
+;;
+esac
+</code></pre>
+<p>Đặt file tại <code>/usr/lib/nagios/plugins/usedspace.sh</code> (và nhớ add thêm quền thực thi chmod +x  &lt;file_path&gt;)</p>
+<p>Add command thực thi script này vào nrpe tại <code>/etc/nagios/nrpe.cfg</code></p>
+<pre><code class="language-sh">command[usedspace_bash]=/usr/lib/nagios/plugins/usedspace.sh
+</code></pre>
+<p>Config nagios command + service</p>
+<ul>
+<li>Command: <code>/etc/nagios/objects/commands.cfg</code></li>
+</ul>
+<pre><code class="language-sh">define command {
+        command_name    usedspace_bash
+        command_line    $USER1$/check_nrpe -H $HOSTADDRESS$ -c usedspace_bash
+}
+</code></pre>
+<ul>
+<li>Service: <code>/etc/nagios/objects/services.cfg</code> (ví dụ)</li>
+</ul>
+<pre><code class="language-sh">define service {
+        use                             generic-service
+        host_name                       UbuntuDroplet
+        service_description             Custom Disk Checker In Bash
+        check_command                   usedspace_bash
+}
+</code></pre>
+<p>Restart lại Nagios ta sẽ thấy service đã được add và thực thi trên web UI của nagios.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNEhDSkZDS0FvWXM&amp;export=download" alt="Nagios Status" width="732" height="629" layout="responsive"></amp-img></p>
+<h3 id="ivktlun">IV. Kết luận</h3>
+<ul>
+<li>Vận hành hệ thống thì việc monitoring là cực kì quan trọng, giúp ta ngay lập tức biết được những bất thường xảy ra (thông qua mail alert của các tool) để có biện pháp xử lý kịp thời.</li>
+<li>Nagios Core + NRPE + Nagiosgraph phối hợp với nhau đã tạo nên 1 bộ công cụ monitoring tương đối hoàn hảo giúp ta quan sát được hệ thống 1 cánh trực quan thông qua đồ thị.</li>
+<li>Sử dụng Nagios có 1 điểm cộng rất lớn là khả năng linh hoạt trong việc viết các plugin tùy thích để nhúng vào ( bất kỳ ngôn ngữ nào chỉ cần cung cấp lời gọi qua CLI là đều có thể cho vào được).</li>
+<li>Điểm trừ của Nagios là vẫn chưa kết hợp được NRPE + Nagiosgraph vào trong 1 package mà ta phải cài độc lập từng cái khiến cho việc thiết lập khá là vất vả.</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://geekpeek.net/nagios-plugin-bash">https://geekpeek.net/nagios-plugin-bash</a></li>
+<li><a href="https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/plugins.html">https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/plugins.html</a></li>
+<li><a href="https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html">https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html</a></li>
+<li><a href="https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html">https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/perfdata.html</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

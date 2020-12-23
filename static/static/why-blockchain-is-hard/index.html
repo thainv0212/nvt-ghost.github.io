@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Hạn chế của blockchain | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hạn chế của blockchain" />
+    <meta property="og:description" content="Lần trước tôi có viết bài về blockchain và cách nhìn theo quan điểm lý thuyết trò chơi về blockchain.  Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 1)  Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 2)" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/why-blockchain-is-hard/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1zRi9Dia7w4wcie6H4zCPdCCgDvHrSjvJ&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-05-30T01:15:07.000Z" />
+    <meta property="article:modified_time" content="2018-06-01T07:30:47.000Z" />
+    <meta property="article:tag" content="Bitcoin" />
+    <meta property="article:tag" content="blockchain" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Hạn chế của blockchain" />
+    <meta name="twitter:description" content="Lần trước tôi có viết bài về blockchain và cách nhìn theo quan điểm lý thuyết trò chơi về blockchain.  Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 1)  Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 2)" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/why-blockchain-is-hard/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1zRi9Dia7w4wcie6H4zCPdCCgDvHrSjvJ&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="B.V.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Bitcoin, blockchain" />
+    <meta property="og:image:width" content="1008" />
+    <meta property="og:image:height" content="435" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "B.V.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1fF2_O50gnEdEyVwfVmj_a2A6zIAjyqxh&export=download",
+            "width": 605,
+            "height": 681
+        },
+        "url": "https://blog.vietnamlab.vn/author/manhbv/",
+        "sameAs": []
+    },
+    "headline": "Hạn chế của blockchain",
+    "url": "https://blog.vietnamlab.vn/why-blockchain-is-hard/",
+    "datePublished": "2018-05-30T01:15:07.000Z",
+    "dateModified": "2018-06-01T07:30:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1zRi9Dia7w4wcie6H4zCPdCCgDvHrSjvJ&export=download",
+        "width": 1008,
+        "height": 435
+    },
+    "keywords": "Bitcoin, blockchain",
+    "description": "Lần trước tôi có viết bài về blockchain và cách nhìn theo quan điểm lý thuyết\ntrò chơi về blockchain.\nVì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 1)\n[https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/]\nVì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 2)\n[https://vietnamlab.vn/blog/2018/01/24/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/]\nHôm ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-bitcoin tag-blockchain nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-bitcoin tag-blockchain js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Hạn chế của blockchain</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-05-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 May 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/bitcoin/index.html">Bitcoin</a>, <a href="../tag/blockchain/index.html">blockchain</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1zRi9Dia7w4wcie6H4zCPdCCgDvHrSjvJ&amp;export&#x3D;download" alt="Hạn chế của blockchain">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/why-blockchain-is-hard/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%E1%BA%A1n%20ch%E1%BA%BF%20c%E1%BB%A7a%20blockchain">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Lần trước tôi có viết bài về blockchain và cách nhìn theo quan điểm lý thuyết trò chơi về blockchain.<br>
+<a href="https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/">Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 1)</a><br>
+<a href="https://vietnamlab.vn/blog/2018/01/24/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/">Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?(Phần 2)</a><br>
+Hôm nay tôi muốn chia sẻ với các bạn mặt trái chiều của blockchain, hay hạn chế của blockchain mà chúng ta cần nhìn nhận. Để từ đó có cái nhìn đa chiều hơn về công nghệ đình đám này.</p>
+<h3 id="mclc">Mục lục</h3>
+<ul>
+<li><a href="index.html#mu">Mở đầu</a></li>
+<li><a href="index.html#blockchainlg">Blockchain là gì</a></li>
+<li><a href="index.html#cigicablockchain">Cái giá của Blockchain</a></li>
+<li><a href="index.html#vyblockchainttchocig">Vậy, blockchain tốt cho cái gì?</a></li>
+<li><a href="index.html#ktlun">Kết luận</a></li>
+</ul>
+<h3 id="mu">Mở đầu:</h3>
+<p>Hiện tại (2018-05-21), tuy giá của bitcoin không còn ở đỉnh hơn 18K USD như hồi đầu năm 2018, nhưng mức giá của nó vẫn còn ở mức khá cao: khoảng 8300 USD tại thời điểm viết bài.<br>
+Blockchain được thổi phồng khá nhiều qua các phương tiện truyền thông. Và những điều bạn nghe được sẽ đại loại như blockchain sẽ:</p>
+<ol>
+<li>Giải quyết bất bình đẳng thu nhập.</li>
+<li>Làm cho tất cả dữ liệu luôn an toàn, không bị chỉnh sửa tùy ý.</li>
+<li>Giao dịch không cần tin tưởng (không sợ đối phương không chuyển tiền hoặc bitcoin), và làm cho mọi thứ hiệu quả hơn(điều này có thực sự đúng?).</li>
+</ol>
+<p>Thế blockchain thực sự là cái gì? Nó có thực sự thực hiện được những gì mà truyền thông hay nhắc tới? Blockchain có thể mang lại điều gì đó tuyệt vời cho các ngành công nghiệp kiểu như chăm sóc sức khỏe, tài chính, quản lý chuỗi cung ứng và bản quyền âm nhạc?</p>
+<p>Trong bài viết này, chúng ta tìm cách trả lời rất nhiều câu hỏi này bằng cách xem xét một blockchain là gì và quan trọng hơn <strong>blockchain không phải là cái gì</strong>!</p>
+<h3 id="blockchainlg">Blockchain là gì:</h3>
+<p>Để kiểm tra một số trong những tuyên bố bên trên, chúng ta phải xác định một blockchain là gì và ở đây có rất nhiều sự nhầm lẫn. Nhiều công ty sử dụng từ &quot;blockchain&quot; để có nghĩa là một số loại thiết bị nhiệm màu mà tất cả dữ liệu của họ sẽ không bao giờ sai. Một thiết bị như vậy, tất nhiên, không tồn tại, ít nhất là trong thế giới thực của chúng ta.</p>
+<p>Thế, một blockchain là gì? Về mặt kỹ thuật, một blockchain là một danh sách liên kết các khối và một khối là một nhóm các giao dịch có thứ tự. Hoặc bạn có thể nghĩ blockchain như một kiểu cơ sở dữ liệu, với một vài đặc tính được bổ sung.<br>
+(Chi tiết hơn bạn có thể tham khảo bài viết:<br>
+<a href="https://vietnamlab.vn/blog/2018/01/24/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/">Phần 2: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?</a> )</p>
+<h3 id="cigicablockchain">Cái giá của Blockchain</h3>
+<p>Tính không thể bị chỉnh sửa các giao dịch của blockchain rõ ràng là một đặc tính quý báu, trong thời đại mà cái gì cũng có khả năng bị chỉnh sửa, từ tiền giả tới đồ ăn giả, tới mũi giả, silicon giả. ;). Nhưng để tạo ra một hệ thống như vậy tốn rất nhiều chi phí. Hãy cùng xem xét một số khía cạnh sau.</p>
+<h4 id="phttrinnghimngthnvchmhn">Phát triển nghiêm ngặt hơn và chậm hơn</h4>
+<p><img src="https://drive.google.com/uc?id=1B5nBXvxNkcZwS72mRGjTDxgIpjz4M9G7&amp;export=download" alt="uc?id=1B5nBXvxNkcZwS72mRGjTDxgIpjz4M9G7&amp;export=download"><br>
+Hơi mang tính kĩ thuật một chút. Nhưng, tạo ra một hệ thống không phải là một nhiệm vụ dễ dàng.</p>
+<ul>
+<li>Một lỗi nhỏ có thể làm hỏng toàn bộ cơ sở dữ liệu hoặc gây ra một số cơ sở dữ liệu khác với các cơ sở dữ liệu khác -&gt; mất tính nhất quán của blockchain.<br>
+Với một sai sót nhỏ, bạn phá vỡ mọi thứ, bạn mất tính nhất quán của dữ liệu và blockchain trở nên bị hỏng và vô giá trị (đó chính là bài toán 51% thợ mỏ, nhưng điều đó khó mà xảy ra. Tham khảo bài viết:<br>
+<a href="https://vietnamlab.vn/blog/2018/01/24/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/">Phần 2: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?</a> ).</li>
+</ul>
+<p>Bạn có thể nghĩ, tại sao ta không thể sửa chữa cơ sở dữ liệu hoặc bắt đầu lại và tiếp tục từ đầu? Điều đó sẽ dễ dàng thực hiện trong một hệ thống tập trung, nhưng điều này rất khó trong một hệ thống phân cấp. Bạn cần sự đồng thuận, hoặc thỏa thuận của tất cả mọi người trong hệ thống, để thay đổi cơ sở dữ liệu. Blockchain là phi tập trung mà ^^.<br>
+Như vậy có thể thấy rằng, blockchain làm cho dữ liệu khó bị chỉnh sửa, nhưng nếu nó bị sai ở đâu đó, thì nó lại là <strong>khó được chỉnh sửa!</strong></p>
+<ul>
+<li>Các cấu trúc mới, tính năng mới khó để thêm vào.<br>
+Thêm vào đã khó, thêm sai vào rồi sửa càng khó hơn.<br>
+Một lần nữa, ta tự hỏi rằng tại sao không thể “sửa” một số tính năng bị hỏng, cấu trúc lỗi thời. Một lần nữa, điều này là dễ dàng trong một hệ thống tập trung, nhưng trong một hệ thống phân cấp, bạn đơn giản là không thể thay đổi bất cứ điều gì mà không có sự đồng thuận. Không có &quot;sửa chữa&quot; bất cứ điều gì trừ khi có sự đồng ý của tất cả mọi người.</li>
+</ul>
+<p>Kết luận: thiếu sự &quot;thích ứng nhanh&quot; trong một hệ thống blockchain.</p>
+<h4 id="botrrttnkm">Bảo trì rất tốn kém</h4>
+<ul>
+<li>Một cơ sở dữ liệu tập trung truyền thống chỉ cần được ghi vào một lần.</li>
+<li>Một blockchain cần phải được viết đến hàng ngàn lần (thậm chí hàng triệu lần).</li>
+<li>Một cơ sở dữ liệu tập trung truyền thống chỉ cần kiểm tra dữ liệu một lần.</li>
+<li>Một Blockchain cần kiểm tra dữ liệu hàng ngàn lần (lại nữa thậm chí hàng triệu lần).</li>
+<li>Một cơ sở dữ liệu tập trung truyền thống cần truyền dữ liệu để lưu trữ chỉ một lần.</li>
+<li>Một Blockchain cần truyền dữ liệu hàng nghìn lần (thêm một lần nữa hàng triệu lần, và như bitcoin 10 phút 1 block thì 1 ngày sẽ là 144 lần * hàng triệu lần như thế).</li>
+</ul>
+<p>Trên một bài toán về độ tin cậy và chi phí. Khi ta phải cân đối 2 vấn đề đó,<br>
+thì hầu hết các ứng dụng thỏa mãn tính nhất quán và độ tin cậy có thể đạt được rẻ hơn bằng nhiều bằng cách như kiểm tra tính toàn vẹn, check các dữ liệu biên nhận và sao lưu.</p>
+<h4 id="ngidngctonquyn">Người dùng có toàn quyền</h4>
+<p>Phi tập trung, blockchain làm cho các công ty sẽ không có dữ liệu của người dùng ngay từ đầu (tất nhiên đã đang và sẽ có những công ty thu thập, lưu trữ thông tin người dùng trên blockchain). Tuy nhiên, vì blochain là một mạng để mọi người tự do -&gt; sẽ có những người dùng &quot;xấu&quot;. Họ sẽ gửi những block không hợp lệ lên, tạo những smart contract có lợi cho họ..tự do mà!</p>
+<p>Bạn có thể nghĩ rằng bạn có thể đơn giản từ chối dịch vụ cho những người dùng độc hại, điều này sẽ rất dễ thực hiện trong một dịch vụ tập trung. Tuy nhiên, không giống như một dịch vụ tập trung, từ chối cung cấp dịch vụ là rất khó bởi vì không có thực thể duy nhất nào có quyền đá bất kỳ ai ra ngoài (Không admin ^^). Blockchain phải vô tư và thực thi các quy tắc được xác định bởi phần mềm. Nếu các quy tắc không đủ để ngăn chặn hành vi xấu, bạn sẽ không may mắn. Không có &quot;tinh thần&quot; của pháp luật ở đây. Bạn cần phải đối phó với các tác nhân độc hại hoặc hành vi sai trái, có thể trong một thời gian rất dài.</p>
+<p>Ví dụ như: sự kiện sập sàn tiền ảo Bitconnect, người dùng mất tiền của họ, mà chẳng có ai cứu giúp. Người dùng có toàn quyền nhưng khi mất tiền thì thành ra lại không ai cứu giúp họ.</p>
+<p>Thêm một ví dụ nữa, tôi có một người bạn, xin gọi là anh 趙 đã bị mất một số tiền tương đương với khoảng 6 tháng đến 1 năm tiền lương bình quân của người Việt Nam chỉ vì bị hack tài khoản trên ví MEW (MyEtherWallet). Và, chẳng ai bù đắp cho anh ta cả, không ai chịu trách nhiệm cho việc này. Cay đắng và chấp nhận.</p>
+<h4 id="ttcccnngcpudatrntnguyn">Tất cả các nâng cấp đều dựa trên tự nguyện</h4>
+<p>Nâng cấp là không bắt buộc. Những người chơi khác trên mạng không có nghĩa vụ phải thay đổi phần mềm của bạn. Nếu họ đã làm, hệ thống như vậy sẽ dễ dàng hơn, nhanh hơn và rẻ hơn để xây dựng như một hệ thống tập trung.<br>
+<img src="https://drive.google.com/uc?id=1khCjwnVA1leUg3dClwO0tMd65v4g5sf_&amp;export=download" alt="uc?id=1khCjwnVA1leUg3dClwO0tMd65v4g5sf_&amp;export=download"></p>
+<p>Điểm đặc trưng của một blockchain là nó không nằm dưới sự kiểm soát của một thực thể duy nhất nào cả và điều này sẽ bị vi phạm với một nâng cấp bắt buộc.</p>
+<p>Thay vào đó, tất cả các nâng cấp phải tương thích ngược. Điều này rõ ràng là khó khăn hơn hệ thống tập trung, đặc biệt là khi nếu bạn muốn thêm các tính năng mới và thậm chí khó hơn nữa khi suy nghĩ từ góc nhìn thử nghiệm. Mỗi phiên bản của phần mềm cần thử nghiệm rất nhiều (do phải tương thích với rất nhiều phiên bản trước dó) và do đó kéo dài thời gian phát hành.</p>
+<p>Một lần nữa, nếu đây là một hệ thống tập trung, điều này sẽ rất dễ dàng để sửa chữa bởi không còn phục vụ các hệ thống cũ. Bạn không thể làm điều này, tuy nhiên trong một hệ thống phi tập trung vì bạn không thể ép buộc bất cứ ai làm bất cứ điều gì.</p>
+<h4 id="mrngquymthcskhkhn">Mở rộng quy mô thực sự khó khăn</h4>
+<p>Cuối cùng, việc mở rộng quy mô chắc chắn là khó khăn hơn hệ thống tập trung truyền thống. Lý do là hiển nhiên. Cùng một dữ liệu phải sống ở hàng trăm hoặc hàng ngàn địa điểm hơn ở một nơi duy nhất. Chi phí truyền tải, xác minh và lưu trữ rất lớn vì mỗi bản sao của cơ sở dữ liệu phải trả tiền thay vì các chi phí đó chỉ được trả một lần trong cơ sở dữ liệu truyền thống, tập trung.</p>
+<p>Bạn có thể, tất nhiên, giảm gánh nặng bằng cách giảm số lượng các nút. Nhưng sau đó bạn sẽ tự hỏi, tại sao bạn cần một hệ thống phi tập trung? Tại sao không chỉ đơn giản là dùng một cơ sở dữ liệu tập trung nếu chi phí nhân rộng là cái mà bạn quan tâm nhất.</p>
+<h4 id="tptrungddnghnrtnhiu">Tập trung dễ dàng hơn rất nhiều</h4>
+<p>Chúng ta đã thấy vấn đề ở đây, đó là các hệ thống phi tập trung rất khó làm việc, tốn kém để duy trì, khó nâng cấp và mở rộng.<br>
+So với một cơ sở dữ liệu tập trung: hệ thống nhanh hơn nhiều, ít tốn kém, dễ dàng hơn để duy trì và dễ dàng hơn để nâng cấp hơn một blockchain.</p>
+<p>Vậy tại sao mọi người tiếp tục sử dụng blockchain từ như thể đó là một số thuốc chữa bách bệnh cho tất cả các vấn đề của họ?<br>
+Đầu tiên, rất nhiều các ngành công nghiệp đang được bán trên blockchain thực sự là quá hạn để nâng cấp cơ sở hạ tầng CNTT. Chăm sóc sức khỏe có phần mềm có tiếng là tệ hại. Giải quyết tài chính vẫn đang chạy trên phần mềm từ những năm 70. Phần mềm quản lý chuỗi cung ứng khó sử dụng và khó cài đặt. Hầu hết các công ty trong các ngành công nghiệp này đều chống lại việc nâng cấp vì rủi ro liên quan. Có rất nhiều nâng cấp cơ sở hạ tầng mà chi phí hàng trăm triệu usd và cuối cùng lại để đấy. Blockchain là một cách để bán những nâng cấp cơ sở hạ tầng CNTT này và khiến chúng có vẻ ngon lành hơn một chút.</p>
+<p>Thứ hai, blockchain là một cách để trông giống như bạn đang ở trên các cạnh hàng đầu của công nghệ. Giống như nó hay không, từ &quot;blockchain&quot; đã đưa vào một cuộc sống của riêng mình. Rất ít người thực sự hiểu nó là gì, nhưng muốnxuất hiện  nổi trội hơn nên sử dụng những từ này như một cách để nghe có vẻ thông minh hơn. Cũng giống như “đám mây” thực ra nghĩa là máy tính của người khác hay “AI” có nghĩa đơn là thuật toán được chỉnh sửa, chạy theo một kiểu khác, “blockchain” trong ngữ cảnh này có vẻ  là một kiểu cơ sở dữ liệu chậm, tốn kém. ^^</p>
+<p><img src="https://drive.google.com/uc?id=1EC5RQEWQCVQr4eB4JO5-k_rIhDhDi7lN&amp;export=download" alt="uc?id=1EC5RQEWQCVQr4eB4JO5-k_rIhDhDi7lN&amp;export=download"></p>
+<p>Thứ ba, mọi người thực sự không thích sự kiểm soát của chính phủ đối với một số ngành cụ thể và muốn có một cơ chế xét xử khác với khung pháp lý thường chậm và tốn kém. Đối với họ, &quot;blockchain&quot; thực sự chỉ là một cách để thoát khỏi bộ máy nặng của quy định của chính phủ. Điều này hiện lại đang làm quá tải những gì blockchain có thể làm. Blockchain không thể loại bỏ một cách kỳ diệu xung đột của loài người.</p>
+<p><img src="https://drive.google.com/uc?id=1FTR0UhmhM2nGnyPi4KsdsAXlQo62SnEh&amp;export=download" alt="uc?id=1FTR0UhmhM2nGnyPi4KsdsAXlQo62SnEh&amp;export=download"></p>
+<p>Kết quả là: có rất nhiều người bị thổi phồng về những lời hứa mà không thực sự hiểu về vấn đề khả năng hay chi phí. Thậm chí giám đốc điều hành cũng che khuất (hoặc bị che khuất) những gì một blockchain có thể và không thể làm được. Mọi người dưới họ trở nên ngại nói rằng hoàng đế không có quần áo và chúng ta có lẽ đang sống trong môi trường như vậy.</p>
+<h3 id="vyblockchainttchocig">Vậy, blockchain tốt cho cái gì?</h3>
+<p>Như trên chúng ta đã thấy một blockchain rất tốn kém so với cơ sở dữ liệu tập trung. Vì vậy, lý do duy nhất bạn nên sử dụng một blockchain là phân cấp. Bởi vì, nó loại bỏ việc hỏng, hoặc kiểm soát dữ liệu tại một cơ sở dữ liệu duy nhất.</p>
+<p>Như vậy có nghĩa là phần mềm hoặc cơ sở dữ liệu không nên được thay đổi thường xuyên (vì tốn kém và phức tạp).</p>
+<p>Nhưng các ngành công nghiệp không phải như thế này. Hầu hết các ngành đòi hỏi các tính năng mới hoặc nâng cấp và tự do thay đổi và mở rộng khi cần thiết. Do các blockchains khó nâng cấp, khó thay đổi và khó mở rộng, hầu hết các ngành công nghiệp không có đất để sử dụng cho một blockchain.</p>
+<p>Một ngoại lệ mà chúng ta thấy là tiền. Không giống như hầu hết các trường hợp sử dụng công nghiệp, tiền bạc sẽ tốt hơn nếu nó không thay đổi. Tính bất biến và khó khăn trong việc thay đổi các quy tắc lại là đặc tính tích cực cho tiền và không gây thiệt hại. Đây là lý do tại sao blockchain là công cụ thích hợp khi nói đến Bitcoin.</p>
+<p>Điều rõ ràng là rất nhiều công ty đang tìm cách sử dụng blockchain không thực sự muốn một blockchain, mà là nâng cấp CNTT cho ngành công nghiệp cụ thể của họ. Đây là điều tốt, nhưng bằng cách sử dụng từ &quot;blockchain&quot; để đạt được điều đó là không trung thực và chém gió về khả năng của nó.</p>
+<h3 id="ktlun">Kết Luận</h3>
+<p>Blockchain là một thuật ngữ phổ biến những ngày này và thật không may, nó bị thổi phồng quá nhiều.<br>
+Nếu bạn là một dịch vụ tập trung, một blockchain <strong>không</strong> giúp bạn có thể làm rẻ dịch vụ của bạn hơn so với một cơ sở dữ liệu tập trung.<br>
+Nếu bạn là một dịch vụ phi tập trung, thì có thể bạn đang lừa dối chính mình. Sẽ không có một ai đó là  <strong>&quot;bạn&quot;</strong> trong một dịch vụ thực sự phi tập trung.</p>
+<p>Quay trở lại đầu những năm 2000, đã có rất nhiều nhà điều hành trong ngành công nghệ cao sử dụng Java và XML. Mặc dù hai thứ này là công cụ và không phải sản phẩm thực tế, nhiều giám đốc điều hành đã nhấn mạnh vào việc sử dụng chúng, cho dù các kỹ sư của họ có cố gắng gò theo chúng, kết quả cũng rất nghèo nàn. Blockchain rất giống như vậy. Tập trung vào các vấn đề bạn đang giải quyết và các công cụ sẽ làm cho chúng thể hiện khả năng của chúng. Cái này nghe giống với quan điểm: chiếc áo không làm nên thầy tu!</p>
+<p>Nếu ngẫm nghĩ theo một khía cạnh khác, ta sẽ thấy rằng các khái niệm hiện tại về blockchain đang cố gắng làm điều không thể. Họ muốn sự an toàn của một hệ thống phi tập trung với sự kiểm soát của một hệ thống tập trung. Mong muốn đạt được cái tốt nhất của cả hai hệ thống, nhưng những gì họ nhận được cuối cùng có thể lại là điều tồi tệ nhất của cả hai hệ thống. Bạn nhận được các chi phí và khó khăn của một hệ thống phi tập trung với các chế độ thất bại của một hệ thống tập trung. ^^</p>
+<p>Blockchain được sử dụng cách quá nhiều như một từ thông dụng để bán rất nhiều thứ vô dụng. Chúng ta càng loại bỏ quảng cáo nhanh hơn, thì về lâu dài sẽ càng tốt cho chúng ta.</p>
+<p>Tài liệu tham khảo:<br>
+<a href="https://medium.com/@jimmysong/why-blockchain-is-hard-60416ea4c5c">https://medium.com/@jimmysong/why-blockchain-is-hard-60416ea4c5c</a><br>
+<a href="https://i.ytimg.com/vi/Xbn2SWWxRkc/maxresdefault.jpg">https://i.ytimg.com/vi/Xbn2SWWxRkc/maxresdefault.jpg</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/why-blockchain-is-hard/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=H%E1%BA%A1n%20ch%E1%BA%BF%20c%E1%BB%A7a%20blockchain">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/why-blockchain-is-hard/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/why-blockchain-is-hard/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

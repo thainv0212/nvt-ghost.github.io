@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Tạo ứng dụng CRUD đơn giản với Redux (phần 1)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 1)" />
+    <meta property="og:description" content="Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux. I. Giới thiệu chung về Redux1. Hoàn cảnh ra đời Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-07-28T20:51:24.000Z" />
+    <meta property="article:modified_time" content="2019-10-21T09:42:09.000Z" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="redux" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo ứng dụng CRUD đơn giản với Redux (phần 1)" />
+    <meta name="twitter:description" content="Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux. I. Giới thiệu chung về Redux1. Hoàn cảnh ra đời Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.Đ.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="react, redux" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="495" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.Đ.T",
+        "url": "https://blog.vietnamlab.vn/author/tienld/",
+        "sameAs": []
+    },
+    "headline": "Tạo ứng dụng CRUD đơn giản với Redux (phần 1)",
+    "url": "https://blog.vietnamlab.vn/tao-ung-dung-crud-don-gian-voi-redux/",
+    "datePublished": "2019-07-28T20:51:24.000Z",
+    "dateModified": "2019-10-21T09:42:09.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&export=download",
+        "width": 1200,
+        "height": 495
+    },
+    "keywords": "react, redux",
+    "description": "Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với\nReact và Redux.\n\nI. Giới thiệu chung về Redux\n1. Hoàn cảnh ra đời \nNăm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất\nchậm chạp và nặng nề. Tuy nhiên, ReactJS chỉ là một thư viện để render các\nComponent lên giao diện chứ không có khả năng quản lý trạng thái của ứng dụng.\nSau đó, Facebook có giới thiệu 1 thư viện giúp hỗ trợ React trong việc quản lý\ntrạng thái mang tên Flux. Tuy nhiên, Flux ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Tạo ứng dụng CRUD đơn giản với Redux (phần 1)</h1>
+                <section class="post-meta">
+                    L.Đ.T -
+                    <time class="post-date" datetime="2019-07-29">29 Jul 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1sgtPjtsieCj4bbZBHlrYpRZEMM62wUbO&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Chào các bạn, Hôm nay mình sẽ hướng dẫn các bạn tạo 1 ứng dụng CRUD đơn giản với React và Redux.</p><h3 id="i-gi-i-thi-u-chung-v-redux">I. Giới thiệu chung về Redux</h3><h3 id="1-ho-n-c-nh-ra-i">1. Hoàn cảnh ra đời </h3><p>Năm 2013, Facebook cho ra mắt ReactJS khi cho rằng  AngularJS của Google rất chậm chạp và nặng nề. Tuy nhiên, ReactJS chỉ là một thư viện để render các Component lên giao diện chứ không có khả năng quản lý trạng thái của ứng dụng. Sau đó, Facebook có giới thiệu 1 thư viện giúp hỗ trợ React trong việc quản lý trạng thái mang tên <strong>Flux</strong>. Tuy nhiên, Flux chỉ được FB giới thiệu như 1 kiến trúc tổng quát ngoài ra họ không cung cấp cách implement chi tiết. Hơn nữa, việc áp dụng cấu trúc Flux lúc đó khá rắc rối và có thể nói khiến cho các Lập trình viên "tẩu hoả nhập ma". Khi đó, Dan Abra nghiên cứu về Flux của Facebook và ngôn ngữ ELM. Anh ta đã bị ảnh hưởng bởi kiến trúc của ELM, và nhận thấy sự phức tạp của Flux. Tháng 5/2015 Dan Abramov công bố một thư viện mới có tên <strong>Redux</strong>, được viết trên kiến trúc ELM và cách sử dụng đơn giản hơn rất nhiều so với Flux.</p><h3 id="2-kh-i-qu-t-chung-c-ch-s-d-ng">2. Khái quát chung cách sử dụng</h3><p>Redux có thể nói  chính xác là 1 bản implement của Flux. Tuy nhiên được lược giản đi rất nhiều thứ như là chỉ có 1 store combine các reducers lại thay vì có nhiều store như Flux, sử dụng các stage-changing functions được gọi là reducers (thay vì Dispatcher),etc. Có thể tóm lược cách sử dụng của Redux bằng sơ đồ sau: </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1BQYhZRPfmuuDwdwl3uaOuKW5MF1w7R1Y&amp;export=download" class="kg-image" alt width="2262" height="1616" layout="responsive"></amp-img></figure><p> </p><p>Khi người dùng thực hiện 1 <strong>Action</strong> trên giao diện (có thể là load lại trang, hay click vào 1 button submit,...) thì một đối tượng Action sẽ được tạo ra. Action ở đây được khai báo kiểu hành động và chứa một thông tin nhằm thay đổi state. Action này sẽ được dispatch theo ActionType và được tiếp nhận trực tiếp bởi <strong>Store</strong>. Như đã nói ở trên Store chứa rất nhiều các <strong>Reducer</strong>, và tại đây Reducer sẽ nhận biết các kiểu action đã được định nghĩa và trả về các state cho các React Component mà Action mong muốn. Điều đặc biệt của Redux là Reducer không bao giờ thay đổi state hiện tại của App mà nó sẽ copy và trả về một State mới.</p><p>Ngoài ra trong Redux chúng ta có thể add thêm các <strong>Middleware</strong> layers vào Reducers để xử lý các actions. Các lớp trung gian này sẽ thực hiện các công việc thêm cho các actions ví dụ: chứng thực người dùng, đảm bảo người dùng có đủ quyền để thực hiện action. Vì thế middleware có thể dừng action lại hoặc cho phép action thông qua và kể cả thay đổi action. Hiện nay các middleware phổ biến có thể kể đến: Redux Thunk, Redux Saga,...</p><h3 id="ii-t-o-app-crud-demo">II. Tạo app CRUD demo</h3><p>Thật ra việc để hiểu được lý thuyết tương đối khó khăn đối với những người bắt đầu sử dụng Redux. Vì vậy, chúng ta cùng thực hành tạo 1 app CRUD cơ bản áp dụng Redux để hiểu rõ hơn về cơ chế hoạt động của Redux. Trong ứng dụng lần này, mình tạo một ứng dụng quản lý game yêu thích  sử dụng React, Redux kết hợp với backend sử dụng Node.js và MongoDB.</p><h3 id="1-chu-n-b-">1. Chuẩn bị</h3><p>Các bạn có thể tạo app sử dụng package `create-react-app`  bằng cách chạy lệnh:</p><pre><code>create-react-app crud</code></pre><p>để khởi tạo project.</p><p>Tiếp đến là cài đặt Redux cùng các thư viện liên quan: </p><pre><code>npm install --save redux react-redux
+npm install --save react-router-dom</code></pre><p>rồi sau đó sử dụng lệnh <code>npm start</code> để chạy ứng dụng của mình.</p><h3 id="a-server">a) Server</h3><p>Về phần server, mình viết phần server sử dụng Nodejs và MongoDB. Tất cả được đặt trong cùng project trong thư mục <code>./backend</code>. Các bạn có thể tham khảo source  code của mình tại <a href="https://github.com/tienld235/crud">đây</a>. Server được sử dụng ở đây để liên kết database với app của chúng ta. Tất cả được mình đặt trong thư mục <code>./backend</code>.</p><pre><code>const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+var cors = require('cors');
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+const dbUrl = 'mongodb://localhost/reduxcrud';
+
+function validate(data) {
+    let errors = {};
+    if (data.title.trim() === '') errors.title = "Can't be empty";
+    if (data.cover.trim() === '') errors.cover = "Can't be empty";
+    const isValid = Object.keys(errors).length === 0;
+    return { errors, isValid };
+}
+
+mongoose.connect(dbUrl, function (err, db) {
+    console.log("connected")
+    app.get('/api/games', (req, res) =&gt; {
+        db.collection('games').find({}).toArray((err, games) =&gt; {
+            res.json(games);
+        });
+    })
+
+    app.post('/api/games', (req, res) =&gt; {
+        const { errors, isValid } = validate(req.body);
+        if (isValid) {
+            const { title, cover } = req.body;
+            db.collection('games').insert({ title, cover }, (err, result) =&gt; {
+                if (err) {
+                    res.status(500).json({ errors: { global: 'Something went wrong ' } })
+                } else {
+                    res.json({ game: result.ops[0] })
+                }
+            })
+        } else {
+            res.status(400).json({ errors });
+        }
+    })
+
+    app.get('/api/games/:_id', (req, res) =&gt; {
+        db.collection('games').findOne({ _id: new mongoose.Types.ObjectId(req.params._id) }, (err, game) =&gt; {
+            res.json(game);
+        })
+    })
+
+    app.put('/api/games/:_id', (req, res) =&gt; {
+        const { errors, isValid } = validate(req.body);
+
+        if (isValid) {
+            const { title, cover } = req.body;
+            db.collection('games').findOneAndUpdate(
+                { _id: new mongoose.Types.ObjectId(req.params._id) },
+                { $set: { title, cover } },
+                { returnOriginal: false },
+                (err, result) =&gt; {
+                    if (err) { res.status(500).json({ errors: { global: err } }); return }
+                    res.json({ game: result.value });
+                }
+            )
+
+        } else {
+            res.status(400).json({ errors })
+        }
+    })
+
+    app.delete('/api/games/:_id', (req, res) =&gt; {
+        console.log('id nè', req.params._id);
+        db.collection('games').deleteOne({ _id: new mongoose.Types.ObjectId(req.params._id) }, (err, r) =&gt; {
+            if (err) { res.status(500).json({ errors: { global: err }}); return }
+            res.json({});
+        })
+    });
+
+    app.use((req, res) =&gt; {
+        res.status(404).json({
+            errors: {
+                global: "Please try again later"
+            }
+        })
+    })
+    app.listen(5000, () =&gt; console.log('Server is running on localhost:5000'));
+});</code></pre><p>Như các bạn thấy server của mình chạy trên localhost:5000. Trên server, mình đã tạo các đường link dùng cho việc lấy dữ liệu data, thêm mới, sửa, xoá. Sử dụng mongoose và MongoDB. hãy chắc chắn rằng trên máy của các bạn đã cài đầy đủ Node.js và MongoDB, đồng thời, tạo database <code>reduxcrud</code> và  collection <code>games</code>. Do chúng ta đi sâu vào phần Redux nên mình sẽ tạm thời không đi sâu giải thích về phần này.</p><h3 id="b-c-u-tr-c-th-m-c">b) Cấu trúc thư mục</h3><pre><code>src
+--actions
+  --action.js
+--actionTypes
+  --index.js
+--components
+  --GamCard.js
+  --GameList.js
+--containers
+  --GameForm.js
+  --GamePage.js
+--reducers
+  --games.js
+  --rootReducer.js
+--App.js
+--index.js</code></pre><p>Trong <code>src/App.js</code> :</p><pre><code>import React from 'react';
+import { Link, Route } from 'react-router-dom';
+import GamesPage from './containers/GamesPage';
+import GameForm from './containers/GameForm';
+
+const App = () =&gt; (
+  &lt;div className='ui container'&gt;
+    &lt;div className='ui three item menu'&gt;
+      &lt;Link className='item' activeOnlyWhenExact to='/'&gt;Home&lt;/Link&gt;
+      &lt;Link className='item' activeOnlyWhenExact to={'/games'}&gt;Games&lt;/Link&gt;
+      &lt;Link className='item' activeOnlyWhenExact to='/games/new'&gt;Add New Game&lt;/Link&gt;
+    &lt;/div&gt;
+
+    &lt;Route exact path={'/games'} component={GamesPage} /&gt;
+    &lt;Route path={'/games/new'} component={GameForm} /&gt;
+    &lt;Route path={'/game/:_id'} component={GameForm} /&gt;
+  &lt;/div&gt;
+);
+
+export default App;</code></pre><p>mình dùng để tại các routers trong app.</p><h3 id="c-t-store">c) Tạọ Store</h3><p><code>src/index.js</code>: </p><pre><code>import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers/rootReducer';
+import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
+
+const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk)
+);
+
+ReactDOM.render(
+    &lt;BrowserRouter&gt;
+        &lt;Provider store={store}&gt;
+            &lt;App /&gt;
+        &lt;/Provider&gt;
+    &lt;/BrowserRouter&gt;, document.getElementById('root'));
+    
+serviceWorker.unregister();</code></pre><p>Đầu tiên chúng ta sẽ tạo store để chứa các State được sử dụng trong Project. Chúng ta sử dụng hàm <code>createStore()</code> để tạo store. Trong store có chứa <code>rootReducer</code> và được apply middleware <code>redux-thunk</code> dùng cho việc xử lý synchronous actions với API . Hãy nhìn qua 1 chút <code>rootReducer</code> trong <code>.src/reducers/rootReducer.js</code>:</p><pre><code>import { combineReducers } from 'redux';
+import games from './games';
+
+export default combineReducers({
+    games
+});</code></pre><p> Như vậy, rootReducers là tập hợp của các reducers rồi được tổng hợp bởi hàm <code>combineReducers()</code>, Store chứa các reducers này sau đó gắn chúng với props store thẻ <code>Provider</code> của thư viện <code>react-redux</code>. Việc này giúp chúng ta có thể gọi các state xuyên suốt, ở mọi các component trong project thay vì phải truyền đi truyền lại giữa các component với nhau.</p><h3 id="d-t-o-c-c-actiontypes">d) Tạo các actionTypes</h3><pre><code>// src/actionTypes/index.js
+
+export const GET_GAMES = 'GET_GAMES';
+export const CREATE_GAME = 'CREATE_GAME';
+export const GET_GAME = 'GET_GAME';
+export const UPDATE_GAME = 'UPDATE_GAME';
+export const DELETE_GAME = "DELETE_GAME";
+</code></pre><p>Việc khai báo các action types là cực kì quan trọng, nó giúp chúng ta phân loại được kiểu hành động và đồng thời giúp Reducers nhận biết được các action này để trả về được các state hợp lý đúng với nguyện vọng. Ngoài 4 kiểu type CRUD ra, chúng ra có thêm kiểu type <code>GET_GAME</code> để trả về giá trị của 1 bản ghi, dùng để dễ dàng update và xoá.</p><h3 id="2-ch-c-n-ng-read">2. Chức năng Read</h3><p><code>src/containers/GamePage.js</code>:</p><pre><code>import React from 'react';
+import { connect } from 'react-redux';
+import GamesList from '../components/GamesList';
+import { fetchGames, deleteGame } from '../actions/actions';
+
+class GamesPage extends React.Component {
+    componentWillMount = () =&gt; {
+        this.props.fetchGames();
+    }
+
+    render= () =&gt; (
+            &lt;div&gt;
+                &lt;h1&gt;Game List&lt;/h1&gt;
+                &lt;GamesList games={this.props.games} deleteGame={this.props.deleteGame} /&gt;
+            &lt;/div&gt;
+    )
+}
+
+const mapStateToProps = (state) =&gt; ({
+    games: state.games
+});
+
+const mapDispatchToProps = dispatch =&gt; ({
+    fetchGames: () =&gt; dispatch(fetchGames()),
+    deleteGame: (id) =&gt; dispatch(deleteGame(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesPage);</code></pre><p></p><p><code>src/components/GameList.js</code>:</p><pre><code>import React from 'react';
+import GameCard from './GameCard';
+
+const GamesList = ({games, deleteGame}) =&gt; (
+    &lt;div&gt;
+        {games.length === 0 ?
+        &lt;p&gt;There are no games yet in your collection&lt;/p&gt;
+        :
+        &lt;div className="ui four cards"&gt;
+            {games.map((game) =&gt; &lt;GameCard game={game} deleteGame={deleteGame}/&gt;)}
+        &lt;/div&gt;
+        }
+    &lt;/div&gt;
+)
+
+export default GamesList;</code></pre><p></p><p><code>src/components/GameCard.js</code>:</p><pre><code>import React from 'react';
+import {Link} from 'react-router-dom';
+
+const GameCard = ({game, deleteGame}) =&gt; (
+    &lt;div className="ui card"&gt;
+        &lt;div className="image"&gt;
+            &lt;img src={game.cover} alt={'Game Cover'} /&gt;
+        &lt;/div&gt;
+        &lt;div className="content"&gt;
+            &lt;div className="header" &gt;{game.title}&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div className="extra content"&gt;
+            &lt;div className="ui two buttons"&gt;
+                &lt;Link to={`/game/${game._id}`} className="ui basic button green"&gt;Edit&lt;/Link&gt;
+                &lt;Link className="ui basic button red" onClick={()=&gt; deleteGame(game._id)}&gt;Delete&lt;/Link&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+)
+
+export default GameCard;</code></pre><p>Trong container <code>GamePage</code>, chúng ta sử dụng hàm <code>connect()</code> từ thư việc <code>react-redux</code> để liên kết component với store và các action . Cụ thể, thông qua function <code>mapStateToProps()</code>,· Chúng ta đã có thể lấy được dữ liệu của global state trong store của redux và biến chúng thành props games của riêng mình. Tuy nhiên hãy nhìn một chút trong reducer của game: </p><pre><code>// src/reducers/games.js
+...
+export default function games(state = [], action = {}) {
+	switch (action.type) {
+		default: return state;
+	}
+}
+....</code></pre><p>nếu chỉ gọi đến hàm <code>mapStateToProps()</code>, vì chưa có action nào được thực hiện nên hiện tại state từ redux trả về đang là <code>[]</code> - array rỗng và không có dữ liệu, Vậy nên kết quả hiển thị sẽ là <code>There are no games yet in your collection</code>.</p><p></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1_-5q4sIpByImkJqcfc0gezX7zLfipRux&amp;export=download" class="kg-image" alt width="634" height="118" layout="responsive"></amp-img></figure><p>Tuy nhiên, trong container <code>GamePage</code>,  cụ thể:</p><pre><code>
+...
+import { fetchGames, deleteGame } from '../actions/actions';
+...
+	componentWillMount = () =&gt; {
+        this.props.fetchGames();
+    }
+
+...
+
+const mapDispatchToProps = dispatch =&gt; ({
+    fetchGames: () =&gt; dispatch(fetchGames()),
+    deleteGame: (id) =&gt; dispatch(deleteGame(id))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesPage);</code></pre><p>Ta có thể thấy trước khi dữ liệu được render ra view, trong hàm <code>componentWillMount</code> của <code>GamePage</code> đã gọi prop <code>fetchGames</code>. vậy props này từ đâu mà có? Như các bạn thấy,  trong hàm  <code>connect</code> mình  đã truyền tham số thứ 2 là 1 hàm <code>mapDispatchToProps</code>.  hàm <code>mapDispatchToProps</code> này có tác dụng là dispatch action và chuyển hàm chứa action đó thành props của app.</p><pre><code>// src/action/actions.js
+
+import { GET_GAMES } from '../actionTypes/index';
+
+export const fetchGames = () =&gt; (
+    async dispatch =&gt; {
+        const response  = await fetch('http://127.0.0.1:5000/api/games');
+        const games = await response.json();
+        dispatch({
+            type: GET_GAMES,
+            games
+        });
+    }
+)</code></pre><p>trong hàm <code>fetchGame</code> được khai báo trong <code>src/action/actions.js</code>, ta có thể thấy sau khi fetch dữ liệu từ API trả về giá trị  <code>games</code>, nó dispatch 1 hành động với type là <code>GET_GAMES</code> và truyền dữ liệu đi chính là giá trị <code>games</code> vừa được trả về từ API.</p><p>trong <code>src/reducers/games.js</code>:</p><pre><code>import { GET_GAMES } from "../actionTypes";
+
+export default function games(state = [], action = {}) {
+	switch (action.type) {
+        case GET_GAMES:
+            return action.games;
+		default: return state;
+    }
+}</code></pre><p>Ta có thể thấy reducer <code>games</code> ngoài params <code>state</code> với giá trị mặc định là [],  param thứ 2 là action. Trong trường hợp type action là <code>GET_GAMES</code>, thì nó sẽ trả về <code>games</code> của object action. Mà ở trên action <code>fetchGames</code> chúng ta đã dispatch 1 hành động với kiểu type <code>GET_GAMES</code> và trả về giá trị games từ API. vậy Reducer <code>game</code> sẽ trả về cho chúng ta chính dữ liệu <code>game</code>  đó từ action. Trong database hiện tại có: </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1yBOYNY4dpnXbbgp_2lxd00sYXuYQFJlP&amp;export=download" class="kg-image" alt width="1262" height="602" layout="responsive"></amp-img></figure><p>Vậy kết quả hiển thị sẽ là: </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1__XQ-I754oWO8xdeS05cP3pMu2I00RGO&amp;export=download" class="kg-image" alt width="1599" height="836" layout="responsive"></amp-img></figure><p>Ở bài viết này, mình đã giới thiệu cho các bạn khái quát qua về Redux, cũng như là được chức năng Read trong CRUD để hiển thị kết quả ra màn hình. Ở phần sau mình sẽ tiếp tục hướng dẫn các bạn làm tiếp các phần Create, Update, Delete. Hy vọng bài viết hữu ích với các bạn! Xin chào!</p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

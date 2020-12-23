@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu Gorm- thư viện ORM tuyệt vời dành cho Golang</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu Gorm- thư viện ORM tuyệt vời dành cho Golang" />
+    <meta property="og:description" content="1. ORM là gì? Trước hết để hiểu được thư viện Gorm chúng ta cần tìm hiểu về ORM, một công cụ quan trọng và thường xuyên được áp dụng trong quản trị cơ sở dữ liệu.  ORM là tên viết tắt của cụm từ “Object Relational Mapping” đây là" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gorm/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1lLq0flN5HzwnwRgZOPf7tK5u81osOfBv&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-09-10T00:52:42.000Z" />
+    <meta property="article:modified_time" content="2019-09-10T00:52:42.000Z" />
+    <meta property="article:tag" content="gorm" />
+    <meta property="article:tag" content="golang" />
+    <meta property="article:tag" content="ORM" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu Gorm- thư viện ORM tuyệt vời dành cho Golang" />
+    <meta name="twitter:description" content="1. ORM là gì? Trước hết để hiểu được thư viện Gorm chúng ta cần tìm hiểu về ORM, một công cụ quan trọng và thường xuyên được áp dụng trong quản trị cơ sở dữ liệu.  ORM là tên viết tắt của cụm từ “Object Relational Mapping” đây là" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gorm/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1lLq0flN5HzwnwRgZOPf7tK5u81osOfBv&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.N.H.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="gorm, golang, ORM" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="616" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.N.H.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1nnYRa2nP9vXBuIxNKOLoEeXjxJZfBmXJ&export=download",
+            "width": 960,
+            "height": 960
+        },
+        "url": "https://blog.vietnamlab.vn/author/hungpnh/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu Gorm- thư viện ORM tuyệt vời dành cho Golang",
+    "url": "https://blog.vietnamlab.vn/gorm/",
+    "datePublished": "2019-09-10T00:52:42.000Z",
+    "dateModified": "2019-09-10T00:52:42.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1lLq0flN5HzwnwRgZOPf7tK5u81osOfBv&export=download",
+        "width": 1024,
+        "height": 616
+    },
+    "keywords": "gorm, golang, ORM",
+    "description": "1. ORM là gì?\nTrước hết để hiểu được thư viện Gorm chúng ta cần tìm hiểu về ORM, một công cụ\nquan trọng và thường xuyên được áp dụng trong quản trị cơ sở dữ liệu.\nORM là tên viết tắt của cụm từ “Object Relational Mapping” đây là tên gọi chỉ\nviệc ánh xạ các record dữ liệu trong hệ quản trị cơ sở dữ liệu sang dạng đối\ntượng mà mã nguồn đang định nghĩa trong class. Là một khái niệm phổ biến, được\ncài đặt trong tất cả các loại ngôn ngữ hiện đại ngày nay như: java, php,\nnode.js, swift … Bạn dễ dàng c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu Gorm- thư viện ORM tuyệt vời dành cho Golang</h1>
+                <section class="post-meta">
+                    P.N.H.H -
+                    <time class="post-date" datetime="2019-09-10">10 Sep 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1lLq0flN5HzwnwRgZOPf7tK5u81osOfBv&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="1ormlg">1. ORM là gì?</h3>
+<p>Trước hết để hiểu được thư viện Gorm chúng ta cần tìm hiểu về ORM, một công cụ quan trọng và thường xuyên được áp dụng trong quản trị cơ sở dữ liệu.<br />
+ORM là tên viết tắt của cụm từ “Object Relational Mapping” đây là tên gọi chỉ việc ánh xạ các record dữ liệu trong hệ quản trị cơ sở dữ liệu sang dạng đối tượng mà mã nguồn đang định nghĩa trong class. Là một khái niệm phổ biến, được cài đặt trong tất cả các loại ngôn ngữ hiện đại ngày nay như: java, php, node.js, swift … Bạn dễ dàng có thể cài đặt ORM hoặc sử dụng các thư viện mã nguồn mở về ORM trong bất cứ dự án nào bạn thích.<br />
+Với một ngôn ngữ lập trình phía backend làm việc nhiều với cơ sở dữ liệu như Golang thì cũng không ngoại lệ. Chính vì vậy GORM ra đời để phục vụ cho các Dev như chúng ta.</p>
+<h3 id="2gormlg">2. GORM là gì?</h3>
+<p>GORM là thư viện ORM tuyệt vời cho Golang. Nó là một thư viện ORM để xử lý với quan hệ cơ sở dữ liệu. Thư viện Gorm này được phát triển trên các package cơ sở dữ liệu/SQL.<br />
+Tổng quan và tính năng của GORM là:</p>
+<ul>
+<li>Full-Featured ORM (almost)</li>
+<li>Associations (Has One, Has Many, Belongs To, Many Too Many, Polymorphism)</li>
+<li>Callbacks (Before/After Create/Save/Update/Delete/Find)</li>
+<li>Preloading (eager loading)</li>
+<li>Transactions</li>
+<li>Composite Primary Key</li>
+<li>SQL Builder</li>
+<li>Logger</li>
+<li>Developer Friendly</li>
+</ul>
+<h3 id="3citgormktnindatabase">3. Cài đặt GORM, kết nối đến database</h3>
+<p>Yêu cầu để cài đặt gorm máy bạn cần cài đặt Golang nhé.<br />
+sau đó chỉ cần sử dụng command đơn giản như sau:</p>
+<pre><code>go get -u github.com/jinzhu/gorm
+</code></pre>
+<p>Trong bài viết này mình sẽ hướng dẫn bạn làm việc với MySQL, một cơ sở dữ liệu mà hầu hết chúng ta đều biết.<br />
+Để sử dụng, chỉ cần nhập package này vào dự án của bạn cùng với database drivers như bạn muốn</p>
+<pre><code>import (
+  "github.com/jinzhu/gorm"
+  "github.com/go-sql-driver/mysql"
+  "github.com/jinzhu/gorm/dialects/mysql"
+)
+</code></pre>
+<p>Bây giờ sử dụng gorm để thực hiện các hoạt động trên cơ sở dữ liệu.<br />
+Để kết nối với cơ sở dữ liệu, chỉ cần sử dụng cú pháp sau.</p>
+<pre><code>import (
+  "github.com/jinzhu/gorm"
+  _ "github.com/jinzhu/gorm/dialects/mysql"
+)
+
+func main() {
+  db, err := gorm.Open("mysql", "user:password@/dbname?charset=utf8&amp;parseTime=True&amp;loc=Local")
+  if err != nil {
+    panic("failed to connect database") // Kiểm tra kết nối tới database
+  }
+  defer db.Close() // Để đóng cơ sở dữ liệu khi nó không được sử dụng
+}
+</code></pre>
+<p>Nếu hoàn thành bước này, chúc mừng bạn đã đặt chân đầu tiên vào thư viện Gorm nhé.</p>
+<h3 id="4tomodelsvtables">4. Tạo Models và Tables</h3>
+<p>Các Model thường chỉ là các struct trong Golang bình thường, các type cơ bản hoặc các pointers.Mình sẽ hướng dẫn các bạn tạo một Model User cơ bản và tạo Table từ Model User như sau.</p>
+<pre><code>type User struct {
+    ID int
+    Username string
+}
+
+func main() {
+    // Sau khi kết nối tới database ta tạo bảng bằng lệnh CreateTable()
+    db.CreateTable(&amp;User{})
+    
+    db.hasTable(&amp;User{}) // Kiểm tra table có được tạo thành công hay không
+    db.DropTableIf Exists(&amp;User{}) // Drops table nếu table có tồn tại
+}
+</code></pre>
+<p>ngoài ra bạn có thể tạo table bằng <code>Auto Migration</code>, tính năng này sẽ tự động tạo bảng dựa trên mô hình của bạn mà không phải tạo bảng theo cách thủ công. Gorm cũng đưa ra định nghĩa model bao gồm các trường như  Id, CreatedAt, UpdatedAt, DeletedAt. Nếu bạn muốn sử dụng chỉ cần nhúng gorm.Model trong model/struct của bạn. ví dụ như sau</p>
+<pre><code>// thêm các trường `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt` vào model `User`
+type User struct {
+  gorm.Model
+  Username string
+}
+</code></pre>
+<p>Trong Gorm, trường ID được tự động đặt thành <code>Primary key</code> với thuộc tính <code>auto increment</code>.</p>
+<h3 id="5crudtronggorm">5. CRUD trong GORM</h3>
+<p>CRUD là bốn chức năng cơ bản (Create, Read/Query, Update, và Delete) của model. Vì là thư viện dành cho quản lý cơ sở dữ liệu nên CRUD đương nhiên là sẽ tích hợp sẵn trong gorm mình cùng điểm qua và học cách làm việc bằng CRUD với GORM nhé.</p>
+<h4 id="createinsert">Create/Insert</h4>
+<p>Để <code>Create/Insert</code> một record, bạn cần sử dụng hàm Create().<br />
+Ví dụ như sau:</p>
+<pre><code>// Ta định nghĩa Model Animal như dưới đây
+type Animal struct {
+  ID   int64
+  Name string
+  Age  int64
+}
+
+var animal = Animal{Age: 14, Name: "Lion"}
+db.Create(&amp;animal)
+// INSERT INTO animals("age") values('14');
+// SELECT name from animals WHERE ID=111;
+// animal.Name =&gt; 'Lion'
+</code></pre>
+<h4 id="query">Query</h4>
+<p>Để truy vấn dữ liệu trong database ta có thể sử dụng nhiều cách như sau:</p>
+<pre><code>// lấy ra record đầu tiên, order là primary key
+db.First(&amp;user)
+//// SELECT * FROM users ORDER BY id LIMIT 1;
+
+// lấy ra một record không order
+db.Take(&amp;user)
+//// SELECT * FROM users LIMIT 1;
+
+// lấy ra record cuối, order là primary key
+db.Last(&amp;user)
+//// SELECT * FROM users ORDER BY id DESC LIMIT 1;
+
+// lấy hết tất cả record
+db.Find(&amp;users)
+//// SELECT * FROM users;
+
+// Lấy record bằng primary key
+db.First(&amp;user, 10)
+//// SELECT * FROM users WHERE id = 10;
+</code></pre>
+<p>Ngoài ra ta cũng có thể truy vấn dữ liệu sử dụng cú pháp <code>db.Where()</code></p>
+<pre><code>db.Where("name = ?", "jinzhu").First(&amp;user)
+//// SELECT * FROM users WHERE name = 'jinzhu' limit 1;
+
+db.Where("name = ?", "jinzhu").Find(&amp;users)
+//// SELECT * FROM users WHERE name = 'jinzhu';
+
+// &lt;&gt;
+db.Where("name &lt;&gt; ?", "jinzhu").Find(&amp;users)
+
+// IN
+db.Where("name IN (?)", []string{"jinzhu", "jinzhu 2"}).Find(&amp;users)
+
+// LIKE
+db.Where("name LIKE ?", "%jin%").Find(&amp;users)
+
+// AND
+db.Where("name = ? AND age &gt;= ?", "jinzhu", "22").Find(&amp;users)
+
+// Time
+db.Where("updated_at &gt; ?", lastWeek).Find(&amp;users)
+
+// BETWEEN
+db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&amp;users)
+</code></pre>
+<p>Còn nhiều cách truy vấn dựa vào GORM nữa nên muốn biết thêm bạn có thể vào link này.<a href="http://gorm.io/docs/query.html">Gorm-query</a>.</p>
+<h4 id="update">Update</h4>
+<p>Sử dụng hàm save() để update dữ liệu trong table.<br />
+Ví dụ như sau:</p>
+<pre><code>db.First(&amp;animal) // Query dữ liệu trong bảng animal
+
+animal.Name = "Tiger"
+animal.Age = 20
+db.Save(&amp;animal) // lưu lại dữ liệu thông qua hàm save
+</code></pre>
+<h4 id="delete">Delete</h4>
+<p>Sử dụng cú pháp đơn giản như sau <code>db.Delete()</code>:</p>
+<pre><code>db.Where("email LIKE ?", "%jinzhu%").Delete(Email{})
+//// DELETE from emails where email LIKE "%jinzhu%";
+
+db.Delete(Email{}, "email LIKE ?", "%jinzhu%")
+//// DELETE from emails where email LIKE "%jinzhu%";
+
+</code></pre>
+<h3 id="6asociations">6. Asociations</h3>
+<p>Các Asociation hay quan hệ giữa các struct hoặc các model tương tác với nhau. Vì vậy, đối với điều này, bạn cần tạo/xác định loại mối quan hệ ở cả hai đầu.</p>
+<h4 id="belongsto">Belongs To</h4>
+<p>Mối quan hệ One to One chỉ định cách các trường của model có liên quan với nhau bằng cách chỉ định ánh xạ One to One.1<code>Belongs to</code> là một thiết lập one-to-one connection với một model khác, sao cho mỗi instance của model khai báo, thuộc về một instance của mô hình kia.<br />
+Ví dụ có 2 model User và Profile, một User chỉ có một Profile và một Profile chỉ có một User, đó là quan hệ One to One.</p>
+<pre><code>type User struct {
+  gorm.Model
+  Name string
+}
+
+// `Profile` belongs to `User`, `UserID` is the foreign key
+type Profile struct {
+  gorm.Model
+  UserID int
+  User   User
+  Name   string
+}
+</code></pre>
+<p>Để định nghĩa khóa ngoại ta có thể dùng như sau:</p>
+<pre><code>type User struct {
+  gorm.Model
+  Refer string
+  Name string
+}
+
+type Profile struct {
+  gorm.Model
+  Name      string
+  User      User `gorm:"association_foreignkey:Refer"` // use Refer as association foreign key
+  UserRefer string
+}
+</code></pre>
+<h4 id="hasone">Has One</h4>
+<p>Ví dụ như nếu ứng dụng của bạn bao gồm <code>users</code> và <code>credit_cards</code> và mỗi <code>user</code> chỉ có thể có một <code>credit card</code>:</p>
+<pre><code>type User struct {
+  gorm.Model
+  Name string
+}
+
+// `Profile` belongs to `User`, `UserID` is the foreign key
+type Profile struct {
+  gorm.Model
+  UserID int
+  User   User
+  Name   string
+}
+</code></pre>
+<h4 id="hasmany">Has Many</h4>
+<p>Một model được thiết lập kết nối <code>one-to-many</code> với một model khác.<br />
+Ví dụ như nếu ứng dụng của bạn bao gồm <code>users</code> và <code>credit_cards</code> và mỗi <code>user</code> có thể có nhiều <code>credit card</code> chẳng hạn.</p>
+<pre><code>type User struct {
+  gorm.Model
+  CreditCards []CreditCard
+}
+
+type CreditCard struct {
+  gorm.Model
+  Number   string
+  UserID  uint
+}
+</code></pre>
+<h4 id="manytomany">Many To Many</h4>
+<p><code>Many to Many</code>  sẽ join một table giữa hai model.</p>
+<p>Ví dụ: nếu ứng dụng của bạn bao gồm users và <code>languages</code> và <code>users</code> có thể nói nhiều <code>languages</code> và nhiều <code>users</code> có thể nói một <code>languages</code> cụ thể.</p>
+<pre><code>type User struct {
+  gorm.Model
+  Languages         []Language `gorm:"many2many:user_languages;"`
+}
+
+type Language struct {
+  gorm.Model
+  Name string
+}
+</code></pre>
+<h3 id="7ktlun">7. KẾT LUẬN</h3>
+<p>Trên đây mình đã tổng hợp một số kiến thức cơ bản về GORM cũng như một vài tính năng cơ bản của GORM cho các bạn. Ngoài những điều mình vừa viết GORM còn nhiều ứng dụng tính năng hay ho nữa như:<code>Transactions, Preloading(Eager Loading), hay các Conventions</code>... Dễ dàng cho bạn làm việc với cơ sở dữ liệu hơn. Hy vọng qua Blog này các bạn có thể hiểu rõ hơn một chút về GOLANG đặc biệt là thư viện GORM nhé.</p>
+<h3 id="8linkthamkho">8. Link tham khảo</h3>
+<p><a href="http://gorm.io/">http://gorm.io/</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

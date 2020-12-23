@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Triển khai ứng dụng Vuejs sử dụng Kubernetes trên môi trường Local ( Docker + Ansible + K8s + Vuejs)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Triển khai ứng dụng Vuejs sử dụng Kubernetes trên môi trường Local ( Docker + Ansible + K8s + Vuejs)" />
+    <meta property="og:description" content="triển khai ứng dụng nodejs và đặc biệt là vuejs nói riêng bằng kubernetes" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/trien-khai-ung-dung-vuejs-su-dung-kubernetes-tren-moi-truong-local/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1trhUuIu2UOx8zQWVLp9BT8b1nAY9OOik&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-06-25T07:03:40.000Z" />
+    <meta property="article:modified_time" content="2019-06-28T10:17:21.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="vuejs" />
+    <meta property="article:tag" content="Ansible" />
+    <meta property="article:tag" content="docker" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Triển khai ứng dụng Vuejs sử dụng Kubernetes trên môi trường Local ( Docker + Ansible + K8s + Vuejs)" />
+    <meta name="twitter:description" content="triển khai ứng dụng nodejs và đặc biệt là vuejs nói riêng bằng kubernetes" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/trien-khai-ung-dung-vuejs-su-dung-kubernetes-tren-moi-truong-local/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1trhUuIu2UOx8zQWVLp9BT8b1nAY9OOik&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.T.N" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, k8s, vuejs, Ansible, docker" />
+    <meta property="og:image:width" content="1041" />
+    <meta property="og:image:height" content="512" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.T.N",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1rzgHE6K9K0d6dF9jVVl-rE4D1csQjrn8&export=download",
+            "width": 257,
+            "height": 257
+        },
+        "url": "https://blog.vietnamlab.vn/author/namnt/",
+        "sameAs": []
+    },
+    "headline": "Triển khai ứng dụng Vuejs sử dụng Kubernetes trên môi trường Local ( Docker + Ansible + K8s + Vuejs)",
+    "url": "https://blog.vietnamlab.vn/trien-khai-ung-dung-vuejs-su-dung-kubernetes-tren-moi-truong-local/",
+    "datePublished": "2019-06-25T07:03:40.000Z",
+    "dateModified": "2019-06-28T10:17:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1trhUuIu2UOx8zQWVLp9BT8b1nAY9OOik&export=download",
+        "width": 1041,
+        "height": 512
+    },
+    "keywords": "kubernetes, k8s, vuejs, Ansible, docker",
+    "description": "triển khai ứng dụng nodejs và đặc biệt là vuejs nói riêng bằng kubernetes",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Triển khai ứng dụng Vuejs sử dụng Kubernetes trên môi trường Local ( Docker + Ansible + K8s + Vuejs)</h1>
+                <section class="post-meta">
+                    N.T.N -
+                    <time class="post-date" datetime="2019-06-25">25 Jun 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1trhUuIu2UOx8zQWVLp9BT8b1nAY9OOik&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <blockquote>Bạn cần có hiểu biết về Docker, Ansible để có thể dễ dàng nắm bắt những nội dung dưới đây</blockquote><h3 id="i-gi-i-thi-u">I.Giới thiệu</h3><p>	Việc sử dụng Kubernetes để triển khai ứng dụng một cách tự động đang trở nên phổ biến và tiện lợi. Chỉ cần cấu hình môi trường ban đầu một lần và duy nhất mọi công việc deploy đều sẽ dễ dàng hơn rất nhiều.<br />Trong blog này mình sẽ trình bày một cách triển khai ứng dụng nodejs và đặc biệt là vuejs nói riêng bằng kubernetes.</p><h3 id="ii-m-h-nh-h-th-ng">II.Mô hình hệ thống</h3><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1okoLwCPyQ9IiqGkHWZWGS2KzfSyz3uFe&amp;export=download" class="kg-image" alt width="549" height="395" layout="responsive"></amp-img></figure><p>Master: Là nơi chứa source code và các ứng dụng để triển khai hệ thống như ansible, docker, kubernetes(k8s)<br />Node: Là nơi triển khai app</p><h3 id="iii-tri-n-khai-h-th-ng-tr-n-local">III.Triển khai hệ thống trên local</h3><blockquote><em>Từ phần này trở đi, các bạn hãy dùng source code của mình để dễ dàng theo dõi nội dung: <a href="https://github.com/namntdnc/try-k8s/tree/1ci-1node">https://github.com/namntdnc/try-k8s/tree/1ci-1node</a></em></blockquote><h4 id="1-m-ph-ng-h-th-ng">1. Mô phỏng hệ thống </h4><p>	Để mô phỏng hệ thống như sơ đồ trên mình sử dụng Virtualbox và Vagrant để cài đặt các máy ảo. Trên máy master, mình sẽ cài đặt các gói ứng dụng ansible để có thể cài đặt tự động các gói ứng dụng cho các máy local.</p><h4 id="2-chu-n-b-m-i-tr-ng">2. Chuẩn bị môi trường</h4><p>	Để có thể tạo được cluster, việc đầu tiên là phải chuẩn bị các gói phần mềm cần thiết cho Master và các Node bao gồm:<br />	- docker<br />	- rke ( Công cụ để tạo cluster )<br />Và <code>đặt biệt</code> trên master cần cài đặt kubectl </p><p>Với file hosts.local có nội dung như sau</p><pre><code>[local_master]
+192.168.30.2
+
+[local_node]
+192.168.30.3
+192.168.30.4</code></pre><p>Các công việc cài đặt môi trường cho Master, Node được cài đặt thông qua công cụ ansible, và được mình định nghĩa trong ansible-playbook như sau</p><pre><code>#provision.yml
+- hosts:
+    - local
+  become: true
+  roles:
+    - app.docker-install
+    - app.k8s-provision
+    - app.rke-apply
+
+- hosts:
+    - local_master
+  become: true
+  roles:
+    - app.setting-kubectl</code></pre><p>Việc cài đặt docker được thực hiện thông qua roles app.docker-install</p><pre><code>- name: install docker
+  shell: curl https://releases.rancher.com/install-docker/18.09.2.sh | sh
+
+- name: install docker-compose
+  command: curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64" -o /usr/local/bin/docker-compose
+  </code></pre><p>Để k8s hoạt động bình thường cần phải disable swap, việc này được định nghĩa tại roles app.k8s-provision </p><pre><code>- name: disabled swap on worker node
+  command: swapoff -a
+
+- name: disable swap parmanently
+  replace:
+    path: /etc/fstab
+    regexp: '^/dev/mapper/centos-swap swap(.*)'
+    replace: '#/dev/mapper/centos-swap swap\1'</code></pre><p>Tiếp theo là cài đặt rke trên máy Master, bạn cần chuẩn bị rke download từ trang chủ của rancher:</p><p><a href="https://rancher.com/docs/rke/latest/en/installation/">https://rancher.com/docs/rke/latest/en/installation/</a></p><p> bạn có thể liên kết file rke đến  thư mục <em>~/bin/ .</em></p><pre><code>- name: Create folder bin
+  command: mkdir -p {{user_home}}/bin/
+  ignore_error: true
+  
+- name: Bring rke to local PATH
+  command: cp {{user_home}}/ansible-playbook/resource/rke {{user_home}}/bin/rke</code></pre><p>Cuối cùng là cài đặt kubectl trên master:</p><p>các bạn có thể tham khảo source của mình để cài đặt kubectl </p><p><a href="https://github.com/namntdnc/try-k8s/blob/1ci-1node/roles/app.setting-kubectl/tasks/main.yml">https://github.com/namntdnc/try-k8s/blob/1ci-1node/roles/app.setting-kubectl/tasks/main.yml</a></p><h4 id="3-t-o-cluster">3. Tạo cluster</h4><p>	Sau khi chạy ansible-playbook thì đã hoàn thành việc cài đặt môi trường </p><p>Chúng ta tạo một file yaml định nghĩa chức năng của các máy trong hệ thống như sau</p><pre><code>---
+nodes:
+  - address: 192.168.30.2
+    user: vagrant
+    role: [controlplane]
+  - address: 192.168.30.3
+    user: vagrant
+    role: [worker, etcd]
+  - address: 192.168.30.4
+    user: vagrant
+    role: [worker, etcd]
+
+services:
+  etcd:
+    image: quay.io/coreos/etcd:latest
+  kube-api:
+    image: rancher/k8s:v1.8.3-rancher2
+  kube-controller:
+    image: rancher/k8s:v1.8.3-rancher2
+  scheduler:
+    image: rancher/k8s:v1.8.3-rancher2
+  kubelet:
+    image: rancher/k8s:v1.8.3-rancher2
+  kubeproxy:
+    image: rancher/k8s:v1.8.3-rancher2</code></pre><p>sau đó execute </p><pre><code>rke up --config cluster.yml</code></pre><p>Quá trình tạo cluster sẽ trông như sau<br /></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=12Z_H18ucBiFcIkHTCMFTpJIfMIELPZ1S&amp;export=download" class="kg-image" alt width="837" height="304" layout="responsive"></amp-img></figure><p>Chạy command  <code>kubectl get nodes</code>, sẽ thu được kết quả trông như thế này :</p><pre><code>NAME           STATUS   ROLES          AGE   VERSION
+192.168.30.2   Ready    controlplane   10h   v1.13.5
+192.168.30.3   Ready    etcd,worker    10h   v1.13.5
+192.168.30.4   Ready    etcd,worker    10h   v1.13.5</code></pre><p>Như vậy bạn đã hoàn tất quá trình cluster</p><h4 id="4-tri-n-khai-ng-d-ng">4. Triển khai ứng dụng</h4><h5 id="a-chu-n-b-source-code">a. Chuẩn bị source code</h5><p>	Ở đây có rất nhiều cách để chuẩn bị source code ví dụ như pull source code về máy master thông qua git, nhưng vì đây là môi trường local nên mình đã pull nó về máy thật rồi chia sẻ thư mục này cho máy master.</p><h5 id="b-build-app">b. Build app</h5><p>	Đầu tiên, việc cần làm là build app. Đối với vuejs, thư mục được build sẽ là <code>dist/</code>. Các bạn có thể dùng một docker image như node:10.0 để build source code của mình rồi link ra thư mục <code>dist/</code>. </p><blockquote><em>Vì bài viết này đề cập cập tới việc triển khai trên môi trường local nên mình đã build app trên máy thật rồi chia sẻ cho máy ảo Master</em></blockquote><h5 id="c-x-y-d-ng-deployment-yml">c. Xây dựng deployment.yml</h5><p>	Ta có thể thấy việc triển khai ứng dụng này chỉ cần thông qua 1 pod chưa container nginx, và thư mục nginx\html trong container này liên kết tới /dist<br />	Bây giờ ta sẽ dùng DaemonSet để triển khai pod vuejs trên mỗi node, do đó công việc deploy được định nghĩa trong file deployment.yml như sau </p><pre><code>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: vue-deployment
+spec:
+  selector:
+    matchLabels:
+      app: vue-app
+  template:
+    metadata:
+      labels:
+        app: vue-app
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.12
+          ports:
+          - containerPort: 80
+          volumeMounts:
+          - mountPath: /usr/share/nginx/html/
+            name: source-code
+      volumes:
+      - name: source-code
+        hostPath: 
+          path: "/home/vagrant/ansible-playbook/vuetify-todo-app/dist"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: vue-app-service
+  labels:
+    app: vue-app-client-service
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30000
+  selector:
+    app: vue-app
+  type: NodePort</code></pre><p>execute : <code>kubectl apply -f deployment.yml</code></p><p>Khi vào trình duyệt sẽ được kết quả như sau<br /></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1Dvap-6UKyu8XpLarTW7lR5qOPFUnZx_L&amp;export=download" class="kg-image" alt width="1654" height="951" layout="responsive"></amp-img></figure><p></p><p>Như vậy chúng ta đã hoàn thành việc triển khai một ứng dụng vuejs, sử dụng kubernetes</p><h3 id="iv-t-i-li-u-tham-kh-o">IV.Tài liệu tham khảo</h3><p><a href="https://blog.vietnamlab.vn/2019/04/26/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/">https://blog.vietnamlab.vn/2019/04/26/nhap-mon-kubernetes-p4-kubernetes-workloads-resource-1/</a></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

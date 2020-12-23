@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018 - P2</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018 - P2" />
+    <meta property="og:description" content="Trong phần trước mình đã khái quát các kiến thức dành cho Backend Engineer như sau:  Ngôn ngữ lập trình Package manager Security Testing RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ) Web Framework  Link phần 1: https://blog.vietnamlab.vn/2018/06/29/cac-skill-thiet-cho-backend-en/  Và bây giờ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/cac-ky-thuat-tien-tien-cho-backend-engineer-trong-nam-2018/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1gG8utuzr8A2BKempDti0pzyLlEAtHksh&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-08-08T06:34:05.000Z" />
+    <meta property="article:modified_time" content="2018-08-08T06:34:05.000Z" />
+    <meta property="article:tag" content="backend" />
+    <meta property="article:tag" content="2018" />
+    <meta property="article:tag" content="backend2018" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018 - P2" />
+    <meta name="twitter:description" content="Trong phần trước mình đã khái quát các kiến thức dành cho Backend Engineer như sau:  Ngôn ngữ lập trình Package manager Security Testing RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ) Web Framework  Link phần 1: https://blog.vietnamlab.vn/2018/06/29/cac-skill-thiet-cho-backend-en/  Và bây giờ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/cac-ky-thuat-tien-tien-cho-backend-engineer-trong-nam-2018/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1gG8utuzr8A2BKempDti0pzyLlEAtHksh&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="backend, 2018, backend2018" />
+    <meta property="og:image:width" content="1121" />
+    <meta property="og:image:height" content="350" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018 - P2",
+    "url": "https://blog.vietnamlab.vn/cac-ky-thuat-tien-tien-cho-backend-engineer-trong-nam-2018/",
+    "datePublished": "2018-08-08T06:34:05.000Z",
+    "dateModified": "2018-08-08T06:34:05.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1gG8utuzr8A2BKempDti0pzyLlEAtHksh&export=download",
+        "width": 1121,
+        "height": 350
+    },
+    "keywords": "backend, 2018, backend2018",
+    "description": "Trong phần trước mình đã khái quát các kiến thức dành cho Backend Engineer như\nsau:\n\n * Ngôn ngữ lập trình\n * Package manager\n * Security\n * Testing\n * RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ)\n * Web Framework\n   Link phần 1: \n   https://blog.vietnamlab.vn/2018/06/29/cac-skill-thiet-cho-backend-en/\n   Và bây giờ mình sẽ tiếp tục với các kỹ năng khác dành cho Backend Engineer.\n\nNoSQL/Cache\n * Memcached\n * Redis\n * DynamoDB\n * Cassandra\n\nMemcached  và Redis  tôi đều có kinh nghiệm trong thực tế đ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Các kỹ thuật tiên tiến cho Backend Engineer trong năm 2018 - P2</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2018-08-08">08 Aug 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1gG8utuzr8A2BKempDti0pzyLlEAtHksh&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong phần trước mình đã khái quát các kiến thức dành cho Backend Engineer như sau:</p>
+<ul>
+<li><strong>Ngôn ngữ lập trình</strong></li>
+<li><strong>Package manager</strong></li>
+<li><strong>Security</strong></li>
+<li><strong>Testing</strong></li>
+<li><strong>RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ)</strong></li>
+<li><strong>Web Framework</strong><br />
+Link phần 1: <a href="https://blog.vietnamlab.vn/2018/06/29/cac-skill-thiet-cho-backend-en/">https://blog.vietnamlab.vn/2018/06/29/cac-skill-thiet-cho-backend-en/</a><br />
+Và bây giờ mình sẽ tiếp tục với các kỹ năng khác dành cho Backend Engineer.</li>
+</ul>
+<h3 id="nosqlcache">NoSQL/Cache</h3>
+<ul>
+<li><strong>Memcached</strong></li>
+<li><strong>Redis</strong></li>
+<li><strong>DynamoDB</strong></li>
+<li><strong>Cassandra</strong></li>
+</ul>
+<p><code>Memcached</code> và <code>Redis</code> tôi đều có kinh nghiệm trong thực tế đang làm. Đây là hai kỹ thuật cũ kỹ nhưng nó là 2 đại diện tiêu biểu cho KVS (key value store) và cache từ ngàn đời nay. Ít nhiều trong một số dự án sẽ rất có ích vì một vài ưu điểm nhanh và đơn giản.</p>
+<p>Gần đây tôi có chú ý đến <code>DynamoDB</code> của AWS và <code>Apache Cassandra</code>.</p>
+<p><code>DynamoDB</code> là một hệ quản trị CSDL NoSQL của Amazon Web Service có tốc độ nhanh, ổn định phù hợp xử lý dữ liệu lớn. <code>DynamoDB</code> tự động phân tán dữ liệu để đảm bảo truy cập với hiệu suất cao và không bị gián đoạn. Chúng ta có thể hoàn toàn có thể phó thác gánh nặng quản lý và mở rộng dữ liệu mà không cần quan tâm đến việc cung cấp thêm phần cứng, thiết lập cài đặt và sao chép dữ liệu. Người dùng chỉ cần quan tâm đến capacity unit - chính là đọc thông lượng đọc ghi của bảng.</p>
+<p>Nói về phần mềm trung gian NoSQL dẫn đầu là Google BigTable và Amazon Dynamo, nhưng nhiều thứ khác cũng xuất hiện trong thế giới open source. Trong số đó, Apache Cassandra (<a href="http://cassandra.apache.org/">Cassandra</a>) đang thu hút sự chú ý đặc biệt gần đây. Cassandra là một cơ sở dữ liệu phân tán kết hợp mô hình dữ liệu của Google Bigtable với thiết kế hệ thống phân tán như bản sao của Amazon Dynamo. Tất cả được thực hiện bởi Java và được cung cấp trong ASL 2 (Giấy phép Phần mềm Apache Phiên bản 2).</p>
+<p>Các tính năng ưu việt của Cassandra bao gồm 9 điểm sau:</p>
+<ul>
+<li>Thích hợp để sử dụng thực tế</li>
+<li>Khả năng chịu lỗi cao</li>
+<li>Kiến trúc không có SPOF (một điểm gây tổn hại)</li>
+<li>Mức độ tự do kiểm soát nhất quán</li>
+<li>Mô hình dữ liệu phong phú</li>
+<li>Có thể tăng cường cải thiện truy suất dữ liệu</li>
+<li>Tính khả dụng cao</li>
+<li>Hỗ trợ các ngôn ngữ khác nhau dưới dạng client code</li>
+<li>Dễ dàng nắm bắt trạng thái bên trong của máy chủ bằng JMX/Dễ giám sát</li>
+</ul>
+<h3 id="restapi">REST API</h3>
+<p>Tất nhiên kiến thức về REST API là tất yếu cần thiết cho lập trình web rồi. Một vấn đề mà nhiều bạn mới tìm hiểu về RESTful cũng thường cảm thấy bối rối đó là REST và RESTful khác nhau như thế nào. REST là viết tắt của cụm từ Representational State Transfer và các ứng dụng sử dụng kiểu thiết kế REST thì được gọi là RESTful (-ful là tiếp vị ngữ giống như beauty và beautiful). Tất nhiên bạn cũng có thể sử dụng thuật ngữ REST thay cho RESTful và ngược lại. RESTful API là một tiêu chuẩn dùng trong việc thết kế các thiết kế API cho các ứng dụng web để quản lý các resource. RESTful là một trong những kiểu thiết kế API được sử dụng phổ biến nhất ngày nay.</p>
+<p>Tham khảo về các thiết kế RESTful<br />
+<a href="https://qiita.com/TakahiRoyte/items/949f4e88caecb02119aa">REST入門 基礎知識 - Qiita</a></p>
+<p>Tham khảo về các tool tài liệu cho API<br />
+<a href="https://qiita.com/vvakame/items/c21f7862f6d30a6b2a7b">GoConの前哨戦として各種API仕様記述フォーマットについて概要を述べておく - Qiita</a><br />
+<a href="https://blog.excite.co.jp/exdev/25417365/">APIドキュメント標準化 現状確認 : エキサイト公式　エンジニアブログ</a></p>
+<h3 id="authentication">Authentication</h3>
+<p>Tôi không nghĩ rằng cần phải hiểu các chi tiết của các phương pháp xác thực khác nhau nhưng có một vài bài viết sau nói về xác thực của <code>OAuth</code> và <code>OpenID Connect</code> có thể tham khảo được</p>
+<p><a href="https://qiita.com/TakahikoKawasaki/items/e37caf50776e00e733be">一番分かりやすい OAuth の説明 - Qiita</a><br />
+<a href="https://qiita.com/TakahikoKawasaki/items/498ca08bbfcc341691fe">一番分かりやすい OpenID Connect の説明 - Qiita</a><br />
+<a href="https://qiita.com/kaiinui/items/21ec7cc8a1130a1a103a">JSON Web Token の効用 - Qiita</a></p>
+<p>Chú ý:<br />
+OpenID về mặt kỹ thuật là một URL mà người dùng sở hữu (ví dụ alice2016.openid.com), vì thế một vài website cung cấp tùy chọn nhập OpenID một cách thủ công.<br />
+Phiên bản mới nhất của OpenID là OpenID Connect, nó kết hợp xác thực của OpenID (OpenID authentication) và ủy quyền/ phân quyền của OAuth2 (OAuth2 authorization).<br />
+Facebook trước đây sử dụng OpenID nhưng hiện nay đã chuyển sang Facebook Connect.</p>
+<h3 id="messaging">Messaging</h3>
+<ul>
+<li><strong>Amazon SQS</strong></li>
+<li><strong>Amazon SNS</strong></li>
+<li><strong>Cloud Pub/Sub</strong></li>
+</ul>
+<p>Trên đây là các dịch vụ Messaging. Về phần này mình cũng không nắm được nhiều lắm. Nhưng có SQS là tiêu biểu cho các dịch vụ Message nói chung.</p>
+<h3 id="fulltextsearch">Full text search</h3>
+<p>Nói đơn giản dễ hiểu, <code>full text search</code> (gọi tắt là FTS) là cách tự nhiên nhất để tìm kiếm thông tin, hệt như Google, ta chỉ cần gõ từ khóa và nhấn enter thế là có kết quả trả về. Phạm vi bài viết này chỉ đề cập, giới thiệu sơ lược về FTS trong <code>MySQL</code> mà không bàn về các <code>FTS engine</code> như Sphinx hay Solr. Trong đó nổi tiếng nhất là <code>ElasticSearch</code></p>
+<h3 id="docker">Docker</h3>
+<p>Nếu bạn đang làm ở một công ty công nghệ thông tin, chắc rằng bạn đã được nghe nói về Docker. Thậm chí trong số các công nghệ "hot" nhất hiện nay như PostgreSQL, MongoDB, Apache Spark, Bash shell, AWS, Kafka, Jenkins, thì Docker vẫn nổi bật nhất. Các doanh nghiệp đều muốn Docker. Docker ngày càng trở nên gần gũi với các start-ups cũng như với những tập đoàn kinh tế lớn cho dù nó chỉ đang là một công cụ rất mới.</p>
+<p>Trong phạm vi nhỏ tự mình tìm hiểu thì ít nhất phải làm đủ các bước sau:</p>
+<ol>
+<li>Viết <code>Dockerfile</code></li>
+<li>Chạy <code>docker build</code> để build <code>Docker Image</code></li>
+<li>Sau đó sẽ đưa Image này lên <code>DockerHub</code> nào đó bằng <code>docker push</code></li>
+<li>Để lấy Image về dùng <code>docker pull</code></li>
+<li>Để chạy <code>Docker Image</code> dùng <code>docker run</code></li>
+<li>Thiết lập port để có thể access vào <code>Container</code></li>
+</ol>
+<p>Hiện tại cộng đông docker khá đông và hung hãn, nên có thể tìm được tài liệu cũng như các bài viết hướng dẫn ở bất cứ đâu.</p>
+<h3 id="webserver">Web Server</h3>
+<p>Hiện nay có 2 Web Server phổ biến nhất là <code>Apache</code> và <code>nginx</code>.<br />
+Apache là một thành phần web server của các LAMP phổ biến (Linux, Apache, MySQL, PHP). Mặc dù ngày nay có rất nhiều thành phần web stack khác (ví dụ, NodeJS, rich clients JS frameworks, dịch vụ đám mây khác nhau, vv), LAMP vẫn còn rất phổ biến.<br />
+<code>nginx</code> đã được tạo ra để đáp ứng với những thách thức C10K xử lý ít nhất 10.000 khách hàng kết nối đồng thời trên một máy chủ duy nhất. NGINX sử dụng một kiến trúc event-driven không đồng bộ để xử lý những số lượng kết nối khổng lồ này. Kiến trúc này làm cho việc xử lý cao và dao động tải nhiều hơn dự đoán về cách sử dụng bộ nhớ RAM, sử dụng CPU, và độ trễ.<br />
+Với nhiều ưu điểm nhanh, dễ tương thích, <code>nginx</code> ngày cà phổ biến, nên không càn phải tìm hiểu apache cũng được.</p>
+<h3 id="websocket">Web Socket</h3>
+<p>WebSockets cung cấp khả năng giao tiếp hai chiều mạnh mẽ, có độ trễ thấp và dễ xử lý lỗi. Không cần phải có nhiều kết nối như phương pháp Comet long-polling và cũng không có những nhược điểm như Comet streaming.<br />
+Nhờ vậy mà được ứng dụng trong nhiều ứng dụng như Game, Chat, hoặc là các service như là Trello. Trong tương lai sẽ còn nhiều những ứng dụng real time hơn nữa nên Socket sẽ trở thành kỹ thuật không thể thiếu.<br />
+Có nhiều ngôn ngữ và Framework khác nhau để viết socket nhưng tôi ấn tượng với <code>Elixir</code> + <code>Phoenix</code> với cách viết ngắn nhưng vẫn đảm bảo chịu tải tốt.</p>
+<h3 id="graphql">GraphQL</h3>
+<p>GraphQL là một tiêu chuẩn API mới cung cấp một giải pháp thay thế hiệu quả, mạnh mẽ và linh hoạt hơn REST. Ban đầu GraphQL được Facebook phát triển và hiện là một open-source đang được một một cộng đồng lớn bao gồm các công ty và các cá nhân trên khắp thế giới chung tay xây dựng.</p>
+<p>Như ta đã biết hiện tại API đã trở thành các thành phần phổ biến của cơ sở hạ tầng phần mềm. Một API định nghĩa cách client có thể tải dữ liệu từ server và GraphQL cho phép client có thể định nghĩa chính xác dữ liệu nào nó cần từ một API. Thay vì cần nhiều endpoint mà mỗi endpoint trả về một cấu trúc dữ liệu cố định, GraphQL server chỉ cần một endpoint duy nhất và phản hồi chính xác dữ liệu mà client yêu cầu.</p>
+<p>Với đầu đủ thông tin cho người mới bắt đầu mọi người có thể tham khảo một blog khác ở đây:</p>
+<ul>
+<li><a href="https://blog.vietnamlab.vn/2018/06/29/graphql-bai-1-graphql-la-gi/">https://blog.vietnamlab.vn/2018/06/29/graphql-bai-1-graphql-la-gi/</a></li>
+</ul>
+<p>RESTful thực sự rất tuyệt vời! Tôi có thể khẳng định như vậy. Nhưng khi sự phát triển của mobile apps và web one-page-application ngày càng trở nên mạnh mẽ, RESTful bộc lộ những điểm yếu của nó:</p>
+<ul>
+<li>Việc chia nhỏ theo resource khiến ta phải khởi tạo nhiều request cùng lúc để có thể lấy hết lượng data mong muốn hiển thị.</li>
+<li>Khi dữ liệu có nhiều lớp, việc truy vấn trong database trở nên khó khăn, việc xuất dữ liệu ra trở nên kém hiệu quả bởi khả năng lặp lại dữ liệu cao.</li>
+<li>Logic backend trở nên phức tạp và phình to nhanh chóng khi một API phục vụ cho nhiều application khác nhau.</li>
+<li>Việc phát triển riêng biệt các component trong hệ thống vẫn còn khó khăn, bởi bất cứ thay đổi nào của một component, đều dẫn tới có thể ảnh hưởng tới các component còn lại. Ví dụ của tôi về mối quan hệ giữa backend dev và frontend dev là một minh chứng đơn giản.</li>
+</ul>
+<p>Trong khi đó, với GraphQL</p>
+<ul>
+<li>Tất cả data mong muốn có thể gộp chung vào một truy vấn, tới một endpoint duy nhất<br />
+Với phương pháp duyệt cây, mỗi data node chỉ cần duyệt qua một lần duy nhất là đã có thể dùng cho mọi nơi trong data set, không phụ thuộc vào độ phức tạp của format dữ liệu.</li>
+<li>Việc thay đổi phạm vi truy cập tới một trường nào đó cũng trở nên đơn giản, khả năng ảnh hưởng tới các phần khác thấp</li>
+<li>Việc phát triển riêng biệt các component trở nên hiện thực hơn bao giờ hết.</li>
+</ul>
+<h3 id="tngkt">Tổng kết</h3>
+<p>Nói chung tình hình công nghệ, kỹ thuật ngày cành biến động nhanh. Các startup mọc lên như nấm. Khi việc phát triển ứng dụng có thể giao cho các kỹ sư mới ra trường hoặc thực tập nhưng cần thiết phải có chuyên gia về hệ thống. Trên đây là những kỹ thuật cần thiết đê cập nhật lại kiến thức.<br />
+Mình xin tổng hợp lại lộ trình 1 lần nữa bằng 1 bức tranh rõ ràng hơn. Chúc mọi người sẽ thành công trên con đường trở thành một chuyên gia hệ thống.</p>
+<p><amp-img src="https://drive.google.com/uc?id=1_lmiOqtKKoJyaq5zMyXuqy-hf27c6MEr&amp;export=download" alt="uc?id=1_lmiOqtKKoJyaq5zMyXuqy-hf27c6MEr&amp;export=download" width="1000" height="2811" layout="responsive"></amp-img></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

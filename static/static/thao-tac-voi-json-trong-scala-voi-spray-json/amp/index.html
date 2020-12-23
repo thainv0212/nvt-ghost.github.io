@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Thao tác với JSON trong Scala với spray-json</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Thao tác với JSON trong Scala với spray-json" />
+    <meta property="og:description" content="JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-10-09T00:59:09.000Z" />
+    <meta property="article:modified_time" content="2018-10-09T01:33:52.000Z" />
+    <meta property="article:tag" content="scala" />
+    <meta property="article:tag" content="spray-json" />
+    <meta property="article:tag" content="json" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta property="article:author" content="https://www.facebook.com/hikaru.nguyenminh" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thao tác với JSON trong Scala với spray-json" />
+    <meta name="twitter:description" content="JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.M.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="scala, spray-json, json" />
+    <meta property="og:image:width" content="524" />
+    <meta property="og:image:height" content="276" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.M.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdkxreUhBTFpEaHc&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quangnm/",
+        "sameAs": [
+            "https://www.facebook.com/hikaru.nguyenminh"
+        ]
+    },
+    "headline": "Thao tác với JSON trong Scala với spray-json",
+    "url": "https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/",
+    "datePublished": "2018-10-09T00:59:09.000Z",
+    "dateModified": "2018-10-09T01:33:52.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1dWCoksZWWpLuHTvh2VBizLz0COHbu720&export=download",
+        "width": 524,
+        "height": 276
+    },
+    "keywords": "scala, spray-json, json",
+    "description": "JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Thao tác với JSON trong Scala với spray-json</h1>
+                <section class="post-meta">
+                    N.M.Q -
+                    <time class="post-date" datetime="2018-10-09">09 Oct 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="giithiu">Giới Thiệu</h3>
+<ul>
+<li>JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON. Trong bài viết này, mình xin giới thiệu một thư viện khá gọn nhẹ để xử lý JSON trong Scala, đó là thư viện <code>spray-json</code></li>
+<li><a href="https://github.com/spray/spray-json">spray-json</a> là một thư viện thuộc <code>Spray Project</code> - bộ toolkit dành cho việc build <strong>REST/HTTP</strong> integration layer trên nền tảng <strong>Scala</strong> và <strong>Akka</strong> (Xem thêm về Spray tại <a href="http://spray.io/">đây</a>)</li>
+<li>Trong một bài viết trước, chúng ta có phần nào khái niệm về <code>implicit</code> trong Scala (Xem thêm bài viết đó tại <a href="https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala/">đây</a>). Các bạn có thể đọc tham khảo để hiểu sơ về khái niệm <code>implicit</code> trong Scala.</li>
+</ul>
+<h3 id="tnhnng">Tính Năng</h3>
+<h4 id="uim">Ưu điểm</h4>
+<ul>
+<li><em>spray-json</em> hỗ trợ các chức năng:
+<ul>
+<li>Kiểm soát các element trong JSON model.</li>
+<li>Hỗ trợ JSON parser hiệu quả.</li>
+<li>Có thể chọn cách in định dạng JSON ra string dưới dạng pretty hoặc compact.</li>
+<li>Có thể serialization - deserialization một object thành kiểu Class.</li>
+<li>Không cần thêm bất kì dependencies nào.</li>
+</ul>
+</li>
+<li><em>spray-json</em> cho phép convert giữa các định dạng
+<ul>
+<li>Chuỗi JSON.</li>
+<li>JSON Abstract Syntax Tree (ASTs) dựa trên JsValue.</li>
+<li>Một instance theo kiểu dữ liệu trong Scala.</li>
+</ul>
+</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=1WXlfwm4jxLqiG7sF0Z3TFxZm5EjWCjud&amp;export=download" alt="uc?id=1WXlfwm4jxLqiG7sF0Z3TFxZm5EjWCjud&amp;export=download" width="622" height="189" layout="responsive"></amp-img></p>
+<h4 id="cit">Cài đặt</h4>
+<ul>
+<li><em>spray-json</em> có thể cài đặt bằng maven.</li>
+<li>Ngoài ra, nếu dùng SBT để cài đặt bằng cách thêm vào file <code>build.sbt</code>:</li>
+</ul>
+<pre><code>libraryDependencies += "io.spray" %%  "spray-json" % "1.3.4"
+</code></pre>
+<h3 id="sdng">Sử Dụng</h3>
+<h4 id="cbn">Cơ bản</h4>
+<h5 id="importthvin">Import thư viện</h5>
+<ul>
+<li>Để sử dụng thư viện, chúng ta cần import thư viện vào theo cú pháp</li>
+</ul>
+<pre><code>import spray.json._
+import DefaultJsonProtocol._ #Trường hợp chúng ta không sử dụng Protocol tự định nghĩa
+</code></pre>
+<h5 id="parsejsonstring">Parse JSON String</h5>
+<ul>
+<li>Chúng ta có thể parse JSON string thành định dạng AST như sau</li>
+</ul>
+<pre><code>val source = """{ "some": "JSON source" }"""
+val jsonAst = source.parseJson // or JsonParser(source)
+</code></pre>
+<h5 id="convert1scalaobjectthnhjsonast">Convert 1 Scala Object thành JSON AST</h5>
+<ul>
+<li>Chúng ta sử dụng extension method <code>toJson</code> để convert Scala Object thành JSON AST</li>
+</ul>
+<pre><code>val jsonAst = List(1, 2, 3).toJson
+</code></pre>
+<h4 id="nngcao">Nâng cao</h4>
+<ul>
+<li>Ngoài ra, ta có thể convert 1 Scala Object có type <code>T</code> thành định dạng JSON AST và ngược lại, convert JSON AST thành Scala Object. Để làm điều này, chúng ta cần phải đem giá trị <code>implicit</code>  vào trong scope mà nó cung cấp <code>JsonFormat[T]</code> instance cho type <code>T</code>. Ta sẽ làm việc đó thông qua <code>JsonProtocol</code></li>
+<li><code>spray-json</code> sử dụng <code>SJSON</code> để kết nối kiểu dữ liệu type <code>T</code> với các logic để serialize - deserialize một instance thành JSON.</li>
+<li><code>DefaultJsonProtocol</code> của <code>spray-json</code> bao gồm các implicit values của <code>JsonFormat[T]</code>, mỗi <code>JsonFormat[T]</code> chứa các logic để convert một instance của kiểu dữ liệu type <code>T</code> thành JSON hoặc ngược lại. <code>DefaultJsonProtocol</code> đã cover toàn bộ các kiểu dữ liệu có trong Scala, cho nên đối với các kiểu dữ liệu thông thường, ta có thể dễ dàng convert dữ liệu thành JSON AST với câu lệnh <code>toJson</code>. Các kiểu dữ liệu đã được cover bao gồm:
+<ul>
+<li>Byte, Short, Int, Long, Float, Double, Char, Unit, Boolean</li>
+<li>String, Symbol</li>
+<li>BigInt, BigDecimal</li>
+<li>Option, Either, Tuple1 - Tuple7</li>
+<li>List, Array</li>
+<li>immutable.{Map, Iterable, Seq, IndexedSeq, LinearSeq, Set, Vector}</li>
+<li>collection.{Iterable, Seq, IndexedSeq, LinearSeq, Set}</li>
+<li>JsValue</li>
+</ul>
+</li>
+</ul>
+<h5 id="sdngdefaultjsonprotocol">Sử dụng <code>DefaultJsonProtocol</code></h5>
+<ul>
+<li>Trong trường hợp chúng ta muốn custom lại type <code>T</code>, chúng ta có thể sử dụng <code>DefaultJsonProtocol</code> với <code>JsonFormat[T]</code> bằng cách sau</li>
+</ul>
+<pre><code>case class Student(name: String, age: Int, address: String)
+
+object MyJsonProtocol extends DefaultJsonProtocol {
+  implicit val studentList = jsonFormat4(Student)
+}
+
+import MyJsonProtocol._
+import spray.json._
+
+val json = Student("An", 95,"HCM City").toJson
+val student = json.convertTo[Student]
+</code></pre>
+<h3 id="citin">Cải Tiến</h3>
+<h4 id="tmhiuthmvimplicittrongsprayjson">Tìm hiểu thêm về implicit trong spray-json</h4>
+<h5 id="tmhiuthmvjsonwriters">Tìm hiểu thêm về JsonWriters</h5>
+<ul>
+<li>Với việc hàm <code>DefaultJsonProtocol</code> (Có ở dạng <code>trait</code> và <code>object</code>) chứa khá nhiều các predefined writers, readers, formats, cũng như là các implicit methods. Check đoạn code dưới đây.</li>
+</ul>
+<pre><code>import spray.json._
+import spray.json.DefaultJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = new RootJsonFormat[Person] {
+  def write(person: Person): JsValue = {
+    JsObject(
+      "first_name" -&gt; person.firstName.toJson,
+      "last_name" -&gt; person.lastName.toJson
+    )
+  }
+  
+  def read(value: JsValue): Person = ???
+}
+
+val nguyenQuang = Person(firstName = "Nguyen", lastName = "Quang")
+val tranTin = Person(firstName = "Tran", lastName = "Tin")
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Ở đây, hàm <code>toJson</code> tìm kiếm một implicit <code>JsonWriter[List[Person]]</code> được provide bởi <a href="https://github.com/spray/spray-json/blob/v1.3.4/src/main/scala/spray/json/CollectionFormats.scala#L25">hàm</a> trong spray-json</li>
+</ul>
+<pre><code>implicit def listFormat[T :JsonFormat]: RootJsonFormat[List[T]]
+</code></pre>
+<ul>
+<li>Ở đây, type <code>T</code> được hiểu là <code>Person</code>, và nội dung của <code>JsonFormat</code> bị ràng buộc bởi implicit <code>JsonFormat[Person]</code> mà ta đã định nghĩa ở trên. Nói cách khác, câu lệnh xuất ra Json cho <code>List[Person]</code> có thể viết phức tạp là</li>
+</ul>
+<pre><code>#Phức tạp
+List(nguyenQuang, tranTin).toJson(listFormat(personJsonFormat))
+
+#Đơn giản
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Thêm nữa, ở đây chúng ta dùng <code>JsonFormat</code> thay cho <code>JsonWriter</code>. Nếu như chúng ta chỉ có nhu cầu xài hàm write (Xuất object ra JSON) thì chúng ta chỉ nên sử dụng <code>JsonWriter</code>, thay vì không implement hàm <code>read</code> hoặc throw exception mặc định. Trong <code>DefaultJsonProtocol</code> của spray-json, phương pháp này được sử dụng khá là phổ biến (Sử dụng <code>JsonFormat</code>, không implement hàm <code>read</code> mà chỉ throw exception) mà bỏ qua việc cung cấp <code>JsonWriter</code> cho list hoặc Collection.</li>
+</ul>
+<h4 id="mrngdefaultjsonprotocol">Mở rộng DefaultJsonProtocol</h4>
+<ul>
+<li>Như đã trình bày ở trên, chúng ta có thể chỉ cần dùng <code>JsonWriter</code> cho việc xuất JSON. Chúng ta có thể làm theo sau</li>
+</ul>
+<pre><code>import spray.json._
+
+object ExtendedJsonProtocol extends DefaultJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new  RootJsonWriter[List[T]] {
+   def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonWriter = new RootJsonWriter[Person] {
+  def write(person: Person): JsValue = {
+    JsObject(
+      "first_name" -&gt; person.firstName.toJson,
+      "last_name" -&gt; person.lastName.toJson
+    )
+  }
+}
+
+val nguyenQuang = Person(firstName = "Nguyen", lastName = "Quang")
+val tranTin = Person(firstName = "Tran", lastName = "Tin")
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Đoạn code trên chạy sẽ cho kết quả giống như kết quả của ví dụ trên sử dụng <code>JsonFormat</code>.</li>
+<li>Tuy nhiên, trong trường hợp chúng ta muốn mở rộng Protocol của riêng mình có thể hỗ trợ cả việc <code>read</code> và <code>write</code> cho lớp <code>Person</code> thì phải làm thế nào? Ở đây ta thử thay thế implicit <code>JsonWriter[Person]</code> bằng implicit <code>JsonFormat[Person]</code> theo như dưới đây</li>
+</ul>
+<pre><code>import spray.json._
+
+object ExtendedJsonProtocol extends DefaultJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new  RootJsonWriter[List[T]] {
+   def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = jsonFormat2(Person)
+
+val nguyenQuang = Person(firstName = "Nguyen", lastName = "Quang")
+val tranTin = Person(firstName = "Tran", lastName = "Tin")
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Lúc này, compiler sẽ không chấp nhận code mà báo lỗi</li>
+</ul>
+<pre><code>Error:(17, 46) ambiguous implicit values:
+ both method listFormat in trait CollectionFormats of type [T](implicit evidence$1: spray.json.JsonFormat[T])spray.json.RootJsonFormat[List[T]]{def write(list: List[T]): spray.json.JsArray}
+ and method listJsonWriter in object ExtendedJsonProtocol of type [T](implicit evidence$1: spray.json.JsonWriter[T])spray.json.RootJsonWriter[List[T]]
+ match expected type spray.json.JsonWriter[List[A$A10.this.Person]]
+lazy val result = List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Từ lỗi "ambigious implicit values", ta có thể đoán là nguyên nhân do compiler đang không biết chọn cách nào để chọn đúng giá trị implicit cho <code>JsonWriter[List]</code>, cụ thể ở đây là
+<ul>
+<li>
+<ol>
+<li>Sử dụng <code>DefaultJsonProtocol</code> để tạo <code>RootJsonFormat[List]</code></li>
+</ol>
+</li>
+</ul>
+<pre><code>List(nguyenQuang, tranTin).toJson.toJson(listFormat(personJsonFormat))
+</code></pre>
+<ul>
+<li>
+<ol start="2">
+<li>Sử dụng method <code>listJsonWriter</code> mà ta định nghĩa để chuyển đổi <code>JsonFormat[Person]</code> thành <code>RootJsonWriter[List]</code></li>
+</ol>
+</li>
+</ul>
+<pre><code>List(nguyenQuang, tranTin).toJson(listJsonWriter(personJsonFormat))
+</code></pre>
+</li>
+</ul>
+<h5 id="tmhiuvliambigiousimplicitvalues">Tìm hiểu về lỗi "ambigious implicit values"</h5>
+<ul>
+<li>Lỗi "ambigious implicit values" xảy ra là do Scala đang không biết tìm giá trị implicit phù hợp để thay thế vào vị trí. Bản thân Scala có một hệ thống để đánh <em>rank</em> cho các implicit hiện có và chọn ra cái phù hợp nhất. Theo như tài liệu của Scala, mục <a href="https://www.scala-lang.org/files/archive/spec/2.12/07-implicits.html#implicit-parameters">"7.2 Implicit parameters</a>, ta có thể tìm thấy cụm từ <em>implicit scope</em> cùng với một chú ý.</li>
+</ul>
+<blockquote>
+<p>If there are several eligible arguments which match the implicit parameter’s type, a most specific one will be chosen using the rules of static <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#overloading-resolution">overloading resolution</a>.</p>
+</blockquote>
+<ul>
+<li>
+<p>Tóm gọn lại <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#overloading-resolution">6.26.3 Overloading resolution</a>, ý tưởng chính là Scala tìm kiếm một alternative phù hợp nhất với implicit. Và để xác định một alternative X có phù hợp hơn alternative Y hay không, ta có thể tưởng tượng là đó là một trận đấu gồm 2 vòng, kết quả cuối cùng là tổng điểm cộng lại.</p>
+<ul>
+<li>Vòng 1: <strong>alternative được định nghĩa ở đâu?</strong>
+<ul>
+<li>X sẽ hơn Y 1 điểm nếu như X được định nghĩa trong class hoặc object <em><strong>có nguồn gốc</strong></em> (ví dụ là extend from) từ class hoặc object mà Y được định nghĩa (và ngược lại).</li>
+</ul>
+</li>
+<li>Vòng 2: <strong>alternative thuộc loại gì</strong>
+<ul>
+<li>X sẽ hơn Y 1 điểm nếu type của X <em>comform</em> (ví dụ như là subtype) của Y.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Kết quả cuối cùng sẽ là tổng điểm của 2 vòng. Tuy nhiên, trường hợp Hoà vẫn có thể xảy ra, ví dụ như</p>
+<ul>
+<li>Cả 2 alternative hoà ở cả 2 ván. Ví dụ như cả  alternative có cùng type và  đều cùng được định nghĩa trong cùng class/object</li>
+<li>Mỗi alternative thắng 1 vòng. Ví dụ X được định nghĩa trong 1 subclass mà Y được định nghĩa, nhưng type của Y lại là subtype của X.</li>
+</ul>
+</li>
+<li>
+<p>Trường hợp 2 xảy ra cho ví dụ ở trên</p>
+<ul>
+<li><code>listJsonWriter</code> được định nghĩa trong object mà nó extend từ <code>DefaultJsonProtocol</code> nơi <code>listFormat</code> của spray-json được định nghĩa. Do đó 1-0 nghiêng về phía ta.</li>
+<li><code>JsonFormat[List[T]</code> - type được return về từ method <code>listFormat</code> lại là subtype của <code>JsonWriter[List[T]</code>, type này được return về từ method <code>listJsonWriter</code> của ta định nghĩa. Do đó, tỉ số hiệp 2 là 0-1.</li>
+</ul>
+</li>
+<li>
+<p>Tổng hợp kết quả trên, ta có 1 kết quả hoà, và gây ra lỗi "ambigious implicit values" như trên.<br />
+<amp-img src="https://drive.google.com/uc?id=1e9WQ5P8tbANFnlOJRIktateMByMChgVx&amp;export=download" alt="uc?id=1e9WQ5P8tbANFnlOJRIktateMByMChgVx&amp;export=download" width="1484" height="400" layout="responsive"></amp-img></p>
+</li>
+</ul>
+<h5 id="giiphp">Giải pháp</h5>
+<ul>
+<li>Từ những kết quả tìm hiểu được như trên, ta có thể thấy có 2 cách giải quyết vấn đề này: hoặc là thay đổi nơi định nghĩa của <code>listJsonWriter</code>, hoặc là thay đổi type được trả về từ <code>listJsonWriter</code>.</li>
+<li>Tuy nhiên, vì hàm <code>listJsonWriter</code> khá là khó thay đổi, nên cách khả dĩ nhất là thay đổi nơi định nghĩa của nó, làm nó bớt <em>specific</em> hơn hàm <code>listFormat</code> của spray-json. Một cách để thực hiện việc này là thay đổi <code>extends DefaultJsonProtocol</code> thành <code>import DefaultJsonProtocol._</code> như dưới đây:</li>
+</ul>
+<pre><code>import spray.json._
+import DefaultJsonProtocol._
+
+object ExtendedJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new RootJsonWriter[List[T]] {
+    def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = jsonFormat2(Person)
+
+val nguyenQuang = Person(firstName = "Nguyen", lastName = "Quang")
+val tranTin = Person(firstName = "Tran", lastName = "Tin")
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>spray-json là một thư viện khá tốt, gọn nhẹ, phục vụ tốt cho việc xử lý JSON. Ngoài ra, với các hiểu biết về implicit, ta cũng có thể dễ dàng custom lại Protocol theo ý bản thân để phù hợp hơn cho dự án.</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/@stijnvermeeren.be/implicit-resolution-in-scala-an-example-with-spray-json-2de66e508e5a">https://medium.com/@stijnvermeeren.be/implicit-resolution-in-scala-an-example-with-spray-json-2de66e508e5a</a></li>
+<li><a href="https://github.com/spray/spray-json">https://github.com/spray/spray-json</a></li>
+<li><a href="https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala">https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

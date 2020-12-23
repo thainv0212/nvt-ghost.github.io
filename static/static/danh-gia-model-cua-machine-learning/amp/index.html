@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Đánh giá model của machine learning</title>
+
+    <meta name="description" content="Khi chúng ta xây dựng mô hình(model) có hàng tá model ta có thể sử dụng. Các vấn đề liên quan đến việc đánh giá model sẽ được giới thiệu trong bài viết này." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Đánh giá model của machine learning" />
+    <meta property="og:description" content="Khi chúng ta xây dựng mô hình(model) có hàng tá model ta có thể sử dụng. Các vấn đề liên quan đến việc đánh giá model sẽ được giới thiệu trong bài viết này." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/danh-gia-model-cua-machine-learning/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMHhRLTR6Z2cwSHc&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-10-24T01:12:00.000Z" />
+    <meta property="article:modified_time" content="2017-10-24T01:34:53.000Z" />
+    <meta property="article:tag" content="evaluation" />
+    <meta property="article:tag" content="sklearn" />
+    <meta property="article:tag" content="machine learning" />
+    <meta property="article:tag" content="Cross Validation" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Đánh giá model của machine learning" />
+    <meta name="twitter:description" content="Khi chúng ta xây dựng mô hình(model) có hàng tá model ta có thể sử dụng. Các vấn đề liên quan đến việc đánh giá model sẽ được giới thiệu trong bài viết này." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/danh-gia-model-cua-machine-learning/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMHhRLTR6Z2cwSHc&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.T.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="evaluation, sklearn, machine learning, Cross Validation" />
+    <meta property="og:image:width" content="655" />
+    <meta property="og:image:height" content="304" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.T.T",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkRXIxZVdxdFhMb28&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/thanhtt/",
+        "sameAs": []
+    },
+    "headline": "Đánh giá model của machine learning",
+    "url": "https://blog.vietnamlab.vn/danh-gia-model-cua-machine-learning/",
+    "datePublished": "2017-10-24T01:12:00.000Z",
+    "dateModified": "2017-10-24T01:34:53.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkMHhRLTR6Z2cwSHc&export=download",
+        "width": 655,
+        "height": 304
+    },
+    "keywords": "evaluation, sklearn, machine learning, Cross Validation",
+    "description": "Dạo đầu\nLàm gì cũng vậy, đều có công đoạn mang tên là đánh giá. Đơn giản, gần gũi như\nviệc lấy vợ, có một công đoạn mang tên là đưa người yêu về ra mắt, mục đích\nchính là để bố mẹ, anh em họ hàng oánh giá. Tất nhiên giá cao bao giờ cũng được\nưu tiên :D\n\nMachine Learning cũng không có ngoại lệ, khi chúng ta xây dựng mô hình(model) có\nhàng tá model ta có thể sử dụng. Ví dụ bạn sử dụng RandomForest model, tương tự\ncòn có ExtraTrees, AdaBoost...\n\nCâu hỏi đặt ra là model này có tốt không. Một model t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Đánh giá model của machine learning(Precision, Recall, Bias &amp; Variance, Cross Validation)</h1>
+                <section class="post-meta">
+                    T.T.T -
+                    <time class="post-date" datetime="2017-10-24">24 Oct 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkMHhRLTR6Z2cwSHc&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="dou">Dạo đầu</h3>
+<p>Làm gì cũng vậy, đều có công đoạn mang tên là đánh giá. Đơn giản, gần gũi như việc lấy vợ, có một công đoạn mang tên là đưa người yêu về ra mắt, mục đích chính là để bố mẹ, anh em họ hàng oánh giá. Tất nhiên giá cao bao giờ cũng được ưu tiên :D</p>
+<p>Machine Learning cũng không có ngoại lệ, khi chúng ta xây dựng mô hình(model) có hàng tá model ta có thể sử dụng. Ví dụ bạn sử dụng RandomForest model, tương tự còn có ExtraTrees, AdaBoost...</p>
+<p>Câu hỏi đặt ra là model này có tốt không. Một model tốt sẽ cho kết quả chính xác khi dự đoán kết quả với dữ liệu mới. Nên việc đánh giá model là một bước rất quan trọng để có thể xác định model có thể sử dụng được không, từ đó có thể tiếp tục tiến hành tuning parameter, chọn lựa lại feature hay sử dụng model khác, cũng có thể là bỏ cuộc ^^.</p>
+<p>Tất nhiên không có model nào là tốt nhất với tất cả các hoàn cảnh, nó phụ thuộc vào đặc trưng của model, đặc trưng của dữ liệu, nên việc thử data của mình trên nhiều loại model là việc hết sức bình thường và nên làm.</p>
+<p>Trước tiên đến với các phương pháp đánh giá, có 2 khái niệm rất quan trọng chính là Overfitting và Underfit mình muốn giới thiệu đến với các bạn.</p>
+<h3 id="overfittingunderfittinglg">Overfitting, Underfitting là gì</h3>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZnlpT2FIamY4SG8&amp;export=download" alt width="422" height="173" layout="responsive"></amp-img><br />
+Như trên hình(bài toán đang phân loại ○ và X), bạn có thể dùng mô hình Logistic Regression để giải quyết. Nếu bạn chưa biết có thể tham khảo thêm <a href="https://machinelearningcoban.com/2017/01/27/logisticregression/">tại đây</a>.</p>
+<p>Theo thứ tự từ trái sang phải lần lượt là ví dụ về Underfitting, bình thường và Overfitting.</p>
+<ul>
+<li>
+<p>Trong trường hợp Underfitting, model quá đơn giản nên rất nhiều X không được phân loại nên độ chính xác ngay cả trên tập Training Data rất tệ.</p>
+</li>
+<li>
+<p>Ngược lại với trường hợp Overfitting thì khi nhìn vào hình, bạn có thể thấy model lại quá phức tạp, mô tả cả noise data(2 dấu X nằm trong phần ○) nên độ chính xác trên tập Training là 100% nhưng thực tế với data mới(không có trong tập Training Data) thì độ chính xác rất tồi tệ.</p>
+</li>
+</ul>
+<p>Do vậy 1 model lý tưởng là model không quá đơn giản, không quá phức tạp và không dễ bị ảnh hưởng do noise.</p>
+<h3 id="crossvalidation">Cross Validation</h3>
+<p>Đầu tiên phải kể đến phương pháp <code>cross validation</code>, được đánh giá là phương pháp tai tiếng nhất, à nổi tiếng nhất.</p>
+<p>Thông thường chúng ta hay làm như sau:</p>
+<p>Chia data thành 2 phần, Training Data và Test Data. Tiến hành dùng Training Data để tạo model, dùng Test Data để dự đoán rồi xác định tỷ lệ đoán xịt, đoán trúng. Thông thường tỷ lệ khi chia data <code>Training:Test = 70:30</code></p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbEJDWnpmYTlkMGM&amp;export=download" alt width="815" height="163" layout="responsive"></amp-img><br />
+Tuy nhiên, có trường hợp một model cho cross validation tốt nhưng áp dụng với data mới thì kết quả lại không được như ý muốn.</p>
+<p>Giả dụ trường hợp <code>Overfitting</code>, là hiện tượng mô hình tìm được quá khớp với dữ liệu training. Khớp quá nên mô hình có xu hướng mô tả cả nhiễu , thành ra khi cho test data vào toạch vô số kể. Thường xảy ra khi lượng data quá nhỏ so với độ phức tạp của model. Độ phức tạp của mô hình có thể được coi là bậc của đa thức cần tìm.</p>
+<p>Những lúc như thế "Vậy thì thay đổi model để với test data cũng có kết quả tốt là xong", và rồi chúng ta cố gắng thay đổi model cho tỷ lệ dự đoán đúng trên Test Data cao, "Ngon, hoàn thành", nhưng chưa chắc dễ dàng vậy đâu, rất có thể model lại overfitting với Test Data.</p>
+<p>Tóm lại, việc chia data làm 2 phần Training Data và Test Data thì vẫn chưa thể đưa ra kết luận chính xác cho model được.<br />
+Vậy nên mình sẽ làm như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeHBDVVVvUXVodVE&amp;export=download" alt width="817" height="165" layout="responsive"></amp-img><br />
+Ở bước chia dữ liệu, không chỉ chia làm 2 phần Training, Test mà chia thêm 1 phần là cross validation. Tỷ lệ thông thường: <code>Training:CV:Test = 60:20:20</code></p>
+<p>Tiếp theo:</p>
+<ol>
+<li>Sử dụng Training Data để tìm parameter và tạo model.</li>
+<li>Sử dụng Cross validation data để đánh giá độ chính xác của model.</li>
+<li>Nếu độ chính xác thấp, tunning parameter để nâng cao độ chính xác của model.</li>
+<li>Sau khi thu được model cuối cùng thì tiến hành đánh giá độ chính xác với Test data.</li>
+</ol>
+<p><strong>Chú ý:</strong></p>
+<ul>
+<li>
+<p><strong>Việc tìm high parameter chỉ tiến hành trên Training Data.</strong> Sự khác nhau giữa Cross Validation Data Set và Test Data Set là việc thay đổi model, high parameter sao cho nâng cao được độ chính xác trên Cross Validation Data Set. Còn lại Test Set chỉ phục vụ cho phát đánh giá cuối cùng thôi nhé.</p>
+</li>
+<li>
+<p>Phương pháp tính Cross Validation ở trên có tên là Holdout method, ngoài ra còn có các cách khác như: k-fold cross-validation, Repeated random sub-sampling validation... các bạn có thể tìm hiểu thêm <a href="https://goo.gl/HGwdpL">tại đây</a>.<br />
+Tuy nhiên phương pháp Holdout method là phương pháp đơn giản và thường được sử dụng nhất.</p>
+</li>
+</ul>
+<h3 id="biasvariance">Bias &amp; Variance</h3>
+<p>Nhắc lại một chút, 1 model tuyệt vời ông mặt trời là cả Training Set, Cross Validation Set, Test Set có độ lỗi thấp.</p>
+<p>Trong trường hợp cả <strong>Training Set, Cross Validation Set, Test Set có độ lỗi thấp</strong> thì model được gắn với cái tên rất feed: <strong>Underfit</strong> hoặc <strong>high bias</strong> (*).</p>
+<p>Trường hợp <strong>Training Set</strong> lỗi thấp nhưng trên Cross Validation, Test Set lỗi lớn thì được gọi là <strong>Overfit</strong> hoặc <strong>High variance</strong> (*)</p>
+<p>À mà "Lỗi" là gì thế ???</p>
+<p>Lỗi của một model đã dùng parameter θ để training được tính bằng cách lấy bình phương của giá trị dự đoán hθ(x) - giá trị thực tế y tại các data point.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkaEJqTmhabFNFUmc&amp;export=download" alt width="482" height="103" layout="responsive"></amp-img></p>
+<p>m là số data samples.</p>
+<p>Chúng ta cố gắng tìm kiếm parameter θ sao cho <span class="mrow" id="MathJax-Span-157"><span class="mi" id="MathJax-Span-158">J<span></span></span><span class="mo" id="MathJax-Span-159">(</span><span class="mi" id="MathJax-Span-160">θ</span><span class="mo" id="MathJax-Span-161">)</span></span> nhỏ nhất nhưng để không xảy ra tình trạng Overfitting, chúng ta sẽ sử dụng thêm parameter chuẩn hóa λ (regularization parameter).</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkbS1qTU5RQTNXeEE&amp;export=download" alt width="462" height="93" layout="responsive"></amp-img></p>
+<p>Bằng cách này sẽ tránh được trường hợp giá trị θ lớn sẽ khó tìm được J(θ) nhỏ nhất, sẽ tránh được overfitting (high variance).</p>
+<p><strong>Vậy lựa chọn λ như thế nào là hợp lý ??</strong></p>
+<p>Với câu hỏi trên, giả sử trục tung là độ lỗi, trục hoành là λ, biểu diễn trên đồ thị ta sẽ được câu trả lời.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ3pjMlhaeTJEdjg&amp;export=download" alt width="448" height="346" layout="responsive"></amp-img></p>
+<p>Do λ nhỏ quá thì sẽ bị overfitting (high variance), <span class="mrow" id="MathJax-Span-251"><span class="msubsup" id="MathJax-Span-252"><span><span><span class="mi" id="MathJax-Span-253">J<span></span></span><span></span></span><span><span class="texatom" id="MathJax-Span-254"><span class="mrow" id="MathJax-Span-255"><span class="mi" id="MathJax-Span-256">t</span><span class="mi" id="MathJax-Span-257">r</span><span class="mi" id="MathJax-Span-258">a</span><span class="mi" id="MathJax-Span-259">i</span><span class="mi" id="MathJax-Span-260">n</span></span></span><span></span></span></span></span><span class="mo" id="MathJax-Span-261">(</span><span class="mi" id="MathJax-Span-262">θ</span><span class="mo" id="MathJax-Span-263">)</span></span> của Training Data sẽ nhỏ , độ lỗi Jcv của Cross Validation Set trở nên lớn.</p>
+<p>Ngược lại λ lớn quá model sẽ bị Underfit hoặc high bias. Cả 2 độ lỗi  của Training Data, Cross Validation Set sẽ cùng trở nên lớn.</p>
+<p>Do vậy chọn λ tại điểm khoanh đỏ sẽ cho <strong><span class="MathJax_Preview"></span><span class="MathJax" id="MathJax-Element-25-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;msub&gt;&lt;mi&gt;J&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;C&lt;/mi&gt;&lt;mi&gt;V&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;&amp;#x03B8;&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-303" role="math"><span><span><span class="mrow" id="MathJax-Span-304"><span class="msubsup" id="MathJax-Span-305"><span><span><span class="mi" id="MathJax-Span-306">J<span></span></span><span></span></span><span><span class="texatom" id="MathJax-Span-307"><span class="mrow" id="MathJax-Span-308"><span class="mi" id="MathJax-Span-309">C<span></span></span><span class="mi" id="MathJax-Span-310">V<span></span></span></span></span><span></span></span></span></span><span class="mo" id="MathJax-Span-311">(</span><span class="mi" id="MathJax-Span-312">θ<span></span></span><span class="mo" id="MathJax-Span-313">)</span></span><span></span></span></span><span></span></span></nobr></span></strong> nhỏ nhất nhỉ.</p>
+<p>Bài này mình cũng không đi sâu và việc phòng tránh Underfitting và Overfitting nhưng có cách thường được sử dụng như sau:</p>
+<p><strong>Chữa bệnh Underfitting(High bias)</strong></p>
+<ol>
+<li>Tìm kiếm biến giải thích(feature) khác.</li>
+<li>Thêm vào các feature dạng (<span class="mrow" id="MathJax-Span-318"><span class="msubsup" id="MathJax-Span-319"><span><span><span class="mi" id="MathJax-Span-320">x</span><span></span></span><span><span class="mn" id="MathJax-Span-321">2</span><span></span></span><span><span class="mn" id="MathJax-Span-322">1</span><span></span></span></span></span><span class="mo" id="MathJax-Span-323">,</span><span class="msubsup" id="MathJax-Span-324"><span><span><span class="mi" id="MathJax-Span-325">x</span><span></span></span><span><span class="mn" id="MathJax-Span-326">2</span><span></span></span><span><span class="mn" id="MathJax-Span-327">2</span><span></span></span></span></span><span class="mo" id="MathJax-Span-328">,</span><span class="msubsup" id="MathJax-Span-329"><span><span><span class="mi" id="MathJax-Span-330">x</span><span></span></span><span><span class="mn" id="MathJax-Span-331">1</span><span></span></span></span></span><span class="msubsup" id="MathJax-Span-332"><span><span><span class="mi" id="MathJax-Span-333">x</span><span></span></span><span><span class="mn" id="MathJax-Span-334">2</span><span></span></span></span></span></span>)</li>
+<li>Giảm parameter λ xuống</li>
+</ol>
+<p><strong>Chữa bệnh Overfitting (High variance)</strong></p>
+<ol>
+<li>Tăng số lượng Training Data</li>
+<li>Giảm số lượng biến giải thích(feature)</li>
+<li>Tăng độ lớn của parameter chuẩn hóa λ</li>
+</ol>
+<p><strong>Chú thích (*):</strong></p>
+<p>Như biểu đồ trên, khi High Variance thì độ lỗi trên tập train sẽ thấp nhưng khi đó trên Test Data độ lỗi lớn chính là hiện tượng Overfitting.</p>
+<p>Ngược lại khi High Bias thì độ lỗi trên Training Data lớn và đương nhiên độ lỗi trên Test Data cũng sẽ lớn. Cũng chính là hiện tượng Underfitting.</p>
+<h3 id="precisionrecall">Precision &amp; Recall</h3>
+<p>Cách đánh giá này thường được áp dụng cho các bài toán phân lớp có hai lớp dữ liệu. Cụ thể hơn, trong hai lớp dữ liệu này có một lớp nghiêm trọng hơn lớp kia và cần được dự đoán chính xác.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkYjlvcV9YZ2dlSjg&amp;export=download" alt width="653" height="335" layout="responsive"></amp-img><br />
+p: viết tắt của positive</p>
+<p>n: viết tắt của negative</p>
+<p>Ví dụ như việc xác định mail spam, việc nhầm mail quan trọng thành mail spam nguy hiểm hơn là bỏ sót mail spam. Hay việc dự đoán động đất nhầm với tỷ lệ thấp tốt hơn là bỏ sót.</p>
+<p>Trong những bài toán này, người ta thường định nghĩa lớp dữ liệu quan trọng cần được xác định đúng là lớp Positive (P-dương tính), lớp còn lại được gọi là Negative (N-âm tính).<br />
+Ta định nghĩa True Positive (TP), False Positive (FP), True Negative (TN), False Negative (FN) dựa trên confusion matrix như trên.</p>
+<p>Tỷ lệ chính xác (Precision) và tỷ lệ tái hiện tính theo công thức:</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkTXJLWnUwUFVYdXc&amp;export=download" alt width="586" height="150" layout="responsive"></amp-img></p>
+<p>Tỷ lệ chính xác (Precision) là việc lấy tỷ lệ của <strong>số dự đoán y = 1 đúng với thực tế y cũng = 1</strong> với <strong>tổng số tất cả số lần dự đoán y = 1</strong> (vùng khoanh đỏ ở trên hình.) Giá trị càng cao, càng tốt.</p>
+<p>Tỷ lệ tái hiện (Recall) là tỷ lệ của <strong>số dự đoán y = 1 đúng với thực tế y cũng = 1</strong> chia cho <strong>tổng số trường hợp thực tế y = 1</strong>. Giá trị càng cao, các tốt.</p>
+<p><strong>Ví dụ bài toán lọc mail rác:</strong></p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkc201VkoxS0JGU2s&amp;export=download" alt width="488" height="146" layout="responsive"></amp-img></p>
+<p>Prec = 8/(8+32) = 20%</p>
+<p>Rec = 8/10 = 80%</p>
+<p>Từ kết quả ta có thể kết luận như sau:</p>
+<p>Tỷ lệ xác suất bộ lọc chính xác khi xác định 1 mail là thư rác là 20%.</p>
+<p>Tỷ lệ xác suất một thư rác bị bộ lọc phát hiện là 80%.</p>
+<p>Ta có thể thấy tỷ lệ phát hiện ra thư rác khá cao, nhưng tỷ lệ chính xác lại thấp, việc xác định thư quan trọng thành thư rác là việc cực kỳ nguy hiểm nên với kết quả trên cần cải tiến sao cho cả giá trị Precision = 100% là tốt nhất.</p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Trên đây mình đã giới thiệu đến các bạn các cách đánh giá model của machine learning, cùng với đó là khái niệm Overfitting (High variance) hay Underfitting(High bias).</p>
+<p>Ngoài ra là một số cách khắc phục tình trạng underfit và overfit. Hi vọng sẽ giúp đỡ được các bạn trong quá trình tìm hiểu và làm việc với machine learning.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

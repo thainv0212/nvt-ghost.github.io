@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Sử dụng firebase với swift 3.x (phần 3 - phần cuối)</title>
+
+    <meta name="description" content="Trong phần phần 2 tôi đã giới thiệu về xử lý thêm avatars, tạo image, ... trong bài này tôi sẽ trình bày sâu hơn về xử lý ảnh, trao đổi ảnh thông qua chat." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sử dụng firebase với swift 3.x (phần 3 - phần cuối)" />
+    <meta property="og:description" content="Trong phần phần 2 tôi đã giới thiệu về xử lý thêm avatars, tạo image, ... trong bài này tôi sẽ trình bày sâu hơn về xử lý ảnh, trao đổi ảnh thông qua chat." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-3-phan-cuoi/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZnJnRmttX3YyNUU&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-10-24T01:11:00.000Z" />
+    <meta property="article:modified_time" content="2017-10-24T01:17:31.000Z" />
+    <meta property="article:tag" content="ios" />
+    <meta property="article:tag" content="firebase" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sử dụng firebase với swift 3.x (phần 3 - phần cuối)" />
+    <meta name="twitter:description" content="Trong phần phần 2 tôi đã giới thiệu về xử lý thêm avatars, tạo image, ... trong bài này tôi sẽ trình bày sâu hơn về xử lý ảnh, trao đổi ảnh thông qua chat." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-3-phan-cuoi/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZnJnRmttX3YyNUU&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.C.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="ios, firebase" />
+    <meta property="og:image:width" content="650" />
+    <meta property="og:image:height" content="415" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.C.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8HRtTCzrnKzVWCm6NCYy8Hsyei_wlpa&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quytc/",
+        "sameAs": []
+    },
+    "headline": "Sử dụng firebase với swift 3.x (phần 3 - phần cuối)",
+    "url": "https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-3-phan-cuoi/",
+    "datePublished": "2017-10-24T01:11:00.000Z",
+    "dateModified": "2017-10-24T01:17:31.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkZnJnRmttX3YyNUU&export=download",
+        "width": 650,
+        "height": 415
+    },
+    "keywords": "ios, firebase",
+    "description": "Đây là phần 3 cũng là phần cuối của bài viết viết về firebase và swift\n\nPhần 1: (Sử dụng firebase với swift 3.x (phần 1)\n[https://vietnamlab.vn/blog/2017/05/31/su-dung-firebase-voi-swift-3-x-phan-1/])\nPhần 2: (Sử dụng firebase với swift 3.x (phần 2)\n[https://vietnamlab.vn/blog/2017/08/08/su-dung-firebase-voi-swift-3-x-phan-2/])\n\nTrong phần phần 2 tôi đã giới thiệu về xử lý thêm avatars, tạo image, ... trong\nbài này tôi sẽ trình bày sâu hơn về xử lý ảnh, trao đổi ảnh thông qua chat.\n\nXII . Gửi Im",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    <script async custom-element="amp-anim" src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"></script>
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Sử dụng firebase với swift 3.x (phần 3 - phần cuối)</h1>
+                <section class="post-meta">
+                    T.C.Q -
+                    <time class="post-date" datetime="2017-10-24">24 Oct 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkZnJnRmttX3YyNUU&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Đây là phần 3 cũng là phần cuối của bài viết viết về firebase và swift</p>
+<p>Phần 1: (<a href="https://vietnamlab.vn/blog/2017/05/31/su-dung-firebase-voi-swift-3-x-phan-1/">Sử dụng firebase với swift 3.x (phần 1)</a>)<br />
+Phần 2: (<a href="https://vietnamlab.vn/blog/2017/08/08/su-dung-firebase-voi-swift-3-x-phan-2/">Sử dụng firebase với swift 3.x (phần 2)</a>)</p>
+<p>Trong phần phần 2 tôi đã giới thiệu về xử lý thêm avatars, tạo image, ... trong bài này tôi sẽ trình bày sâu hơn về xử lý ảnh, trao đổi ảnh thông qua chat.</p>
+<h3 id="xiigiimages">XII . Gửi Images</h3>
+<p>Phần xử lý gửi ảnh khá giống với xử lý khi gửi text với một key khác. Hơn nữa lưu trữ dữ liệu ảnh trực tiếp với message, chúng ta dùng Firebase Storage, cái này phù hợp hơn khi lưu trữ files lớn như audio, video hay images.</p>
+<p>Đầu tiên hãy thêm thư viện Photos vào file <code>ChatViewController.swift</code>:</p>
+<pre><code>import Photos
+</code></pre>
+<p>Tiếp theo, thêm thuộc tính sau:</p>
+<pre><code>lazy var storageRef: FIRStorageReference = FIRStorage.storage().reference(forURL: "YOUR_URL_HERE")
+</code></pre>
+<p>Đây là một <code>Firebase storage reference</code> khái niệm này giống với <code>Firebase database references</code> mà bạn đã biết rồi nhưng là đối tượng để lưu trữ. Thay thế <code>YOUR_URL_HERE</code> bằng URL của mình, URL lấy bằng cách nhấp chuột vào <code>Storage</code> trong App Console.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkU3NVeldzWVdNUGc&amp;export=download" alt width="650" height="303" layout="responsive"></amp-img></p>
+<p>Việc lưu trữ một ảnh tới Firebase storage trả về một URL, nhưng cái này có thể lấy một hai giây hoặc dài hơn tùy theo tốc độ mạng. Hơn nữa nhìn trên khung giao diện người dùng sẽ cảm thấy chậm, gửi photo message với một URL giả và sau đó cập nhật lại message sau khi photo đã được lưu.</p>
+<p>Tiếp theo thêm thuộc tính sau:</p>
+<pre><code>private let imageURLNotSetKey = "NOTSET"
+</code></pre>
+<p>Sau đó, thêm phương thức sau:</p>
+<pre><code>func sendPhotoMessage() -&gt; String? {
+  let itemRef = messageRef.childByAutoId()
+
+  let messageItem = [
+    "photoURL": imageURLNotSetKey,
+    "senderId": senderId!,
+  ]
+
+  itemRef.setValue(messageItem)
+
+  JSQSystemSoundPlayer.jsq_playMessageSentSound()
+
+  finishSendingMessage()
+  return itemRef.key
+}
+</code></pre>
+<p>Bây giờ, cập nhật message sau đó lấy URL của Firebase Storage. Thêm đoạn code sau:</p>
+<pre><code>func setImageURL(_ url: String, forPhotoMessageWithKey key: String) {
+  let itemRef = messageRef.child(key)
+  itemRef.updateChildValues(["photoURL": url])
+}
+</code></pre>
+<p>Tiếp theo, để người dùng có thể chọn ảnh để gửi. Một điều rất may mắn là  <code>JSQMessagesViewController</code> đã chứa UI để có thể thêm ảnh vào message , tiếp theo cần implement phương thức để handles cái này như sau:</p>
+<pre><code>override func didPressAccessoryButton(_ sender: UIButton) {
+  let picker = UIImagePickerController()
+  picker.delegate = self
+  if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
+    picker.sourceType = UIImagePickerControllerSourceType.camera
+  } else {
+    picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+  }
+     
+  present(picker, animated: true, completion:nil)
+}
+</code></pre>
+<p>Nếu trong thư viện không có ảnh bạn trường hợp này cần chụp ảnh để gửi nên message. Tiếp thực thi phương thức <code>UIImagePickerControllerDelegate</code> để handle khi người dùng chụp ảnh. Thêm đoạn code sau vào cuối file:</p>
+<pre><code>// MARK: Image Picker Delegate
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, 
+    didFinishPickingMediaWithInfo info: [String : Any]) {
+      
+    picker.dismiss(animated: true, completion:nil)
+
+    // 1
+    if let photoReferenceUrl = info[UIImagePickerControllerReferenceURL] as? URL {
+      // Handle picking a Photo from the Photo Library
+      // 2
+      let assets = PHAsset.fetchAssets(withALAssetURLs: [photoReferenceUrl], options: nil)
+      let asset = assets.firstObject
+      
+      // 3
+      if let key = sendPhotoMessage() {
+        // 4 
+        asset?.requestContentEditingInput(with: nil, completionHandler: { (contentEditingInput, info) in
+          let imageFileURL = contentEditingInput?.fullSizeImageURL
+          
+          // 5
+          let path = "\(FIRAuth.auth()?.currentUser?.uid)/\(Int(Date.timeIntervalSinceReferenceDate * 1000))/\(photoReferenceUrl.lastPathComponent)"
+
+          // 6
+          self.storageRef.child(path).putFile(imageFileURL!, metadata: nil) { (metadata, error) in
+            if let error = error {
+              print("Error uploading photo: \(error.localizedDescription)")
+              return
+            }
+            // 7
+            self.setImageURL(self.storageRef.child((metadata?.path)!).description, forPhotoMessageWithKey: key)
+          }
+        })
+      }
+    } else {
+      // Handle picking a Photo from the Camera - TODO
+    }
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true, completion:nil)
+  }
+}
+</code></pre>
+<p>Có hai phương thức handle đó là người dùng chọn ảnh hay hủy chọn ảnh. Khi chọn một ảnh, người dùng có thể làm cả hai việc lấy một ảnh từ thư viện ảnh hay chụp ảnh trực tiếp với camera. Với việc chọn ảnh từ thư việc trong code xử lý như sau:</p>
+<ol>
+<li>Đầu tiên, kiểm tra xem URL có năm trong thư viện ảnh hay không.</li>
+<li>Tiếp theo, lấy <code>PHAset</code> từ URL của ảnh.</li>
+<li>Gọi <code>sendPhotoMessage</code> và nhận Firebase key.</li>
+<li>Lấy URL cho ảnh</li>
+<li>Tạo một đường dẫn duy nhất trên ID duy nhất của người dùng trong thời gian hiện tại.</li>
+<li>Lưu trữ ảnh vào Firebase Storage</li>
+<li>Khi ảnh được save, gọi <code>setImageULR()</code> để cập nhật ảnh vào message với URL đúng.</li>
+</ol>
+<p>Tiếp theo, thêm đoạn code sau để xử lý trong trường hợp chụp ảnh trực tiếp. Thêm đoạn code sau vào dưới <code>TODO</code> trọng đoạn code trên:</p>
+<pre><code>// 1
+let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+// 2
+if let key = sendPhotoMessage() {
+  // 3
+  let imageData = UIImageJPEGRepresentation(image, 1.0)
+  // 4
+  let imagePath = FIRAuth.auth()!.currentUser!.uid + "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+  // 5
+  let metadata = FIRStorageMetadata()
+  metadata.contentType = "image/jpeg"
+  // 6
+  storageRef.child(imagePath).put(imageData!, metadata: metadata) { (metadata, error) in
+    if let error = error {
+      print("Error uploading photo: \(error)")
+      return
+    }
+    // 7
+    self.setImageURL(self.storageRef.child((metadata?.path)!).description, forPhotoMessageWithKey: key)
+  }
+}
+</code></pre>
+<p>Đoạn code trên xử lý như sau:</p>
+<ol>
+<li>Lấy ảnh từ dictionary.</li>
+<li>Gọi phương thức <code>sendPhotoMessage()</code> để lưu đường dẫn ảnh giả vào Firebase.</li>
+<li>Tiếp theo, lấy JPEG của ảnh, gửi tới Firebase Storage.</li>
+<li>Tạo một đường dẫn duy nhất trên ID duy nhất của người dùng</li>
+<li>tạo đối tượng <code>FIRStorageMetadata</code> và set metadata tới image/ipge.</li>
+<li>Lưu ảnh tới Firebase Storage.</li>
+<li>Khi ảnh đã được lưu, gọi hàm <code>setImageURL()</code> lần nữa.</li>
+</ol>
+<h3 id="xiiihinthimages">XIII . Hiển thị Images</h3>
+<p>Đầu tiên, thêm thuộc tính tới file <code>ChatViewController</code>:</p>
+<p><code>private var photoMessageMap = [String: JSQPhotoMediaItem]()</code></p>
+<p>Tiếp theo, tạo một phương thức tới <code>addMessage(withId:name:text:)</code> như sau:</p>
+<pre><code>private func addPhotoMessage(withId id: String, key: String, mediaItem: JSQPhotoMediaItem) {
+  if let message = JSQMessage(senderId: id, displayName: "", media: mediaItem) {
+    messages.append(message)
+
+    if (mediaItem.image == nil) {
+      photoMessageMap[key] = mediaItem
+    }
+
+    collectionView.reloadData()
+  }
+}
+</code></pre>
+<p>Phương thức trên lưu <code>JSQPhotoMediaItem</code> vào một thuộc tính mới nếu không có image key. Cái này cho phép truy xuất và cập nhật message khi ảnh set sau.<br />
+Có thể lấy dữ liệu ảnh tự Firebase Storage để hiển thị trên UI. Thêm phương thức sau:</p>
+<pre><code>private func fetchImageDataAtURL(_ photoURL: String, forMediaItem mediaItem: JSQPhotoMediaItem, clearsPhotoMessageMapOnSuccessForKey key: String?) {
+  // 1
+  let storageRef = FIRStorage.storage().reference(forURL: photoURL)
+  
+  // 2
+  storageRef.data(withMaxSize: INT64_MAX){ (data, error) in
+    if let error = error {
+      print("Error downloading image data: \(error)")
+      return
+    }
+    
+    // 3
+    storageRef.metadata(completion: { (metadata, metadataErr) in
+      if let error = metadataErr {
+        print("Error downloading metadata: \(error)")
+        return
+      }
+      
+      // 4
+      if (metadata?.contentType == "image/gif") {
+        mediaItem.image = UIImage.gifWithData(data!)
+      } else {
+        mediaItem.image = UIImage.init(data: data!)
+      }
+      self.collectionView.reloadData()
+      
+      // 5
+      guard key != nil else {
+        return
+      }
+      self.photoMessageMap.removeValue(forKey: key!)
+    })
+  }
+}
+</code></pre>
+<p>Giải thích về đoạn code trên:</p>
+<ol>
+<li>Lấy một rerence để lưu ảnh.</li>
+<li>Lấy dữ liệu ảnh từ storage.</li>
+<li>Lấy image metadata tự storage.</li>
+<li>Nếu metadata là loại ảnh GIF thì sử dụng loại trên UIImage được lấy thông qua <code>SwiftGifOrigin</code>. Cái này cần thiết bởi vì UIImage không handle GIF images ngoài box.</li>
+<li>Cuối cùng, xóa key từ <code>photoMessageMap</code>.</li>
+</ol>
+<p>Cuối cùng, cập nhật <code> observeMessages()</code>. với câu lệnh <code>if</code>, nhưng trước đó kết thúc bằng điều kiện <code>else</code>, thêm đoạn code sau vào:</p>
+<pre><code>else if let id = messageData["senderId"] as String!,
+        let photoURL = messageData["photoURL"] as String! { // 1
+  // 2
+  if let mediaItem = JSQPhotoMediaItem(maskAsOutgoing: id == self.senderId) {
+    // 3
+    self.addPhotoMessage(withId: id, key: snapshot.key, mediaItem: mediaItem)
+    // 4
+    if photoURL.hasPrefix("gs://") {
+      self.fetchImageDataAtURL(photoURL, forMediaItem: mediaItem, clearsPhotoMessageMapOnSuccessForKey: nil)
+    }
+  }
+}
+</code></pre>
+<p>Ý nghĩa của đoạn code trên như sau:</p>
+<ol>
+<li>Kiểm tra xem có photoURL set.</li>
+<li>Nếu có thì tạo <code>JSQPhotoMediaItem</code>.</li>
+<li>Với media item, gọi <code>addPhotoMessage</code>.</li>
+<li>Cuối cùng, kiểm tra xem có chắc chắn photoURL chứa prefix cho Firebase Storage, nếu có thì lấy dữ liệu image.</li>
+</ol>
+<p>Tiếp theo, thêm thuộc tính sau:</p>
+<pre><code>private var updatedMessageRefHandle: FIRDatabaseHandle?
+</code></pre>
+<p>Bây giờ, thêm đoạn code sau vào cuối của <code>observeMessages()</code>.</p>
+<pre><code>// We can also use the observer method to listen for
+// changes to existing messages.
+// We use this to be notified when a photo has been stored
+// to the Firebase Storage, so we can update the message data
+updatedMessageRefHandle = messageRef.observe(.childChanged, with: { (snapshot) in
+  let key = snapshot.key
+  let messageData = snapshot.value as! Dictionary&lt;String, String&gt; // 1
+    
+  if let photoURL = messageData["photoURL"] as String! { // 2
+    // The photo has been updated.
+    if let mediaItem = self.photoMessageMap[key] { // 3
+      self.fetchImageDataAtURL(photoURL, forMediaItem: mediaItem, clearsPhotoMessageMapOnSuccessForKey: key) // 4
+    }
+  }
+})
+</code></pre>
+<p>Đoạn code trên xử lý như sau:</p>
+<ol>
+<li>Lấy message data từ Firebase snapshot.</li>
+<li>Kiểm tra nếu dictionary có photoURL thì set.</li>
+<li>Nếu có, lấy <code>JSQPhotoMediaItem</code></li>
+<li>Cuối cùng, lấy dữ liệu ảnh và cập nhật message với ảnh</li>
+</ol>
+<p>Cuối cùng để clean up mọi thứ khi <code>ChatViewController</code>. Thêm đoạn code sau vào:</p>
+<pre><code>deinit {
+  if let refHandle = newMessageRefHandle {
+    messageRef.removeObserver(withHandle: refHandle)
+  }
+  
+  if let refHandle = updatedMessageRefHandle {
+    messageRef.removeObserver(withHandle: refHandle)
+  }
+}
+</code></pre>
+<p>Build và chạy ứng dụng; sau đó dùng thử gửi ảnh trong message ta có hình dung như sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkMVcwWVBnejctXzQ&amp;export=download" alt width="375" height="667" layout="responsive"></amp-img></p>
+<h3 id="ktlun">Kết Luận</h3>
+<p>Dù bạn là lập trình viên IOS hay mới bắt đầu học IOS đều có thể xây dựng một ứng dụng chat hoàn chỉnh trên IOS thông qua ba bài blogs của tôi. Còn một điều lưu ý nữa khi tương tác giữa Firebase và IOS cũng cần thiết phải setting trong account apple developer để tạo các key theo các bunderID tương ứng vì vậy khi làm việc với firebase bạn nên dành chút thời gian để tìm hiểu về Firebase.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://github.com/aslanyanhaik/Quick-Chat">https://github.com/aslanyanhaik/Quick-Chat</a></li>
+<li><a href="http://stackoverflow.com/questions/37401371/firebase-3-0-ios-codelab-chat-app-tutorial-with-swift">http://stackoverflow.com/questions/37401371/firebase-3-0-ios-codelab-chat-app-tutorial-with-swift</a></li>
+<li><a href="https://github.com/aslanyanhaik/Quick-Chat">https://github.com/aslanyanhaik/Quick-Chat</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

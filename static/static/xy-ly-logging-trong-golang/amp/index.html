@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Xử lý logging trong Golang</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý logging trong Golang" />
+    <meta property="og:description" content="Log là thành phần không thể thiếu trong mỗi ứng dụng. Có log ta mới biết ứng dụng đã và đang hoạt động thế nào, trạng thái ra làm sao, để từ đó ta có thể debug dễ dàng khi xảy ra lỗi. Trong khi các ngôn ngữ thông dịch" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xy-ly-logging-trong-golang/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1p5HdWqxU8a2Ofvedti7YvP2lAEya3ZAO&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2020-09-17T07:10:43.000Z" />
+    <meta property="article:modified_time" content="2020-09-17T07:11:02.000Z" />
+    <meta property="article:tag" content="golang" />
+    <meta property="article:tag" content="log" />
+    <meta property="article:tag" content="logging" />
+    <meta property="article:tag" content="microservice" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý logging trong Golang" />
+    <meta name="twitter:description" content="Log là thành phần không thể thiếu trong mỗi ứng dụng. Có log ta mới biết ứng dụng đã và đang hoạt động thế nào, trạng thái ra làm sao, để từ đó ta có thể debug dễ dàng khi xảy ra lỗi. Trong khi các ngôn ngữ thông dịch" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xy-ly-logging-trong-golang/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1p5HdWqxU8a2Ofvedti7YvP2lAEya3ZAO&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="golang, log, logging, microservice" />
+    <meta property="og:image:width" content="1131" />
+    <meta property="og:image:height" content="503" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Xử lý logging trong Golang",
+    "url": "https://blog.vietnamlab.vn/xy-ly-logging-trong-golang/",
+    "datePublished": "2020-09-17T07:10:43.000Z",
+    "dateModified": "2020-09-17T07:11:02.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1p5HdWqxU8a2Ofvedti7YvP2lAEya3ZAO&export=download",
+        "width": 1131,
+        "height": 503
+    },
+    "keywords": "golang, log, logging, microservice",
+    "description": "Log là thành phần không thể thiếu trong mỗi ứng dụng. Có log ta mới biết ứng\ndụng đã và đang hoạt động thế nào, trạng thái ra làm sao, để từ đó ta có thể\ndebug dễ dàng khi xảy ra lỗi. Trong khi các ngôn ngữ thông dịch cùng các\nframework đi kèm xử lý logging rất khỏe như PHP-Laravel, Ruby-Rails,... việc xử\nlý logging trong golang khá rườm rà và mất thời gian để người mới vận dụng nó.\nBài viết sau đây sẽ mô tả cách xử lý logging phổ biến trong Golang đi cùng với\ncác thư viện thông dụng\n\n1. Tại sao",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Xử lý logging trong Golang</h1>
+                <section class="post-meta">
+                    T.P.H -
+                    <time class="post-date" datetime="2020-09-17">17 Sep 2020</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1p5HdWqxU8a2Ofvedti7YvP2lAEya3ZAO&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Log là thành phần không thể thiếu trong mỗi ứng dụng. Có log ta mới biết ứng dụng đã và đang hoạt động thế nào, trạng thái ra làm sao, để từ đó ta có thể debug dễ dàng khi xảy ra lỗi. Trong khi các ngôn ngữ thông dịch cùng các framework đi kèm xử lý logging rất khỏe như PHP-Laravel, Ruby-Rails,... việc xử lý logging trong golang khá rườm rà và mất thời gian để người mới vận dụng nó. Bài viết sau đây sẽ mô tả cách xử lý logging phổ biến trong Golang đi cùng với các thư viện thông dụng</p>
+<h3 id="1tisaotacnphilognghimtc">1. Tại sao ta cần phải log nghiêm túc</h3>
+<ul>
+<li><strong>Có thể bạn chưa biết</strong>: Log là gì. Hiểu đơn gian Log là bản nhật ký hoạt động của ứng dụng. Hầu hết hoạt động của ứng dụng nên được xuất ra log (tất nhiên chỉ nên những hoạt động cần thiết thôi chứ tất cả thì cũng làm ứng dụng chạy chậm đi và tốn bộ nhớ). Log ứng dụng thường ở dạng text. Ví dụ: user A đang đăng nhập thì ứng dụng sẽ ghi thêm 1 dòng trong file log rằng: user A đã đăng nhập thành công hay thất bại.</li>
+</ul>
+<p>Khi ta hiểu được log là gì rồi, tại sao lại phải log có tâm làm gì.<br />
+Ta có meme sau:</p>
+<p><amp-img src="https://drive.google.com/uc?id=13S8BKAHnZrunlCSSvc_LGn0XqFcWrBUf&amp;export=download" alt="uc?id=13S8BKAHnZrunlCSSvc_LGn0XqFcWrBUf&amp;export=download" width="600" height="401" layout="responsive"></amp-img></p>
+<p>Log kiểu như vậy có cũng như ko :v rất phiêu lưu. Vậy độ chi tiết và chính xác của log tỉ lệ nghịch với thời gian bắt bug của bạn. Làm app bất kỳ mà ko có log cũng giống như lúc cháy nhà mà chả biết cháy từ đâu ra.</p>
+<p><amp-img src="https://drive.google.com/uc?id=131rtHoVy3Osfp3lrB9g4soc5EO1-GIdd&amp;export=download" alt="uc?id=131rtHoVy3Osfp3lrB9g4soc5EO1-GIdd&amp;export=download" width="600" height="546" layout="responsive"></amp-img></p>
+<p>Thêm nữa, log không chỉ có tác dụng giảm thời gian bắt bug, mà còn giúp ta nhận diện được các vấn đề performance lẫn các lỗ hỗng tiềm năng để cải thiện và vá chúng.</p>
+<p>Một dòng log tiêu chuẩn thường có dạng như sau:</p>
+<ul>
+<li>Timestamp: thời gian xảy ra sự kiện mà sinh ra log.</li>
+<li>Log level: mức độ của log. Thường có ít nhất 3 loại: debug - log chỉ hiện thông để gỡ lỗi, info - log chỉ để log ra thông tin hoạt động, error - log đã xảy ra lỗi.</li>
+<li>Contextual data: tất cả dữ liệu cần thiết để ta biết sự kiện xảy ra ở đâu và có thể dùng chúng để tái diễn sự kiện</li>
+</ul>
+<p>Tuy nhiên, không phải cái gì ta cũng được log ra, đặc biệt là các thông tin nhạy cảm như password, dữ liệu riêng tư của khách hàng. Nên lưu ý.</p>
+<h3 id="2loggingtronggo">2. Logging trong Go</h3>
+<p>Ở go có một thư viện chuẩn tương tự như các ngôn ngữ khác để log một dòng text ra console. Tuy nhiên để log ra được các dòng log tiêu chuẩn:</p>
+<pre><code class="language-sh">INFO: 2019/12/09 12:01:06 main.go:26: Starting the application...
+INFO: 2019/12/09 12:01:06 main.go:27: Something noteworthy happened
+WARNING: 2019/12/09 12:01:06 main.go:28: There is something you should know about
+ERROR: 2019/12/09 12:01:06 main.go:29: Something went wrong
+</code></pre>
+<p>Ta phải lập trình lại từ đầu rất mất thời gian, chưa kể khi cần custom, thêm chi tiết hoặc tái sử dụng lại package lại phải tinh chỉnh riêng nữa, càng tốn thời gian hơn.</p>
+<p>Các ngôn ngữ thông dịch thì bộ xử lý logging thường đi kèm riêng với framework, còn go thì không như vậy, bộ logging đi kèm với các framework của nó phải nói là khá cùi. Bởi vậy ta nên sử dụng thư viện logging phổ biến có nhiều star trên github, các bộ đó mới đủ sức mạnh để mà ta custom logging theo ý thích nhưng vẫn đảm tốc độ phát triển.</p>
+<p>Package logging phổ biến nhất trong cộng đồng Golang là logrus. Sau đây là cách sử dụng cơ bản của nó.</p>
+<h3 id="3logrus">3. Logrus</h3>
+<p><amp-img src="https://drive.google.com/uc?id=1OmEPtwWdzs2L2Yuo8U6ambCOc7CbIHZb&amp;export=download" alt="uc?id=1OmEPtwWdzs2L2Yuo8U6ambCOc7CbIHZb&amp;export=download" width="355" height="126" layout="responsive"></amp-img></p>
+<p>Cài logrus khá đơn giản bằng lệnh sau:</p>
+<pre><code class="language-sh">go get "github.com/Sirupsen/logrus"
+</code></pre>
+<p>Logrus hoàn toàn tương thích vậy package log chuẩn của golang, do đó ta có thể thay thế log import ở bất cứ đâu với logrus.</p>
+<p>Ví dụ đơn giản sau với logrus với cú pháp y hệt package log chuẩn.</p>
+<pre><code class="language-go">package main
+
+import (
+  log "github.com/sirupsen/logrus"
+)
+
+func main() {
+    log.Println("Hello world!")
+}
+</code></pre>
+<p>Chạy code này sẽ ra output sau:</p>
+<pre><code class="language-sh">INFO[0000] Hello world!
+</code></pre>
+<p>Rất dễ phải không.</p>
+<h4 id="jsonvilogrus">JSON với Logrus</h4>
+<p>Logrus sử dụng rất tốt cho các log có cấu trúc, ví dụ như dạng JSON. Để log ở dạng JSON có ưu điểm đó là các service bên ngoài có thể dễ dàng phân tích cú pháp log của chúng ta, và từ đó lấy thông tin 1 cách dễ dàng.</p>
+<pre><code class="language-go">package main
+
+import (
+    log "github.com/sirupsen/logrus"
+)
+
+func main() {
+    log.SetFormatter(&amp;log.JSONFormatter{})
+    log.WithFields(
+        log.Fields{
+            "foo": "foo",
+            "bar": "bar",
+        },
+    ).Info("Something happened")
+}
+
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-sh">{"bar":"bar","foo":"foo","level":"info","msg":"Something happened","time":"2019-12-09T15:55:24+01:00"}
+</code></pre>
+<p>Config và sử dụng cũng rất đơn giản đúng không.</p>
+<h4 id="logleveltronglogrus">Log level trong logrus</h4>
+<p>Ở logrus đã có sẵn các hàm cho các log level. Logrus mặc định có bảy level: Trace, Debug, Info, Warn, Error, Fatal, và Panic. Mức độ của log ta có thể hiểu như sau:</p>
+<pre><code class="language-go">log.Trace("Something very low level.")
+log.Debug("Useful debugging information.")
+log.Info("Something noteworthy happened!")
+log.Warn("You should probably take a look at this.")
+log.Error("Something failed but I'm not quitting.")
+// Calls os.Exit(1) after logging
+log.Fatal("Bye.")
+// Calls panic() after logging
+log.Panic("I'm bailing.")
+</code></pre>
+<p>Bằng cách setting log level cho một logger, ta có thể nhận diện loại log cần thiết, phân chia chúng ra từng file riêng biệt, cả phân chia theo môi trường nữa, rất thuận tiện cho việc đọc và định vị. Mặc đinh thì logrus sẽ log từ Info trở lên (Warn, Error, Fatal, hoặc Panic).</p>
+<pre><code class="language-go">package main
+
+import (
+    log "github.com/sirupsen/logrus"
+)
+
+func main() {
+    log.SetFormatter(&amp;log.JSONFormatter{})
+
+    log.Debug("Useful debugging information.")
+    log.Info("Something noteworthy happened!")
+    log.Warn("You should probably take a look at this.")
+    log.Error("Something failed but I'm not quitting.")
+}
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-sh">{"level":"info","msg":"Something noteworthy happened!","time":"2019-12-09T16:18:21+01:00"}
+{"level":"warning","msg":"You should probably take a look at this.","time":"2019-12-09T16:18:21+01:00"}
+{"level":"error","msg":"Something failed but I'm not quitting.","time":"2019-12-09T16:18:21+01:00"}
+</code></pre>
+<p>Để ý thì log debug sẽ không được in ra. Để in ra nó, ta thay đổi level mặc định của logrus:</p>
+<pre><code class="language-go">log.SetLevel(log.DebugLevel)
+</code></pre>
+<h3 id="4tngkt">4. Tổng kết:</h3>
+<p>Ở các ngôn ngữ khác, đặc biệt là ngôn ngữ thông dịch, bạn có thể không gặp vấn đề với log, tuy nhiên với golang thì có đấy. Vì vậy sử dụng thành thạo một log package thông dụng là cần thiết để sử dụng nó ở bất kỳ golang framework nào mà bạn dùng (logrus được hỗ trợ bởi hầu hết các framework của go). Phía trên chỉ là cách sử dụng cơ bản thôi, còn nhiều chức năng cần thiết như xuất log ra file, phân chia log theo filter ra các file riêng biệt,... sẽ có hướng dẫn kỹ hơn ở <a href="https://github.com/sirupsen/logrus">Github logrus</a>. Hy vọng bài viết này sẽ giúp ích cho bạn ở vấn đề nhỏ này khi tiếp cận với golang.</p>
+<p>Tham khảo:</p>
+<ul>
+<li><a href="https://github.com/sirupsen/logrus">Logrus github</a></li>
+<li><a href="https://www.honeybadger.io/blog/golang-logging/">Golang-logging</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

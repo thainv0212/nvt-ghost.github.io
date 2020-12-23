@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Đa luồng (Multithreading) trong Nodejs - Worker Thread</title>
+
+    <meta name="description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads ... đa luồng ... nodejs ... multithreading ... concurrency ... javascript ..." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Đa luồng (Multithreading) trong Nodejs - Worker Thread" />
+    <meta property="og:description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/multhreading-trong-nodejs/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-04-26T01:46:49.000Z" />
+    <meta property="article:modified_time" content="2019-04-26T01:46:49.000Z" />
+    <meta property="article:tag" content="NodeJS" />
+    <meta property="article:tag" content="multithreading" />
+    <meta property="article:tag" content="programming" />
+    <meta property="article:tag" content="javascript" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Đa luồng (Multithreading) trong Nodejs - Worker Thread" />
+    <meta name="twitter:description" content="Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/multhreading-trong-nodejs/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="NodeJS, multithreading, programming, javascript" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Đa luồng (Multithreading) trong Nodejs - Worker Thread",
+    "url": "https://blog.vietnamlab.vn/multhreading-trong-nodejs/",
+    "datePublished": "2019-04-26T01:46:49.000Z",
+    "dateModified": "2019-04-26T01:46:49.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&export=download"
+    },
+    "keywords": "NodeJS, multithreading, programming, javascript",
+    "description": "Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, ...",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Multithreading trong Nodejs</h1>
+                <section class="post-meta">
+                    T.P.H -
+                    <time class="post-date" datetime="2019-04-26">26 Apr 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;10dp1q-LdfQhMDDGsCHCd1eI5yi1ThHQf&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Kể từ phiên bản v10.5.0, Nodejs đã có thêm module worker_threads. Vậy chính xác module mới này là gì và tại sao lại cần thêm nó vào. Trong bài blog này chúng ta sẽ đề cập đến những lý do mà xử lý đồng thời (concurrency) được implement trong Javascript và Nodejs, những vấn đề nó gặp phải, giải pháp hiện tại và tương lai của xử lý song song (parallel) với worker threads.</p><h3 id="1nlung">1. Đơn luồng</h3>
+<p>Javascript được biết đến là một ngôn ngữ lập trình đơn luồng chạy trên browser. Đơn luồng nghĩa là những tập lệnh, những dòng code chúng ta viết ra chỉ được thực thi tuần tự tại một thời điểm của cùng process.</p>
+<p>Javascript khởi đầu là một ngôn ngữ chỉ hữu ích cho việc thêm các tương tác cho trang web, validate form,... Những xử lý này không cần phải thêm vào multithreading cho phức tạp.</p>
+<p>Ryan Dahl, người tạo ra Nodejs, đã nhìn thấy sự hạn chế này là một cơ hội. Anh ấy đã muốn triển khai một server-side platform dựa trên asynchronous I/O, điều đó có nghĩa không cần đến thread. Concurrency là một vấn đề khó để giải quyết. Nhiều thread cùng truy cập đến cùng vùng nhớ có thể gây nên hiện tượng <strong>race condition</strong> , hiện tượng này rất khó để reproduce và fix.</p>
+<h3 id="2nodejscphilnlung">2. Nodejs có phải là đơn luồng ?</h3>
+<p>Điều này vừa đúng vừa không đúng. Thật sự thì, chúng ta có thể chạy song song, nhưng ta không tạo thread và không đồng bộ hóa chúng. Máy ảo và OS sẽ chạy I/O song song và khi trở lại Javascript code, phần Javascript code sẽ chỉ chạy đơn luồng.</p>
+<p>Nói cách khác, tất cả mọi thứ chạy song song, ngoại trừ Javascript code.</p>
+<p>Điều này rất tuyệt nếu tất cả những gì ta làm là asynchronous I/O. Những dòng code chỉ gồm các phần nhỏ của synchronous block - được thực thi nhanh và truyền data đến các file và stream. Javscript code chạy rất nhanh nên sẽ không block việc thực thi của các phần Javascript khác. Thời gian sẽ được dành cho việc chờ đợi I/O event hơn là Javscript code được thực thi. Ví dụ sau đây sẽ giúp ta hiểu sơ qua:</p>
+<pre><code class="language-js">db.findOne('SELECT ... LIMIT 1', function(err, result) {
+  if (err) return console.error(err)
+  console.log(result)
+})
+console.log('Running query')
+setTimeout(function() {
+  console.log('Hey there')
+}, 1000)
+</code></pre>
+<p>Có thể lệnh query đến database sẽ tốn hơn một phút nhưng dòng chữ "Running query" sẽ xuất hiện ngay sau khi tạo lệnh query. Và ta sẽ thấy dòng chữ "Hey there" sau một giây sau khi tạo lệnh query dù query có đang chạy hay không. Nodejs app chỉ gọi function mà không block việc thực thi của các phần code khác. Nó sẽ được thông báo thông qua function callback khi lệnh query chạy xong và ta sẽ thu được kết quả.</p>
+<h3 id="3ccccvlmnngcpu">3. Các các vụ làm nặng CPU</h3>
+<p>Điều gì sẽ xảy ra nếu ta thực thi các tác vụ đồng bộ nặng? Ví dụ như các tính toán phức tạp trên tập data lớn. Khi đó ta có thể có một synchronous block code mà khi chạy tốn rất nhiều thời gian và nó sẽ block các phần code còn lại. Giả định rằng code tính toán phức tạp mất 10 giây. Nếu ta chạy trên web server điều đó có nghĩa rằng tất cả các request khác sẽ bị block ít nhất 10 giây bởi tính toán phức tạp đó. Điều này thực sự không tốt chút nào.</p>
+<p>Javascript và Nodejs thường không được dùng cho các tác vụ nặng CPU. Bởi vì Javascript chạy đơn luồng nó sẽ làm đứng UI trên browser và làm hàng đợi (queue) tất cả các I/O event trong Nodejs.</p>
+<p>Trở lại với ví dụ trước đó. Giả sử ta có một lệnh query return hàng ngàn kết quả và ta cần phải giải mã các giá trị bằng Javascript code:</p>
+<pre><code class="language-Js">db.findAll('SELECT ...', function(err, results) {
+  if (err) return console.error(err)
+  
+  // Heavy computation and many results
+  for (const encrypted of results) {
+    const plainText = decrypt(encrypted)
+    console.log(plainText)
+  }
+})
+</code></pre>
+<p>Ta sẽ có được kết quả trong biến <strong>results</strong> trong hàm callback một khi query xong. Rồi sau đó, sẽ không có Javascript code nào được thực thi cho đến khi hàm callback này xử lý xong. Như đã nói trước đó, các dòng Javascript thường nhỏ và đủ nhanh, tuy nhiên trong trường hợp này, chúng ta có quá nhiều kết quả và cần phải tính toán phức tạp, nặng nề trên các kết quả đó. Điều này có thể mất vài giây, và trong thời gian này việc thực thi các phần Javascript khác sẽ bị queue, điều đó có nghĩa ta sẽ block tất cả các user trong thời gian này nếu ta đang chạy một server trên cùng một app.</p>
+<h3 id="4tisaoccphinbntrcv1050khngthmthread">4. Tại sao các phiên bản trước v10.5.0 không thêm thread ?</h3>
+<p>Nhiều người nghĩ rằng cần phải thêm module mới trong Nodejs core để cho phép ta tạo và đồng bộ các thread. Tuy nhiên, không có cách nào để giải quyết tốt trường hợp này trong một server-side platform đã trưởng thành như Nodejs.</p>
+<p>Nếu thêm thread vào, điều đó sẽ thay đổi bản chất của ngôn ngữ. Ta không thể chỉ thêm  thread thành một tập class hay function có sẵn. Ta cần thay đổi ngôn ngữ. Những ngôn ngữ mà hỗ trợ multithreading thường có từ khóa như là "synchronized" để cho phép thread cộng tác, đồng bộ với nhau. Ví dụ như trong Java một vài kiểu số không không phải là atomic, điều đó có nghĩa là nếu ta không đồng bộ hóa các truy cập thì có thể xảy ra hiện tượng hai hay nhiều thread cùng thay đổi giá trị của biến đó và kết quả có thể dẫn đến các giá trị không hợp lệ.</p>
+<h3 id="5cchgiiquytngin">5. Cách giải quyết đơn giản</h3>
+<p>Nodejs sẽ không đưa block code tiếp theo vào event queue cho đến khi block trước đó được thực thi xong. Vậy nên điều đơn giản ta có thể làm là là chia nhỏ code thành các phần synchronous code nhỏ hơn và dùng hàm <em>setImmediate(callback)</em> để nói với Nodejs rằng ta đã xong và mày có thể thực thi các phần đang chờ ở trong queue.</p>
+<p>Điều này có thể giúp tiếp tục các vòng lặp tiếp theo hay gọi là <strong>tick</strong> của event loop. Cùng xem cách ta cấu trúc lại các dòng code để tận dụng lợi thế này. Giả sử ta có một array lớn mà ta muốn xử lý các item trong array mà việc xử lý này sẽ làm nặng CPU:</p>
+<pre><code class="language-Js">
+const arr = [/*large array*/]
+for (const item of arr) {
+  // do heavy stuff for each item on the array
+}
+// code that runs after the whole array is executed
+
+</code></pre>
+<p>Như đã nói trước đó nếu ta xử lý toàn bộ array thì sẽ tốn quá nhiều thời gian để xử lý và sẽ block các phần Javascript còn lại. Vì thế hãy chia nhỏ chúng thành các phần nhỏ hơn và sử dụng hàm setImmediate(callback):</p>
+<pre><code class="language-Js">
+const crypto = require('crypto')
+
+const arr = new Array(200).fill('something')
+function processChunk() {
+  if (arr.length === 0) {
+    // code that runs after the whole array is executed
+  } else {
+    console.log('processing chunk');
+    // pick 10 items and remove them from the array
+    const subarr = arr.splice(0, 10)
+    for (const item of subarr) {
+      // do heavy stuff for each item on the array
+      doHeavyStuff(item)
+    }
+    // Put the function back in the queue
+    setImmediate(processChunk)
+  }
+}
+
+processChunk()
+
+function doHeavyStuff(item) {
+  crypto.createHmac('sha256', 'secret').update(new Array(10000).fill(item).join('.')).digest('hex')
+}
+
+// This is just for confirming that we can continue
+// doing things
+let interval = setInterval(() =&gt; {
+  console.log('tick!')
+  if (arr.length === 0) clearInterval(interval)
+}, 0)
+
+</code></pre>
+<p>Bây giờ ta sẽ chỉ xử lý mỗi lần 10 item và gọi <em>setImmediate(callback)</em> vì vậy nếu có việc gì khác mà chương trình cần phải làm, nó sẽ được thực hiện chen giữa các khối 10 item.</p>
+<p>Ta có thể thấy rằng code trở nên phức tạp hơn. Và nhiều khi thuật toán phức tạp hơn thì thật khó để biết nên gọi <em>setImmediate()</em> ở đâu là tốt. Bên cạnh đó, code sẽ trở thành asynchronous và nếu ta phụ thuộc vào các thư viện bên thứ ba, khi đó ta sẽ khó có thể và gần như không thể chia nhỏ code thành các phần nhỏ hơn.</p>
+<h3 id="6cchgiiquytthhaidngbackgroundprocess">6. Cách giải quyết thứ hai: dùng background process</h3>
+<p><em>setImmeditate()</em> ổn trong vài trường hợp đơn giản, tuy nhiên nó không phải là cách giải quyết lý tưởng. Bên cạnh đó, ta không có thread và ta cũng không muốn thay đổi ngôn ngữ, liệu ta có thể xử lý song song mà không dùng thread không ? Câu trả lời là có, ta cần dùng một thứ gọi là background processing: một cách chạy một task với input, mà có thể sử dụng bất cứ lượng CPU nào và thời gian nó cần, và sau đó trả lại kết quả cho main app. Ví dụ như là:</p>
+<pre><code class="language-Js">
+// Runs `script.js` in a new environment without sharing memory.
+const service = createService('script.js')
+// We send an input and receive an output
+service.compute(data, function(err, result) {
+  // result available here
+})
+
+</code></pre>
+<p>Thực tế rằng ta đã có thể thực hiện background processing trong Nodejs. Ta có thể <strong>fork process</strong> và sử dụng <strong>message passing</strong>. Main process có thể giao tiếp với child process bằng cách gửi và nhận các sự kiện. Không một vùng nhớ nào được chia sẻ.Tất cả sự trao đổi data đều được "clone" nghĩa là thay đổi nó từ một phía sẽ không thay đổi nó ở các phía khác. Giống như HTTP response, một khi gửi nó, phía còn lại chỉ là bản copy của nó. Nếu ta không chia sẻ vùng nhớ, sẽ không có <strong>race condition</strong> và ta cũng không cần thread. Vấn đề đã được giải quyết!</p>
+<p>Tuy nhiên chờ đã. Đây là một giải pháp, tuy nhiên cũng không phải là giải pháp lý tưởng. Fork một process sẽ tốt rất nhiều tài nguyên và chậm chạp. Điều này có nghĩa là chạy thêm một máy ảo mới từ đầu sử dụng rất nhiều memory bởi vì các process không chia sẻ memory. Ta có thể tái sử dụng cùng process đã fork không? Đương nhiên rồi, nhưng gửi tác vụ nặng khác nhau sẽ được thực hiện đồng bộ (synchronous) trong process đã fork có hai vấn đề sau:</p>
+<ul>
+<li>
+<p>Main app sẽ không bị block, nhưng process đã fork sẽ chỉ có thể xử lý một tác vụ một lúc. Nếu có hai tác vụ, giả sử tác vụ đầu tiên tốn 10 giây và tác vụ thứ hai tốn 1s (theo thứ tự), sẽ không tốt nếu phải đợi 10 giây để thực thi tác vụ thứ hai. Bởi vì ta đang fork các process, ta muốn tận dụng scheduling của OS và tất cả các lõi (core) của máy tính. Một cách tương tự là ta có thể vừa nghe nhạc và lướt web cùng 1 lúc bằng cách fork hai process và thực thi tất cả các task song song.</p>
+</li>
+<li>
+<p>Bên cạnh đó, nếu một task bị crash, các task còn lại trong cùng process sẽ không được xử lý.</p>
+</li>
+</ul>
+<p>Để giải quyết các vấn đề trên ta cần fork rất nhiều process, nhưng ta cần giới hạn số lượng process được fork vì sẽ tốn rất nhiều bộ nhớ. Giống như các kết nối database, ta cần một dãy các process sẵn sằng để sử dụng (<strong>pool of process</strong>), chạy một tác vụ trong một thời điểm và tái sử dụng process sau khi task hoàn thành. Nhìn sơ qua thì thấy nó phức tạp để implement, nhưng may thay đã có sẵn <strong>worker-farm</strong> để giúp chúng ta:</p>
+<pre><code class="language-Js">// main app
+const workerFarm = require('worker-farm')
+const service = workerFarm(require.resolve('./script'))
+ 
+service('hello', function (err, output) {
+  console.log(output)
+})
+
+// script.js
+// This will run in forked processes
+module.exports = (input, callback) =&gt; {
+  callback(null, input + ' ' + world)
+}
+</code></pre>
+<h3 id="7vnccgiiquyt">7. Vấn đề có được giải quyết ?</h3>
+<p>Vậy thì, vấn đề đã được giải quyết chưa? Vâng, đã được giải quyết, nhưng ta vẫn sử dụng rất nhiều bộ nhớ hơn thay vì multithreading. Thread vẫn rất là gọn nhẹ so với forked process. Và đây là lý do <strong>Worker Thread</strong> được sinh ra.</p>
+<p><em>Worker Thread</em> có các context cô lập. Chúng trao đổi thông tin với main process bằng cách sử dụng message passing, vì vậy ta sẽ tránh được vấn đề <strong>race condition</strong> mà thread có. Tuy nhiên chúng vẫn cùng nằm trong một process, do đó chúng sẽ tốn ít bộ nhớ hơn nhiều.</p>
+<p>Ok, ta giờ đây có thể chia sẻ vùng nhớ với <em>Worker Thread</em> bằng cách truyền đối tượng SharedArrayBuffer. Nên nhớ rằng chỉ nên sử dụng chúng khi bạn cần xử lý các tác vụ nặng yêu cầu rất nhiều data. Điều này sẽ cho phép ta tránh các bước tuần tự hóa dữ liệu.</p>
+<h3 id="8sdngworkerthread">8. Sử dụng worker thread</h3>
+<p>Bây giờ nếu bạn đang sử dụng Nodejs phiên bản v10.5.0 trở lên bạn có thể bắt đầu sử dụng <em>Worker Thread</em>. Tuy nhiên <em>Worker Thread</em> vẫn đang trong quá trình thử nghiệm và có thể thay đổi trong tương lai. Thực tế thì, nó không có sẵn theo mặc định, ta cần phải bật nó lên bằng cách sử dụng flag   <em>experimental-worker</em> khi chạy Nodejs.</p>
+<p>Ngoài ra, hãy nhớ rằng việc tạo ra một Worker (giống như thread ở các ngôn ngữ khác) mặc dù nó nhẹ hơn nhiều so với việc fork một process, cũng có thể sử dụng quá nhiều tài nguyên phụ thuộc theo như cầu của bạn. Trong trường hợp đó, theo như docs gợi ý rằng ta nên tạo một dãy worker (pool of workers). Bạn nên tham khảo các cách triển khai pool chuẩn hoặc sử dụng các gói NPM thay vì tự tạo cách triển khai pool của riêng mình.</p>
+<p>Hãy xem qua ví dụ sau. Đầu tiên, ta hãy implement <strong>index.js</strong> nơi ta sẽ tạo một Worker Thread và gửi cho nó vài data.</p>
+<pre><code class="language-js">
+// index.js
+// run with node --experimental-worker index.js on Node.js 10.x
+const { Worker } = require('worker_threads')
+
+function runService(workerData) {
+  return new Promise((resolve, reject) =&gt; {
+    const worker = new Worker('./service.js', { workerData });
+    worker.on('message', resolve);
+    worker.on('error', reject);
+    worker.on('exit', (code) =&gt; {
+      if (code !== 0)
+        reject(new Error(`Worker stopped with exit code ${code}`));
+    })
+  })
+}
+
+async function run() {
+  const result = await runService('world')
+  console.log(result);
+}
+
+run().catch(err =&gt; console.error(err))
+
+</code></pre>
+<p>Theo như ta thấy rất dễ dàng để truyền tham số tên file và data mà ta muốn Worker xử lý. Hãy nhớ rằng data truyền qua sẽ được <em>clone</em> và không chia sẻ vùng nhớ. Sau đó, ta sẽ đợi Worker Thread gửi message đến bằng cách lắng nghe sự kiện "message".</p>
+<p>Bây giờ, ta cần phải implement file <strong>service.js</strong></p>
+<pre><code class="language-js">const { workerData, parentPort } = require('worker_threads')
+
+// You can do any heavy stuff here, in a synchronous way
+// without blocking the "main thread"
+parentPort.postMessage({ hello: workerData })
+</code></pre>
+<p>Ở đây ta cần 2 thứ: <em>workerData</em> mà main app gửi tới, và một cách để gửi trả lại thông tin cho main app. Điều này được thực hiện với <em>parentPort</em> mà biến này có một phương thức tên là <em>postMessage</em> nơi ta sẽ truyền kết quả của xử lý.</p>
+<p>Đây chỉ là một ví dụ đơn giản, nhưng ta có thể tạo những thứ phức tạp hơn. Ví dụ, ta có thể gửi nhiều message từ Worker Thread mà cho biết trạng thái thực thi nếu ta muốn cung cấp feedback. Hoặc nếu ta muốn gửi một phần kết quả. Ví dụ như giả sử ta xử lý hàng ngàn hình ảnh, có thể ta muốn gửi một message khi mỗi hình ảnh đã được xử lý mà không phải đợi xử lý xong hết tất cả.</p>
+<p>Để chạy ví dụ trên, nhớ rằng phải dùng flag <em>experimental-worker</em> nếu đang ở Nodejs v10.5.0 trở lên:</p>
+<pre><code class="language-sh">$ node --experimental-worker index.js
+</code></pre>
+<p>Xem thêm về <a href="https://nodejs.org/api/worker_threads.html"><strong>worker thread</strong></a> ở trang chủ để biết thêm chi tiết.</p>
+<h3 id="9ktlun">9. Kết luận</h3>
+<p>Worker Thread là một module hứa hẹn để xử lý các tác vụ nặng CPU trong Nodejs app. Nó giống như thread nhưng lại không chia sẻ vùng nhớ và do đó sẽ không gây nên race condition. Mặc dù module này vẫn đang trong giai đoạn thử nghiệm những việc biết sơ qua nó cũng là một điều tốt. Hiện tại ta có thể vẫn sử dụng giải pháp background process và trong tương lai sau khi Worker Thread được hoàn thiện và trưởng thành, ta vẫn sẽ có thể dễ dàng chuyên đổi.</p>
+<br />
+<br />
+<div>
+<p>Tham khảo</p>
+<p><a href="https://blog.logrocket.com/node-js-multithreading-what-are-worker-threads-and-why-do-they-matter-48ab102f8b10">Node.js multithreading: What are Worker Threads and why do they matter?</a></p>
+<p><a href="https://www.netguru.com/blog/node.js-is-going-multithread-the-future-of-javasripts-backend-framework">Node.js is Going Multithread: The Future of JavaSript’s Backend Framework</a></p>  
+<p><a href="https://nodejs.org/api/worker_threads.html">Worker Threads | Node.js v11.14.0 Documentation</a></p>
+</div>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

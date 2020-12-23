@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Toán xác xuất (Toán thống kê phần 1)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Toán xác xuất (Toán thống kê phần 1)" />
+    <meta property="og:description" content="Mở đầu  Trong Machine Learning và Data Science, ta thường xuyên phải làm việc bằng toán thống kê. Trong đó toán xác xuất là nền tảng cơ bản để hiểu được các khái niệm trong toán thống kê. Bài viết này dành cho tất cả những ai muốn học (hoặc" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/toan-xac-xuat-toan-thong-ke-phan-1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1rJ4qZwmxmw7iCM6TE_rxW5ebOckg1LKx&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-06-28T10:16:59.000Z" />
+    <meta property="article:modified_time" content="2019-06-28T10:16:59.000Z" />
+    <meta property="article:tag" content="maths" />
+    <meta property="article:tag" content="Python" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Toán xác xuất (Toán thống kê phần 1)" />
+    <meta name="twitter:description" content="Mở đầu  Trong Machine Learning và Data Science, ta thường xuyên phải làm việc bằng toán thống kê. Trong đó toán xác xuất là nền tảng cơ bản để hiểu được các khái niệm trong toán thống kê. Bài viết này dành cho tất cả những ai muốn học (hoặc" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/toan-xac-xuat-toan-thong-ke-phan-1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1rJ4qZwmxmw7iCM6TE_rxW5ebOckg1LKx&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="L.M.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="maths, Python" />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="500" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "L.M.L",
+        "url": "https://blog.vietnamlab.vn/author/longlm/",
+        "sameAs": []
+    },
+    "headline": "Toán xác xuất (Toán thống kê phần 1)",
+    "url": "https://blog.vietnamlab.vn/toan-xac-xuat-toan-thong-ke-phan-1/",
+    "datePublished": "2019-06-28T10:16:59.000Z",
+    "dateModified": "2019-06-28T10:16:59.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1rJ4qZwmxmw7iCM6TE_rxW5ebOckg1LKx&export=download",
+        "width": 700,
+        "height": 500
+    },
+    "keywords": "maths, Python",
+    "description": "Mở đầu\n Trong Machine Learning và Data Science, ta thường xuyên phải làm việc bằng toán\nthống kê. Trong đó toán xác xuất là nền tảng cơ bản để hiểu được các khái niệm\ntrong toán thống kê. Bài viết này dành cho tất cả những ai muốn học (hoặc nhớ\nlại) các khái niệm và công thức trong toán xác xuất\n\nCông thức chung trong xác xuất lý thuyết\nCông thức chung tính xác xuất lý thuyết cho sự kiện  A:\n\nCông thức chung tính xác xuất lý thuyếMột số ví dụ đơn giản:\n\nVí dụ 1: Ta có một viên xúc xắc. Xác xuất ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Toán xác xuất (Toán thống kê phần 1)</h1>
+                <section class="post-meta">
+                    L.M.L -
+                    <time class="post-date" datetime="2019-06-28">28 Jun 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1rJ4qZwmxmw7iCM6TE_rxW5ebOckg1LKx&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="mu">Mở đầu</h3>
+<p> Trong Machine Learning và Data Science, ta thường xuyên phải làm việc bằng toán thống kê. Trong đó toán xác xuất là nền tảng cơ bản để hiểu được các khái niệm trong toán thống kê. Bài viết này dành cho tất cả những ai muốn học (hoặc nhớ lại) các khái niệm và công thức trong toán xác xuất</p><h3 id="cngthcchungtrongxcxutlthuyt">Công thức chung trong  xác xuất lý thuyết</h3>
+<p>Công thức chung tính xác xuất lý thuyết cho sự kiện  A:</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1lDSEDZuETycn-g2CR43-Mb6VxkcHvzmc&amp;export=download" class="kg-image" alt width="657" height="89" layout="responsive"></amp-img><figcaption>Công thức chung tính xác xuất lý thuyế</figcaption></figure><p>Một số ví dụ đơn giản:</p><p><em>Ví dụ 1</em>: Ta có một viên xúc xắc. Xác xuất ta xẽ xúc được số 6 là gì?</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1yzklhI2ZfokZksy_SsWtZf49c83F36Co&amp;export=download" class="kg-image" alt width="600" height="314" layout="responsive"></amp-img><figcaption>Các mặt của xúc xắc</figcaption></figure><p>Xúc xắc có tất cả 6 mặt. Trong đó chỉ có 1 mặt duy nhất có số 6 như hình trên. Như vậy, xác xuất xúc được số 6 là: </p><p>P(xúc số 6) = 1/6</p><p>Ký hiệu trên P(xúc số 6) là xác xuất xúc số 6. "P" có nghĩa là viết tắt Probability trong tiếng Anh, xác xuất trong Tiếng việt.</p><p>Bây giờ thử công thức trên với vấn đề phức tạp hơn.  </p><p><em>Ví dụ 2</em>: Cô giáo hỏi học sinh là nếu có một sức mạnh siêu nhân bất kì em sẽ chọn sức mạnh gì. Học sinh nam và nữ được chọn 1 trong 3 sức mạnh: "bay", "vô hình", "siêu mạnh". Được tóm tắt ở dưới. Hỏi nếu cô giáo chọn một bạn nữ bất kỳ, xác xuất  bạn đó chọn là "bay" hoặc "siêu mạnh" là bao nhiêu?</p><table>
+<thead>
+<tr>
+<th>Giới tính</th>
+<th>Bay</th>
+<th>Siêu Mạnh</th>
+<th>Vô Hình</th>
+<th><strong>Tổng</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nam</td>
+<td>5</td>
+<td>20</td>
+<td>5</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Nữ</td>
+<td><strong>5</strong></td>
+<td><strong>3</strong></td>
+<td>12</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>Dựa vào bảng trên, số tất cả khả năng bạn nữ lựa chọn sức mạnh là: 5 + 3 + 12 = 20. Trong đó số khả năng mà bạn nữ lựa chọn "bay" là: 5 . Số khả năng mà bạn nữ lựa chọn "siêu mạnh" là: 3 </p><p>Trong số tất cả các khả năng trên, số khả năng mà bạn nữ lựa chọn "bay" hoặc "siêu mạnh" là: 5 + 3 = 8 </p><p>Cô giáo chọn một bạn nữ bất kỳ, xác xuất  bạn đó chọn là "bay" hoặc "siêu mạnh" là: </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1ty6cQTA-sfLVpDIy-7BRDX2hqnAjdvtK&amp;export=download" class="kg-image" alt width="345" height="43" layout="responsive"></amp-img></figure><p>Vậy, P(nữ chọn "bay" hoặc "siêu mạnh") = 8 / 20 = 0.4 hoặc 40%. </p><p>Thực ra đây bài toán trên, sử dụng xác xuất điều kiện và công thức cộng trong xác xuất（sẽ được đề cập ở dưới）. Kể cả nếu không biết 2 khái niệm trên là gì là gì, các bạn thấy là mình có thể suy luận bằng công thức trên để tính được xác xuất. <strong>Nếu các bạn muốn nhớ gì từ bài blog này, đó là công thức tính xác xuất lý thuyết ở đầu.</strong></p><p><strong>Tip 1: Để suy luận và hiểu các bài toán nhỏ trong toán xác xuất, các bạn có thể vẽ tất cả khả năng xảy ra. Như vậy, kể cả nếu không nhớ công thức, thì bạn có thể lập luận để tính xác xuất.</strong></p><h3 id="xcxutlthuytvxcxutthnghim">Xác xuất lý thuyết và xác xuất thí nghiệm</h3>
+<p>Xác xuất lý thuyết là xác xuất như ở công thức trên, sử dụng những gì ta suy luận từ khả năng. Xác xuất thí nghiệm là xác xuất ta có được từ những kết qủa thí nghiệm, dữ liệu cũ, hoặc lịch sử xảy ra từ trước.</p><h4 id="xcxutthnghimdavodliubng">Xác xuất thí nghiệm dựa vào dữ liệu bóng đá</h4>
+<p>Ví dụ<em>, </em>bạn muốn biết trong trận đấu xác xuất vào gôn trong 5 phút đầu của một trận bóng đá bất kỳ. Để suy luận , xác xuất lý thuyết thì rất khó vì có nhiều yếu tố khác nhau có thể xảy ra (đội nào đấu với nhau, chiến thuật, đội hình cầu thủ...). Nhưng bạn có thể tính được xác xuất thí nghiệm nếu ta đã có dữ liệu cũ.</p><p>Dưới đây là bảng thống kê số đá vào gôn và thời gian trận bóng đá diễn ra. Dữ liệu được lấy trong 8 năm. Trụ "x" là thời gian trận bóng đá diễn ra chia 5 phút một. Còn trụ "y" là số lần sút vào trong khoảng thời gian 5 phút đó. </p><p></p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1SWINaPp4-mw1goy6yk0IXp4A1CWYB_x3&amp;export=download" class="kg-image" alt width="750" height="411" layout="responsive"></amp-img></figure><p> Dựa vào hình trên, gỉả sử ta ước chừng tống số gôn sút vào trong 8 năm là 5560. Số gôn sút trong 5 phút đầu là 250. Nếu vậy, xác xuất thí nghiệm là 250/5560 = 0.044.</p><p>  Như vậy, dựa vào dữ liệu từ 8 năm trước, có xác xuất thí nghiệm là một trận bóng đá 4.4% sút vào gôn trong 5 phút đầu. <strong>Một điều quan trọng là xác xuất thí nghiệm không chính xác hoàn toàn, và có thể thay đổi dựa vào dữ liệu mới. </strong>Ví dụ nếu năm sau, số gôn sút vào trong 5 phút đầu thấp hơn so với các năm trước, thì xác xuất thí nghiệm cũng sẽ thấp hơn. </p><h4 id="xcxutthnghimdavothnghimtungxu">Xác xuất thí nghiệm dựa vào thí nghiệm tung xu</h4>
+<p><strong> Với số lần thí nghiệm ít, xác xuất thí nghiệm có thể hoàn toàn khác với xác xuất lý thuyết.</strong> <em>Ví dụ 3</em>: Đồng xu có tất cả 2 khả năng: xấp và ngửa. Trong đó khả năng có được mặt ngửa là 1. Xác xuất lý thuyết tung đồng xu được mặt ngửa sẽ là:</p><p>P(ngửa) = 1/2</p><p>Bây giờ ta thử thí nghiệm tung xu với số lần ít. Đây là một thí nghiệm tôi làm với 20 lần tung xu sử dụng python (những bạn nào không biết về lập trình có thể bỏ qua) :</p><pre><code class="language-python">def simulate_coin_flip(no_flips=1):
+    results = []
+    int_results = []
+    for flip_index in range(0, no_flips):
+        random_int = randint(0, 1)
+        if random_int == 1:
+            results.append("ngửa")
+            int_results.append(1)
+        else:
+            results.append("xấp")
+            int_results.append(0)
+    return np.asarray(results), np.asarray(int_results)
+</code></pre>
+<pre><code class="language-python"># 20 lần tung xu
+results, int_results = simulate_coin_flip(20)
+</code></pre>
+<p>Kết qủa tung xu 20 lần:</p><table>
+<thead>
+<tr>
+<th>Mặt xu</th>
+<th>Số lần thí nghiệm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ngửa</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Xấp</td>
+<td>13</td>
+</tr>
+<tr>
+<td><strong>Tổng</strong></td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>Xác xuất thí nghiệm tung xu ngửa sau 20 lần: P(ngửa) = 7/20 = 0.35</p><p> Các bạn có thể thấy là với 20 lần thử trong thí nghiệm thì xác xuất thí nghiệm thấp hơn xác xuất lý thuyết. Tuy nhiên nếu thí nghiệm càng nhiều lần thì xác xuất thí nghiệm sẽ dần bằng xác xuất lý thuyết.</p><p> Hỏi nếu tung xu 100 lần thì có bao nhiêu lần được mặt ngửa? Nếu tung xu 100 lần thì dựa trên xác xuất lý thuyết, thì số lần có xu ngửa sẽ gần bằng 50. </p><p>Đây là kết qủa thí nghiệm với 100 lần tung xu (sửa lại code python ở trên):<br /></p><table>
+<thead>
+<tr>
+<th>Mặt xu</th>
+<th>Số lần thí nghiệm</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ngửa</td>
+<td>52</td>
+</tr>
+<tr>
+<td>Xấp</td>
+<td>48</td>
+</tr>
+<tr>
+<td><strong>Tổng</strong></td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p></p><p>Xác xuất thí nghiệm tung xu ngửa sau 100 lần: P(ngửa) = 7/20 = 0.52</p><p>So với xác xuất thí nghiệm khi tung xu 20 lần (0.35), xác xuất thí nghiệm khi tung xu 100 lần (0.52) gần với xác xuất lý thuyết hơn (0.5). <strong>Nếu như thí nghiêm càng nhiều lần thì xác xuất thí nghiệm sẽ càng gần với xác xuất lý thuyết</strong>. </p><p> Kể cả nếu tung đồng xu 100 lần thì số lần ngửa sẽ chỉ <strong>gần bằng</strong> 50. Các kết qủa trong thực tế sẽ <strong>không hoàn toàn bằng </strong>xác xuất lý thuyết. </p><p><strong>Tip 2</strong>: Các bạn nên cẩn thận khi dự đoán kết qủa trong thực tế dựa vào xác xuất lý thuyết.</p><h3 id="xcxutclpvxcxutiukin">Xác xuất độc lập và xác xuất điều kiện</h3>
+<p>Trong xác xuất, có một số sự việc mà ảnh hưởng hay không ảnh hưởng đến xác xuất xảy ra của nhau</p><h4 id="xcxutclp">Xác xuất độc lập</h4>
+<p><strong>Xác xuất độc lập</strong>: Nếu sự việc đầu <strong>không ảnh hưởng </strong>đến xác xuất của sự việc thứ hai</p><p> <em>Ví dụ 3</em>: xác xuất có mặt ngửa trên một đồng xu hai lần. Bạn muốn biết xác xuất được mặt ngửa của lần 1 và lần 2</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=1AackQPz8FUK2DWxkIbD3FfCV9FS2Coex&amp;export=download" class="kg-image" alt width="278" height="366" layout="fixed"></amp-img><figcaption>Xác xuất tung một đồng xu 2 lần</figcaption></figure><p>Nếu bạn tung đồng xu một lần thì P(ngửa) = 1/2. Nếu như bạn tung đồng xu lần thứ hai thì vẫn không thay đổi: P(ngửa) = 1/2 .</p><h4 id="xcxutiukin">Xác xuất điều kiện</h4>
+<p><strong>Xác xuất điều kiện</strong>: Nếu sự việc đầu<strong> ảnh hưởng </strong>đến xác xuất của sự việc thứ hai.</p><p> <em>Ví dụ 4</em>:  Trong một bộ bài có 52 quân, 26 là quân đỏ, 26 là quân đen. Bạn muốn rút một quân bài màu đỏ hai lần, nhưng sau khi rút không được phép để lại. Hỏi xác xuất bạn có quân bài màu đỏ lần thứ hai là gì, dựa vào quân bài rút ra lần đầu.</p><p>Xác xuất bạn rút được quân đỏ lần thứ 2, viết tắt là P(đỏ lần 2), được tính theo hai trường hợp:</p><figure class="kg-card kg-image-card kg-card-hascaption"><amp-img src="https://drive.google.com/uc?id=16rW5QYx-JU1JmbZuLC_fSzSMCbFi8Zni&amp;export=download" class="kg-image" alt width="278" height="371" layout="fixed"></amp-img><figcaption>Tất cả các xác xuất rút quân đen và đỏ, tính theo tất cả khả năng trong 2 lần rút/.</figcaption></figure><p>1. Nếu quân bài đầu tiên bạn rút là màu đỏ:</p><p> Lần 1 bạn rút được 1 quân bài màu đỏ. Nên số quân bài màu đỏ sau khi rút lần 1 sẽ là: 26 -1 = 25. Tổng số quân sau khi rút lần 1 sẽ là 52 -1 = 51. Nên xác xuất bạn rút lá đỏ lần 2  khi bạn rút được lá đỏ lần 1 sẽ là: </p><p>P(đỏ lần 2 | đỏ lần 1) = 25/51 ≈ 0.49</p><p>2. Nếu quân bài đầu tiên bạn rút là màu đen:</p><p> Lần 1 bạn rút được 1 quân bài màu đen. Nên số quân bài màu đỏ sau khi rút lần 1 sẽ vẫn là: 26. Tương tự như trên tổng số quân sau khi rút lần 1 sẽ là 52 -1 = 51. Nên xác xuất bạn rút lá đỏ lần 2  khi bạn rút được lá đen lần 1 sẽ là: </p><p>P(đỏ lần 2 | đen lần 1) = 26/51 ≈ 0.51</p><p> Bạn có thể thấy là P(đỏ lần 2 | đỏ lần 1) = 0.49 &lt; P(đỏ lần 2 | đen lần 1) = 0.51. Như bạn thấy thì xác xuất rút được quân đỏ lần 2, sẽ phụ thuộc vào việc quân bài bạn rút được đầu tiên là đỏ hay là đen.</p><h3 id="quytcnhnxcxut">Quy tắc nhân xác xuất</h3>
+<p>Khi bạn có 2 sự kiện A và B, và bạn muốn biết xác xuất được <strong>sự kiện A và B  cùng xảy ra, viết là P(A ∩ B) , </strong>thì các bạn có thể sử dụng 2 công thức sau, tùy theo vấn đề bạn có là xác xuất độc lập hay là điều kiện. </p><h4 id="cngthcnhnxcxutclp">Công thức nhân xác xuất độc lập</h4>
+<p>Công thức nhân xác xuất độc lập được viết ở dưới đây:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=17HqiU7o6QgSwxr0QYHrJHjjuYvUB7lzS&amp;export=download" class="kg-image" alt width="397" height="50" layout="responsive"></amp-img></figure><p><em>Ví dụ 5</em>: Quay trở lại bài toán tung một đồng xu 2 lần (Ví dụ 3). Hỏi xác xuất lần 1 và lần 2 đều tung được mặt ngửa là gì.</p><p> Bạn có thể liệt kê các khả năng tung xu 2 lần, và sử dụng công thức chung tính xác xuất lý thuyết như thấy ban đầu. Tổng cộng các khả năng tung xu hai lần có thể xảy ra là:</p><table>
+<thead>
+<tr>
+<th>Tung xu lần 1</th>
+<th>Tung xu lần 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xấp</td>
+<td>Xấp</td>
+</tr>
+<tr>
+<td>Ngửa</td>
+<td>Xấp</td>
+</tr>
+<tr>
+<td>Xấp</td>
+<td>Ngửa</td>
+</tr>
+<tr>
+<td>Ngửa</td>
+<td>Ngửa</td>
+</tr>
+</tbody>
+</table>
+<p> Có tổng cộng 4 khả năng xảy ra nếu bạn tung xu hai lần. Trong tất cả các khả năng, chỉ có 1 khả năng thỏa mãn điều kiện là có hai mặt ngưả. Như vậy thì xác xuất bạn tung xu hai lần và cả hai lần đều là mặt ngửa sẽ là: 1/4 = 0.25</p><p> Bây giờ bạn hiểu được theo trực giác kết qủa đúng của bài toán này, ta sẽ giải quyết bài toán theo công thức trên. Như bạn biết xác xuất tung đồng xu lần 1 và lần 2 không phụ thuộc lẫn nhau. Đơn giản xác xuất tung mặt ngửa cho mỗi lần 1 và 2 là: </p><p>P(ngửa lần 1) = 1/2 </p><p>P(ngửa lần 2) = 1/2 </p><p>Nếu thế thì xác xuất tung mặt ngửa lần 1 và lần 2 sẽ là:</p><p>P(ngửa lần 1<strong> ∩</strong> ngửa lần 2) = P(ngửa lần 1) x P(ngửa lần 2) = (1/2) x (1/2) = (1/4) = 0.25</p><p>Kết qủa sử dụng công thức này, giống như kết qủa ta có được nếu lập luận bằng khả năng như ở trên: 0.25.</p><h4 id="cngthcnhnxcxutiukin">Công thức nhân xác xuất điều kiện</h4>
+<p>Công thức nhân xác xuất điều kiện được viết ở dưới đây:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1P58iQOFXyY8Wt-VdkAg-XzrZpc7nQBxf&amp;export=download" class="kg-image" alt width="738" height="50" layout="responsive"></amp-img></figure><p><em>Ví dụ 6</em>: Quay lại bài toán trên về rút quân bài 2 lần  mà không cho lại quân bài vừa rút vào bộ bài (Ví dụ 4). Hỏi xác xuất lấy bài đỏ cả hai lần, là bao nhiêu</p><p>Nhớ rằng xác xuất lấy được quân đỏ lần 2 dựa vào kết qủa lấy được quân bài lần 1. Ta có</p><p>P(đỏ lần 1) = 26/52</p><p>P(đỏ lần 2 | đỏ lần 1)  = 25/51</p><p>Dựa vào công thức trên:</p><p>P(đỏ lần 1<strong> ∩ </strong>đỏ lần 2) =  P(đỏ lần 2 | đỏ lần 1) x P(đỏ lần 1) = (26/52) x (25/51) ≈ 0.245</p><h3 id="cngthccngxcxut">Công thức cộng xác xuất</h3>
+<p>Khi bạn có 2 sự kiện A và B, và bạn muốn biết xác xuất được <strong>sự kiện A hoặc B  xảy ra, viết là P(A </strong>∪<strong> B) . </strong>Bạn có thể sử dụng công thức sau cho cả xác xuất độc lập và điều kiện.</p><p>Công thức cộng xác xuất cho hai sự việc A và B có thể cùng xảy ra:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1BWrFl5Q07J3RAW7nTZjEu2jWw-kvhXI8&amp;export=download" class="kg-image" alt width="592" height="50" layout="responsive"></amp-img></figure><p>Ví dụ 7: Tung một đồng xu 2 lần. Đồng xu có 2 mặt xấp và ngửa. Hỏi xác xuất tung một đồng xu hai lần, trong đó có một lần là ngửa là gì. </p><p>Tức là bạn muốn tìm xác xuất có được lần 1 là ngửa hoặc lần 2 là ngửa. Như đã tính ở trên:</p><p>P(ngửa lần 1) = 1/2</p><p>P(ngửa lần 2) = 1/2 </p><p>P(ngửa lần 1 <strong> ∩</strong> ngửa lần 2) =  1/4</p><p>Theo công thức trên:</p><p>P(ngửa lần 1 <strong> </strong>∪<strong> </strong> ngửa lần 2) = P(ngửa lần 1) + P(ngửa lần 2) - P(ngửa lần 1 <strong> ∩</strong> ngửa lần 2) = (1/2) + (1/2) - (1/4) = 3/4 = 0.75</p><p> Có một cách tính đơn giản là 1 - P(xấp lần 1 <strong>∩</strong> xấp lần 2 ). Nhưng tôi muốn sử dụng cách tính trên, để các bạn hiểu được cách sử dụng công thức cho những bài toán phức tạp hơn. </p><p> Có một số bài toán mà sự việc A và B không thể nào xảy ra đồng thời. Ví dụ: tung một đồng xu một lần được cả mặt xấp mặt ngửa; trời mưa và không mưa ở cùng một địa điểm. </p><p>Nếu hai sự việc A và B chắc chắn là không thể xảy ra cùng một lúc, thì bạn chỉ cần dùng công thức này:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=16LM5ScYSzPf113LxiVG0APrjGqP1gjLh&amp;export=download" class="kg-image" alt width="389" height="50" layout="responsive"></amp-img></figure><p>Công thức này gần giống như công thức trên. Như bạn thấy thì bạn chỉ cần cộng xác xuất của sự kiện A với xác xuất của sự kiện B. Vì A và B không thể xảy ra cùng một lúc nên theo logic: P(A<strong> ∩</strong> B) = 0. Bạn không cần tính P(A<strong> ∩</strong> B).</p><h3 id="ktlun">Kết luận</h3>
+<p>Vẫn còn một số chi tiết về toán xác xuất tôi chưa đề cập trong bài viết này. Nhưng hi vọng bài viết này đã giúp các bạn hiểu (hoặc nhớ lại) các kiến thức cơ bản trong toán xác xuất. </p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

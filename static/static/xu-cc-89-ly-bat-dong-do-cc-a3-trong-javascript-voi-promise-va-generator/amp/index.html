@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Xử lý bất đồng độ trong JavaScript với Promise và Generator</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Xử lý bất đồng độ trong JavaScript với Promise và Generator" />
+    <meta property="og:description" content="1. Callback Ai đã từng sử dụng Javascript chắc đều biết xử lý bất đồng bộ là một đặc trưng của Javascript. Ví dụ, bạn viết hàm request(URL) để gửi yêu cầu đến" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/xu-cc-89-ly-bat-dong-do-cc-a3-trong-javascript-voi-promise-va-generator/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbmRyU1FBZlcyX2c&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2016-06-17T17:36:46.000Z" />
+    <meta property="article:modified_time" content="2017-08-18T13:47:55.000Z" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="Promise" />
+    <meta property="article:tag" content="Generator" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Xử lý bất đồng độ trong JavaScript với Promise và Generator" />
+    <meta name="twitter:description" content="1. Callback Ai đã từng sử dụng Javascript chắc đều biết xử lý bất đồng bộ là một đặc trưng của Javascript. Ví dụ, bạn viết hàm request(URL) để gửi yêu cầu đến" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/xu-cc-89-ly-bat-dong-do-cc-a3-trong-javascript-voi-promise-va-generator/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbmRyU1FBZlcyX2c&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Q_N.A.T" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript, Promise, Generator" />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="300" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_N.A.T",
+        "url": "https://blog.vietnamlab.vn/author/tuanna/",
+        "sameAs": []
+    },
+    "headline": "Xử lý bất đồng độ trong JavaScript với Promise và Generator",
+    "url": "https://blog.vietnamlab.vn/xu-cc-89-ly-bat-dong-do-cc-a3-trong-javascript-voi-promise-va-generator/",
+    "datePublished": "2016-06-17T17:36:46.000Z",
+    "dateModified": "2017-08-18T13:47:55.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkbmRyU1FBZlcyX2c&export=download",
+        "width": 700,
+        "height": 300
+    },
+    "keywords": "javascript, Promise, Generator",
+    "description": "1. Callback\nAi đã từng sử dụng Javascript chắc đều biết xử lý bất đồng bộ là\nmột đặc trưng của Javascript. Ví dụ, bạn viết hàm request(URL)  để gửi\nyêu cầu đến một đường dẫn rồi ghi log kết quả trả về ra console:\n\nfunction request(URL) {\n  var xhttp &#x3D; new XMLHttpRequest(); \n  //Bất đồng bộ \n  xhttp.onreadystatechange &#x3D; function() { \n    if (xhttp.readyState &#x3D;&#x3D; 4 &amp;&amp; xhttp.status &#x3D;&#x3D; 200) { \n      console.log(xhttp.responseText);\n    } \n  }; \n  xhttp.open(&quot;GET&quot;, ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Xử lý bất đồng độ trong JavaScript với Promise và Generator</h1>
+                <section class="post-meta">
+                    Q_N.A.T -
+                    <time class="post-date" datetime="2016-06-18">18 Jun 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkbmRyU1FBZlcyX2c&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="1callback">1. Callback</h3>
+<p>Ai đã từng sử dụng Javascript chắc đều biết xử lý bất đồng bộ là một đặc trưng của Javascript. Ví dụ, bạn viết hàm <code>request(URL)</code> để gửi yêu cầu đến một đường dẫn rồi ghi log kết quả trả về ra console:</p>
+<pre><code>function request(URL) {
+  var xhttp = new XMLHttpRequest(); 
+  //Bất đồng bộ 
+  xhttp.onreadystatechange = function() { 
+    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) { 
+      console.log(xhttp.responseText);
+    } 
+  }; 
+  xhttp.open("GET", URL, true); 
+  xhttp.send();
+}
+</code></pre>
+<p>Trong đoạn code trên, hàm gắn liền với sự kiện <code>xhttp.onreadystatechange</code> là phần code được xử lý bất đồng bộ. Dù nó được viết trước những lệnh như <code>xhttp.open</code> và <code>xhttp.send</code> nhưng thực ra lại được xử lý sau khi request đã hoàn thành và có kết quả trả về.</p>
+<p>Hàm <code>request(URL)</code> như trên được viết không tốt. Lý do là hàm đó đang thực hiện hai chức năng khác nhau: gửi yêu cầu lấy kết quả và xử lý kết quả trả về.  Trong khi chức năng gửi yêu cầu lấy kết quả có thể dùng chung cho bất kì đường dẫn nào thì chức năng xử lý kết quả nên được tách riêng ra để tùy biến cho những trường hợp khác nhau. Do đó, chúng ta có thể sửa lại hàm <code>request(URL)</code> thành <code>request(URL, processResult)</code> với tham số đầu vào <code>processResult</code> là một hàm xử lý bất kì.</p>
+<pre><code>function request(URL, processResult) {
+  var xhttp = new XMLHttpRequest();
+  //Bất đồng bộ
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) {
+      //Xử lý kết quả trả về
+      processResult(xhttp.responseText);
+    }
+  };
+  xhttp.open("GET", URL, true);
+  xhttp.send();
+}
+</code></pre>
+<p>Hàm processResult được truyền như một tham số và được thực hiện trong một hàm khác dưới một điều kiện nhất định, theo định nghĩa có tên gọi là <code>callback function</code>. Sau khi tách ra, chúng ta có thể chuyển toàn bộ phần code liên quan đến gửi yêu cầu vào một thư viện, để lần sau dùng, chúng ta chỉ cần định nghĩa hàm xử lý kết quả là đủ:</p>
+<pre><code>function logResult(response) {
+  console.log(response);
+  return 1;
+} 
+request("www.google.com", logResult);
+</code></pre>
+<p>Việc sử dụng <code>callback function</code> cho xử lý bất đồng bộ đã tồn tại trong suốt lịch sử của Javascript. Khuyết điểm của nó là bạn định nghĩa một hàm số nhưng lời gọi thực hiện nó lại lồng trong và phụ thuộc vào một hàm khác. Điều đó dẫn đến những tình huống trớ trêu, ví dụ khi bạn muốn lấy kết quả từ đường dẫn A gửi cho đường dẫn B, rồi lấy kết quả từ đường dẫn B gửi đến đường dẫn C, ….</p>
+<pre><code>request(UrlA, function(response) {
+  request(UrlB + response, function(response) {
+    request(UrlC + response, function(response) { .... });
+  });
+});
+</code></pre>
+<p>Những dòng lệnh lồng nhau rối mắt như trên được gọi là <code>callback hell</code>. Nó sẽ còn trở nên phức tạp hơn nữa trong trường hợp bạn cần thêm vào những lệnh xử lý lỗi hay đối ứng với các trường hợp ngoại lệ. Vậy cách giải quyết <code>callback hell</code> như thế nào? Câu trả lời là không có cách nào giải quyết triệt để vấn đề này hết, cho đến khi <code>ES6</code> giới thiệu về một đối tượng mới: <code>Promise</code>.</p>
+<p>ES6: phiên bản thứ 6 của đặc tả ngôn ngữ EMCAScript do tổ chức <a href="https://en.wikipedia.org/wiki/Ecma_International" title="Ecma International">Ecma International</a> tạo ra. Javascript Engine – dùng để dịch mã Javascript, có thể là một trình thông dịch hay một trình biên dịch động – của các trình duyệt thường được tạo theo bộ đặc tả này</p>
+<h3 id="2promise">2. Promise</h3>
+<p>Promise là một đối tượng được sử dụng trong các xử lý bất đồng bộ, đại diện cho một thao tác chưa hoàn thành, đang đợi kết quả trong tương lai.  Một đối tượng Promise có thể có một trong ba trạng thái:</p>
+<ul>
+<li><code>Pending</code>: trạng thái ban đầu, chưa rõ kết quả của thao tác là thành công hay thất bại.</li>
+<li><code>Fulfilled</code>: thao tác có kết quả thành công</li>
+<li><code>Rejected</code>: thao tác có kết quả thất bại</li>
+</ul>
+<p>Chúng ta không dùng một callback function trực tiếp trong tham số của hàm <code>request</code> nữa, sửa lời gọi hàm <code>request(URL, processResult)</code> về như ban đầu: <code>request(URL)</code>. Tuy nhiên khác với ban đầu, bên trong hàm ta không xử lý trực tiếp kết quả mà trả về một promise:</p>
+<pre><code>function request(URL) {
+  return new Promise(function(resolve, reject) {
+    var xhttp = new XMLHttpRequest();
+    //Bất đồng bộ 
+    xhttp.onreadystatechange = function() {
+      if (xhttp.readyState == 4 &amp;&amp; xhttp.status == 200) {
+        resolve(xhttp.responseText);
+        //Chuyển trạng thái promise về fullfilled
+      }
+    };
+    xhttp.open("GET", URL, true);
+    xhttp.send();
+  });
+}
+</code></pre>
+<p>Hàm <code>request(URL)</code> lúc này chỉ làm một việc là định nghĩa một callback function để khởi tạo cho đối tượng Promise trả về. Callback function này phải có ít nhất hai tham số: <code>resolve</code> và <code>reject</code>. Cả hai đều là callback function được định nghĩa đi kèm với đối tượng Promise. <code>Resolve</code> là callback function để chuyển trạng thái của Promise từ <code>pending</code> sang <code>fullfilled</code> (đánh dấu thao tác thành công), <code>reject</code> là callback function để chuyển trạng thái <code>Promise</code> từ <code>pending</code> sang <code>rejected</code> (đánh dấu thao tác thất bại).</p>
+<p>Ở đoạn code kể trên, đối tượng Promise lúc đầu trả về sẽ có trạng thái <code>pending</code>. Tháo tác gửi yêu cầu được thực hiện bên trong đối tượng Promise. Khi có kết quả trả về thành công, hàm <code>resolve</code> được gọi để chuyển trạng thái của đối tượng Promise về <code>fullfilled</code>.</p>
+<p>Chúng ta có thể truyền các hàm xử lý kết quả vào cho đối tượng Promise tạo ra ở trên thông qua phương thức <code>then</code> của chính đối tượng Promise đó. Hàm <code>then</code> có thể nhận hai tham số, tham số đầu tiên là một callback function để xử lý kết quả khi Promise có trạng thái <code>fullfilled</code>, tham số thứ hai là một callback function để xử lý kết quả khi Promise có trạng thái <code>rejected</code>.</p>
+<p>Ví dụ chúng ta truyền hàm log kết quả ra console vào làm tham số cho hàm <code>then</code> của đối tượng Promise:</p>
+<pre><code>request("www.google.com").then(logResult);
+</code></pre>
+<p>Kết quả trả về của hàm <code>then</code> là một Promise mới phụ thuộc vào kết quả của Promise trước và các hàm xử lý kết quả được truyền vào. Trong hàm logResult ở trên,  kết quả trả về là 1 nên nếu Promise tạo ra từ hàm <code>request(“www.google.com”)</code> có trạng thái là <code>fullfilled</code>, thì Promise mới tạo ra từ hàm <code>request(“www.google.com”).then</code> cũng có trạng thái là <code>fullfilled</code> và response là 1.</p>
+<pre><code>request("www.google.com").then(logResult).then(function(response) {
+  console.log(response); // ==&gt; 1;
+});
+</code></pre>
+<p>Vậy sự khác nhau giữa dùng Promise với việc dùng callback function trực tiếp như ban đầu là gì? Là với Promise, bạn đã bẻ mối quan hệ trực tiếp giữa hàm gửi yêu cầu với hàm xử lý kết quả, đưa những xử lý tương tác giữa chúng vào trong đối tượng chung là Promise. Tương tự khi bạn muốn lấy kết quả từ đường dẫn A để gửi cho đường dẫn B, nhờ hàm <code>then</code> cũng trả về một Promise, thay vì các callback function lồng nhau như <code>callback hell</code>, chúng ta sẽ có một chuỗi đối tượng Promise nối tiếp nhau:</p>
+<pre><code>request(UrlA).then(function(responseA) {
+  return request(UrlB + responseA);
+}).then(function(responseB) {
+  return request(UrlC + responseB);
+}) ;
+</code></pre>
+<p>Rõ ràng với Promise, chúng ta đã có những đoạn code xử lý bất đồng bộ có vẻ dễ nhìn hơn nhiều so với trước. Nhưng một câu hỏi quen thuộc: nó còn có thể tốt hơn được nữa không?</p>
+<h3 id="3generator">3. Generator</h3>
+<p>Generator cũng là một đối tượng mới được đề xuất trong ES6. Với một hàm thông thường trong Javascript, khi bạn đã định nghĩa xong nội dung cũng như tham số của hàm, bạn sẽ không thể can thiệp gì khi hàm đó được thực thi. Hàm generator với khai báo có dấu <code>*</code> đằng trước thì khác, bạn có thể thực thi hàm đó từng bước, lấy ra các giá trị trung gian và thay đổi giá trị của các biến trong hàm. Một ví dụ:</p>
+<pre><code>function *example(x) {
+  var y = 7 * x;
+  var k = 7 * (yield y);
+  return 7 * (yield k);
+}
+</code></pre>
+<p>Ban đầu, ta sẽ tạo ra một đối tượng Generator từ hàm Generator kể trên:</p>
+<pre><code>var exampleObj = example(7);
+</code></pre>
+<p>Lúc này hàm example vẫn chưa được thực thi. Chúng ta gọi đến phương thức <code>next</code> của đối tượng <code>exampleObj</code> lần đầu tiên, hàm example sẽ thực thi đến câu lệnh <code>yield</code> thứ nhất. Giá trị biến <code>y</code> trong lệnh <code>yield y</code> sẽ được gán cho thuộc tính <code>value</code> của đối tượng được trả về từ phương thức <code>next</code>.</p>
+<pre><code>var res = exampleObj.next(777); // 777 vô nghĩa, không có tác dụng gì
+console.log(res.value); // =&gt; 49 ( y = 7*7 = 49)
+</code></pre>
+<p>Chúng ta gọi đến phương thức <code>next</code> lần thứ hai. Lúc này giá trị tham số đầu tiên truyền vào phương thức <code>next</code> sẽ thay thế toàn bộ cụm <code>(yield y)</code> có trong hàm generator. Hàm example tiếp tục thực thi đến câu lệnh <code>yield</code> thứ hai. Giá trị biến <code>k</code> sẽ được gán cho thuộc tính <code>value</code> của đối tượng được trả về từ phương thức <code>next</code>.</p>
+<pre><code>var res = exampleObj.next(777);
+console.log(res.value); // =&gt; 5439 ( k = 7*777 = 5439)
+</code></pre>
+<p>Chúng ta gọi đến phương thức <code>next</code> lần thứ ba.  Lần này giá trị tham số đầu tiên truyền vào phương thức <code>next</code> sẽ thay thế toàn bộ cụm <code>(yield k)</code> có trong hàm generator. Vì không có câu lệnh <code>yield</code> phía trước nào nên hàm example sẽ thực thi đến hết. Thuộc tính <code>value</code> của đối tượng được trả về từ phương thức <code>next</code> chính là giá trị trả về của hàm.</p>
+<pre><code>var res = exampleObj.next(7);
+console.log(res.value); // =&gt; 49 ( return 7*7 = 49)
+</code></pre>
+<p>Vì phương thức example đã kết thúc, nên chúng ta có gọi đến phương thức <code>next</code> thêm lần nữa cũng không có ý nghĩa gì.</p>
+<pre><code>var res = exampleObj.next(777); // =&gt; 777 vô nghĩa, không có tác dụng gì 
+console.log(res.value); // =&gt; undefined
+console.log(res.done); // =&gt; true
+</code></pre>
+<p>Chúng ta có thể coi bắt đầu hàm, kết thúc hàm cộng với những câu lệnh yield là các cột mốc, còn câu lệnh <code>next</code> của đối tượng Generator giống như việc di chuyển giữa những cột mộc đó. Với các cột mốc <code>yield</code>, chúng ta vừa có thể lấy giá trị vừa có thể gán lại giá trị vào những cột mốc đó. Số khoảng cách giữa các cột mốt sẽ bằng số cột mốc trừ đi một, nên số câu lệnh <code>next</code> cần thiết để đi từ đầu hàm đến cuối hàm sẽ nhiều hơn một so với số câu lệnh <code>yield</code> trong hàm.</p>
+<p>Generator rõ ràng là rất lý thú đúng không. Nhưng nó thì có liên quan gì đến Promise và những phần chúng ta đề cập ở trên nhỉ?</p>
+<h3 id="4promisegenerator">4. Promise &amp; Generator</h3>
+<p>Generator giúp chúng ta có thể lấy ra và truyền lại các giá trị vào trong hàm. Ý tưởng ở đây là chúng ta sẽ dùng generator để lấy object Promise ra khỏi hàm chính. Đợi đến khi object Promise chuyển trạng thái từ <code>pending</code> sang <code>fullfilled</code> hoặc <code>rejected</code>, chúng ta sẽ đẩy response lấy được từ Promise đó trở lại hàm chính. Như vậy toàn bộ phần xử lý bất đồng bộ sẽ được tách ra khỏi hàm chính!</p>
+<p>Chúng ta sẽ thử viết một hàm **runSimple **cơ bản:</p>
+<pre><code>function runSimple(main) {
+  var it = main();
+  var promise = it.next().value; // Dùng generator để lấy promise từ hàm main 
+  return Promise.resolve(promise).then(function(response){ 
+    // Tại sao lại dùng Promise.resolve(promise)? ==&gt; Giải thích ở dưới 
+    var res = it.next(response); // Đẩy lại giá trị response có được sau khi promise chuyển trạng thái vào lại hàm main 
+    return res.value; // Giá trị trả về của hàm main; 
+  });
+}
+</code></pre>
+<p>Tại sao lại dùng Promise.resolve(promise)? Tại ta không thể đảm bảo giá trị promise lấy ra từ hàm generator có phải là một Promise hay không. Promise.resolve() cho phép chúng ta có thể tạo ra một promise từ một giá trị xác định hoặc từ một promise khác. Nếu tham số truyền vào Promise.resolve() là một giá trị xác định thì promise tạo ra sẽ có trạng thái là <code>fullfilled</code> và response thu được chính là giá trị đó. Nếu tham số truyền vào Promise.resolve() là một promise khác, thì promise tạo ra sẽ có trạng thái và response thu được giống với promise được truyền làm tham số.</p>
+<p>Chúng ta có thể đưa hàm runSimple ở trên vào thư viện. Sau đó, mỗi lần gửi request đến đường dẫn nào đó, chúng ta chỉ cần viết một hàm như sau:</p>
+<pre><code>function *main() {
+  var response = yield request("www.google.com"); // Promise từ hàm request có thể được đưa ra ngoài qua đối tượng Generator 
+  logResult(response);
+} 
+runSimple(main);
+</code></pre>
+<p>Như vậy toàn bộ những đoạn code liên quan đến xử lý bất đồng bộ đã được che giấu. Bạn có thể viết code cho một xử lý bất đồng bộ (gửi yêu cầu đến một đường dẫn, lấy kết quả và ghi log ra console) hoàn toàn giống y như những đoạn code đồng bộ thông thường khác.</p>
+<p>Tuy nhiên, hàm runSimple hiện tại vẫn còn quá yếu. Nó không cho phép truyền tham số vào hàm main. Nó cũng chỉ có phép trong hàm main có chứa một promise duy nhất. Chúng ta có thể cài đặt hàm <code>run</code>, một phiên bản cái tiến tốt hơn hẳn của hàm <code>runSimple</code> như sau:</p>
+<pre><code>function run(generator) { 
+  // Tạo Generator với tham số lấy từ các tham số phía sau của hàm run. 
+  // Ví dụ gọi hàm run(generator, y), thì biến y sẽ được đưa vào làm tham số của hàm generator. 
+  var args = [].slice.call( arguments, 1), it;
+  var generatorObj = generator.apply( this, args ); 
+
+  // Promise.resolve() sẽ tạo ra một Promise rỗng. 
+  // Tại sao lại tạo ra Promise rỗng mà không lấy luôn ra từ hàm generator như trong ví dụ runSimple? 
+  // Vì để đảm bảo chạy được cả các hàm Generator không có Promise bên trong. 
+  return Promise.resolve().then(
+    // handleNext(value) là hàm đùng để truyền value vào trong hàm generator 
+    // Vì Promise.resolve() tạo ra một promise rỗng, 
+    // value truyền vào hàm handNext lúc này sẽ là undefined. 
+    // Tuy nhiên vì đây là lời gọi next lần đầu tiên, nên giá trị value cũng không có ý nghĩa gì. 
+    function handleNext(value){ 
+      // Truyền value vào hàm generator, res là giá trị lấy ra được. 
+      var res = generatorObj.next( value ); 
+      // handResult: hàm xử lý dựa trên giá trị lấy ra đó 
+      return (function handleResult(res){ 
+        // nếu hàm generator kết thúc, trả về kết quả cuối cùng 
+        if (res.done) { 
+          return res.value; 
+        } else { 
+          // Gọi Promise.resolve() để đảm bảo có thể xử lý giá trị lấy ra như là một promise 
+          return Promise.resolve( res.value ).then( 
+            // Nếu promise lấy ra đã chuyển về trạng thái fullfilled, 
+            // dùng hàm handleNext để tiếp tục truyền response của promise đó cho hàm generator handleNext, 
+            // Nếu promise lấy ra đã chuyển về trạng thái rejected - thao tác không thanh công, 
+            // dùng hàm hanldErr để xử lý lỗi 
+            function handleErr(err) { 
+              // Throw lỗi gặp phải về cho hàm generator, 
+              // việc xử lý lỗi ra sao sẽ do người viết hàm generator quyết định hoàn toàn 
+              return Promise.resolve( it.throw( err ) ) .then( handleResult ); 
+              // Gọi handleResult để xử lý giá trị trả về từ hàm generator khi gặp lỗi 
+            } 
+          ); 
+        } 
+       })(res); 
+   } 
+  );
+}
+</code></pre>
+<p>Với hàm run như trên, đoạn code mô tả <code>callback hell</code> lồng ghép lúc đầu sẽ được viết lại như sau:</p>
+<pre><code>function *main() {
+  var respA = yield request(urlA);
+  var resB = yield request(urlB + resA);
+  var resC = yield request(urlC + resB);
+  ...
+}; 
+run(main);
+</code></pre>
+<p>Khác hoàn toàn đúng không?</p>
+<p>Có thể viết những dòng code đồng bộ cho các xử lý bất đồng bộ quả là một bước tiến kỳ diệu, nhưng hàm <code>run</code> kể trên có vẻ hơi phức tạp. Dù Javascript Engine của các trình duyệt hiện đại đã hỗ trợ Promise với Generator, song để kết hợp hai đối tượng đó với nhau cũng hơi lằng nhằng. Tin vui là bạn không cần phát minh lại cái bánh xe. Rút cục, mã nguồn mở để làm gì cơ chứ?</p>
+<h3 id="5thvincocorequest">5. Thư viện co &amp; co-request</h3>
+<p>Có không ít thư viện javascript đã hỗ trợ việc kết hợp giữa Promise + Generator. Một trong số đó là <a href="https://github.com/tj/co">co</a> (Tại sao tôi lại giới thiệu thư viện này chứ không phải thư viện khác? – vì sếp tôi bắt dùng). Trong đó hàm <code>co</code> đóng vai trò như hàm <code>run</code> tôi viết ở trên (Nhiều khả năng <code>co</code> của họ được viết tốt hơn). Nếu bạn muốn gửi request đến đường dẫn thì có thể dùng thêm <a href="https://github.com/denys/co-request">co-request</a> vơí hàm <code>request</code> trong đó cũng có vai trò tạo promise như hàm <code>request</code> tôi viết ở trên (Chắc chắn <code>request</code> của họ được viết tốt hơn)</p>
+<p>Sau khi bạn cài hai thư viện vào dự án của mình, bạn có thể code đoạn <code>callback hell</code> mô tả ở đầu như sau:</p>
+<pre><code>var co = require("co");
+var request = require("co-request");
+co(function* () {
+  var resA = yield request(urlA);
+  var resB = yield request(urlB + resA);
+  var resC = yield request(urlC + resB);
+  .....
+})
+</code></pre>
+<p>Dùng thư viện của người khác rõ ràng là một ý tưởng không tồi. Nhưng nếu vấn đề bạn cần dùng tới thư viện lại là một vấn đề phổ biến đến mức cứ đụng đến Javascript là gặp phải thì sao? Thí dụ, bạn đang trong một dự án X, cả team thống nhất là sử dụng thư viện A cho xử lý bất đồng bộ, đột ngột bạn lại bị chuyển sang dự án Y, lúc này cả team lại đang dùng thư viện B cho xử lý bất đồng bộ. Thư viện A với thư viện B có cú pháp hoàn toàn khác nhau. Kết quả là để xử lý một logic chương trình giống nhau bằng một ngôn ngữ lập trình giống nhau, bạn vẫn phải học lại. Đương nhiên thời gian học của bạn sẽ ngắn hơn thời gian học của những người chưa biết gì, nhưng mất thời gian vẫn là mất thời gian. Chưa kể bạn có thể dính dáng vào những cuộc tranh cãi bất tận mang tính tôn giáo, như thư viện A với thư viện B cái nào tốt hơn?</p>
+<p>Để đối phó với những phức tạp như thế, chỉ có một tổ chức chúng ta có thể tin cậy, đó là <a href="https://en.wikipedia.org/wiki/Ecma_International" title="Ecma International">Ecma International</a>.</p>
+<h3 id="6es7asyncawait">6. ES7: Async &amp; await?</h3>
+<p>Kết hợp generator với promise đã thay đổi hoàn toàn việc lập trình những xử lý bất đồng bộ trong javascript. Nhận thấy được rõ ý nghĩa cũng như sự phổ biến trong tương lai của chúng, nhiều người đã đề xuất đến Ecma International để đưa các cú pháp chuẩn mực cho sự kết hợp này vào trong bộ đặc tả EMCAScript. Ý kiến được đa phần đồng tình là những hàm generator có các xử lý bất đồng bộ ở bên trong sẽ có cú pháp là <code>async function</code>. Và để thể hiện ý nghĩa của các dòng lệnh được tốt hơn, trong <code>async function</code>, cú pháp <code>yield</code> sẽ được thay thế bằng <code>await</code>.</p>
+<p>Đoạn code liên quan <code>callback hell</code> khi đó sẽ thành thế này:</p>
+<pre><code>async function main() {
+  var resA = await request(urlA);
+  var resB = await request(urlB + resA); 
+  var resC = await request(urlC + resB); 
+  ..... 
+} 
+main();
+</code></pre>
+<p>Và sau khi Javascript Engine của các trình duyệt cài đặt những tính năng này theo EMCAScript, bạn có thể tạo ra những đoạn code xử lý bất đồng bộ một cách đẹp đẽ như trên, không cần đến một thư viện bên ngoài, thậm chí cũng không cần hiểu vì sao nó lại chạy được!</p>
+<p>Bản <a href="http://www.ecma-international.org/ecma-262/7.0/index.html#">ES7</a> đã được chính thức công bố vào tháng 6 năm nay. Rất tiếc là <code>async function</code> và <code>await</code> đã không được đưa vào bản đặc tả lần này. Trong khi hi vọng chúng sẽ xuất hiện trong ES8, các bạn có thể tạm thời dùng những thư viện và framework đã có hỗ trợ <code>async function</code> và <code>await</code> như <a href="https://babeljs.io/docs/plugins/transform-async-to-generator/">babel</a> chả hạn.</p>
+<h3 id="thamkhao">Tham khảo</h3>
+<p>Bài viết thực ra là sự tóm tắt, chuyền ngữ và thêm thắt từ cuốn You Don’t Know JS: Async &amp; Performance. Bạn nào muốn tìm hiểu chi tiết hơn về Promise và Generator có thể tham khảo thêm trong sách.</p>
+<p>Bạn có thể đọc miễn phí cả bộ You Don’t Know JS ở đây: <a href="https://github.com/getify/You-Dont-Know-JS">https://github.com/getify/You-Dont-Know-JS</a></p>
+<p>Chi tiết việc cài đặt đối tượng Promise các bạn có thể tham khảo một số thư viện Javascript mã nguồn mở. Ví dụ như <a href="https://github.com/then/promise/blob/master/src/core.js">đây</a>. Lưu ý là không đam bảo JavaScript Engine của các trình duyệt như V8 JavaScript Engine(được viết bằng C++) cũng cài đặt đối tượng Promise giống như các thư viện trên.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

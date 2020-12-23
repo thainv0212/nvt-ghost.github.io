@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>TypeScript Handbook (Phần 2) - Variable Declarations</title>
+
+    <meta name="description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="TypeScript Handbook (Phần 2) - Variable Declarations" />
+    <meta property="og:description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/" />
+    <meta property="og:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta property="article:published_time" content="2017-06-30T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-06-30T01:55:45.000Z" />
+    <meta property="article:tag" content="typescript" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="TypeScript Handbook" />
+    <meta property="article:tag" content="Variable Declarations" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TypeScript Handbook (Phần 2) - Variable Declarations" />
+    <meta name="twitter:description" content="Đây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript. Lần này mình sẽ tổng hợp về khai báo biến (Variable Declarations) trong TypeScript" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/" />
+    <meta name="twitter:image" content="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="typescript, javascript, TypeScript Handbook, Variable Declarations" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "TypeScript Handbook (Phần 2) - Variable Declarations",
+    "url": "https://blog.vietnamlab.vn/typescript-handbook-phan-2-variable-declarations/",
+    "datePublished": "2017-06-30T01:00:00.000Z",
+    "dateModified": "2017-06-30T01:55:45.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg"
+    },
+    "keywords": "typescript, javascript, TypeScript Handbook, Variable Declarations",
+    "description": "Nội dung được giới thiệu trong bài viết này\nĐây là bài viết thứ 2 trong loạt bài giới thiệu về TypeScript\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/]. Nối\ntiếp thành công vài bài viết thứ nhất giới thiệu về BasicType\n[https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-1-basictype/],\nlần này mình sẽ tổng hợp lại về khai báo biến(Variable Declarations\n[https://www.typescriptlang.org/docs/handbook/variable-declarations.html]) trong\nTypeScript.\n\nvar  declara",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">TypeScript Handbook (Phần 2) - Variable Declarations</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2017-06-30">30 Jun 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://static.techtalk.vn/wp-content/uploads/2017/01/typescript.jpg" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h1 id="nidungcgiithiutrongbivitny">Nội dung được giới thiệu trong bài viết này</h1>
+<p>Đây là bài viết thứ 2 trong loạt bài giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-ban-nen-biet/">TypeScript</a>. Nối tiếp thành công vài bài viết thứ nhất giới thiệu về <a href="https://vietnamlab.vn/blog/2017/06/30/typescript-handbook-phan-1-basictype/">BasicType</a>, lần này mình sẽ tổng hợp lại về khai báo biến(<a href="https://www.typescriptlang.org/docs/handbook/variable-declarations.html">Variable Declarations</a>) trong TypeScript.</p>
+<h3 id="vardeclarations"><code>var</code> declarations</h3>
+<p>Thông thường khi khai báo biến trong javascript chúng ta có thể sử dụng từ khóa <code>var</code>.</p>
+<pre><code class="language-js:JavaScript">var a = 10;
+</code></pre>
+<p>Trong method cũng có thể định nghĩa biến giống như vậy</p>
+<pre><code class="language-js:JavaScript">function f() {
+    var message = "Hello, world!";
+
+    return message;
+}
+</code></pre>
+<p>Và trong method khác cũng có thể truy cập đến biến đó</p>
+<pre><code class="language-js:JavaScript">function f() {
+    var a = 10;
+    return function g() {
+        var b = a + 1;
+        return b;
+    }
+}
+
+var g = f();
+g(); // 11
+</code></pre>
+<p>Trong cùng môt lần, nếu sử lý của hàm <code>f()</code> kết thúc. Dù gọi hàm <code>g()</code> thì cũng có thể đọc và thay đổi biến <code>a</code></p>
+<pre><code class="language-js:JavaScript">function f() {
+    var a = 1;
+
+    a = 2;
+    var b = g();
+    a = 3;
+
+    return b;
+
+    function g() {
+        return a;
+    }
+}
+
+f(); // 2
+</code></pre>
+<ul>
+<li>Mình không biết là ví dụ đã đầy đủ chưa nhưng trong ví dụ này có thể hiểu thêm là khi thay thế <code>b</code> sau đó thay đổi <code>a</code> cũng không ảnh hưởng đến kết quả</li>
+</ul>
+<h4 id="scopingrules">Scoping rules</h4>
+<p>Biến khi khai báo bằng từ khóa <code>var</code> có phạm vi không giống với các ngôn ngữ. Biến, method, module, định danh không tên,... đã được khai báo thì có thể truy cập ở bất cứ đâu.</p>
+<pre><code class="language-js:JavaScript">function f(shouldInitialize: boolean) {
+    if (shouldInitialize) {
+        var x = 10;
+    }
+
+    return x;
+}
+
+f(true);  // 10
+f(false); // undefined (`var x = ...` mặc dù chưa được khai báo nhưng vẫn có thế truy cập được)
+</code></pre>
+<p>Ngoài ra, nhiều lần khai báo biến cũng không phát sinh lỗi</p>
+<pre><code class="language-js:JavaScript">function sumMatrix(matrix: number[][]) {
+    var sum = 0;
+    for (var i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (var i = 0; i &lt; currentRow.length; i++) { // Ở đây nó lại khai báo lần nữa
+            sum += currentRow[i];
+        }
+    }
+
+    return sum;
+}
+</code></pre>
+<h4 id="variablecapturingquirksnhngkiubtbinkhngminhbch">Variable capturing quirks (những kiểu bắt biến không minh bạch)</h4>
+<p>Liệu sau khi thực hiện đoặn code gì sẽ xẩy ra?</p>
+<pre><code class="language-js:JavaScript">for (var i = 0; i &lt; 10; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+</code></pre>
+<p>Kết quả thu được sẽ như thế này:</p>
+<pre><code>10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+</code></pre>
+<p>Đây là một lỗi thường gặp mà giá trí biến giống nhau không như mong muốn. Để tránh những lỗi như này xẩy ra nên dùng <a href="https://en.wikipedia.org/wiki/Immediately-invoked_function_expression">IIFE</a>. Đây là pattern khá phổ biến để 1 function expression và thực thi function đó ngay lập tức. Pattern này đặc biệt hữu dụng khi bạn không muốn làm lộn xộn global namespace, bởi mọi biến hay function trong function đó đều không thể được truy cập từ bên ngoài.</p>
+<pre><code class="language-js:JavaScript">for (var i = 0; i &lt; 10; i++) {
+    // Biên `i` này sẽ được chuyền giá trị vào function
+    // Ở đây sẽ bắt biến đã chuyền vào
+    (function(i) {
+        setTimeout(function() { console.log(i); }, 100 * i);
+    })(i);
+}
+</code></pre>
+<h3 id="letdeclarations"><code>let</code> declarations</h3>
+<p>Để giải quyết vấn đề của biến <code>var</code>, TypeScript sử dụng từ khóa <code>let</code></p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let hello = "Hello!";
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">var hello = "Hello!";
+</code></pre>
+<h4 id="blockscoping">Block-scoping</h4>
+<p>Khác với <code>var</code>, dùng <code>let</code> để khai báo biên có phạm vi cụ thể.</p>
+<pre><code class="language-ts:TypeScript">function f(input: boolean) {
+    let a = 100;
+
+    if (input) {
+        // Có thể dùng biên 'a' ở đấy
+        let b = a + 1;
+        return b;
+    }
+
+    // Lỗi, Không thể sử dụng biến 'b ở đây'
+    return b;
+}
+</code></pre>
+<p>Trong khối <code>catch</code> cũng áp dụng quy tắc tương tự</p>
+<pre><code class="language-ts:TypeScript">try {
+    throw "oh no!";
+}
+catch (e) {
+    console.log("Oh well.");
+}
+
+// Lỗi, Không thể sử dụng biến 'e' ở đây
+console.log(e);
+</code></pre>
+<p>Một điểm đặc trưng khác nữa là không thể sử dụng biến nếu chưa được khai báo</p>
+<pre><code class="language-ts:TypeScript">a++; // Lỗi, biến 'a' chưa được định nghĩa
+let a;
+</code></pre>
+<p>Trước khi khai báo biên vẫn có thể capture(không phải access luôn như trên) được nhưng khi gọi hàm để thực hiện nó thì vẫn bắt buộc phải khai báo</p>
+<pre><code class="language-ts:TypeScript">function foo() {
+    // Chưa khai báo 'a' nhưng capture vẫn OK
+    return a;
+}
+
+// gọi hàm foo() trước khi khai báo 'a'
+// Khi thực hiện sẽ bi lỗi
+foo();
+
+let a;
+</code></pre>
+<h4 id="redeclarationsandshadowing">Re-declarations and Shadowing</h4>
+<p>Dùng <code>var</code> có thể khai báo nhiều lần cũng không lỗi.</p>
+<pre><code class="language-js:JavaScript">function f(x) {
+    var x;
+    var x;
+
+    if (true) {
+        var x;
+    }
+}
+</code></pre>
+<p>Khai báo bằng <code>let</code> chỉ có thể khai báo 1 lần</p>
+<pre><code class="language-ts:TypeScript">let x = 10;
+let x = 20; // Lỗi, Trong cùng một block chỉ được khai báo biến 1 lần
+</code></pre>
+<pre><code class="language-ts:TypeScript">function f(x) {
+    let x = 100; // Lỗi, bị lập lại với tham số truyền vào hàm
+}
+
+function g() {
+    let x = 100;
+    var x = 100; // Lỗi. Đã khai báo x bằng let rồi
+}
+</code></pre>
+<p>Tuy nhiên có thể khai báo biến trong block khác nhau</p>
+<pre><code class="language-ts:TypeScript">function f(condition, x) {
+    if (condition) {
+        let x = 100;
+        return x;
+    }
+
+    return x;
+}
+
+f(false, 0); // 0 (Trả về tham số 'x')
+f(true, 0);  // 100 (Trả về 'x' trong câu lệnh if)
+</code></pre>
+<p>Việc mà khai báo biến trong các block lồng nhau gọi la Shadowing. Thông thường nên tránh làm vậy nhưng trong một số trường hợp nó lại có ích.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function sumMatrix(matrix: number[][]) {
+    let sum = 0;
+    for (let i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (let i = 0; i &lt; currentRow.length; i++) { // Lại khai báo 'i'
+            sum += currentRow[i];
+        }
+    }
+;
+    return sum;
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function sumMatrix(matrix) {
+    var sum = 0;
+    for (var i = 0; i &lt; matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (var i_1 = 0; i_1 &lt; currentRow.length; i_1++) {
+            sum += currentRow[i_1];
+        }
+    }
+    return sum;
+}
+</code></pre>
+<ul>
+<li>Tên biến tự động đổi tên bằng cách thêm số vào</li>
+</ul>
+<h4 id="blockscopedvariablecapturing">Block-scoped variable capturing</h4>
+<p>Cũng giống như phần <a href="index.html#-var-declarations"><code>var</code> declarations</a> mình đã giới thiệu rồi. Biến mà được khai báo 1 lần rồi sau khi gọi nó ở block con khác thì vẫn có thể truy cập được.</p>
+<pre><code class="language-ts:TypeScript">function theCityThatAlwaysSleeps() {
+    let getCity;
+
+    if (true) {
+        let city = "Seattle";
+        getCity = function() {
+            return city;
+        }
+    }
+
+    return getCity();
+}
+</code></pre>
+<p>Nếu sử dụng từ khóa let trong vòng lặp, mỗi lần lặp nó đều tạo 1 phạm vi mới cho biến</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">for (let i = 0; i &lt; 10 ; i++) {
+    setTimeout(function() { console.log(i); }, 100 * i);
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">var _loop_1 = function (i) {
+    setTimeout(function () { console.log(i); }, 100 * i);
+};
+for (var i = 0; i &lt; 10; i++) {
+    _loop_1(i);
+}
+</code></pre>
+<pre><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<h3 id="constdeclarations"><code>const</code> declarations</h3>
+<p><code>const</code> cũng giống với <code>let</code> nhưng giống như tên của nó dùng để khai báo hằng số</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">const numLivesForCat = 9;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var numLivesForCat = 9;
+</code></pre>
+<p>Dùng từ khóa này sẽ giúp tránh những nhầm lẫn không đáng có</p>
+<pre><code class="language-ts:TypeScript">const numLivesForCat = 9;
+const kitty = {
+    name: "Aurora",
+    numLives: numLivesForCat,
+}
+
+// Lỗi, không thể thay đổi 'kitty'
+kitty = {
+    name: "Danielle",
+    numLives: numLivesForCat
+};
+
+// Tất cả đều OK, 'kitty' là hằng số nhưng thuộc tính của nó không phải hằng số.
+kitty.name = "Rory";
+kitty.name = "Kitty";
+kitty.name = "Cat";
+kitty.numLives--;
+</code></pre>
+<p>Thuộc tính không phải là hằng số nhưng để sử dụng trong thực tế có thể thêm keyword <code>readonly</code> vào thuộc tính của object.</p>
+<h3 id="destructuring">Destructuring</h3>
+<p>TypeScript thực hiện việc phân chia, tách biến mà ECMAScript2015 không làm được</p>
+<h4 id="arraydestructuring">Array destructuring</h4>
+<p>Phân tách biến được thực hiện đơn giản giống như ví dụ dưới đây.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let input = [1, 2];
+let [first, second] = input;
+console.log(first); // 1
+console.log(second); // 2
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var input = [1, 2];
+var first = input[0], second = input[1];
+console.log(first); // 1
+console.log(second); // 2
+</code></pre>
+<p>Có thể cập nhật lại các biến đã khai báo rồi.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">// Đổi giá trị biến
+[first, second] = [second, first];
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">// Đổi giá trị biến
+_a = [second, first], first = _a[0], second = _a[1];
+var _a;
+</code></pre>
+<ul>
+<li>Việc phải khai báo biến tạm thời hơi khó chịu</li>
+</ul>
+<p>Thàm só truyền vào hàm cũng có thể làm vậy.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f([first, second]: [number, number]) {
+    console.log(first);
+    console.log(second);
+}
+f(input);
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">// Đổi giá trị biến
+function f(_a) {
+    var first = _a[0], second = _a[1];
+    console.log(first);
+    console.log(second);
+}
+f(input);
+</code></pre>
+<p>Sử dụng <code>...</code> để lấy các phần còn lại.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // 1
+console.log(rest); // [ 2, 3, 4 ]
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var _a = [1, 2, 3, 4], first = _a[0], rest = _a.slice(1);
+console.log(first); // 1
+console.log(rest); // [ 2, 3, 4 ]
+</code></pre>
+<p>Bỏ bớt đi phần tử phía sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [first] = [1, 2, 3, 4];
+console.log(first); // 1
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var first = [1, 2, 3, 4][0];
+console.log(first); // 1
+</code></pre>
+<p>Các phần tử khác cũng có thể bỏ đi được</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let [, second, , fourth] = [1, 2, 3, 4];
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var _a = [1, 2, 3, 4], second = _a[1], fourth = _a[3];
+</code></pre>
+<h4 id="objectdestructuring">Object destructuring</h4>
+<p>Không chỉ mảng mà object cũng có thể phân tách các phần tử được.</p>
+<ul>
+<li>Có chút khác biệt là các tên biến để nhận giá trị bắt buộc phải giống với tên thuộc tính của Object</li>
+</ul>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+}
+let { a, b } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+var a = o.a, b = o.b;
+</code></pre>
+<p>Khi soạn lại các biến từ thuộc tính cũng giống như mảng, không cần khai báo cũng được.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">({ a, b } = { a: "baz", b: 101 });
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">(_a = { a: "baz", b: 101 }, a = _a.a, b = _a.b);
+var _a;
+</code></pre>
+<ul>
+<li>Chú ý nếu loại bỏ dấu ngoặc () thì compile sẽ không được ngon lắm</li>
+</ul>
+<p>Giống như mảng dùng <code>...</code> để lấy những phần tử còn lại</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a, ...passthrough } = o;
+let total = passthrough.b + passthrough.c.length;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __rest = (this &amp;&amp; this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) &amp;&amp; e.indexOf(p) &lt; 0)
+        t[p] = s[p];
+    if (s != null &amp;&amp; typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i &lt; p.length; i++) if (e.indexOf(p[i]) &lt; 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+var a = o.a, passthrough = __rest(o, ["a"]);
+var total = passthrough.b + passthrough.c.length;
+</code></pre>
+<ul>
+<li>Code sau khi được compile quả là ...</li>
+</ul>
+<h5 id="propertyrenaming">Property renaming</h5>
+<p>Có thể thay đổi tên thuộc tính lấy được</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a: newName1, b: newName2 } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var newName1 = o.a, newName2 = o.b;
+</code></pre>
+<p>Chú ý dấu <code>:</code> không được dùng để định nghĩa kiểu. Nếu muốn chỉ định kiểu cho nó  sẽ viết như sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a, b }: { a: string, b: number } = o;
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var a = o.a, b = o.b;
+</code></pre>
+<p>Nếu đồng thời vừa đổi tên vừa chỉ định kiểu</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let { a: newName1, b: newName2 }: { a: string, b: number } = o;
+</code></pre>
+<h5 id="defaultvalues">Default values</h5>
+<p>Trường hợp thuộc tính của Object chưa được gán giá trị, có thể để giá trị mặc định như sau</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function keepWholeObject(wholeObject: { a: string, b?: number }) {
+    // Trường hợp mà 'wholeObject' không tồn tại 'b' sẽ được gán mắc định là 1001
+    let { a, b = 1001 } = wholeObject;
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function keepWholeObject(wholeObject) {
+    // Trường hợp mà 'wholeObject' không tồn tại 'b' sẽ được gán mắc định là 1001
+    var a = wholeObject.a, _a = wholeObject.b, b = _a === void 0 ? 1001 : _a;
+}
+</code></pre>
+<h4 id="functiondeclarations">Function declarations</h4>
+<p>Có thể sử dụng chức năng phân tách biến để truyền tham số vào hàm</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">type C = { a: string, b?: number }
+function f({ a, b }: C): void {
+    // ...
+}
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var a = _a.a, b = _a.b;
+    // ...
+}
+</code></pre>
+<p>Chú ý sử dụng giá trị mặc định một cách khôn ngoan</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f({ a, b } = { a: "", b: 0 }): void {
+    // ...
+}
+f(); // OK. Có thể sử dụng giá trị mặc định là { a: "", b: 0 }
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var _b = _a === void 0 ? { a: "", b: 0 } : _a, a = _b.a, b = _b.b;
+    // ...
+}
+f(); // OK. Có thể sử dụng giá trị mặc định là { a: "", b: 0 }
+</code></pre>
+<p>Có thể kết hợp với giá trị mặc định đối với Object</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">function f({ a, b = 0 } = { a: "" }): void {
+    // ...
+}
+;
+f({ a: "yes" }) // OK. Sử dụng phân tách mạc định b = 0
+f() // OK. Sử dụng giá trị mặc định của tham số truyền vào và giá trị mặc định của Object
+f({}) // Lỗi tham số truyền vào cần phải có thuộc tính 'a'
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">function f(_a) {
+    var _b = _a === void 0 ? { a: "" } : _a, a = _b.a, _c = _b.b, b = _c === void 0 ? 0 : _c;
+    // ...
+}
+;
+f({ a: "yes" }) // OK. Sử dụng phân tách mạc định b = 0
+f() // OK. Sử dụng giá trị mặc định của tham số truyền vào và giá trị mặc định của Object
+f({}) // Lỗi tham số truyền vào cần phải có thuộc tính 'a'
+</code></pre>
+<blockquote>
+<p>Đến đây là cấp độ khó tin rồi</p>
+</blockquote>
+<h4 id="spread">Spread</h4>
+<p>Toán tử spread không chỉ được dùng trong trường hợp phân tách biến từ mảng, ngược lại nó còn dùng để mở rộng từ mảng đã có vào trong mảng khác.</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5]; // [0, 1, 2, 3, 4, 5]
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var first = [1, 2];
+var second = [3, 4];
+var bothPlus = [0].concat(first, second, [5]); // [0, 1, 2, 3, 4, 5]
+</code></pre>
+<p>Còn có thể thêm vào Object</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { ...defaults, food: "rich" }; // { food: "rich", price: "$$", ambiance: "noisy" };
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __assign = (this &amp;&amp; this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i &lt; n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+var search = __assign({}, defaults, { food: "rich" }); // { food: "rich", price: "$$", ambiance: "noisy" };
+</code></pre>
+<p>Những thuộc tính giống nhau, thì những thuộc tính đặt phía sau sẽ được ghi đè lên các thuộc tình phía trước theo thứ tự</p>
+<blockquote>
+<p>TypeScript</p>
+</blockquote>
+<pre><code class="language-ts:TypeScript">let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { food: "rich", ...defaults }; // { food: "spicy", price: "$$", ambiance: "noisy" };
+</code></pre>
+<blockquote>
+<p>JavaScript</p>
+</blockquote>
+<pre><code class="language-js:JavaScript">var __assign = (this &amp;&amp; this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i &lt; n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+var search = __assign({ food: "rich" }, defaults); // { food: "spicy", price: "$$", ambiance: "noisy" };
+</code></pre>
+<p>Sự hạn chế của mở rộng Object có 2 điểm. Một là việc lấy các thuộc tính không bao gồm các method</p>
+<pre><code class="language-ts:TypeScript">class C {
+  p = 12;
+  m() {
+  }
+}
+let c = new C();
+let clone = { ...c };
+clone.p; // OK
+clone.m(); // Lỗi
+</code></pre>
+<p>Hai là TypeScript không cho phép dùng với các tham số <code>type</code> từ các hàm generic. Có thể sẽ được khắc phục trong tương lai.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

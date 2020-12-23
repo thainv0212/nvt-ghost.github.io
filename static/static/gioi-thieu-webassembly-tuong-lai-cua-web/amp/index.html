@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu WebAssembly - Tương lai của web</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Giới thiệu WebAssembly - Tương lai của web" />
+    <meta property="og:description" content="Với sự phát triển và nổi lên của javascript những năm gần đây, các website đã tiến hóa trở thành các web app và ngày càng trở nên phức tạp. Tuy nhiên, dù cho mang lại những lợi ích như: tốc độ phát triển, chạy trên mọi hệ điều hành" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-webassembly-tuong-lai-cua-web/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1J_3Dz-OVN6ktVS-oXPkhwdnvYTeqv1f3&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-08-08T06:40:04.000Z" />
+    <meta property="article:modified_time" content="2018-08-08T06:40:04.000Z" />
+    <meta property="article:tag" content="web" />
+    <meta property="article:tag" content="WebAssembly" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Giới thiệu WebAssembly - Tương lai của web" />
+    <meta name="twitter:description" content="Với sự phát triển và nổi lên của javascript những năm gần đây, các website đã tiến hóa trở thành các web app và ngày càng trở nên phức tạp. Tuy nhiên, dù cho mang lại những lợi ích như: tốc độ phát triển, chạy trên mọi hệ điều hành" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-webassembly-tuong-lai-cua-web/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1J_3Dz-OVN6ktVS-oXPkhwdnvYTeqv1f3&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="web, WebAssembly" />
+    <meta property="og:image:width" content="728" />
+    <meta property="og:image:height" content="410" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Giới thiệu WebAssembly - Tương lai của web",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-webassembly-tuong-lai-cua-web/",
+    "datePublished": "2018-08-08T06:40:04.000Z",
+    "dateModified": "2018-08-08T06:40:04.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1J_3Dz-OVN6ktVS-oXPkhwdnvYTeqv1f3&export=download",
+        "width": 728,
+        "height": 410
+    },
+    "keywords": "web, WebAssembly",
+    "description": "Với sự phát triển và nổi lên của javascript những năm gần đây, các website đã\ntiến hóa trở thành các web app và ngày càng trở nên phức tạp. Tuy nhiên, dù cho\nmang lại những lợi ích như: tốc độ phát triển, chạy trên mọi hệ điều hành (chỉ\ncần có trình duyệt), web app cũng không thể đọ lại native app về mặt hiệu năng.\nTừ hạn chế này, WebAssembly ra đời với mục đích: kéo dãn khoảng cách về mặt hiệu\nnăng của web app đến gần như native app.\n\nWebAssembly là gì?\nTheo như trang chủ webassembly.org\n\nWebAs",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu WebAssembly - Tương lai của web</h1>
+                <section class="post-meta">
+                    T.P.H -
+                    <time class="post-date" datetime="2018-08-08">08 Aug 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1J_3Dz-OVN6ktVS-oXPkhwdnvYTeqv1f3&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Với sự phát triển và nổi lên của javascript những năm gần đây, các website đã tiến hóa trở thành các web app và ngày càng trở nên phức tạp. Tuy nhiên, dù cho mang lại những lợi ích như: tốc độ phát triển, chạy trên mọi hệ điều hành (chỉ cần có trình duyệt), web app cũng không thể đọ lại native app về mặt hiệu năng. Từ hạn chế này, WebAssembly ra đời với mục đích: kéo dãn khoảng cách về mặt hiệu năng của web app đến gần như native app.</p>
+<h3 id="webassemblylg">WebAssembly là gì?</h3>
+<p>Theo như trang chủ webassembly.org</p>
+<blockquote>
+<p>WebAssembly (abbreviated Wasm) is a binary instruction format for a stack-based virtual machine. Wasm is designed as a portable target for compilation of high-level languages like C/C++/Rust, enabling deployment on the web for client and server applications.</p>
+</blockquote>
+<p>
+  <amp-img src="https://cdn-images-1.medium.com/max/800/1*Fp8S5KZioYHp55gFJ9jGNg.png" width="284" height="177" layout="fixed"></amp-img>
+</p>
+<h4 id="tmdch">Tạm dịch:</h4>
+<p>WebAssemly (viết tắt Wasm) là một dạng tập lệnh nhị phân cho các máy ảo dựa trên ngăn xếp. Wasm được thiết kế để có thể  biên dịch từ các ngôn ngữ bậc cao như C/C++/Rust, cho phép các ngôn ngữ đó có thể thực thi trên các ứng dụng web ở cả client và server.</p>
+<h4 id="giithch">Giải thích:</h4>
+<p>Việc thực thi javascript trên trình duyệt thông qua các máy ảo - ví dụ ở Chrome là V8. Các máy ảo này thực thi theo cơ chế thông dịch - tức vừa đọc từng dòng code vừa dịch trực tiếp dòng code đó ra mã máy để máy tính có thể hiểu và thực thi.</p>
+<p>WebAssembly cũng được thực thi theo cách tương tự. Tuy nhiên do đã là dạng nhị phân nên tốc độ đọc code nhị phân của máy ảo nhanh hơn nhiều so với dạng văn bản, cũng như việc dịch code Wasm ra mã máy tương ứng (theo từng loại hệ điều hành và cpu) đem lại ít overhead (phí tổn) hơn. Do đó, WebAssembly mang lại tốc độ thực thi nhanh hơn nhiều - theo như hứa hẹn từ trang chủ thì sẽ gần bằng native - cũng như sử dụng bộ nhớ hiệu quả hơn so với Javascript.</p>
+<p>Ở đây ai đã hiểu cơ chế của ngôn ngữ Java và bytecode máy ảo của nó sẽ thấy rằng WebAssembly cũng tương tự. Đúng như vậy Java có bytecode thông dịch trên máy ảo Java thì WebAssembly chính là bytecode thông dịch trên máy ảo Wasm hoạt động ở trình duyệt.</p>
+<p>Tuy nhiên, vì là dạng nhị phân nên Wasm không phải được thiết kế để viết bằng tay mà như là mục tiêu biên dịch của các ngôn ngữ bậc cao như C/C++/Rust để chúng có thể chạy được trên trình duyệt hiệu quả.</p>
+<h3 id="trngthihinti">Trạng thái hiện tại</h3>
+<p>Khởi đầu từ tháng 4 năm 2015 từ nỗ lực hợp tác của các khổng lồ công nghệ như Apple, Google, Microsoft, Mozilla,vv . Hiện tại, WebAssembly đang ở mức sản phẩm tối thiểu (MVP) nhưng tiềm năng của nó rất đáng hứa hẹn trong tương lai.</p>
+<p>WebAssembly 1.0 đã được triển khai trên bốn trình hiện đại nhất bao gồm FireFox, Chrome, Safari, Edge. Trong tương lai gần, WebAssembly sẽ khổng thể thay thế Javascript bởi hệ sinh thái lớn mạnh của nó. Hiện tại để chạy code Wasm ta phải thông qua các Javascript API.</p>
+<p>Luồng thực thi code Wasm cơ bản như sau:</p>
+<p><amp-img src="https://cdn-images-1.medium.com/max/800/1*viF4ZtjEAV1XE2BiHY1MkQ.png" alt="workflow" width="800" height="244" layout="responsive"></amp-img></p>
+<p>
+Wasm workflow
+</p>
+<h3 id="chywasmngin">Chạy Wasm đơn giản</h3>
+<p>Sau đây, chúng ta sẽ chạy hàm sum tính tổng đơn giản được viết bằng c và chạy trên trình duyệt.</p>
+<h4 id="1citcompilertool">1. Cài đặt compiler tool</h4>
+<p>Hiện tại compiler tool hỗ trợ tốt nhất cho WebAssembly là LLVM. Tuy nhiên tool này rất khó sử dụng. 1 giải pháp thay thế mà dễ sử dụng là Emscripten thích hợp cho việc demo này.</p>
+<p>Truy cập <a href="https://webassembly.org/getting-started/developers-guide/">https://webassembly.org/getting-started/developers-guide/</a> để cài đặt Emscripten theo hướng dẫn của trang chủ.</p>
+<h4 id="2tofilesumc">2. Tạo file sum.c</h4>
+<p>Viết hàm tính tổng số nguyên trong file</p>
+<pre><code># sum.c
+int sum(int a, int b) {
+  return a + b;
+}
+</code></pre>
+<h4 id="3bindchfilec">3. Biên dịch file c</h4>
+<p>Tại thư mục chứa file sum.c, gõ dòng lệnh sau để build</p>
+<pre><code>emcc sum.c -o sum.js -s EXPORTED_FUNCTIONS='["_sum"]' -s EXTRA_EXPORTED_RUNTIME_METHODS='["ccall", "cwrap"]'
+</code></pre>
+<p>Sau khi build sẽ có 2 file mới được tạo ra:</p>
+<ul>
+<li>sum.wasm : file nhị phân được biên dịch từ sum.c</li>
+<li>sum.js: file chứa code javascript tạo object Module từ file sum.wasm</li>
+</ul>
+<h4 id="4tofilesumhtml">4. Tạo file sum.html</h4>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;label&gt;a&lt;/label&gt;
+&lt;input id="a" type="number"&gt;
+&lt;label&gt;b&lt;/label&gt;
+&lt;input id="b" type="number"&gt;
+&lt;button onClick="btnClick()"&gt;Sum&lt;/button&gt;
+&lt;input id="result" type="number"&gt;
+
+&lt;script type="text/javascript" src="sum.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+var sum = Module.cwrap('sum', 'number', ['number', 'number']);
+
+function btnClick() {
+  var a = parseInt(document.getElementById("a").value);
+  var b = parseInt(document.getElementById("b").value);
+  var result = document.getElementById("result");
+
+  result.value = sum(a, b);
+}
+  
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Load file kết nối</p>
+<pre><code>&lt;script type="text/javascript" src="sum.js"&gt;&lt;/script&gt;
+</code></pre>
+<p>Hàm sum trong c được bọc thành hàm sum trong javascript thông qua</p>
+<pre><code>var sum = Module.cwrap('sum', 'number', ['number', 'number']);
+</code></pre>
+<h4 id="5chyfilesumhtml">5. Chạy file sum.html</h4>
+<p>Gõ lệnh sau để tạo server http phục vụ các file trong thư mục</p>
+<pre><code>emrun --no_browser --port 8080 .
+</code></pre>
+<p>Truy cập link sau trên trình duyệt hỗ trợ WebAssembly</p>
+<pre><code>localhost:8080/sum.html 
+</code></pre>
+<p>Chúc mừng, đây là code c chạy trên trình duyệt đầu tiên của bạn.</p>
+<h3 id="ngdngwebassemblythct">Ứng dụng WebAssembly thực tế</h3>
+<p>Nếu bạn thấy ví dụ trên chưa đủ cool thì hãy đến với các ví dụ sau</p>
+<h4 id="1tanksdemo">1. Tanks Demo</h4>
+<p>Các developer WebAssembly đã tạo một demo game sử dụng Unity và export sang WebAssembly để chạy trên web. Thử xem:</p>
+<p>
+  <amp-img src="https://cdn-images-1.medium.com/fit/c/160/160/0*z0GJ2mv2kmMEAodq." width="160" height="159" layout="fixed"></amp-img>
+</p>
+<div>
+<a>
+http://webassembly.org/demo/
+</a>
+</div>
+<h4 id="2construct3">2. Construct 3</h4>
+<p>Đây là một game web editor được tạo bởi WebAssembly. Rất tuyệt phải không</p>
+<p>
+  <amp-img src="https://cdn-images-1.medium.com/fit/c/160/160/0*YradIMzuMvVJNFea." width="160" height="159" layout="fixed"></amp-img>
+</p>
+<div>
+<a>
+https://editor.construct.net/
+</a>
+</div>
+<h4 id="3toolnnnhonline">3. Tool nén ảnh Online</h4>
+<p>Đây là một tool nén ảnh online được tạo bởi Alex Danilo. Điều tuyệt vời của nó là gì? Đó là tool này nén ảnh trên trình duyệt và xem ảnh real-time. Thử xem:<br />
+<a href="http://alex-wasm.appspot.com/jpeg/index.html">http://alex-wasm.appspot.com/jpeg/index.html</a></p>
+<h4 id="4webassemblyvideoeditor">4. WebAssembly Video Editor</h4>
+<p>Nếu nén ảnh chưa đủ cool thì tool edit video sau sẽ làm bạn ngạc nhiên. Và lại lần nữa, tool này xử lý ngay trên trình duyệt :v:<br />
+<a href="https://d2jta7o2zej4pf.cloudfront.net/">https://d2jta7o2zej4pf.cloudfront.net/</a></p>
+<h3 id="tngkt">Tổng kết</h3>
+<p>WebAssembly đang có một tương lai hứa hẹn. Nó không chỉ giúp cải thiện nhược điểm lớn nhất của các web app - hiệu năng - mà còn mở ra một ứng dụng tuyệt vời khác đó là: nhiều ngôn ngữ lập trình khác sẽ hỗ trợ build ra Wasm, từ đó không chỉ C/C++ chạy được trên nền tảng web mà còn có Java, C#, Rust,...</p>
+<p>Tuy WebAssembly chỉ mới bắt đầu ở giai đoạn sản phẩm tối thiểu (MVP) nhưng tìm hiểu thêm về nó cũng đáng đó chứ. Khi được thiết kế thành công thì WebAssembly sẽ là công nghệ hot trong tương lai.</p>
+<p>Các tài nguyễn về WebAssembly:</p>
+<ol>
+<li><a href="https://webassembly.org/">https://webassembly.org/</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/WebAssembly">https://developer.mozilla.org/en-US/docs/WebAssembly</a></li>
+<li><a href="https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/">https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

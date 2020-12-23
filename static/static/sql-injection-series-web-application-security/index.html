@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SQL Injection - Series Web Application Security | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi" />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/sql-injection-series-web-application-security/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="SQL Injection - Series Web Application Security" />
+    <meta property="og:description" content="SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/sql-injection-series-web-application-security/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-06-05T04:37:00.000Z" />
+    <meta property="article:modified_time" content="2017-07-28T11:15:47.000Z" />
+    <meta property="article:tag" content="Web Application Security" />
+    <meta property="article:tag" content="SQL Injection" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SQL Injection - Series Web Application Security" />
+    <meta name="twitter:description" content="SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/sql-injection-series-web-application-security/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Q_Đ.V.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Web Application Security, SQL Injection" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_Đ.V.P",
+        "url": "https://blog.vietnamlab.vn/author/phidv/",
+        "sameAs": []
+    },
+    "headline": "SQL Injection - Series Web Application Security",
+    "url": "https://blog.vietnamlab.vn/sql-injection-series-web-application-security/",
+    "datePublished": "2017-06-05T04:37:00.000Z",
+    "dateModified": "2017-07-28T11:15:47.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkNHFGa0xGMW5rTWM&export=download"
+    },
+    "keywords": "Web Application Security, SQL Injection",
+    "description": "1. Nội dung\n * Giới Thiệu\n * SQL Injection\n * SQL Injection Blind\n * Cách Phòng Chống\n * Các Bài Viết Liên\n\n2. Giới thiệu\n * SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của\n   việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi của\n   hệ quản trị cơ sở dữ liệu trả về để inject (tiêm vào) và thi hành các câu\n   lệnh SQL bất hợp pháp. SQL injection có thể cho phép những kẻ tấn công thực\n   hiện các thao tác, delete, insert, update, v.v. Trên cơ s",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-web-application-security tag-sql-injection nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-web-application-security tag-sql-injection js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">SQL Injection - Series Web Application Security</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-06-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 June 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/web-application-security/index.html">Web Application Security</a>, <a href="../tag/sql-injection/index.html">SQL Injection</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkNHFGa0xGMW5rTWM&amp;export&#x3D;download" alt="SQL Injection - Series Web Application Security">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/sql-injection-series-web-application-security/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=SQL%20Injection%20-%20Series%20Web%20Application%20Security">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="1nidung">1. Nội dung</h3>
+<ul>
+<li>Giới Thiệu</li>
+<li>SQL Injection</li>
+<li>SQL Injection Blind</li>
+<li>Cách Phòng Chống</li>
+<li>Các Bài Viết Liên</li>
+</ul>
+<h3 id="2giithiu">2. Giới thiệu</h3>
+<ul>
+<li>SQL injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi của hệ quản trị cơ sở dữ liệu trả về để inject (tiêm vào) và thi hành các câu lệnh SQL bất hợp pháp. SQL injection có thể cho phép những kẻ tấn công thực hiện các thao tác, delete, insert, update, v.v. Trên cơ sở dữ liệu của ứng dụng, thậm chí là server mà ứng dụng đó đang chạy. SQL injection thường được biết đến như là một vật trung gian tấn công trên các ứng dụng web có dữ liệu được quản lý bằng các hệ quản trị cơ sở dữ liệu như SQL Server, MySQL, Oracle, DB2, Sysbase...</li>
+<li>SQL Injection chia làm 2 loại chính:</li>
+<li>SQL Injection</li>
+<li>SQL Injection (Blind)</li>
+<li>Trong các bài viết về Series Web Application Security sẽ sử dụng DVWA để có thể thấy rõ được cách thức tấn công và lỗ hổng. Trong DVWA có 4 cấp độ Security – được lưu trữ trong <code>cookie : security</code></li>
+<li><code>imposible</code> – với cấp độ này thì kẻ tấn công không thể nào tấn công được hệ thống</li>
+<li><code>high</code> – khi thiết lập ở cấp độ này vẫn có thể tấn công vào hệ thống nhưng rất khó</li>
+<li><code>medium</code> – mức độ security trung bình</li>
+<li><code>low</code> – mức độ thấp nhất có thể hack một cách dễ dàng để có thể hiểu về các lỗ hổng. Các bài viết sẽ đề cập tới level low và level imposible.</li>
+</ul>
+<h3 id="3sqlinjection">3. SQL Injection</h3>
+<h4 id="nhngha">Định nghĩa</h4>
+<ul>
+<li>Kiểu tấn công nguy hiểm khi tiêm thêm dữ liệu đầu vào để liệt kê ra các dữ liệu không mong muốn đổ ra cho người dùng nhìn thấy.</li>
+<li>Database:</li>
+</ul>
+<pre><code>- mysql&gt; select * from users; 
++---------+------------+-----------+---------+----------------------------------+------------------------------------------------+---------------------+--------------+ 
+| user_id | first_name | last_name | user | password | avatar | last_login | failed_login | 
++---------+------------+-----------+---------+----------------------------------+------------------------------------------------+---------------------+--------------+ 
+| 1 | admin | admin | admin | 7c6a180b36896a0a8c02787eeafb0e4c | http://webtest1.com/hackable/users/admin.jpg | 2016-12-29 08:19:09 | 0 | 
+| 2 | Gordon | Brown | gordonb | e99a18c428cb38d5f260853678922e03 | http://webtest1.com/hackable/users/gordonb.jpg | 2016-12-29 07:22:43 | 0 | 
+| 3 | Hack | Me | 1337 | 8d3533d75ae2c3966d7e0d4fcc69216b | http://webtest1.com/hackable/users/1337.jpg | 2016-12-29 07:22:43 | 0 | 
+| 4 | Pablo | Picasso | pablo | 0d107d09f5bbe40cade3de5c71e9e9b7 | http://webtest1.com/hackable/users/pablo.jpg | 2016-12-29 07:22:43 | 0 | 
+| 5 | Bob | Smith | smithy | 5f4dcc3b5aa765d61d8327deb882cf99 | http://webtest1.com/hackable/users/smithy.jpg | 2016-12-29 07:22:43 | 0 | 
++---------+------------+-----------+---------+----------------------------------+------------------------------------------------+---------------------+--------------+
+ 5 rows in set (0.00 sec)
+</code></pre>
+<h4 id="xemxtlhng">Xem Xét Lỗ Hổng</h4>
+<ul>
+<li>Trang web có chức năng hiển thị: - <img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_injection.png" alt=""></li>
+<li>Client nhập vào số ID và hiển thị ra các thông tin về người dùng như ID, First Name, Surname</li>
+<li>Một client bình thường thì sẽ không có vấn đề gì. Client sẽ chỉ nhập đúng những ID yêu cầu.</li>
+<li>Với level security low thì code kiểm tra ID như sau:</li>
+</ul>
+<pre><code>$query = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;; 
+$result = mysql_query( $query ) or die( '&lt;pre&gt;' . mysql_error() . '&lt;/pre&gt;' ); // Get results 
+$num = mysql_numrows( $result );
+$i = 0;
+while( $i &lt; $num ) { 
+  // Get values 
+  $first = mysql_result( $result, $i, &quot;first_name&quot; ); 
+  $last = mysql_result( $result, $i, &quot;last_name&quot; ); 
+  
+  // Feedback for end user 
+  $html .= &quot;&lt;pre&gt;ID: {$id}&lt;br /&gt;First name: {$first}&lt;br /&gt;Surname: {$last}&lt;/pre&gt;&quot;; 
+  
+  // Increase loop count 
+  $i++;
+}
+</code></pre>
+<ul>
+<li>Một Hacker ác ý có thể nhập một số chuỗi <code>[10000′ OR ‘1’ = ‘1]</code>  như vậy câu Query trên nếu cộng thêm $id thì sẽ thành như sau</li>
+</ul>
+<pre><code>$id=&quot;10000' OR '1'='1&quot;; 
+↓ 
+SELECT first_name, last_name FROM users WHERE user_id = '$id'; 
+↓ 
+SELECT first_name, last_name FROM users WHERE user_id = '10000' OR '1'='1';
+</code></pre>
+<ul>
+<li>Như vậy với câu SQL trên thì sau khi được thực hiện sẽ lấy ra hết cả first_name, last_name từ trong table users.</li>
+<li>Kết quả:<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_injection1.png" alt=""></li>
+<li>Nếu thay đổi sang level cao hơn của DVWA: Level = high thì bên server:</li>
+</ul>
+<pre><code>// Check database 
+$query = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;&quot;; 
+$result = mysql_query( $query ) or die( '&lt;pre&gt;Something went wrong.&lt;/pre&gt;' );
+</code></pre>
+<p></p>
+<ul>
+<li>Với level như trên thì khi nhập <code>[10000′ OR ‘1’ = ‘1]</code> -&gt; câu query sẽ thành:</li>
+</ul>
+<pre><code>SELECT first_name, last_name FROM users WHERE user_id = '10000' OR '1'='1' LIMIT 1;
+</code></pre>
+<ul>
+<li>Như vậy cho dù lấy được dữ liệu ra nhưng không phải toàn bộ những dữ liệu của bảng users.</li>
+<li>Lúc này thử thay đổi đầu vào khi lợi dụng một số comment out của MYSQL:</li>
+<li>Dữ liệu nhập: <code>[1000′ OR 1=1; — ‘]</code> Query sẽ thành:</li>
+</ul>
+<pre><code>SELECT first_name, last_name FROM users WHERE user_id = '1000' OR 1=1; -- ' LIMIT 1;
+</code></pre>
+<ul>
+<li>
+<p>Vì sau dấu: <code>[–]</code> mọi thứ sẽ trở thành comment của đoạn query nên nó không có ý nghĩa. Và với đoạn mã trên làm cho lỗ hổng SQL Injection vẫn có thể lợi dụng được.</p>
+</li>
+<li>
+<p><img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_injection_2.png" alt=""></p>
+</li>
+</ul>
+<h3 id="4sqlinjectionblind">4. SQL Injection Blind</h3>
+<h4 id="nhngha">Định nghĩa</h4>
+<ul>
+<li>
+<p>Định nghĩa bời Wikipedia: Blind SQL (Structured Query Language) injection is a type of SQL Injection attack that asks the database true or false questions and determines the answer based on the applications response. This attack is often used when the web application is configured to show generic error messages, but has not mitigated the code that is vulnerable to SQL injection. When an attacker exploits SQL injection, sometimes the web application displays error messages from the database complaining that the SQL Query's syntax is incorrect. Blind SQL injection is nearly identical to normal SQL Injection, the only difference being the way the data is retrieved from the database. When the database does not output data to the web page, an attacker is forced to steal data by asking the database a series of true or false questions. This makes exploiting the SQL Injection vulnerability more difficult, but not impossible. .</p>
+</li>
+<li>
+<p>Đây là một kiểu tấn công hết sức kỳ công. Cũng dựa trên lỗ hổng về SQL và để mò mẫm dữ liệu. Có một số Web Application chỉ đưa ra thông báo lỗi và kẻ tấn công dựa vào đó hỏi database những câu hỏi kiểu dạng Đúng, Sai để có thể tìm được dữ liệu của DataBase. Vì câu hỏi Đúng Sai cần rất nhiều mới biết được câu trả lời nên kiểu tấn công này rất kỳ công, khó nhưng vẫn có thể xảy ra.</p>
+</li>
+</ul>
+<h4 id="xemxtlhng">Xem xét lỗ hổng</h4>
+<ul>
+<li>
+<p>Trang web hiển thị: DVWA: SQL Injection (Blind) – security level: low<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_injection_blind.png" alt=""></p>
+</li>
+<li>
+<p>Trong ví dụ trên thì hệ thống Web Application cung cấp một chức năng kiểm tra <code>userID</code> có tồn tại hay không. Nếu có dữ liệu thì trả về message: <code>‘User ID exists in the database‘</code> ngược lại trả về: <code>‘User ID is MISSING from the database‘</code></p>
+</li>
+<li>
+<p>Để kiểm tra chức năng trên có thể khai thác lỗ hổng SQL Injection Blind không thì thử nhập với chuỗi sau: <code>[1000′ OR 1 = 1 — ]</code> và dự đoán kết quả sẽ như sau:<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_innjection_blind_1.png" alt=""></p>
+</li>
+<li>
+<p>Như vậy dù nhập dữ liệu <code>UserID</code> ko có trong Database thì câu trả lời vẫn là có. Như vậy chức năng trên có thể lợi dụng để kiểm tra <code>SQL Injection Blind</code>.</p>
+</li>
+<li>
+<p>Câu hỏi để hỏi database trong SQL Injection Blind thường là <code>[{true query} AND {check query}]</code>. Ví dụ như câu hỏi SQL ở trên, đã có <code>UserID=1</code> rồi nên có hỏi database như sau:</p>
+</li>
+</ul>
+<pre><code>[1′ AND (SELECT user_id FROM users where user_id&lt;10 LIMIT 1)&gt;0 — ] 
+hoặc
+[1′ AND (SELECT user_id FROM users where user_id&gt;=10 LIMIT 1)&gt;0 –]
+</code></pre>
+<p>Với câu hỏi database như trên. Nếu cái nào trả về true thì có thể đoán được là user_id<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/sql_injection_blind_2.png" alt=""></p>
+<ul>
+<li>Như kết quả từ cách thử trên thì đoán được user_id của bảng users chỉ có giá trị nhỏ hơn 10. Nhưng ở đây Hacker làm sao biết được có những bảng nào với trường nào? Chả lẽ chịu thua? Một cách thức khác dựa vào đây có thể đoán được cấu trúc database, table, column. Ví dụ</li>
+</ul>
+<pre><code>1' AND ascii(lower(substring((SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME&gt;'u' LIMIT 1), 1,1)))&gt;116
+1' AND ascii(lower(substring((SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME&gt;'u' LIMIT 1), 1,1)))&lt;118
+1' AND ascii(lower(substring((SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME&gt;'u' LIMIT 1), 1,1)))=116
+</code></pre>
+<ul>
+<li>Với câu hỏi trên với database ta có thể biết được có 1 table có tên bắt đầu bằng chữ ‘u’, để kiểm tra có table tên usser, có column tên usser_id hay không? thì hacker sẽ tốn khá nhiều time để thử.</li>
+<li>Nhưng sau khi thử xong và có thể dựa vào câu hỏi đúng sai có thể tìm được account, password, các thông tin muốn trộm cắp… một cách dễ dàng – chỉ tội mất time</li>
+</ul>
+<h3 id="5cchphngchng">5. Cách Phòng chống</h3>
+<ul>
+<li>Nguyên Nhân Bị mắc lỗi SQL Injection</li>
+<li>Do lỗi developer tạo SQL Query bằng cách cộng chuỗi thông thường.</li>
+<li>Do việc thông báo lỗi đúng sai khi query một query.</li>
+</ul>
+<pre><code>$query = &quot;SELECT first_name, last_name FROM users WHERE user_id = '$id';&quot;;
+</code></pre>
+<ul>
+<li>SQL Injection Blind</li>
+<li>Do việc không xử lý input đầu vào từ bên client ở trên server side.</li>
+<li>Cách phòng chống</li>
+<li>Dùng SQL_PlaceHolder thay vì cộng chuỗi thông thường:</li>
+<li>Không đưa ra thông báo lỗi liên quan đến database khi thực hiện query sai</li>
+<li>Không bao giờ tin tưởng input của client.</li>
+</ul>
+<pre><code>$data = $db-&gt;prepare( 'SELECT first_name, last_name FROM users WHERE user_id = (:id) LIMIT 1;' );
+$data-&gt;bindParam( ':id', $id, PDO::PARAM_INT ); $data-&gt;execute();
+</code></pre>
+<ul>
+<li>Một trang web đang hoạt động bị gặp SQL – Innjection: Chú ý nội dung chỉ để tham khảo.*** Trang web đó đã fixed nên đừng cố thử***<br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/victim_1.png" alt=""><br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/victim_2.png" alt=""><br>
+<img src="https://old.vietnamlab.vn/wp-content/uploads/2016/12/victim3.png" alt=""></li>
+</ul>
+<h3 id="6ccbivitlinquantiseries">6. Các Bài Viết Liên Quan Tới Series</h3>
+<ul>
+<li>
+<p>1.<a href="https://vietnamlab.vn/blog/2017/06/05/gioi-thieu-tong-quan-series-web-application-security/"> Giới thiệu tổng quan series Web Application Security</a></p>
+</li>
+<li>
+<p>2.<a href="https://vietnamlab.vn/blog/2017/06/05/sql-injection-series-web-application-security/"> SQL Injection</a></p>
+</li>
+<li>
+<p>3.<a href="https://vietnamlab.vn/blog/2017/06/05/command-injection-series-web-application-security/"> Command Injection</a></p>
+</li>
+<li>
+<p>4.<a href="https://vietnamlab.vn/blog/2017/06/05/cross-site-request-forgery-csrf-series-web-application-security/"> CSRF</a></p>
+</li>
+<li>
+<p>5.<a href="https://vietnamlab.vn/blog/2017/06/05/cross-site-scripting-xss-series-web-application-security/"> XSS</a></p>
+</li>
+<li>
+<p>6.<a href="https://vietnamlab.vn/blog/2017/06/05/tool-test-security-owasp-zap-series-web-application-security/"> Tool Test Security – OWASP ZAP</a></p>
+</li>
+</ul>
+<p></p>
+<p></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/sql-injection-series-web-application-security/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=SQL%20Injection%20-%20Series%20Web%20Application%20Security">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/sql-injection-series-web-application-security/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/sql-injection-series-web-application-security/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

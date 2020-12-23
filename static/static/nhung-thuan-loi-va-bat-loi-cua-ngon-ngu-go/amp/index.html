@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Những thuận lợi và bất lợi của ngôn ngữ GO</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Những thuận lợi và bất lợi của ngôn ngữ GO" />
+    <meta property="og:description" content="Trong bài blog trước, mình đã giới thiệu về tính hướng đối tượng trong ngôn ngữ Go của Google. Lần này mình sẽ điểm qua những điểm thuận lợi và cả những điểm bất lợi khi sử dụng ngôn ngữ Go. I. Thuận lợi1. Tính đơn giản Mặc dù Go" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nhung-thuan-loi-va-bat-loi-cua-ngon-ngu-go/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1oLi-UzYiHb2SX-P317eFe1PTpM-764bT&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-05-27T01:43:29.000Z" />
+    <meta property="article:modified_time" content="2019-05-27T01:43:29.000Z" />
+    <meta property="article:tag" content="golang" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Những thuận lợi và bất lợi của ngôn ngữ GO" />
+    <meta name="twitter:description" content="Trong bài blog trước, mình đã giới thiệu về tính hướng đối tượng trong ngôn ngữ Go của Google. Lần này mình sẽ điểm qua những điểm thuận lợi và cả những điểm bất lợi khi sử dụng ngôn ngữ Go. I. Thuận lợi1. Tính đơn giản Mặc dù Go" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nhung-thuan-loi-va-bat-loi-cua-ngon-ngu-go/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1oLi-UzYiHb2SX-P317eFe1PTpM-764bT&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="H.D.K" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="golang" />
+    <meta property="og:image:width" content="2800" />
+    <meta property="og:image:height" content="1633" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "H.D.K",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1OQzu4osRddcgx7NDUx5DzYn3yy9O9Ue1&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/khoahd/",
+        "sameAs": []
+    },
+    "headline": "Những thuận lợi và bất lợi của ngôn ngữ GO",
+    "url": "https://blog.vietnamlab.vn/nhung-thuan-loi-va-bat-loi-cua-ngon-ngu-go/",
+    "datePublished": "2019-05-27T01:43:29.000Z",
+    "dateModified": "2019-05-27T01:43:29.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1oLi-UzYiHb2SX-P317eFe1PTpM-764bT&export=download",
+        "width": 2800,
+        "height": 1633
+    },
+    "keywords": "golang",
+    "description": "Trong bài blog trước, mình đã giới thiệu về tính hướng đối tượng trong ngôn ngữ\nGo của Google\n[https://blog.vietnamlab.vn/2019/02/27/ngon-ngu-go-co-huong-doi-tuong-khong/].\nLần này mình sẽ điểm qua những điểm thuận lợi và cả những điểm bất lợi khi sử\ndụng ngôn ngữ Go.\n\nI. Thuận lợi\n1. Tính đơn giản\nMặc dù Go có thể không phổ biến như JavaScript hoặc Python, nhưng nó có một điểm\nchung quan trọng với JavaScript và Python là nó rất dễ hiểu. Cú pháp rõ ràng dễ\ntiếp cận với người mới và không có nhiề",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Những thuận lợi và bất lợi của ngôn ngữ GO</h1>
+                <section class="post-meta">
+                    H.D.K -
+                    <time class="post-date" datetime="2019-05-27">27 May 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1oLi-UzYiHb2SX-P317eFe1PTpM-764bT&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trong bài blog trước, mình đã giới thiệu về <a href="https://blog.vietnamlab.vn/2019/02/27/ngon-ngu-go-co-huong-doi-tuong-khong/">tính hướng đối tượng trong ngôn ngữ Go của Google</a>. Lần này mình sẽ điểm qua những điểm thuận lợi và cả những điểm bất lợi khi sử dụng ngôn ngữ Go.</p><h3 id="i-thu-n-l-i">I. Thuận lợi</h3><h4 id="1tnhngin">1. Tính đơn giản</h4>
+<p>Mặc dù Go có thể không phổ biến như JavaScript hoặc Python, nhưng nó có một điểm chung quan trọng với JavaScript và Python là nó rất dễ hiểu. Cú pháp rõ ràng dễ tiếp cận với người mới và không có nhiều hàm phức tạp mà bạn phải học so với các ngôn ngữ lập trình khác. </p><p>Điều này không chỉ dừng lại ở lợi ích duy nhất là giúp người mới dễ học mà tính đơn giản của ngôn ngữ Go còn giúp cho code được viết ra trở nên rất rõ ràng và dễ đọc. Go còn có sự tương đồng với các ngôn ngữ như C, C++, C# giúp cho những lập trình viên đã có kinh nghiệm về các ngôn ngữ trên khi chuyển qua Go mà không gặp mấy khó khăn.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1IxEcq5fiHbj3m2jTE69mcZypPwYUdmVF&amp;export=download" class="kg-image" alt width="2000" height="1487" layout="responsive"></amp-img></figure><h4 id="2cungcpsnthvicchunrtthngminh">2. Cung cấp sẵn thư việc chuẩn rất thông minh</h4>
+<p>Lập trình viên sử dụng ngôn ngữ Go có thể thực hiện rất nhiều mà không cần phải tìm hiểu thêm như viện khác (thư viện không phải thư viện chuẩn). Đôi khi có môt số việc yêu cầu phải được cài đặt phức tạp ở các ngôn ngữ khác thì lại có thể được thực hiện bằng một dòng mã thông qua <code>Go interface</code>.  </p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1C0_OVHEn-ALYp9-0Y4OjuL11-TBzsXYx&amp;export=download" class="kg-image" alt width="1200" height="640" layout="responsive"></amp-img></figure><h4 id="3tnhbomtcao">3. Tính bảo mật cao</h4>
+<p>Xét về mặt tổng quát, code đơn giản sẽ an toàn hơn code phức tạp mọi thứ rất rõ ràng giúp ta có thể kiểm soát được lỗi dễ hơn và điều đó hoàn toàn đúng với trường hợp của Go. Là một statically typed language, bạn không phải lo lắng về các lỗi phức tạp và khó xác định xuất phát từ số lượng lớn các loại biến có trong các ngôn ngữ dynamic hơn so với Go. Bên cạnh đó Go bộ thu gom rác giúp lập trình viên chỉ cần chuyên tâm vào logic mà họ cần xử lí.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1tMHjoE22fmtwiSznTvgk_U79acBUDTCN&amp;export=download" class="kg-image" alt width="1000" height="667" layout="responsive"></amp-img></figure><h4 id="4tiliurrngvc">4. Tài liệu rõ ràng và đễ đọc</h4>
+<p>Mặc dù Go là một ngôn ngữ đơn giản để viết và đọc, nhưng điều đó không có nghĩa là không viết documentation. Các thư viện chuẩn được viết documentation rất cẩn thận và dễ hiểu. Chính sách mặc định là phải viết documentation cho tất cả các chức năng và thư viện. Go thậm chí còn cảnh báo bạn khi bạn quên đặt documentation vào những vị trí cần viết. Đó là điều đặc biệt quý giá cho các lập trình viên trẻ tuổi, những người có xu hướng rơi vào thói quen tài liệu cẩu thả từ rất sớm.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1bhLxA1vX6DzphL1Ox9fAtrD3R59056UD&amp;export=download" class="kg-image" alt width="1920" height="968" layout="responsive"></amp-img></figure><h3 id="ii-b-t-l-i">II. Bất lợi</h3><h4 id="1ilcnqungin">1. Đôi lúc nó quá đơn giản</h4>
+<p>Một trong những ưu điểm chính của Go, cũng là một trong những điểm yếu lớn nhất của nó. Go có thể là một ngôn ngữ dễ dàng để chọn, nhưng điều đó mang lại sự thiếu linh hoạt.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1W2jT1cqPNNPwRyKfwVP-Bb4wgghbBUTO&amp;export=download" class="kg-image" alt width="1280" height="720" layout="responsive"></amp-img></figure><h4 id="2govncnlmtngnngtr">2. Go vẫn còn là một ngôn ngữ trẻ</h4>
+<p>Có ngôn ngữ rất nhiều tiềm năng hứa hẹn, tuy nhiên nó vẫn là một ngôn ngữ trẻ và đương nhiên sẽ gặp khó khăn khi phải cạnh trạnh với những ngôn ngữ đã được ra đời trước nó. Thư viện chuẩn của Go được thiết kế thông minh và hiệu quả, nhưng nó phải cạnh tranh với các ngôn ngữ như Java được hỗ trợ bởi một bộ mã khổng lồ và có một cộng đồng hùng hậu. Mặc dù Go cuối cùng có thể bắt kịp các ngôn ngữ khác và Go cũng có những điểm mạnh riêng của nó nhưng Go vẫn còn một chặng đường dài trong việc xây dựng thư viện hỗ trợ.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=12S2Sotjc0oVgp7sni_22V9zXDdva9RBB&amp;export=download" class="kg-image" alt width="770" height="512" layout="responsive"></amp-img></figure><h4 id="3govnchathcstmcchngchomnh">3. Go vẫn chưa thực sự tìm được chỗ đứng cho mình</h4>
+<p>Khi mà JavaScript trở thành ngôn ngữ cho lập trình viên thích sự đơn giản và Python đã tìm thấy một vị trí trong thế giới trực quan hóa và phân tích dữ liệu, Go chưa thực sự chiếm lĩnh được vị trí tốt bên ngoài Google so với các ngôn ngữ lâu đời. Thêm vào thực tế là các công ty khác sẽ ngần ngại đầu tư vào một ngôn ngữ chủ yếu thuộc sở hữu của đối thủ cạnh tranh. Mặc dù đã có 1 số công ty sử dụng ngôn ngữ Go của Google nhưng xét về tổng quan số lượng này vẫn chưa thực sự ấn tượng so với các ngôn ngữ lâu đời.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=16vNCqnlD19AsxJYE5lF4vAirhY7c8unL&amp;export=download" class="kg-image" alt width="638" height="479" layout="responsive"></amp-img></figure><h4 id="4khnghtrthvingui">4. Không hỗ trợ thư viện GUI</h4>
+<p>Go là một lựa chọn tuyệt vời cho các ứng dụng. Mặc dù vậy, Go không có thư viện GUI, điều đó có nghĩa là bạn phải tốn nhiều thời gian và kiến ​​thức để kết nối thư viện với ứng dụng của mình thay vì sử dụng các giải pháp gốc như với Python hoặc Java.</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1knpsrdCjPjDZuwFisuAuujxkqWjr_7Jy&amp;export=download" class="kg-image" alt width="660" height="386" layout="responsive"></amp-img></figure><h3 id="iii-k-t-lu-n">III. Kết luận</h3><p>Không có bất cứ thứ gì có thể gọi là một ngôn ngữ lập trình hoàn hảo cả! Điều tốt nhất mà một ngôn ngữ có thể làm là hi vọng nó có thể làm được một hoặc hai điều gì đó mà vượt trội hơn so với tất cả các ngôn ngữ khác còn lại. Đối với Go, một trong những điểm mạnh lớn nhất là tính rõ ràng, đơn giản. Tính dễ sử dụng của nó, kết hợp với việc áp dụng cao tại Google làm cho nó trở thành một ngôn ngữ trẻ đầy triển vọng. Nhưng nó sẽ không phù hợp với mọi dự án hay mọi lập trình viên. Vì vậy hãy xem xét các điểm mạnh và điểm yếu một cách cẩn thận trước khi sử dụng.</p><h3 id="iv-ngu-n-tham-kh-o">IV. Nguồn tham khảo</h3><p></p><p><a href="https://hackernoon.com/should-i-go-the-pros-and-cons-of-using-go-programming-language-8c1daf711e46">https://hackernoon.com/should-i-go-the-pros-and-cons-of-using-go-programming-language-8c1daf711e46</a></p><p><a href="https://willowtreeapps.com/ideas/the-pros-and-cons-of-programming-in-go">https://willowtreeapps.com/ideas/the-pros-and-cons-of-programming-in-go</a></p><p><a href="https://www.mindinventory.com/blog/pros-and-cons-programming-in-golang/">https://www.mindinventory.com/blog/pros-and-cons-programming-in-golang/</a></p>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

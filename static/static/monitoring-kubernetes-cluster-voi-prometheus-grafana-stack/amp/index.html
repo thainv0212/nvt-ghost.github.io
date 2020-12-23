@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 1)</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 1)" />
+    <meta property="og:description" content="Nội dung Giới thiệu Prometheus Prometheus Operator Grafana Installation Kết luận Tài liệu tham khảo Giới thiệu Để bắt đầu với nội dung bài viết này, chắc hẳn bạn đã có kiến thức cơ bản về Kubernetes rồi, và nếu bạn chưa từng nghe về Kubernetes thì xin mời bạn" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1bSW7akbs7EVMX6xa3UyD6DCoAy0F9RLn&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-01-31T07:40:05.000Z" />
+    <meta property="article:modified_time" content="2019-06-27T10:28:26.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="k8s" />
+    <meta property="article:tag" content="monitoring" />
+    <meta property="article:tag" content="Prometheus" />
+    <meta property="article:tag" content="Grafana" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 1)" />
+    <meta name="twitter:description" content="Nội dung Giới thiệu Prometheus Prometheus Operator Grafana Installation Kết luận Tài liệu tham khảo Giới thiệu Để bắt đầu với nội dung bài viết này, chắc hẳn bạn đã có kiến thức cơ bản về Kubernetes rồi, và nếu bạn chưa từng nghe về Kubernetes thì xin mời bạn" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1bSW7akbs7EVMX6xa3UyD6DCoAy0F9RLn&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, k8s, monitoring, Prometheus, Grafana" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 1)",
+    "url": "https://blog.vietnamlab.vn/monitoring-kubernetes-cluster-voi-prometheus-grafana-stack/",
+    "datePublished": "2019-01-31T07:40:05.000Z",
+    "dateModified": "2019-06-27T10:28:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1bSW7akbs7EVMX6xa3UyD6DCoAy0F9RLn&export=download",
+        "width": 1920,
+        "height": 1080
+    },
+    "keywords": "kubernetes, k8s, monitoring, Prometheus, Grafana",
+    "description": "Nội dung\n * Giới thiệu\n * Prometheus\n * Prometheus Operator\n * Grafana\n * Installation\n * Kết luận\n * Tài liệu tham khảo\n\nGiới thiệu\nĐể bắt đầu với nội dung bài viết này, chắc hẳn bạn đã có kiến thức cơ bản về\nKubernetes rồi, và nếu bạn chưa từng nghe về Kubernetes thì xin mời bạn tìm hiểu\nvề K8s ở bài viết trước Tại đây\n[https://blog.vietnamlab.vn/2018/09/25/tim-hieu-va-trien-khai-ung-dung-web-voi-kubernetes/]\n.\nHiểu được tất cả các thành phần cũng như cách vận hành của K8s quả là khó và bạn\ncầ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Monitoring Kubernetes Cluster với Prometheus-Grafana Stack (kỳ 1)</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2019-01-31">31 Jan 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1bSW7akbs7EVMX6xa3UyD6DCoAy0F9RLn&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Giới thiệu</li>
+<li>Prometheus</li>
+<li>Prometheus Operator</li>
+<li>Grafana</li>
+<li>Installation</li>
+<li>Kết luận</li>
+<li>Tài liệu tham khảo</li>
+</ul>
+<h3 id="giithiu">Giới thiệu</h3>
+<p>Để bắt đầu với nội dung bài viết này, chắc hẳn bạn đã có kiến thức cơ bản về Kubernetes rồi, và nếu bạn chưa từng nghe về Kubernetes thì xin mời bạn tìm hiểu về K8s ở bài viết trước <a href="https://blog.vietnamlab.vn/2018/09/25/tim-hieu-va-trien-khai-ung-dung-web-voi-kubernetes/">Tại đây</a>.<br />
+Hiểu được tất cả các thành phần cũng như cách vận hành của K8s quả là khó và bạn cần thời gian, vì K8s được xây dựng để phục vụ hệ thống lớn. Với một hệ thống lớn hàng chục server với nhiều ứng dụng chạy trên đó, để luôn có thể giám sát, cảnh báo và phát hiện kịp thời tình trạng sức khoẻ của hệ thống, việc này sẽ trở nên nhẹ nhàng cho Devops/Operator/System Admin nếu có 1 hệ thống monitoring-alert như vậy.<br />
+Có nhiều bộ công cụ để monitoring hệ thống. Chẳng hạn như FEK (Fluentd Elasticsearch Kibana) Stack, Prometheus - Grafana Stack v.v. Lần này mình sẽ giới thiệu đến các bạn bộ công cụ kết hợp với K8s để monitoring chính là Prometheus - Grafana.<br />
+Monitoring k8s sẽ giúp team những việc sau:</p>
+<ul>
+<li>Giám sát hệ thống 1 cách chủ động</li>
+<li>Tầm nhìn toàn diện hệ thống và khả năng lập kế hoặch triển khai</li>
+<li>Tạo cảnh báo khi hệ thống có vấn đề</li>
+<li>Hiển thị biểu đồ các số liệu mong muốn (Disk/CPU/Memory vv)</li>
+</ul>
+<p>Dĩ nhiên Prometeus và Grafana không chỉ dành riêng cho K8s mà còn monitoring được cho nhiều hệ thống khác. Thời gian gần đây thì Coreos đã cho ra mắt <a href="https://github.com/coreos/prometheus-operator">Prometheus-Operator</a> giúp cho việc set up Prometeus và Grafana trên K8s trở nên dễ dàng hơn rất nhiều.</p>
+<h3 id="prometheus">Prometheus</h3>
+<p>Là một bộ công cụ giám sát và cảnh báo hệ thống mã nguồn mở ban đầu được xây dựng bởi công ty <a href="https://soundcloud.com/">SoundCloud</a>. Kể từ khi thành lập vào năm 2012, nhiều công ty và tổ chức đã áp dụng Prometheus vào hệ thống và dự án này có một cộng đồng người dùng và nhà phát triển rất tích cực.<br />
+Prometheus bây giờ đã trở thành một dự án mã nguồn mở độc lập và được duy trì độc lập với bất kỳ công ty nào. Prometheus đã tham gia vào tổ chức <a href="https://www.cncf.io/">Cloud Native Computing Foundation</a> vào năm 2016 với tư cách là dự án được ưu tiên phát triển thứ2 sau <a href="https://kubernetes.io/">Kubernetes(k8s)</a>.</p>
+<h4 id="mtstnhnngcaprometheus">Một số tính năng của Prometheus</h4>
+<ul>
+<li>Mô hình dữ liệu đa chiều - time series được xác định bởi tên của số liệu (metric) và cặp key-value</li>
+<li>Ngôn ngữ truy vấn linh hoạt</li>
+<li>Hỗ trợ nhiều biểu đồ</li>
+<li>Dễ dàng cấu hình cảnh báo</li>
+<li>Chỉ cần 1 máy chủ là có thể hoạt động được</li>
+<li>Hỗ trợ Push các time-series thông quan 1 gateway trung gian.</li>
+<li>Prometheus sử dụng Alertmanager để lý và gửi cảnh báo đi</li>
+<li>Prometheus cung cấp giao diện đơn giản đề tạo truy vấn và hiển thị biểu đồ</li>
+<li>Kết hợp với Grafana để hiện thị dữ liệu dưới dạng nhiều kiểu biểu đồ khác nhau.</li>
+</ul>
+<h4 id="kintrcprometheus">Kiến trúc Prometheus</h4>
+<p><amp-img src="https://drive.google.com/uc?id=13Ruax7YniVkiEW4u18rIuYEGM7hd7rSi&amp;export=download" alt="uc?id=13Ruax7YniVkiEW4u18rIuYEGM7hd7rSi&amp;export=download" width="1351" height="811" layout="responsive"></amp-img><br />
+<em><a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/</a></em></p>
+<h4 id="thnhphnprometheus">Thành phần Prometheus</h4>
+<ul>
+<li>Prometheus server đảm nhận việc lấy và lưu trữ dữ liệu time-series</li>
+<li>Client libraries cho code ứng dụng</li>
+<li>Push gateway hỗ trở các short-lived jobs</li>
+<li>Exporter đa dạng hỗ trợ giám sát các dịch vụ hệ thống và gửi về Prometheus theo chuẩn Prometheus mong muốn.</li>
+<li>Alertmanager: xử lý việc cảnh báo (gửi về mail, slack, hipchat vv)</li>
+</ul>
+<h3 id="prometheusoperator">Prometheus Operator</h3>
+<blockquote>
+<p>The mission of the Prometheus Operator is to make running Prometheus on top of Kubernetes as easy as possible, while preserving configurability as well as making the configuration Kubernetes native. <a href="https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html">https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html</a></p>
+</blockquote>
+<p>Prometheus Operator cũng cấp việc monitoring K8s service và deployment một cách dễ dàng bên cạnh việc quản lý các cấu hình của Prometheus, Alertmanager và Grafana.</p>
+<h4 id="mhnhhotngcaprometheusoperator">Mô hình hoạt động của Prometheus Operator</h4>
+<p><amp-img src="https://drive.google.com/uc?id=14AXpJi--sRqn0JfGC9W2TnoQXayKhxLv&amp;export=download" alt="uc?id=14AXpJi--sRqn0JfGC9W2TnoQXayKhxLv&amp;export=download" width="1796" height="1046" layout="responsive"></amp-img><br />
+<em><a href="https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html">https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html</a></em></p>
+<h3 id="grafana">Grafana</h3>
+<p><a href="https://grafana.com/">https://grafana.com/</a><br />
+Grafana là công cụ giám sát và trực quan nguồn mở, dữ liệu tích hợp với dữ liệu phức tạp từ các nguồn như Prometheus, InfluxDB vv. Cơ bản thì Grafana là một dashboard app cho phép ta tạo các dashboard từ các nguồn dữ liệu time-series. Prometheus sử dụng grafana là một dashboard chính thức, nên việc sử dụng grafana với Prometheus rất đơn giản.<br />
+Một số hình ảnh dashboard của Grafana:<br />
+<amp-img src="https://drive.google.com/uc?id=1jkf0C_3fNHLJTUfmBTAl61wy02eVfUVY&amp;export=download" alt="uc?id=1jkf0C_3fNHLJTUfmBTAl61wy02eVfUVY&amp;export=download" width="1206" height="601" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=1V5CtOb6QSKHlye1f28KIVqa5NNz26uvA&amp;export=download" alt="uc?id=1V5CtOb6QSKHlye1f28KIVqa5NNz26uvA&amp;export=download" width="2546" height="1195" layout="responsive"></amp-img></p>
+<h3 id="installation">Installation</h3>
+<p>Yêu cầu:</p>
+<ul>
+<li>Kubernetes cluster đang chạy</li>
+<li><a href="https://github.com/helm/helm/blob/master/docs/install.md">Helm</a> đã được cài đặt và hoạt động</li>
+</ul>
+<h4 id="cit">Cài đặt</h4>
+<p>Tham khảo: <a href="https://github.com/helm/charts/tree/master/stable/prometheus-operator">https://github.com/helm/charts/tree/master/stable/prometheus-operator</a></p>
+<pre><code>helm install stable/prometheus-operator --name prometheus-operator --namespace monitoring
+</code></pre>
+<p>Nếu chúng ta muốn cài đặt và overwrite lại một số gía trị default thì tham khảo phần cài đặt ở link phía trên. (cách overwrite các giá trị mặc định ở cuối bài viết)<br />
+Bây giờ chúng ta kiểm tra xem phần cài đặt đã ổn chưa</p>
+<pre><code>$ kubectl get pods  -n monitoring
+NAME                                                      READY     STATUS    RESTARTS   AGE
+alertmanager-prometheus-operator-alertmanager-0           2/2       Running   0          6h
+prometheus-operator-grafana-7859656fc4-h58x4              3/3       Running   15         6h
+prometheus-operator-kube-state-metrics-6f86fdd84b-bkpvq   1/1       Running   0          6h
+prometheus-operator-operator-69c54d7ffc-jpk9t             1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-4c5z6        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-4rb8d        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-5d6gm        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-c48mr        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-c49p9        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-fx6f9        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-kt784        1/1       Running   0          6h
+prometheus-operator-prometheus-node-exporter-tx6rh        1/1       Running   0          6h
+prometheus-prometheus-operator-prometheus-0               3/3       Running   1          6h
+</code></pre>
+<p>Có vẻ như phần cài đặt của chúng ta không có vấn đề gì.</p>
+<h4 id="runprometheusdashboard">Run Prometheus dashboard</h4>
+<p>Để khởi chạy Prometheus dashboard chúng ta sẽ tạo 1 service type NodePort</p>
+<ol>
+<li>Kiểm tra pod prometheus-prometheus-operator-prometheus-0 đang chạy ở Node nào (tạm gọi nó là {operator-prometheus IP})</li>
+<li>Tạo service</li>
+</ol>
+<pre><code># create file prom-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: prom-service
+  labels:
+    app: prometheus
+spec:
+  type: NodePort
+  ports:
+    - port: 9090
+      nodePort: 30090
+  selector:
+    app: prometheus
+# run service
+$ kubectl apply -f prom-service.yml -n monitoring
+service "prom-service" created
+</code></pre>
+<ol start="3">
+<li>Truy cập http://{operator-prometheus IP}:30090/graph<br />
+<amp-img src="https://drive.google.com/uc?id=1JPRPB2qstLCvHXh-zQtVIWGH3SoJeTMv&amp;export=download" alt="uc?id=1JPRPB2qstLCvHXh-zQtVIWGH3SoJeTMv&amp;export=download" width="2880" height="1062" layout="responsive"></amp-img></li>
+</ol>
+<h4 id="rungrafanadashboard">Run Grafana dashboard</h4>
+<p>Mặc dù Prometheus đã có sẵn expression browser để cho mục đích debuging rồi, tuy nhiên hãy sử dụng Grafana để có có giao diện đẹp mắt, nó đã được cấu hình sẵn nơi để lấy dữ liệu từ Prometheus.</p>
+<ol>
+<li>Kiểm tra pod prometheus-operator-grafana..... đang chạy ở Node nào (tạm gọi nó là {grafana IP})</li>
+<li>Tạo service</li>
+</ol>
+<pre><code># create file grafana-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+  labels:
+    app: grafana
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      nodePort: 30300
+  selector:
+    app: grafana
+# run service
+$ kubectl apply -f grafana-service.yml -n monitoring
+service "grafana-service" created
+</code></pre>
+<ol start="3">
+<li>Truy cập http://{grafana IP}:30300/</li>
+</ol>
+<p><amp-img src="https://drive.google.com/uc?id=1_cIx4dQI_Q5h_us76IjS0v7DJvqAJlMi&amp;export=download" alt="uc?id=1_cIx4dQI_Q5h_us76IjS0v7DJvqAJlMi&amp;export=download" width="2880" height="1238" layout="responsive"></amp-img><br />
+<em>Grafana — Kubernetes dashboards</em><br />
+<amp-img src="https://drive.google.com/uc?id=1KvojsZVIRBlWGQtPutih5i04k2xLofqV&amp;export=download" alt="uc?id=1KvojsZVIRBlWGQtPutih5i04k2xLofqV&amp;export=download" width="2880" height="1438" layout="responsive"></amp-img><br />
+<em>Grafana — Kubernetes node planning dashboard</em></p>
+<h4 id="runalertmanager">Run Alertmanager</h4>
+<blockquote>
+<p>The <a href="https://prometheus.io/docs/alerting/alertmanager/">Alertmanager</a> handles alerts sent by client applications such as the Prometheus server. It takes care of deduplicating, grouping, and routing them to the correct receiver integration such as email, PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts.</p>
+</blockquote>
+<p>Chúng ta cũng thực hiện tương tự như Grafana.</p>
+<ol>
+<li>Kiểm tra pod alertmanager-prometheus-operator-alertmanager-0 đang chạy ở Node nào (tạm gọi nó là {alertmanager IP})</li>
+<li>Tạo service</li>
+</ol>
+<pre><code># create file alertmanager-service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager-service
+  labels:
+    app: alertmanager
+spec:
+  type: NodePort
+  ports:
+    - port: 9093
+      nodePort: 30093
+  selector:
+    app: alertmanager
+# run service
+$ kubectl apply -f alertmanager-service.yml -n monitoring
+service "alertmanager-service" created
+</code></pre>
+<ol start="3">
+<li>Truy cập http://{alertmanager IP}:30093/</li>
+</ol>
+<p><amp-img src="https://drive.google.com/uc?id=172F9bp_Eq0KAbHlw_-60n0nETZxX2Kbk&amp;export=download" alt="uc?id=172F9bp_Eq0KAbHlw_-60n0nETZxX2Kbk&amp;export=download" width="2522" height="1038" layout="responsive"></amp-img></p>
+<h3 id="createdashboards">Create Dashboards</h3>
+<p>Như phía trên mình có đề cập về cách cài Prometheus với một số value do mình tự định nghĩa.</p>
+<pre><code>helm install stable/prometheus-operator --name prometheus-operator --namespace monitoring -f values1.yaml,values2.yaml
+</code></pre>
+<p>Ở đây mình có thể sử dụng file <a href="https://github.com/helm/charts/blob/master/stable/prometheus-operator/values.yaml">value.yaml</a> mặc định.<br />
+Khi thay đổi file value.yaml thì chúng ta sẽ chạy lệnh sau để upgrade</p>
+<pre><code>helm upgrade --install prometheus-operator stable/prometheus-operator --namespace monitoring -f values.yml 
+</code></pre>
+<h4 id="diskusagedashboard">Disk Usage Dashboard</h4>
+<p>Đầu tiên ở giao diện Grafana chúng ta sẽ tạo 1 Dashboard thông số sử dụng đĩa của các Node trong K8s.<br />
+Từ giao diện của Grafana -&gt; Create -&gt; Dashboard, chọn biểu đồ Graph<br />
+Tại Panel Title -&gt; chọn edit để nhập câu lệnh truy vấn PROMQL<br />
+<amp-img src="https://drive.google.com/uc?id=1CEw7nuwQqjvcYbialpdIwh1YFDWqheuf&amp;export=download" alt="uc?id=1CEw7nuwQqjvcYbialpdIwh1YFDWqheuf&amp;export=download" width="945" height="423" layout="responsive"></amp-img></p>
+<p>Nhập câu truy vấn sau đây</p>
+<pre><code>sum( (node_filesystem_size{mountpoint="/"} - node_filesystem_free{mountpoint="/"}) * 100 / node_filesystem_size{mountpoint="/"}  )
+BY (instance)
+</code></pre>
+<p>Legend format: {{instance}}<br />
+Chạy Query Inspector<br />
+<amp-img src="https://drive.google.com/uc?id=1NLtxjb4NEfvI6tP5J65gwATVt8l7VRdm&amp;export=download" alt="uc?id=1NLtxjb4NEfvI6tP5J65gwATVt8l7VRdm&amp;export=download" width="1845" height="728" layout="responsive"></amp-img></p>
+<p>Vậy là chung ta đã có được một Dashboard thể hiện disk usage của tất cả các node trong K8s. Bây giờ giả sử chúng ta xoá cài đặt prometheus-operator đương nhiên là dashboard của chúng ta tạo cũng biến mất luôn. Để có thể được tạo lại các dashboard chúng ta làm như sau:</p>
+<ol>
+<li>Lưu lại file JSON của Dashboard ta vừa tạo bằng cách chọn Setting ở góc trên bên phải -&gt; chọn JSON Model<br />
+Coppy nội dung file JSON và lưu tạm.</li>
+<li>Tham khảo <a href="https://github.com/helm/charts/tree/master/stable/grafana#sidecar-for-dashboards">https://github.com/helm/charts/tree/master/stable/grafana#sidecar-for-dashboards</a>.<br />
+tạo config-map có tên disk-usage-dashboard.yml<br />
+<a href="https://github.com/phongnx1/prometheus-grafana/blob/master/disk-usage-dashboard.yml">https://github.com/phongnx1/prometheus-grafana/blob/master/disk-usage-dashboard.yml</a></li>
+<li>Chạy thực thi config-map</li>
+</ol>
+<pre><code>$ kubectl apply -f disk-usage-dashboard.yml
+</code></pre>
+<h4 id="createalertrule">Create Alert rule</h4>
+<p>Vì lỗi Network trong k8s cluster của mình, nên hiện tại mình chưa lấy được demo về Alert. Hẹn mọi người trong phần tiếp theo.</p>
+<h3 id="source">Source</h3>
+<p>Github: <a href="https://github.com/phongnx1/prometheus-grafana">https://github.com/phongnx1/prometheus-grafana</a></p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://prometheus.io/">https://prometheus.io/</a></li>
+<li><a href="https://github.com/helm/charts/tree/master/stable/grafana#sidecar-for-dashboards">https://github.com/helm/charts/tree/master/stable/grafana#sidecar-for-dashboards</a></li>
+<li><a href="https://github.com/helm/charts/tree/master/stable/prometheus-operator">https://github.com/helm/charts/tree/master/stable/prometheus-operator</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế" />
+    <meta property="og:description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/unit-test-voi-jest/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-11-05T01:15:48.000Z" />
+    <meta property="article:modified_time" content="2019-11-05T01:15:48.000Z" />
+    <meta property="article:tag" content="jest" />
+    <meta property="article:tag" content="unittest" />
+    <meta property="article:tag" content="reactnative" />
+    <meta property="article:tag" content="testing" />
+    <meta property="article:tag" content="unit test" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế" />
+    <meta name="twitter:description" content="Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Với Jestjs một JavaScript Testing Framework, ta có thể dễ dàng sử dụng và cài đặt." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/unit-test-voi-jest/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.B.D" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="jest, unittest, reactnative, testing, unit test" />
+    <meta property="og:image:width" content="796" />
+    <meta property="og:image:height" content="416" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.B.D",
+        "url": "https://blog.vietnamlab.vn/author/duynb/",
+        "sameAs": []
+    },
+    "headline": "Test ứng dụng React Native với Jest (Phần 1) | Qua ví dụ thực tế",
+    "url": "https://blog.vietnamlab.vn/unit-test-voi-jest/",
+    "datePublished": "2019-11-05T01:15:48.000Z",
+    "dateModified": "2019-11-05T01:15:48.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&export=download",
+        "width": 796,
+        "height": 416
+    },
+    "keywords": "jest, unittest, reactnative, testing, unit test",
+    "description": "Mở đầu\nUnit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Hãy xem mô hình\ndưới đây để thấy được tầm quan trọng của Unit tests. Khi càng tăng test ở unit\ntests sẽ càng giảm test ở các tầng trên. \n\nTesting TriangleTrong unit test ta sẽ kiểm tra từng phần nhỏ trong code, đó có\nthể là các method, function trong class, thậm chí là phần nhỏ hơn trong\nfunction.\n\nHôm nay tôi sẽ giới thiệu với các bạn framework của React Native giúp thực hiện\ncông việc test đó chính là Jest.\n\n1.Configure Jest\n",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-jest tag-unittest tag-reactnative tag-testing tag-unit-test nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-jest tag-unittest tag-reactnative tag-testing tag-unit-test js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Test ứng dụng React Native với Jest (Phần 1)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-11-05">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 05 November 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/jest/index.html">jest</a>, <a href="../tag/unittest/index.html">unittest</a>, <a href="../tag/reactnative/index.html">reactnative</a>, <a href="../tag/testing/index.html">testing</a>, <a href="../tag/unit-test/index.html">unit test</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;14WERBNNF7ABPzz-lz8rTb6IkK5zTkrXl&amp;export&#x3D;download" alt="Test ứng dụng React Native với Jest (Phần 1)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/unit-test-voi-jest/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Test%20%E1%BB%A9ng%20d%E1%BB%A5ng%20React%20Native%20v%E1%BB%9Bi%20Jest%20(Ph%E1%BA%A7n%201)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <h3 id="m-u">Mở đầu</h3><p>Unit test là bước đầu tiên trong quy trình kiểm thử phần mềm. Hãy xem mô hình dưới đây để thấy được tầm quan trọng của Unit tests. Khi càng tăng test ở unit tests sẽ càng giảm test ở các tầng trên. </p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://drive.google.com/uc?id=1A4pFOJ3tNqlJgoUYFa3YjKQ-9I3pXZ5d&amp;export=download" class="kg-image" alt><figcaption><strong><strong><em><em>Testing Triangle</em></em></strong></strong></figcaption></figure><p>Trong unit test ta sẽ kiểm tra từng phần nhỏ trong code, đó có thể là các method, function trong class, thậm chí là phần nhỏ hơn trong function.</p><p>Hôm nay tôi sẽ giới thiệu với các bạn framework của React Native giúp thực hiện công việc test đó chính là Jest.</p><h3 id="1-configure-jest">1.Configure Jest</h3><p><em> Từ phiên bản RN 0.38 trở lên, Jest đã được tích hợp sẵn khi bạn tạo project bằng <code>react-native init</code>, vì thế việc setup này đối với bạn có thể đã có sẵn và ko cần setup thêm nữa. Tham khảo cách thêm cách cài đặt tại <a href="https://jestjs.io/docs/en/getting-started"><strong>đây</strong></a></em></p><p>Kiểm tra file <code>package.json</code></p><pre><code>{
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "babel-jest": "24.9.0",
+    "jest": "24.9.0",
+    "react-test-renderer": "16.9.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}</code></pre><h3 id="2-snapshot-testing-l-g-">2.Snapshot testing📸 là gì?</h3><p>Với Jest chúng ta có thể dễ dàng test các component khi có sự thay đổi props và state.</p><blockquote>Snapshot test là công cụ rất hữu ích trong trường hợp bạn muốn chắc chắn rằng UI không bị thay đổi ngoài ý muốn.</blockquote><blockquote>Trong react native , snapshot testing là việc tạo ra 1 file snapshot, sau đó trong những lần test sau, các component sẽ tiếp tục tạo ra các rendered output khác để so sánh với file snapshot ban đầu, nếu có sự thay đổi thì kết quả test sẽ fail.</blockquote><h3 id="3-ng-d-ng-snapshot-test-v-o-project">3.Ứng dụng snapshot test vào project</h3><p>Sau khi tạo project bằng câu lệnh <code>react-native init</code> ta  được cấu trúc thư mục sau:</p><figure class="kg-card kg-image-card kg-card-hascaption"><img src="https://drive.google.com/uc?id=1SusRns_UnOuLjfg5_ssbfS0VcsP5IJtV&amp;export=download" class="kg-image" alt><figcaption>Cấu trúc thư mục</figcaption></figure><p>Ở đây tôi đã thêm thư mục <code>src</code> dùng để chứa file source trong project. Trong thư mục này, tôi sẽ tạo thêm 1 file <code>Button.js</code></p><!--kg-card-begin: markdown--><pre><code class="language-javascript">import React, { Component } from 'react';
+import { Text, TouchableOpacity, Linking } from 'react-native';
+// 1. Changed to a class based component
+class Button extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    // 2. Custom function called onPress TouchableOpacity
+    onPressHandler = () =&gt; {
+        const { onPress, url } = this.props
+        if (url) {
+            Linking.openURL(url)
+        }
+        onPress();
+    }
+
+    render() {
+        const { buttonStyle, textStyle } = styles;
+        const { label } = this.props;
+
+        return (
+            &lt;TouchableOpacity onPress={this.onPressHandler} style={newButtonStyle}&gt;
+                &lt;Text style={textStyle}&gt;
+                    {label}
+                &lt;/Text&gt;
+            &lt;/TouchableOpacity&gt;
+        );
+    }
+};
+
+const styles = {
+    textStyle: {
+        alignSelf: 'center',
+        color: '#fff',
+        fontSize: 16
+    },
+    buttonStyle: {
+        height: 45,
+        justifyContent: 'center',
+        backgroundColor: '#38ba7d',
+        borderBottomWidth: 6,
+        borderBottomColor: '#1e6343',
+        borderWidth: 1,
+        marginLeft: 10,
+        marginRight: 10
+    }
+};
+
+export default Button;
+</code></pre>
+<!--kg-card-end: markdown--><p>Kết quả Button sẽ giống như thế này:</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1A0GnCs_PxmOWwfJm09djxS_zeGf2KJCX&amp;export=download" class="kg-image" alt></figure><p>Như vậy đã xong phần chuẩn bị, bây giờ chúng ta bắt đầu viết test.</p><p>Đầu tiên tạo file <code>Button-test.js</code> trong thư mục <code>_tests_</code></p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1wHDncnn2JisnskLRFEjHL9nKJlovQOHR&amp;export=download" class="kg-image" alt></figure><pre><code>import 'react-native';
+import React from 'react';
+import Button from '../src/Button';
+
+// Note: test renderer must be required after react-native.
+import renderer from 'react-test-renderer';
+
+describe('Button', () =&gt; {
+  describe('Rendering', () =&gt; {
+      it('should match to snapshot', () =&gt; {
+        const component = renderer.create(
+          &lt;Button label={'Click me!'}/&gt;
+        ).toJSON();
+        expect(component).toMatchSnapshot()
+      });
+  });
+});
+</code></pre><p>Ở đây cần chú ý đến <strong>react-test-renderer</strong>. </p><blockquote><code>'react-test-renderer'</code> là một thư viện giúp chúng ta có thể tạo ra một snapshot của <strong>DOM tree</strong> được render bởi  React DOM or React Native component mà không cần sử dụng browser hoặc <a href="https://github.com/tmpvar/jsdom" rel="nofollow noopener noreferrer">jsdom</a>. </blockquote><blockquote>Thay vì phải render ra các object thật thì nó render ra các JS object để có thể thực hiện test trực tiếp trên Node.</blockquote><p>Cấu trúc hàm test:</p><pre><code>describe('Button', () =&gt; {
+	// test stuff
+}</code></pre><p>Method <code>describe</code> chứa một hoặc nhiều test liên quan. Mỗi lần viết một test mới hãy bọc nó trong <strong>describe block</strong>.</p><pre><code>it('should match to snapshot', () =&gt; {
+	// actual test
+});</code></pre><p>Hàm test được truyền vào callback như một tham số trong hàm <code>it</code>. Ngoài ra ta truyền thêm phần mô tả mong muốn hàm thực hiện.</p><p>Để có thể test được chúng ta cần chuẩn bị dữ liệu đầu vào(<strong>input</strong>), dữ liệu đầu ra(<strong>output</strong>) và hàm so sánh(<strong>function</strong>) 2 kết quả có trùng khớp nhau không.</p><p>Ở ví dụ trên ta có <code>component</code> đóng vai trò là <strong>input data (snapshot của DOM tree).</strong></p><p>Hàm <code>expect</code> cho phép chúng ta truy cập vào các phương thức <code>matcher</code> để phát hiện ra những sự sai khác. Ở đây chúng ta sử dụng <code>toMatchSnapshot</code> để đảm bảo rằng nó trùng với snapshot gần đây nhất.</p><p><strong>Running test</strong>: <code>npm test</code> để xem điều gì xảy ra.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1WCHDAuK0m1CryktEjrnZt1klW2p1ofVT&amp;export=download" class="kg-image" alt></figure><p>Khi chạy snapshot test lần đầu, Jest sẽ tạo một snapshot file trong thư mục <code>_snapshots_</code></p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1XBJQFZcsv-NOoYdfU24FteUnqLeJKUWA&amp;export=download" class="kg-image" alt></figure><p></p><p>Khi mở file snapshot sẽ thấy nó convert view của chúng ta sang object để tiện so sánh cũng như test.</p><p><strong>Điều gì xảy ra nếu chúng ta thay đổi UI</strong></p><p>Thay đổi màu nền button <code>backgroundColor: '#0000FF'</code> trong <code>buttonStyle</code>, và chạy lại test <code>npm test　</code></p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1EUr5FRovhDzVYnjC83-zb8kP9S3CDu75&amp;export=download" class="kg-image" alt></figure><p>Ngay lập tức jest báo kết quả test bị <code>FAIL</code>, như đã trình bày ở trên việc thay đổi code dẫn đến bản <code>snapshot</code> mới khác so với bản cũ. Jest còn chỉ ra chỗ thay đổi, thật sự rất tiện lợi.</p><p>Vậy nếu muốn cập nhật bản <code>snapshot</code> mới thì sao. Rất đơn giản sử dụng lệnh sau:</p><p><code>npm test -- -u</code></p><p>Kết quả <code>snapshot</code> đã được update lại. Lời khuyên nên <code>commit</code> lên git mỗi khi update lại <code>snapshot</code>.</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1_VNHQOhIzSJ045r61FiGHe_WBhOkkcRh&amp;export=download" class="kg-image" alt></figure><p>Ngoài ra còn có các option khác:</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1ERFlxRZQ8TAp_6qvTUSeQq0BSIJb1RiP&amp;export=download" class="kg-image" alt></figure><h3 id="4-matchers-trong-jest">4. Matchers trong Jest</h3><pre><code>expect(2 + 2).toBe(4);</code></pre><p><code>.toBe()</code> là một matcher, dùng để so sánh kết quả thực hiện với kết quả mong muốn.</p><p><code>.toBe()</code> sử dụng <code>Object.is</code> để test. Khi muốn kiểm tra giá trị của object hãy sử dụng <code>toEqual</code>. Ví dụ:</p><pre><code>it('object assignment', () =&gt; {
+  const data = {one: 1};
+  data['two'] = 2;
+  expect(data).toEqual({one: 1, two: 2});
+});</code></pre><p>Nếu muốn so sánh kết quả trái với mong đợi sử dụng <code>.not.toBe()</code></p><pre><code>it('adding positive numbers is not zero', () =&gt; {
+  for (let a = 1; a &lt; 10; a++) {
+    for (let b = 1; b &lt; 10; b++) {
+      expect(a + b).not.toBe(0);
+    }
+  }
+});</code></pre><p>Ngoài ra còn có các matches khác.</p><p><strong>Truthiness</strong></p><!--kg-card-begin: markdown--><ul>
+<li><code>toBeNull</code> so sánh với giá trị <code>null</code></li>
+<li><code>toBeUndefined</code> so sánh với giá trị <code>undefined</code></li>
+<li><code>toBeDefined</code> là hàm cho kết quả ngược lại <code>toBeUndefined</code>.</li>
+<li><code>toBeTruthy</code> so sánh với giá trị <code>true</code>.</li>
+<li><code>toBeFalsy</code> so sánh với giá trị <code>false</code>.</li>
+</ul>
+<!--kg-card-end: markdown--><p><strong>Numbers</strong></p><pre><code>it('two plus two', () =&gt; {
+  const value = 2 + 2;
+  expect(value).toBeGreaterThan(3);
+  expect(value).toBeGreaterThanOrEqual(3.5);
+  expect(value).toBeLessThan(5);
+  expect(value).toBeLessThanOrEqual(4.5);
+
+  // cả toBe và toEqual đều có thể sử dụng cho numbers
+  expect(value).toBe(4);
+  expect(value).toEqual(4);
+});</code></pre><p>Đối với số thực sử dụng <code>toBeCloseTo</code> thay vì <code>toEqual</code></p><pre><code>it('adding floating point numbers', () =&gt; {
+  const value = 0.1 + 0.2;
+  //expect(value).toBe(0.3);           This won't work because of rounding error
+  expect(value).toBeCloseTo(0.3); // This works.
+});</code></pre><p><strong>Strings</strong></p><p>Có thể kiểm tra strings  với regular expressions bằng<code>toMatch</code></p><pre><code>it('there is no I in team', () =&gt; {
+  expect('team').not.toMatch(/I/);
+});
+
+it('but there is a "stop" in Christoph', () =&gt; {
+  expect('Christoph').toMatch(/stop/);
+});</code></pre><p><strong>Arrays và Iterables</strong></p><p>Kiểm tra một giá trị có trong Array hay Iterable không bằng cách <code>toContain</code></p><pre><code>const shoppingList = [
+  'diapers',
+  'kleenex',
+  'trash bags',
+  'paper towels',
+  'beer',
+];
+
+it('the shopping list has beer on it', () =&gt; {
+  expect(shoppingList).toContain('beer');
+  expect(new Set(shoppingList)).toContain('beer');
+});</code></pre><p><strong>Exceptions</strong></p><p>Để kiểm tra một lỗi có thể xảy ra bạn có thể sử dụng <code>toThrow</code>:</p><pre><code>function compileAndroidCode() {
+  throw new Error('you are using the wrong JDK');
+}
+
+it('compiling android goes as expected', () =&gt; {
+  expect(compileAndroidCode).toThrow();
+  expect(compileAndroidCode).toThrow(Error);
+
+  // You can also use the exact error message or a regexp
+  expect(compileAndroidCode).toThrow('you are using the wrong JDK');
+  expect(compileAndroidCode).toThrow(/JDK/);
+});</code></pre><h3 id="5-mock-functions">5. Mock Functions</h3><p>Mock giúp bạn mô phỏng các tính chất và hành vi giống hệt như đối tượng thực nhằm kiểm tra tính đúng đắn của các hoạt động bên trong.</p><p>Quay lại với ví dụ button, bây giờ chúng ta sẽ test xem sự kiện button có được kích hoạt không</p><pre><code>describe('onPressHandler', () =&gt; {
+      it('should call onPress', () =&gt; {
+        const mockOnPress = jest.fn();   // 1. mock function
+        const component = renderer.create(&lt;Button 
+            label= "test label" 
+            onPress={mockOnPress}           // 2. passing in mock function as props
+        /&gt;)
+        const instance = component.getInstance(); // 3. getting an instance of component
+        instance.onPressHandler();  // 4. manually triggering onPressHandler()
+        // Act
+        expect(mockOnPress).toHaveBeenCalled();
+      });
+    });
+});</code></pre><p>Chạy lại lệnh <code>npm test</code> để xem kết quả:</p><figure class="kg-card kg-image-card"><img src="https://drive.google.com/uc?id=1XTT3ufskOAwnPk9cMFFeE0hGU_blzFLj&amp;export=download" class="kg-image" alt></figure><p>Bài viết sau tôi sẽ giới thiệu chi tiết hơn về Mock( mock function, class mock, mock modules, ...)</p><h2 id="tham-kh-o">Tham khảo</h2><p><a href="https://jestjs.io/docs/en/getting-started">https://jestjs.io/docs/en/getting-started</a></p><p><a href="https://callstack.com/blog/testing-react-native-with-the-new-jest-part-1-snapshots-come-into-play/#.12zbnbgwc">https://callstack.com/blog/testing-react-native-with-the-new-jest-part-1-snapshots-come-into-play/#.12zbnbgwc</a></p>
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/unit-test-voi-jest/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Test%20%E1%BB%A9ng%20d%E1%BB%A5ng%20React%20Native%20v%E1%BB%9Bi%20Jest%20(Ph%E1%BA%A7n%201)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/unit-test-voi-jest/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/unit-test-voi-jest/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3 | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <meta name="description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3" />
+    <meta property="og:description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-11-30T02:37:13.000Z" />
+    <meta property="article:modified_time" content="2018-11-30T02:51:09.000Z" />
+    <meta property="article:tag" content="blockchain" />
+    <meta property="article:tag" content="Lightning Network" />
+    <meta property="article:tag" content="Liquid Network" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3" />
+    <meta name="twitter:description" content="Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="blockchain, Lightning Network, Liquid Network" />
+    <meta property="og:image:width" content="1804" />
+    <meta property="og:image:height" content="722" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/",
+    "datePublished": "2018-11-30T02:37:13.000Z",
+    "dateModified": "2018-11-30T02:51:09.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&export=download",
+        "width": 1804,
+        "height": 722
+    },
+    "keywords": "blockchain, Lightning Network, Liquid Network",
+    "description": "Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ\nLightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta\ncùng tìm hiểu nhé.\nINhìn lại sự khó khăn trong mạng lưới của Bitcoin\nNhư các bạn đã biết, mạng lưới Bitcoin là mạng lưới kiểu Blockchain. Tức là một\nmạng lưới được cấu tạo từ nhiều block, mỗi block được nối kết với nhau nên gọi\nlà chain (chuỗi). Block sau sẽ chứa 1 phần thông tin của block ngay trước nó,\nphần thông tin đó sẽ phải giống nhau ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-blockchain tag-lightning-network tag-liquid-network nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-blockchain tag-lightning-network tag-liquid-network js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-11-30">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 30 November 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/blockchain/index.html">blockchain</a>, <a href="../tag/lightning-network/index.html">Lightning Network</a>, <a href="../tag/liquid-network/index.html">Liquid Network</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1CQ7-3Ia_75uNtnlFK1thdnbjDLaHwyM6&amp;export&#x3D;download" alt="Kiến trúc Blockchain – Giới thiệu Lightning Network và Liquid Network – Phần 3">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/gioi-thieu-lightning-network-va-liquid-network-phan-3/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ki%E1%BA%BFn%20tr%C3%BAc%20Blockchain%20%E2%80%93%20Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Lightning%20Network%20v%C3%A0%20Liquid%20Network%20%E2%80%93%20Ph%E1%BA%A7n%203">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: html-->Dạo gần đây, trong lĩnh vực tiền điện tử, hẳn bạn cũng đã nghe đâu đó về cụm từ Lightning Network. Vậy Lightning Network là gì và hoạt động ra sao, chúng ta cùng tìm hiểu nhé.<br>
+<h3 id="nhin-lai-su-kho-khan-trong-mang-luoi-cua-blockchain"><strong><span style="background-color: #ffff00;"> I </span> <span style="color: #000000;">Nhìn lại sự khó khăn trong mạng lưới của Bitcoin</span></strong></h3>
+Như các bạn đã biết, mạng lưới Bitcoin là mạng lưới kiểu Blockchain. Tức là một mạng lưới được cấu tạo từ nhiều block, mỗi block được nối kết với nhau nên gọi là chain (chuỗi). Block sau sẽ chứa 1 phần thông tin của block ngay trước nó, phần thông tin đó sẽ phải giống nhau ở 2 block. Chính vì có sự kết nối này nên ta mới gọi là blockchain.<br>
+
+Khi bạn muốn chuyển Bitcoin cho người khác, bạn sẽ cần phải tạo ra 1 giao dịch (transaction). Trong transaction này sẽ chứa thông tin địa chỉ gửi, địa chỉ đến, số tiền muốn gửi và phí chuyển (fee). Sau khi transaction được tạo, nó sẽ được đẩy vào 1 block nào đó và chờ đợi để được xử lý (chờ được mining).<br>
+
+Hiện tại 1 block thì chỉ có kích thước tầm 1MB. Điều này có nghĩa là 1 block chỉ chứa được 1 vài transaction. Khi số lượng transaction tăng lên, thì số lượng block được tạo ra cũng tăng lên và xếp hàng chờ xử lý.<br>
+
+Về phía bên bộ phận xử lý (mining) thì sao? Liệu nó có xử lý nhanh không? Hiện nay, trung bình 10 phút thì sẽ có 1 block được xử lý. Như vậy cũng đủ cho thấy sẽ có rất nhiều giao dịch phải chờ đợi và chờ đợi cực lâu để được xử lý, đôi khi mất cả hơn 1 ngày đấy. Chưa kể nếu bạn trả fee cao cho giao dịch của mình thì giao dịch của bạn sẽ được ưu tiên xử lý sớm.<br>
+
+Chính vì vậy, Lightning Network được tạo ra để giải quyết vấn đề chậm chạp trên.<!--kg-card-end: html--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/nayuta_LN01_001.png" class="kg-image" alt></figure><!--kg-card-begin: html--><h3 id="lightning-network-la-gi"><strong><span style="background-color: #ffff00;"> II </span> Lightning Network là gì</strong></h3>
+Nếu blockchain của bitcoin là mạng lưới chính, thì Lightning Network sẽ là mạng lưới phụ của bitcoin. Nó không phải là mạng lưới hoàn toàn mới, hoàn toàn độc lập với blockchain, mà giống như kỹ thuật phân tầng trong công nghệ blockchain.<br>
+
+Tính năng chính của Lightning Network là giải quyết ngay lập tức. Hiện tại nó đang được test và coi là giải pháp cho các đồng như Bitcoin, Litecoin...
+<h3 id="lightning-network-hoat-dong-ra-sao"><strong><span style="background-color: #ffff00;"> III </span> Lightning Network hoạt động ra sao</strong></h3>
+Lấy ví dụ như sau:
+<!--kg-card-end: html--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Drawing_01.png" class="kg-image" alt></figure><!--kg-card-begin: html-->
+A là người đi mua cafe, B là chủ shop cafe. Nếu A thanh toàn bằng Bitcoin và dùng mạng lưới hiện nay để gửi bitcoin cho B, thì vấn đề xảy ra là khi nào B mới nhận được tiền vì thời gian xử lý giao dịch khá lâu, chưa kể ly cafe có tầm 30k mà fee giao dịch khá cao hơn nhiều so với ly cafe.<br>
+
+Nên thay vì dùng mạng lưới chính của bitcoin, A và B sẽ dùng mạng lưới Lightning Network.<br><!--kg-card-end: html--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Drawing_02.png" class="kg-image" alt></figure><!--kg-card-begin: html-->Lúc này, A và B sẽ mở ra 1 kênh giao dịch riêng. Khi A chuyển tiền cho B, thông tin thanh toán sẽ được ghi vào cuốn sổ riêng của cả A và B. Và cứ thế A cứ mua cafe và thanh toán cho B. Giao dịch xảy ra tức thì, nhưng tất cả chỉ trên mạng lưới phụ Lightning Network thôi, chứ trên mạng lưới chính của Bitcoin thì vẫn chưa được update. Đến cuối tuần, B muốn nhận toàn bộ số tiền của A trên mạng lưới chính, lúc này, B sẽ đưa cuốn sổ của mình lên mạng lưới chỉnh và chờ xử lý. Lúc này các giao dịch sẽ được tính tổng và giải quyết chung 1 lúc thay vì giải quyết từng giao dịch.<br>
+
+Nhưng rồi nếu có người C đến cửa hàng của B để mua cafe và muốn thanh toán bằng bitcoin, lúc này nếu B lại tạo ra 1 kênh riêng với C thì hơi phiền, vì không chỉ A với C mà sẽ còn nhiều khách khác và cứ thế mỗi người khách một kệnh thì B sẽ quản lý khá mệt. Do đó C có thể mượn kênh của A để thanh toán B, như vậy B sẽ giảm bớt được kênh giao dịch.<br>
+
+■ A -&gt; B
+<br>
+■ C -&gt; A -&gt; B
+<br>
+■ D -&gt; A -&gt; B
+<br>
+Khi C mượn kênh của A để thanh toán cho B, tất nhiên với cơ chế của Lightning Network, thì giao dịch đó sẽ hoàn toàn tự động chuyển từ C sang A rồi tự động chuyển tiếp cho B. A không phải can thiệp bất cứ gì.<br>
+
+<h3 id="han-che-cua-lightning-network"><strong><span style="background-color: #ffff00;"> IV </span> Hạn chế của Lightning Network</strong></h3>
+Nhưng mà khoan hãy vui mừng, vì Lightning Network vẫn đang có một hạn chế khá lớn đấy. Đó là số tiền giao dịch đang bị hạn chế. Tức là mỗi một giao dịch chỉ được phép chuyển tối đa tầm \$20. Nếu A muốn thanh toán một số tiền lớn hơn là \$50 thì sao. Tất nhiên cũng sẽ có cách. Là A sẽ mượn các kênh bạn để gửi chia nhỏ số tiền \$50 ra và gửi cho B.
+<!--kg-card-end: html--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Drawing_03.png" class="kg-image" alt></figure><!--kg-card-begin: html--><p>Thao tác tìm mượn các kênh bạn sẽ do Lightning Network thực hiện, A không phải quan tâm vấn đề đó, A chỉ cần thao tác gửi $50 cho B, Lightning Network sẽ tự động chia nhỏ số tiền và tìm các kênh liên kết với B để gửi cho B số tiền đó, B cũng ko cần quan tâm tiền nhận từ những kênh nào.</p>
+<p>Lúc này lại có thêm vấn đề xảy ra. Nếu A muốn gửi số tiền lên đến $5000 thì sao nhĩ, tất nhiên là Lightning Network vẫn OK, nhưng có thấy phiền phức không khi phải chia nhỏ quá nhiều phần, và nó cũng sẽ dẫn đến việc làm chậm giao dịch. Vậy thì có cách gì để giải quyết không.</p>
+<p>Các bạn có nghe nói đến Liquid Network chưa. Vâng, là nó đó. Nó là giải pháp cho sự phiền phức trên.</p>
+<h3 id="liquid-network-la-gi"><strong><span style="background-color: #ffff00;"> V </span> Liquid Network là gì</strong></h3><!--kg-card-end: html--><figure class="kg-card kg-image-card"><img src="https://s3.vietnamlab.vn/static/Drawing_04.png" class="kg-image" alt></figure><!--kg-card-begin: html-->Nó cũng giống như Lightning Network, đều là mạng lưới phụ cho Bitcoin. Nhưng nếu Lightning Network là chuyển dùng cho C2C thì Liquid Network được sinh ra để dành cho B2B. Tức là dành cho những công ty lớn hay các sàn giao dịch khi bạn muốn gửi một lượng tiền lớn và nhanh. Liquid Network cũng được lập trình trên công nghệ của Bitcoin, do đó độ tin cậy khá cao. Ngoài ra, nó còn có chức năng giấu đi lượng tiền giao dịch, nên được đánh giá có tính bảo mật cao.<br>
+<h3 id="ket-luan"><strong><span style="background-color: #ffff00;"> VI </span> Kết luận</strong></h3>
+Hiện tại thì hay mạng lưới Lightning Network và Liquid Network vẫn đang được chạy test. Mình cũng hy vọng trong tương lai gần, Bitcoin sẽ sớm đưa Lighting Network vào thực tế, lúc đó các giao dịch sẽ gần như là ngay lập tức và chi phí cực rẻ.<br>
+<h3 id="tham-khao"><strong><span style="background-color: #ffff00;"> VII </span> Tham khảo</strong></h3>
+<a href="https://diar.co/volume-2-issue-25/">https://diar.co/volume-2-issue-25/</a>
+<br>
+<a href="https://blockstream.com/liquid/">https://blockstream.com/liquid/</a>
+
+<!--kg-card-end: html-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/gioi-thieu-lightning-network-va-liquid-network-phan-3/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Ki%E1%BA%BFn%20tr%C3%BAc%20Blockchain%20%E2%80%93%20Gi%E1%BB%9Bi%20thi%E1%BB%87u%20Lightning%20Network%20v%C3%A0%20Liquid%20Network%20%E2%80%93%20Ph%E1%BA%A7n%203">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/gioi-thieu-lightning-network-va-liquid-network-phan-3/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/gioi-thieu-lightning-network-va-liquid-network-phan-3/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

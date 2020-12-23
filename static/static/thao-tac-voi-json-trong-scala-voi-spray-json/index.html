@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Thao tác với JSON trong Scala với spray-json | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Thao tác với JSON trong Scala với spray-json" />
+    <meta property="og:description" content="JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-10-09T00:59:09.000Z" />
+    <meta property="article:modified_time" content="2018-10-09T01:33:52.000Z" />
+    <meta property="article:tag" content="scala" />
+    <meta property="article:tag" content="spray-json" />
+    <meta property="article:tag" content="json" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta property="article:author" content="https://www.facebook.com/hikaru.nguyenminh" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thao tác với JSON trong Scala với spray-json" />
+    <meta name="twitter:description" content="JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.M.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="scala, spray-json, json" />
+    <meta property="og:image:width" content="524" />
+    <meta property="og:image:height" content="276" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.M.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdkxreUhBTFpEaHc&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quangnm/",
+        "sameAs": [
+            "https://www.facebook.com/hikaru.nguyenminh"
+        ]
+    },
+    "headline": "Thao tác với JSON trong Scala với spray-json",
+    "url": "https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/",
+    "datePublished": "2018-10-09T00:59:09.000Z",
+    "dateModified": "2018-10-09T01:33:52.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1dWCoksZWWpLuHTvh2VBizLz0COHbu720&export=download",
+        "width": 524,
+        "height": 276
+    },
+    "keywords": "scala, spray-json, json",
+    "description": "JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON.",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-scala tag-spray-json tag-json nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-scala tag-spray-json tag-json js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Thao tác với JSON trong Scala với spray-json</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2018-10-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 October 2018
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/scala/index.html">scala</a>, <a href="../tag/spray-json/index.html">spray-json</a>, <a href="../tag/json/index.html">json</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1dWCoksZWWpLuHTvh2VBizLz0COHbu720&amp;export&#x3D;download" alt="Thao tác với JSON trong Scala với spray-json">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/thao-tac-voi-json-trong-scala-voi-spray-json/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Thao%20t%C3%A1c%20v%E1%BB%9Bi%20JSON%20trong%20Scala%20v%E1%BB%9Bi%20spray-json">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="giithiu">Giới Thiệu</h3>
+<ul>
+<li>JSON là định dạng khá quen thuộc với bất cứ developer nào khi phải lập trình với API. Đây là một định dạng khá phổ biến, cấu trúc dễ đọc, gọn nhẹ. Các ngôn ngữ lập trình đều có ít nhiều các thư viện hỗ trợ việc Parse hoặc Generate ra JSON. Trong bài viết này, mình xin giới thiệu một thư viện khá gọn nhẹ để xử lý JSON trong Scala, đó là thư viện <code>spray-json</code></li>
+<li><a href="https://github.com/spray/spray-json">spray-json</a> là một thư viện thuộc <code>Spray Project</code> - bộ toolkit dành cho việc build <strong>REST/HTTP</strong> integration layer trên nền tảng <strong>Scala</strong> và <strong>Akka</strong> (Xem thêm về Spray tại <a href="http://spray.io/">đây</a>)</li>
+<li>Trong một bài viết trước, chúng ta có phần nào khái niệm về <code>implicit</code> trong Scala (Xem thêm bài viết đó tại <a href="https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala/">đây</a>). Các bạn có thể đọc tham khảo để hiểu sơ về khái niệm <code>implicit</code> trong Scala.</li>
+</ul>
+<h3 id="tnhnng">Tính Năng</h3>
+<h4 id="uim">Ưu điểm</h4>
+<ul>
+<li><em>spray-json</em> hỗ trợ các chức năng:
+<ul>
+<li>Kiểm soát các element trong JSON model.</li>
+<li>Hỗ trợ JSON parser hiệu quả.</li>
+<li>Có thể chọn cách in định dạng JSON ra string dưới dạng pretty hoặc compact.</li>
+<li>Có thể serialization - deserialization một object thành kiểu Class.</li>
+<li>Không cần thêm bất kì dependencies nào.</li>
+</ul>
+</li>
+<li><em>spray-json</em> cho phép convert giữa các định dạng
+<ul>
+<li>Chuỗi JSON.</li>
+<li>JSON Abstract Syntax Tree (ASTs) dựa trên JsValue.</li>
+<li>Một instance theo kiểu dữ liệu trong Scala.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://drive.google.com/uc?id=1WXlfwm4jxLqiG7sF0Z3TFxZm5EjWCjud&amp;export=download" alt="uc?id=1WXlfwm4jxLqiG7sF0Z3TFxZm5EjWCjud&amp;export=download"></p>
+<h4 id="cit">Cài đặt</h4>
+<ul>
+<li><em>spray-json</em> có thể cài đặt bằng maven.</li>
+<li>Ngoài ra, nếu dùng SBT để cài đặt bằng cách thêm vào file <code>build.sbt</code>:</li>
+</ul>
+<pre><code>libraryDependencies += &quot;io.spray&quot; %%  &quot;spray-json&quot; % &quot;1.3.4&quot;
+</code></pre>
+<h3 id="sdng">Sử Dụng</h3>
+<h4 id="cbn">Cơ bản</h4>
+<h5 id="importthvin">Import thư viện</h5>
+<ul>
+<li>Để sử dụng thư viện, chúng ta cần import thư viện vào theo cú pháp</li>
+</ul>
+<pre><code>import spray.json._
+import DefaultJsonProtocol._ #Trường hợp chúng ta không sử dụng Protocol tự định nghĩa
+</code></pre>
+<h5 id="parsejsonstring">Parse JSON String</h5>
+<ul>
+<li>Chúng ta có thể parse JSON string thành định dạng AST như sau</li>
+</ul>
+<pre><code>val source = &quot;&quot;&quot;{ &quot;some&quot;: &quot;JSON source&quot; }&quot;&quot;&quot;
+val jsonAst = source.parseJson // or JsonParser(source)
+</code></pre>
+<h5 id="convert1scalaobjectthnhjsonast">Convert 1 Scala Object thành JSON AST</h5>
+<ul>
+<li>Chúng ta sử dụng extension method <code>toJson</code> để convert Scala Object thành JSON AST</li>
+</ul>
+<pre><code>val jsonAst = List(1, 2, 3).toJson
+</code></pre>
+<h4 id="nngcao">Nâng cao</h4>
+<ul>
+<li>Ngoài ra, ta có thể convert 1 Scala Object có type <code>T</code> thành định dạng JSON AST và ngược lại, convert JSON AST thành Scala Object. Để làm điều này, chúng ta cần phải đem giá trị <code>implicit</code>  vào trong scope mà nó cung cấp <code>JsonFormat[T]</code> instance cho type <code>T</code>. Ta sẽ làm việc đó thông qua <code>JsonProtocol</code></li>
+<li><code>spray-json</code> sử dụng <code>SJSON</code> để kết nối kiểu dữ liệu type <code>T</code> với các logic để serialize - deserialize một instance thành JSON.</li>
+<li><code>DefaultJsonProtocol</code> của <code>spray-json</code> bao gồm các implicit values của <code>JsonFormat[T]</code>, mỗi <code>JsonFormat[T]</code> chứa các logic để convert một instance của kiểu dữ liệu type <code>T</code> thành JSON hoặc ngược lại. <code>DefaultJsonProtocol</code> đã cover toàn bộ các kiểu dữ liệu có trong Scala, cho nên đối với các kiểu dữ liệu thông thường, ta có thể dễ dàng convert dữ liệu thành JSON AST với câu lệnh <code>toJson</code>. Các kiểu dữ liệu đã được cover bao gồm:
+<ul>
+<li>Byte, Short, Int, Long, Float, Double, Char, Unit, Boolean</li>
+<li>String, Symbol</li>
+<li>BigInt, BigDecimal</li>
+<li>Option, Either, Tuple1 - Tuple7</li>
+<li>List, Array</li>
+<li>immutable.{Map, Iterable, Seq, IndexedSeq, LinearSeq, Set, Vector}</li>
+<li>collection.{Iterable, Seq, IndexedSeq, LinearSeq, Set}</li>
+<li>JsValue</li>
+</ul>
+</li>
+</ul>
+<h5 id="sdngdefaultjsonprotocol">Sử dụng <code>DefaultJsonProtocol</code></h5>
+<ul>
+<li>Trong trường hợp chúng ta muốn custom lại type <code>T</code>, chúng ta có thể sử dụng <code>DefaultJsonProtocol</code> với <code>JsonFormat[T]</code> bằng cách sau</li>
+</ul>
+<pre><code>case class Student(name: String, age: Int, address: String)
+
+object MyJsonProtocol extends DefaultJsonProtocol {
+  implicit val studentList = jsonFormat4(Student)
+}
+
+import MyJsonProtocol._
+import spray.json._
+
+val json = Student(&quot;An&quot;, 95,&quot;HCM City&quot;).toJson
+val student = json.convertTo[Student]
+</code></pre>
+<h3 id="citin">Cải Tiến</h3>
+<h4 id="tmhiuthmvimplicittrongsprayjson">Tìm hiểu thêm về implicit trong spray-json</h4>
+<h5 id="tmhiuthmvjsonwriters">Tìm hiểu thêm về JsonWriters</h5>
+<ul>
+<li>Với việc hàm <code>DefaultJsonProtocol</code> (Có ở dạng <code>trait</code> và <code>object</code>) chứa khá nhiều các predefined writers, readers, formats, cũng như là các implicit methods. Check đoạn code dưới đây.</li>
+</ul>
+<pre><code>import spray.json._
+import spray.json.DefaultJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = new RootJsonFormat[Person] {
+  def write(person: Person): JsValue = {
+    JsObject(
+      &quot;first_name&quot; -&gt; person.firstName.toJson,
+      &quot;last_name&quot; -&gt; person.lastName.toJson
+    )
+  }
+  
+  def read(value: JsValue): Person = ???
+}
+
+val nguyenQuang = Person(firstName = &quot;Nguyen&quot;, lastName = &quot;Quang&quot;)
+val tranTin = Person(firstName = &quot;Tran&quot;, lastName = &quot;Tin&quot;)
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Ở đây, hàm <code>toJson</code> tìm kiếm một implicit <code>JsonWriter[List[Person]]</code> được provide bởi <a href="https://github.com/spray/spray-json/blob/v1.3.4/src/main/scala/spray/json/CollectionFormats.scala#L25">hàm</a> trong spray-json</li>
+</ul>
+<pre><code>implicit def listFormat[T :JsonFormat]: RootJsonFormat[List[T]]
+</code></pre>
+<ul>
+<li>Ở đây, type <code>T</code> được hiểu là <code>Person</code>, và nội dung của <code>JsonFormat</code> bị ràng buộc bởi implicit <code>JsonFormat[Person]</code> mà ta đã định nghĩa ở trên. Nói cách khác, câu lệnh xuất ra Json cho <code>List[Person]</code> có thể viết phức tạp là</li>
+</ul>
+<pre><code>#Phức tạp
+List(nguyenQuang, tranTin).toJson(listFormat(personJsonFormat))
+
+#Đơn giản
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Thêm nữa, ở đây chúng ta dùng <code>JsonFormat</code> thay cho <code>JsonWriter</code>. Nếu như chúng ta chỉ có nhu cầu xài hàm write (Xuất object ra JSON) thì chúng ta chỉ nên sử dụng <code>JsonWriter</code>, thay vì không implement hàm <code>read</code> hoặc throw exception mặc định. Trong <code>DefaultJsonProtocol</code> của spray-json, phương pháp này được sử dụng khá là phổ biến (Sử dụng <code>JsonFormat</code>, không implement hàm <code>read</code> mà chỉ throw exception) mà bỏ qua việc cung cấp <code>JsonWriter</code> cho list hoặc Collection.</li>
+</ul>
+<h4 id="mrngdefaultjsonprotocol">Mở rộng DefaultJsonProtocol</h4>
+<ul>
+<li>Như đã trình bày ở trên, chúng ta có thể chỉ cần dùng <code>JsonWriter</code> cho việc xuất JSON. Chúng ta có thể làm theo sau</li>
+</ul>
+<pre><code>import spray.json._
+
+object ExtendedJsonProtocol extends DefaultJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new  RootJsonWriter[List[T]] {
+   def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonWriter = new RootJsonWriter[Person] {
+  def write(person: Person): JsValue = {
+    JsObject(
+      &quot;first_name&quot; -&gt; person.firstName.toJson,
+      &quot;last_name&quot; -&gt; person.lastName.toJson
+    )
+  }
+}
+
+val nguyenQuang = Person(firstName = &quot;Nguyen&quot;, lastName = &quot;Quang&quot;)
+val tranTin = Person(firstName = &quot;Tran&quot;, lastName = &quot;Tin&quot;)
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Đoạn code trên chạy sẽ cho kết quả giống như kết quả của ví dụ trên sử dụng <code>JsonFormat</code>.</li>
+<li>Tuy nhiên, trong trường hợp chúng ta muốn mở rộng Protocol của riêng mình có thể hỗ trợ cả việc <code>read</code> và <code>write</code> cho lớp <code>Person</code> thì phải làm thế nào? Ở đây ta thử thay thế implicit <code>JsonWriter[Person]</code> bằng implicit <code>JsonFormat[Person]</code> theo như dưới đây</li>
+</ul>
+<pre><code>import spray.json._
+
+object ExtendedJsonProtocol extends DefaultJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new  RootJsonWriter[List[T]] {
+   def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = jsonFormat2(Person)
+
+val nguyenQuang = Person(firstName = &quot;Nguyen&quot;, lastName = &quot;Quang&quot;)
+val tranTin = Person(firstName = &quot;Tran&quot;, lastName = &quot;Tin&quot;)
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Lúc này, compiler sẽ không chấp nhận code mà báo lỗi</li>
+</ul>
+<pre><code>Error:(17, 46) ambiguous implicit values:
+ both method listFormat in trait CollectionFormats of type [T](implicit evidence$1: spray.json.JsonFormat[T])spray.json.RootJsonFormat[List[T]]{def write(list: List[T]): spray.json.JsArray}
+ and method listJsonWriter in object ExtendedJsonProtocol of type [T](implicit evidence$1: spray.json.JsonWriter[T])spray.json.RootJsonWriter[List[T]]
+ match expected type spray.json.JsonWriter[List[A$A10.this.Person]]
+lazy val result = List(nguyenQuang, tranTin).toJson
+</code></pre>
+<ul>
+<li>Từ lỗi &quot;ambigious implicit values&quot;, ta có thể đoán là nguyên nhân do compiler đang không biết chọn cách nào để chọn đúng giá trị implicit cho <code>JsonWriter[List]</code>, cụ thể ở đây là
+<ul>
+<li>
+<ol>
+<li>Sử dụng <code>DefaultJsonProtocol</code> để tạo <code>RootJsonFormat[List]</code></li>
+</ol>
+</li>
+</ul>
+<pre><code>List(nguyenQuang, tranTin).toJson.toJson(listFormat(personJsonFormat))
+</code></pre>
+<ul>
+<li>
+<ol start="2">
+<li>Sử dụng method <code>listJsonWriter</code> mà ta định nghĩa để chuyển đổi <code>JsonFormat[Person]</code> thành <code>RootJsonWriter[List]</code></li>
+</ol>
+</li>
+</ul>
+<pre><code>List(nguyenQuang, tranTin).toJson(listJsonWriter(personJsonFormat))
+</code></pre>
+</li>
+</ul>
+<h5 id="tmhiuvliambigiousimplicitvalues">Tìm hiểu về lỗi &quot;ambigious implicit values&quot;</h5>
+<ul>
+<li>Lỗi &quot;ambigious implicit values&quot; xảy ra là do Scala đang không biết tìm giá trị implicit phù hợp để thay thế vào vị trí. Bản thân Scala có một hệ thống để đánh <em>rank</em> cho các implicit hiện có và chọn ra cái phù hợp nhất. Theo như tài liệu của Scala, mục <a href="https://www.scala-lang.org/files/archive/spec/2.12/07-implicits.html#implicit-parameters">&quot;7.2 Implicit parameters</a>, ta có thể tìm thấy cụm từ <em>implicit scope</em> cùng với một chú ý.</li>
+</ul>
+<blockquote>
+<p>If there are several eligible arguments which match the implicit parameter’s type, a most specific one will be chosen using the rules of static <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#overloading-resolution">overloading resolution</a>.</p>
+</blockquote>
+<ul>
+<li>
+<p>Tóm gọn lại <a href="https://www.scala-lang.org/files/archive/spec/2.12/06-expressions.html#overloading-resolution">6.26.3 Overloading resolution</a>, ý tưởng chính là Scala tìm kiếm một alternative phù hợp nhất với implicit. Và để xác định một alternative X có phù hợp hơn alternative Y hay không, ta có thể tưởng tượng là đó là một trận đấu gồm 2 vòng, kết quả cuối cùng là tổng điểm cộng lại.</p>
+<ul>
+<li>Vòng 1: <strong>alternative được định nghĩa ở đâu?</strong>
+<ul>
+<li>X sẽ hơn Y 1 điểm nếu như X được định nghĩa trong class hoặc object <em><strong>có nguồn gốc</strong></em> (ví dụ là extend from) từ class hoặc object mà Y được định nghĩa (và ngược lại).</li>
+</ul>
+</li>
+<li>Vòng 2: <strong>alternative thuộc loại gì</strong>
+<ul>
+<li>X sẽ hơn Y 1 điểm nếu type của X <em>comform</em> (ví dụ như là subtype) của Y.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Kết quả cuối cùng sẽ là tổng điểm của 2 vòng. Tuy nhiên, trường hợp Hoà vẫn có thể xảy ra, ví dụ như</p>
+<ul>
+<li>Cả 2 alternative hoà ở cả 2 ván. Ví dụ như cả  alternative có cùng type và  đều cùng được định nghĩa trong cùng class/object</li>
+<li>Mỗi alternative thắng 1 vòng. Ví dụ X được định nghĩa trong 1 subclass mà Y được định nghĩa, nhưng type của Y lại là subtype của X.</li>
+</ul>
+</li>
+<li>
+<p>Trường hợp 2 xảy ra cho ví dụ ở trên</p>
+<ul>
+<li><code>listJsonWriter</code> được định nghĩa trong object mà nó extend từ <code>DefaultJsonProtocol</code> nơi <code>listFormat</code> của spray-json được định nghĩa. Do đó 1-0 nghiêng về phía ta.</li>
+<li><code>JsonFormat[List[T]</code> - type được return về từ method <code>listFormat</code> lại là subtype của <code>JsonWriter[List[T]</code>, type này được return về từ method <code>listJsonWriter</code> của ta định nghĩa. Do đó, tỉ số hiệp 2 là 0-1.</li>
+</ul>
+</li>
+<li>
+<p>Tổng hợp kết quả trên, ta có 1 kết quả hoà, và gây ra lỗi &quot;ambigious implicit values&quot; như trên.<br>
+<img src="https://drive.google.com/uc?id=1e9WQ5P8tbANFnlOJRIktateMByMChgVx&amp;export=download" alt="uc?id=1e9WQ5P8tbANFnlOJRIktateMByMChgVx&amp;export=download"></p>
+</li>
+</ul>
+<h5 id="giiphp">Giải pháp</h5>
+<ul>
+<li>Từ những kết quả tìm hiểu được như trên, ta có thể thấy có 2 cách giải quyết vấn đề này: hoặc là thay đổi nơi định nghĩa của <code>listJsonWriter</code>, hoặc là thay đổi type được trả về từ <code>listJsonWriter</code>.</li>
+<li>Tuy nhiên, vì hàm <code>listJsonWriter</code> khá là khó thay đổi, nên cách khả dĩ nhất là thay đổi nơi định nghĩa của nó, làm nó bớt <em>specific</em> hơn hàm <code>listFormat</code> của spray-json. Một cách để thực hiện việc này là thay đổi <code>extends DefaultJsonProtocol</code> thành <code>import DefaultJsonProtocol._</code> như dưới đây:</li>
+</ul>
+<pre><code>import spray.json._
+import DefaultJsonProtocol._
+
+object ExtendedJsonProtocol {
+  implicit def listJsonWriter[T : JsonWriter]: RootJsonWriter[List[T]] = new RootJsonWriter[List[T]] {
+    def write(list: List[T]): JsArray = JsArray(list.map(_.toJson).toVector)
+  }
+}
+import ExtendedJsonProtocol._
+
+case class Person(firstName: String, lastName: String)
+
+implicit val personJsonFormat = jsonFormat2(Person)
+
+val nguyenQuang = Person(firstName = &quot;Nguyen&quot;, lastName = &quot;Quang&quot;)
+val tranTin = Person(firstName = &quot;Tran&quot;, lastName = &quot;Tin&quot;)
+List(nguyenQuang, tranTin).toJson
+</code></pre>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>spray-json là một thư viện khá tốt, gọn nhẹ, phục vụ tốt cho việc xử lý JSON. Ngoài ra, với các hiểu biết về implicit, ta cũng có thể dễ dàng custom lại Protocol theo ý bản thân để phù hợp hơn cho dự án.</li>
+</ul>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/@stijnvermeeren.be/implicit-resolution-in-scala-an-example-with-spray-json-2de66e508e5a">https://medium.com/@stijnvermeeren.be/implicit-resolution-in-scala-an-example-with-spray-json-2de66e508e5a</a></li>
+<li><a href="https://github.com/spray/spray-json">https://github.com/spray/spray-json</a></li>
+<li><a href="https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala">https://blog.vietnamlab.vn/2015/12/31/tim-hieu-ve-implicit-trong-scala</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/thao-tac-voi-json-trong-scala-voi-spray-json/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Thao%20t%C3%A1c%20v%E1%BB%9Bi%20JSON%20trong%20Scala%20v%E1%BB%9Bi%20spray-json">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/thao-tac-voi-json-trong-scala-voi-spray-json/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/thao-tac-voi-json-trong-scala-voi-spray-json/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Javascript 2017</title>
+
+    <meta name="description" content="Giới thiệu những cải tiến vượt bậc của Javascript năm 2017. Và, những kiến thức về Javascript cần hướng tới trong năm 2018." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Javascript 2017" />
+    <meta property="og:description" content="Giới thiệu những cải tiến vượt bậc của Javascript năm 2017. Và, những kiến thức về Javascript cần hướng tới trong năm 2018." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/javascript-2017/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1Jprqf0VMix5LAA5VWLDsWFj3toKTuXYR&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-03-19T01:45:04.000Z" />
+    <meta property="article:modified_time" content="2018-03-19T01:45:04.000Z" />
+    <meta property="article:tag" content="javascript" />
+    <meta property="article:tag" content="ar" />
+    <meta property="article:tag" content="vr" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="vuejs" />
+    <meta property="article:tag" content="2017" />
+    <meta property="article:tag" content="2018" />
+    <meta property="article:tag" content="javascript 2017" />
+    <meta property="article:tag" content="WebAsemply" />
+    <meta property="article:tag" content="facebook" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Javascript 2017" />
+    <meta name="twitter:description" content="Giới thiệu những cải tiến vượt bậc của Javascript năm 2017. Và, những kiến thức về Javascript cần hướng tới trong năm 2018." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/javascript-2017/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1Jprqf0VMix5LAA5VWLDsWFj3toKTuXYR&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="javascript, ar, vr, react, vuejs, 2017, 2018, javascript 2017, WebAsemply, facebook" />
+    <meta property="og:image:width" content="960" />
+    <meta property="og:image:height" content="414" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Javascript 2017",
+    "url": "https://blog.vietnamlab.vn/javascript-2017/",
+    "datePublished": "2018-03-19T01:45:04.000Z",
+    "dateModified": "2018-03-19T01:45:04.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1Jprqf0VMix5LAA5VWLDsWFj3toKTuXYR&export=download",
+        "width": 960,
+        "height": 414
+    },
+    "keywords": "javascript, ar, vr, react, vuejs, 2017, 2018, javascript 2017, WebAsemply, facebook",
+    "description": "Năm hết tết đến kính chúc mọi người thật nhiều sức khỏe, miệng cười vui vẻ, tiền\nvào mạnh mẽ, cái gì cũng được suôn sẻ, để sống tiếp một cuôc đời thật đẹp đẽ.\nQuay lại chủ để Javascript, chắc hẳn không ai phủ nhận rằng Javascript là ngôn\nngữ được phổ biến và phát triển nhất hiện nay. Quả đúng là như vậy, trong năm\n2017 có nhiều công cụ thự viện Javascript tăng theo cấp số nhân. Cảm giác vô\nđối, bối rối với vô vàn thay đổi của trong cộng đồng Javascript. Nhưng bạn lại\nkhông có thời gian mà lo lắn",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Javascript 2017</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2018-03-19">19 Mar 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1Jprqf0VMix5LAA5VWLDsWFj3toKTuXYR&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Năm hết tết đến kính chúc mọi người thật nhiều sức khỏe, miệng cười vui vẻ, tiền vào mạnh mẽ, cái gì cũng được suôn sẻ, để sống tiếp một cuôc đời thật đẹp đẽ. Quay lại chủ để Javascript, chắc hẳn không ai phủ nhận rằng Javascript là ngôn ngữ được phổ biến và phát triển nhất hiện nay. Quả đúng là như vậy, trong năm 2017 có nhiều công cụ thự viện Javascript tăng theo cấp số nhân. Cảm giác vô đối, bối rối với vô vàn thay đổi của trong cộng đồng Javascript. Nhưng bạn lại không có thời gian mà lo lắng về một đống công nghệ trôi nổi xung quanh ấy. Bạn hiện giờ đang ở trong một cái mê cung, và bạn cần một cái bản đồ. Được thôi tôi sẽ làm cho bạn một cái. Tuy nhiên có một chút lưu ý nho nhỏ: đây là một tài liệu tham khảo giúp bạn nhanh chóng sử dụng các công nghệ hiện thời mà không phải suy nghĩ quá nhiều. Về cơ bản dựa trên những kiến thức mình đã tích lũy được để giới thiệu gợi ý các xu hướng mới hiện nay.</p>
+<h3 id="cccitinvtbcnm2017">Các cải tiến vượt bậc năm 2017</h3>
+<h4 id="parcel">Parcel</h4>
+<ul>
+<li>Github: <a href="https://github.com/parcel-bundler/parcel">https://github.com/parcel-bundler/parcel</a></li>
+<li>Document: <a href="https://parceljs.org/">https://parceljs.org/</a></li>
+</ul>
+<p>Parcel là một công cụ bunder mới cung cấp giống như webpack hay glub. Tuy nhiên thì Parcel có khả năng bundle với tốc độ cực nhanh.</p>
+<table>
+<thead>
+<tr>
+<th>Bundler</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>browserify      </td>
+<td>22.98s</td>
+</tr>
+<tr>
+<td>webpack          </td>
+<td>20.71s</td>
+</tr>
+<tr>
+<td><strong>parcel</strong></td>
+<td><strong>9.98s</strong></td>
+</tr>
+<tr>
+<td><strong>parcel - with cache</strong></td>
+<td><strong>2.64s</strong></td>
+</tr></tbody></table>
+<p>Có thể thấy parcel chấp một nửa thời so với webpack và browserify. Ngoài ra parcel còn có một vài ưu điểm khác như hỗ trợ css không cần plugin. Có thế tham khảm trên github hoặc trang chủ có nó.</p>
+<p>Về độ tin tưởng thì hiện tại đang có gần 20000 star và với nhiều Contributors nên chắc chắn đây sẽ trở thành lựa chọn hoàn hảo cho nhiều dự án web sắp tới.</p>
+<h4 id="react16">React 16</h4>
+<ul>
+<li>Github: <a href="https://reactjs.org/">https://reactjs.org/</a></li>
+<li>Document: <a href="https://github.com/facebook/react/">https://github.com/facebook/react/</a></li>
+<li>Blog: <a href="https://reactjs.org/blog/2017/09/26/react-v16.0.html">https://reactjs.org/blog/2017/09/26/react-v16.0.html</a></li>
+</ul>
+<p>Sau nhiều lời ca tụng về tốc độ của Vue.js tất nhiên một ông lớn như facebook cũng không chịu thua kém. Điểm nổi bật nhất trong phiên bản mới này là cải thiện về tốc độ, server rending nhanh gấp 3 lần đồng thời kích thước file cũng được giảm đi rất nhiều. Không chỉ vậy trong lần nâng cấp này React còn hộ trợ việc error handle tốt hơn nữa và còn nhiều tính năng khác nữa.</p>
+<p>React từ trước đến nay vẫn luôn nổi trên top các cộng đồng. Không chỉ tăng trưởng về số lượng thư viện, trong năm 2017 các công cụ để phát triển react cũng được sinh ra như <a href="https://stackblitz.com">https://stackblitz.com</a> (IDE online), <a href="https://reactstudio.com/">https://reactstudio.com/</a> (Tool kéo thả React), các plugin giúp convert design trên sketch sang code react, ...</p>
+<h4 id="arvr">AR, VR</h4>
+<p>Với sự phát triển của AR và VR, không lý do gì tại sao chúng ta lại không phát triển các ứng dụng AR, VR bằng Javascript. Trong năm qua ngay sau khi ARkit của apple và ARcore của google được phát hành thì ngay lập tức các thư viện, phương pháp phát triển AR và VR được tung ra. Đơn giản vì phát triển nhanh, với đa phần các developer hiện đã biết Javascript rồi nên không cần phải học thêm ngôn ngữ khác.</p>
+<p>Để phát triển ưng dụng AR và VR bằng javascript hiện nay thường đi theo 2 hướng chính: Xây dựng để chạy trên WebView, hoặc dựa trên React Native</p>
+<ul>
+<li>
+<p>Trên WebView:</p>
+<ul>
+<li>Ngay khi ARcore được phát hành google đã triển khai cả trên web
+<ul>
+<li><a href="https://developers.google.com/ar/develop/web/getting-started">https://developers.google.com/ar/develop/web/getting-started</a></li>
+<li>Với hẳn 2 thư viện WebARonARCore cho Android và WebARonARKit cho iOS</li>
+</ul>
+</li>
+<li>Không chỉ có base trên ARkit và ARcore. Trước đó cũng có một vài thư viện cho AR
+<ul>
+<li>ar.js được base trên ARToolkit(opensource AR lâu đời nhất)</li>
+<li>Chính chủ ARToolkit cũng có một phần riêng dành cho Web là jsartoolkit5</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Sử dụng React Native</p>
+<ul>
+<li>Bản thân facebook cũng đã có một thư viện để tạo ứng dụng VR từ lâu là react-vr
+<ul>
+<li><a href="https://facebook.github.io/react-vr/">https://facebook.github.io/react-vr/</a></li>
+<li>Điểm đáng lưu ý của thư viện này là được thừa hưởng các kỹ thuật tốt nhất của facebook. React thỉ hẳn không nói ai cũng biết còn VR chắc cũng nhiều người biết Facebook đã mua công ty cha đẻ của VR là Oculus nên việc kết hợp này quá dễ dàng với facebook.</li>
+</ul>
+</li>
+<li>Chính trong năm 2017, Viro media đã release một thư viện có thể phát triển cả AR và VR. và chạy gọi trực tiếp các API của ARkit và ARcore. Có thể nói đây là một thư viện tốt nhất hiện này viết bằng react để phát triển AR và VR.
+<ul>
+<li><a href="https://viromedia.com/viroreact/">https://viromedia.com/viroreact/</a></li>
+</ul>
+</li>
+<li>Còn nhiều thư viên khắc nữa, có thể tìm được dẽ ràng trên google và github</li>
+</ul>
+</li>
+</ul>
+<h4 id="webassembly">WebAssembly</h4>
+<p>Được phát triển từ năm 2015. Tuy nhiên WebAsemply được biết đến nhiều hơn trong nhưng năm gần đây. Và được nhắc đến như là cuộc cách mạng đột phá của các Website.</p>
+<p>WebAssembly được hiểu là một trình biên dịch mã nhị phân được tích hợp vào trong các trình duyệt, mục đích là để biên dịch các phần mềm và giúp chúng có thể chạy trên nền tảng trình duyệt. Khác với Flash, WebAssembly được xây dựng bên trong trình duyệt, do đó không cần cài đặt thêm bất kỳ plugin nào.</p>
+<p>WebAssembly gần giống với JavaScript, tuy nhiên nó mạnh hơn và cũng nhanh hơn gấp nhiều lần. Các công đoạn phiên dịch mã nhị phân được thực thi trên hệ thống của máy tính, mà vì thế cho phép bạn truy cập ứng dụng Photoshop trên nền web với tốc độ tương đương với phần mềm Photoshop trên máy tính.</p>
+<p><amp-img src="https://drive.google.com/uc?id=17HaqpWlAjzj9Mq2c5kn0ge396uJcro0-&amp;export=download" alt="alt" width="640" height="484" layout="responsive"></amp-img></p>
+<p>Với nhiều ưu điểm nhanh, mượt bảo mật, WebAssembly đang trở thành tương lai của các website, có nhiều ứng dụng và phần mềm hơn, chạy đa nền tảng, chơi game cấu hình cao, tốc độ phản hồi nhanh tương đương phần mềm cài đặt trên máy tính.</p>
+<h4 id="bootstrap4">Bootstrap 4</h4>
+<p>Sau bao lầu chờ đợi, cuối cùng Bootstrap 4 cũng đã được release trong năm 2017 hứa hẹn với rất nhiều thay đổi. Trong phiên bản này họ đã cải tiến từ bên trong phần core ra cả các class bên ngoài. Thay vì sử dụng less thì chuyển sang dùng sass, chính vì thếm mà bootstrap 4 được complie nhanh hơn rất nhiều. Hệ thông gird cũng đươc làm để dễ sử dụng hơn, chuyển sang sử dụng đơn vị <code>rem</code>. Việc sử dụng <code>rem</code> có ý nghĩa vô cùng quan trọng đối với các màn hình kích thước khác nhau. Sự cân đối của design không bị phá vỡ bởi các thuộc tính có giá trị động và phụ thuộc lẫn nhau. Bổ sung với nhiểu class mới đơn giản hơn như <code>p-1</code> = <code>padding: 1rem</code>, <code>m-1</code> = <code>margin: 1</code>, <code>pl-2</code>, <code>mr-2</code>, <code>pt-2</code>, <code>mb-2</code>, ... Thêm một điểm cộng nữa là document cũng được chỉnh sửa lại giúp dễ học hơn trước</p>
+<h3 id="hngti2018">Hướng tới 2018</h3>
+<p>Trong năm 2017 React luôn chiến thắng trong các cuộc chiến về sự phổ biến, số lượng người sử dụng. Theo các bài báo thì họ cũng nói rằng Ract sẽ còn chiến thắng trong năm 2018 và đặc biết với React Native sẽ bỏ xa các công cụ tương tự khác. Nhưng chúng ta cùng đừng bỏ qua nhưng framework khác.</p>
+<p>Angular đang chuyển sang một vai trò mới. Angular vẫn được bảo kể bởi ông lớn Google, vẫn đem lại độ tin tưởng và sự bảo mật nhất định dành cho doanh nghiệp. Tất nhiên để có thể phát triển, Angular sẽ không trực tiếp đối đầu với React thay vào đó sẽ tập chung vào thị trường doanh nghiệp.</p>
+<p>Cũng không thể bỏ qua Vue.js. Vue.js ra đời trong thời gian ngắn, nó đã chứng mình là mối đe dọa lớn nhất đối với React. Vue được đánh giá tốt hơn khi nói đến việc cung cấp trải nghiệm đầy đủ về một Framework, nhờ vào các official router và state management library được duy trì bởi cùng core team.</p>
+<p>Năm 2018 chắc chắn làm một năm của GraphQL. Đa số mọi người đều nghe nói về GraphQL và có thể đang bị hấp dẫn, nhưng bạn vẫn chưa thực sự thử nó. Trong tất cả các công nghệ được đề cập trong cuộc khảo sát, GraphQL là một trong những công nghệ tạo ra nhiều sự quan tâm nhất - mặc dù số lượng người dùng hiện tại nhỏ. Và nói về những người dùng hiện tại, cũng cần phải nói rằng họ rất hài lòng với GraphQL. Đừng ngạc nhiên nếu năm 2018 là năm mà GraphQL trở thành một công nghệ chủ đạo.</p>
+<p>Progressive Web Apps (PWAs) có lẽ còn nhiều người chưa biết đến nó. Progressive Web App (PWA) là một dạng ứng dụng nền web đang rất nổi trong thời gian gần đây. Bạn cứ tưởng tượng nó giống một website bình thường nhưng hỗ trợ full cho các thao tác cảm ứng, có tất cả tính năng giống như bạn xài một app bình thường: thông báo, camera, GPS, sync dữ liệu nền, NFC, Bluetooth... Nói cách khác, nó không khác nhiều so với app, nhưng lại không cần cài đặt, không cần chờ download, và chiếm ít dung lượng bộ nhớ hơn. Vậy có phải ngon không? Chắc chắn năm 2018 sẽ là sự chuyển mình từ SPA sang PWA</p>
+<h4 id="ckinthcvmtvithvinsgipbnkimcnhiutinhn">Có kiến thức về một vài thư viện sẽ giúp bạn kiếm được nhiều tiền hơn</h4>
+<ul>
+<li><strong>React</strong></li>
+<li><strong>Redux</strong></li>
+<li><strong>Redux-Saga</strong> để quản lý I / O ngắt kết nối và cô lập các hiệu ứng trên màn hình</li>
+<li><strong>Next.js</strong> - SSR với Node &amp; Express, tách bó tự động, kiểu-jsx</li>
+<li><strong>Material UI</strong></li>
+<li><strong>Cheerio</strong> để thực hiện unit test React components (Tôi thích cài này hơn Enzyme)</li>
+<li><strong>Lodash</strong> Import các tiện ích bạn cần để tránh tăng kích thước bundle của bạn.</li>
+<li><strong>Babel</strong>: Được sử dụng để biên dịch ES6 để làm việc trên các trình duyệt cũ hơn.</li>
+<li><strong>Webpack</strong>: Gói bundler phổ biến nhất dành cho trình duyệt JavaScript tiêu chuẩn cho các ví dụ về bộ khởi tạo / cấu hình boilerplate đơn giản để mọi thứ chạy nhanh)</li>
+<li><strong>ESLint</strong>: Catch lỗi cú pháp và các vấn đề phong cách sớm. Sau khi xem xét mã và TDD, công cụ tốt nhất bạn có thể làm để giảm lỗi trong mã của bạn.</li>
+<li><strong>Node &amp; Express</strong></li>
+<li><strong>RxJS</strong>: Observables cho JavaScript</li>
+<li><strong>TypeScript</strong></li>
+</ul>
+<h4 id="sdngchocccngnghtrongtnglai">Sử dụng cho các công nghệ trong tương lai</h4>
+<p>Tất các lĩnh vực R&amp;D này để có thể xin việc trong tương lai</p>
+<ul>
+<li>Progressive Web Apps (PWAs)</li>
+<li>Blockchain &amp; fintech</li>
+<li>Medical technology</li>
+<li>AR/VR — Hololens, Meta, và ODG được vận chuyển ngày hôm nay. ODG R-9 dự kiến sẽ được xuất xưởng trong năm 2017 nhưng có thể sẽ được xuất xưởng vào năm 2018. MagicLeap đã hứa sẽ xuất xưởng vào năm 2018. AR sẽ biến đổi kinh nghiệm của con người nhiều hơn điện thoại di động đã làm.</li>
+<li>3D printing</li>
+<li>AI</li>
+<li>Drones</li>
+</ul>
+<h3 id="ktlun">Kết luận</h3>
+<p>Năm 2017 là một năm khá huy hoàng cho JavaScript. Điều này chắc hẳn các blogger và các trang web về programming cũng đồng ý JavaScript là một ngôn ngữ mạnh mẽ và đáng học nhất hiện nay.</p>
+<p>Cộng đồng JavaScript hiện nay đang rất sôi động. Các library/framework cho JavaScript cả front-end lẫn back-end đều lần lượt ra đời như nấm sau mưa.</p>
+<p>Nói tóm lại những gì liên quan đến website nói chung và front end nói riêng đều sử dụng JavaScript.</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

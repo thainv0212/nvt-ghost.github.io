@@ -1,0 +1,928 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Facebook Message Bots</title>
+
+    <link rel="canonical" href="../index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Facebook Message Bots">
+    <meta property="og:description" content="Giới Thiệu Facebook Message Bot Tháng 04/2016 Facebook ra mắt Messenger Platform phiên bản Beta, trong đó cho phép developer có thể viết 1 con Bot để có thể trả lời tự động. Đây chính là cơ hội để có thể kết nối với lượng người dùng khổng lồ">
+    <meta property="og:url" content="https://blog.vietnamlab.vn/facebook-message-bots/">
+    <meta property="og:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkallYN2NYSVRFbnM&amp;export=download">
+    <meta property="article:published_time" content="2016-09-28T18:07:38.000Z">
+    <meta property="article:modified_time" content="2017-03-05T03:51:34.000Z">
+    <meta property="article:tag" content="bot">
+    <meta property="article:tag" content="facebook">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Facebook Message Bots">
+    <meta name="twitter:description" content="Giới Thiệu Facebook Message Bot Tháng 04/2016 Facebook ra mắt Messenger Platform phiên bản Beta, trong đó cho phép developer có thể viết 1 con Bot để có thể trả lời tự động. Đây chính là cơ hội để có thể kết nối với lượng người dùng khổng lồ">
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/facebook-message-bots/">
+    <meta name="twitter:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkallYN2NYSVRFbnM&amp;export=download">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="Q_Đ.V.P">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="bot, facebook">
+    <meta property="og:image:width" content="624">
+    <meta property="og:image:height" content="383">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Q_Đ.V.P",
+        "url": "https://blog.vietnamlab.vn/author/phidv/",
+        "sameAs": []
+    },
+    "headline": "Facebook Message Bots",
+    "url": "https://blog.vietnamlab.vn/facebook-message-bots/",
+    "datePublished": "2016-09-28T18:07:38.000Z",
+    "dateModified": "2017-03-05T03:51:34.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkallYN2NYSVRFbnM&export=download",
+        "width": 624,
+        "height": 383
+    },
+    "keywords": "bot, facebook",
+    "description": "Giới Thiệu\nFacebook Message Bot\n * Tháng 04/2016 Facebook ra mắt Messenger Platform phiên bản Beta, trong đó cho\n   phép developer có thể viết 1 con Bot để có thể trả lời tự động.\n * Đây chính là cơ hội để có thể kết nối với lượng người dùng khổng lồ trên thế\n   giới dùng facebook thông qua mesenger.\n * Thông tin gửi nhận giữa user và Bots là một message template trong đó có thể\n   chứa: text, images, các CTAs (Calls to action).\n\nỨng Dụng\n * Một số Bots Messenger đang có hàng ngàn người dùng:\n  ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36">
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html">
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Facebook Message Bots</h1>
+                <section class="post-meta">
+                    Q_Đ.V.P -
+                    <time class="post-date" datetime="2016-09-29">29 Sep 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkallYN2NYSVRFbnM&amp;export=download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="giithiu">Giới Thiệu</h3>
+<h4 id="facebookmessagebot">Facebook Message Bot</h4>
+<ul>
+<li>Tháng 04/2016 Facebook ra mắt Messenger Platform phiên bản Beta, trong đó cho phép developer có thể viết 1 con Bot để có thể trả lời tự động.</li>
+<li>Đây chính là cơ hội để có thể kết nối với lượng người dùng khổng lồ trên thế giới dùng facebook thông qua mesenger.</li>
+<li>Thông tin gửi nhận giữa user và Bots là một message template trong đó có thể chứa: text, images, các CTAs (Calls to action).</li>
+</ul>
+<h4 id="ngdng">Ứng Dụng</h4>
+<ul>
+<li>Một số Bots Messenger đang có hàng ngàn người dùng: <a href="https://www.messenger.com/t/hiponcho">https://www.messenger.com/t/hiponcho</a>, <a href="https://www.messenger.com/t/cnn/">https://www.messenger.com/t/cnn/</a></li>
+<li>Tùy vào Developer muốn xây dựng một Bots theo mong muốn. Có thể là chat nói chuyện phiếm với Bots, Có thể tương tác với người dùng để đặt vé xem phim, đọc báo (CNN ở trên), mua bán sản phẩm, giới thiệu các sản phẩm mới, sản phẩm đang giảm giá ... tùy thuộc vào mục đích kinh doanh, marketing.</li>
+<li>Tất cả các ứng dụng đều được gửi thông qua message template. Có thể tham khảo các Send API : <a href="https://developers.facebook.com/docs/messenger-platform/send-api-reference">https://developers.facebook.com/docs/messenger-platform/send-api-reference</a></li>
+<li>Tham khảo của FB: <a href="https://developers.facebook.com/docs/messenger-platform/product-overview">https://developers.facebook.com/docs/messenger-platform/product-overview</a></li>
+</ul>
+<h3 id="cchtomtfacebookmessagebot">Cách Tạo Một Facebook Message Bot</h3>
+<h4 id="mhnhginhncafacebookmessagebot">Mô hình gửi nhận của Facebook Message Bot</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWTBLQWN5bndIekU&amp;export=download" alt="Facebook Bots" width="1871" height="830" layout="responsive"></amp-img></p>
+<ol>
+<li>User gửi message tới Facebook Message Bot</li>
+<li>Facebook Message Bot đóng gói message và gửi nội dung user đã gửi tới WebHook Server</li>
+<li>Tại WebHook Server, sau khi nhận được message, tùy thuộc vào mục đích của Bot muốn tạo ra, Develop sẽ tạo ra 1 message Reponse (message template của Facebook) và</li>
+<li>WebHook Server gửi trả lại Facebook Message Bot nội dung message temple đã được tạo ra. Trong nội dung message gửi có lưu userId đã send tới FB Message Bot</li>
+<li>Gửi lại nội dung để hiển thị trong màn hình chát message của user</li>
+</ol>
+<h4 id="dngmhnh">Dựng mô hình</h4>
+<p>Trong mô hình trên thì người Developer sẽ phải thiết lập một Facebook Message Bot và Dựng một Webhook Server Bot. Mọi việc liên quan đến lập trình để phục vụ cho việc trả lời tự động của Bot sẽ được viết trên WebHook Server Bot.</p>
+<p>Tạo một Webhook Server bot</p>
+<ul>
+<li>Code sample gửi nhận message với  Facebook Message Bot: <code>git@github.com:dinhphi/test-chat-bot-fb.git</code></li>
+<li>Webhook theo wikipedia: “A <strong>webhook</strong> in <a href="https://en.wikipedia.org/wiki/Web_development" title="Web development">web development</a> is a method of augmenting or altering the behavior of a <a href="https://en.wikipedia.org/wiki/Web_page" title="Web page">web page</a>, or <a href="https://en.wikipedia.org/wiki/Web_application" title="Web application">web application</a>, with custom <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)" title="Callback (computer programming)">callbacks</a>“</li>
+</ul>
+<p>Cách tạo trên <a href="https://c9.io">https://c9.io</a> (cung cấp 1 VPS online)<br>
+– Có thể sử dụng chính VPS của bạn, hoặc một VPS online khác. Cài đặt npm và chạy nodeJs trên file server.js</p>
+<ul>
+<li>Nhập [Workspace name], [Clone from Git or Mercurial URL]: <strong><a href="mailto:git@github.com">git@github.com</a>:dinhphi/test-chat-bot-fb.git</strong>, template: Node.js</li>
+<li>RUN server</li>
+</ul>
+<p>Một số phần chính trong Server.js (tham khảo sau khi lấy source code từ github về) - Là server bằng Node.js</p>
+<ul>
+<li>Tạo app:</li>
+</ul>
+<pre><code class="language-js">var app = express();
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+var server = http.createServer(app);
+
+
+app.get('/', (req, res) =&gt; {
+  res.send("Home page. Server running okay.");
+});
+
+
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002);
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || process.env.IP || "127.0.0.1");
+
+server.listen(app.get('port'), app.get('ip'), function() {
+  console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
+});
+</code></pre>
+<ul>
+<li>Tạo webhook</li>
+</ul>
+<pre><code class="language-js">app.get('/webhook', function(req, res) {
+  if (req.query['hub.verify_token'] === '12345') {
+    res.send(req.query['hub.challenge']);
+  }
+  res.send('Error, wrong validation token');
+});
+</code></pre>
+<ul>
+<li>
+<p>[hub.verify_token] là một thành phần quan trọng để khi start server lên thì để App Facebook Messenger xác nhận thông tin verify_token. Giá trị này có thể là một chuỗi bất kỳ, Khi xác thực bên Facbook Messenger Bot cần nhập trùng với bên WebHook.</p>
+</li>
+<li>
+<p>Nhận Message từ App Facebook Messenger Bot</p>
+</li>
+</ul>
+<pre><code class="language-js">function receivedMessage(event) {
+  var senderID = event.sender.id;
+  var recipientID = event.recipient.id;
+  var timeOfMessage = event.timestamp;
+  var message = event.message;
+
+  console.log("Received message for user %d and page %d at %d with message:", 
+    senderID, recipientID, timeOfMessage);
+  console.log(JSON.stringify(message));
+
+  var messageId = message.mid;
+
+  // You may get a text or attachment but not both
+  var messageText = message.text;
+  var messageAttachments = message.attachments;
+
+  if (messageText) {
+
+    // If we receive a text message, check to see if it matches any special
+    // keywords and send back the corresponding example. Otherwise, just echo
+    // the text we received.
+    switch (messageText) {
+      case 'image':
+        sendImageMessage(senderID);
+        break;
+
+      case 'button':
+        sendButtonMessage(senderID);
+        break;
+
+      case 'generic':
+        sendGenericMessage(senderID);
+        break;
+
+      case 'receipt':
+        sendReceiptMessage(senderID);
+        break;
+
+      default:
+        sendTextMessage(senderID, messageText);
+    }
+  } else if (messageAttachments) {
+    sendTextMessage(senderID, "Message with attachment received");
+  }
+}
+</code></pre>
+<ul>
+<li>Trong ví dụ này tùy vào message mà user gửi đến có thể tùy chỉnh gửi lại user các dữ liệu khác nhau. Ví dụ trên nếu user gửi text: ‘image’ thì sẽ gửi lại user 1 hình ảnh nào đó. Tương tự nếu gửi một ‘generic’ thì sẽ nhận được một template message thuộc dạng generic. Hoặc một text bất kỳ thì sẽ nhận được theo dạng text.</li>
+<li>Gửi Message tới App Faccebook Messenger Bot</li>
+</ul>
+<pre><code class="language-js">function callSendAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: 'EAAEIcu29G2MBAIXVs02oqPHxMqFsku3heDN0E50KorDzY1LBmnUPgbgQA4FWuiCFPb3CZArofz1KijokqgNZBrbTR3H9ZCW7JNh4SYILZAZAcZBRcDeid36Uk0ThluioU9l7YZCmkllstkL5YHaZBDsthcTtppouHIAWMP1DcYnYAwZDZD'},
+    method: 'POST',
+    json: messageData
+
+  }, function (error, response, body) {
+    if (!error &amp;&amp; response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+
+      console.log("Successfully sent generic message with id %s to recipient %s", 
+        messageId, recipientId);
+    } else {
+      console.error("Unable to send message.");
+      console.error(response);
+      console.error(error);
+    }
+  });  
+}
+</code></pre>
+<ul>
+<li>Thông tin gửi có access-token là thông số nhận được từ thao tác (3) trong phần chú ý  ở bên dưới (Tạo app facbook message bot).</li>
+<li>Start Server:
+<ul>
+<li>Khi tạo trên <a href="https://c9.io/">https://c9.io/</a> và RUN server.js sẽ có thông báo: “Your code is running at <a href="https://test-facebook-chatbot-dinhphi3916.c9users.io">https://test-facebook-chatbot-dinhphi3916.c9users.io</a>”</li>
+<li>Như vậy webhook xác nhận cho phần (2) ở bên dưới sẽ là : "<a href="https://test-facebook-chatbot-dinhphi3916.c9users.io/webhook">https://test-facebook-chatbot-dinhphi3916.c9users.io/webhook</a>"</li>
+</ul>
+</li>
+<li>Tạo app facbook message bot
+<ul>
+<li>Tham khảo: <a href="https://developers.facebook.com/docs/messenger-platform/quickstart">https://developers.facebook.com/docs/messenger-platform/quickstart</a></li>
+<li>Link trên có Sample App của FB, hoặc có thể tham khảo Sample App đã có thể chạy được tại: xxxxxx</li>
+</ul>
+</li>
+</ul>
+<p><strong>Một số chú ý</strong>:</p>
+<ol>
+<li>Trước khi có thể thiết lập thì phải tạo 1 App và 1 Page phục vụ cho facebook message bot.</li>
+</ol>
+<ul>
+<li>App: <a href="https://developers.facebook.com/quickstarts/?platform=web">https://developers.facebook.com/quickstarts/?platform=web</a></li>
+<li>Page: <a href="https://www.facebook.com/pages/create">https://www.facebook.com/pages/create</a></li>
+</ul>
+<ol start="2">
+<li>Setup WebHook (các thông tin cần thiết tham khảo phần tạo webhook server ở trên)</li>
+<li>Lấy Page Access Token – sau khi lấy thì token này sẽ cần phải thiết lập cho webhook phục vụ khi gửi message</li>
+</ol>
+<h4 id="ktquchyth">Kết quả chạy thử</h4>
+<h5 id="webhookserver">WebHook Server</h5>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRnppZ1dPVUl1Y28&amp;export=download" alt="WebHook Server" width="1873" height="1011" layout="responsive"></amp-img></p>
+<h5 id="facebooksendmessage">Facebook Send Message</h5>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVTlRQUFYRkFpR2c&amp;export=download" alt="Facebook Send Message" width="544" height="652" layout="responsive"></amp-img></p>
+<h3 id="tomtsamplechatbot">Tạo Một Sample Chat Bot</h3>
+<h4 id="nidung">Nội Dung</h4>
+<ul>
+<li>Tạo một Bot để nói chuyện với user</li>
+<li>Ngôn ngữ sử dụng: tiếng anh</li>
+<li>Sử dụng Bot online: Cleverbot : <a href="http://www.cleverbot.com/">http://www.cleverbot.com/</a></li>
+<li>API sử dụng: <a href="https://cleverbot.io">https://cleverbot.io</a> (dùng Node.js)</li>
+</ul>
+<h4 id="cleverbotfacebookmessagebot">CleverBot &amp; Facebook Message Bot</h4>
+<ul>
+<li>Mô hình</li>
+<li>Gắn nội dung vào việc sendTextMessage trên webHook</li>
+</ul>
+<pre><code class="language-js">var bot = new cleverbot("vFPSSsQ3GjoTqsAK", "lRkHTo2OhNQCp3jOUQAkBxDgMsi9y2Oy");
+bot.setNick("dinhphirobot");
+  
+function sendTextMessage(recipientId, messageText) {
+  bot.create(function (err, session) {
+       if ( err ) {
+        // handle the error safely
+        console.log('Have create error');
+    }
+  // session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
+
+  // Woo, you initialized cleverbot.io.  Insert further code here
+});
+  bot.ask(messageText, function (err, response) {
+  console.log(response); // Will likely be: "Living in a lonely world"
+   var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: response
+    }
+  };
+
+  callSendAPI(messageData);
+   if ( err ) {
+        // handle the error safely
+        console.log('Have error');
+    }
+  });
+
+ 
+}
+</code></pre>
+<h4 id="ktqu">Kết quả</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWmRVek8yd1U4Nkk&amp;export=download" alt="CleverBot" width="547" height="725" layout="responsive"></amp-img></p>
+<h3 id="ktlun">Kết luận</h3>
+<ol>
+<li>Thông qua message facebook có thể tùy chỉnh message gửi tới user</li>
+<li>Ứng dụng sử dụng của FB mesenger flatform có thể đa dạng hóa dựa vào message template</li>
+<li>Có thể sử dụng bên thứ 3 khác nữa (ví dụ clever bot) để tạo message hoặc ứng dụng tùy ý.</li>
+<li>Khó khăn trong việc trên là có server đẻ đặt webhook</li>
+<li>Chưa hoàn thiện do chưa deploy app, có thể nói tới trong một bài viết khác.</li>
+<li>Có thể tạo các Bot cho IoT, EC, application…</li>
+</ol>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://developers.facebook.com/docs/messenger-platform">https://developers.facebook.com/docs/messenger-platform</a></li>
+<li><a href="https://cleverbot.io/">https://cleverbot.io/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Webhook">https://en.wikipedia.org/wiki/Webhook</a></li>
+<li><a href="mailto:git@github.com">git@github.com</a>:dinhphi/test-chat-bot-fb.git</li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"></rect><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"></path><rect y="34" width="84" height="17" rx="4"></rect><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"></path><rect x="67" width="17" height="17" rx="4"></rect></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sử dụng firebase với swift 3.x (phần 1) | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-1/amp/" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Sử dụng firebase với swift 3.x (phần 1)" />
+    <meta property="og:description" content="Firebase là một dịch vụ của google hỗ trợ rât tốt cho các nền tảng Android, Ios, Web như là hỗ trợ push notification, chat realtime... Trong thời gian gần đây dự án mà tôi tham gia cũng đã sử dụng cả push notification và chat realtime. Trong khuôn khổ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTGxlYXY3aDhXUkE&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-05-31T01:00:00.000Z" />
+    <meta property="article:modified_time" content="2017-05-31T01:37:57.000Z" />
+    <meta property="article:tag" content="firebase" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sử dụng firebase với swift 3.x (phần 1)" />
+    <meta name="twitter:description" content="Firebase là một dịch vụ của google hỗ trợ rât tốt cho các nền tảng Android, Ios, Web như là hỗ trợ push notification, chat realtime... Trong thời gian gần đây dự án mà tôi tham gia cũng đã sử dụng cả push notification và chat realtime. Trong khuôn khổ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTGxlYXY3aDhXUkE&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.C.Q" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="firebase" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="422" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.C.Q",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8HRtTCzrnKzVWCm6NCYy8Hsyei_wlpa&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/quytc/",
+        "sameAs": []
+    },
+    "headline": "Sử dụng firebase với swift 3.x (phần 1)",
+    "url": "https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-1/",
+    "datePublished": "2017-05-31T01:00:00.000Z",
+    "dateModified": "2017-05-31T01:37:57.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkTGxlYXY3aDhXUkE&export=download",
+        "width": 750,
+        "height": 422
+    },
+    "keywords": "firebase",
+    "description": "Firebase là một dịch vụ của google hỗ trợ rât tốt cho các nền tảng Android, Ios,\nWeb như là hỗ trợ push notification, chat realtime... Trong thời gian gần đây dự\nán mà tôi tham gia cũng đã sử dụng cả push notification và chat realtime. Trong\nkhuôn khổ blog này tôi xin giới thiệu các bước cơ bản để viết ứng dụng realtime\ntrên IOS.\n\n\nI . Chuẩn bị cơ bản\nTrước tiên hãy tải project chứa màn hình login dummy theo link sau simple\nproject here\n[https://koenig-media.raywenderlich.com/uploads/2016/09/Cha",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-firebase nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-firebase js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Sử dụng firebase với swift 3.x (phần 1)</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2017-05-31">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 31 May 2017
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/firebase/index.html">firebase</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTGxlYXY3aDhXUkE&amp;export&#x3D;download" alt="Sử dụng firebase với swift 3.x (phần 1)">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/su-dung-firebase-voi-swift-3-x-phan-1/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=S%E1%BB%AD%20d%E1%BB%A5ng%20firebase%20v%E1%BB%9Bi%20swift%203.x%20(ph%E1%BA%A7n%201)">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><p>Firebase là một dịch vụ của google hỗ trợ rât tốt cho các nền tảng Android, Ios, Web như là hỗ trợ push notification, chat realtime... Trong thời gian gần đây dự án mà tôi tham gia cũng đã sử dụng cả push notification và chat realtime. Trong khuôn khổ blog này tôi xin giới thiệu các bước cơ bản để viết ứng dụng realtime trên IOS.<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQ29Eb1F1V0lyVVE&amp;export=download" alt=""></p>
+<h3 id="ichunbcbn">I . Chuẩn bị cơ bản</h3>
+<p>Trước tiên hãy tải project chứa màn hình login dummy theo link sau <a href="https://koenig-media.raywenderlich.com/uploads/2016/09/ChatChatFirebaseTutorial-start.zip">simple project here</a><br>
+Trong podfile hãy add nhưng thư viện sau vào</p>
+<pre><code> pod 'Firebase/Storage'
+ pod 'Firebase/Auth'
+ pod 'Firebase/Database'
+ pod 'JSQMessagesViewController'
+</code></pre>
+<p>Thực hiện lệnh sau để cài đặt các thư viện đã add ở trên</p>
+<pre><code>pod install
+</code></pre>
+<p><strong>Tạo Firebase Account</strong></p>
+<p><a href="https://www.firebase.com/signup/">Tạo account Firebase</a> sau đó tạo một project mới trên Firebase, bước tiếp theo là tạo một app cho IOS, cuối cùng hãy download file <code>GoogleService-Info.plist</code> và add vào Project.<br>
+Bây giờ build app, màn hình nhìn thấy sẽ như sau<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeElzbnl0ZFpsNEE&amp;export=download" alt=""><br>
+<strong>Enabling Anonymous Authentication</strong></p>
+<p>Để set up anonymous authentication, mở <code>Firebase App Dashboard</code>, chọn <code>Auth</code>, click vào <code>Sign-In Method</code>, chọn <code>Anonymous</code>, chuyển sang <code>Enable</code> và click <code>Save</code></p>
+<h3 id="iimnhnhngnhp">II . Màn hình đăng nhập</h3>
+<p>Mở file <code>LoginViewController.swift</code>, sau đó add đoạn code sau vào gần <code>import UIKit</code>:</p>
+<pre><code>import Firebase
+</code></pre>
+<p>Để log in cho chat, ứng dụng cần authenticate dùng Firebase authentication service. Thêm đoạn code sau vào trong hàm <code>loginDidTouch(_:)</code>:</p>
+<pre><code>if nameField?.text != &quot;&quot; { // 1
+  FIRAuth.auth()?.signInAnonymously(completion: { (user, error) in // 2
+    if let err = error { // 3
+      print(err.localizedDescription)
+      return
+    }
+    self.performSegue(withIdentifier: &quot;LoginToChat&quot;, sender: nil) // 4
+  })
+}
+</code></pre>
+<p>Giải thích chút về đoạn code trên<br>
+Thứ nhất, kiểm tra xem tên có empty không<br>
+Sau đó dùng Firebase Auth API để sign in anonymously. Nếu không hoàn thành sẽ xảy ra lỗi<br>
+Cuối cùng, nếu không bị lỗi, sẽ move tới <code>ChannelListViewController</code>.<br>
+Build và run app, nhập tên của bạn và và press <code>Login anonymously</code><br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNFRfUFFfS1BmeVU&amp;export=download" alt=""></p>
+<h3 id="iiitodanhschchannel">III . Tạo danh sách Channel</h3>
+<p>Các bước thực hiện sẽ như sau</p>
+<h6 id="1ludliuvofirebasedatabase">1. Lưu dữ liệu vào Firebase database.</h6>
+<h6 id="2btuthmoncodesauvoufilechannellistviewcontrollerswift">2. Để bắt đầu, thêm đoạn code sau vào đầu file <code>ChannelListViewController.swift</code>:</h6>
+<pre><code>import Firebase
+</code></pre>
+<pre><code>enum Section: Int {
+  case createNewChannelSection = 0
+  case currentChannelsSection  
+}
+</code></pre>
+<p>Tiếp theo, trong class, thêm đoạn sau vào:</p>
+<pre><code>// MARK: Properties
+var senderDisplayName: String? // 1
+var newChannelTextField: UITextField? // 2
+private var channels: [Channel] = [] // 3 
+</code></pre>
+<p>Giải thích đoạn code trên:</p>
+<ol>
+<li>Thêm thuộc tính để lưu tên của người gửi.</li>
+<li>Thêm text field, cái này sẽ dùng cho việc thêm một channel mới.</li>
+<li>Tạo một mảng rỗng của Channel Objects để lưu kênh của bạn.<br>
+Tiếp theo, cần set up UITableView để render channel mới. Thêm hàm sau vào class <code>ChannelListViewController.swift</code></li>
+</ol>
+<pre><code>// MARK: UITableViewDataSource
+override func numberOfSections(in tableView: UITableView) -&gt; Int {
+  return 2 // 1
+}  
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int { // 2
+  if let currentSection: Section = Section(rawValue: section) {
+    switch currentSection {
+    case .createNewChannelSection:
+      return 1
+    case .currentChannelsSection:
+      return channels.count
+    }
+  } else {
+    return 0
+  }
+}
+// 3
+override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+  let reuseIdentifier = (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue ? &quot;NewChannel&quot; : &quot;ExistingChannel&quot;
+  let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
+  if (indexPath as NSIndexPath).section == Section.createNewChannelSection.rawValue {
+    if let createNewChannelCell = cell as? CreateChannelCell {
+      newChannelTextField = createNewChannelCell.newChannelNameField
+    }
+  } else if (indexPath as NSIndexPath).section == Section.currentChannelsSection.rawValue {
+    cell.textLabel?.text = channels[(indexPath as NSIndexPath).row].name
+  }
+  return cell
+}
+</code></pre>
+<p>Để cho chắn chắn mọi thứ đều làm việc tốt, thêm đoạn code sau dưới thuộc tính:</p>
+<pre><code>override func viewDidAppear(_ animated: Bool) {
+  super.viewDidAppear(animated)  
+  channels.append(Channel(id: &quot;1&quot;, name: &quot;Channel1&quot;))
+  channels.append(Channel(id: &quot;2&quot;, name: &quot;Channel2&quot;))
+  channels.append(Channel(id: &quot;3&quot;, name: &quot;Channel3&quot;))
+  self.tableView.reloadData()
+}
+</code></pre>
+<p>Đoạn code trên là thêm một vài dự liệu dummy cho channel. Bây giờ build app màn hình channel sẽ như sau:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkLTBiVnM3WEUwbkk&amp;export=download" alt=""></p>
+<h3 id="vicutrcdliucafirebase">VI . Cấu trúc dữ liệu của Firebase</h3>
+<p>Firebase database là một NoSQL JSON data store. Tất cả mọi thứ trong Firebase database là JSON object, mỗi key của đối tượng JSON này đều có URL của nó.<br>
+Dưới đây là một ví dụ</p>
+<pre><code>{
+  &quot;channels&quot;: {
+    &quot;name&quot;: &quot;Channel 1&quot;
+    &quot;messages&quot;: {
+      &quot;1&quot;: { 
+        &quot;text&quot;: &quot;Hey person!&quot;, 
+        &quot;senderName&quot;: &quot;Alice&quot;
+        &quot;senderId&quot;: &quot;foo&quot; 
+      },
+      &quot;2&quot;: {
+        &quot;text&quot;: &quot;Yo!&quot;,
+        &quot;senderName&quot;: &quot;Bob&quot;
+        &quot;senderId&quot;: &quot;bar&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<h3 id="vrealtimechannelsynchronization">V . Realtime Channel Synchronization</h3>
+<p>Đầu tiên là remove hàm <code>viewDidAppear(_:)</code> trong code đã add ở trên, sau đó thêm nhưng thuộc tính sau vào phía dưới</p>
+<pre><code>private lazy var channelRef: FIRDatabaseReference = FIRDatabase.database().reference().child(&quot;channels&quot;)
+private var channelRefHandle: FIRDatabaseHandle?
+</code></pre>
+<p><code>channelRef will</code> được dùng để lưu một tham chiếu tới danh sách các channel trong database;<br>
+Tiếp theo, cần query Firebase database và lấy danh sách các channel để hiển thị ra table view. Thêm đoạn code sau:</p>
+<pre><code>// MARK: Firebase related methods
+private func observeChannels() {
+  // Use the observe method to listen for new
+  // channels being written to the Firebase DB
+  channelRefHandle = channelRef.observe(.childAdded, with: { (snapshot) -&gt; Void in // 1
+    let channelData = snapshot.value as! Dictionary&lt;String, AnyObject&gt; // 2
+    let id = snapshot.key
+    if let name = channelData[&quot;name&quot;] as! String!, name.characters.count &gt; 0 { // 3
+      self.channels.append(Channel(id: id, name: name))
+      self.tableView.reloadData()
+    } else {
+      print(&quot;Error! Could not decode channel data&quot;)
+    }
+  })
+}
+</code></pre>
+<p>Tiếp theo thêm đoạn sau:</p>
+<pre><code>// MARK: View Lifecycle
+override func viewDidLoad() {
+  super.viewDidLoad()
+  title = &quot;RW RIC&quot;
+  observeChannels()
+} 
+deinit {
+  if let refHandle = channelRefHandle {
+    channelRef.removeObserver(withHandle: refHandle)
+  }
+}
+</code></pre>
+<p>Để tạo một Channel, thêm đoạn code sau vào <code>IBAction</code> đã tồi tại trong storyboard</p>
+<pre><code>// MARK :Actions 
+@IBAction func createChannel(_ sender: AnyObject) {
+  if let name = newChannelTextField?.text { // 1
+    let newChannelRef = channelRef.childByAutoId() // 2
+    let channelItem = [ // 3
+      &quot;name&quot;: name
+    ]
+    newChannelRef.setValue(channelItem) // 4
+  }
+}
+</code></pre>
+<p>Bây giờ, build và run app màn hình sẽ như sau<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZWlrZzJQa3ltbVk&amp;export=download" alt=""></p>
+<h3 id="vicreatingthechatinterface">VI . Creating the Chat Interface</h3>
+<p>Mở file <code>ChatViewController.swift</code> và đoạn imports sau:</p>
+<pre><code>import Firebase
+import JSQMessagesViewController
+</code></pre>
+<p>Thay subclass từ <code>UIViewController</code> sang <code>JSQMessagesViewController</code>:</p>
+<pre><code>final class ChatViewController: JSQMessagesViewController {
+At the top of ChatViewController, define the following properties:
+var channelRef: FIRDatabaseReference?
+var channel: Channel? {
+  didSet {
+    title = channel?.name
+  }
+}
+</code></pre>
+<p>Trong file <code>ChannelListViewController.swift</code>, thêm đoạn sau:</p>
+<pre><code>// MARK: Navigation
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  super.prepare(for: segue, sender: sender)
+  if let channel = sender as? Channel {
+    let chatVc = segue.destination as! ChatViewController
+    chatVc.senderDisplayName = senderDisplayName
+    chatVc.channel = channel
+    chatVc.channelRef = channelRef.child(channel.id)
+  }
+}
+</code></pre>
+<p>Tiếp theo, trong file <code>LoginViewController.swift</code>, thêm đoạn code sau:</p>
+<pre><code>// MARK: Navigation
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  super.prepare(for: segue, sender: sender)
+  let navVc = segue.destination as! UINavigationController // 1
+  let channelVc = navVc.viewControllers.first as! ChannelListViewController // 2  
+  channelVc.senderDisplayName = nameField?.text // 3
+}
+</code></pre>
+<p>Trong file <code>ChatViewController.swift</code>, thêm đoạn code sau vào dưới viewDidLoad():</p>
+<pre><code>self.senderId = FIRAuth.auth()?.currentUser?.uid
+</code></pre>
+<p>Bây giờ build và run app màn hình sẽ như sau:<br>
+<img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRXNGYUlGNktyaTA&amp;export=download" alt=""></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Dịch vụ Firebase của Google hỗ trợ rất tốt, nhờ đó mà việc phát triển các ứng dụng realtime hay Push Notification trở lên dễ dàng hơn. Giúp giảm đáng kể thời gian phát triển phần mềm cũng như tiết kiệm được khá nhiều nhân lực trong việc phát triển dự án phần mềm. Trong phần này tôi chỉ giới thiệu về tương tác với fire thông qua connect và tạo phòng để có thể chat được. Phần sau tôi xin được giới thiệu kỹ hơn về cách gửi message, image và hoàn thiện một ứng dụng chat realtime.</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://github.com/aslanyanhaik/Quick-Chat">https://github.com/aslanyanhaik/Quick-Chat</a></li>
+<li><a href="http://stackoverflow.com/questions/37401371/firebase-3-0-ios-codelab-chat-app-tutorial-with-swift">http://stackoverflow.com/questions/37401371/firebase-3-0-ios-codelab-chat-app-tutorial-with-swift</a></li>
+<li><a href="https://github.com/aslanyanhaik/Quick-Chat">https://github.com/aslanyanhaik/Quick-Chat</a></li>
+</ul>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/su-dung-firebase-voi-swift-3-x-phan-1/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=S%E1%BB%AD%20d%E1%BB%A5ng%20firebase%20v%E1%BB%9Bi%20swift%203.x%20(ph%E1%BA%A7n%201)">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/su-dung-firebase-voi-swift-3-x-phan-1/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/su-dung-firebase-voi-swift-3-x-phan-1/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

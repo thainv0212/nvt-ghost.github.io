@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Tạo todo list app đơn giản với gRPC golang | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Tạo todo list app đơn giản với gRPC golang" />
+    <meta property="og:description" content="Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:29:44.000Z" />
+    <meta property="article:modified_time" content="2019-10-09T01:29:44.000Z" />
+    <meta property="article:tag" content="golang" />
+    <meta property="article:tag" content="microservice" />
+    <meta property="article:tag" content="grpc" />
+    <meta property="article:tag" content="api" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tạo todo list app đơn giản với gRPC golang" />
+    <meta name="twitter:description" content="Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="T.P.H" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="golang, microservice, grpc, api" />
+    <meta property="og:image:width" content="1754" />
+    <meta property="og:image:height" content="824" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "T.P.H",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1F8hYNKyVvhajT3gejc6GFsymQ-VpWA5L&export=download"
+        },
+        "url": "https://blog.vietnamlab.vn/author/hieutp/",
+        "sameAs": []
+    },
+    "headline": "Tạo todo list app đơn giản với gRPC golang",
+    "url": "https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/",
+    "datePublished": "2019-10-09T01:29:44.000Z",
+    "dateModified": "2019-10-09T01:29:44.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&export=download",
+        "width": 1754,
+        "height": 824
+    },
+    "keywords": "golang, microservice, grpc, api",
+    "description": "Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường\nmicroservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ\ntrễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ trình\nbày nội dung cơ bản liên quan đến gRPC và làm một todo list app demo để chúng ta\nbiết cách sử dụng gRPC trong thực tế nhé.\n\n1. gRPC là gì\ngRPC là một RPC platform được phát triển bởi Google nhằm tối ưu hoá và tăng tốc\nviệc giao tiếp giữa các service với nhau t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-golang tag-microservice tag-grpc tag-api nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-golang tag-microservice tag-grpc tag-api js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Tạo todo list app đơn giản với gRPC golang</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-10-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 October 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/golang/index.html">golang</a>, <a href="../tag/microservice/index.html">microservice</a>, <a href="../tag/grpc/index.html">grpc</a>, <a href="../tag/api/index.html">api</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1lrca3x3SVx0qL5wMKLTD1aLq8ep_gy_3&amp;export&#x3D;download" alt="Tạo todo list app đơn giản với gRPC golang">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/tao-todo-app-voi-grpc-golang/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20todo%20list%20app%20%C4%91%C6%A1n%20gi%E1%BA%A3n%20v%E1%BB%9Bi%20gRPC%20golang">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <p>Hẳn chúng ta ai cũng quen làm việc với các REST API. Tuy nhiên, trong môi trường microservice, việc sử dụng REST API để giao tiếp giữa các service sẽ gây ra độ trễ đáng kể. gRPC ra đời để giải quyết vấn đề này. Trong blog này mình sẽ trình bày nội dung cơ bản liên quan đến gRPC và làm một todo list app demo để chúng ta biết cách sử dụng gRPC trong thực tế nhé.</p><!--kg-card-begin: markdown--><h3 id="1grpclg">1. gRPC là gì</h3>
+<p>gRPC là một RPC platform được phát triển bởi Google nhằm tối ưu hoá và tăng tốc việc giao tiếp giữa các service với nhau trong kiến trúc microservice.</p>
+<p>gRPC dùng Protocal Buffer giảm kích thước request và response data, RPC để đơn giản hoá trong việc tạo ra các giao tiếp giữa các service với nhau, HTTP/2 để tăng tốc gửi/nhận HTTP request.</p>
+<p>Để hiểu rõ hơn về gRPC bạn có thể tham khảo link sau: <a href="https://github.com/thenguyenit/blogs/wiki/D%C3%B9ng-l%C3%BD-thuy%E1%BA%BFt-c%E1%BB%A7-h%C3%A0nh-%C4%91%E1%BB%83-t%C3%ACm-hi%E1%BB%83u-gRPC">Dùng lý thuyết củ hành để tìm hiểu gRPC</a></p>
+<p>Có thể hiểu nôm na gRPC là tương tự như REST dùng để giao tiếp giữa các service, tuy nhiên tốc độ gRPC nhanh hơn REST rất nhiều, bù lại gRPC khó sử dụng và rườm rà hơn. Bạn chỉ nên sử dụng gRPC khi có vấn đề về độ trễ trong việc giao tiếp giữa các service trong kiến trúc microservice.</p>
+<p>Chúng ta sẽ bắt đầu làm một todo list app để biết gRPC sử dụng ra sao nhé.</p>
+<h3 id="2yucu">2. Yêu cầu:</h3>
+<p>Để hiểu nội dung blog này bạn cần phải có những kiến thức sau:</p>
+<ul>
+<li>Golang (ver 1.11 trở lên để sử dụng Go module)</li>
+<li>SQL cơ bản (ở đây mình dùng v8, nếu dùng thấp hơn bạn hãy tự convert sql của mình sang sql thích hợp).</li>
+<li>Web client mình sử dụng beego nên cần phải biết chút ít về Beego.</li>
+</ul>
+<h3 id="3togrpccrudservice">3. Tạo gRPC CRUD service</h3>
+<p>Trong phần này mình sẽ tạo một gRPC CRUD service (gRPC server) và một test-client để test nó.</p>
+<p>Phần này mình tham khảo một bài blog trên medium, bạn có thể truy cập link bài viết gốc:<br>
+<a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.<br>
+</a><br>
+Các hướng dẫn sau là dành cho môi trường windows sử dụng git bash, nếu bạn dùng linux hoặc mac thì hãy tự convert sang lệnh tương tự.</p>
+<h4 id="nhnghaapi">Định nghĩa api</h4>
+<p>Đầu tiên tại một nơi ngoài GOPATH, tạo thư mục project và dùng Go module để init.</p>
+<pre><code class="language-sh">mkdir todo-grpc
+cd todo-grpc
+go mod init github.com/hieuvecto/todo-grpc
+</code></pre>
+<p>Tạo folder cho phần định nghĩa api</p>
+<pre><code class="language-sh">mkdir -p api/proto/v1
+</code></pre>
+<p>Tiếp theo tạo file todo-service.proto bên trong thư mục api/proto/v1 và thêm các định nghĩa của các phương thức CRUD:</p>
+<pre><code class="language-go">// todo-service.proto
+syntax = &quot;proto3&quot;;
+package v1;
+
+import &quot;google/protobuf/timestamp.proto&quot;;
+
+// Taks we have to do
+message ToDo {
+    // Unique integer identifier of the todo task
+    int64 id = 1;
+
+    // Title of the task
+    string title = 2;
+
+    // Detail description of the todo task
+    string description = 3;
+
+    google.protobuf.Timestamp insert_at = 4;
+
+    google.protobuf.Timestamp update_at = 5;
+}
+
+// Request data to create new todo task
+message CreateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity to add
+    ToDo toDo = 2;
+}
+
+// Contains data of created todo task
+message CreateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // ID of created task
+    int64 id = 2;
+}
+
+// Request data to read todo task
+message ReadRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of the todo task
+    int64 id = 2;
+}
+
+// Contains todo task data specified in by ID request
+message ReadResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity read by ID
+    ToDo toDo = 2;
+}
+
+// Request data to update todo task
+message UpdateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Task entity to update
+    ToDo toDo = 2;
+}
+
+// Contains status of update operation
+message UpdateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Contains number of entities have beed updated
+    // Equals 1 in case of succesfull update
+    int64 updated = 2;
+}
+
+// Request data to delete todo task
+message DeleteRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Unique integer identifier of the todo task to delete
+    int64 id = 2;
+}
+
+// Contains status of delete operation
+message DeleteResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // Contains number of entities have beed deleted
+    // Equals 1 in case of succesfull delete
+    int64 deleted = 2;
+}
+
+// Request data to read all todo task
+message ReadAllRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+}
+
+// Contains list of all todo tasks
+message ReadAllResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string api = 1;
+
+    // List of all todo tasks
+    repeated ToDo toDos = 2;
+}
+
+// Service to manage list of todo tasks
+service ToDoService {
+    // Create new todo task
+    rpc Create(CreateRequest) returns (CreateResponse);
+
+    // Read todo task
+    rpc Read(ReadRequest) returns (ReadResponse);
+
+    // Update todo task
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+
+    // Delete todo task
+    rpc Delete(DeleteRequest) returns (DeleteResponse);
+
+    // Read all todo tasks
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+}
+</code></pre>
+<p>Về chi tiết cú pháp và ngôn ngữ của .proto, bạn có thể tham khảo bài viết sau: <a href="https://developers.google.com/protocol-buffers/docs/proto3?source=post_page-----daebb36a97e9----------------------">Chi tiết cú pháp proto</a></p>
+<p>Để compile file Proto, chúng ta cần phải cài một số tool và package cần thiết sau.</p>
+<ul>
+<li>Tải proto compiler binary ở đây: <a href="https://github.com/protocolbuffers/protobuf/releases?source=post_page-----daebb36a97e9----------------------">Protocolbuffers/Protobuf</a> (Lưu ý là tải file platform-x64-.zip nhé)</li>
+<li>Giải nén file zip đến bất kì thư mục trên máy và thêm đường dẫn thư mục &quot;bin&quot; trong thư mục đã giải nén vào biến PATH môi trường windows.</li>
+<li>Tạo thư mục &quot;third_party&quot;  trong thư mục root của project (todo-grpc)</li>
+<li>Copy tất cả từ thư mục &quot;include&quot; của Proto compiler đến thư mục &quot;third_party&quot;</li>
+</ul>
+<p>Cài đặt code generator plugin của golang cho Proto compiler.</p>
+<pre><code class="language-sh">go get -u github.com/golang/protobuf/protoc-gen-go 
+</code></pre>
+<p>Tạo file protoc-gen.sh trong thư mục &quot;third_party&quot;:</p>
+<pre><code class="language-sh">// protoc-gen.sh
+protoc --proto_path=api/proto/v1 --proto_path=third_party --go_out=plugins=grpc:pkg/api/v1 todo-service.proto
+</code></pre>
+<p>Tạo thư mục ouput cho file go được generate từ file .proto</p>
+<pre><code class="language-sh">mkdir -p pkg/api/v1
+</code></pre>
+<p>Đảm bảo lệnh sau được chạy trong thư mục root (todo-grpc) của project để compile file .proto</p>
+<pre><code class="language-sh">sh ./third_party/protoc-gen.sh   
+</code></pre>
+<p>Nó sẽ tạo ra (generate) file go từ file .proto và nằm trong thư mục &quot;pkg/model/v1&quot;:<br>
+Cấu trúc của file sẽ như sau:</p>
+<p><img src="https://drive.google.com/uc?id=10kef8a2UsPCsKBIR-62kkDEU_GDT5b3C&amp;export=download" alt="uc?id=10kef8a2UsPCsKBIR-62kkDEU_GDT5b3C&amp;export=download"></p>
+<h4 id="trinkhaiapi">Triển khai api</h4>
+<p>Tiếp theo chúng ta sẽ triển khai grpc api bằng golang như sau:<br>
+Chúng ta cần một database để lưu trữ data của todo, ở đây mình dùng mysql.<br>
+Tạo bảng ToDo với cú pháp sau:</p>
+<pre><code class="language-sql">CREATE TABLE `ToDo` (
+  `ID` int(6) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(200) NOT NULL,
+  `Description` varchar(1024) DEFAULT NULL,
+  `InsertAt` timestamp NOT NULL,
+  `UpdateAt` timestamp NOT NULL,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+);
+</code></pre>
+<p>Tạo file &quot;pkg/service/v1/todo-service.go&quot; với nội dung sau:</p>
+<pre><code class="language-go">package v1
+
+import (
+	&quot;context&quot;
+	&quot;database/sql&quot;
+	&quot;fmt&quot;
+	&quot;time&quot;
+
+	&quot;github.com/golang/protobuf/ptypes&quot;
+	&quot;google.golang.org/grpc/codes&quot;
+	&quot;google.golang.org/grpc/status&quot;
+
+	&quot;github.com/hieuvecto/todo-grpc/pkg/api/v1&quot;
+)
+
+const (
+	// apiVersion is version of API is provided by server
+	apiVersion = &quot;v1&quot;
+)
+
+// toDoServiceServer is implementation of v1.ToDoServiceServer proto interface
+type toDoServiceServer struct {
+	db *sql.DB
+}
+
+// NewToDoServiceServer creates ToDo service
+func NewToDoServiceServer(db *sql.DB) v1.ToDoServiceServer {
+	return &amp;toDoServiceServer{db: db}
+}
+
+// checkAPI checks if the API version requested by client is supported by server
+func (s *toDoServiceServer) checkAPI(api string) error {
+	// API version is &quot;&quot; means use current version of the service
+	if len(api) &gt; 0 {
+		if apiVersion != api {
+			return status.Errorf(codes.Unimplemented,
+				&quot;unsupported API version: service implements API version '%s', but asked for '%s'&quot;, apiVersion, api)
+		}
+	}
+	return nil
+}
+
+// connect returns SQL database connection from the pool
+func (s *toDoServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
+	c, err := s.db.Conn(ctx)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to connect to database-&gt; &quot;+err.Error())
+	}
+	return c, nil
+}
+
+// Create new todo task
+func (s *toDoServiceServer) Create(ctx context.Context, req *v1.CreateRequest) (*v1.CreateResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	insert_at, err := ptypes.Timestamp(req.ToDo.InsertAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, &quot;insert_at field has invalid format-&gt; &quot;+err.Error())
+	}
+
+	update_at, err := ptypes.Timestamp(req.ToDo.UpdateAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, &quot;update_at field has invalid format-&gt; &quot;+err.Error())
+	}
+
+	// insert ToDo entity data
+	res, err := c.ExecContext(ctx, &quot;INSERT INTO ToDo(`Title`, `Description`, `InsertAt`, `UpdateAt`) VALUES(?, ?, ?, ?)&quot;,
+		req.ToDo.Title, req.ToDo.Description, insert_at, update_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to insert into ToDo-&gt; &quot;+err.Error())
+	}
+
+	// get ID of creates ToDo
+	id, err := res.LastInsertId()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to retrieve id for created ToDo-&gt; &quot;+err.Error())
+	}
+
+	return &amp;v1.CreateResponse{
+		Api: apiVersion,
+		Id:  id,
+	}, nil
+}
+
+// Read todo task
+func (s *toDoServiceServer) Read(ctx context.Context, req *v1.ReadRequest) (*v1.ReadResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// query ToDo by ID
+	rows, err := c.QueryContext(ctx, &quot;SELECT * FROM ToDo WHERE `ID`=?&quot;,
+		req.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to select from ToDo-&gt; &quot;+err.Error())
+	}
+	defer rows.Close()
+
+	if !rows.Next() {
+		if err := rows.Err(); err != nil {
+			return nil, status.Error(codes.Unknown, &quot;failed to retrieve data from ToDo-&gt; &quot;+err.Error())
+		}
+		return nil, status.Error(codes.NotFound, fmt.Sprintf(&quot;ToDo with ID='%d' is not found&quot;,
+			req.Id))
+	}
+
+	// get ToDo data
+	var td v1.ToDo
+	var insert_at time.Time
+	var update_at time.Time
+	if err := rows.Scan(&amp;td.Id, &amp;td.Title, &amp;td.Description, &amp;insert_at, &amp;update_at); err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to retrieve field values from ToDo row-&gt; &quot;+err.Error())
+	}
+	td.InsertAt, err = ptypes.TimestampProto(insert_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;insert_at field has invalid format-&gt; &quot;+err.Error())
+	}
+	td.UpdateAt, err = ptypes.TimestampProto(update_at)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;update_at field has invalid format-&gt; &quot;+err.Error())
+	}
+
+	if rows.Next() {
+		return nil, status.Error(codes.Unknown, fmt.Sprintf(&quot;found multiple ToDo rows with ID='%d'&quot;,
+			req.Id))
+	}
+
+	return &amp;v1.ReadResponse{
+		Api:  apiVersion,
+		ToDo: &amp;td,
+	}, nil
+
+}
+
+// Update todo task
+func (s *toDoServiceServer) Update(ctx context.Context, req *v1.UpdateRequest) (*v1.UpdateResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	update_at, err := ptypes.Timestamp(req.ToDo.UpdateAt)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, &quot;update_at field has invalid format-&gt; &quot;+err.Error())
+	}
+
+	// update ToDo
+	res, err := c.ExecContext(ctx, &quot;UPDATE ToDo SET `Title`=?, `Description`=?, `UpdateAt`=? WHERE `ID`=?&quot;,
+		req.ToDo.Title, req.ToDo.Description, update_at, req.ToDo.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to update ToDo-&gt; &quot;+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to retrieve rows affected value-&gt; &quot;+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf(&quot;ToDo with ID='%d' is not found&quot;,
+			req.ToDo.Id))
+	}
+
+	return &amp;v1.UpdateResponse{
+		Api:     apiVersion,
+		Updated: rows,
+	}, nil
+}
+
+// Delete todo task
+func (s *toDoServiceServer) Delete(ctx context.Context, req *v1.DeleteRequest) (*v1.DeleteResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// delete ToDo
+	res, err := c.ExecContext(ctx, &quot;DELETE FROM ToDo WHERE `ID`=?&quot;, req.Id)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to delete ToDo-&gt; &quot;+err.Error())
+	}
+
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to retrieve rows affected value-&gt; &quot;+err.Error())
+	}
+
+	if rows == 0 {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf(&quot;ToDo with ID='%d' is not found&quot;,
+			req.Id))
+	}
+
+	return &amp;v1.DeleteResponse{
+		Api:     apiVersion,
+		Deleted: rows,
+	}, nil
+}
+
+// Read all todo tasks
+func (s *toDoServiceServer) ReadAll(ctx context.Context, req *v1.ReadAllRequest) (*v1.ReadAllResponse, error) {
+	// check if the API version requested by client is supported by server
+	if err := s.checkAPI(req.Api); err != nil {
+		return nil, err
+	}
+
+	// get SQL connection from pool
+	c, err := s.connect(ctx)
+	if err != nil {
+		return nil, err
+	}
+	defer c.Close()
+
+	// get ToDo list
+	rows, err := c.QueryContext(ctx, &quot;SELECT * FROM ToDo&quot;)
+	if err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to select from ToDo-&gt; &quot;+err.Error())
+	}
+	defer rows.Close()
+
+	var insert_at time.Time
+	var update_at time.Time
+	list := []*v1.ToDo{}
+	for rows.Next() {
+		td := new(v1.ToDo)
+		if err := rows.Scan(&amp;td.Id, &amp;td.Title, &amp;td.Description, &amp;insert_at, &amp;update_at); err != nil {
+			return nil, status.Error(codes.Unknown, &quot;failed to retrieve field values from ToDo row-&gt; &quot;+err.Error())
+		}
+		td.InsertAt, err = ptypes.TimestampProto(insert_at)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, &quot;insert_at field has invalid format-&gt; &quot;+err.Error())
+		}
+		td.UpdateAt, err = ptypes.TimestampProto(update_at)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, &quot;update_at field has invalid format-&gt; &quot;+err.Error())
+		}
+		list = append(list, td)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, status.Error(codes.Unknown, &quot;failed to retrieve data from ToDo-&gt; &quot;+err.Error())
+	}
+
+	return &amp;v1.ReadAllResponse{
+		Api:   apiVersion,
+		ToDos: list,
+	}, nil
+}    
+</code></pre>
+<p>Vậy là đã xong phần triển khai api</p>
+<h4 id="tovkhinggrpcserver">Tạo và khởi động gRPC server</h4>
+<p>Tạo file &quot;pkg/protocol/grpc/server.go&quot; với nội dung sau:</p>
+<pre><code class="language-go">    
+package grpc
+
+import (
+	&quot;context&quot;
+	&quot;log&quot;
+	&quot;net&quot;
+	&quot;os&quot;
+	&quot;os/signal&quot;
+
+	&quot;google.golang.org/grpc&quot;
+
+	&quot;github.com/hieuvecto/todo-grpc/pkg/api/v1&quot;
+)
+
+// RunServer runs gRPC service to publish ToDo service
+func RunServer(ctx context.Context, v1API v1.ToDoServiceServer, port string) error {
+	listen, err := net.Listen(&quot;tcp&quot;, &quot;:&quot;+port)
+	if err != nil {
+		return err
+	}
+
+	// register service
+	server := grpc.NewServer()
+	v1.RegisterToDoServiceServer(server, v1API)
+
+	// graceful shutdown
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	go func() {
+		for range c {
+			// sig is a ^C, handle it
+			log.Println(&quot;shutting down gRPC server...&quot;)
+
+			server.GracefulStop()
+
+			&lt;-ctx.Done()
+		}
+	}()
+
+	// start gRPC server
+	log.Println(&quot;starting gRPC server...&quot;)
+	return server.Serve(listen)
+}
+                         
+</code></pre>
+<p>Hàm RunServer sẽ register ToDo service và khởi động gRPC server.</p>
+<p>Tiếp theo tạo file &quot;pkg/cmd/server/server.go&quot; với nội dung sau:</p>
+<pre><code class="language-go">package cmd
+
+import (
+	&quot;context&quot;
+	&quot;database/sql&quot;
+	&quot;flag&quot;
+	&quot;fmt&quot;
+
+	// mysql driver
+	_ &quot;github.com/go-sql-driver/mysql&quot;
+
+	&quot;github.com/hieuvecto/todo-grpc/pkg/protocol/grpc&quot;
+	&quot;github.com/hieuvecto/todo-grpc/pkg/service/v1&quot;
+)
+
+// Config is configuration for Server
+type Config struct {
+	// gRPC server start parameters section
+	// gRPC is TCP port to listen by gRPC server
+	GRPCPort string
+
+	// DB Datastore parameters section
+	// DatastoreDBHost is host of database
+	DatastoreDBHost string
+	// DatastoreDBUser is username to connect to database
+	DatastoreDBUser string
+	// DatastoreDBPassword password to connect to database
+	DatastoreDBPassword string
+	// DatastoreDBSchema is schema of database
+	DatastoreDBSchema string
+}
+
+// RunServer runs gRPC server and HTTP gateway
+func RunServer() error {
+	ctx := context.Background()
+
+	// get configuration
+	var cfg Config
+	flag.StringVar(&amp;cfg.GRPCPort, &quot;grpc-port&quot;, &quot;&quot;, &quot;gRPC port to bind&quot;)
+	flag.StringVar(&amp;cfg.DatastoreDBHost, &quot;db-host&quot;, &quot;&quot;, &quot;Database host&quot;)
+	flag.StringVar(&amp;cfg.DatastoreDBUser, &quot;db-user&quot;, &quot;&quot;, &quot;Database user&quot;)
+	flag.StringVar(&amp;cfg.DatastoreDBPassword, &quot;db-password&quot;, &quot;&quot;, &quot;Database password&quot;)
+	flag.StringVar(&amp;cfg.DatastoreDBSchema, &quot;db-schema&quot;, &quot;&quot;, &quot;Database schema&quot;)
+	flag.Parse()
+
+	if len(cfg.GRPCPort) == 0 {
+		return fmt.Errorf(&quot;invalid TCP port for gRPC server: '%s'&quot;, cfg.GRPCPort)
+	}
+
+	// add MySQL driver specific parameter to parse date/time
+	// Drop it for another database
+	param := &quot;parseTime=true&quot;
+
+	dsn := fmt.Sprintf(&quot;%s:%s@tcp(%s)/%s?%s&quot;,
+		cfg.DatastoreDBUser,
+		cfg.DatastoreDBPassword,
+		cfg.DatastoreDBHost,
+		cfg.DatastoreDBSchema,
+		param)
+
+	db, err := sql.Open(&quot;mysql&quot;, dsn)
+	if err != nil {
+		return fmt.Errorf(&quot;failed to open database: %v&quot;, err)
+	}
+	defer db.Close()
+
+	v1API := v1.NewToDoServiceServer(db)
+
+	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
+}
+</code></pre>
+<p>Hàm RunServer sẽ đọc các tham số từ command line, tạo SQL database connection pool, tạo ToDo service instance và gọi hàm RunServer trước đó của gRPC server.</p>
+<p>Cuối cùng thì tạo file &quot;cmd/server/main.go&quot; với các nội dung sau:</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;os&quot;
+
+	&quot;github.com/hieuvecto/todo-grpc/pkg/cmd&quot;
+)
+
+func main() {
+	if err := cmd.RunServer(); err != nil {
+		fmt.Fprintf(os.Stderr, &quot;%v\n&quot;, err)
+		os.Exit(1)
+	}
+}
+</code></pre>
+<p>Vậy là xong phần server. Cấu trúc thư mục sẽ như sau:</p>
+<p><img src="https://drive.google.com/uc?id=1HZ0Jz1mr-sezUqIXHEDqQU_BdyDL_QsA&amp;export=download" alt="uc?id=1HZ0Jz1mr-sezUqIXHEDqQU_BdyDL_QsA&amp;export=download"></p>
+<h4 id="totestclienttestgrpcserverthcoicchyokko">Tạo test-client để test gRPC server thử coi có chạy ok ko</h4>
+<p>Tạo file &quot;cmd/test-client/main.go&quot; với nội dung sau:</p>
+<pre><code class="language-go">package main
+
+import (
+	&quot;context&quot;
+	&quot;flag&quot;
+	&quot;log&quot;
+	&quot;time&quot;
+
+	&quot;github.com/golang/protobuf/ptypes&quot;
+	&quot;google.golang.org/grpc&quot;
+
+	&quot;github.com/hieuvecto/todo-grpc/pkg/api/v1&quot;
+)
+
+const (
+	// apiVersion is version of API is provided by server
+	apiVersion = &quot;v1&quot;
+)
+
+func main() {
+	// get configuration
+	address := flag.String(&quot;server&quot;, &quot;&quot;, &quot;gRPC server in format host:port&quot;)
+	flag.Parse()
+
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(*address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf(&quot;did not connect: %v&quot;, err)
+	}
+	defer conn.Close()
+
+	c := v1.NewToDoServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	t := time.Now().In(time.UTC)
+	insert_at, _ := ptypes.TimestampProto(t)
+	pfx := t.Format(time.RFC3339Nano)
+
+	// Call Create
+	req1 := v1.CreateRequest{
+		Api: apiVersion,
+		ToDo: &amp;v1.ToDo{
+			Title:       &quot;title (&quot; + pfx + &quot;)&quot;,
+			Description: &quot;description (&quot; + pfx + &quot;)&quot;,
+			InsertAt:    insert_at,
+			UpdateAt: insert_at,
+		},
+	}
+	res1, err := c.Create(ctx, &amp;req1)
+	if err != nil {
+		log.Fatalf(&quot;Create failed: %v&quot;, err)
+	}
+	log.Printf(&quot;Create result: &lt;%+v&gt;\n\n&quot;, res1)
+
+	id := res1.Id
+
+	// Read
+	req2 := v1.ReadRequest{
+		Api: apiVersion,
+		Id:  id,
+	}
+	res2, err := c.Read(ctx, &amp;req2)
+	if err != nil {
+		log.Fatalf(&quot;Read failed: %v&quot;, err)
+	}
+	log.Printf(&quot;Read result: &lt;%+v&gt;\n\n&quot;, res2)
+
+	// Update
+	req3 := v1.UpdateRequest{
+		Api: apiVersion,
+		ToDo: &amp;v1.ToDo{
+			Id:          res2.ToDo.Id,
+			Title:       res2.ToDo.Title,
+			Description: res2.ToDo.Description + &quot; + updated&quot;,
+			UpdateAt:    res2.ToDo.UpdateAt,
+		},
+	}
+	res3, err := c.Update(ctx, &amp;req3)
+	if err != nil {
+		log.Fatalf(&quot;Update failed: %v&quot;, err)
+	}
+	log.Printf(&quot;Update result: &lt;%+v&gt;\n\n&quot;, res3)
+
+	// Call ReadAll
+	req4 := v1.ReadAllRequest{
+		Api: apiVersion,
+	}
+	res4, err := c.ReadAll(ctx, &amp;req4)
+	if err != nil {
+		log.Fatalf(&quot;ReadAll failed: %v&quot;, err)
+	}
+	log.Printf(&quot;ReadAll result: &lt;%+v&gt;\n\n&quot;, res4)
+
+	// Delete
+	req5 := v1.DeleteRequest{
+		Api: apiVersion,
+		Id:  id,
+	}
+	res5, err := c.Delete(ctx, &amp;req5)
+	if err != nil {
+		log.Fatalf(&quot;Delete failed: %v&quot;, err)
+	}
+	log.Printf(&quot;Delete result: &lt;%+v&gt;\n\n&quot;, res5)
+}
+</code></pre>
+<h4 id="chythgrpcserverdngtestclienttest">Chạy thử gRPC server dùng test-client để test</h4>
+<p>Ta sẽ đảm bảo rằng gRPC server sẽ hoạt động bình thường.<br>
+Mở terminal mới để build và run gRPC server (thay thế các tham số để phù hợp với môi trường của bạn):</p>
+<pre><code class="language-sh">cd cmd/server
+go build .
+server.exe -grpc-port=9090 -db-host=&lt;HOST&gt;:3306 -db-user=&lt;USER&gt; -db-password=&lt;PASSWORD&gt; -db-schema=&lt;SCHEMA&gt;
+</code></pre>
+<p>Hiện tại code trên chưa bắn lỗi khi ko kết nối được với database nên nó sẽ luôn luôn chạy nếu build được :))</p>
+<p>Mở terminal khác để build và run phần test-client:</p>
+<pre><code class="language-sh">cd cmd/test-client
+go build .
+test-client.exe -server=localhost:9090
+</code></pre>
+<p>Nếu ko gặp lỗi nào, ta sẽ thấy như thế này</p>
+<pre><code class="language-sh">2018/09/09 09:16:01 Create result: &lt;api:&quot;v1&quot; id:13 &gt;
+2018/09/09 09:16:01 Read result: &lt;api:&quot;v1&quot; toDo:&lt;id:13 title:&quot;title (2018-09-09T06:16:01.5755011Z)&quot; description:&quot;description (2018-09-09T06:16:01.5755011Z)&quot; reminder:&lt;seconds:1536473762 &gt; &gt; &gt;
+2018/09/09 09:16:01 Update result: &lt;api:&quot;v1&quot; updated:1 &gt;
+2018/09/09 09:16:01 ReadAll result: &lt;api:&quot;v1&quot; toDos:&lt;id:9 title:&quot;title (2018-09-09T04:45:16.3693282Z)&quot; description:&quot;description (2018-09-09T04:45:16.3693282Z)&quot; reminder:&lt;seconds:1536468316 &gt; &gt; toDos:&lt;id:10 title:&quot;title (2018-09-09T04:46:00.7490565Z)&quot; description:&quot;description (2018-09-09T04:46:00.7490565Z)&quot; reminder:&lt;seconds:1536468362 &gt; &gt; toDos:&lt;id:13 title:&quot;title (2018-09-09T06:16:01.5755011Z)&quot; description:&quot;description (2018-09-09T06:16:01.5755011Z) + updated&quot; reminder:&lt;seconds:1536473762 &gt; &gt; &gt;
+2018/09/09 09:16:01 Delete result: &lt;api:&quot;v1&quot; deleted:1 &gt;
+</code></pre>
+<p>Tức là gRPC hoạt động bình thường.</p>
+<h3 id="4tiptheochngtastowebclientchotodolistapp">4. Tiếp theo chúng ta sẽ tạo web client cho todo list app.</h3>
+<p>Phần này chỉ dùng beego để tạo 1 web app cơ bản thôi, khi cần lấy data thì web client sẽ gọi đến gRPC server được viết tương tự như phần test-client. Mình sẽ để mẫu một hàm controller như sau:</p>
+<pre><code class="language-go">func (c *TodoController) ReadTodo() {
+
+	address := beego.AppConfig.String(&quot;grpc-server&quot;)
+	apiVersion := beego.AppConfig.String(&quot;apiVersion&quot;)
+	id := c.Ctx.Input.Param(&quot;:id&quot;)
+
+	id_int, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		c.Abort(&quot;500&quot;)
+	}
+
+	// Set up a connection to the server.
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf(&quot;cannot connect to grpc server: %v&quot;, err)
+		c.Abort(&quot;500&quot;)
+	}
+	defer conn.Close()
+
+	client := v1.NewToDoServiceClient(conn)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	req := v1.ReadRequest{
+		Api: apiVersion,
+		Id:  id_int,
+	}
+	res, err := client.Read(ctx, &amp;req)
+	if err != nil {
+		log.Fatalf(&quot;Read failed: %v&quot;, err)
+		c.Abort(&quot;500&quot;)
+	}
+	log.Printf(&quot;Read result: &lt;%+v&gt;\n\n&quot;, res)
+
+	c.Data[&quot;ToDo&quot;] = res.ToDo
+
+	c.TplName = &quot;read.tpl&quot;
+}
+    
+</code></pre>
+<p>Các bạn chỉ việc dùng thư viện mở rồi đóng kết nối gRPC khi sử dụng xong như bình thường.</p>
+<p>Phần này thì các bạn cần phải biết Beego thì mới hiểu được, nên mình sẽ đưa toàn bộ source code để các bạn xem. Code đơn giản thôi nên khi bạn biết beego sẽ dễ dàng hiểu được code.<br>
+<a href="https://github.com/hieuvecto/todo-grpc">https://github.com/hieuvecto/todo-grpc</a></p>
+<p>Hoặc nếu các bạn muốn triển khai nhanh mà ko cần phải cài đặt gì (chỉ yêu cầu cài đặt duy nhất vagrant và virtual box), mình có làm sẵn phần deployment cho project này:<br>
+<a href="https://github.com/hieuvecto/todo-grpc-deployment">https://github.com/hieuvecto/todo-grpc-deployment</a></p>
+<p>Đây là giao diện todo list đơn giản<br>
+<img src="https://drive.google.com/uc?id=1jXBFq9W3lfEQPVijvZu3h-Scgzdvx7NE&amp;export=download" alt="uc?id=1jXBFq9W3lfEQPVijvZu3h-Scgzdvx7NE&amp;export=download"></p>
+<h3 id="5tnghplinkt">5. Tổng hợp liên kết:</h3>
+<p><a href="https://github.com/thenguyenit/blogs/wiki/D%C3%B9ng-l%C3%BD-thuy%E1%BA%BFt-c%E1%BB%A7-h%C3%A0nh-%C4%91%E1%BB%83-t%C3%ACm-hi%E1%BB%83u-gRPC">Dùng lý thuyết củ hành để tìm hiểu gRPC</a><br>
+<a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.</a><br>
+<a href="https://developers.google.com/protocol-buffers/docs/proto3?source=post_page-----daebb36a97e9----------------------">Chi tiết cú pháp proto</a><br>
+<a href="https://github.com/hieuvecto/todo-grpc">Source code todo-grpc</a><br>
+<a href="https://github.com/hieuvecto/todo-grpc-deployment">Deployment source code của todo-grpc</a></p>
+<h3 id="6thamkho">6. Tham khảo:</h3>
+<p><a href="https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9">How to develop Go gRPC microservice with HTTP/REST endpoint, middleware, Kubernetes deployment, etc.<br>
+</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/tao-todo-app-voi-grpc-golang/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=T%E1%BA%A1o%20todo%20list%20app%20%C4%91%C6%A1n%20gi%E1%BA%A3n%20v%E1%BB%9Bi%20gRPC%20golang">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/tao-todo-app-voi-grpc-golang/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/tao-todo-app-voi-grpc-golang/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

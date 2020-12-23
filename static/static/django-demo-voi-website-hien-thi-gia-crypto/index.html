@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Django - Demo với website hiển thị giá Crypto - Phần 1 | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Django - Demo với website hiển thị giá Crypto - Phần 1" />
+    <meta property="og:description" content="Kiến trúc Django Kiến trúc Django gồm ba phần chính:  Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…). Phần framework, xử lý luồng" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:20:59.000Z" />
+    <meta property="article:modified_time" content="2019-12-25T02:37:32.000Z" />
+    <meta property="article:tag" content="Python" />
+    <meta property="article:tag" content="django" />
+    <meta property="article:tag" content="crypto" />
+    <meta property="article:tag" content="Bitcoin" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Django - Demo với website hiển thị giá Crypto - Phần 1" />
+    <meta name="twitter:description" content="Kiến trúc Django Kiến trúc Django gồm ba phần chính:  Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…). Phần framework, xử lý luồng" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="D.T.H.L" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Python, django, crypto, Bitcoin" />
+    <meta property="og:image:width" content="750" />
+    <meta property="og:image:height" content="422" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "D.T.H.L",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/790fde8e108c8f0a98d2f5680c38cc38?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://blog.vietnamlab.vn/author/landth/",
+        "sameAs": []
+    },
+    "headline": "Django - Demo với website hiển thị giá Crypto - Phần 1",
+    "url": "https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/",
+    "datePublished": "2019-10-09T01:20:59.000Z",
+    "dateModified": "2019-12-25T02:37:32.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&export=download",
+        "width": 750,
+        "height": 422
+    },
+    "keywords": "Python, django, crypto, Bitcoin",
+    "description": "Kiến trúc Django\nKiến trúc Django gồm ba phần chính:\n\n 1. Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn.\n 2. Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào\n    đó, v.v…).\n 3. Phần framework, xử lý luồng chạy giữa thao thác của user với database.\n\nDưới đây là sơ đồ mô tả phần 1 với 2\n\n\n * Model là các tools làm việc với data và database.\n * Template là các văn bản giao diện mà bạn sẽ nhận từ các designers.\n * Còn View, nó có phải là một cont",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-python tag-django tag-crypto tag-bitcoin nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-python tag-django tag-crypto tag-bitcoin js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">Django - Demo với website hiển thị giá Crypto - Phần 1</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-10-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 October 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/python/index.html">Python</a>, <a href="../tag/django/index.html">django</a>, <a href="../tag/crypto/index.html">crypto</a>, <a href="../tag/bitcoin/index.html">Bitcoin</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1ckdKw9H_Cn6UY8kL14ZsZZa7WupEl4GI&amp;export&#x3D;download" alt="Django - Demo với website hiển thị giá Crypto - Phần 1">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/django-demo-voi-website-hien-thi-gia-crypto/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Django%20-%20Demo%20v%E1%BB%9Bi%20website%20hi%E1%BB%83n%20th%E1%BB%8B%20gi%C3%A1%20Crypto%20-%20Ph%E1%BA%A7n%201">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h1 id="kintrcdjango">Kiến trúc Django</h1>
+<p>Kiến trúc Django gồm ba phần chính:</p>
+<ol>
+<li>Tập hợp các công cụ giúp người lập trình thao tác với database dễ dàng hơn.</li>
+<li>Phần định nghĩa các mẫu văn bản (vd như nội dung mail, text thông báo nào đó, v.v…).</li>
+<li>Phần framework, xử lý luồng chạy giữa thao thác của user với database.</li>
+</ol>
+<p>Dưới đây là sơ đồ mô tả phần 1 với 2<br>
+<img src="https://drive.google.com/uc?id=19mjA2k48aFb_rvOjChRpnPEffkjsCJlU&amp;export=download" alt="uc?id=19mjA2k48aFb_rvOjChRpnPEffkjsCJlU&amp;export=download"></p>
+<ul>
+<li>Model là các tools làm việc với data và database.</li>
+<li>Template là các văn bản giao diện mà bạn sẽ nhận từ các designers.</li>
+<li>Còn View, nó có phải là một controller không.</li>
+</ul>
+<p>Nhìn vào mô hình của Django, ta có thể thấy phần nào khá giống với những mô hình framework ngoài thị trường với cấu trúc MVC (Model - View - Controller). Nhưng với Django thì có tên khác là MTV (Model - Template - View). Lúc này View của Django sẽ đóng vai trò như controller của mô hình MVC, chỉ là cách gọi tên khác nhau thôi.</p>
+<p><img src="https://drive.google.com/uc?id=1yH4Wg5Ox8PQ-sv8gQhrLTsAZ1evlVQbp&amp;export=download" alt="uc?id=1yH4Wg5Ox8PQ-sv8gQhrLTsAZ1evlVQbp&amp;export=download"></p>
+<p>Cụ thể trong view sẽ là những gì.<br>
+<img src="https://drive.google.com/uc?id=1ZPPgmaKHUI1gI36KJJVakH-rp91IQUvH&amp;export=download" alt="uc?id=1ZPPgmaKHUI1gI36KJJVakH-rp91IQUvH&amp;export=download"></p>
+<p><strong>Cấu trúc của Django</strong>:<br>
+Đơn vị cơ bản của ứng dụng web Django là một project Django. Một project Django được tạo thành bởi một hoặc nhiều ứng dụng Django.<br>
+<img src="https://drive.google.com/uc?id=1UdbCV7U-e8PydGExGzGPACHKAHQD3Y4P&amp;export=download" alt="uc?id=1UdbCV7U-e8PydGExGzGPACHKAHQD3Y4P&amp;export=download"></p>
+<p>App Django là một gói độc lập chỉ nên làm một việc. Nghĩa là trong 1 <code>project</code> có nhìu <code>apps</code> con, mỗi <code>app</code> con có công năng riêng, như app về blog, app quản lý users hoặc app quản lý lịch sự kiện. Bạn có thể xem trong file config <code>settings.py</code>, sẽ thấy tên các gói <code>apps</code> trong <code>project</code>, khi bạn có ứng dụng muốn thêm vào <code>project</code>, bạn sẽ khai báo ở đây.</p>
+<pre><code class="language-python"># ...\myclub_project\myclub_site\myclub_site\settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'crypto',
+]
+</code></pre>
+<p>Như trong file config trên, bạn có thể thấy Django đã thêm sẵn cho bạn một vài ứng dụng hữu ích cơ bản để viết một chương trình. Ngoài ra còn rất nhiều ứng dụng khác mà chưa được cài mặc định, bạn có thể thêm vào trong file <code>INSTALLED_APPS</code>.</p>
+<p>Xem thử cấu trúc thư mục trong Django:</p>
+<pre><code class="language-bash"># ...\my_clubproject
+
+\env_myclub
+\myclub_site        &lt;= This is your Django project
+    \myclub_site    &lt;= This is a Django app
+    db.sqlite3      &lt;= Your project database
+    manage.py       &lt;= Django project management utility
+</code></pre>
+<ul>
+<li>Thư mục <code>env_myclub</code>: là nơi chứa các định nghĩa về môi trường chạy. Bạn có thể định nghĩa nhưng môi trường thường có khi lập trình như local, dev, honban.</li>
+<li>Thư mục <code>myclub_site</code>: là thư mục bao code dự án của bạn. Django không quan tâm đến tên thư mục, nên bạn có thể đổi tên tuỳ thích.</li>
+<li>File <code>db.sqlite3</code>: file này sẽ được tạo khi bạn chạy lệnh <code>migrate</code>. Đó là cơ sở dữ liệu.</li>
+<li>File <code>manage.py</code>: chỉ là một tiện ích giúp bạn run project của bạn.</li>
+<li>Thư mục <code>myclub_site</code> mà nằm trong  thư mục <code>myclub_site</code>: Đây là một ứng dụng web mà Django tạo sẵn cho bạn. Vì Django là framework cho web, nên nó mặc định bạn muốn tạo web, nên nó tạo sẵn một ứng dụng web đơn giản cho bạn.</li>
+</ul>
+<p>Vì thư mục ngoài và thư mục con bên trong lại bị trùng tên, nên đôi khi gây ra nhầm lẫn cho nhiều người mới bắt đầu với Django. Như đã nói ở trên, Django không quan tâm đến tên thư mục lắm, nên thay vì với cấu trúc như sau:</p>
+<pre><code class="language-bash">\myclub_project
+    \myclub_site
+        \myclub_site
+</code></pre>
+<pre><code class="language-bash">\myclub_project
+    \myclub_root
+        \myclub_site
+</code></pre>
+<p>Bây giờ nhìn sau hơn một chút trong thư mục <code>myclub_site</code> xem có gì.</p>
+<pre><code class="language-bash"># \myclub_project\myclub_root\
+
+\myclub_site
+    __init.py__
+    settings.py
+    urls.py
+    wsgi.py
+</code></pre>
+<ul>
+<li>File <code>init.py</code>: Trước khi rờ tới Django, chắc hẳn bạn đã biết sơ qua python. File này chỉ cho python biết những file trong thư mục ấy là một gói.</li>
+<li>File <code>settings.py</code>: chứa các cài đặt cho project. Mỗi project Django phải có một file như vậy.</li>
+<li>File <code>urls.py</code>: như tên gọi của nó, chứa các config về đường dẫn.</li>
+<li>File <code>wsgi.py</code>: cho phép máy server tương thích với WSGI.</li>
+</ul>
+<p><strong>Cấu trúc của Apps</strong></p>
+<p>Bây giờ chúng ta thử tạo một ứng dụng cơ bản, để xem trong ứng dụng của ta có gì khác với ứng dụng web mà Django đã tạo sẵn.</p>
+<p>Di chuyển vào ứng dụng <code>myclub_root</code>, run lệnh:</p>
+<pre><code class="language-bash">python manage.py startapp events
+</code></pre>
+<p>Tạo ứng dụng mang tên <code>events</code>. Sau khi tạo xong, bạn mở file <code>settings.py</code>, và khai báo tên ứng dụng của bạn.</p>
+<pre><code class="language-python">INSTALLED_APPS = [
+    'events.apps.EventsConfig',
+    'django.contrib.admin',
+    # more apps
+]
+</code></pre>
+<p>Bên trong thư mục <code>events</code> vừa tạo, sẽ thấy file <code>apps.py</code>. Tên <code>class</code> của file được đặt theo tên ứng dụng mà bạn vừa tạo. Trong trường hợp này là <code>EventsConfig</code>. Nên là để khai báo ứng dụng mới với Django, ta cần trỏ đến <code>class</code> trên. Tức thêm <code>events.apps.EventsConfig</code> vào file config.</p>
+<p>Trong thư mục <code>events</code> vừa tạo cụ thể sẽ có những thành phần sau:</p>
+<pre><code class="language-bash">\events
+    \migrations
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    views.py
+</code></pre>
+<ul>
+<li>File <code>__init__</code>.py: như đã nói trên, để khai báo với python đây là một gói dữ liệu.</li>
+<li>File <code>admin.py</code>: nơi quản lý các model trong ứng dụng.</li>
+<li>File <code>models.py</code>: nơi định nghĩa các models trong ứng dụng.</li>
+<li>File <code>tests.py</code>: viết mã test cho ứng dụng của bạn trước khi release sản phẩm.</li>
+<li>File <code>views.py</code>: nơi cài đặt giao diện cho ứng dụng.</li>
+</ul>
+<p>Đến đây chúng ta đã có được một bức tranh hoàn chỉnh một cách cơ bản khi làm việc với Django.</p>
+<p>Khi bạn muốn định nghĩa code mới và của riêng bạn mà không phải view (không phải html), thì bạn chỉ cần tạo file python mới <code>(*.py)</code> trong ứng dụng của bạn, và khai báo tên class, function định nghĩa. Và bạn cũng nên phân các hàm liên quan đến database và các hàm không liên quan đến database riêng ra các file. Hạn chế không gộp lại tất cả trong một file.</p>
+<p>Khi bạn thêm một <code>module</code> mới vào trong <code>project</code>, bạn cũng nên xem xét phạm vi sử dụng của <code>module</code>, tức nên đặt mở cấp <code>global</code> hay chỉ định nghĩa đặt biệt cho một ứng dụng nào đó thôi thì đặt riêng biệt trong ứng dụng.</p>
+<h1 id="nhnghaurls">Định nghĩa URLs</h1>
+<p><img src="https://drive.google.com/uc?id=1GTiErpb01zECvjVYwluJYlpbBXwDh4DR&amp;export=download" alt="uc?id=1GTiErpb01zECvjVYwluJYlpbBXwDh4DR&amp;export=download"></p>
+<p>Ví dụ bạn có một trang web là <a href="http://www.mycoolsite.com">http://www.mycoolsite.com</a>. Và bạn muốn xử lý gì đó khi truy cập và link <a href="http://www.mycoolsite.com/app1/">http://www.mycoolsite.com/app1/</a>. Lúc này, khi nhận được địa chỉ <code>/app1</code> bạn muốn chạy vào function <code>some_view()</code> trong module <code>views</code> của ứng dụng <code>app1</code>, bạn sẽ khai báo với hàm <code>path()</code> như sau:</p>
+<pre><code class="language-python">path(‘app1/’, app1.views.some_view()) 
+</code></pre>
+<p>Và tất nhiên bạn có thể trỏ đường dẫn đến bất cứ đâu mà bạn muốn xử lý.</p>
+<h1 id="models">Models</h1>
+<p>Như trong phần kiến trúc của Django đã viết trên, thì <code>Models</code> là phần sẽ giúp ứng dụng giao tiếp với database dễ dàng hơn.</p>
+<p><code>Models</code> của Django cũng gần như giống với những framework hiện đại đang có trên thị trường. Hầu như bạn không cần phải viết hay đụng đến câu lệnh SQL trừ khi bạn muốn viết, vì những <code>models</code> vi diệu này gần như được ánh xạ với database.</p>
+<p>Database mà Django cung cấp hầu như là:</p>
+<ul>
+<li>PostgreSQL</li>
+<li>MySQL</li>
+<li>SQLite</li>
+<li>Oracle</li>
+</ul>
+<p>Như mặc định ban đầu thì Django đã cài sẵn <code>SQLite</code> cho chúng ta. Bạn có thể sử dụng mà không cần bận tâm phải cài đặt như thế nào.</p>
+<p>Ví dụ chúng ta muốn tạo một table trong database, thay vì viết SQL bằng tay, bạn có thể dùng <code>models</code> mà Django cung cấp để tạo table như sau:</p>
+<pre><code class="language-python"># \myclub_root\events\models.py
+
+from django.db import models
+ 
+class Event(models.Model):
+    name = models.CharField('Event Name', max_length=120)
+    event_date = models.DateTimeField('Event Date')
+    venue = models.CharField(max_length=120)
+    manager = models.CharField(max_length = 60)
+    description = models.TextField(blank=True)
+</code></pre>
+<p>Sau khi đã định nghĩa models, bạn chạy lệnh sau để tạo bảng:</p>
+<pre><code class="language-bash">python manage.py makemigrations events
+python manage.py migrate events
+</code></pre>
+<p>Như vậy đã tạo xong table trong Database rồi đấy. Bạn có thể query vào db để xem table đã được thêm vào. Hoặc để thấy được câu lệnh SQL mà Django đã tạo giúp bạn để create table, bạn gõ:</p>
+<pre><code class="language-bash">python manage.py sqlmigrate events 0001_initial
+</code></pre>
+<p>Output sẽ như sau:</p>
+<pre><code class="language-bash">BEGIN;
+--
+-- Create model Event
+--
+CREATE TABLE &quot;events_event&quot; (
+    &quot;id&quot; integer NOT NULL PRIMARY KEY AUTOINCREMENT, 
+    &quot;name&quot; varchar(120) NOT NULL,
+    &quot;event_date&quot; datetime NOT NULL, 
+    &quot;venue&quot; varchar(120) NOT NULL, 
+    &quot;manager&quot; varchar(60) NOT NULL, 
+    &quot;description&quot; text NOT NULL
+);
+COMMIT;
+</code></pre>
+<p>Cũng như những framework khác, <code>Models</code> của Django cũng cung cấp cho bạn đủ bốn chức năng cơ bản để thao tác với database, đó là <code>insert</code>, <code>update</code>, <code>delete</code> và <code>select</code>.</p>
+<p>Bây giờ chúng ta thử thao tác cơ bản với chức năng <code>insert</code> để xem chúng làm việc ra sao.</p>
+<p>Thay vì viết thẳng vào code rồi run, thì mình viết trong môi trường run shell của python cho nhanh nhé. Đầu tiên vào truy cập vào môi trường python mà Django cũng đã cung cấp:</p>
+<pre><code class="language-bash">python manage.py shell
+</code></pre>
+<p>Lúc mới học python, muốn vào môi trường python bạn cũng phải gõ python rồi viết các hàm đơn giản. Thì đây cũng vậy nhưng mình chạy python theo cách mà Django cung cấp. Vừa rồi đã tạo <code>models Event</code> như trên. Để sử dụng <code>models Event</code> đã tạo, bạn cần import models đấy vào:</p>
+<pre><code class="language-bash">&gt;&gt;&gt; from events.models import Event
+</code></pre>
+<p>Hiện tại table chỉ vừa được tạo và chưa có record nào cả. Bây giờ sẽ thêm một record vào table. Để thêm record mới, bạn cần tạo một object event và khai báo giá trị muốn lưu.</p>
+<pre><code class="language-bash">&gt;&gt;&gt; from events.models import Event
+&gt;&gt;&gt; event1 = Event(name=&quot;Test Event1&quot;, event_date=&quot;2018-12-17&quot;,
+...     venue=&quot;somewhere&quot;, manager=&quot;Bob&quot;)
+&gt;&gt;&gt;
+</code></pre>
+<p>Sau khi khai báo xong, bạn chỉ việc gọi hàm <code>save()</code> để insert object đã khai báo đó vào table.</p>
+<pre><code class="language-bash">event1.save()
+</code></pre>
+<p>Những chức năng khác cũng tương tự, bạn có thể tham khảo thêm trên document của Django.</p>
+<h1 id="views">Views</h1>
+<p>Nếu bạn đã làm quen với các framework với mô hình MVC, thì trong Django, Views đóng vai trò gần giống như controller. <code>Views</code> là nơi xử lý, điều hướng luồng đi. Nó sẽ quyết định dữ liệu nào sẽ gửi đến <code>models</code> để được xử lý, dữ liệu nào sẽ được trả về cho user. Để hiểu rõ hơn, hãy xem vài dòng code đơn giản trong <code>views.py</code></p>
+<pre><code class="language-python"># \myclub_root\events\views.py
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse(&quot;&lt;h1&gt;MyClub Event Calendar&lt;/h1&gt;&quot;)
+</code></pre>
+<ul>
+<li>Đầu tiên là import hàm <code>render()</code>. Đây là sự import tự động trong Django. Hàm <code>render</code> sẽ giúp bạn chỉ định template nào sẽ được trả về và hiển thị cho user. Hàm cho phép bạn truyền dữ liệu động vào template để hiển thị.</li>
+<li>Kế đến là import <code>HttpResponse</code>. Hàm giúp truyền và nhận dữ liệu đến user.</li>
+<li>Cuối cùng là phần định nghĩa hàm <code>index()</code>. Đây là phần quan trọng trong <code>views</code>. Ở đây hàm <code>index()</code> chỉ là ví dụ đơn giản nhất. Hàm sẽ nhận dữ liệu từ phía user, dữ liệu đó được ném vào biến request. Bạn đọc biến request này và xử lý dữ liệu theo yêu cầu của user, sau đó dùng hàm <code>HttpResponse()</code> để trả dữ liệu đã xử lý về cho user.</li>
+</ul>
+<p>Đến đây, câu hỏi đặt ra là nếu chúng ta có nhiều <code>views</code>, mỗi <code>views</code> xử lý nhiệm vụ khác nhau. Ví dụ với url <code>http;//yourexample.com/</code> sẽ hiển thị <code>“Welcome&quot;</code>, với url <code>http://yourexample.com/books</code> sẽ hiển thị <code>danh sách tên các cuốn sách</code>. Làm sao Django nhận biết với url nào sẽ chạy vào <code>views</code> nào để xử lý dữ liệu. Như đã giới thiệu ở trên, bạn cần khai bao cho Django biết cụ thể url nào sẽ do view nào đảm nhiệm. Việc khai báo sẽ trong <code>urls.py</code>.</p>
+<pre><code class="language-python"># \myclub_root\events\urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('books/', views.books, name='books'),
+]
+</code></pre>
+<h1 id="templates">Templates</h1>
+<p>Cuối cùng là phần <code>templates</code>. Đây là phần hầu như sẽ chứa code HTML. Tức nội dung sẽ hiển thị về cho user. Views sẽ quyết định template nào sẽ được gọi hiển thị.</p>
+<p>Trong <code>templates</code>, bạn có thể xử lý dữ liệu động từ views gửi tới. Việc xử lý biến trong template cũng khá đơn giản. Hầu như sẽ không một chút gì xa lạ nếu bạn là một nhà lập trình website.</p>
+<table>
+<thead>
+<tr>
+<th>Ý nghĩa</th>
+<th style="text-align:center">Cú pháp</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cấu trúc logic</td>
+<td style="text-align:center">{% if %}...{% endif %}</td>
+</tr>
+<tr>
+<td>Cấu trúc vòng lặp</td>
+<td style="text-align:center">{% for x in y %}...{% endfor %}</td>
+</tr>
+<tr>
+<td>import file khác</td>
+<td style="text-align:center">{% include &quot;header.html&quot; %}</td>
+</tr>
+<tr>
+<td>Thể hiện giá trị của biến</td>
+<td style="text-align:center">{{ title }}</td>
+</tr>
+<tr>
+<td>More...</td>
+<td style="text-align:center">v.v...</td>
+</tr>
+</tbody>
+</table>
+<h1 id="tmli">Tóm lại</h1>
+<p>Django là một framework viết bằng python và hầu như để lập trình website. Ngoài các framework thịnh hành trên thị trường hiện nay được viết bằng PHP thì Django cũng là một lựa chọn cho các fan python khi muốn tạo website mà mà không cần phải học thêm ngôn ngữ khác. Về phần template thì các cấu trúc, lệnh, hàm khác giống với các template hiện nay, nên việc tiếp cận cũng không mấy khó khăn. Trong phần hai, chúng ta sẽ demo cụ thể cách viết một website với Django.</p>
+<h1 id="thamkho">Tham khảo</h1>
+<p><a href="https://djangobook.com/">https://djangobook.com/</a></p>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/django-demo-voi-website-hien-thi-gia-crypto/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=Django%20-%20Demo%20v%E1%BB%9Bi%20website%20hi%E1%BB%83n%20th%E1%BB%8B%20gi%C3%A1%20Crypto%20-%20Ph%E1%BA%A7n%201">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/django-demo-voi-website-hien-thi-gia-crypto/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/django-demo-voi-website-hien-thi-gia-crypto/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

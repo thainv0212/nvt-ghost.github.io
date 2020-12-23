@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)</title>
+
+    <meta name="description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)" />
+    <meta property="og:description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-01-24T04:14:26.000Z" />
+    <meta property="article:modified_time" content="2018-01-24T04:14:26.000Z" />
+    <meta property="article:tag" content="Bitcoin" />
+    <meta property="article:tag" content="minning" />
+    <meta property="article:tag" content="game theory" />
+    <meta property="article:tag" content="hash" />
+    <meta property="article:tag" content="thợ mỏ" />
+    <meta property="article:tag" content="Proof Of Work" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)" />
+    <meta name="twitter:description" content="Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội ..." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="B.V.M" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Bitcoin, minning, game theory, hash, thợ mỏ, Proof Of Work" />
+    <meta property="og:image:width" content="765" />
+    <meta property="og:image:height" content="457" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "B.V.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1fF2_O50gnEdEyVwfVmj_a2A6zIAjyqxh&export=download",
+            "width": 605,
+            "height": 681
+        },
+        "url": "https://blog.vietnamlab.vn/author/manhbv/",
+        "sameAs": []
+    },
+    "headline": "Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)",
+    "url": "https://blog.vietnamlab.vn/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-2/",
+    "datePublished": "2018-01-24T04:14:26.000Z",
+    "dateModified": "2018-01-24T04:14:26.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&export=download",
+        "width": 765,
+        "height": 457
+    },
+    "keywords": "Bitcoin, minning, game theory, hash, thợ mỏ, Proof Of Work",
+    "description": "Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về\nviệc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại\nsống và sống khỏe được trong xã hội khốc liệt hiện nay.\n\nDành cho bạn nào chưa đọc một số khái niệm về lý thuyết trò chơi.\nPhần 1: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?\n[https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/]\n\nMục lục\n * Blockchain",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain? (Phần 2)</h1>
+                <section class="post-meta">
+                    B.V.M -
+                    <time class="post-date" datetime="2018-01-24">24 Jan 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1o_ybLnsxkNbmxqdNOyPgUjRHMNj7ghZh&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Ở phần này chúng ta sẽ tìm hiểu kĩ hơn về blockchain, cách thức hoạt động, về việc đào coin , nguyên lý của việc đào là như thế nào và tại sao blockchain lại sống và sống khỏe được trong xã hội khốc liệt hiện nay.</p>
+<p>Dành cho bạn nào chưa đọc một số khái niệm về lý thuyết trò chơi.<br />
+<a href="https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/">Phần 1: Vì sao blockchain được tin tưởng hay lý thuyết trò chơi và blockchain?</a></p>
+<h3 id="mclc">Mục lục</h3>
+<ul>
+<li>Blockchain là gì</li>
+<li>Các khái niệm liên quan tới blockchain</li>
+<li>Đào block (minning)</li>
+<li>Các thợ mỏ có xu hướng gian lận, cách blockchain phòng chống việc đó</li>
+<li>Grim Trigger có mặt để giải cứu</li>
+<li>Liệu Proof Of Work có kiểm soát được vấn đề?</li>
+<li>Kết luận</li>
+</ul>
+<h3 id="blockchainlg">Blockchain là gì?</h3>
+<p>Thời gian gần đây chúng ta thường nghe về BitCoin, về blockchain. Với các đặc điểm hay được nhắc tới như...</p>
+<ul>
+<li>Một cơ sở dữ liệu phân cấp, lưu trữ thông tin trong các khối thông tin được liên kết với nhau bằng mã hóa và mở rộng theo thời gian. Mỗi khối thông tin đều chứa thông tin về thời gian khởi tạo và được liên kết tới khối trước đó, kèm một mã thời gian và dữ liệu giao dịch.</li>
+<li>Blockchain được thiết kế để chống lại việc thay đổi của dữ liệu: Một khi dữ liệu đã được mạng lưới chấp nhận thì sẽ không có cách nào thay đổi được nó.<br />
+Nghe có vẻ thú vị, nhưng chính xác nó là cái gì ?</li>
+</ul>
+<p>Blockchain theo nghĩa đen của từng từ thì: block nghĩa là khối, chain là chuỗi. Blockchain nghĩa là chuỗi các khối kết nối với nhau. Khối sau sẽ lấy thông tin của khối trước tạo thành một mắt xích không thể phá vỡ, thay đổi hay giả mạo.</p>
+<p>Giải thích mang tính kĩ thuật hơn:<br />
+Một blockchain (chuỗi khối) là một loạt các block mà chứa các giao dịch riêng biệt bên trong nó. Mỗi block có chứa thông tin (kết quả băm của block trước), và do đó hình thành lên một chuỗi các block (khối). Vì thế nên gọi là "blockchain".<br />
+Một số hình ảnh minh họa về blockchain.<br />
+<amp-img src="http://dataconomy.com/wp-content/uploads/2015/10/bitcoin-block-chain-small.png" alt="alt" width="396" height="294" layout="responsive"></amp-img></p>
+<p><amp-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bitcoin_Block_Data.png/800px-Bitcoin_Block_Data.png" alt="alt" width="800" height="311" layout="responsive"></amp-img></p>
+<h3 id="cckhinimlinquantiblockchain">Các khái niệm liên quan tới blockchain</h3>
+<p>1. <strong>Genesis block</strong>: khối ban đầu của blockchain.<br />
+2. <strong>Proof of work</strong>: bằng chứng công việc<br />
+Khối lượng tính toán cần để tạo block<br />
+3. <strong>Parent block</strong>: block cha<br />
+The block that immediately precedes a block is the parent block of that block. So in the diagram above, Block 50 is the parent block of Block 51.<br />
+4. <strong>Hàm tính điểm</strong>: các khối trong block chain có một hàm tính điểm.<br />
+Score (genesis) = 0.<br />
+Score (Block) = Score (parent block) + Proof of work<br />
+Trạng thái hiện tại của chuỗi là block với điểm cao nhất.<br />
+5. <strong>Đối tượng</strong>: hệ thống block chain gồm 2 đối tượng như sau:</p>
+<ul>
+<li><strong>Users</strong>: người dùng, trong bitcoin, chỉ có 2 function cho họ:</li>
+<li>Send coins.</li>
+<li>Receive coins.</li>
+<li><strong>Miner</strong>: thợ mỏ. Người chứng thực cho các giao dịch. Minning là cách mà một block mới được tạo và nối vào blockchain.</li>
+</ul>
+<ol start="7">
+<li><strong>Hàm băm (hash)</strong>: Làm thế nào để tính hash? Giá trị hash là một trị số với độ dài cố định, giúp nhận diện dữ liệu. Các hash được tính bằng cách lấy trị số của block hash trước đó, timestamp, block data, and nonce như là giá trị đầu vào .</li>
+<li><strong>Nonce</strong>: một số ngẫu nhiên để thỏa mãn bài toán về độ khó. hoặc có thể hiểu là số lần được lặp lại trước khi chúng ta tìm thấy một block hợp lệ? Để hiểu nonce là gì và tại sao nó quan trọng, điều này sẽ được giải thích ở bên dưới.</li>
+</ol>
+<p>Theo những dữ kiện bên trên, bạn đã biết khái niệm cơ bản về blockchain. Vậy hãy thử tạo cho mình blockchain một cách dễ dàng và trực quan trên nền web qua trang web ví dụ sau:<br />
+<a href="https://blockchaindemo.io/">https://blockchaindemo.io/</a></p>
+<h3 id="oblockminning">Đào block (minning)</h3>
+<p></p>
+<p>Minning là thông qua một chuỗi tính toán, thợ mỏ tìm được dữ liệu(số nonce) để hoàn thành một khối và add nó vào blockchain, qua đó sẽ được mạng lưới phát cho phần thưởng là một số coin xác định.<br />
+Trong ethereum thì phần thưởng là  5 ether, với bitcoin là 12.5 BTC (tại thời điểm viết bài 2017 và dự tính đến 2020 thì sẽ giảm một nửa còn 6.25 BTC).</p>
+<p>Khi đọc qua các lời giới thiệu về bitcoin, mọi người thường gặp đoạn nói về các thợ mỏ sẽ giải bài toán gì gì đó. Ai giải ra nhanh hơn thì sẽ nhận được phần thưởng. Nhưng cụ thể bài toán đó như thế nào thì ít có bài nào nói sâu vào.<br />
+Sau đây là cách thức mà minning thực hiện:</p>
+<h4 id="hmbm">Hàm băm</h4>
+<p>Hàm băm là hàm mà đầu vào là dữ liệu gốc X, có độ dài bất kỳ. Đầu ra là một chuỗi chữ số Y có độ dài cố định. Ví dụ Y của hàm băm SHA256 có độ dài là 64 ký tự,  Y = SHA256(X).<br />
+Ví dụ:</p>
+<pre><code>sha256('hello') = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"  
+sha256("")      = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"  
+</code></pre>
+<p>Và người ta đã nghĩ ra cách để mã hóa dữ liệu như thế này: Ở đầu vào, ngoài dữ liệu gốc X ra thì người ta sẽ thêm vào đó một đoạn dữ liệu nữa. Đoạn này được gọi là nonce (key/salt/). Và áp dụng vào hàm băm SHA256(X + nonce) = Z. Z sẽ khác hoàn toàn so với Y ban đầu.<br />
+Đây chính là ứng dụng cho việc mã hóa dữ liệu và truyền đi trong mạng internet. Giá trị của nonce sẽ đóng vai trò như một chìa khóa (key) bí mật để bảo vệ phần dữ liệu X được truyền đi. Ở phía người nhận chỉ khi có được key nonce thì người ta mới có thể xác nhận được X họ đang có là đúng.</p>
+<p>Ví dụ hay gặp của SHA256 là dùng cho việc đăng nhập vào các tài khoản online:</p>
+<ul>
+<li>Khi đăng kí máy chủ sẽ lưu trữ Y của các bạn.</li>
+<li>Khi đăng nhập, bạn gõ email+ mật khẩu vào ô nhưng thứ truyền đi tới máy chủ sẽ là Y' = SHA256("email+mật khẩu")</li>
+<li>Máy chủ sẽ so sánh Y và Y' có khớp với nhau hay không, nếu khớp thì bạn sẽ được cấp token sử dụng chức năng của trang vừa đăng nhập. Do đó, dù hacker có lấy được database của máy chủ thì họ cũng không thể biết được mật khẩu và email của bạn. Y của hàm băm SHA256 là không thể dịch ngược.</li>
+</ul>
+<h4 id="quaylibitoncathmcngviccahlg">Quay lại bài toán của thợ mỏ. Công việc của họ là gì?</h4>
+<p>Sổ cái lưu trữ các giao dịch của bitcoin là dạng blockchain. Là một chuỗi của các khối SHA256 nối đuôi vào nhau. Khối sau sẽ chứa thông tin|sự thay đổi|thời gian thay đổi của khối trước nó. Cho nên muốn tạo giả một thông tin ở khối hiện tại cho nó sai đi, bạn cần thay đổi dữ liệu khối trước đó và kéo theo bạn cần sửa dữ liệu khối trước đó nữa... Và nghĩa là bạn phải tạo ra một sổ cái mới hoàn toàn. Khi đó những người đang giữ bản sao của sổ cái cũ sẽ đối chiếu và dễ dàng thấy sổ cái của bạn là giả, hoặc chẳng ai dùng vì không có tính xác thực.</p>
+<p>Và ở đây sẽ có phần công việc cho các thợ mỏ. Ngoài việc tham gia hệ thống để xác minh tính chính xác của sổ cái. Một phần việc khác của các thợ mỏ, đó là tạo ra khối SHA256 mới. Họ sẽ quyết định cái khối SHA256 nào sẽ được ghi tiếp vào sổ cái.<br />
+Khối mới được ghi vào sổ cái sẽ là [SHA256(các giao dịch|thời gian|dữ liệu sổ cũ)]. Nhưng với dữ liệu có sẵn thế thì hàm băm này chả có gì khó cả, nó sẽ được giải quyết trong vòng một phần tỷ của một nốt nhạc. Và đây chính là chỗ để sinh ra bài toán cho các thợ mỏ.</p>
+<p>Các thợ mỏ sẽ được yêu cầu tìm ra một chuỗi SHA256 khác sao cho chuỗi này có giá trị nhỏ hơn một số D cho trước. Chuỗi này vẫn sẽ chứa các thông tin về giao dịch|thời gian|dữ liệu sổ cũ. Nhưng sẽ được gắn thêm một đoạn nonce nữa vào trước khi hash.<br />
+Công thức như sau:</p>
+<blockquote>
+<p>SHA256(X + nonce) &lt; D.</p>
+</blockquote>
+<p>Với:</p>
+<ul>
+<li>X là dữ liệu của hệ thống đã biết gồm các giao dịch,thời gian,dữ liệu sổ cũ</li>
+<li>D là giá trị yêu cầu.</li>
+</ul>
+<p>Việc làm của thợ mỏ là tìm xem cái nonce nào hợp lệ cho công thức trên. Ai tìm được nonce trước thì người đó sẽ thắng và khối mới sẽ sử dụng nonce của người đó để tạo ra khối mới và đồng thời hệ thống cũng sẽ ghi nhận luôn rằng chính người thợ mỏ đó sở hữu lượng bitcoin (phần thưởng) mới được sinh ra.<br />
+Số D này sẽ có liên hệ với giá trị độ khó difficulty của hệ thống. Nếu hệ thống có tổng hash rate (tốc độ tính toán) càng cao thì difficulty sẽ càng lớn, số D này sẽ càng nhỏ và việc tìm ra nonce sẽ càng khó. Số D này sẽ được hệ thống tính toán lại sau mỗi 2016 blocks được sinh ra, nhằm đảm bảo khoản thời gian 10 phút cho mỗi lượt sinh coin mới.</p>
+<p>Lấy một ví dụ cho dễ hiểu. Giả sử bài toán yêu cầu hàm SHA256(X + nonce) &lt; 0x64 nghĩa là D = x64 ( = 100 ở hệ thập phân). Dữ liệu X có rồi. Thì ta sẽ có 99 kết quả của nonce thỏa mãn yêu cầu sao cho SHA256(X+nonce) &lt; 100. SHA256(X+nonce) có thể là bất kỳ giá trị nào từ [1-99].<br />
+Giả sử độ khó difficulty tăng lên gấp đôi, thì giá trị D này sẽ giảm đi một nửa và sẽ bằng 50. Khi đó bài toán sẽ khó hơn với yêu cầu là SHA256(X+nonce) &lt; 50, chúng ta chỉ có 49 khả năng cho nonce đúng. Các giá trị thõa mãn D cũ như 78, 65, 69 sẽ không được chấp nhận với D mới này. Tương tự như vậy, nếu độ khó difficulty giảm đi 3 lần, thì số đáp án có thể đạt được cũng tăng lên 3 lần. Điều này sẽ giúp đảm bảo thời gian tính toán sinh coin mới luôn nằm trong khoản 10 phút. Điều này cũng là nguyên nhân dẫn đến việc càng nhiều thợ mỏ tham gia thì việc đào ra coin càng có tỉ lệ thấp.<br />
+Đây là một ví dụ thực tế của D = 0x00000000000404CB000000000000000000000000000000000000000000000000<br />
+Như vậy ta có thể trả lời được câu hỏi thợ mỏ làm gì và bitcoint từ đâu ra.</p>
+<p>Số 21 triệu bitcoin là giới hạn. Không phải là cái mốc. Vì cứ 4 năm một lần thì số coin sinh ra giảm đi một nửa sau mỗi 10 phút. Đến năm 2140 thì số coin sẽ đạt gần đến mức 21 triệu chứ không phải đúng 21 triệu. Số lượng sinh ra coin lúc đó sẽ rất nhỏ. Vì mỗi 4 năm chia đôi một lần mà. Chia đôi mãi một số thì nó không bao giờ về 0 cả. Nó chỉ về con số rất nhỏ thôi.</p>
+<h4 id="trnhbyliminningbngcode">Trình bày lại minning bằng code</h4>
+<p>Giả sử ta đã có Genesis block<br />
+Chúng ta thử tìm khối thứ 2.<br />
+Nội dung khối thứ 2 sẽ như sau:</p>
+<blockquote>
+<p>Index: 0+1 = 1<br />
+Previous Hash: 0000018035a828da0…<br />
+Timestamp: khi nào block được thêm vào<br />
+Data: "Chúng tôi là VNLab"<br />
+Hash: ??<br />
+Nonce: ??</p>
+</blockquote>
+<p>Vậy giờ chúng ta đi tính hash và nonce.<br />
+Cách tính hash:</p>
+<pre><code>hash('sha256', index . previousHash . timestamp . data . nonce);
+</code></pre>
+<p>Bạn có nhận thấy bốn đầu 0 trong "Previous Hash"?<br />
+Trong trường hợp này bốn cột đầu của hash là 0. Đó yêu cầu tối thiểu cho một hash hợp lệ. Số cột đầu tiên là 0 sẽ được gọi là difficulty.</p>
+<p>Hàm để kiểm tra xem một hash có phải là hash thỏa mãn độ khó chưa:</p>
+<pre><code>function isValidHashDifficulty($hash, $difficulty) {  
+  for ($i = 0; $i &lt; $hash.length; $i++) {  
+      if ($hash[$i] !== '0') {  
+          break;  
+      }  
+  }  
+  return $i &gt;= $difficulty;  
+}
+</code></pre>
+<p>Đoạn code theo cách đơn giản để tính số nonce:</p>
+<pre><code>$nonce = 0;
+$hash;
+$input;
+while(!isValidHashDifficulty($hash)) {     
+  $nonce = $nonce + 1;
+  $input = $index + $previousHash + $timestamp + $data + $nonce;
+  $hash = SHA256($input)
+}
+</code></pre>
+<p>Vòng lặp trên cứ tăng dần nonce lên cho tới khi tìm được nonce thỏa mãn độ khó của hash. Quá trình tìm một nonce tương ứng với một hash hợp lệ là mining.</p>
+<p>Difficulty tăng lên, số lượng các hash hợp lệ giảm. Với hàm hash hợp lệ ít hơn có thể cần phải mất nhiều thời gian xử lý hơn để tìm một hash hợp lệ.</p>
+<p>** Tại sao việc tìm nonce, với độ khó nhất định của hàm hash lại quan trọng? **<br />
+Nó quan trọng vì nó giữ cho blockchain không thay đổi. Nếu chúng ta có blockchain A → B → C, và ai đó muốn thay đổi dữ liệu trên Block A. Điều gì sẽ xảy ra:</p>
+<p>Dữ liệu thay đổi trên block A<br />
+Thay đổi hash của Block A vì dữ liệu được sử dụng để tính toán hash.<br />
+Block A trở nên không hợp lệ vì hash của nó không còn có bốn đầu của 0.<br />
+Thay đổi hash của Block B vì hash của Block A được sử dụng để tính toán hash của Block B.<br />
+hash B trở nên không hợp lệ bởi vì hash của nó không còn có bốn hàng đầu của 0.<br />
+Thay đổi hash của Block C vì sử dụng hash của Block B để tính toán hash của Block C.<br />
+Block C trở nên không hợp lệ vì hash của nó không còn có bốn đầu của 0. Cách duy nhất để biến đổi một khối sẽ là xây dựng lại một blockchain khác bắt đầu từ khối bị thay đổi. Ngoài ra còn việc các block mới luôn luôn được thêm vào, nên rất khó trong việc thay đổi cả blockchain.</p>
+<p><strong>Tổng kết về minning</strong><br />
+Qua những điều trên chúng ta thấy: thở mỏ có nhiều sức mạnh trong hệ thống blockchain, nên nếu họ chọn cách cheat cho họ, thì họ sẽ ảnh hưởng xấu tới hệ thống.</p>
+<h3 id="ccthmcxuhnggianln">Các thợ mỏ có xu hướng gian lận?</h3>
+<p>Để tránh điều đó xảy ra: blockchain đã làm gì, blockchain đã có trong mình nó lý thuyết trò chơi để giải quyết vấn đề.</p>
+<p>Trong hệ thống peer-to-peer thì torrent là phổ biến nhất. Nhưng có một vấn đề là người ta download nhưng ko seeding… Nguyên nhân là không có cơ chế phạt phù hợp.</p>
+<h4 id="vyblockchainslmnhthnotrnhthmgianln">Vậy blockchain sẽ làm như thế nào để tránh thợ mỏ gian lận?</h4>
+<p>Đầu tiên phải làm rõ một vấn đề thợ mỏ sẽ gian lận như thế nào:</p>
+<ul>
+<li>
+<p>Họ có thể bao gồm một giao dịch không hợp lệ và tự cho mình thêm tiền xu.</p>
+</li>
+<li>
+<p>Thêm các khối ngẫu nhiên mà không cần lo lắng về bằng chứng của công việc.</p>
+</li>
+<li>
+<p>Mỏ trên đầu trang của các khối không hợp lệ để có được nhiều hơn BTC.</p>
+</li>
+<li>
+<p>Mỏ trên đầu trang của một khối ghi điểm phụ tối ưu.</p>
+</li>
+</ul>
+<p>Tại sao thợ mỏ lại làm như thế? Vì đơn giản không ai bắt họ phải là những người tốt? Chúng ta không thể tạo một hệ thống gồm toàn những người tốt. Blockchain được thiết kế bằng cách tự thực thi cân bằng Nash. Nguyên nhân là do khai thác có một hệ thống trừng phạt đệ quy.</p>
+<p><amp-img src="https://manhbv7488.files.wordpress.com/2017/08/what-is-cryptocurrency-game-theory-a-basic-introduction-12-e1502212222697-1.png?w=680" alt="alt" width="680" height="358" layout="responsive"></amp-img></p>
+<p><strong>Double spending.</strong><br />
+Đây là khái niệm hay được nhắc tới trên hệ thống blockchain. Double spending là vấn đề lớn với bất cứ cái gì gọi là tiền. Dưới đây là ví dụ:</p>
+<p>Tại blue block 51 thợ mỏ sử dụng 20 bitcoins để mua 500 litecoins, sau đó anh ta tạo 1 chuỗi song song với block 51 mới (block đỏ), ở đó anh ta chưa hề giao dịch. Như vậy anh ta vừa còn 20 bitcoins, vừa có 500 litecoins. Đó chính là double spending.</p>
+<p>Như vậy double spending phá hủy hệ thống, vì làm cho hệ thống không công bằng.</p>
+<p><strong>Cân bằng Nash trong mining và hệ thống trừng phạt system.</strong></p>
+<p>Chúng ta xem xét tại sao thợ mỏ sẽ không double spending</p>
+<ul>
+<li>Nếu một thợ mỏ tạo ra một khối không hợp lệ thì những người khác sẽ không tiếp tục vào nó bởi vì một quy tắc đã được xác định trong cơ chế blockchain. Bất kỳ khối nào được khai thác trên một khối không hợp lệ sẽ trở thành một khối không hợp lệ. Sử dụng quy tắc này, thợ mỏ sẽ đơn giản bỏ qua các khối không hợp lệ và tiếp tục khai thác mỏ trên chuỗi chính chuỗi màu xanh trong sơ đồ.</li>
+<li>Không thợ mỏ nào muốn khai thác trên Red Block 52 vì Blue Block 53 sẽ có số điểm cao hơn red block.</li>
+</ul>
+<p>Cả 2 kịch bản đều sẽ xảy ra vì các thợ mỏ, là những người mà họ sẽ luôn chọn trạng thái ổn định nhất theo cân bằng Nash, luôn chọn cái có lợi cho mình nhất để làm. Tất nhiên, bạn có thể làm tất cả các thợ mỏ khai thác tiếp trên red block và biến nó thành blockchain mới, tuy nhiên số lượng thợ mỏ là rất lớn nên điều này khó có thể xảy ra. Cũng giống như trong một game trạng thái, hầu hết những người trong group không thay đổi trạng thái của họ. Thiểu số sẽ không có bất kì động lực nào để ở lại trạng thái mới. Hiểu điều này, một thợ mỏ sẽ không sử dụng tất cả sức mạnh tính toán vào một trạng thái rủi ro để rồi kết quả là vô ích.</p>
+<p><strong>Như vậy thợ mỏ không gian lận bởi nếu gian lận họ sẽ mất chính công sức, tiền bạc của họ.</strong></p>
+<p><strong>Lý do vì sao thợ mỏ lại hướng về chuỗi thường dùng blue chain?</strong><br />
+Trong game blockchain thì có 2 thành phần là các thợ mỏ và các user. Tại sao nguời dùng sẽ dùng blue chain hơn là red chain? Một lần nữa, nguyên nhân là vì cơ chế lý thuyết trò chơi.</p>
+<p>Điều đầu tiên là bạn phải giữ trong đầu bạn là tiền ảo có giá trị bởi con người cho chúng giá trị. Vậy, vì sao người dùng bình thường sẽ gán giá trị cho coins của blue chain và không làm thế với red chain. Lý do rất đơn giản, chuỗi chính là một <a href="https://vietnamlab.vn/blog/2017/11/22/vi-sao-blockchain-duoc-tin-tuong-hay-ly-thuyet-tro-choi-va-blockchain-phan-1/">schelling point</a> từ quan điểm người dùng. Họ cho chúng giá trị vì main chain dường như là tự nhiên và đặc biệt với họ.</p>
+<h3 id="liuproofofworkckimsotcvn">Liệu Proof Of Work có kiểm soát được vấn đề?</h3>
+<p>Trước khi bắt đầu giải thích, cùng xem lại sơ đồ của chúng ta một lần nữa.<br />
+<amp-img src="https://manhbv7488.files.wordpress.com/2017/08/what-is-cryptocurrency-game-theory-a-basic-introduction-12-e1502212222697-1.png?w=680" alt="alt" width="680" height="358" layout="responsive"></amp-img></p>
+<p>Vitalik Buterin (người tạo ra ethereum) đưa ra một ví dụ điển hình về vấn đề kiểm soát và chúng tôi sẽ mở rộng nó.<br />
+Trong ethereum có một khái niệm nổi tiếng là hợp đồng thông minh (smart contract).</p>
+<p><strong>Giả sử ai đó làm một hợp đồng thông minh với các điều khoản của hợp đồng đi như sau:</strong></p>
+<ul>
+<li>Bất kỳ người khai thác mỏ nào cũng có thể tham gia vào hoạt động bằng cách gửi một khoản tiền gửi rất lớn vào hợp đồng.</li>
+<li>Các thợ mỏ phải gửi cổ phần của các khối đã hoàn thành một phần mà họ đã khai thác vào hợp đồng và hợp đồng xác minh nó và cũng xác minh rằng bạn là một người khai thác mỏ và rằng bạn có đủ sức mạnh băm.</li>
+<li>Trước khi 60% các thợ mỏ trong hệ thống tham gia, bạn có thể bỏ tham gia vào hợp đồng này bất cứ lúc nào bạn muốn.</li>
+<li>Sau khi 60% thợ mỏ tham gia, bạn sẽ bị ràng buộc với hợp đồng này cho đến khi 20 khối đã được thêm vào chuỗi màu đỏ.</li>
+</ul>
+<p>Vâng, thực sự là rất nguy hiểm và bạn có thể thấy được vấn đề mà cuộc tấn công này có thể xảy ra. Không chỉ chain mới phát triển ngày càng lớn hơn, bởi vì 60% của toàn bộ thợ mỏ bị ràng buộc theo hợp đồng với chuỗi mới này, điều này sẽ nhanh chóng làm cho chuỗi gốc cũ hơn. Điều này sẽ làm cho tăng double spend trên khắp nơi và giá trị của đồng tiền sẽ giảm nhanh.</p>
+<p><strong>Chúng ta sẽ thử phân tích vì sao thợ mỏ sẽ tham gia vào một cuộc kiểm soát này?</strong></p>
+<ul>
+<li><strong>Phần thưởng</strong> cuối cùng rất hấp dẫn.</li>
+<li><strong>Không có nguy cơ</strong> khi tham gia vào hợp đồng này.</li>
+<li><strong>Động lực</strong> của họ để làm theo thông qua hợp đồng là gì?</li>
+<li>Số tiền khổng lồ mà họ đã gửi vào đầu.</li>
+<li>Lại một lần nữa, phần thưởng rất lớn đang chờ họ.</li>
+</ul>
+<p>Về mặt lý thuyết, việc tiếp quản như thế này có thể kết thúc bất kỳ loại tiền tệ nào, nhưng điều này không có khả năng xảy ra vì ... lại là: ... Lý thuyết trò chơi.</p>
+<h3 id="grimtriggercmtgiicu">Grim Trigger có mặt để giải cứu!</h3>
+<p>Hãy suy nghĩ về tham số nhà vua khi chúng ta nghĩ về grim triggers. Nếu một vị vua bị giết và chiếm đoạt, thì điều gì sẽ ngăn lại vị vua mới khỏi bị giết và từ đó trở thành một chu kỳ đẫm máu vô tận? Để ngăn chặn điều này xảy ra, cách tốt nhất của hành động là không giết vị vua ban đầu ở nơi đầu tiên.</p>
+<p>Tương tự, chúng ta hãy sử dụng logic này cho các blockchain. Nếu một blockchain bị chiếm đoạt và bị phá hủy và các thợ mỏ được chuyển hướng vào một chuỗi mới, không có gì ngăn cản chuỗi mới bị chiếm đa số trong thời gian sớm nhất? Để ngăn chặn vòng lặp đẫm máu đó không xảy ra, thì tốt nhất là không giết vị vua đầu tiên.<br />
+Do đó để mọi công sức đã xây dựng lên blockchain đầu tiên không bị mất đi, thì các thợ mỏ sẽ không tiêu diệt nó bằng cách tạo 1 blockchain mới, vì mọi thứ sẽ lặp lại, và chính họ sẽ mất tất cả.</p>
+<p><strong>Có một số nơi mà đối số Grim Trigger thất bại, và rõ ràng, có những nơi mà nó hoạt động khá ngoạn mục:</strong></p>
+<ul>
+<li>Grim Trigger không thành công khi các thợ mỏ không bị ràng buộc vào một loại tiền tệ. Nếu các thợ mỏ đang làm việc trên nhiều loại tiền tệ, họ chỉ có thể nhóm để kiểm soát một loại tiền tệ có giá trị thấp.</li>
+<li>Grim Trigger duy trì nếu họ bị ràng buộc và trung thành với một loại tiền tệ cụ thể. Xét cho cùng, nó là mối quan tâm trực tiếp của họ để duy trì và duy trì giá trị và tính hợp pháp của đồng tiền.</li>
+<li>Nếu đồng tiền yêu cầu các ASIC chuyên biệt, sau đó là đối số kích hoạt nặng nề giữ lên. Nếu một đồng tiền chỉ có thể được khai thác bằng phần mềm chuyên dụng, thì các thợ mỏ sẽ đảm bảo rằng không có gì xảy ra với loại tiền tệ đó và nó không mất giá trị (mất giá trị thì thở mỏ chả được đồng nào). ASICs chuyên biệt thì chỉ có thể làm việc cho một loại tiền tệ cụ thể. Nếu không sử dụng vào việc đó, nó là vô tích sự. Thêm nữa, chúng rất đắt.</li>
+<li>Lập luận không giữ được nếu tiền tệ có thể được khai thác bằng cách sử dụng CPU. CPU không phải là đắt tiền, và nó có thể được sử dụng để khai thác các loại tiền tệ khác.</li>
+<li>Tuy nhiên, nếu các thợ mỏ sở hữu các CPU có cổ phần trong đồng tiền, lập luận này vẫn được duy trì bởi vì họ không muốn mất cổ phần mà họ đầu tư vào đồng tiền đó. Đây là một loại chứng cứ cổ phần (proof-of-stake).</li>
+</ul>
+<p>Nhờ những lý do trên, các thợ mỏ sẽ không tham gia vào hợp đồng tưởng như béo bở mà chết chóc bên trên.</p>
+<p><amp-img src="http://static.wixstatic.com/media/79f944_023d6b8a20ae46ce9ee7de791a250a53~mv2.jpg/v1/fill/w_548,h_308,al_c,q_80,usm_0.66_1.00_0.01/79f944_023d6b8a20ae46ce9ee7de791a250a53~mv2.webp" alt="alt" width="548" height="308" layout="responsive"></amp-img></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Như có thể thấy, cơ học lý thuyết trò chơi làm cho blockchain rất đặc biệt. Không có gì về công nghệ hoặc cơ học (mechanics) là mới, nhưng đó là sự kết hợp của hai khái niệm hấp dẫn đó đã làm cho cryptocurrency an toàn để chống tham nhũng từ trong nội bộ. Ngay cả khi bitcoin và Ethereum thất bại vì bất cứ lý do nào, cryptocurrency sẽ luôn tồn tại vì những lợi ích nó mang lại.<br />
+P/s: Các bạn thấy có phần nào chưa được xin comment bên dưới để chúng ta cùng suy nghĩ thêm về các vấn đề liên quan tới blockchain nhé.</p>
+<h3 id="linhthamkho">Linh tham khảo</h3>
+<p><a href="https://blockgeeks.com/guides/cryptocurrency-game-theory/">https://blockgeeks.com/guides/cryptocurrency-game-theory/</a><br />
+<a href="https://spiderum.com/bai-dang/Bitcoin-Bai-toan-cua-cac-tho-mo-6z8">https://spiderum.com/bai-dang/Bitcoin-Bai-toan-cua-cac-tho-mo-6z8</a><br />
+<a href="https://techtalk.vn/blockchain-thuc-su-hoat-dong-nhu-the-nao.html">https://techtalk.vn/blockchain-thuc-su-hoat-dong-nhu-the-nao.html</a></p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

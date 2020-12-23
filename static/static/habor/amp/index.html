@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>[Nhập môn Kubernetes P11] - Quản lý Container Images bảo mật với Harbor</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Nhập môn Kubernetes P11] - Quản lý Container Images bảo mật với Harbor" />
+    <meta property="og:description" content="Serial blog Nhập môn Kubernetes  Nội dung Giới thiệu Harbor Cài đặt Harbor Sử dụng Harbor Demo pull image với Kubernetes. Kết luận Tài liệu tham khảo Giới thiệu Harbor Bạn có đang sử dụng Docker Images? Tại thời điểm này Images mà bạn đang sử dụng có nguy cơ" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/habor/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1TVWiLFbIashiLX-X0BrwH0D6sK_3iFiS&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2018-10-09T01:03:54.000Z" />
+    <meta property="article:modified_time" content="2018-10-09T01:03:54.000Z" />
+    <meta property="article:tag" content="docker" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="docker-registry" />
+    <meta property="article:tag" content="harbor" />
+    <meta property="article:tag" content="rancher" />
+    <meta property="article:tag" content="container images" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Nhập môn Kubernetes P11] - Quản lý Container Images bảo mật với Harbor" />
+    <meta name="twitter:description" content="Serial blog Nhập môn Kubernetes  Nội dung Giới thiệu Harbor Cài đặt Harbor Sử dụng Harbor Demo pull image với Kubernetes. Kết luận Tài liệu tham khảo Giới thiệu Harbor Bạn có đang sử dụng Docker Images? Tại thời điểm này Images mà bạn đang sử dụng có nguy cơ" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/habor/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1TVWiLFbIashiLX-X0BrwH0D6sK_3iFiS&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="docker, kubernetes, docker-registry, harbor, rancher, container images" />
+    <meta property="og:image:width" content="640" />
+    <meta property="og:image:height" content="226" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Nhập môn Kubernetes P11] - Quản lý Container Images bảo mật với Harbor",
+    "url": "https://blog.vietnamlab.vn/habor/",
+    "datePublished": "2018-10-09T01:03:54.000Z",
+    "dateModified": "2018-10-09T01:03:54.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1TVWiLFbIashiLX-X0BrwH0D6sK_3iFiS&export=download",
+        "width": 640,
+        "height": 226
+    },
+    "keywords": "docker, kubernetes, docker-registry, harbor, rancher, container images",
+    "description": "Serial blog Nhập môn Kubernetes\n[https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/]\n\nNội dung\n * Giới thiệu Harbor\n * Cài đặt Harbor\n * Sử dụng Harbor\n * Demo pull image với Kubernetes.\n * Kết luận\n * Tài liệu tham khảo\n\nGiới thiệu Harbor\nBạn có đang sử dụng Docker Images? Tại thời điểm này Images mà bạn đang sử dụng\ncó nguy cơ tiềm ẩn những lỗ hổng bảo mật và có thể bị khai thác.\nHarbor là một open source cloud native registry, dùng để lưu trữ, đánh dấu, sc",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">[Nhập môn Kubernetes P11] - Quản lý Container Images bảo mật với Harbor</h1>
+                <section class="post-meta">
+                    N.X.P -
+                    <time class="post-date" datetime="2018-10-09">09 Oct 2018</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1TVWiLFbIashiLX-X0BrwH0D6sK_3iFiS&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><a href="https://blog.vietnamlab.vn/2018/09/25/nhap-mon-kubernetes-gioi-thieu-rerial-kubernetes/">Serial blog Nhập môn Kubernetes</a></p>
+<h3 id="nidung">Nội dung</h3>
+<ul>
+<li>Giới thiệu Harbor</li>
+<li>Cài đặt Harbor</li>
+<li>Sử dụng Harbor</li>
+<li>Demo pull image với Kubernetes.</li>
+<li>Kết luận</li>
+<li>Tài liệu tham khảo</li>
+</ul>
+<h3 id="giithiuharbor">Giới thiệu Harbor</h3>
+<p>Bạn có đang sử dụng Docker Images? Tại thời điểm này Images mà bạn đang sử dụng có nguy cơ tiềm ẩn những lỗ hổng bảo mật và có thể bị khai thác.<br />
+Harbor là một open source cloud native registry, dùng để lưu trữ, đánh dấu, scan các container images để phát hiện các lỗ hổng bảo mật.</p>
+<p>Harbor giải quyết các thách thức phổ biến bằng cách cung cấp sự tin cậy (trust), sự tuân thủ, hiệu suất và khả năng tươnng tác.</p>
+<p>Như các bạn đã biết, docker hub, docker cloud là những docker registry để chúng ta pull, push image. Hầu hết các image chúng ta sử dụng là public images, nếu như muốn sử dụng private có lẽ phải tốn phí. Harbor cung cấp giải pháp để chúng ta tạo một private/public docker registry một cách đơn giản. Điều này sẽ bảo mật cho project của các doanh nghiệp rất tuyệt vời.<br />
+Trang chủ: <a href="https://goharbor.io/">https://goharbor.io/</a><br />
+<amp-img src="https://drive.google.com/uc?id=1hOSy3sQ3I5_n6lJl3r5GOwSPvmiuoNvT&amp;export=download" alt="uc?id=1hOSy3sQ3I5_n6lJl3r5GOwSPvmiuoNvT&amp;export=download" width="1348" height="1016" layout="responsive"></amp-img></p>
+<p><strong>Một số tính năng nổi bật:</strong></p>
+<ul>
+<li>Ký và validation nội dung với nhiều bên</li>
+<li>Phân tích các vấn đề security và các lỗ hổng bảo mật</li>
+<li>Tích hợp nhận dạng và kiểm soát truy cập bằng role-based</li>
+<li>Sao chép images giữa các máy</li>
+<li>Cung cấp API và giao diện thân thiện</li>
+<li>Hiện thị nhiều ngôn ngữ (Hiện tại có Anh, Trung Quốc, Pháp, Tây ban Nha)</li>
+</ul>
+<h4 id="kintrcharbor">Kiến trúc Harbor</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1wjywcSHt0kHxis54dD2PMlAni-8iAc4D&amp;export=download" alt="uc?id=1wjywcSHt0kHxis54dD2PMlAni-8iAc4D&amp;export=download" width="2694" height="1350" layout="responsive"></amp-img></p>
+<p>Tham khảo:<br />
+<a href="https://content.pivotal.io/blog/using-vmware-s-harbor-with-pks-and-why-kubernetes-needs-a-container-registry">https://content.pivotal.io/blog/using-vmware-s-harbor-with-pks-and-why-kubernetes-needs-a-container-registry</a></p>
+<p>Nhiều tính năng pro quá, tạm thời chúng ta sẽ quan tâm đến chức năng cơ bản và đầu tiên, đó là một private docker-registry dùng để pull, push images một cách bảo mật, tính năng tạo project, tạo user, add user vào project.</p>
+<h3 id="citharbor">Cài đặt Harbor</h3>
+<h4 id="yucuphncng">Yêu cầu phần cứng</h4>
+<ul>
+<li>CPU: ít nhất 2 CPU</li>
+<li>Mem: ít nhất 4GB</li>
+<li>Disk: ít nhất 40GB</li>
+</ul>
+<h4 id="yucuphnmm">Yêu cầu phần mềm</h4>
+<ul>
+<li>Python: 2.7 hoặc hơn</li>
+<li>Docker engine: 1.10 hoặc hơn</li>
+<li>Docker compose: 1.7.0 hoặc hơn</li>
+<li>Openssl: latest càng tốt.</li>
+</ul>
+<h4 id="cit">Cài đặt</h4>
+<p>Các bạn cần chuẩn bị máy ảo hoặc VPS có cấu hình như yêu cầu nhé. Sau khi đã chuẩn bị xong phần cứng và phần mềm, chúng ta tiến hành cài đặt Harbor.<br />
+Tham khảo:<br />
+<a href="https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md">https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md</a></p>
+<p><em><strong>Lưu ý:</strong> thư mục và các file bên trong harbor/ mà installer giải nén ra (kể cả chính nó) phải có owner là root, nếu không sẽ bị lỗi owner unknown trong các container.</em></p>
+<pre><code>$ sudo chown root:root /path/to/harbor
+$ sudo chown root:root /path/to/harbor/*
+</code></pre>
+<h5 id="tosslcertificatechoregistry">Tạo ssl certificate cho registry</h5>
+<ol>
+<li>Tạo một thư mục chứa các certificate file</li>
+</ol>
+<pre><code>$ sudo mkdir certs/
+$ cd certs/
+</code></pre>
+<ol start="2">
+<li>Tự tạo CA (Certificate Authority)</li>
+</ol>
+<pre><code>$ sudo openssl req \
+    -newkey rsa:4096 -nodes -sha256 -keyout ca.key \
+    -x509 -days 365 -out ca.crt
+# Lưu ý phải nhập hết trừ Optional
+</code></pre>
+<ol start="3">
+<li>Yêu cầu một Certificate Signing Request</li>
+</ol>
+<ul>
+<li>Nếu dùng domain cho registry thì có lưu ý là mục Common Name (CN) trong khi nhập phải là domain muốn dùng. Còn nếu dùng ip cho registry thì nhập bất kì tùy thích.</li>
+</ul>
+<pre><code>$ sudo openssl req \
+    -newkey rsa:4096 -nodes -sha256 -keyout yourdomain.com.key \
+    -out yourdomain.com.csr
+</code></pre>
+<ol start="4">
+<li>Tạo certificate cho registry host</li>
+</ol>
+<ul>
+<li>Nếu dùng domain</li>
+</ul>
+<pre><code>$ sudo openssl x509 -req -days 365 -in yourdomain.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out yourdomain.com.crt
+</code></pre>
+<ul>
+<li>Nếu dùng IP, thay IP muốn dùng sau dòng IP:</li>
+</ul>
+<pre><code>$ echo subjectAltName = IP:35.xxx.xxx.xxx &gt; extfile.cnf
+
+$ sudo openssl x509 -req -days 365 -in yourdomain.com.csr -CA ca.crt -CAkey ca.key -CAcreateserial -extfile extfile.cnf -out yourdomain.com.crt
+</code></pre>
+<ol start="5">
+<li>Ở mỗi docker host muốn sử dụng registry này, copy file ca.crt vào đường dẫn sau /etc/docker/certs.d/[domain_OR_ip]/ca.crt<br />
+Ở đây mình đang dùng IP và thự hiện test trên máy hiện tại luôn (Các docker host khác muốn pull image từ docker-registry này thì cũng tạo đường dẫn và file như bên dưới)</li>
+</ol>
+<pre><code>$ cp /path/to/certs/ca.crt /etc/docker/certs.d/35.xxx.xxx.xxx/ca.crt
+</code></pre>
+<ul>
+<li>Bước này giúp các docker host trust certificate mà chúng ta sẽ dùng cho registry.</li>
+</ul>
+<h5 id="cuhnhvkhingharbor">Cấu hình và khởi động Harbor</h5>
+<ol>
+<li>Quay lại máy muốn chạy Harbor, tải bộ cài tại <a href="https://github.com/goharbor/harbor/releases">https://github.com/goharbor/harbor/releases</a> rồi giải nén</li>
+</ol>
+<pre><code>$ sudo wget https://storage.googleapis.com/harbor-releases/release-1.6.0/harbor-online-installer-v1.6.0.tgz
+$ tar xvf harbor-online-installer-v1.6.0.tgz
+
+$ cd harbor/    # vào thư mục mới giải nén
+</code></pre>
+<ol start="2">
+<li>Chỉnh sửa file harbor.cfg với các config cơ bản sau</li>
+</ol>
+<pre><code>$ sudo vi harbor.cfg
+# domain hoặc ip muốn dùng cho registry
+hostname = 35.xxx.xxx.xxx
+
+# giao thức kết nối UI Harbor
+ui_url_protocol = https
+......
+# Đường dẫn đến 2 file certificate .crt và .key đã tạo phía trên
+ssl_cert = /path/to/certs/yourdomain.com.crt
+ssl_cert_key = /path/to/certs/yourdomain.com.key
+
+# Đường dẫn chứa secret của các container
+secretkey_path = /data
+</code></pre>
+<ol start="3">
+<li>Chạy script cài đặt và khởi động các container</li>
+</ol>
+<pre><code>$ sudo ./install.sh
+</code></pre>
+<p>Trường hợp lệnh trên không chạy được thì thực hiện theo issue bên dưới.<br />
+<a href="https://github.com/goharbor/harbor/issues/2317">https://github.com/goharbor/harbor/issues/2317</a></p>
+<pre><code>$ sudo -E env "PATH=$PATH" ./install.sh
+</code></pre>
+<p><strong>Chú ý:</strong> Nếu bạn muốn cài đặt các dịch vụ Notary, Clair và chart bạn phải chỉ định các tham số tương ứng</p>
+<pre><code>$ sudo -E env "PATH=$PATH" ./install.sh --with-notary --with-clair --with-chartmuseum
+</code></pre>
+<p>Để hiểu về Notary và Docker Content Trust bạn tham khảo ở đây:<br />
+<a href="https://docs.docker.com/engine/security/trust/content_trust/">https://docs.docker.com/engine/security/trust/content_trust/</a><br />
+Để hiểu về Clair, bạn hãy tham khảo Clair's documentation: <a href="https://coreos.com/clair/docs/2.0.1/">https://coreos.com/clair/docs/2.0.1/</a></p>
+<ol start="4">
+<li>Khi đó truy cập vào domain hoặc ip đã dùng cho registry trên trình duyệt để vào Harbor UI<br />
+<a href="https://35.xxx.xxx.xxx/">https://35.xxx.xxx.xxx/</a></li>
+</ol>
+<ul>
+<li>Lưu ý user/password mặc định là: admin/Harbor12345 .<br />
+Sau khi truy cập vào chúng ta có thể change password/tạo thêm user vv.</li>
+</ul>
+<h3 id="sdngharbor">Sử dụng Harbor</h3>
+<p>Chi tiết:<br />
+<a href="https://github.com/goharbor/harbor/blob/master/docs/user_guide.md">https://github.com/goharbor/harbor/blob/master/docs/user_guide.md</a><br />
+Sau khi đã đăng nhập thành công, chúng ta có giao diện như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=1ufma4zfdLs0zhk7FzOvIBHp5B1AD6Arv&amp;export=download" alt="uc?id=1ufma4zfdLs0zhk7FzOvIBHp5B1AD6Arv&amp;export=download" width="1910" height="611" layout="responsive"></amp-img></p>
+<p>Các bạn có thể tự tìm hiểu cách sử dụng qua tài liệu chi tiết, ở đây mình sẽ demo một số thao tác cơ bản như tạo user/project pull/push image.</p>
+<h4 id="createuser">Create user</h4>
+<p>Role Based Access Control(RBAC)<br />
+<amp-img src="https://drive.google.com/uc?id=1UBoi3D77d8iIA7YL4ODpTCGMH8w-XsRk&amp;export=download" alt="uc?id=1UBoi3D77d8iIA7YL4ODpTCGMH8w-XsRk&amp;export=download" width="1940" height="1122" layout="responsive"></amp-img></p>
+<p>Harbor quản lý images thông qua Project. User có thể được thêm vào một project với tư cách là một member với 3 quyền sau:</p>
+<ul>
+<li>
+<p><strong>Guest</strong>: Khách có đặc quyền chỉ đọc cho một dự án cụ thể.</p>
+</li>
+<li>
+<p><strong>Developer</strong>: Developer có đặc quyền đọc và viết cho một dự án.</p>
+</li>
+<li>
+<p><strong>ProjectAdmin</strong>: Khi tạo một dự án mới, bạn sẽ được gán vai trò "ProjectAdmin" cho dự án. Bên cạnh đặc quyền đọc-ghi, "ProjectAdmin" cũng có một số đặc quyền quản lý, chẳng hạn như thêm và xóa thành viên, bắt đầu quét lỗ hổng.<br />
+Bên cạnh ba vai trò trên, có hai vai trò trên toàn hệ thống:</p>
+</li>
+<li>
+<p><strong>SysAdmin</strong>: "SysAdmin" có nhiều đặc quyền nhất. Ngoài các đặc quyền được đề cập ở trên, "SysAdmin" cũng có thể liệt kê tất cả các dự án, đặt người dùng thông thường là quản trị viên, xóa người dùng và đặt chính sách quét lỗ hổng cho tất cả images. Project public "library" cũng thuộc sở hữu của quản trị viên.</p>
+</li>
+<li>
+<p><strong>Anonymous</strong> (Ẩn danh): Khi người dùng không đăng nhập, người dùng được coi là người dùng "Ẩn danh". Người dùng ẩn danh không có quyền truy cập vào các dự án private và có quyền truy cập chỉ đọc vào các dự án public.</p>
+</li>
+</ul>
+<ol>
+<li>Tại menu User bên trái -&gt; click button NEW USER và nhập các thông tin để create user. (mình tạo user phongnx, pass: phongnxpassword)</li>
+<li>Menu Project -&gt; click NEW PROJECT, mặc định là private project. (ở đây mình đặt tên là kube-demo)</li>
+<li>Chọn project kube-dome -&gt; menu ngang "Member" -&gt; click "+ User" -&gt; điền tên user đã tạo lúc nãy "phongnx" chọn role là Develop/Project Admin -&gt; OK</li>
+</ol>
+<p>Vậy là chúng ta cơ bản đã tạo user và project rồi, bây giờ chúng ta sẽ thực hiện login push/pull image ở docker host.<br />
+Tại docker host: (là máy chúng ta đang cài Harhor hoặc một máy khác có cài docker), lưu ý là file /etc/docker/certs.d/35.xxx.xxx.xxx/ca.crt đã được tạo.<br />
+Ở giao diện Harbor chúng ta chọn project "kube-demo" chọn menu phía trên là "Repositories" -&gt; click vào chữ "PUSH IMAGE" ở góc bên phải sẽ hiện ra cho chúng ta cách đổi tên image trên docker host và cách push lên docker-registry (harbor) đúng format:<br />
+<amp-img src="https://drive.google.com/uc?id=1to-hOgE1W6eV5LFlkvYf5M8p-7_17qfg&amp;export=download" alt="uc?id=1to-hOgE1W6eV5LFlkvYf5M8p-7_17qfg&amp;export=download" width="2870" height="1044" layout="responsive"></amp-img></p>
+<p>Làm thử thôi !!!</p>
+<pre><code># pull image ở docker hub
+$ docker pull ubuntu:16.04
+
+# Làm theo hướng dẫn ở Harbor để thay đổi tên image
+$ docker tag ubuntu:16.04 35.xxx.xxx.xxx/kube-demo/my-ubuntu
+
+# Kiểm tra tên đã đổi chưa
+$ docker images
+
+# Login vào docker-registry (harbor)
+$ docker login -u phongnx -p phongnxpassword 35.xxx.xxx.xxx
+Login Succeeded
+
+# Push image to Harbor
+$ docker push 35.xxx.xxx.xxx/kube-demo/my-ubuntu
+
+# Pull image từ docker host khác/hoặc xoá image trên host hiện tại để test pull image từ Harbor
+$ docker rmi 35.xxx.xxx.xxx/kube-demo/my-ubuntu
+
+# confirm delete
+$ docker images
+
+# pull image from Harbor
+$ docker pull 35.xxx.xxx.xxx/kube-demo/my-ubuntu
+</code></pre>
+<p>Vậy là OK rồi !!!</p>
+<h3 id="demopullimagevikubernetes">Demo pull image với Kubernetes.</h3>
+<p>Nãy giờ mình hoàn toàn chưa đề cập gì đến Kuberbetes nhỉ. Sau đây mình sẽ làm một demo nhỏ để thấy được việc pull image từ docker-registry được thực hiện như thế nào.<br />
+Các bạn xem lại kiên trúc K8s-cluster mình tạo ở phần 3 với Rancher 2.0<br />
+<a href="https://blog.vietnamlab.vn/2018/09/04/nhap-mon-kubernetes-p3-rancher-2-0-kien-truc-k8s/">https://blog.vietnamlab.vn/2018/09/04/nhap-mon-kubernetes-p3-rancher-2-0-kien-truc-k8s/</a></p>
+<p>Kiến trúc của chúng ta bây giờ sẽ thêm anh chàng Harbor này vào nữa<br />
+<amp-img src="https://drive.google.com/uc?id=1cP7kKpHCARwo0u5qDLKK_ZQcnhdmyt9W&amp;export=download" alt="uc?id=1cP7kKpHCARwo0u5qDLKK_ZQcnhdmyt9W&amp;export=download" width="1038" height="613" layout="responsive"></amp-img></p>
+<p><em><strong>lưu ý:</strong> tại các node chúng ta phải tạo file /etc/docker/certs.d/35.xxx.xxx.xxx/ca.crt để trust với harbor</em></p>
+<h4 id="tomtdeployment">Tạo một deployment</h4>
+<p>Nếu các bạn đang dùng minikube thì cũng Ok nhé. Còn kiến trúc như mình thì càng OK.<br />
+Ở Rancher server<br />
+Tạo file deployment-harbor_sample.yml</p>
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                  - "develop"
+      containers:
+      - name: nginx-container
+        image: 35.xxx.xxx.xxx/kube-demo/my-nginx
+        ports:
+          - containerPort: 80
+      imagePullSecrets:
+        - name: harbor-secret-registry
+</code></pre>
+<p>Do ở đây mình gắn nhãn lên Node để schedule container vào đúng Node. Nếu các bạn không gắn nhãn cho Node thì bỏ qua phần bên dưới</p>
+<pre><code>      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                  - "develop"
+</code></pre>
+<p>Image mà chúng ta pull lần này là image đang có trên docker-registry của chúng ta: 35.xxx.xxx.xxx/kube-demo/my-nginx</p>
+<p>Các bạn cũng sẽ để ý đến phần setting sau:</p>
+<pre><code>      imagePullSecrets:
+        - name: harbor-secret-registry
+</code></pre>
+<p>harbor-secret-registry chính là khóa để kết nối với Harbor server, chúng ta sẽ tạo nó ngay dưới đây, nó chứa thông tin usernam, password và docker-registry hostname</p>
+<h4 id="tosecret">Tạo secret</h4>
+<p>Đơn giản sẽ tạo như sau:</p>
+<pre><code>$ kubectl create secret docker-registry harbor-secret-registry --docker-server=35.xxx.xxx.xxx --docker-username=phongnx --docker-password=phongnxpasword --docker-email='phongnx@vietnamlab.vn'
+
+# Kiểm tra lại
+$ kubectl get secret
+harbor-secret-registry      kubernetes.io/dockerconfigjson        1         3h
+</code></pre>
+<p>Vậy là OK, các resource nào muốn pull images từ Harbor thì sẽ dùng key này.</p>
+<h4 id="applydeployment">Apply deployment</h4>
+<pre><code>$ kubectl apply -f deployment-harbor_sample.yml 
+</code></pre>
+<p>Kiểm tra đã pull image OK chưa</p>
+<pre><code>$ kubectl get pods
+NAME                                 READY     STATUS    RESTARTS   AGE
+sample-deployment-7d985644b8-bjjwg   1/1       Running   0          3h
+sample-deployment-7d985644b8-lghbn   1/1       Running   0          3h
+sample-deployment-7d985644b8-slhpn   1/1       Running   0          3h
+</code></pre>
+<p>Trong trường hợp phát sinh lỗi, Pods ở trạng thái không phải Running thì chúng ta có thể xem log.</p>
+<pre><code>$ kubectl describe pods {Not_Running_Pod_name}
+</code></pre>
+<h3 id="ktlun">Kết luận</h3>
+<p>Vậy là mình đã giới thiệu đến các bạn cách cài đặt và sử dụng Harbor như một docker-registry. Như các bạn cũng thấy đó, Harbor còn nhiều tính năng nổi bật, các bạn có thời gian hãy tìm hiểu thêm nhé.<br />
+Bài viết này mình cũng đã demo cách pull image từ Harbor kết hợp với Kubernetes, sau tất cả thì mọi chuyện dường như cũng có vẻ đơn giản nhỉ.</p>
+<p>Với sự kết hợp của Rancher 2.0 và Harbor thì chúng ta càng ngày càng thấy thoải mái, và có thể vận dụng Kubernetes một cách linnh hoặt hơn, bảo mật hơn. Làm việc với giao diện cho chúng ta cái nhìn tổng quan, rõ ràng về hệ thống hơn.<br />
+Bài viết tiếp theo mình sẽ lại đề cập đến một Stack khá hay dùng để monitoring kết hợp với K8s, để mọi thứ càng trở nên sáng sủa :D.</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo.</h3>
+<ol>
+<li><a href="https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md">https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md</a></li>
+<li><a href="https://github.com/goharbor/harbor/blob/master/docs/user_guide.md">https://github.com/goharbor/harbor/blob/master/docs/user_guide.md</a></li>
+<li><a href="https://goharbor.io/">https://goharbor.io/</a></li>
+<li><a href="https://docs.docker.com/registry/deploying/#copy-an-image-from-docker-hub-to-your-registry">https://docs.docker.com/registry/deploying/#copy-an-image-from-docker-hub-to-your-registry</a></li>
+</ol>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

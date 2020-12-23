@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>How to creating Jenkinsfile in Pipeline</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to creating Jenkinsfile in Pipeline" />
+    <meta property="og:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-11-22T01:14:00.000Z" />
+    <meta property="article:modified_time" content="2017-11-27T09:31:02.000Z" />
+    <meta property="article:tag" content="Jenkins" />
+    <meta property="article:tag" content="Pipeline" />
+    <meta property="article:tag" content="CI" />
+    <meta property="article:tag" content="CD" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How to creating Jenkinsfile in Pipeline" />
+    <meta name="twitter:description" content="Chuỗi bài về Jenkins  1. Pipeline trong jenkins  2. Hướng dẫn tạo Jenkinsfile  3. Pipeline CI/CD hoàn chỉnh với Laravel Framework  Mục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:  Docker: sử dụng nền tảng container để triển khai Laravel: framework PHP" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="KYO" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Jenkins, Pipeline, CI, CD" />
+    <meta property="og:image:width" content="2560" />
+    <meta property="og:image:height" content="1441" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "KYO",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkM2hSUERPbEVlSVU&export=download",
+            "width": 600,
+            "height": 614
+        },
+        "url": "https://blog.vietnamlab.vn/author/longtv/",
+        "sameAs": []
+    },
+    "headline": "How to creating Jenkinsfile in Pipeline",
+    "url": "https://blog.vietnamlab.vn/huong-dan-tao-jenkinsfile/",
+    "datePublished": "2017-11-22T01:14:00.000Z",
+    "dateModified": "2017-11-27T09:31:02.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&export=download",
+        "width": 2560,
+        "height": 1441
+    },
+    "keywords": "Jenkins, Pipeline, CI, CD",
+    "description": "Chuỗi bài về Jenkins\n\n1. Pipeline trong jenkins\n[https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/]\n\n2. Hướng dẫn tạo Jenkinsfile\n\n3. Pipeline CI/CD hoàn chỉnh với Laravel Framework\n[https://vietnamlab.vn/blog/pipeline-ci-cd-hoan-chinh-voi-laravel-framework]\n\nMục đích cuối cùng của chuỗi bài: xây dựng 1 CI/CD hoàn chỉnh bao gồm:\n\n * Docker: sử dụng nền tảng container để triển khai\n * Laravel: framework PHP để làm website\n * Unit testing: Unit test cho PHP\n * Feature testing: test chức ",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Hướng dẫn tạo Jenkinsfile</h1>
+                <section class="post-meta">
+                    KYO -
+                    <time class="post-date" datetime="2017-11-22">22 Nov 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;1rWFODzC2J7JK3aZL7VoZKA4TW_2IEjvd&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p><strong>Chuỗi bài về Jenkins</strong></p>
+<p><em>1. <a href="https://vietnamlab.vn/blog/2017/11/22/pipeline-voi-jenkins/">Pipeline trong jenkins</a></em></p>
+<p><em><strong>2. Hướng dẫn tạo Jenkinsfile</strong></em></p>
+<p><em>3. <a href="https://vietnamlab.vn/blog/pipeline-ci-cd-hoan-chinh-voi-laravel-framework">Pipeline CI/CD hoàn chỉnh với Laravel Framework</a></em></p>
+<p><strong>Mục đích cuối cùng của chuỗi bài</strong>: xây dựng 1 CI/CD hoàn chỉnh bao gồm:</p>
+<ul>
+<li>Docker: sử dụng nền tảng container để triển khai</li>
+<li>Laravel: framework PHP để làm website</li>
+<li>Unit testing: Unit test cho PHP</li>
+<li>Feature testing: test chức năng cho service</li>
+<li>Deploy: CD deploy container bằng Pipeline</li>
+</ul>
+<hr></hr>
+<h3 id="mu">Mở đầu</h3>
+<p>Ở <a href="https://vietnamlab.vn/blog/pipeline-voi-jenkins">bài trước</a> ta đã làm quen với Pipeline trong Jenkins, tuy nhiên chỉ là cách thiết lập cực kỳ đơn giản, bài viết này sẽ giải thích cách tạo ra file cấu hình Pipeline là Jenkinsfile.</p>
+<h3 id="jenkinsfile">Jenkinsfile</h3>
+<p><em><strong>Pipeline as a code</strong></em>: thiết lập pipeline như là lập trình bằng script vậy. Ở trong <a href="http://">bài viết trước </a> mình đã giới thiệu có 2 cách để tạo file Jenkinsfile là file để thiết lập Pipeline cho project dạng Pipeline:</p>
+<ol>
+<li><strong><code>WebUI</code></strong>: thiết lập trực tiếp trên WebUI của project Pipeline.</li>
+<li><strong><code>Jenkinsfile</code></strong> trong git repo: thiết lập Pipeline trong file Jenkinsfile của project.<br />
+Về script Pipeline Jenkinsfile thì có 2 loại:
+<ul>
+<li><strong>Declarative Pipeline</strong>(<em>mới có</em>): sử dụng những syntax đơn giản hơn. Dựa trên các methods / functions dựng sẵn, việc của chúng ta sử dụng và tuân thủ theo các rule và syntax được định nghĩa sẵn theo các steps và funtions như vậy để implement theo các stages (từng đoạn trong pipeline)</li>
+<li><strong>Scripted Pipeline</strong>: <code>top of the underlying Pipeline sub-system</code>. Sử dụng Groovy script là kỹ thuật nâng cao hơn khi cần sử dụng code để implement vài tasks nào đó hoặc logic phức tạp tùy thuộc bài toán.</li>
+</ul>
+</li>
+</ol>
+<hr></hr>
+<p>Ví dụ script Jenkinsfile:</p>
+<table class="table table-bordered table-striped">
+<thead>
+<tr>
+<th>Declarative Pipeline</th>
+<th>Scripted Pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<pre><code class="hljs groovy">pipeline {
+  agent {
+      docker { image <span class="hljs-string">'node:7-alpine'</span> }
+  }
+  stages {
+      stage(<span class="hljs-string">'Test'</span>) {
+          steps {
+              sh <span class="hljs-string">'node --version'</span>
+          }
+      }
+  }
+}
+</code></pre>
+</td>
+<td>
+<pre><code class="hljs groovy">node {
+  stage(<span class="hljs-string">'Example'</span>) {
+      <span class="hljs-keyword">if</span> (env.BRANCH_NAME == <span class="hljs-string">'master'</span>) {
+          <span class="hljs-keyword">echo</span> <span class="hljs-string">'I only execute on the master branch'</span>
+      } <span class="hljs-keyword">else</span> {
+          <span class="hljs-keyword">echo</span> <span class="hljs-string">'I execute elsewhere'</span>
+      }
+  }
+}
+<p></p></code></pre><p></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Một vài so sánh giữa syntax của Declarative Pipeline và Scripted Pipeline</p>
+<table>
+<thead>
+<tr>
+<th>Declarative Pipeline</th>
+<th>Scripted Pipeline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block ngoài cùng là <code>pipeline {...}</code></td>
+<td>Block ngoài cùng ko có quy định bắt buộc, nhưng thường là cùng là <code>node {...}</code></td>
+</tr>
+<tr>
+<td>Bắt buộc phải có block <code>stages { ... }</code> cha để khai báo các <code>stage { ... }</code> con</td>
+<td>Không bắt buộc</td>
+</tr>
+<tr>
+<td>Các Groovy khi muốn sử dụng phải add vào trong block <code>scrip { ... }</code></td>
+<td>Có thể viết bất kì đâu</td>
+</tr>
+<tr>
+<td><strong>Mục đích:</strong> sử dụng các methods/functions định nghĩa sẵn để viết script đơn giản nhất</td>
+<td><strong>Mục đích:</strong> có thể sử dụng code Groovy thoải mái, áp dụng cho viết các script có logic phức tạp hơn, mang lại cho ta sự linh hoạt hơn</td>
+</tr>
+</tbody>
+</table>
+<br />
+<br />
+*** 
+<h3 id="hngdnquasyntaxcajenkinsfile">Hướng dẫn qua Syntax của Jenkinsfile</h3>
+<p>Cấu tạo Jenkinsfile sẽ gồm những thành phần sau</p>
+<h4 id="declarativepipeline">Declarative Pipeline</h4>
+<ul>
+<li>Sections: Các phân đoạn, phạm vi thực thi, bao gồm các block sau
+<ul>
+<li><code>agent</code> : chỉ định môi trường sẽ thực thi các thao tác trong <code>steps </code></li>
+<li><code>post</code> : các action sẽ được chạy sau cùng, ví dụ gửi mail thông báo kết quả, xóa các resource sử dụng,...</li>
+<li><code>stages</code> : là block cha của block <code>stage</code>, block <code>stage</code> chứa khâu, giai đoạn trong Pipeline (là Pipe trong Pipeline)</li>
+<li><code>steps</code> : là block con bên trong block <code>stage</code> là các action thực thi các công việc cần thiết cho mỗi state</li>
+</ul>
+</li>
+</ul>
+<p>Tìm hiểu thêm tại <a href="https://viblo.asia/p/jenkins-pipeline-for-beginners-Qbq5QgJJZD8#declarative-pipeline-5">link sau</a></p>
+<ul>
+<li>Directives: Nhóm các khai báo chỉ đạo, điều hướng thực thi
+<ul>
+<li><code>environment</code> : được khai báo trong block <code>pipeline</code> hoặc <code>stage</code>, là 1 chuỗi các cặp Key-Val định nghĩa các biến môi trường cho toàn bộ (global - nếu để tại scope <code>pipeline</code>) hoặc cho 1 stage riêng ( nếu được khai báo trong block <code>stage</code> đấy ). Có hàm <code>credentials()</code> để lấy thông tin xác thực nhạy cảm (biến định nghĩa ra sẽ ko thể xem được raw text của nó mà chỉ thấy được <code>****</code> nhưng có thể sử dụng để xác thực được. Ví dụ</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-groovy">pipeline {
+    agent any
+    environment { // Định nghĩa global
+        DB_ENGINE    = 'sqlite'
+    }
+    stages {
+        stage('Build') {
+            environment { // Định nghĩa riêng cho stage Build thôi
+                AN_ACCESS_KEY = credentials('longta-hoho') 
+            }
+            steps {
+                //sh 'printenv'
+                echo "DB Engige : ${DB_ENGINE}"
+                echo "DB Engige : ${AN_ACCESS_KEY_USR}"
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích</strong>: Jenkinsfile trên định nghĩa biến global DB_ENGINE và biến local AN_ACCESS_KEY cho riêng stage Build, trong stage Build sẽ in ra nội dung của 2 biến đó.<br />
+Lúc chạy Pipeline trên ta sẽ được kết quả như sau nếu xem ở Console Log của lượt build đó (xem ở dưới sẽ thấy nội dung biến <strong>AN_ACCESS_KEY_USR</strong> đã bị che mờ đi)</p>
+<pre><code>[Pipeline] echo
+DB Engige : sqlite
+[Pipeline] echo
+DB Engige : ****
+</code></pre>
+<p><strong>Lưu ý:</strong> : Đối với Credentials là dạng "Standard username and password" thì sẽ có 2 biến được định nghĩa là <strong>MYVARNAME_USR</strong> và <strong>MYVARNAME_PSW</strong></p>
+<pre><code>* `options` : Chỉ được đặt trong block `pipeline`, định nghĩa các option config cho Pipeline, bao gồm các option được hỗ trợ sẵn và các options của các Plugin được cài đặt thêm. Ví dụ như `buildDiscarder` là được Pipeline hỗ trợ sẵn còn `timestamps` là option của Plugin.
+* `parameters` :  Chỉ được đặt trong block `pipeline`, định nghĩa các parameters mà user phải cung cấp để chạy Pipeline. Ví dụ
+</code></pre>
+<pre><code>pipeline {
+    agent any
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+    }
+    stages {
+        stage('Example') {
+            steps {
+                echo "Hello ${params.PERSON}" // chỗ này sẽ in ra console là "Hello anh Long" nếu ta truyền biến PERSON=anh Long vào
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích</strong>: định nghĩa param tên PERSON với default value là <strong>Mr Jenkins</strong>, lúc ở WebUI của Jenkins ta chọn build Pipeline này thì sẽ hiện ra form input nhập các param đã được định nghĩa, xem hình dưới đây:<br />
+<amp-img src="https://drive.google.com/uc?id=18q-hXcX4YlwsAQJiMBHBoAP4eG5RN4jy&amp;export=download" alt width="250" height="145" layout="fixed"></amp-img><br />
+* <code>triggers</code> : Chỉ được đặt trong block <code>pipeline</code>, định nghĩa Pipeline được trigger để chạy như thế nào, hỗ trợ 3 kiểu là<br />
+* <code>cron</code>: chạy Pipeline định kỳ, cú pháp là cú pháp của cron linux ( <code>0 * * * *</code> : là chạy mỗi giờ đúng chẳng hạn)<br />
+* <code>pollSCM</code>: định lỳ check source trên repo xem có j thay đổi ko, ví dụ <code>triggers { pollSCM('H */4 * * 1-5') }</code> là kiểm tra vào phút 0,15,30,45 mỗi giờ từ thứ 2-&gt;6<br />
+* <code>upstream</code>: được trigger chạy Pipeline khi 1 project khác được build xong. Ví dụ <code>triggers { upstream(upstreamProjects: 'job1,job2', threshold: hudson.model.Result.SUCCESS) }</code> là khi 1 trong 2 job1,job2 chạy xong mà thành công thì sẽ chạy Pipeline.<br />
+* <code>stage</code> : block con của block <code>stages</code> chứa block <code>steps</code> là các action, thực thi sẽ thực hiện trong stage đó.<br />
+* <code>tools</code> : được đặt trong block <code>pipeline</code> hoặc block <code>stage</code>, định nghĩa các tool (version) được chạy trong Pipeline hay stage và khai báo đường dẫn chạy binary vào biến môi trường <code>PATH</code>, <code>tools</code> sẽ ko sử dụng được khi ta khai báo <code>agent none</code>. Các tool được hỗ trợ sẵn là <strong>maven, jdk</strong> và <strong>gradle</strong>. Các tool này sẽ được tự động cài đặt bởi Jenkins. Ví dụ</p>
+<pre><code class="language-groovy">pipeline {
+    agent any
+    tools {
+        maven 'apache-maven-3.0.1' // khai báo sử dụng maven 3.0.1
+    }
+    stages {
+        stage('Example') {
+            steps {
+                sh 'mvn --version' // kiểm tra version của maven
+            }
+        }
+    }
+}
+</code></pre>
+<pre><code>* `when` : chỉ được đặt trong block `stage`, định nghĩa điều kiện (condition) để thực hiện các thực thi stage đó, có thể có 1 hoặc nhiều điều kiện, với nhiều điều kiện thì phải thỏa mãn tất cả . Hỗ trợ các điều liện lồng nhau (nested) bằng các cú pháp `not`- ko thỏa mãn điều kiện , `allOf` - thỏa mãn tất cả điều kiện, và `anyOf` - thỏa mãn 1 trong các điều kiện. Ví dụ:
+</code></pre>
+<pre><code>pipeline {
+    agent any
+    environment { 
+        DEPLOY_CON_1 = 'condition1'
+        DEPLOY_CON_2 = 'condition2'
+    }
+    stages {
+        stage('Example Build') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        stage('Example Deploy') {
+            when { // phải thỏa mãn cả 2 điều kiện mới chạy stage này
+                allOf {
+                    environment name: 'DEPLOY_CON_1', value: 'condition1'
+                    environment name: 'DEPLOY_CON_2', value: 'condition2'
+                }
+            }
+            steps {
+                echo 'Deploying'
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Giải thích:</strong> Jenkinsfile trên định nghĩa 2 biến môi trường là DEPLOY_CON_1 và DEPLOY_CON_2, trong stage <code>Example Deploy</code> ta khai báo 1 condition allOf(phải thỏa mãn tất cả điều kiện) của 2 biến môi trường đó thì mới thực hiện chạy stage này.<br />
+* Các điều kiện hỗ trợ là <code>branch</code>, <code>environment</code>, <code>expression</code></p>
+<ul>
+<li>Parallel: được đặt trong block <code>stages</code>, thiết lập các stage được chạy đồng thời với nhau, ta có thể thiết lập <code>failFast true</code> sẽ cho Jenkins biết là nếu có 1 stage fail thì nó sẽ hủy việc chạy các stage khác nếu các stage khác chưa kết thúc. Ví dụ:</li>
+</ul>
+<pre><code>pipeline {
+    agent any
+    stages {
+        stage('Non-Parallel Stage') {
+            steps {
+                echo 'This stage will be executed first.'
+            }
+        }
+        stage('Parallel Stage') {
+            failFast true
+            parallel {
+                stage('Stage-Parallel 01') {
+                    steps {
+                        echo "Stage-Parallel 01"
+                    }
+                }
+                stage('Stage-Parallel 02') {
+                    steps {
+                        echo "Stage-Parallel 02"
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p>Nếu sử dụng Plugin <strong>Blue Ocean</strong> ta có thể xem trực quan các stage được chạy như thế nào trong hình dưới đây ( stage <code>Stage-Parallel 01</code> và <code>Stage-Parallel 02</code> đã được chạy song song)<br />
+<amp-img src="https://drive.google.com/uc?id=1PorQlHib0GX7Qghgc_L3Md0bDzkAyBtX&amp;export=download" alt width="376" height="200" layout="responsive"></amp-img></p>
+<ul>
+<li>Steps: các lệnh thực thi được liệt kê tại <a href="https://jenkins.io/doc/pipeline/steps/">link</a></li>
+</ul>
+<p><strong>Sections</strong> : giải thích thêm một chút về Sections<br />
+các block trong Sections là các block lồng nhau dạng như sau</p>
+<pre><code class="language-groovy">pipeline{
+    agent ...
+    // quan trọng nhất, là khai báo các công đoạn trong quá trính CI/CD
+    stages {
+        stage ('stage_name') {
+        agent {...} // chỉ có khi agent ngoài chùng thiết lập là none 
+            steps {
+            ...
+            }
+        {
+    }
+    // những action, xử lý chạy sau cùng
+    post {
+    ...
+    }
+}
+</code></pre>
+<p><strong>Chú ý:</strong> Về Syntax của Jenkinsfile các bạn có thể xem thêm chi tiết hơn tại <a href="https://jenkins.io/doc/book/pipeline/syntax/#post">link</a></p>
+<h4 id="scriptedpipeline">Scripted Pipeline</h4>
+<p>Scripted sử dụng những khối block sau:</p>
+<ul>
+<li><code>node</code> : giống với <code>agent</code> trong <strong>Declarative</strong></li>
+<li><code>stage</code> : giống vs <code>stage</code> trong <strong>Declarative</strong></li>
+<li><code>label</code> : giống vs <code>label</code> trong <strong>Declarative</strong></li>
+</ul>
+<p>Trong <strong>Scripted Pipeline</strong> ta có thể sử dụng thoải mái Groovy cũng như thiết lập logic 1 cách linh hoạt hơn. Trong <strong>Scripted Pipeline</strong> ta chủ yếu sử dụng các module Groovy được cung cắp sẵn hoặc thông qua các Plugin để khai báo các nội dung thực thi của Pipeline. Ví dụ:</p>
+<pre><code>node {
+    stage('Example') {
+        if (env.BRANCH_NAME == 'master') {
+            echo 'I only execute on the master branch'
+        } else {
+            echo 'I execute elsewhere'
+        }
+    }
+}
+</code></pre>
+<p>Ví dụ trên sử dụng <code>if-else</code> condition trong Groovy để điều khiển logic thực thi</p>
+<hr></hr>
+<h3 id="jenkinsfilevidocker">Jenkinsfile với docker</h3>
+<p>Theo sát sự phát triển bùng nổ của docker (container thay cho VM), Jenkins cũng hỗ trợ rất nhiều cho việc sử dụng docker trên Pipeline, Pipeline trên Jenkins hỗ trợ build inside (thiết lập agent trong <strong>Declarative Pipeline</strong>, hoặc sử dụng phương thức <code>docker.image('xxx').inside { ... }</code> trong <strong>Scripted Pipeline</strong>) docker container, hỗ trợ build image bằng Dockerfile, hỗ trợ tương tác với remote docker daemon,...</p>
+<h4 id="thchinbuildinsidedockercontainer">Thực hiện build inside docker container</h4>
+<p>Bằng việc thiết lập agent trong <strong>Declarative Pipeline</strong>, hoặc sử dụng phương thức <code>docker.image('xxx').inside { ... }</code> trong <strong>Scripted Pipeline</strong> ta có thể thực thi trên các docker container thay vì server thực tế. Ví dụ</p>
+<ul>
+<li>Với <strong>Declarative Pipeline</strong>:</li>
+</ul>
+<pre><code>pipeline {
+    agent {
+        docker { image 'node:7-alpine' }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>Với <strong>Scripted Pipeline</strong>:</li>
+</ul>
+<pre><code>node {
+    /* Requires the Docker Pipeline plugin to be installed */
+    docker.image('node:7-alpine').inside {
+        stage('Test') {
+            sh 'node --version'
+        }
+    }
+}
+</code></pre>
+<h4 id="dockerfile">Dockerfile</h4>
+<p>Ta có thể sử dụng luôn Dockerfile để build image rồi thực thi trên container được tạo bởi image đó. Lúc sử dụng Dockerfile ta thiết lập <code>agent { dockerfile true }</code>. Ví dụ:</p>
+<pre><code>pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
+    }
+}
+</code></pre>
+<h4 id="builddockerimagevpushlnregistry">Build docker image và push lên registry</h4>
+<p>Ta có thể khai báo trong Jenkinsfile để build docker image và push lên registry như sau:</p>
+<pre><code>node {
+    checkout scm
+    def customImage = docker.build("my-image:${env.BUILD_ID}")
+    customImage.push()
+
+    customImage.push('latest')
+}
+</code></pre>
+<h4 id="remotedockerdaemon">Remote docker daemon</h4>
+<p>Mặc định thì Jenkins sẽ tương tác với docker daemon trên local ( máy cài Jenkins ), nếu ta muốn tương tác với remote docker daemon ( docker daemon chạy trên máy khác với máy Jenkins ), ví dụ như tương tác vs swarm cluster chẳng hạn. Ta có thể sử dụng method <code>withServer</code> trong <strong>Scripted Pipeline</strong> để khai báo tương tác vs remote docker daemon. Lưu ý là có thể phải khai báo Credentials ID của <strong>Docker Server Certificate Authentication</strong> được config trước trong Jenkins. Ví dụ</p>
+<pre><code class="language-groovy">node {
+    checkout scm
+
+    docker.withServer('tcp://swarm.example.com:2376', 'swarm-certs') {
+        docker.image('mysql:5').withRun('-p 3306:3306') {
+            ...
+        }
+    }
+}
+</code></pre>
+<h4 id="sdngdockercustomregistry">Sử dụng docker custom registry</h4>
+<p>Custom registry là ko phải <a href="https://hub.docker.com/">docker hub</a> -&gt; ta phải khai báo registry URL và có thể là Credentials ID của registry đó nếu cần. Ví dụ</p>
+<pre><code>node {
+    checkout scm
+
+    docker.withRegistry('https://registry.example.com') {
+
+        docker.image('my-custom-image').inside {
+            sh 'make test'
+        }
+    }
+}
+</code></pre>
+<p>Với registry yêu cầu authen thì ta khai báo như sau <code>docker.image('my-custom-image', 'credentials-id').inside {...}</code></p>
+<hr></hr>
+<p><strong>Chú ý:</strong> Xem thêm về sử dụng docker trong Pipeline tại <a href="https://jenkins.io/doc/book/pipeline/docker/#using-a-remote-docker-server">đây</a></p>
+<h3 id="ktlun">Kết luận</h3>
+<ul>
+<li>Bài viết hy vọng sẽ giúp cho các bạn hiểu được các thành phần trong quá trình tạo file Jenkinsfile, hiểu được sẽ giúp ta hình dung được giải pháp trong quá trình triển khai thực tế.</li>
+<li>Có 2 kiểu Jenkinsfile là <strong>Declarative</strong> và <strong>Scripted</strong>, ta tùy vào tình trạng của project để lựa chọn cho phù hợp.</li>
+<li>Bài viết cũng cung cấp cách thao tác Pipeline với docker container, hy vọng bạn đọc thấy hấp dẫn.</li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

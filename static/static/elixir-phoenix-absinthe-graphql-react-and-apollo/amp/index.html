@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Elixir, Phoenix, Absinthe, GraphQL, React, Apollo, ExUnit, Jest mới nhất</title>
+
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Elixir, Phoenix, Absinthe, GraphQL, React, Apollo, ExUnit, Jest mới nhất" />
+    <meta property="og:description" content="Trước khi bắt đầu bài viết này bạn nên biết ít nhất 3 từ khóa ở trên. Một vài năm trước tôi có làm dự án về Elixir, nó là một ngôn ngữ lập trình rất ngắn gọn. Và sau đó tôi có dùng GraphQL trên một ứng dụng di" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/elixir-phoenix-absinthe-graphql-react-and-apollo/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;17YSSfOx0tXYsD0Deq7J3Slc30-zDtSbj&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-06-28T10:16:36.000Z" />
+    <meta property="article:modified_time" content="2019-06-28T10:16:36.000Z" />
+    <meta property="article:tag" content="elixir" />
+    <meta property="article:tag" content="phonix" />
+    <meta property="article:tag" content="GraphQL" />
+    <meta property="article:tag" content="react" />
+    <meta property="article:tag" content="jest" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Elixir, Phoenix, Absinthe, GraphQL, React, Apollo, ExUnit, Jest mới nhất" />
+    <meta name="twitter:description" content="Trước khi bắt đầu bài viết này bạn nên biết ít nhất 3 từ khóa ở trên. Một vài năm trước tôi có làm dự án về Elixir, nó là một ngôn ngữ lập trình rất ngắn gọn. Và sau đó tôi có dùng GraphQL trên một ứng dụng di" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/elixir-phoenix-absinthe-graphql-react-and-apollo/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;17YSSfOx0tXYsD0Deq7J3Slc30-zDtSbj&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="P.V.Đ" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="elixir, phonix, GraphQL, react, jest" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "P.V.Đ",
+        "url": "https://blog.vietnamlab.vn/author/dongpv/",
+        "sameAs": []
+    },
+    "headline": "Elixir, Phoenix, Absinthe, GraphQL, React, Apollo, ExUnit, Jest mới nhất",
+    "url": "https://blog.vietnamlab.vn/elixir-phoenix-absinthe-graphql-react-and-apollo/",
+    "datePublished": "2019-06-28T10:16:36.000Z",
+    "dateModified": "2019-06-28T10:16:36.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=17YSSfOx0tXYsD0Deq7J3Slc30-zDtSbj&export=download",
+        "width": 1280,
+        "height": 720
+    },
+    "keywords": "elixir, phonix, GraphQL, react, jest",
+    "description": "Trước khi bắt đầu bài viết này bạn nên biết ít nhất 3 từ khóa ở trên. Một vài\nnăm trước tôi có làm dự án về Elixir, nó là một ngôn ngữ lập trình rất ngắn gọn.\nVà sau đó tôi có dùng GraphQL trên một ứng dụng di động với React. Và bây giờ\nkhi mọi thứ đã thay đổi rất nhiều, tôi thử kết hợp mọi thứ mới nhất với nhau.\nTrong bài viết này tôi sẽ giới thiệu và cách kết hợp các keyword trên với nhau.\n\nĐịnh nghĩa các từ khóa\n * Elixir [https://elixir-lang.org/] là ngôn ngữ lập trình phía Server.\n * Phoeni",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Elixir, Phoenix, Absinthe, GraphQL, React, Apollo, ExUnit, Jest mới nhất</h1>
+                <section class="post-meta">
+                    P.V.Đ -
+                    <time class="post-date" datetime="2019-06-28">28 Jun 2019</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;17YSSfOx0tXYsD0Deq7J3Slc30-zDtSbj&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <p>Trước khi bắt đầu bài viết này bạn nên biết ít nhất 3 từ khóa ở trên. Một vài năm trước tôi có làm dự án về Elixir, nó là một ngôn ngữ lập trình rất ngắn gọn. Và sau đó tôi có dùng GraphQL trên một ứng dụng di động với React. Và bây giờ khi mọi thứ đã thay đổi rất nhiều, tôi thử kết hợp mọi thứ mới nhất với nhau. Trong bài viết này tôi sẽ giới thiệu và cách kết hợp các keyword trên với nhau.</p><h3 id="-nh-ngh-a-c-c-t-kh-a">Định nghĩa các từ khóa</h3><ul><li><a href="https://elixir-lang.org/">Elixir</a> là ngôn ngữ lập trình phía Server.</li><li><a href="https://phoenixframework.org/">Phoenix</a> là framework phổ biến nhất cho Elixir. (Ruby có Rails :: Elixir có Phonix).</li><li><a href="https://graphql.org/">GraphQL</a> là ngôn ngữ truy vấn cho API.</li><li><a href="https://hexdocs.pm/absinthe/overview.html">Absinthe</a> là thư viện Elixir phổ biến nhất để triển khai GraphQL Server.</li><li><a href="https://www.apollographql.com/docs/react">Apollo</a> là một thư viện JavaScript phổ biến để sử dụng API GraphQL. (Apollo cũng có gói phía Server, được sử dụng để triển khai GraphQL Server trong Node.js, nhưng tôi chỉ sử dụng ở client)</li><li><a href="https://reactjs.org/">React</a> là một framework hay thư viện JavaScript phổ biến để xây dựng giao diện người dùng frontend. (Có lẽ bạn đã biết cái này.)</li><li>ExUnit là thư viện viết unit test cho elixir</li><li>Jest là thư viện viết test cho React</li></ul><h3 id="t-i-ang-x-y-d-ng-c-i-g-">Tôi đang xây dựng cái gì?</h3><p>Tôi quyết định xây dựng một mạng xã hội nho nhỏ. Nó dường như đủ đơn giản để hoàn thành một cách khả thi trong một khoảng thời gian hợp lý, nhưng đủ phức tạp để tôi gặp phải những thách thức khi làm mọi thứ hoạt động trong một ứng dụng thực tế. Người dùng có thể tạo Post và comment về bài đăng của người dùng khác. Và để thực hành luôn về socket với Phoenix tôi tôi làm cả tính năng trò chuyện; Người dùng có thể bắt đầu cuộc trò chuyện riêng tư với những người dùng khác và mỗi cuộc hội thoại có thể có bất kỳ số lượng người dùng nào (tức là trò chuyện nhóm).</p><p>Để có thể chạy được ứng dụng này tôi đã chuẩn bị sãn môi trường đã được cài đặt đầy đủ.</p><p><a href="https://github.com/dongpv91/elixir-infra">https://github.com/dongpv91/elixir-infra</a></p><h3 id="t-i-sao-d-ng-elixir">Tại sao dùng Elixir?</h3><p>Elixir đã dần dần trở nên phổ biến trong vài năm qua. Nó chạy trên máy ảo Erlang và bạn có thể viết cú pháp Erlang trực tiếp trong tệp Elixir, nhưng nó được thiết kế để cung cấp cú pháp thân thiện hơn cho các nhà phát triển trong khi vẫn giữ tốc độ và khả năng chịu lỗi của Erlang. Elixir được gõ động, và cú pháp cảm thấy tương tự như ruby. Tuy nhiên, nó có nhiều chức năng hơn ruby, và có nhiều thành ngữ và parttern khác nhau.</p><p>Ít nhất là đối với bản thân tôi, điểm thu hút chính đối với Elixir là hiệu năng của Erlang VM. Nhóm tại WhatsApp đã có thể thiết lập <a href="https://blog.whatsapp.com/196/1-million-is-so-2011">hai triệu kết nối đến một máy chủ</a> bằng Erlang. Máy chủ Elixir / Phoenix thường có thể phục vụ các yêu cầu đơn giản trong vòng chưa đến 1 mili giây.</p><p>Elixir có những lợi ích tốt. Nó được thiết kế để có khả năng chịu lỗi; bạn có thể tưởng tượng Erlang VM như một cụm các nút, trong đó bất kỳ một nút nào chết cũng không làm gián đoạn các nút khác. Điều này cũng giúp cho việc thực hiện "hot code swapping", triển khai mã mới mà không phải dừng và khởi động lại ứng dụng. Tôi còn thấy rất tiện lợi và ngắn gọn khi sử dụng <a href="https://elixirschool.com/en/lessons/basics/pattern-matching">pattern matching</a> và <a href="https://elixirschool.com/en/lessons/basics/pipe-operator">pipe operator</a> . </p><h3 id="t-i-sao-d-ng-graphql">Tại sao dùng GraphQL?</h3><p>Với API RESTful truyền thống, máy chủ xác định tài nguyên và route nào được cung cấp (thông qua tài liệu API hoặc có thể thông qua một số tool tự động như Swagger) và client phải thực hiện đúng request để có được dữ liệu họ muốn. Server sẽ trả về bài post, hay comment để nhận nhận xét về bài đăng hay thông tin user để nhận tên và ảnh của tác giả, client có thể phải thực hiện ba request riêng biệt để nhận thông tin nó cần cho một nội dung cần thiết (API có thể sẽ cho phép bạn truy xuất dữ liệu bản ghi liên quan, nhưng Server phải thay đổi theo yêu cầu của client khác nhau) . GraphQL đảo ngược nguyên tắc này - khách hàng gửi một tài liệu truy vấn mô tả dữ liệu cần thiết (có thể kéo dài các mối quan hệ bảng) và máy chủ trả về tất cả trong một yêu cầu. Đối với ví dụ blog, một truy vấn bài viết có thể trông giống như thế này:</p><pre><code>query {
+  post(id: 123) {
+    id
+    body
+    createdAt
+    user {
+      id
+      name
+      avatarUrl
+    }
+    comments {
+      id
+      body
+      createdAt
+      user {
+        id
+        name
+        avatarUrl
+      }
+    }
+  }
+}</code></pre><p>Truy vấn này mô tả tất cả thông tin mà người tiêu dùng có thể cần để hiển thị một trang bằng một bài đăng trên blog: ID, nội dung và thời gian của bài đăng đó; ID, tên và URL hình đại diện của người dùng đã xuất bản bài đăng; ID, nội dung và thời gian của các bình luận trên bài đăng; và ID, tên và URL hình đại diện của người dùng đã gửi từng nhận xét. Cấu trúc trực quan và linh hoạt; thật tuyệt vời khi xây dựng giao diện vì bạn chỉ có thể mô tả dữ liệu bạn muốn, thay vì xoay quanh cấu trúc được cung cấp bởi API.</p><p>Có hai khái niệm quan trọng khác trong GraphQL: mutation và subscription. Mutations  là một truy vấn tạo ra sự thay đổi dữ liệu trên máy chủ; nó tương đương với POST / PATCH / PUT trong API RESTful. Đây là một mutation để tạo ra một bài viết có thể trông như thế nào:</p><pre><code>mutation {
+  createPost(body: $body) {
+    id
+    body
+    createdAt
+  }
+}</code></pre><p>Các thuộc tính của bản ghi được cung cấp dưới dạng đối số và khối mô tả dữ liệu bạn cần lấy lại sau khi mutation hoàn tất (trong trường hợp này là ID, nội dung và thời gian của bài đăng mới).</p><p>Một subscription khá độc đáo đối với GraphQL; API RESTful hoàn toàn không có tính năng này. Nó cho phép khách hàng nói rằng họ muốn nhận được cập nhật trực tiếp từ máy chủ mỗi khi có một sự kiện cụ thể xảy ra. Ví dụ: nếu tôi muốn trang chủ cập nhật trực tiếp mỗi khi bài viết mới được tạo, tôi có thể viết subscription như thế này:</p><pre><code>subscription {
+  postCreated {
+    id
+    body
+    createdAt
+    user {
+      id
+      name
+      avatarUrl
+    }
+  }
+}</code></pre><p>Như bạn có thể có thể chắc chắn rằng request máy chủ gửi cho tôi bản cập nhật trực tiếp bất cứ khi nào bài đăng mới được tạo và bao gồm ID, nội dung và thời gian của bài đăng, ID, tên và URL hình đại diện của tác giả. Subscription thường được hỗ trợ bởi websockets; máy khách giữ một socket mở cho máy chủ và máy chủ sẽ gửi một thông điệp xuống máy khách bất cứ khi nào sự kiện xảy ra.</p><p>Một điều cuối cùng - GraphQL có một công cụ phát triển khá tuyệt vời có tên là GraphiQL. Đó là giao diện web với trình chỉnh sửa trực tiếp, nơi bạn có thể viết và thực hiện các truy vấn và xem kết quả. Nó bao gồm tự động hoàn thành và đường khác giúp dễ dàng tìm thấy các truy vấn và trường có sẵn; nó đặc biệt tuyệt vời khi bạn lặp lại trên cấu trúc của một truy vấn. Bạn có thể dùng thử giao diện GraphiQL trên github tại đây. Hãy thử gửi cho nó truy vấn sau đây để lấy thông tin account github:</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=1aefirBxF1VkXOElF_ht4H2UCpO8RJ-hK&amp;export=download" class="kg-image" alt width="931" height="736" layout="responsive"></amp-img></figure><p>Xem Document trực tiếp trên GraphiQL</p><figure class="kg-card kg-image-card"><amp-img src="https://drive.google.com/uc?id=10tkocHSsriEZFGKeZfrvbx3BouuWQLMF&amp;export=download" class="kg-image" alt width="373" height="645" layout="responsive"></amp-img></figure><h3 id="t-i-sao-d-ng-apollo">Tại sao dùng Apollo?</h3><p>Apollo đã trở thành một trong những thư viện GraphQL phổ biến nhất, cả trên server và client. Trải nghiệm trước đây của tôi với GraphQL là vào năm 2017 với <a href="https://facebook.github.io/relay">Relay</a>, đó là một thư viện JavaScript phía client khác. Thành thật mà nói, tôi ghét nó. Tôi bị thu hút bởi nó được do chính Facebook làm ra cùng với GraphQL, nhưng Relay cảm thấy phức tạp và khó khăn để nắm bắt; tài liệu có rất nhiều từ ngữ đặc biệt và tôi cảm thấy khó khăn khi thiết lập một nền tảng kiến ​​thức để hiểu nó. Lúc đó, Relay vẫn là phiên bản 1.0; họ đã thực hiện những thay đổi đáng kể để đơn giản hóa thư viện (mà họ gọi là Relay Modern) và tài liệu ngày nay cũng tốt hơn rất nhiều. Nhưng tôi muốn thử một cái gì đó mới và Apollo đã trở nên phổ biến một phần vì nó mang lại trải nghiệm phát triển đơn giản hơn để xây dựng ứng dụng client GraphQL.</p><h3 id="ph-a-server">Phía Server</h3><p>Tôi bắt đầu bằng cách xây dựng phía server của ứng dụng.</p><p>Cụ thể, tôi bắt đầu bằng cách xác định cấu trúc mô hình cơ bản của ứng dụng. Ở cấp độ cao, nó trông như thế này:</p><pre><code>User
+- Name
+- Email
+- Password hash
+
+Post
+- User ID
+- Body
+
+Comment
+- User ID
+- Post ID
+- Body
+
+Conversation
+- Title (just the names of the participants denormalized to a string)
+
+ConversationUser (each conversation can have any number of users)
+- Conversation ID
+- User ID
+
+Message
+- Conversation ID
+- User ID
+- Body</code></pre><p>Phoenix cho phép bạn viết migration cơ sở dữ liệu khá giống với migration  trong Rails. Đây là migration  để tạo bảng người dùng, ví dụ:</p><pre><code># socializer/priv/repo/migrations/20190414185306_create_users.exs
+defmodule Socializer.Repo.Migrations.CreateUsers do
+  use Ecto.Migration
+
+  def change do
+    create table(:users) do
+      add :name, :string
+      add :email, :string
+      add :password_hash, :string
+
+      timestamps()
+    end
+
+    create unique_index(:users, [:email])
+  end
+end</code></pre><p>Tiếp theo, tôi đã thực hiện các module theo các table đã tạo (Giống như Model trong các framework khác, Elixir không có class). Phoenix sử dụng một thư viện có tên Ecto cho các Model của nó; bạn có thể nghĩ Ecto tương tự như ActiveRecord nhưng ít liên kết chặt chẽ hơn với framework. Một điểm khác biệt chính là các model của Ecto không có bất kỳ phương thức khởi tạo nào (vì không phải là class). Một thể hiện mô hình chỉ là một cấu trúc (như hàm băm với các khóa được xác định trước); các phương thức mà bạn định nghĩa trên một model là các phương thức nhận vào một cấu trúc, thay đổi nó và trả về kết quả. Cách tiếp cận này thường là thành ngữ trong Elixir; nó ưu tiên lập trình chức năng và các biến là bất biến.</p><p>Đây là ví dụ về Model trong bài viết:</p><pre><code># socializer/lib/socializer/post.ex
+defmodule Socializer.Post do
+  use Ecto.Schema
+  import Ecto.Changeset
+  import Ecto.Query
+
+  alias Socializer.{Repo, Comment, User}
+
+  # ...
+end</code></pre><p>Đầu tiên, phải gọi một số module cần thiết. Trong Elixir, <code>import</code>mang đến các chức năng của một module  (tương tự như `include trong ruby); <code>use</code>gọi <code>__using__</code>macro trên module được chỉ định. Macro là cơ chế của Elixir để lập trình siêu dữ liệu. <code>alias</code>chỉ đơn giản là làm cho các mô-đun được đặt tên có sẵn làm tên cơ sở của chúng (vì vậy tôi có thể tham chiếu <code>User</code>thay vì phải gõ <code>Socializer.User</code>ở mọi nơi).</p><pre><code># socializer/lib/socializer/post.ex
+defmodule Socializer.Post do
+  # ...
+
+  schema "posts" do
+    field :body, :string
+
+    belongs_to :user, User
+    has_many :comments, Comment
+
+    timestamps()
+  end
+
+  # ...
+end</code></pre><p>Tiếp theo, chúng ta có schema. Các model Ecto phải mô tả rõ ràng từng thuộc tính trong schema. Các <code>schema</code>macro được tạo sẵn bởi <code>use Ecto.Schema</code>trong phần trước.</p><pre><code># socializer/lib/socializer/post.ex
+defmodule Socializer.Post do
+  # ...
+
+  def all do
+    Repo.all(from p in __MODULE__, order_by: [desc: p.id])
+  end
+
+  def find(id) do
+    Repo.get(__MODULE__, id)
+  end
+
+  # ...
+end</code></pre><p>Sau schema, tôi đã viết một vài hàm để tìm lấy các bài đăng từ cơ sở dữ liệu. Với Ecto, <code>Repo</code>module được sử dụng cho tất cả các truy vấn cơ sở dữ liệu; ví dụ, <code>Repo.get(Post, 123)</code>sẽ tra cứu bài đăng với ID 123. Cú pháp truy vấn cơ sở dữ liệu trong <code>search</code>phương thức được cung cấp bởi <code>import Ecto.Query</code>ở đầu lớp. Cuối cùng, <code>__MODULE__</code>chỉ là một tốc ký cho module hiện tại (tức là <code>Socializer.Post</code>).</p><pre><code># socializer/lib/socializer/post.ex
+defmodule Socializer.Post do
+  # ...
+
+  def create(attrs) do
+    attrs
+    |&gt; changeset()
+    |&gt; Repo.insert()
+  end
+
+  def changeset(attrs) do
+    %__MODULE__{}
+    |&gt; changeset(attrs)
+  end
+
+  def changeset(post, attrs) do
+    post
+    |&gt; cast(attrs, [:body, :user_id])
+    |&gt; validate_required([:body, :user_id])
+    |&gt; foreign_key_constraint(:user_id)
+  end
+end</code></pre><p>Các phương thức update data</p><h3 id="graqhql-schema">GraqhQL Schema</h3><p>Tiếp theo, tôi kết nối các thành phần GraphQL của máy chủ. Chúng thường có thể được nhóm thành hai loại: type và resolver. Trong các file type, bạn sử dụng cú pháp giống như DSL để khai báo các đối tượng, trường và quan hệ có sẵn để được truy vấn. Các Resolver giải quyết cách trả lời bất kỳ truy vấn nào.</p><p>Đây là type bài đăng của tôi trông như thế này:</p><pre><code># socializer/lib/socializer_web/schema/post_types.ex
+defmodule SocializerWeb.Schema.PostTypes do
+  use Absinthe.Schema.Notation
+  use Absinthe.Ecto, repo: Socializer.Repo
+
+  alias SocializerWeb.Resolvers
+
+  @desc "A post on the site"
+  object :post do
+    field :id, :id
+    field :body, :string
+    field :inserted_at, :naive_datetime
+
+    field :user, :user, resolve: assoc(:user)
+
+    field :comments, list_of(:comment) do
+      resolve(
+        assoc(:comments, fn comments_query, _args, _context -&gt;
+          comments_query |&gt; order_by(desc: :id)
+        end)
+      )
+    end
+  end
+
+  # ...
+end</code></pre><p>Sau <code>use</code> và <code>import</code>  chỉ cần xác định<code>:post</code>đối tượng cho GraphQL. ID, body và insert_at sẽ sử dụng các giá trị trực tiếp từ <code>Post</code>struct. Tiếp theo, chúng tôi khai báo một vài đôi tượng có thể liên quan đến bài đăng (user, comments).</p><pre><code># socializer/lib/socializer_web/schema/post_types.ex
+defmodule SocializerWeb.Schema.PostTypes do
+  # ...
+
+  object :post_queries do
+    @desc "Get all posts"
+    field :posts, list_of(:post) do
+      resolve(&amp;Resolvers.PostResolver.list/3)
+    end
+
+    @desc "Get a specific post"
+    field :post, :post do
+      arg(:id, non_null(:id))
+      resolve(&amp;Resolvers.PostResolver.show/3)
+    end
+  end
+
+  # ...
+end</code></pre><p>Tiếp theo, chúng tôi sẽ khai báo một vài truy vấn cấp gốc liên quan đến bài viết.<code>posts</code>cho phép truy vấn tất cả các bài đăng trên trang web trong khi <code>post</code>tìm nạp một bài đăng bằng ID. File type chỉ đơn giản khai báo các truy vấn cùng với các đối số và kiểu trả về; việc thực hiện được giao cho resolve giải quyết.</p><pre><code># socializer/lib/socializer_web/schema/post_types.ex
+defmodule SocializerWeb.Schema.PostTypes do
+  # ...
+
+  object :post_mutations do
+    @desc "Create post"
+    field :create_post, :post do
+      arg(:body, non_null(:string))
+
+      resolve(&amp;Resolvers.PostResolver.create/3)
+    end
+  end
+
+  # ...
+end</code></pre><p>Sau các truy vấn, chúng tôi tuyên bố một mutation cho phép tạo một bài đăng mới trên trang web. Như với các truy vấn, tệp loại chỉ đơn giản khai báo siêu dữ liệu về các mutation, phần xử lý sẽ do resolve.</p><pre><code># socializer/lib/socializer_web/schema/post_types.ex
+defmodule SocializerWeb.Schema.PostTypes do
+  # ...
+
+  object :post_subscriptions do
+    field :post_created, :post do
+      config(fn _, _ -&gt;
+        {:ok, topic: "posts"}
+      end)
+
+      trigger(:create_post,
+        topic: fn _ -&gt;
+          "posts"
+        end
+      )
+    end
+  end
+end</code></pre><p>Cuối cùng, một vài subcruption liên quan đến bài viết ,<code>:post_created</code>. Điều này cho phép khách hàng đăng ký và nhận được cập nhật bất cứ khi nào một bài đăng mới được tạo. <code>config</code>được sử dụng để thiết lập đăng ký, đồng thời <code>trigger</code>cho absinthe biết mutation nào sẽ gọi đăng ký. <code>topic</code>cho phép bạn phân đoạn subscription responses - trong trường hợp này, cập nhật ứng dụng khách về bất kỳ bài đăng nào, nhưng trong các trường hợp khác, chỉ muốn thông báo về một số thay đổi nhất định. Ví dụ: đây là đăng ký nhận xét - khách hàng chỉ muốn biết về nhận xét mới về một bài đăng cụ thể (không phải mỗi bài đăng) để nó cung cấp một <code>post_id</code>đối số là chủ đề.</p><pre><code>defmodule SocializerWeb.Schema.CommentTypes do
+  # ...
+
+  object :comment_subscriptions do
+    field :comment_created, :comment do
+      arg(:post_id, non_null(:id))
+
+      config(fn args, _ -&gt;
+        {:ok, topic: args.post_id}
+      end)
+
+      trigger(:create_comment,
+        topic: fn comment -&gt;
+          comment.post_id
+        end
+      )
+    end
+  end
+end</code></pre><p>Mặc dù tôi đã chia các type thành các tệp cho từng model, nhưng đáng chú ý là absinthe yêu cầu bạn phải lắp ráp tất cả các loại trong một<code>Schema</code>mô-đun. Nó trông như thế này:</p><pre><code>defmodule SocializerWeb.Schema do
+  use Absinthe.Schema
+  import_types(Absinthe.Type.Custom)
+
+  import_types(SocializerWeb.Schema.PostTypes)
+  # ...other models' types
+
+  query do
+    import_fields(:post_queries)
+    # ...other models' queries
+  end
+
+  mutation do
+    import_fields(:post_mutations)
+    # ...other models' mutations
+  end
+
+  subscription do
+    import_fields(:post_subscriptions)
+    # ...other models' subscriptions
+  end
+end</code></pre><p>Như tôi đã đề cập ở trên, resolvers chúng chứa logic để cung cấp dữ liệu cho truy vấn hoặc áp dụng đột biến.Chúng ta hãy đi qua resolvers <code>post</code>:</p><pre><code># lib/socializer_web/resolvers/post_resolver.ex
+defmodule SocializerWeb.Resolvers.PostResolver do
+  alias Socializer.Post
+
+  def list(_parent, _args, _resolutions) do
+    {:ok, Post.all()}
+  end
+
+  def show(_parent, args, _resolutions) do
+    case Post.find(args[:id]) do
+      nil -&gt; {:error, "Not found"}
+      post -&gt; {:ok, post}
+    end
+  end
+
+  # ...
+end</code></pre><p>Hai phương thức đầu tiên xử lý hai truy vấn được xác định ở trên - để lấy tất cả các bài đăng và lấy một bài đăng cụ thể. Absinthe hy vọng mọi phương thức trình phân giải sẽ trả về một tuple - <code>{:ok, requested_data}</code>hoặc <code>{:error, some_error}</code>(đây là một pattern chung cho các phương thức Elixir nói chung). Câu<code>case</code>lệnh trong <code>show</code> là một ví dụ hay về pattern matching trong Elixir - nếu<code>Post.find</code>trả về <code>nil</code>, chúng ta trả về bộ lỗi; nếu có gì khác, chúng tôi trả lại bài được tìm thấy.</p><pre><code># lib/socializer_web/resolvers/post_resolver.ex
+defmodule SocializerWeb.Resolvers.PostResolver do
+  # ...
+
+  def create(_parent, args, %{
+        context: %{current_user: current_user}
+      }) do
+    args
+    |&gt; Map.put(:user_id, current_user.id)
+    |&gt; Post.create()
+    |&gt; case do
+      {:ok, post} -&gt;
+        {:ok, post}
+
+      {:error, changeset} -&gt;
+        {:error, extract_error_msg(changeset)}
+    end
+  end
+
+  def create(_parent, _args, _resolutions) do
+    {:error, "Unauthenticated"}
+  end
+
+  # ...
+end</code></pre><p>Tiếp theo, chúng ta có resolver của <code>create</code>, chứa logic để tạo một bài đăng mới. Đây cũng là một ví dụ điển hình về pattern matching thông qua các tham số phương thức - Elixir cho phép bạn nạp chồng tên phương thức và sẽ chọn triển khai đầu tiên khớp với mẫu đã khai báo. Trong trường hợp này, nếu tham số thứ ba là bản đồ có <code>context</code>, chứa bản đồ có <code>current_user</code>, thì phương thức đầu tiên được sử dụng; nếu truy vấn không đi kèm với authentication token, nó sẽ chuyển sang phương thức thứ hai và trả về lỗi.</p><pre><code># lib/socializer_web/resolvers/post_resolver.ex
+defmodule SocializerWeb.Resolvers.PostResolver do
+  # ...
+
+  defp extract_error_msg(changeset) do
+    changeset.errors
+    |&gt; Enum.map(fn {field, {error, _details}} -&gt;
+      [
+        field: field,
+        message: String.capitalize(error)
+      ]
+    end)
+  end
+end</code></pre><p>Cuối cùng, chúng ta có một phương thức trợ giúp đơn giản để trả về phản hồi lỗi nếu thuộc tính bài viết không hợp lệ (ví dụ: nếu phần thân trống). Absinthe muốn các thông báo lỗi là một chuỗi, một chuỗi các chuỗi hoặc một chuỗi các danh sách từ khóa có <code>field</code>và <code>message</code>các khóa </p><h3 id="context-authentication">Context/authentication</h3><p>Trong phần cuối cùng, tôi đã đề cập đến khái niệm truy vấn được xác thực - trong trường hợp của tôi, được biểu thị đơn giản bằng một <code>Bearer: token</code>trong <code>authorization</code>Header. Làm thế nào để chúng ta nhận được từ mã thông báo đó đến <code>current_user</code>bối cảnh trong trình phân giải? Với một plug tùy đọc tiêu đề và tìm kiếm người dùng hiện tại. Ở Phoenix, Plug là một phần của đường dẫn cho một yêu cầu - bạn có thể có các plugin giải mã JSON, thêm các tiêu đề CORS hoặc thực sự là bất kỳ phần có thể kết hợp nào khác để xử lý yêu cầu. Plug trông như thế này:</p><pre><code># lib/socializer_web/context.ex
+defmodule SocializerWeb.Context do
+  @behaviour Plug
+
+  import Plug.Conn
+
+  alias Socializer.{Guardian, User}
+
+  def init(opts), do: opts
+
+  def call(conn, _) do
+    context = build_context(conn)
+    Absinthe.Plug.put_options(conn, context: context)
+  end
+
+  def build_context(conn) do
+    with ["Bearer " &lt;&gt; token] &lt;- get_req_header(conn, "authorization"),
+         {:ok, claim} &lt;- Guardian.decode_and_verify(token),
+         user when not is_nil(user) &lt;- User.find(claim["sub"]) do
+      %{current_user: user}
+    else
+      _ -&gt; %{}
+    end
+  end
+end</code></pre><h3 id="testing-server-side">Testing — server side</h3><p>Elixir có một thư viện thử nghiệm tích hợp cơ bản có tên là ExUnit. Nó chứa đơn giản <code>assert</code>/ <code>refute</code>trợ giúp và xử lý chạy test của bạn. Chúng được bao gồm trong các thử nghiệm để chạy các tác vụ thiết lập chung như kết nối với cơ sở dữ liệu. Ngoài các mặc định, có hai thư viện trợ giúp mà tôi thấy hữu ích trong các test của mình - <a href="https://hexdocs.pm/ex_spec/readme.html">ex_spec</a> và <a href="https://hexdocs.pm/ex_machina/readme.html">ex_machina</a> . ex_spec thêm đơn giản <code>describe</code>và <code>it</code>macro làm cho cú pháp kiểm tra cảm thấy thân thiện hơn một chút, ít nhất là từ nền tảng ruby ​. ex_machina cung cấp cho các nhà máy giúp dễ dàng chèn động dữ liệu thử nghiệm.</p><pre><code># test/support/factories.ex
+defmodule Socializer.Factory do
+  use ExMachina.Ecto, repo: Socializer.Repo
+
+  def user_factory do
+    %Socializer.User{
+      name: Faker.Name.name(),
+      email: Faker.Internet.email(),
+      password: "password",
+      password_hash: Bcrypt.hash_pwd_salt("password")
+    }
+  end
+
+  def post_factory do
+    %Socializer.Post{
+      body: Faker.Lorem.paragraph(),
+      user: build(:user)
+    }
+  end
+
+  # ...factories for other models
+end</code></pre><p>Và sau khi nhập factory vào thiết lập trường hợp, nó có thể được sử dụng trong các test với cú pháp rất trực quan:</p><pre><code># Insert a user
+user = insert(:user)
+
+# Insert a user with a specific name
+user_named = insert(:user, name: "John Smith")
+
+# Insert a post for the user
+post = insert(:post, user: user)</code></pre><p>Với cách thiết lập đã sẵn sàng, đây là <code>Post</code>model test trông như thế này:</p><pre><code># test/socializer/post_test.exs
+defmodule Socializer.PostTest do
+  use SocializerWeb.ConnCase
+
+  alias Socializer.Post
+
+  describe "#all" do
+    it "finds all posts" do
+      post_a = insert(:post)
+      post_b = insert(:post)
+      results = Post.all()
+      assert length(results) == 2
+      assert List.first(results).id == post_b.id
+      assert List.last(results).id == post_a.id
+    end
+  end
+
+  describe "#find" do
+    it "finds post" do
+      post = insert(:post)
+      found = Post.find(post.id)
+      assert found.id == post.id
+    end
+  end
+
+  describe "#create" do
+    it "creates post" do
+      user = insert(:user)
+      valid_attrs = %{user_id: user.id, body: "New discussion"}
+      {:ok, post} = Post.create(valid_attrs)
+      assert post.body == "New discussion"
+    end
+  end
+
+  describe "#changeset" do
+    it "validates with correct attributes" do
+      user = insert(:user)
+      valid_attrs = %{user_id: user.id, body: "New discussion"}
+      changeset = Post.changeset(%Post{}, valid_attrs)
+      assert changeset.valid?
+    end
+
+    it "does not validate with missing attrs" do
+      changeset =
+        Post.changeset(
+          %Post{},
+          %{}
+        )
+
+      refute changeset.valid?
+    end
+  end
+end</code></pre><p>Tiếp theo, test resolver:</p><pre><code># test/socializer_web/resolvers/post_resolver_test.exs
+defmodule SocializerWeb.PostResolverTest do
+  use SocializerWeb.ConnCase
+
+  alias SocializerWeb.Resolvers.PostResolver
+
+  describe "#list" do
+    it "returns posts" do
+      post_a = insert(:post)
+      post_b = insert(:post)
+      {:ok, results} = PostResolver.list(nil, nil, nil)
+      assert length(results) == 2
+      assert List.first(results).id == post_b.id
+      assert List.last(results).id == post_a.id
+    end
+  end
+
+  describe "#show" do
+    it "returns specific post" do
+      post = insert(:post)
+      {:ok, found} = PostResolver.show(nil, %{id: post.id}, nil)
+      assert found.id == post.id
+    end
+
+    it "returns not found when post does not exist" do
+      {:error, error} = PostResolver.show(nil, %{id: 1}, nil)
+      assert error == "Not found"
+    end
+  end
+
+  describe "#create" do
+    it "creates valid post with authenticated user" do
+      user = insert(:user)
+
+      {:ok, post} =
+        PostResolver.create(nil, %{body: "Hello"}, %{
+          context: %{current_user: user}
+        })
+
+      assert post.body == "Hello"
+      assert post.user_id == user.id
+    end
+
+    it "returns error for missing params" do
+      user = insert(:user)
+
+      {:error, error} =
+        PostResolver.create(nil, %{}, %{
+          context: %{current_user: user}
+        })
+
+      assert error == [[field: :body, message: "Can't be blank"]]
+    end
+
+    it "returns error for unauthenticated user" do
+      {:error, error} = PostResolver.create(nil, %{body: "Hello"}, nil)
+
+      assert error == "Unauthenticated"
+    end
+  end
+end</code></pre><p>Tạo một tệp trợ giúp với một số chức năng phổ biến mà các test tích hợp sẽ cần:</p><pre><code># test/support/absinthe_helpers.ex
+defmodule Socializer.AbsintheHelpers do
+  alias Socializer.Guardian
+
+  def authenticate_conn(conn, user) do
+    {:ok, token, _claims} = Guardian.encode_and_sign(user)
+    Plug.Conn.put_req_header(conn, "authorization", "Bearer #{token}")
+  end
+
+  def query_skeleton(query, query_name) do
+    %{
+      "operationName" =&gt; "#{query_name}",
+      "query" =&gt; "query #{query_name} #{query}",
+      "variables" =&gt; "{}"
+    }
+  end
+
+  def mutation_skeleton(query) do
+    %{
+      "operationName" =&gt; "",
+      "query" =&gt; "mutation #{query}",
+      "variables" =&gt; ""
+    }
+  end
+end</code></pre><pre><code># test/socializer_web/integration/post_resolver_test.exs
+defmodule SocializerWeb.Integration.PostResolverTest do
+  use SocializerWeb.ConnCase
+  alias Socializer.AbsintheHelpers
+
+  describe "#list" do
+    it "returns posts" do
+      post_a = insert(:post)
+      post_b = insert(:post)
+
+      query = """
+      {
+        posts {
+          id
+          body
+        }
+      }
+      """
+
+      res =
+        build_conn()
+        |&gt; post("/graphiql", AbsintheHelpers.query_skeleton(query, "posts"))
+
+      posts = json_response(res, 200)["data"]["posts"]
+      assert List.first(posts)["id"] == to_string(post_b.id)
+      assert List.last(posts)["id"] == to_string(post_a.id)
+    end
+  end
+
+  # ...
+end</code></pre><p>Test này thực hiện điểm cuối để truy vấn danh sách bài viết.</p><p>Test tích hợp cho resolver tạo post:</p><pre><code># test/socializer_web/integration/post_resolver_test.exs
+defmodule SocializerWeb.Integration.PostResolverTest do
+  # ...
+
+  describe "#create" do
+    it "creates post" do
+      user = insert(:user)
+
+      mutation = """
+      {
+        createPost(body: "A few thoughts") {
+          body
+          user {
+            id
+          }
+        }
+      }
+      """
+
+      res =
+        build_conn()
+        |&gt; AbsintheHelpers.authenticate_conn(user)
+        |&gt; post("/graphiql", AbsintheHelpers.mutation_skeleton(mutation))
+
+      post = json_response(res, 200)["data"]["createPost"]
+      assert post["body"] == "A few thoughts"
+      assert post["user"]["id"] == to_string(user.id)
+    end
+  end
+end</code></pre><p>Làm thế nào về test subscription? Những điều này cũng liên quan đến một chút thiết lập để tạo kết nối plug nơi chúng ta có thể thiết lập và thực hiện subscription.Tôi thấy <a href="https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe">bài viết này</a> cực kỳ hữu ích để hiểu quá trình thiết lập cho test subscription.</p><p>Đầu tiên, chúng tôi tạo ra một case mới của Wap để thực hiện thiết lập cho các  test subscription. Nó trông như thế này:</p><pre><code># test/support/subscription_case.ex
+defmodule SocializerWeb.SubscriptionCase do
+  use ExUnit.CaseTemplate
+
+  alias Socializer.Guardian
+
+  using do
+    quote do
+      use SocializerWeb.ChannelCase
+      use Absinthe.Phoenix.SubscriptionTest, schema: SocializerWeb.Schema
+      use ExSpec
+      import Socializer.Factory
+
+      setup do
+        user = insert(:user)
+
+        # When connecting to a socket, if you pass a token we will set the context's `current_user`
+        params = %{
+          "token" =&gt; sign_auth_token(user)
+        }
+
+        {:ok, socket} = Phoenix.ChannelTest.connect(SocializerWeb.AbsintheSocket, params)
+        {:ok, socket} = Absinthe.Phoenix.SubscriptionTest.join_absinthe(socket)
+
+        {:ok, socket: socket, user: user}
+      end
+
+      defp sign_auth_token(user) do
+        {:ok, token, _claims} = Guardian.encode_and_sign(user)
+        token
+      end
+    end
+  end
+end</code></pre><p>Sau khi nhập chung, cần xác định <code>setup</code>bước chèn user mới và thiết lập websocket được xác thực bằng mã thông báo của user. Tôi trả lại Plug và user cho các test của tôi để sử dụng.</p><p>Tiếp theo, chúng ta hãy xem test sau:</p><pre><code>defmodule SocializerWeb.PostSubscriptionsTest do
+  use SocializerWeb.SubscriptionCase
+
+  describe "Post subscription" do
+    it "updates on new post", %{socket: socket} do
+      # Query to establish the subscription.
+      subscription_query = """
+        subscription {
+          postCreated {
+            id
+            body
+          }
+        }
+      """
+
+      # Push the query onto the socket.
+      ref = push_doc(socket, subscription_query)
+
+      # Assert that the subscription was successfully created.
+      assert_reply(ref, :ok, %{subscriptionId: _subscription_id})
+
+      # Query to create a new post to invoke the subscription.
+      create_post_mutation = """
+        mutation CreatePost {
+          createPost(body: "Big discussion") {
+            id
+            body
+          }
+        }
+      """
+
+      # Push the mutation onto the socket.
+      ref =
+        push_doc(
+          socket,
+          create_post_mutation
+        )
+
+      # Assert that the mutation successfully created the post.
+      assert_reply(ref, :ok, reply)
+      data = reply.data["createPost"]
+      assert data["body"] == "Big discussion"
+
+      # Assert that the subscription notified us of the new post.
+      assert_push("subscription:data", push)
+      data = push.result.data["postCreated"]
+      assert data["body"] == "Big discussion"
+    end
+  end
+end</code></pre><p>Đầu tiên, chúng tôi viết subscription query và đẩy nó vào Plug mà chúng tôi đã xây dựng trong quá trình test setup. Tiếp theo, chúng tôi viết một mutation dự kiến ​​sẽ kích hoạt subscription (tức là tạo một bài đăng mới) và đẩy nó lên Plug. Cuối cùng, chúng tôi kiểm tra <code>push</code>phản hồi để khẳng định rằng chúng tôi đã được cập nhật về bài đăng mới được tạo. Thêm một chút thiết lập liên quan.</p><h3 id="client">Client</h3><p>Tiếp theo, hãy xem cách client được xây dựng.</p><p>Tôi đã bắt đầu với <a href="https://facebook.github.io/create-react-app">create-react-app</a> , rất phù hợp cho khởi tạo dự án React </p><p>Tôi đang sử dụng <a href="https://reacttraining.com/react-router">React Router</a> để routing trong ứng dụng của mình; điều này sẽ cho phép người dùng điều hướng giữa một danh sách các bài đăng, một bài đăng, chat, v.v. Component root của ứng dụng của tôi trông giống như thế này:</p><pre><code>// client/src/App.js
+import React, { useRef } from "react";
+import { ApolloProvider } from "react-apollo";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { createClient } from "util/apollo";
+import { Meta, Nav } from "components";
+import { Chat, Home, Login, Post, Signup } from "pages";
+
+const App = () =&gt; {
+  const client = useRef(createClient());
+
+  return (
+    &lt;ApolloProvider client={client.current}&gt;
+      &lt;BrowserRouter&gt;
+        &lt;Meta /&gt;
+        &lt;Nav /&gt;
+
+        &lt;Switch&gt;
+          &lt;Route path="/login" component={Login} /&gt;
+          &lt;Route path="/signup" component={Signup} /&gt;
+          &lt;Route path="/posts/:id" component={Post} /&gt;
+          &lt;Route path="/chat/:id?" component={Chat} /&gt;
+          &lt;Route component={Home} /&gt;
+        &lt;/Switch&gt;
+      &lt;/BrowserRouter&gt;
+    &lt;/ApolloProvider&gt;
+  );
+};</code></pre><p>Một vài phần ở đây - <code>util/apollo</code>hiển thị một <code>createClient</code>hàm tạo và trả về một cá thể client Apollo (sẽ nói ở phần tiếp theo). Việc gói nó trong một <code>useRef</code>(React hook tính năng mới của React) client giống nhau có sẵn trong suốt vòng đời của ứng dụng (tức là trên các rerenders). Các <code>ApolloProvider</code>HOC làm cho client có sẵn trong component con hay query. Việc <code>BrowserRouter</code>sử dụng HTML5 history API để giữ trạng thái URL đồng bộ hóa khi chúng tôi điều hướng xung quanh ứng dụng.</p><p>Routing động cho phép tôi thể hiện như vậy:</p><pre><code>const App = () =&gt; {
+  return (
+    // ...
+    &lt;Route path="/chat/:id?" component={Chat} /&gt;
+    // ...
+  );
+};
+
+const Chat = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;ChatSidebar /&gt;
+
+      &lt;Switch&gt;
+        &lt;Route path="/chat/:id" component={Conversation} /&gt;
+        &lt;Route component={EmptyState} /&gt;
+      &lt;/Switch&gt;
+    &lt;/div&gt;
+  );
+};</code></pre><h3 id="apollo-client">Apollo client</h3><p>Hãy đi sâu hơn một chút vào Apollo client - cụ thể là <code>createClient</code>chức năng được tham chiếu ở trên. Các <code>util/apollo.js</code>tập tin trông như thế này:</p><pre><code>// client/src/util.apollo.js
+import ApolloClient from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import * as AbsintheSocket from "@absinthe/socket";
+import { createAbsintheSocketLink } from "@absinthe/socket-apollo-link";
+import { Socket as PhoenixSocket } from "phoenix";
+import { createHttpLink } from "apollo-link-http";
+import { hasSubscription } from "@jumpn/utils-graphql";
+import { split } from "apollo-link";
+import { setContext } from "apollo-link-context";
+import Cookies from "js-cookie";
+
+const HTTP_URI =
+  process.env.NODE_ENV === "production"
+    ? "https://brisk-hospitable-indianelephant.gigalixirapp.com"
+    : "http://localhost:4000";
+
+const WS_URI =
+  process.env.NODE_ENV === "production"
+    ? "wss://brisk-hospitable-indianelephant.gigalixirapp.com/socket"
+    : "ws://localhost:4000/socket";
+
+
+export const createClient = () =&gt; {
+  // Create the basic HTTP link.
+  const httpLink = createHttpLink({ uri: HTTP_URI });
+
+  // Create an Absinthe socket wrapped around a standard
+  // Phoenix websocket connection.
+  const absintheSocket = AbsintheSocket.create(
+    new PhoenixSocket(WS_URI, {
+      params: () =&gt; {
+        if (Cookies.get("token")) {
+          return { token: Cookies.get("token") };
+        } else {
+          return {};
+        }
+      },
+    }),
+  );
+
+  // Use the Absinthe helper to create a websocket link around
+  // the socket.
+  const socketLink = createAbsintheSocketLink(absintheSocket);
+
+// ...</code></pre><p>Apollo client yêu cầu cung cấp cho nó một liên kết - về cơ bản, một kết nối đến máy chủ GraphQL của bạn mà Apollo client có thể sử dụng để thực hiện các yêu cầu. Có hai loại liên kết phổ biến - liên kết HTTP, yêu cầu máy chủ GraphQL qua HTTP tiêu chuẩn và liên kết websocket, mở kết nối websocket đến máy chủ và gửi truy vấn qua Plug. Trong trường hợp của chúng tôi, chúng tôi thực sự muốn <em>cả hai</em> . Đối với các truy vấn và đột biến thông thường, chúng tôi sẽ sử dụng liên kết HTTP và để đăng ký, chúng tôi sẽ sử dụng liên kết websocket.</p><pre><code>// client/src/util.apollo.js
+export const createClient = () =&gt; {
+  //...
+
+  // Split traffic based on type -- queries and mutations go
+  // through the HTTP link, subscriptions go through the
+  // websocket link.
+  const splitLink = split(
+    (operation) =&gt; hasSubscription(operation.query),
+    socketLink,
+    httpLink,
+  );
+
+  // Add a wrapper to set the auth token (if any) to the
+  // authorization header on HTTP requests.
+  const authLink = setContext((_, { headers }) =&gt; {
+    // Get the authentication token from the cookie if it exists.
+    const token = Cookies.get("token");
+
+    // Return the headers to the context so httpLink can read them.
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    };
+  });
+
+  const link = authLink.concat(splitLink);
+
+  // ...
+};</code></pre><p>Apollo cung cấp phương thức <code>split</code> cho phép bạn định tuyến các truy vấn đến các liên kết khác nhau dựa trên các tiêu chí bạn chọn. Nếu query là subscription thì trả về link có Socket, nếu không thì sẽ trả về link http bình thường.</p><p>Có thể cần cung cấp xác thực cho cả hai liên kết, nếu người dùng hiện đang đăng nhập. Khi họ đăng nhập, sẽ đặt mã thông báo xác thực của họ thành <code>token</code>cookie. Sử dụng <code>token</code>làm tham số khi thiết lập kết nối websocket Phoenix trong phần trước và ở đây sử dụng <code>setContext</code>trình bao bọc để đặt <code>token</code>tiêu đề ủy quyền của các yêu cầu qua liên kết HTTP.</p><pre><code>// client/src/util.apollo.js
+export const createClient = () =&gt; {
+  // ...
+
+  return new ApolloClient({
+    cache: new InMemoryCache(),
+    link,
+  });
+});</code></pre><p>Ngoài liên kết, Apollo client cũng cần một cá thể bộ đệm; GraphQL tự động lưu trữ kết quả của các truy vấn để ngăn các yêu cầu trùng lặp cho cùng một dữ liệu. Cơ bản <code>InMemoryCache</code>là lý tưởng cho hầu hết các trường hợp sử dụng - nó chỉ giữ dữ liệu truy vấn được lưu trong bộ nhớ cache ở trạng thái trình duyệt cục bộ.</p><h3 id="s-d-ng-client-v-i-query-u-ti-n">Sử dụng client với query đầu tiên</h3><p>Bây giờ hãy xem cách nó được sử dụng để chạy các query và mutation. Chúng ta sẽ bắt đầu với Component <code>Posts</code>, được sử dụng để hiển thị nguồn cấp dữ liệu của bài đăng trên trang chủ của ứng dụng.</p><pre><code>// client/src/components/Posts.js
+import React, { Fragment } from "react";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import produce from "immer";
+import { ErrorMessage, Feed, Loading } from "components";
+
+export const GET_POSTS = gql`
+  {
+    posts {
+      id
+      body
+      insertedAt
+      user {
+        id
+        name
+        gravatarMd5
+      }
+    }
+  }
+`;
+
+export const POSTS_SUBSCRIPTION = gql`
+  subscription onPostCreated {
+    postCreated {
+      id
+      body
+      insertedAt
+      user {
+        id
+        name
+        gravatarMd5
+      }
+    }
+  }
+`;
+
+// ...</code></pre><p>Đầu tiên là query cơ bản để tìm nạp danh sách bài đăng (cùng với thông tin về người dùng đã viết mỗi bài) và thứ hai là subscription để thông báo khi có bất kỳ bài đăng mới nào, vì vậy chúng tôi có thể cập nhật trực tiếp màn hình và giữ cho nguồn cấp dữ liệu cập nhật.</p><pre><code>// client/src/components/Posts.js
+// ...
+
+const Posts = () =&gt; {
+  return (
+    &lt;Fragment&gt;
+      &lt;h4&gt;Feed&lt;/h4&gt;
+      &lt;Query query={GET_POSTS}&gt;
+        {({ loading, error, data, subscribeToMore }) =&gt; {
+          if (loading) return &lt;Loading /&gt;;
+          if (error) return &lt;ErrorMessage message={error.message} /&gt;;
+          return (
+            &lt;Feed
+              feedType="post"
+              items={data.posts}
+              subscribeToNew={() =&gt;
+                subscribeToMore({
+                  document: POSTS_SUBSCRIPTION,
+                  updateQuery: (prev, { subscriptionData }) =&gt; {
+                    if (!subscriptionData.data) return prev;
+                    const newPost = subscriptionData.data.postCreated;
+
+                    return produce(prev, (next) =&gt; {
+                      next.posts.unshift(newPost);
+                    });
+                  },
+                })
+              }
+            /&gt;
+          );
+        }}
+      &lt;/Query&gt;
+    &lt;/Fragment&gt;
+  );
+};</code></pre><p>Để chạy truy vấn, cần phải render <code>&lt;Query query={GET_POSTS}&gt;</code> của Apollo . Nó cung cấp một số param - <code>loading</code>, <code>error</code>, <code>data</code>, và <code>subscribeToMore</code>. Nếu truy vấn đang tải, chúng tôi chỉ hiển thị tải đơn giản. Nếu có lỗi, chúng tôi sẽ hiển thị chung <code>ErrorMessage</code>cho người dùng. Mặt khác, truy vấn đã thành công, vì vậy chúng ta có thể kết xuất một component <code>Feed</code>( <code>data.posts</code>chứa các bài đăng sẽ được render, khớp với cấu trúc của truy vấn).</p><p><code>subscribeToMore</code>thực hiện subcribe chỉ chịu trách nhiệm tìm nạp các mục mới trong bộ sưu tập mà người dùng hiện đang xem. Nó được cho là được gọi ở <code>componentDidMount</code> của component con, đó là lý do tại sao nó được chuyển qua như một chỗ dựa <code>Feed</code>- <code>Feed</code>chịu trách nhiệm gọi <code>subscribeToNew</code>một khi <code>Feed</code>đã kết xuất. Chúng tôi cung cấp <code>subscribeToMore</code>truy vấn đăng ký của chúng tôi và một <code>updateQuery</code>cuộc gọi lại, mà Apollo sẽ gọi khi nhận được thông báo rằng một bài đăng mới đã được tạo. Khi điều đó xảy ra, chỉ cần đẩy bài đăng mới lên mảng bài đăng hiện có, sử dụng bộ <a href="https://github.com/immerjs/immer">nhúng</a> để trả về một đối tượng mới để thành phần này được đăng ký lại một cách chính xác.</p><h3 id="authentication-v-mutations-">Authentication (và mutations)</h3><p>Bây giờ chúng tôi đã có một trang chủ có thể hiển thị danh sách các bài đăng và có thể phản hồi trong thời gian thực với các bài đăng mới được tạo - làm thế nào để bài viết mới được tạo? Để bắt đầu, chúng tôi sẽ muốn cho phép người dùng đăng nhập vào tài khoản, vì vậy tôi có thể liên kết họ với bài đăng của họ. Điều này sẽ yêu cầu phải viết một mutation - chúng tôi cần gửi email và mật khẩu đến máy chủ và lấy lại mã thông báo xác thực mới cho người dùng. Hãy bắt đầu với màn hình đăng nhập:</p><pre><code>// client/src/pages/Login.js
+import React, { Fragment, useContext, useState } from "react";
+import { Mutation } from "react-apollo";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import Helmet from "react-helmet";
+import gql from "graphql-tag";
+import { Redirect } from "react-router-dom";
+import renderIf from "render-if";
+import { AuthContext } from "util/context";
+
+export const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    authenticate(email: $email, password: $password) {
+      id
+      token
+    }
+  }
+`;</code></pre><p>Phần đầu tiên tương tự như query component - Nó chấp nhận email và mật khẩu và chúng tôi muốn lấy lại ID của người dùng được xác thực và mã thông báo xác thực của họ.</p><pre><code>// client/src/pages/Login.js
+// ...
+
+const Login = () =&gt; {
+  const { token, setAuth } = useContext(AuthContext);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  if (token) {
+    return &lt;Redirect to="/" /&gt;;
+  }
+
+  // ...
+};</code></pre><p>Trong component body, trước tiên chúng ta tìm <code>token</code>và <code>setAuth</code>hàm từ ngữ cảnh (<code>AuthContext</code>). Tôi cũng đặt một số trạng thái cục bộ bằng cách sử dụng <code>useState</code>, vì vậy chúng tôi có thể lưu trữ các giá trị tạm thời cho email, mật khẩu của người dùng và liệu thông tin đăng nhập của họ không hợp lệ (để chúng tôi có thể hiển thị trạng thái lỗi trên form). Cuối cùng, nếu người dùng đã có mã thông báo xác thực, họ đã đăng nhập để chúng tôi có thể chuyển hướng họ đến trang chủ.</p><pre><code>// client/src/pages/Login.js
+// ...
+
+const Login = () =&gt; {
+  // ...
+
+  return (
+    &lt;Fragment&gt;
+      &lt;Helmet&gt;
+        &lt;title&gt;Socializer | Log in&lt;/title&gt;
+        &lt;meta property="og:title" content="Socializer | Log in" /&gt;
+      &lt;/Helmet&gt;
+      &lt;Mutation mutation={LOGIN} onError={() =&gt; setIsInvalid(true)}&gt;
+        {(login, { data, loading, error }) =&gt; {
+          if (data) {
+            const {
+              authenticate: { id, token },
+            } = data;
+            setAuth({ id, token });
+          }
+
+          return (
+            &lt;Container&gt;
+              &lt;Row&gt;
+                &lt;Col md={6} xs={12}&gt;
+                  &lt;Form
+                    data-testid="login-form"
+                    onSubmit={(e) =&gt; {
+                      e.preventDefault();
+                      login({ variables: { email, password } });
+                    }}
+                  &gt;
+                    &lt;Form.Group controlId="formEmail"&gt;
+                      &lt;Form.Label&gt;Email address&lt;/Form.Label&gt;
+                      &lt;Form.Control
+                        type="email"
+                        placeholder="you@gmail.com"
+                        value={email}
+                        onChange={(e) =&gt; {
+                          setEmail(e.target.value);
+                          setIsInvalid(false);
+                        }}
+                        isInvalid={isInvalid}
+                      /&gt;
+                      {renderIf(error)(
+                        &lt;Form.Control.Feedback type="invalid"&gt;
+                          Email or password is invalid
+                        &lt;/Form.Control.Feedback&gt;,
+                      )}
+                    &lt;/Form.Group&gt;
+
+                    &lt;Form.Group controlId="formPassword"&gt;
+                      &lt;Form.Label&gt;Password&lt;/Form.Label&gt;
+                      &lt;Form.Control
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) =&gt; {
+                          setPassword(e.target.value);
+                          setIsInvalid(false);
+                        }}
+                        isInvalid={isInvalid}
+                      /&gt;
+                    &lt;/Form.Group&gt;
+
+                    &lt;Button variant="primary" type="submit" disabled={loading}&gt;
+                      {loading ? "Logging in..." : "Log in"}
+                    &lt;/Button&gt;
+                  &lt;/Form&gt;
+                &lt;/Col&gt;
+              &lt;/Row&gt;
+            &lt;/Container&gt;
+          );
+        }}
+      &lt;/Mutation&gt;
+    &lt;/Fragment&gt;
+  );
+};
+
+export default Login;</code></pre><p>Có một chút tốt ở đây, nhưng đừng quá tải - hầu hết chỉ là hiển thị các thành phần Bootstrap cho biểu mẫu. Chúng tôi bắt đầu với một <code>Helmet</code>từ <a href="https://github.com/nfl/react-helmet">react-helmet</a> - component này là một trang cấp cao nhất (so với <code>Posts</code>được trả lại như một con của trang <code>Home</code>) vì vậy tôi muốn cung cấp cho nó một tiêu đề trình duyệt và một số siêu dữ liệu. Tiếp theo chúng tôi render <code>Mutation</code>, chuyển mutation query  từ phía trên vào nó. Nếu muation trả về lỗi, chúng tôi sử dụng hàm <code>onError</code>gọi lại để đặt trạng thái thành không hợp lệ, vì vậy chúng tôi có thể hiển thị lỗi trong biểu mẫu. Mutation truyền một hàm cho con của nó (được đặt tên <code>login</code>ở đây) sẽ gọi mutation và đối số thứ hai là cùng một mảng các giá trị mà chúng ta sẽ nhận được từ <code>Query</code>. Nếu<code>data</code>được điền, điều đó có nghĩa là mutation đã được thực hiện thành công, vì vậy chúng tôi có thể lưu auth token và ID người dùng của mình với <code>setAuth</code>. Phần còn lại của biểu mẫu là React Bootstrap khá chuẩn - render các input và cập nhật các giá trị trạng thái khi thay đổi, hiển thị thông báo lỗi nếu người dùng cố đăng nhập nhưng thông tin đăng nhập của họ không hợp lệ.</p><p>Thế còn cái đó <code>AuthContext</code>? Khi người dùng đã xác thực, chúng tôi cần lưu trữ mã thông báo xác thực của họ ở phía client. GraphQL sẽ không thực sự giúp ích ở đây - tôi cần phải có auth token để xác thực request tiếp theo. Có thể kết nối Redux để lưu trữ mã thông báo ở trạng thái cục bộ, nhưng cảm giác đó là quá mức khi chúng tôi chỉ cần lưu trữ một giá trị. Thay vào đó, chúng tôi chỉ có thể sử dụng React context API để lưu trữ mã thông báo ở trạng thái gốc của ứng dụng và làm cho nó có sẵn khi cần.</p><p>Tiếp theo, hãy tạo một tệp tạo <code>AuthContext</code>:</p><pre><code>// client/src/util/context.js
+import { createContext } from "react";
+
+export const AuthContext = createContext(null);</code></pre><p>Và sau đó chúng tôi sẽ tạo một <code>StateProvider</code>HOC sẽ render ở root của ứng dụng - nó sẽ chịu trách nhiệm giữ và cập nhật trạng thái xác thực.</p><pre><code>// client/src/containers/StateProvider.js
+import React, { useEffect, useState } from "react";
+import { withApollo } from "react-apollo";
+import Cookies from "js-cookie";
+import { refreshSocket } from "util/apollo";
+import { AuthContext } from "util/context";
+
+const StateProvider = ({ client, socket, children }) =&gt; {
+  const [token, setToken] = useState(Cookies.get("token"));
+  const [userId, setUserId] = useState(Cookies.get("userId"));
+
+  // If the token changed (i.e. the user logged in
+  // or out), clear the Apollo store and refresh the
+  // websocket connection.
+  useEffect(() =&gt; {
+    if (!token) client.clearStore();
+    if (socket) refreshSocket(socket);
+  }, [token]);
+
+  const setAuth = (data) =&gt; {
+    if (data) {
+      const { id, token } = data;
+      Cookies.set("token", token);
+      Cookies.set("userId", id);
+      setToken(token);
+      setUserId(id);
+    } else {
+      Cookies.remove("token");
+      Cookies.remove("userId");
+      setToken(null);
+      setUserId(null);
+    }
+  };
+
+  return (
+    &lt;AuthContext.Provider value={{ token, userId, setAuth }}&gt;
+      {children}
+    &lt;/AuthContext.Provider&gt;
+  );
+};
+
+export default withApollo(StateProvider);</code></pre><p>Có rất nhiều thứ đang diễn ra ở đây. Đầu tiên, chúng ta tạo ra trạng thái cho cả <code>token</code>và <code>userId</code>của người sử dụng chứng thực. Chúng tôi khởi tạo trạng thái đó bằng cách đọc cookie, vì vậy chúng tôi có thể giữ cho người dùng đăng nhập trên các trang mới. Sau đó, chúng tôi thực hiện <code>setAuth</code>chức năng của chúng tôi . Nếu nó được gọi với <code>null</code>thì nó sẽ đăng xuất người dùng; nếu không, nó đăng nhập người dùng với được cung cấp <code>token</code>và <code>userId</code>. Dù bằng cách nào, nó cập nhật cả trạng thái cục bộ và cookie.</p><p>Có một thách thức lớn với xác thực và liên kết websocket Apollo. Tôi đã khởi tạo websocket bằng cách sử dụng tham số mã thông báo nếu được xác thực hoặc không có mã thông báo nếu người dùng đã đăng xuất. Nhưng khi trạng thái xác thực thay đổi, chúng ta cần đặt lại kết nối websocket để khớp. Nếu người dùng bắt đầu đăng xuất và sau đó đăng nhập, Tôi cần đặt lại websocket để được xác thực bằng mã thông báo mới của họ, để họ có thể nhận được cập nhật trực tiếp cho các hoạt động đăng nhập như các cuộc trò chuyện. Nếu họ bắt đầu đăng nhập và sau đó đăng xuất, chúng tôi cần đặt lại websocket để không được xác thực, vì vậy họ không tiếp tục nhận được cập nhật websocket cho tài khoản mà họ không đăng nhập. Điều này hiện thực hóa ra rất khó - không có giải pháp nào được ghi chép rõ ràng và tôi phải mất vài giờ để tìm ra thứ gì đó hiệu quả.</p><pre><code>// client/src/util.apollo.js
+export const refreshSocket = (socket) =&gt; {
+  socket.phoenixSocket.disconnect();
+  socket.phoenixSocket.channels[0].leave();
+  socket.channel = socket.phoenixSocket.channel("__absinthe__:control");
+  socket.channelJoinCreated = false;
+  socket.phoenixSocket.connect();
+};</code></pre><p>Nó ngắt kết nối Plug Phoenix, rời khỏi kênh Phoenix hiện tại để cập nhật GraphQL, tạo một kênh Phoenix mới (có cùng tên với kênh mặc định mà Abisnthe tạo khi thiết lập), đánh dấu rằng kênh này chưa được tham gia (vì vậy, absinthe tham gia lại kênh trên kết nối), và sau đó kết nối lại Plug. Plug Phoenix được cấu hình để tự động tìm kiếm mã thông báo trong cookie trước mỗi kết nối, do đó, khi kết nối lại, nó sẽ sử dụng trạng thái xác thực mới. Tôi thấy bực bội vì không có giải pháp tốt cho những gì có vẻ như là một vấn đề phổ biến, nhưng với một số nỗ lực thủ công, tôi đã làm cho nó hoạt động tốt.</p><p>Cuối cùng, <code>useEffect</code>trong <code>StateProvider</code>sẽ giúp <code>refreshSocket</code>. Đối số thứ hai <code>[token]</code>, bảo React đánh giá lại hàm mỗi khi <code>token</code>giá trị thay đổi. Nếu người dùng vừa đăng xuất, chúng tôi cũng gọi <code>client.clearStore()</code>để đảm bảo rằng máy khách Apollo không tiếp tục truy vấn bộ đệm ẩn chứa dữ liệu quyền, như các cuộc hội thoại hoặc tin nhắn của người dùng.</p><p>Và đó là khá nhiều tất cả là dành cho client. </p><h3 id="testing-client-side">Testing — client side</h3><p>Với <a href="https://jestjs.io/">jest</a> (bao gồm mặc định trong create-react-app); jest là một trình chạy test khá đơn giản và trực quan cho JavaScript. Nó cũng bao gồm một số tính năng nâng cao như intuitive test runner. Nó cung cấp một API đơn giản khuyến khích bạn render và thực hiện các Component theo quan điểm của người dùng (mà không đi sâu vào chi tiết triển khai của các Component). Ngoài ra, các phần trợ giúp của nó khéo léo thúc đẩy bạn để đảm bảo các Component của bạn có thể truy cập được, vì thật khó để có thể xử lý một nút DOM để tương tác với nó nếu nút thường không thể truy cập theo cách nào đó.</p><p>Chúng ta sẽ bắt đầu với một test đơn giản về Component <code>Loading</code> . Thành phần này chỉ hiển thị một số HTML tải tĩnh nên thực sự không có logic nào để kiểm tra; Tôi chỉ muốn đảm bảo rằng HTML hiển thị như mong đợi.</p><pre><code>// client/src/components/Loading.test.js
+import React from "react";
+import { render } from "react-testing-library";
+import Loading from "./Loading";
+
+describe("Loading", () =&gt; {
+  it("renders correctly", () =&gt; {
+    const { container } = render(&lt;Loading /&gt;);
+    expect(container.firstChild).toMatchSnapshot();
+  });
+});</code></pre><p>Khi bạn gọi <code>.toMatchSnapshot()</code>, jest sẽ tạo một tệp <code>__snapshots__/Loading.test.js.snap</code>để ghi lại trạng thái hiện tại. Các lần chạy thử tiếp theo sẽ so sánh đầu ra với snapshot được ghi lại và không test nếu snapshot không khớp. Tệp snapshot trông như thế này:</p><pre><code>// client/src/components/__snapshots__/Loading.test.js.snap
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading renders correctly 1`] = `
+&lt;div
+  class="d-flex justify-content-center"
+&gt;
+  &lt;div
+    class="spinner-border"
+    role="status"
+  &gt;
+    &lt;span
+      class="sr-only"
+    &gt;
+      Loading...
+    &lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+`;</code></pre><p>Trong trường hợp này, kiểm tra ảnh chụp nhanh không thực sự hữu ích, vì HTML không bao giờ thay đổi - mặc dù nó phục vụ để xác nhận rằng thành phần hiển thị không có lỗi. Trong các trường hợp nâng cao hơn, kiểm tra snapshot có thể rất hữu ích để đảm bảo rằng bạn chỉ thay đổi đầu ra component khi bạn định làm như vậy - ví dụ: nếu bạn đang cấu trúc lại logic bên trong thành phần của mình nhưng hy vọng đầu ra không thay đổi, snapshot test sẽ cho bạn biết nếu bạn đã phạm sai lầm.</p><p>Tiếp theo, chúng ta hãy xem xét một test cho một thành phần được kết nối Apollo. Đây là nơi mọi thứ trở nên phức tạp hơn một chút; thành phần này dự kiến ​​sẽ có một Apollo client trong ngữ cảnh của nó và chúng ta cần mô phỏng các truy vấn để đảm bảo thành phần xử lý chính xác các phản hồi.</p><pre><code>// client/src/components/Posts.test.js
+import React from "react";
+import { render, wait } from "react-testing-library";
+import { MockedProvider } from "react-apollo/test-utils";
+import { MemoryRouter } from "react-router-dom";
+import tk from "timekeeper";
+import { Subscriber } from "containers";
+import { AuthContext } from "util/context";
+import Posts, { GET_POSTS, POSTS_SUBSCRIPTION } from "./Posts";
+
+jest.mock("containers/Subscriber", () =&gt;
+  jest.fn().mockImplementation(({ children }) =&gt; children),
+);
+
+describe("Posts", () =&gt; {
+  beforeEach(() =&gt; {
+    tk.freeze("2019-04-20");
+  });
+
+  afterEach(() =&gt; {
+    tk.reset();
+  });
+
+  // ...
+});</code></pre><p>Bắt đầu với một số import và mock. Mock là để ngăn Component  <code>Posts</code> được subscription  trừ khi tôi muốn. Đây là một lĩnh vực mà tôi đã có rất nhiều thất vọng - Apollo có tài liệu để mocking các query và mutation, nhưng không nhiều bằng cách mocking subscription và tôi thường gặp phải các lỗi nội bộ khó hiểu, khó theo dõi. Tôi chưa bao giờ có thể tìm ra cách giả mạo các truy vấn một cách đáng tin cậy khi tôi chỉ muốn thành phần thực hiện truy vấn ban đầu của nó (và <em>không</em> mock nó để nhận được cập nhật từ đăng ký của nó).</p><p>Mặc dù vậy, chúng cực kỳ hữu ích cho các trường hợp như thế này. Tôi có một <code>Subscriber</code>thành phần thường gọi <code>subscribeToNew</code>prop sau khi nó gắn kết và sau đó trả về các con của nó:</p><pre><code>// client/src/containers/Subscriber.js
+import { useEffect } from "react";
+
+const Subscriber = ({ subscribeToNew, children }) =&gt; {
+  useEffect(() =&gt; {
+    subscribeToNew();
+  }, []);
+
+  return children;
+};
+
+export default Subscriber;</code></pre><p>Vì vậy, trong test của mình, tôi chỉ mock việc thực hiện thành phần này để trả lại cho children mà không cần gọi <code>subscribeToNew</code>.</p><p>Cuối cùng, tôi đang sử dụng <code>timekeeper</code>để đóng băng thời gian xung quanh mỗi bài kiểm tra - Component <code>Posts</code> hiển thị một số văn bản dựa trên mối quan hệ của thời gian đăng bài với thời gian hiện tại (ví dụ: hai ngày trước, trước đó), vì vậy tôi cần đảm bảo bài kiểm tra luôn chạy thời gian trên cùng một thời gian, hoặc các ảnh chụp nhanh sẽ thường xuyên fail khi thời gian trôi qua.</p><pre><code>// client/src/components/Posts.test.js
+// ...
+
+describe("Posts", () =&gt; {
+  // ...
+
+  it("renders correctly when loading", () =&gt; {
+    const { container } = render(
+      &lt;MemoryRouter&gt;
+        &lt;AuthContext.Provider value={{}}&gt;
+          &lt;MockedProvider mocks={[]} addTypename={false}&gt;
+            &lt;Posts /&gt;
+          &lt;/MockedProvider&gt;
+        &lt;/AuthContext.Provider&gt;
+      &lt;/MemoryRouter&gt;,
+    );
+    expect(container).toMatchSnapshot();
+  });
+
+  // ...
+});</code></pre><p>Test đầu tiên của tôi kiểm tra loading state. Chúng ta phải gói nó trong một vài HOC - <code>MemoryRouter</code>cung cấp bộ định tuyến mô phỏng cho bất kỳ <code>Link</code> nào và <code>Route</code> React Router nào ; <code>AuthContext.Provider</code>trong đó cung cấp trạng thái xác thực; và <code>MockedProvider</code>từ Apollo. Vì chúng tôi đang snapshot và quay lại, chúng tôi thực sự không cần phải mock bất cứ điều gì; snapshot sẽ chỉ chụp loading state trước khi Apollo có cơ hội thực hiện truy vấn.</p><pre><code>// client/src/components/Posts.test.js
+// ...
+
+describe("Posts", () =&gt; {
+  // ...
+
+  it("renders correctly when loaded", async () =&gt; {
+    const mocks = [
+      {
+        request: {
+          query: GET_POSTS,
+        },
+        result: {
+          data: {
+            posts: [
+              {
+                id: 1,
+                body: "Thoughts",
+                insertedAt: "2019-04-18T00:00:00",
+                user: {
+                  id: 1,
+                  name: "John Smith",
+                  gravatarMd5: "abc",
+                },
+              },
+            ],
+          },
+        },
+      },
+    ];
+    const { container, getByText } = render(
+      &lt;MemoryRouter&gt;
+        &lt;AuthContext.Provider value={{}}&gt;
+          &lt;MockedProvider mocks={mocks} addTypename={false}&gt;
+            &lt;Posts /&gt;
+          &lt;/MockedProvider&gt;
+        &lt;/AuthContext.Provider&gt;
+      &lt;/MemoryRouter&gt;,
+    );
+    await wait(() =&gt; getByText("Thoughts"));
+    expect(container).toMatchSnapshot();
+  });
+
+  // ...
+});</code></pre><p>Đối với thử nghiệm này, tôi snapshot màn hình sau khi tải xong và bài viết đang được hiển thị. Đối với điều này, tôi phải thực hiện thử nghiệm của mình <code>async</code>và sau đó sử dụng <a href="https://testing-library.com/react">react-testing-library</a> <code>wait</code>để chờ tải kết thúc. <code>wait(() =&gt; ...)</code>sẽ đơn giản thử lại chức năng cho đến khi nó không bị lỗi. Khi văn bản đã xuất hiện, chúng tôi snapshot toàn bộ thành phần để đảm bảo đó là những gì mong đợi.</p><pre><code>// client/src/components/Posts.test.js
+// ...
+
+describe("Posts", () =&gt; {
+  // ...
+
+  it("renders correctly after created post", async () =&gt; {
+    Subscriber.mockImplementation((props) =&gt; {
+      const { default: ActualSubscriber } = jest.requireActual(
+        "containers/Subscriber",
+      );
+      return &lt;ActualSubscriber {...props} /&gt;;
+    });
+
+    const mocks = [
+      {
+        request: {
+          query: GET_POSTS,
+        },
+        result: {
+          data: {
+            posts: [
+              {
+                id: 1,
+                body: "Thoughts",
+                insertedAt: "2019-04-18T00:00:00",
+                user: {
+                  id: 1,
+                  name: "John Smith",
+                  gravatarMd5: "abc",
+                },
+              },
+            ],
+          },
+        },
+      },
+      {
+        request: {
+          query: POSTS_SUBSCRIPTION,
+        },
+        result: {
+          data: {
+            postCreated: {
+              id: 2,
+              body: "Opinions",
+              insertedAt: "2019-04-19T00:00:00",
+              user: {
+                id: 2,
+                name: "Jane Thompson",
+                gravatarMd5: "def",
+              },
+            },
+          },
+        },
+      },
+    ];
+    const { container, getByText } = render(
+      &lt;MemoryRouter&gt;
+        &lt;AuthContext.Provider value={{}}&gt;
+          &lt;MockedProvider mocks={mocks} addTypename={false}&gt;
+            &lt;Posts /&gt;
+          &lt;/MockedProvider&gt;
+        &lt;/AuthContext.Provider&gt;
+      &lt;/MemoryRouter&gt;,
+    );
+    await wait(() =&gt; getByText("Opinions"));
+    expect(container).toMatchSnapshot();
+  });
+});</code></pre><p>Cuối cùng, test subcription, để đảm bảo các subcruption của các Component như mong đợi khi nhận được bài đăng mới. Trong trường hợp này, chúng ta cần cập nhật bản <code>Subscription</code>giả để nó thực sự trả về việc thực hiện ban đầu và subcruptin Component để cập nhật. Chúng tôi cũng giả định một <code>POSTS_SUBSCRIPTION</code>truy vấn để mô phỏng đăng ký nhận được một bài đăng mới. Cuối cùng, tương tự như bài kiểm tra cuối cùng, chúng tôi chờ các truy vấn giải quyết (và văn bản từ bài đăng mới xuất hiện) và sau đó chụp nhanh HTML.</p><p>jest và Reac-tests-library rất mạnh mẽ và giúp bạn dễ dàng thực hiện các thành phần.  Apollo test có một chút rắc rối, nhưng với một số cách sử dụng khôn ngoan, tôi đã có thể viết một bài kiểm tra khá chắc chắn, thực hiện tất cả các trường hợp thành phần chính.</p><p></p><h3 id="server-side-rendering">Server-side rendering</h3><p>Có thêm một vấn đề với client app. Tất cả HTML được hiển thị ở phía client. HTML được trả về từ máy chủ chỉ là một <code>index.html</code>tệp trống có <code>&lt;script&gt;</code>thẻ để tải JavaScript thực sự kết xuất mọi thứ. Điều này rất tốt trong development, nhưng không tốt cho production - ví dụ, nhiều công cụ tìm kiếm không tuyệt vời trong việc chạy JavaScript và lập chỉ mục nội dung do khách hàng kết xuất. Những gì chúng tôi thực sự muốn là server trả về HTML được hiển thị đầy đủ cho trang và sau đó React có thể đảm nhận phía client để xử lý các tương tác và routing của người dùng tiếp theo.</p><p>Đây là nơi xuất hiện khái niệm Server-side rendering (hoặc SSR). Về cơ bản, thay vì phục vụ tệp chỉ mục HTML tĩnh, chúng tôi route các yêu cầu đến máy chủ Node.js. Máy chủ render các Component (giải quyết bất kỳ truy vấn nào đến điểm cuối GraphQL) và trả về HTML đầu ra, cùng với <code>&lt;script&gt;</code>thẻ để tải JavaScript. Khi JavaScript tải trên máy khách, nó sẽ hydrat hóa thay vì hiển thị hoàn toàn từ đầu - có nghĩa là nó giữ HTML hiện có do máy chủ cung cấp và kết nối nó với cây React phù hợp. Cách tiếp cận này cho phép các công cụ tìm kiếm dễ dàng lập chỉ mục HTML kết xuất của máy chủ và cũng cung cấp trải nghiệm nhanh hơn cho người dùng vì họ không phải chờ JavaScript tải xuống, thực thi và chạy truy vấn trước khi hiển thị nội dung trang.</p><p>Tôi thấy cấu hình SSR là một thứ gì đó vẫn khó khăn - không có gì được chuẩn hóa tốt. Tôi đã gỡ bỏ hầu hết cấu hình của ứng dụng của mình từ <a href="https://github.com/cereallarceny/cra-ssr">cra-ssr</a> , nó cung cấp triển khai SSR khá toàn diện cho các ứng dụng được khởi động với create-react-app. Tôi sẽ không đào sâu quá ở đây. Chỉ cần nói rằng SSR là tuyệt vời và làm cho ứng dụng cảm thấy cực kỳ nhanh để tải, nhưng làm cho nó hoạt động vẫn còn một chút khó khăn.</p><h3 id="k-t-lu-n-v-nh-gi-">Kết luận và đánh giá</h3><p>Cảm ơn vì đã đọc đến đây! Có rất nhiều nội dung ở đây. Nếu bạn có thắc mắc, vui lòng để lại trong phần bình luận và tôi sẽ làm tốt nhất để trả lời.</p><p>Tôi đã gặp rất nhiều khó khăn khi tìm cách lấy websocket để xác định lại kết nối của nó khi thay đổi trạng thái xác thực; cảm giác này giống như một trường hợp khá phổ biến nên được ghi lại ở đâu đó, nhưng tôi không thể tìm thấy gì. Tương tự, tôi gặp nhiều rắc rối xung quanh việc test subscription, và cuối cùng đã từ bỏ và sử dụng mock. Các tài liệu xung quanh việc test là tuyệt vời, nhưng tôi thấy nó còn nông cạn khi tôi bắt đầu làm việc thông qua các trường hợp sử dụng nâng cao hơn. Đôi khi tôi cũng bị bối rối vì thiếu tài liệu API cơ bản, một phần rơi vào Apollo và một phần trên thư viện phía client của absinthe. Khi nghiên cứu cách đặt lại kết nối websocket, tôi không thể tìm thấy bất kỳ tài liệu API nào cho các trường hợp Plug absinthe hoặc các trường hợp liên kết Apollo chẳng hạn; Tôi về cơ bản chỉ cần đọc qua tất cả các mã nguồn trên GitHub. Trải nghiệm của tôi với Apollo tốt hơn nhiều so với trải nghiệm của tôi với Relay vài năm trước - nhưng lần sau khi tôi sử dụng nó, tôi vẫn sẽ tự chuẩn bị một chút cho thực tế rằng tôi sẽ cần dành thời gian</p><p>Với tất cả những gì đã nói, trên toàn bộ tôi cho điểm này rất cao, và tôi thực sự thích làm việc trong dự án này. Elixir và Phoenix được làm mới để sử dụng, nhưng tôi thực sự thích một số tính năng ngôn ngữ của Elixir như pattern matching và pipe operator. Elixir có rất nhiều ý tưởng mới (và nhiều khái niệm từ function programing) giúp bạn dễ dàng viết mã đẹp. Absinthe được triển khai rất tốt với tài liệu âm thanh và nó bao gồm tất cả các trường hợp sử dụng hợp lý xung quanh việc triển khai GraphQL server. Nhìn chung, tôi thấy rằng GraphQL mang đến rất nhiều hứa hẹn. Thật dễ dàng để truy vấn dữ liệu tôi cần cho mỗi trang và cũng dễ dàng kết nối các bản cập nhật trực tiếp thông qua subcription. Tôi luôn thích làm việc với React và React Router, và lần này cũng không khác - chúng giúp dễ dàng xây dựng các giao diện người dùng phức tạp. Cuối cùng, tôi rất hài lòng với kết quả chung - với tư cách là người dùng, ứng dụng của tôi rất nhanh để tải và điều hướng và mọi thứ cập nhật trực tiếp nên tôi không bao giờ không đồng bộ. Nếu thước đo cuối cùng của ngăn xếp công nghệ là trải nghiệm người dùng mang lại kết quả, thì tôi muốn nói rằng sự kết hợp này là một thành công lớn.</p><p></p><h3 id="t-i-li-u-tham-kh-o">Tài liệu tham khảo</h3><ul><li><a href="https://blog.whatsapp.com/196/1-million-is-so-2011">https://blog.whatsapp.com/196/1-million-is-so-2011</a></li><li><a href="https://elixirschool.com/en/lessons/basics/pattern-matching">https://elixirschool.com/en/lessons/basics/pattern-matching</a></li><li><a href="https://elixirschool.com/en/lessons/basics/pipe-operator">https://elixirschool.com/en/lessons/basics/pipe-operator</a></li><li><a href="https://github.com/ueberauth/guardian">https://github.com/ueberauth/guardian</a></li><li><a href="https://tosbourn.com/testing-absinthe-exunit/">https://tosbourn.com/testing-absinthe-exunit/</a></li><li><a href="https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe">https://www.smoothterminal.com/articles/building-a-forum-elixir-graphql-backend-with-absinthe</a></li><li><a href="https://github.com/cereallarceny/cra-ssr">https://github.com/cereallarceny/cra-ssr</a></li><li><a href="https://www.hellosign.com/blog/the-new-web-elixir-phoenix-channels-and-redux">https://www.hellosign.com/blog/the-new-web-elixir-phoenix-channels-and-redux</a></li></ul>
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html ⚡>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Create Slack App Using Google Apps Script and Google Spreadsheet</title>
+
+    <meta name="description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <link rel="canonical" href="../index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Create Slack App Using Google Apps Script and Google Spreadsheet" />
+    <meta property="og:description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2017-11-22T01:14:00.000Z" />
+    <meta property="article:modified_time" content="2017-11-22T01:37:56.000Z" />
+    <meta property="article:tag" content="Google Apps Script" />
+    <meta property="article:tag" content="Slack" />
+    <meta property="article:tag" content="Slack App" />
+    <meta property="article:tag" content="Slack Bot" />
+    <meta property="article:tag" content="Google Spreadsheet" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Create Slack App Using Google Apps Script and Google Spreadsheet" />
+    <meta name="twitter:description" content="Hãy cùng tìm hiểu cách tạo Slack App (Slack Bot) bằng Google Apps Script và Google Spreadsheet thông qua ứng dụng quản lý Todo trong team, công ty." />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Enso" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="Google Apps Script, Slack, Slack App, Slack Bot, Google Spreadsheet" />
+    <meta property="og:image:width" content="768" />
+    <meta property="og:image:height" content="432" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Enso",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkQmpEeUM3Tko4SzQ&export=download",
+            "width": 762,
+            "height": 768
+        },
+        "url": "https://blog.vietnamlab.vn/author/enso/",
+        "sameAs": []
+    },
+    "headline": "Create Slack App Using Google Apps Script and Google Spreadsheet",
+    "url": "https://blog.vietnamlab.vn/nghich-cung-google-apps-script-p2-google-spreadsheet-ft-slack-app/",
+    "datePublished": "2017-11-22T01:14:00.000Z",
+    "dateModified": "2017-11-22T01:37:56.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkTy1xM2I0Q0h0QlE&export=download",
+        "width": 768,
+        "height": 432
+    },
+    "keywords": "Google Apps Script, Slack, Slack App, Slack Bot, Google Spreadsheet",
+    "description": "* Phần 1: Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google\n   Calendar\n   [https://vietnamlab.vn/blog/2017/09/05/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/]\n\n1. Lợi điểm khi sử dụng GAS\nChào các bạn, sau hai tháng kể từ bài viết đầu tiên, Enso đã trở lại với bài\nviết thứ hai về Google Apps Script (GAS).\n\nTrong bài viết này, Enso sẽ trình bày về cách tạo Slack Bot bằng GAS. Để tạo Bot\nnói chung hay Slack Bot nói riêng có khá nhiều cách. Trong bài viết Tạo S",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html" />
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../index.html">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Nghịch cùng Google Apps Script (P2) : Google Spreadsheet ft. Slack App</h1>
+                <section class="post-meta">
+                    Enso -
+                    <time class="post-date" datetime="2017-11-22">22 Nov 2017</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id&#x3D;0B05rqFCwNCjkTy1xM2I0Q0h0QlE&amp;export&#x3D;download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <ul>
+<li>Phần 1: <a href="https://vietnamlab.vn/blog/2017/09/05/nghich-cung-google-apps-script-google-sheet-ft-google-calendar/">Nghịch cùng Google Apps Script (P1) : Google Spreadsheet ft. Google Calendar</a></li>
+</ul>
+<h3 id="1liimkhisdnggas">1. Lợi điểm khi sử dụng GAS</h3>
+<p>Chào các bạn, sau hai tháng kể từ bài viết đầu tiên, Enso đã trở lại với bài viết thứ hai về Google Apps Script (GAS).</p>
+<p>Trong bài viết này, Enso sẽ trình bày về cách tạo Slack Bot bằng GAS. Để tạo Bot nói chung hay Slack Bot nói riêng có khá nhiều cách. Trong bài viết <a href="https://vietnamlab.vn/blog/2017/02/02/tao-skype-bot-voi-microsoft-bot-framework/">Tạo Skype Bot với Microsoft Bot Framework</a>, <a href="https://vietnamlab.vn/blog/author/longtv/">KYO</a> trình bày về cách tạo Bot với Microsoft Bot Framework. Vậy dùng GAS để tạo Slack Bot có lợi điểm gì? Có thể kể đến những lợi điểm sau:</p>
+<ul>
+<li>Không cần phải có hosting riêng, tất cả đều hoạt động trên server của Google.</li>
+<li>Liên kết dễ dàng với các dịch vụ khác của Google (Google Spreadsheet, Google Form, Google Calendar, Gmail,...).</li>
+<li>Dễ dàng thiết lập trigger (giống như cronjob trong linux hay nodejs).</li>
+</ul>
+<p>Enso sẽ sử dụng lại ví dụ của KYO để trình bày cách tạo Slack Bot bằng GAS, đó là ví dụ Quản lý Todo của công ty.</p>
+<h3 id="2ngdngqunltodocacngty">2. Ứng dụng quản lý Todo của công ty</h3>
+<p>Công ty quản lý các task trên Google Spreadsheet. Bot sẽ có các chức năng chính sau:</p>
+<ul>
+<li>Liệt kê danh sách các task có trạng thái Active.</li>
+<li>Thêm một task mới.</li>
+<li>Cập nhật trạng thái của một task (<em>Active, Done, Cancel</em>).</li>
+<li>Xoá một task.</li>
+<li>Vào một thời điểm trong ngày, tự động liệt kê danh sách các task có trạng thái Active.</li>
+</ul>
+<p>Trước khi bắt đầu, chúng ta cần chuẩn bị:</p>
+<ul>
+<li>Một số kiến thức cơ bản về JavaScript.</li>
+<li>Tài khoản Google.</li>
+<li>Quyền tích hợp ứng dụng vào Slack team (Chúng ta có thể tạo một team slack hoàn toàn miễn phí tại <a href="https://slack.com/create">đây</a>).</li>
+</ul>
+<h3 id="3ccbcthchin">3. Các bước thực hiện</h3>
+<h4 id="31togooglespreadsheetqunltodo">3.1. Tạo Google Spreadsheet quản lý Todo</h4>
+<p><amp-img src="https://drive.google.com/uc?id=1Mch2_aiB7ZVXbEZYgwwdmD5eHba50GsB&amp;export=download" alt="Create-Google-Sheet" width="2362" height="594" layout="responsive"></amp-img></p>
+<ul>
+<li>Đầu tiên chúng ta cần tạo một spreadsheet mới. Các task sẽ được lưu theo từng dòng.</li>
+<li>Dòng đầu tiên là tên các cột (ID, Created time, Due time, Created user, Task, Participant, Note, Status).</li>
+<li>Để tiện theo dõi, chúng ta có thể ghim dòng đầu tiên lại bằng <code>View -&gt; Freeze -&gt; 1 row</code>.</li>
+<li>Tiếp đó chúng ta tạo dữ liệu cho cột Status như sau:</li>
+<li>Chọn toàn bộ cột Status (cột H)</li>
+<li>Chọn <code>Data -&gt; Data validation.. -&gt; Criteria: List of items</code></li>
+<li>Nhập dữ liệu <em>Active, Done,Cancel</em></li>
+<li>Lúc này cell H1 sẽ báo lỗi vì tên cột là Status không hợp lệ. Chọn cell H1, chọn <code>Data -&gt; Data validation.. -&gt; Remove validation</code></li>
+</ul>
+<h4 id="32toscriptproject">3.2 Tạo script project</h4>
+<p>Tiếp theo chúng ta sẽ tạo một script project từ <code>Tools -&gt; Script editor...</code>. Sau khi project được tạo, ta đặt tên cho project, đổi tên file thành <code>main.gs</code>, xoá code mặc định được sinh ra và thêm vào dòng code sau:</p>
+<pre><code>function doPost(request) {
+  var params = request.parameters;
+
+  // MORE CODE WILL GO HERE
+
+  return ContentService.createTextOutput().setMimeType(ContentService.MimeType.JSON);
+}
+</code></pre>
+<p>Hãy cùng tìm hiểu các dòng code này.</p>
+<ul>
+<li>Hàm <code>doPost(request)</code> nhận và xử lý dữ liệu được truyền qua POST request. Sau khi script project được triển khai dưới dạng ứng dụng web, GAS sẽ mặc định gọi hàm này khi nhận được POST request.</li>
+<li><code>request.parameters</code> object chứa toàn bộ payload / data của POST request.</li>
+<li>Câu lệnh <code>return</code> để tránh Slack sẽ báo lỗi <code>The script completed but did not return anything.</code></li>
+</ul>
+<p>Tiếp theo, chúng ta triển khai script project dưới dạng ứng dụng web. Chọn <code>Publish -&gt; Deploy as web app...</code>, các thông số thiết lập như sau:</p>
+<ul>
+<li>Project version: <strong>New</strong></li>
+<li>Execute the app as: <strong>Me</strong></li>
+<li>Who has access to the app: <strong>Anyone, even anonymous</strong></li>
+</ul>
+<p>Sau khi triển khai xong, chúng ta sẽ lưu lại <strong>Current web app URL</strong> để thiết lập ở bước kế tiếp.</p>
+<h4 id="33ngkslackapp">3.3 Đăng ký Slack app</h4>
+<p>Trong nhiều bài hướng dẫn cũ, Outgoing Webhooks được sử dụng để gửi dữ liệu ra bên ngoài. Tuy nhiên hiện tại theo như <a href="https://api.slack.com/custom-integrations/outgoing-webhooks">tài liệu hướng dẫn</a> của Slack, cách này đã cũ và có nhiều hạn chế, không tận dụng được nhiều tính năng. Và hiện tại, Enso tìm mãi mà không còn tìm thấy nơi thiết lập Outgoing Webhooks. Do đó, chúng ta sẽ sử dụng Slack app để triển khai ứng dụng quản lý Todo.</p>
+<p><strong>Bước 1</strong>: Đăng nhập vào trang quản lý Slack và truy cập vào <a href="https://api.slack.com/apps/new">https://api.slack.com/apps/new</a> để tạo mới ứng dụng<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQVhYLUVjOEljZ0U&amp;export=download" alt="Create-new-slack-app" width="575" height="573" layout="responsive"></amp-img></p>
+<ul>
+<li>App Name: tuỳ chọn</li>
+<li>Development Slack Workspace: chọn team mà chúng ta sẽ tích hợp Slack app này vào.</li>
+</ul>
+<p><strong>Bước 2</strong>: Sau khi bấm nút [Create App], chúng ta sẽ được chuyển tới trang thiết lập thông tin cơ bản (Basic Information) cho Slack App này.</p>
+<ul>
+<li>Tìm và lưu <strong>Verification Token</strong> trong mục <strong>App Credentials</strong>. Token này sẽ được gửi kèm theo dữ liệu tới ứng dụng web. Chúng ta sẽ sử dụng token để kiểm tra xem dữ liệu nhận được có đúng là của Slack app của chúng ta hay không.</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWndiSlJnWUY5S28&amp;export=download" alt="Verification-Token" width="1510" height="978" layout="responsive"></amp-img></p>
+<ul>
+<li>Chúng ta cũng có thể cập nhật thêm thông tin cho Slack app ở mục <strong>Display Information</strong>, ví dụ như thêm app icon, chỉnh background color (chú ý là app icon phải là hình vuông, có kích thước trong khoảng 512px tới 2000px)</li>
+</ul>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkVUR5TkRxcXZFSkE&amp;export=download" alt="App-Icon" width="1502" height="862" layout="responsive"></amp-img></p>
+<p><strong>Bước 3</strong>: Để gửi dữ liệu tới ứng dụng web, thay vì sử dụng Outgoing Webhook, chúng ta sẽ đăng ký Slack command cho Slack app bằng cách chọn <strong>Slack Commands</strong> trong mục <strong>Features</strong> và bấm <strong>Create New Command</strong>.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkQmJrRUczcGlwVUU&amp;export=download" alt="Create-Slack-Command" width="533" height="784" layout="responsive"></amp-img></p>
+<ul>
+<li>Command: bắt đầu bởi /</li>
+<li>Request URL: là địa chỉ nhận POST request khi thực thi Slack command. Ở đây chính là <strong>Current web app URL</strong> được lưu lại tại mục 3.2</li>
+<li>Short Description: mô tả ngắn gọn về Slack command</li>
+<li>Usage Hint: liệt kê các chức năng được hỗ trợ.</li>
+</ul>
+<p><strong>Bước 4</strong>: Đăng ký Incoming Webhook để nhận tin nhắn từ ứng dụng web bằng cách chọn <strong>Incoming Webhooks</strong> trong mục <strong>Feature</strong>, kích hoạt Incoming Webhooks và bấm <strong>Add New Webhook to Workspace</strong>.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkYnlha3RzSTRlZjQ&amp;export=download" alt="Add-New-Webhook" width="470" height="430" layout="responsive"></amp-img></p>
+<ul>
+<li>Post to: chọn channel mà Slack app sẽ được tích hợp.</li>
+</ul>
+<p>Sau khi tạo Incoming Webhook xong, chúng ta sẽ thu được Webhook URL. URL này được ứng dụng web sử dụng để gửi tin nhắn vào channel của Slack.</p>
+<p>Tại thời điểm này, để kiểm tra có thể gửi được tin nhắn thông qua Webhook URL hay không, chúng ta có thể chạy câu lệnh trong <strong>Sample curl request to post to a channel</strong>.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkWFFCMTFsdTNsVVE&amp;export=download" alt="Webhook URL" width="1420" height="896" layout="responsive"></amp-img><br />
+Ngoài <em><strong>Incoming Webhooks</strong></em> và <em><strong>Slack Commands</strong></em>, Slack app còn hỗ trợ các tính năng khác như <em><strong>Interactive Components, OAuth &amp; Permissions, Event Subscriptions, Bot Users, etc.</strong></em> cùng với kho API phong phú. Tuy nhiên bởi tính năng đơn giản của ứng dụng quản lý Todo, chúng ta không sử dụng đến chúng. Nếu các bạn có ý định phát triển những ứng dụng phức tạp hơn, có thể tham khảo <a href="https://api.slack.com/">api document</a> hay <a href="https://api.slack.com/tutorials">các tutorial</a> của Slack.</p>
+<h4 id="34citccchcnngcangdngqunltodo">3.4. Cài đặt các chức năng của ứng dụng quản lý Todo</h4>
+<p>Ứng dụng quản lý Todo sẽ hoạt động như sau. Trong channel của Slack team (ví dụ #todo), các thành viên sử dụng câu lệnh <strong>/todo</strong> để giao tiếp với ứng dụng web. Để nắm được cách sử dụng câu lệnh, gõ <strong>/todo help</strong>, ứng dụng web sẽ gửi về channel hướng dẫn như hình bên dưới.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkNUdaZ1prTmpUYWc&amp;export=download" alt="todo-help" width="1830" height="1036" layout="responsive"></amp-img><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeGNoSFBUcnZxQzg&amp;export=download" alt="todo-commands" width="741" height="848" layout="responsive"></amp-img></p>
+<p>Về cài đặt chi tiết, Enso đã đưa code lên trên Github (<a href="https://github.com/ensozen/todo-slackapp">https://github.com/ensozen/todo-slackapp</a>). Các bạn có thể tham khảo để nắm được rõ hơn logic hoạt động của ứng dụng.</p>
+<h4 id="35mtsvncnch">3.5. Một số vấn đề cần chú ý</h4>
+<h5 id="351projectproperties">3.5.1. Project Properties</h5>
+<p>Với các hằng số, đặc biệt các hằng số lưu thông tin config "nhạy cảm" như <em>Verification Token</em> của Slack app, ID của Spreadsheet file hay <em>Incoming Webhook URL</em>, mặc dù có thể sử dụng trực tiếp trong code nhưng để tiện cho việc chia sẻ code, quản lý và thay đổi về sau, chúng ta nên sử dụng Properties Service của GAS.</p>
+<p>Properties service cung cấp cho chúng ta một cơ chế để lưu dữ liệu trong cặp (key-value). Có ba loại properties như sau:</p>
+<ul>
+<li><strong>Script properties</strong>: dữ liệu được chia sẻ giữa tất cả user của một script, một add-on, hay một ứng dụng web. Ví dụ: thông tin config cho toàn bộ ứng dụng web như username, password của database,…</li>
+<li><strong>User properties</strong>: dữ liệu được phân biệt đối với từng user của một script, một add-on, hay một ứng dụng web. Ví dụ: thông tin config của từng user như ngôn ngữ, theme,…</li>
+<li><strong>Document properties</strong>: dữ liệu được chia sẻ giữa tất cả user của một add-on trong một document đang mở. Ví dụ: thông tin config của từng document như URL của đồ thị nhúng trong document.</li>
+</ul>
+<p>Đối với ứng dụng quản lý Todo, chúng ta sẽ sử dụng Script properties. Để thêm một property qua giao diện của Script Editor, ta chọn <code>File -&gt; Project properties -&gt; Script properties</code> và bấm [<strong>Add row</strong>]</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVVXUFphWDE5NDQ&amp;export=download" alt="Properties" width="1370" height="854" layout="responsive"></amp-img></p>
+<p>API của Properties Service, các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/reference/properties/">đây</a>. Tất nhiên ta cũng có thể thêm một property thông qua các API này.</p>
+<h5 id="352lmvicvithvinbnngoiscriptproject">3.5.2. Làm việc với thư viện bên ngoài script project</h5>
+<p>Trong ứng dụng quản lý Todo, để thao tác, xử lý với dữ liệu date, datetime, Enso sử dụng <a href="https://momentjs.com/">thư viện momentjs</a>. Đây là một thư viện rất mạnh về xử lý dữ liệu date, datetime. Tuy nhiên điều mà Enso muốn đề cập ở đây không phải là về thư viện này mà là về cách thêm và sử dụng thư viện bên ngoài trong GAS script project. Có hai loại thư viện bên ngoài như sau:</p>
+<ul>
+<li>Loại thứ nhất: Thư viện là các GAS script project được người khác chia sẻ. Để sử dụng các thư viện này, chúng ta cần phải biết được <strong>project key</strong> của chúng. Ví dụ, có một thư viện về Slack API được viết cho GAS khá nổi tiếng là <a href="https://github.com/soundTricker/SlackApp">SlackApp</a>, nếu chúng ta muốn sử dụng thư viện này, chọn <code>Resources -&gt; Libraries…</code> và nhập project key và bấm [<strong>Add</strong>]. Sau đó chọn Version muốn sử dụng (hiện tại Version mới nhất là 22). <em>Identifier</em> chính là từ khoá giúp chúng ta gọi tới API của thư viện này từ project của chúng ta.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkUEdYSkk2SThQNUE&amp;export=download" alt="Slack API Lib for GAS" width="1358" height="812" layout="responsive"></amp-img><br />
+Tuy nhiên theo như khuyến cáo của Google, việc sử dụng các thư viện ngoài như thế này sẽ ảnh hưởng lớn tới tốc độ của ứng dụng, do đó chúng ta nên hạn chế sử dụng nhất có thể. Enso cũng không sử dụng thư viện SlackApp này mà tự viết lại code.</li>
+</ul>
+<p>Chi tiết về loại thư viện thứ nhất này, các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/guides/libraries">đây</a></p>
+<ul>
+<li>Loại thứ hai: chính là các thư viện js như momentjs được Enso sử dụng trong project. Để thêm thư viện này vào trong project chúng ta sử dụng hàm <code>eval()</code>.</li>
+</ul>
+<p>Hàm <code>eval()</code> trong javascript về cơ bản chuyển một string thành code. Bằng cách sử dụng hàm này, chúng ta đã thêm tất cả code của thư viện js vào GAS project, do đó không làm ảnh hưởng tới tốc độ, hiệu năng xử lý của ứng dụng như loại thứ nhất.</p>
+<pre><code>eval(UrlFetchApp.fetch('https://momentjs.com/downloads/moment.min.js').getContentText());
+</code></pre>
+<h5 id="353triggers">3.5.3. Triggers</h5>
+<p>Triggers là một cơ chế giúp Apps Script thực hiện các hàm một cách tự động khi một sự kiện nào đó xảy ra.</p>
+<p>Ví dụ đối với script project triển khai dưới dạng ứng dụng web như ứng dụng quản lý Todo của chúng ta, khi một ứng dụng nào đó gửi một POST request tới thì hàm <code>doPost()</code> sẽ được tự động thực thi.</p>
+<p>Đối với ứng dụng quản lý Todo, một yêu cầu được đặt ra là vào các thời điểm nào đó trong ngày (ví dụ 7-8h sáng và 16-17h chiều), ứng dụng sẽ tự động gửi danh sách các task có trạng thái Active đến channel của Slack. Có hai cách để thực hiện: thông qua giao diện của Script Editor và thông qua code.</p>
+<p><strong>Cách 1</strong>: Chọn <code>Edit -&gt; Current project's triggers</code> và bấm [<em>No triggers set up. Click here to add one now</em>]. Ví dụ để  trong khoảng , chúng ta sẽ thêm hai trigger như sau:<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVE0cXVGajA4aEk&amp;export=download" alt="triggers" width="1704" height="610" layout="responsive"></amp-img></p>
+<p><strong>Cách 2</strong>: Có thể tạo trigger bằng code. Để tạo hai trigger giống như Cách 1, chúng ta sẽ viết code như trong file <code>trigger.gs</code></p>
+<pre><code>function createTimeDrivenTriggers() {
+  // Trigger 07:00 -&gt; 08:00.
+  ScriptApp.newTrigger('postTaskList')
+      .timeBased()
+      .everyDays(1)
+      .inTimezone("Asia/Ho_Chi_Minh")
+      .atHour(7)
+      .create();
+  
+  // Trigger 16:00 -&gt; 17:00.
+  ScriptApp.newTrigger('postTaskList')
+      .timeBased()
+      .everyDays(1)
+      .inTimezone("Asia/Ho_Chi_Minh")
+      .atHour(16)
+      .create();
+}
+</code></pre>
+<p>Sau đó chọn <code>Run -&gt; Run function -&gt; createTimeDrivenTriggers</code>, hai trigger sẽ được tạo ra.</p>
+<p>Các bạn có thể tham khảo tại <a href="https://developers.google.com/apps-script/guides/triggers/installable">đây</a> để biết thêm chi tiết.</p>
+<h3 id="4ktlun">4. Kết luận</h3>
+<p>Qua ứng dụng quản lý Todo của công ty, chúng ta đã nắm được cách tạo một ứng dụng trên Slack và cách kết nối ứng dụng Slack này với ứng dụng web được tạo ra bằng GAS. Trong đó <code>doPost()</code> là hai hàm đóng vai trò rất quan trọng. Ngoài <code>doPost()</code> còn có <code>doGet()</code>, với hai hàm này, chúng ta có thể triển khai một web service có hỗ trợ RESTful API mà lại hoàn toàn miễn phí. Hai bài viết của Enso với hai ví dụ chỉ là một phần rất nhỏ trong vô vàn ứng dụng mà GAS có thể đem lại. Nếu có ứng dụng nào hay, hy vọng các bạn chia sẻ lại với Enso :) Trong phần 3, cũng là phần cuối cùng trong sê-ri bài viết "Nghịch cùng Google Apps Script" này, Enso sẽ trình bày về cách sử dụng GAS để chia sẻ, cung cấp Slack app Todo này với các team khác trong cộng đồng người dùng Slack. Hẹn gặp lại các bạn vào một ngày gần nhất :)</p>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ul>
+<li><a href="https://medium.com/geckoboard-under-the-hood/lunchbot-how-we-combined-google-sheets-with-slack-to-simplify-team-lunch-d309844a22ce">https://medium.com/geckoboard-under-the-hood/lunchbot-how-we-combined-google-sheets-with-slack-to-simplify-team-lunch-d309844a22ce</a></li>
+<li><a href="https://api.slack.com/custom-integrations/outgoing-webhooks">https://api.slack.com/custom-integrations/outgoing-webhooks</a></li>
+<li><a href="https://api.slack.com/tutorials">https://api.slack.com/tutorials</a></li>
+<li><a href="https://api.slack.com/slash-commands">https://api.slack.com/slash-commands</a></li>
+<li><a href="https://api.slack.com/incoming-webhooks">https://api.slack.com/incoming-webhooks</a></li>
+<li><a href="https://api.slack.com/docs/message-formatting">https://api.slack.com/docs/message-formatting</a></li>
+<li><a href="https://developers.google.com/apps-script/guides/triggers/installable">https://developers.google.com/apps-script/guides/triggers/installable</a></li>
+<li><a href="https://developers.google.com/apps-script/guides/libraries">https://developers.google.com/apps-script/guides/libraries</a></li>
+</ul>
+<h3 id="ps">P/S</h3>
+<p>Phiên bản code trong Github <a href="https://github.com/ensozen/todo-slackapp">todo-slackapp</a> có thêm chức năng user mention trong danh sách "Người thực hiện". Chức năng này sẽ giúp những thành viên chịu trách nhiệm các task chú ý hơn.<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkRlNtQjRkbUV1bWc&amp;export=download" alt="User-Mention" width="631" height="208" layout="responsive"></amp-img></p>
+<p>Chức năng này sẽ dựa vào tên của các thành viên trong danh sách "Người thực hiện" để tìm kiếm ID của thành viên và mention tới thành viên bằng ID này. Để chức năng này hoạt động được,</p>
+<ul>
+<li>
+<p>Chúng ta phải cho phép Slack App truy cập thông tin của các thành viên trong team bằng cách truy cập vào <strong>OAuth &amp;&amp; Permissions</strong> trong <strong>Features</strong>, tìm tới mục Scopes và thêm vào quyền <strong>Access your workspace’s profile information</strong> (Slack sẽ yêu cầu cài lại app để cập nhật quyền mới)<br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkeG4yeTVZdnFaY3M&amp;export=download" alt="Scopes" width="755" height="785" layout="responsive"></amp-img></p>
+</li>
+<li>
+<p>Để lấy được thông tin tất cả các thành viên trong team, chúng ta sẽ sử dụng API <a href="https://api.slack.com/methods/users.list">users.list</a> trong Slack Web API cùng với OAuth Access Token. Các bạn sẽ tìm thấy token này trong mục <strong>OAuth &amp; Permissions</strong><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkem1XU01aYVFIYlk&amp;export=download" alt="Authen-Token" width="760" height="732" layout="responsive"></amp-img></p>
+</li>
+<li>
+<p>Sau khi lấy được, chúng ta cần thêm OAuth Access Token vào Script Properties của GAS script project<br />
+thông qua menu bar của Script Editor: <code>File -&gt; Project properties -&gt; Script properties</code><br />
+<amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZXNEN2dpY2F4N0k&amp;export=download" alt width="644" height="395" layout="responsive"></amp-img></p>
+</li>
+</ul>
+<p>Have fun :)</p>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../index.html">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"/><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"/><rect y="34" width="84" height="17" rx="4"/><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"/><rect x="67" width="17" height="17" rx="4"/></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
+</html>

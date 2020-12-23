@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook | GMO-Z.com Vietnam Lab Center</title>
+    <meta name="description" content="" />
+    <meta property="fb:app_id" content="703042457154743" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="duCCqsDAWLg3POOfPMr6JiS4R0g0CjouGGM3fhsG0-0" />
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/atom-one-dark.min.css?v=52156bd6b0" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/screen.css?v=52156bd6b0" />
+
+    <script type="text/javascript" src="../assets/js/libs/jquery.min.js?v=52156bd6b0"></script>
+
+    <link rel="canonical" href="index.html" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="amp/index.html" />
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook" />
+    <meta property="og:description" content="Application lifecycle management là gì? Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra" />
+    <meta property="og:url" content="https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/" />
+    <meta property="og:image" content="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" />
+    <meta property="article:published_time" content="2019-10-09T01:29:19.000Z" />
+    <meta property="article:modified_time" content="2019-11-06T04:38:16.000Z" />
+    <meta property="article:tag" content="kubernetes" />
+    <meta property="article:tag" content="pod lifecycle" />
+    <meta property="article:tag" content="postStart" />
+    <meta property="article:tag" content="preStop" />
+    <meta property="article:tag" content="Init Container" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook" />
+    <meta name="twitter:description" content="Application lifecycle management là gì? Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra" />
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/" />
+    <meta name="twitter:image" content="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="N.X.P" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="kubernetes, pod lifecycle, postStart, preStop, Init Container" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="479" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.X.P",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://drive.google.com/uc?id=1ey3d-hkzyw7sUxoxSNSNVlTPDeoVuhCq&export=download",
+            "width": 1738,
+            "height": 1412
+        },
+        "url": "https://blog.vietnamlab.vn/author/phongnx/",
+        "sameAs": []
+    },
+    "headline": "[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook",
+    "url": "https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/",
+    "datePublished": "2019-10-09T01:29:19.000Z",
+    "dateModified": "2019-11-06T04:38:16.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&export=download",
+        "width": 1024,
+        "height": 479
+    },
+    "keywords": "kubernetes, pod lifecycle, postStart, preStop, Init Container",
+    "description": "Application lifecycle management là gì?\nĐầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật\nngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với\ncác thành phần mà nó tạo ra ngay sau khi nó khởi động hoặc trước khi nó dừng\nlại.\nNhư mọi người đã biết, trong Kubernetes, Pod là một đơn vị cơ bản trong cluster.\nPod có thể chứa một hoặc nhiều container cái mà dùng để chạy chương trình ứng\ndụng của chúng ta. Để hiểu thêm về Pod, các bạn có thể đọc t",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36" />
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../rss/index.html" />
+</head>
+
+<body class="post-template tag-kubernetes tag-pod-lifecycle tag-poststart tag-prestop tag-init-container nav-closed">
+    <script type="text/javascript" src="../assets/js/app/social.js?v=52156bd6b0"></script>
+    <div id="fb-root"></div>
+
+    <div id="header">
+        <div id="blog-banner">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-5">
+            <img src="../assets/img/vnlab_logo.jpg?v=52156bd6b0" alt="VNLab Logo">
+        </div>
+        <div class="col-md-5 text-right coworker">
+            <img src="../assets/img/vnlab_coworker.jpg?v=52156bd6b0" alt="VNLab coworker">
+        </div>
+        <div class="col-md-offset-1"></div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default">
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li class="">
+                            <a class="https://vietnamlab.vn" href="https://vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                        </li>
+                        <li class="">
+                            <a class="/tag/news/" href="../tag/news/index.html">Tin tức</a>
+                        </li>
+                        <li class="">
+                            <a class="/" href="../index.html">Blog</a>
+                        </li>
+                        <li class="">
+                            <a class="/tuyen-dung/" href="../tuyen-dung/index.html">★ Tuyển dụng ★</a>
+                        </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a class="subscribe-button icon-feed" href="../rss/index.html">Đăng ký</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-offset-1"></div>
+        <!-- /.container-fluid -->
+    </div>
+</nav>
+
+    </div>
+
+    <div id="body" class="row">
+        
+<div class="col-lg-offset-1 col-lg-7">
+        <article class="post tag-kubernetes tag-pod-lifecycle tag-poststart tag-prestop tag-init-container js-toc-content">
+            <div class="post-header">
+                <h2 class="post-title"><a href="index.html">[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook</a></h2>
+            </div>
+
+            <div class="post-meta">
+                <div class="post-date" datetime="2019-10-09">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i> 09 October 2019
+                </div>
+                <div class="post-tag">
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="../tag/kubernetes/index.html">kubernetes</a>, <a href="../tag/pod-lifecycle/index.html">pod lifecycle</a>, <a href="../tag/poststart/index.html">postStart</a>, <a href="../tag/prestop/index.html">preStop</a>, <a href="../tag/init-container/index.html">Init Container</a>
+                </div>
+            </div>
+
+            <div class="post-featured post-featured-single">
+                <div class="post-featured-img">
+                        <img src="https://drive.google.com/uc?id&#x3D;1lBeEP3s1WUPuKQ5OGBLvJrHBNjX9u_Vr&amp;export&#x3D;download" alt="[Kubernetes Best Practice P1] - Application process management with postStart and preStop hook">
+                </div>
+
+                <div class="post-author">
+                </div>
+
+                <div class="post-share">
+                    <div class="share-button">
+                        <div class="fb-share-button" data-href="/kubernestes-best-paractice-p1/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                        </div>
+                    </div>
+
+                    <div class="share-button">
+                        <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BKubernetes%20Best%20Practice%20P1%5D%20-%20Application%20process%20management%20with%20postStart%20and%20preStop%20hook">
+                            Tweet
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <section class="post-content">
+                <!--kg-card-begin: markdown--><h3 id="applicationlifecyclemanagementlg">Application lifecycle management là gì?</h3>
+<p>Đầu tiên chúng ta nói đến thế nào là quản lý vòng đời ứng dụng. Đây là một thuật ngữ đề cập đến việc làm thế nào mà các nền tảng ứng dụng có thể tương tác với các thành phần mà nó tạo ra ngay sau khi nó khởi động hoặc trước khi nó dừng lại.<br>
+Như mọi người đã biết, trong Kubernetes, Pod là một đơn vị cơ bản trong cluster. Pod có thể chứa một hoặc nhiều container cái mà dùng để chạy chương trình ứng dụng của chúng ta. Để hiểu thêm về Pod, các bạn có thể đọc thêm <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">tại đây</a><br>
+Nhưng các Pods luôn được trừu tượng hóa (bao bọc) bởi các thành phần cấp cao hơn, hầu hết là Deployments, và chúng ta thường viết cấu hình cho Deployment, Replica Set v.v... Hiểu được thành phần cốt lõi cho phép ta gỡ rối các vấn đề, tận dụng hệ sinh thái k8s tốt hơn và tự tin thay đổi.<br>
+Việc triển khai này rất quan trọng vì đôi khi chúng ta có thể cần thực hiện một số hành động trên Pod, chẳng hạn như kiểm tra khả năng kết nối đến một hoặc nhiều thành phần phụ thuộc của nó. Tương tự, Pod có thể phải trải qua các hoạt động dọn dẹp trước khi Pod bị destroyed.<br>
+Ở đây chúng ta sẽ thấy các giai đoạn khác nhau của pod và làm thế nào chúng ta có thể tận dụng chúng.<br>
+<img src="https://drive.google.com/uc?id=12u_ziVUKPi7XKsdh3IONc-6Oy2fEbMdU&amp;export=download" alt="uc?id=12u_ziVUKPi7XKsdh3IONc-6Oy2fEbMdU&amp;export=download"><br>
+<em>Url: <a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h3 id="lmthnokubernetesterminatesccpodcan">Làm thế nào Kubernetes terminates các Pod của nó?</h3>
+<p>Thông qua vòng đời của nó, một container có thể bị terminated (chấm dứt). Có lẽ bởi vì Pod đang bị tắt hoặc thất bại một hoặc cả hai tín hiệu dò liveness hoặc readiness probes (liveness và readiness probes là 2 thông số dùng cho việc health check Pod, mình sẽ nói rõ hơn ở P2). Trong mọi trường hợp, Kubernetes tuân theo một cách tiêu chuẩn để destroy một container running: bằng cách gửi kill signals. Cuối cùng, một container chỉ là một quá trình chạy trên máy.</p>
+<ul>
+<li>
+<p>Đầu tiên, Kubernetes gửi tín hiệu SIGTERM. Tín hiệu SIGTERM được gửi theo mặc định khi bạn cấp lệnh kill đối với một process đang chạy trên hệ thống Linux của bạn.</p>
+</li>
+<li>
+<p>SIGTERM cho phép running process thực hiện bất kỳ hoạt động dọn dẹp cần thiết nào trước khi tắt máy như giải phóng file locks,  closing database và kết nối mạng, v.v...</p>
+</li>
+<li>
+<p>Mặc dù vậy, đôi khi process (trong trường hợp này là container) không đáp ứng với tín hiệu SIGTERM. Hoặc là do lỗi code, vòng lặp vô hạn hoặc vì lý do nào đó. Bởi vì điều này, Kubernetes chờ đợi thời gian gia hạn là ba mươi giây (con số này có thể được overide) trước khi nó gửi tín hiệu tích cực hơn là SIGKILL.</p>
+</li>
+<li>
+<p>SIGKILL là tín hiệu tương tự được gửi đến một running process khi bạn cấp lệnh phổ biến kill -9 và gửi cho nó process id. Không phải process nhận được tín hiệu SIGKILL mà chính là hệ điều hành bên dưới.</p>
+</li>
+<li>
+<p>Khi kernel phát hiện tín hiệu này, nó sẽ ngừng cung cấp bất kỳ tài nguyên nào cho process đang bị kill. Kernel cũng dừng bất kỳ luồng CPU nào đang được sử dụng bởi dangling process. Nói cách khác, nó cắt điện khỏi process, buộc nó phải chết.</p>
+</li>
+</ul>
+<p>Cho đến nay, Kubernetes xử lý các container giống như bất kỳ Linux system administrator xử lý running process: gửi tín hiệu đến process hoặc kernel. Nhưng, bởi vì các container là một phần của các ứng dụng lớn hơn với các chức năng và nhiệm vụ phức tạp, tín hiệu là không đủ. Vì lý do đó, Kubernetes cung cấp các postStart và preStop hooks.</p>
+<h3 id="initcontainer">Init Container</h3>
+<p>Vì sao chúng ta lại đề cập đến Init Container ở đây? Có thể nhiều bạn đã biết đến nó hoặc chưa biết, và để tránh nhầm lẫn hay sử dụng sai mục đích giữa Init Container và postStart hook, mình sẽ nói thêm về Init Container.<br>
+Init Container là một container bên trong Pod dùng cho mục đích khởi chạy một xử lý nào đó cần thiết trước khi 1 container khác được chỉ định khởi chạy.<br>
+Chẳng hạn như mình có Pod A chứa các container như inint container, nginx, frontend, fluentd, v.v.. để chạy 1 web php. Nhưng trước khi nginx khởi động mình muốn có 1 inint container có nhiệm vụ chuẩn bị source code (backup code, switch sang branch cần test, v.v...)<br>
+Init Container có đặc trưng sau:</p>
+<ul>
+<li>Luôn chạy đến khi hoàn thành.</li>
+<li>Chạy trước khi container được chỉ định bắt đầu</li>
+<li>Nếu nhiều Init Container được chỉ định, chúng sẽ được thực hiện theo thứ tự</li>
+<li>Trường hợp thuộc tính restartPolicy trong Pod là Always. OnFailure được sử dụng trong Init Container</li>
+<li>Nếu Init Container không thành công, Kubernetes liên tục khởi động lại Pod cho đến khi Init Container thành công. Tuy nhiên, nếu Pod có restartPolicy là Never, Kubernetes không khởi động lại Pod.</li>
+<li>Ngoài ra, các Init Container không hỗ trợ readiness probes vì chúng phải chạy để hoàn thành trước khi Pod có thể sẵn sàng.</li>
+</ul>
+<p>Ưu điểm của việc tách riêng Init Container với các container ứng dụng như sau:</p>
+<ul>
+<li>Từ lý do mang tính security, phân tách các Container (bao gồm các container tool) với các container của Application</li>
+<li>Trường hợp bạn muốn sử dụng code hay là tool mà nó không được bao gồm trong container của application (chẳng hạn như đoạn xử lý backup source app, switch sang branch cần test) và thực thi một số xử lý đầu tiên (init).</li>
+</ul>
+<p>Lưu ý: Init Container có thể được khởi động lại hoặc chạy lại, vì vậy khi thực hiện các xử lý đầu tiên (init) phải xem xét cẩn thận.<br>
+( Reference : <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a> )</p>
+<h3 id="podlifecycle">Pod Lifecycle</h3>
+<p>Pod có một số phase dưới đây:</p>
+<ul>
+<li>Pending: Approved bởi Kubernetes, nhưng đang ở trạng thái 1 hoặc nhiều container chưa được tạo. Thông thường thì đang ở trạng thái đang pull images hoặc đang xử lý Init Container.</li>
+<li>Running: Pod đã được liên kết với một node và tất cả các Container đã được create. Ít nhất một Container vẫn đang running hoặc đang trong quá trình starting or restarting.</li>
+<li>Success: Tất cả các Container trong Pod đã kết thúc thành công và sẽ không được khởi động lại.</li>
+<li>failed: Tất cả các Container trong Pod đã terminated và ít nhất một Container đã bị terminated in failure. Nghĩa là, Container hoặc exited with non-zero status hoặc bị hệ thống terminated.</li>
+</ul>
+<p>Tham khảo thêm <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/">tại đây</a></p>
+<h3 id="lifecycleevents">Lifecycle Events</h3>
+<p>Như mình đã đề cập phía trên, chúng ta có 2 hook dành cho việc xử lý ở 2 thời điểm: ngay khi container được khởi tạo và trước khi Pod bị stop.</p>
+<ul>
+<li>postStart: Chạy ngay sau khi container được tạo. Chấm dứt nếu Trình xử lý này không thành công và khởi động lại theo restartPolicy</li>
+<li>preStop: được thực hiện trước khi container kết thúc. Trình xử lý này được thực thi trước khi SIGTERM được gửi đến tiến trình root container.</li>
+</ul>
+<p>Mình sẽ có một sơ đồ khái quát thời điểm Lifecycle Event<br>
+<img src="https://drive.google.com/uc?id=1dkuhsdLT2_VaXBXvx8wr4jHJfoipurHS&amp;export=download" alt="uc?id=1dkuhsdLT2_VaXBXvx8wr4jHJfoipurHS&amp;export=download"><br>
+Url: <a href="https://cstoku.dev/posts/2018/k8sdojo-06/">https://cstoku.dev/posts/2018/k8sdojo-06/</a></p>
+<h3 id="poststarthookthchincommandkhicontainerstart">postStart hook (Thực hiện command khi container start)</h3>
+<p>PostStart là một trong 2 Container hooks mà Kubernetes cung cấp. Hook này được thực thi ngay sau khi container được tạo, tuy nhiên không có gì để đảm bảo rằng hook sẽ được thực thi trước ENTRYPOINT của container. Không có tham số được truyền cho xử lý.<br>
+Bạn có thể sử dụng hoặc không sử dụng postStart hook tùy theo nhu cầu của bạn. Mình sẽ đưa ra các trường hợp mà bạn có thể xem xét sử dụng:</p>
+<ul>
+<li>Nếu như container của bạn là một client để thực thi API, bạn phải đảm bảo rằng API đang hoạt động và có khả năng responding to requests trước khi container của bạn đi vào hoặt động.</li>
+<li>Khi container cần thực thi một số hoạt động trước khi process chính khởi chạy, chẳng hạn như đặt lại mật khẩu của người dùng hoặc các sự kiện đăng nhập vào log hoặc database.</li>
+<li>Ví dụ, khi cần phải đáp ứng một điều kiện cụ thể trước khi container đi vào hoạt động, bạn có thể thăm dò API bên ngoài trong vài giây; nếu kiểm tra thất bại sau thời gian nhất định, thăm dò trả về non-zero exit code. Khi non-zero exit code được trả về, Kubernetes sẽ tự động kill main process của container.<br>
+Chúng ta sẽ xem xét ví vụ sau đây, các container cần phải đảm bảo rằng một service phụ thuộc available. Nếu không, toàn bộ container sẽ bị kill:</li>
+</ul>
+<pre><code># poststart.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         exec:
+           command:
+             - sh
+             - -c
+             - sleep 10 &amp;&amp; exit 1
+</code></pre>
+<pre><code>[vagrant@ci postStart-preStop]$ kubectl create namespace kuber-best-practice
+[vagrant@ci postStart-preStop]$ kubectl apply -f poststart.yml -n kuber-best-practice
+pod &quot;client&quot; created
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          10s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          12s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          13s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          15s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          17s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          20s
+</code></pre>
+<p>Đây là những gì đã xảy ra như sau:</p>
+<ul>
+<li>Kubernetes pull image nginx</li>
+<li>Nó tạo ra container và chuẩn bị khởi động nó</li>
+<li>Vì chúng ta có một lifecycle trong định nghĩa, Kubernetes thực hiện postStart hook và scheduled up container lên cho đến khi script hook kết thúc.</li>
+<li>postStart script tạm dừng chuỗi trong mười giây trước khi nó trả về non-zero exit status.</li>
+<li>Khi Kubernetes phát hiện non-zero exit status, nó sẽ giết và khởi động lại container và toàn bộ chu trình lặp lại vô thời hạn.</li>
+</ul>
+<p>Chúng ta có thể làm cho nginx start sau mười giây (mô phỏng mọi hoạt động precheck) bằng cách thay đổi postStart script.</p>
+<pre><code># poststart_fix.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         exec:
+           command:
+             - sh
+             - -c
+             - sleep 10
+</code></pre>
+<pre><code>[vagrant@ci postStart-preStop]$ kubectl apply -f poststart_fix.yml -n kuber-best-practice
+pod &quot;client&quot; created
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          4s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS              RESTARTS   AGE
+client    0/1       ContainerCreating   0          9s
+[vagrant@ci postStart-preStop]$ kubectl get pods -n kuber-best-practice
+NAME      READY     STATUS    RESTARTS   AGE
+client    1/1       Running   0          18s
+</code></pre>
+<p>Như bạn có thể thấy ở trên, Kubernetes đã thực thi tập lệnh postStart sau đó khởi động ENTRYPOINT chính của container, đó là trình nền nginx.</p>
+<h4 id="poststartscriptmethods">postStart script methods</h4>
+<p>postStart script sử dụng các phương thức sau để running the checks:</p>
+<ul>
+<li>exec: Được sử dụng trong ví dụ trên, phương thức exec thực thi một hoặc nhiều lệnh tùy ý đối với container. Exit status xác định xem việc check đã pass hay chưa.</li>
+<li>httpGet: Mở kết nối HTTP đến một local port trên container. Bạn có thể tùy ý cung cấp một path. Ví dụ: nếu chúng ta có thể sửa đổi ví dụ trước để kiểm tra xem cổng 8080 có mở hay không (giả sử một dịch vụ REST giả định) và path /status endpoint trả về valid success response.</li>
+</ul>
+<pre><code>apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       postStart:
+         httpGet:
+         port: 8080
+         path: /status
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=1nGmWPVUOHq-lHmLDAKUP_OiO1b-gTpAv&amp;export=download" alt="uc?id=1nGmWPVUOHq-lHmLDAKUP_OiO1b-gTpAv&amp;export=download"><br>
+<em>Url: <a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h4 id="vsaokhngsdnginitcontainerthaychopoststart">Vì sao không sử dụng init container thay cho postStart?</h4>
+<p>Good question! init container là một tính năng Kubernetes cho phép một container bắt đầu và thực hiện một hoặc nhiều nhiệm, sau đó nó bị chấm dứt. Init Container bắt đầu và dừng trước khi các container khác thực hiện, làm cho nó trở thành ứng cử viên phù hợp để thực hiện bất kỳ nhiệm vụ nào trước khi Pod khởi động.<br>
+Tuy nhiên có sự khác nhau trong cách implement giữa postStart hooks và init containers, chúng ta sẽ có một số so sánh dưới đây:</p>
+<ul>
+<li>postStart script được thực thi bằng cách sử dụng cùng một images như là main container. Các init container có thể sử dụng cùng hoặc khác images với images được sử dụng bởi các container tiếp theo. Vì vậy, nếu các tác vụ mà bạn cần thực hiện yêu cầu một base images khác, thì bạn tốt hơn nên sử dụng init container.</li>
+<li>postStart script được thực thi bên trong cùng một container. Vì vậy, nếu tập lệnh bạn cần chạy được kết hợp chặt chẽ với container, ví dụ như bạn cần thực hiện thay đổi cấu hình cho chính container, bạn nên sử dụng postStart script.</li>
+<li>Tất cả các init container phải kết thúc trước khi các main container bắt đầu. Mặt khác, các postStart script dành riêng cho từng container. Vì vậy, container A sử dụng các tập lệnh postStart và khởi chạy, container B thực thi các tập lệnh postStart của nó và start, v.v. Vì vậy, nếu bạn đang lưu trữ nhiều hơn một container trên cùng một Pod và bạn cần chạy một hoặc nhiều tác vụ không dành riếng cho container nào, bạn nên sử dụng các init container. Tuy nhiên, nếu mỗi tập lệnh init dành riêng cho vùng chứa của nó, thì postStart hook là lựa chọn phù hợp.</li>
+<li>Init container bắt đầu và dừng lại trước khi bất kỳ container khác bắt đầu. postStart script được thực thi song song với các container của chúng. Điều này có nghĩa là tập lệnh có thể chạy hoặc không chạy trước khi ENTRYPOINT của container khởi động. Nếu bạn cần chắc rằng logic trước khi khởi chạy luôn được thực thi trước khi main container thực hiện, thì hãy sử dụng init container.</li>
+<li>Do cách chúng được thiết kế, các tập lệnh postStart có thể chạy nhiều lần. Logic ứng dụng sẽ có khả năng xử lý nhiều thực thi kiểu này. Ví dụ: nếu tập lệnh postStart thêm tài mới khoản người dùng tạm thời trước khi container chạy, thì trước tiên, nó sẽ kiểm tra xem người dùng đã được tạo chưa để nó không trả về trạng thái non-zero exit.</li>
+</ul>
+<h4 id="chngtacthlmiutngtnhpoststarthookbntrongcontainer">Chúng ta có thể làm điều tương tự như postStart hook bên trong container</h4>
+<p>Vâng, bất kỳ logic nào được triển khai thông qua postStart script đều có thể được áp dụng bằng cách thêm nó vào như một phần của lệnh ENTRYPOINT (lệnh để start container). Nhưng đây không phải là một quyết định tốt từ quan điểm thiết kế.<br>
+Nó kết hợp chặc chẽ container với pre-launch logic của nó theo cách mà nó yêu cầu mối container phải được sửa đổi riêng. Sử dụng hooks cho phép bạn thay đổi các container trong khi vẫn giữ nguyên pre-launch logic. Nó cũng cho phép bạn làm việc trên pre-launch logic độc lập với các container mà nó sẽ chạy.</p>
+<h3 id="prestophookthchincommandtrckhicontainerterminates">preStop hook (Thực hiện command trước khi container terminates)</h3>
+<p>Chúng ta đã tìm hiểu về các tín hiệu khác nhau mà Kubernetes gửi đến các container đang chạy bên trong Pods khi muốn tắt chúng. Tuy nhiên, mặc dù container nhận SIGTERM và nó cho phép container tắt trong tối đa ba mươi giây - default, điều này có thể không đủ cho các tình huống phức tạp.<br>
+Kubernetes cung cấp preStop hook, được gọi ngay trước khi tín hiệu SIGTERM được gửi đến container. preStop hook cũng cung cấp các phương thức kiểm tra tương tự như postStart hook: httpGet và exec.<br>
+Tuy nhiên, không giống như postStart hook, nếu Kubernetes phát hiện trạng thái non-zero exit hoặc mã HTTP không thành công, nó sẽ tiếp tục quy trình tắt máy và gửi tín hiệu SIGTERM.<br>
+Chúng ta sẽ cùng xem ví vụ bên dưới, thực hiện một GET request đến endpoint là /shutdown đang chạy ở cổng 8080.</p>
+<pre><code># preStop.yml
+apiVersion: v1
+kind: Pod
+metadata:
+ name: client
+spec:
+ containers:
+   - image: nginx
+     name: client
+     lifecycle:
+       preStop:
+         httpGet:
+         port: 8080
+         path: /shutdown
+</code></pre>
+<p><img src="https://drive.google.com/uc?id=13UMXR_SU-ZsKFFwySrAQGoki0OVj_06A&amp;export=download" alt="uc?id=13UMXR_SU-ZsKFFwySrAQGoki0OVj_06A&amp;export=download"><br>
+<em>Url:<a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1</a></em></p>
+<h3 id="initcontainersvslifecyclehooks">Init Containers vs Lifecycle Hooks</h3>
+<p><img src="https://drive.google.com/uc?id=1qB5Nx_aE1B94W-L0VriZFSaReJO8RboI&amp;export=download" alt="uc?id=1qB5Nx_aE1B94W-L0VriZFSaReJO8RboI&amp;export=download"><br>
+<em>Url: <a href="https://www.linkedin.com/pulse/kubernetes-deep-dive-part-1-init-containers-lifecycle-chauthaiwale/">https://www.linkedin.com/pulse/kubernetes-deep-dive-part-1-init-containers-lifecycle-chauthaiwale/</a></em></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Kết thúc bài viết ở đây mình sẽ tóm tắt lại một số nội dung sau:</p>
+<ul>
+<li>Các ứng dụng phải phản hồi chính xác các tín hiệu SIGTERM được gửi đến nó và thực hiện clean shutdown.</li>
+<li>Nếu có một logic startup điển hình cần được áp dụng cho các container trước khi chúng bắt đầu, bạn nên xem xét sử dụng các postStart hook hoặc init container tùy thuộc vào trường hợp sử dụng của bạn (tham khảo so sánh giữa cả hai cách tiếp cận trước đó trong bài viết).</li>
+<li>Nếu ứng dụng quá phức tạp để thực hiện clean shutdown, chỉ cần chặn tín hiệu SIGTERM, cần có một script hoặc endpoint có thể được yêu cầu để bắt đầu quy trình tắt máy.<br>
+Kubernetes là một dự án liên tục phát triển. Có thể có nhiều hooks hơn trong tương lai để liên lạc với container khi nó sắp được scaled up and down hoặc khi container được yêu cầu giải phóng một số tài nguyên đã tiêu thụ của nó để tránh bị giết.<br>
+Một điều lưu ý nữa là chúng ta cần suy nghĩ nhiều hơn khi thiết kế các ứng dụng của mình để tận dụng tốt những lợi ích đó.<br>
+Thanks all!</li>
+</ul>
+<h3 id="tiliuthamkho">Tài liệu tham khảo</h3>
+<ol>
+<li><a href="https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/">https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a></li>
+<li><a href="https://dzone.com/articles/kubernetes-lifecycle-of-a-pod">https://dzone.com/articles/kubernetes-lifecycle-of-a-pod</a></li>
+<li><a href="https://cstoku.dev/posts/2018/k8sdojo-06/">https://cstoku.dev/posts/2018/k8sdojo-06/</a></li>
+<li><a href="https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1?fbclid=IwAR1OcWEo5o77Lzu4-zw5Jh0V0gedVwvre_IjKI1wuvlCTeJ_oRxWhVJsp6Y">https://www.magalix.com/blog/kubernetes-patterns-application-process-management-1?fbclid=IwAR1OcWEo5o77Lzu4-zw5Jh0V0gedVwvre_IjKI1wuvlCTeJ_oRxWhVJsp6Y</a></li>
+</ol>
+<!--kg-card-end: markdown-->
+            </section>
+
+            <div class="post-footer">
+                <div class="share-button">
+                    <div class="fb-share-button" data-href="/kubernestes-best-paractice-p1/" data-layout="button_count" data-size="large" data-mobile-iframe="true">
+                    </div>
+                </div>
+
+                <div class="share-button">
+                    <a class="twitter-share-button" data-size="large" href="https://twitter.com/intent/tweet?text=%5BKubernetes%20Best%20Practice%20P1%5D%20-%20Application%20process%20management%20with%20postStart%20and%20preStop%20hook">
+                        Tweet
+                    </a>
+                </div>
+
+                <div class="share-button">
+                    <div class="g-plusone" data-href="/kubernestes-best-paractice-p1/"></div>
+                </div>
+            </div>
+            <div id="widget-for-reem-10-1"></div><script src="https://reem.vn/reem.js?m=10"></script>
+        </article>
+
+
+        <div class="post-comments">
+            <div class="fb-comments" data-href="https://blog.vietnamlab.vn/kubernestes-best-paractice-p1/" data-numposts="10" data-order-by="reverse_time" data-width="100%"></div>
+        </div>
+</div>
+<div class="col-lg-3">
+    <div id="sidebar">
+
+    <gcse:search></gcse:search>
+
+    <div class='sidebar-box'>
+        <div id="widget-for-reem-4-1"></div><script src="https://163.44.192.76/rem.js?m=4"></script>
+    </div>
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tuyển dụng</div>
+        <div class="sidebar-content">
+          <a class="title" href="https://blog.vietnamlab.vn/tuyen-dung">
+            <img
+              style="max-width: 100%"
+              src="https://drive.google.com/uc?id=1aYKdTvr-4CYterc6pPPBYoFezghrkGZf"
+              alt="Tuyển dụng">
+          </a>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Facebook</div>
+        <div class="sidebar-content">
+            <div class="fb-page" data-href="https://www.facebook.com/vietnamlab.vn" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-width="500" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/vietnamlab.vn" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/vietnamlab.vn">GMO-Z.com Vietnam Lab Center</a>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Mục lục</div>
+        <div class="sidebar-content js-toc"></div>
+    </div>
+
+    
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Tin tức</div>
+        <div class="sidebar-content">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-3/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="../content/images/1CSKMZA-hwBOtsfRK0JjjcNZUrF80lGLt.PNG" width="50" height="50" alt="Báo cáo nghiên cứu quý 3 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-3/index.html">Báo cáo nghiên cứu quý 3 năm 2020</a>
+                            <span>, 30 October 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../untitled-9/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19caFAeGojP08PERt9NhyH-tZln5o1dyt&amp;export&#x3D;download" width="50" height="50" alt="Rộn ràng đón tết trung thu 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../untitled-9/index.html">Rộn ràng đón tết trung thu 2020</a>
+                            <span>, 25 September 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../truyen-thong-hoc-tieng-nhat/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;19mB9PZcsjUoxU5mbNYE49Ai0dMUlOPt8&amp;export&#x3D;download" width="50" height="50" alt="Truyền Thống học tiếng Nhật tại VNLAB.">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../truyen-thong-hoc-tieng-nhat/index.html">Truyền Thống học tiếng Nhật tại VNLAB.</a>
+                            <span>, 14 August 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;1vCDL4ACVJLRYbc_bMUF-XtOkBYCmlvFL&amp;export&#x3D;download" width="50" height="50" alt="Team Building Vườn Quốc Gia Ba Vì 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../team-building-vuon-quoc-gia-ba-vi-2020/index.html">Team Building Vườn Quốc Gia Ba Vì 2020</a>
+                            <span>, 30 June 2020</span>
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">
+                                    <img style="object-fit: cover" class="media-object" src="https://drive.google.com/uc?id&#x3D;13zVnT-6TUc6EkCcZox_nn2PHeBSxihYm&amp;export&#x3D;download" width="50" height="50" alt="Báo cáo nghiên cứu Quý 1 năm 2020">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a class="title" href="../bao-cao-nghien-cuu-quy-1-nam-2020/index.html">Báo cáo nghiên cứu Quý 1 năm 2020</a>
+                            <span>, 20 April 2020</span>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box">
+        <div class="sidebar-title h2">Key words</div>
+        <div class="sidebar-content">
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/%2508google-apps-script/index.html" title="google apps script" class="tag tag-5c2c443cc00d970001d28829 google-apps-script">google apps script</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#api" class="tag tag-5e813cddf7370d0001b812c4 hash-api">#api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#drakov" class="tag tag-5ad30b8d83719800014583ed drakov">#drakov</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#mock" class="tag tag-5e798cb6f7370d0001b812ae hash-mock">#mock</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#test" class="tag tag-5e798cb6f7370d0001b812af hash-test">#test</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="https://blog.vietnamlab.vn/404/" title="#web" class="tag tag-5e813cddf7370d0001b812c5 hash-web">#web</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-meo-2/index.html" title="10 mẹo" class="tag tag-5ad30b8d837198000145843b 10-meo-2">10 mẹo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/10-tips/index.html" title="10 tips" class="tag tag-5ad30b8d8371980001458432 10-tips">10 tips</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2017/index.html" title="2017" class="tag tag-5ad30b8d8371980001458463 2017">2017</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2018/index.html" title="2018" class="tag tag-5ad30b8d8371980001458464 2018">2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/2020/index.html" title="2020" class="tag tag-5e05cac4bf919d0001802e79 2020">2020</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adaptive-threshold/index.html" title="adaptive threshold" class="tag tag-5ad30b8d8371980001458462 adaptive-threshold">adaptive threshold</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adb/index.html" title="adb" class="tag tag-5d479f1fbf919d00018028c9 adb">adb</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/adsense/index.html" title="adsense" class="tag tag-5ad30b8d83719800014583a8 adsense">adsense</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aff/index.html" title="aff" class="tag tag-5b6119898371980001458b0d aff">aff</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/agile/index.html" title="agile" class="tag tag-5ad30b8d837198000145834b agile">agile</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ai/index.html" title="AI" class="tag tag-5ad30b8d8371980001458441 ai">AI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/alert/index.html" title="alert" class="tag tag-5c2c443cc00d970001d2882a alert">alert</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/algorithm/index.html" title="Algorithm" class="tag tag-5e3bb937f7370d0001b8122e algorithm">Algorithm</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android/index.html" title="android" class="tag tag-5ad30b8d837198000145834c android">android</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/android-studio/index.html" title="android studio" class="tag tag-5ad30b8d83719800014583ce android-studio">android studio</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/anguar-cli/index.html" title="anguar cli" class="tag tag-5ad30b8d837198000145834d anguar-cli">anguar cli</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular2/index.html" title="angular2" class="tag tag-5ad30b8d837198000145834e angular2">angular2</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/angular9/index.html" title="angular9" class="tag tag-5ea7b0b5f7370d0001b8132d angular9">angular9</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ansible/index.html" title="Ansible" class="tag tag-5ad30b8d8371980001458450 ansible">Ansible</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ant/index.html" title="ant" class="tag tag-5ad30b8d8371980001458398 ant">ant</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache/index.html" title="apache" class="tag tag-5ad30b8d837198000145834f apache">apache</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-hive/index.html" title="Apache Hive" class="tag tag-5ad30b8d8371980001458351 apache-hive">Apache Hive</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox/index.html" title="Apache Knox" class="tag tag-5ad30b8d8371980001458352 apache-knox">Apache Knox</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-knox-gateway/index.html" title="Apache Knox Gateway" class="tag tag-5ad30b8d8371980001458353 apache-knox-gateway">Apache Knox Gateway</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apache-poi/index.html" title="Apache POI" class="tag tag-5ad30b8d83719800014583d4 apache-poi">Apache POI</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/api/index.html" title="api" class="tag tag-5ad30b8d83719800014583c1 api">api</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/apiary-editor/index.html" title="apiary editor" class="tag tag-5ad30b8d83719800014583bf apiary-editor">apiary editor</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/application/index.html" title="application" class="tag tag-5bc99b038f5b6d0001832bfa application">application</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/ar/index.html" title="ar" class="tag tag-5ad30b8d8371980001458404 ar">ar</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/artoolkit/index.html" title="artoolkit" class="tag tag-5ad30b8d8371980001458405 artoolkit">artoolkit</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aso/index.html" title="aso" class="tag tag-5b6119898371980001458b08 aso">aso</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/association-rules/index.html" title="Association Rules" class="tag tag-5ad30b8d83719800014583c5 association-rules">Association Rules</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/asynchronous/index.html" title="asynchronous" class="tag tag-5ad30b8d8371980001458355 asynchronous">asynchronous</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/atom/index.html" title="atom" class="tag tag-5ad30b8d83719800014583fd atom">atom</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/autoencoder/index.html" title="autoencoder" class="tag tag-5bfa780f165b57000125175c autoencoder">autoencoder</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/automation-testing/index.html" title="automation testing" class="tag tag-5ad30b8d83719800014583fe automation-testing">automation testing</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/awk/index.html" title="awk" class="tag tag-5ad30b8d8371980001458356 awk">awk</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws/index.html" title="AWS" class="tag tag-5ee65390f7370d0001b813e7 aws">AWS</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/aws-certified/index.html" title="AWS Certified" class="tag tag-5f262d1bf7370d0001b8146b aws-certified">AWS Certified</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend/index.html" title="backend" class="tag tag-5b30687483719800014589a0 backend">backend</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/backend2018/index.html" title="backend2018" class="tag tag-5b30687483719800014589a1 backend2018">backend2018</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bao-cao/index.html" title="báo cáo" class="tag tag-5f9a48c4128d0900010f5c3f bao-cao">báo cáo</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/basictype/index.html" title="BasicType" class="tag tag-5ad30b8d83719800014583d9 basictype">BasicType</a>
+                    </span>
+                    <span class="label label-default text-justify tag">
+                        <a href="../tag/bcrypt/index.html" title="bcrypt" class="tag tag-5d96a6f2bf919d0001802d24 bcrypt">bcrypt</a>
+                    </span>
+        </div>
+    </div>
+</div>
+</div>
+<div class="col-lg-offset-1"></div>
+
+
+    </div>
+
+    <div id="footer">
+        <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 copyright">
+                <a href="../index.html">GMO-Z.com Vietnam Lab Center Technology Blog</a> &copy; 2020
+            </div>
+            <div class="col-lg-offset-1"></div>
+        </div>
+    </div>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-166653304-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-166653304-2');
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-59342535-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="../assets/js/libs/jquery.fitvids.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/tocbot.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/bootstrap.min.js?v=52156bd6b0"></script>
+    <script type="text/javascript" src="../assets/js/libs/highlight.pack.js?v=52156bd6b0"></script>
+
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../assets/js/app/index.js?v=52156bd6b0"></script>
+
+    <!-- App Services -->
+    <script type="text/javascript" charset="UTF-8" src="https://cache.img.gmo.jp/common_header/script.js" async></script>
+    <script src="https://apis.google.com/js/platform.js" async defer>{ lang: 'vi' }</script>
+
+</body>
+
+</html>

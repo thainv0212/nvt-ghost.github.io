@@ -1,0 +1,859 @@
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+    <title>Giới thiệu Gradle Build Tool</title>
+
+    <meta name="description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <link rel="canonical" href="../index.html">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+    <meta property="og:site_name" content="GMO-Z.com Vietnam Lab Center Technology Blog">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Giới thiệu Gradle Build Tool">
+    <meta property="og:description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <meta property="og:url" content="https://blog.vietnamlab.vn/gioi-thieu-gradle/">
+    <meta property="og:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download">
+    <meta property="article:published_time" content="2016-07-24T22:44:50.000Z">
+    <meta property="article:modified_time" content="2017-05-19T07:01:33.000Z">
+    <meta property="article:tag" content="apache">
+    <meta property="article:tag" content="ant">
+    <meta property="article:tag" content="maven">
+    <meta property="article:tag" content="Build Automation">
+    <meta property="article:tag" content="Gradle">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/vietnamlab.vn">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Giới thiệu Gradle Build Tool">
+    <meta name="twitter:description" content="Gradle kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng Groovy trong việc giải quyết bài toán đóng gói.">
+    <meta name="twitter:url" content="https://blog.vietnamlab.vn/gioi-thieu-gradle/">
+    <meta name="twitter:image" content="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="N.C.M">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="apache, ant, maven, Build Automation, Gradle">
+    <meta property="og:image:width" content="549">
+    <meta property="og:image:height" content="268">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "GMO-Z.com Vietnam Lab Center Technology Blog",
+        "url": "https://blog.vietnamlab.vn/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.vietnamlab.vn/favicon.ico",
+            "width": 48,
+            "height": 48
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "N.C.M",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://vignette2.wikia.nocookie.net/onepiece/images/2/23/Zoro_After_Taking_Luffy%27s_Pain.png/revision/latest?cb=20140518230609",
+            "width": 672,
+            "height": 1390
+        },
+        "url": "https://blog.vietnamlab.vn/author/minhnc/",
+        "sameAs": [
+            "https://vietnamlab.vn"
+        ]
+    },
+    "headline": "Giới thiệu Gradle Build Tool",
+    "url": "https://blog.vietnamlab.vn/gioi-thieu-gradle/",
+    "datePublished": "2016-07-24T22:44:50.000Z",
+    "dateModified": "2017-05-19T07:01:33.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&export=download",
+        "width": 549,
+        "height": 268
+    },
+    "keywords": "apache, ant, maven, Build Automation, Gradle",
+    "description": "Gradle là gì?\nTrong quá trình phát triển phần mềm, việc tự động hóa quá trình build và quản lý\ncác thư viện rất quan trọng, nhằm tối ưu hóa công đoạn biên dịch, đóng gói;\nthuận tiện hơn cho việc phát triển phần mềm. Và Gradle (release version 1.0 năm\n2012) là 1 trong những công cụ được nhiều người lựa chọn.\n\nNăm 2000, Apache Ant [https://en.wikipedia.org/wiki/Apache_Ant]  ra đời như là\nmột trong những tool đóng gói hiện đại và nhanh chóng được sử dụng trong các dự\nán sử dụng ngôn ngữ Java. Ant c",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.vietnamlab.vn/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 3.36">
+    <link rel="alternate" type="application/rss+xml" title="GMO-Z.com Vietnam Lab Center Technology Blog" href="../../rss/index.html">
+
+    <style amp-custom>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        font-size: 62.5%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+        color: #3a4145;
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        font-size: 1.7rem;
+        line-height: 1.55em;
+        font-weight: 400;
+        font-style: normal;
+        background: #fff;
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    p,
+    ul,
+    ol,
+    li,
+    dl,
+    dd,
+    hr,
+    pre,
+    form,
+    table,
+    video,
+    figure,
+    figcaption,
+    blockquote {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul[class],
+    ol[class] {
+        padding: 0;
+        list-style: none;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font: inherit;
+        -webkit-appearance: none;
+    }
+
+    fieldset {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    label {
+        display: block;
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+
+    hr {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid currentcolor;
+        opacity: 0.1;
+    }
+
+    ::selection {
+        text-shadow: none;
+        background: #cbeafb;
+    }
+
+    mark {
+        background-color: #fdffb6;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        position: relative;
+        font-size: 75%;
+        line-height: 0;
+        vertical-align: baseline;
+    }
+    sup {
+        top: -0.5em;
+    }
+    sub {
+        bottom: -0.25em;
+    }
+
+    ul li + li {
+        margin-top: 0.6em;
+    }
+
+    a {
+        color: #1292EE;
+        text-decoration-skip-ink: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0;
+        font-weight: 700;
+        color: #121212;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        font-size: 3.4rem;
+        line-height: 1.1em;
+    }
+
+    h2 {
+        font-size: 2.4rem;
+        line-height: 1.2em;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    h4 {
+        font-size: 1.7rem;
+    }
+
+    h5 {
+        font-size: 1.6rem;
+    }
+
+    h6 {
+        font-size: 1.6rem;
+    }
+
+    amp-img {
+        height: 100%;
+        width: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    amp-img img {
+        object-fit: cover;
+    }
+
+    .page-header {
+        padding: 50px 5vmin 30px;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .page-header a {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.6rem;
+        letter-spacing: -0.1px;
+    }
+
+    .post {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .post-header {
+        margin: 0 5vmin 5vmin;
+        text-align: center;
+    }
+
+    .post-meta {
+        margin: 1rem 0 0 0;
+        text-transform: uppercase;
+        color: #738a94;
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+
+    .post-image {
+        margin: 0 0 5vmin;
+    }
+
+    .post-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        padding: 0 5vmin;
+    }
+
+    .post-content > * + * {
+        margin-top: 1.5em;
+    }
+
+    .post-content [id]:not(:first-child) {
+        margin: 2em 0 0;
+    }
+
+    .post-content > [id] + * {
+        margin-top: 1rem;
+    }
+
+    .post-content [id] + .kg-card,
+    .post-content blockquote + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content > ul,
+    .post-content > ol,
+    .post-content > dl {
+        padding-left: 1.9em;
+    }
+
+    .post-content hr {
+        margin-top: 40px;
+    }
+
+    .post .post-content hr + * {
+        margin-top: 40px;
+    }
+
+    .post-content amp-img {
+        background-color: #f8f8f8;
+    }
+
+    .post-content blockquote {
+        position: relative;
+        font-style: italic;
+    }
+
+    .post-content blockquote::before {
+        content: "";
+        position: absolute;
+        left: -1.5em;
+        top: 0;
+        bottom: 0;
+        width: 0.3rem;
+        background: #000;
+    }
+
+    .post-content :not(.kg-card):not([id]) + .kg-card {
+        margin-top: 40px;
+    }
+
+    .post-content .kg-card + :not(.kg-card) {
+        margin-top: 40px;
+    }
+
+    .kg-card figcaption {
+        padding: 1.5rem 1.5rem 0;
+        text-align: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.4em;
+        opacity: 0.6;
+    }
+
+    .kg-card figcaption strong {
+        color: rgba(0,0,0,0.8);
+    }
+
+    .post-content :not(pre) code {
+        vertical-align: middle;
+        padding: 0.15em 0.4em 0.15em;
+        border: #e1eaef 1px solid;
+        font-weight: 400;
+        font-size: 0.9em;
+        line-height: 1em;
+        color: #dc0050;
+        background: #f0f6f9;
+        border-radius: 0.25em;
+    }
+
+    .post-content > pre {
+        overflow: scroll;
+        padding: 16px 20px;
+        color: #fff;
+        background: #1F2428;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.1), 0 0 1px rgba(0,0,0,.4);
+    }
+
+    .kg-embed-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .kg-image-card img {
+        margin: auto;
+    }
+
+    .kg-gallery-card + .kg-gallery-card {
+        margin-top: 0.75em;
+    }
+
+    .kg-gallery-container {
+        position: relative;
+    }
+
+    .kg-gallery-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .kg-gallery-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .kg-gallery-row:not(:first-of-type) {
+        margin: 0.75em 0 0 0;
+    }
+
+    .kg-gallery-image:not(:first-of-type) {
+        margin: 0 0 0 0.75em;
+    }
+
+    .kg-bookmark-card,
+    .kg-bookmark-publisher {
+        position: relative;
+    }
+
+    .kg-bookmark-container,
+    .kg-bookmark-container:hover {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+        color: currentColor;
+        background: rgba(255,255,255,0.6);
+        font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+        text-decoration: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+    }
+
+    .kg-bookmark-content {
+        flex-basis: 0;
+        flex-grow: 999;
+        padding: 20px;
+        order: 1;
+    }
+
+    .kg-bookmark-title {
+        font-weight: 600;
+        font-size: 1.5rem;
+        line-height: 1.3em;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        max-height: 45px;
+        margin: 0.5em 0 0 0;
+        font-size: 1.4rem;
+        line-height: 1.55em;
+        overflow: hidden;
+        opacity: 0.8;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .kg-bookmark-metadata {
+        margin-top: 20px;
+    }
+
+    .kg-bookmark-metadata {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: 1.3rem;
+        line-height: 1.3em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .kg-bookmark-description {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-metadata amp-img {
+        width: 18px;
+        height: 18px;
+        max-width: 18px;
+        max-height: 18px;
+        margin-right: 10px;
+    }
+
+    .kg-bookmark-thumbnail {
+        display: flex;
+        flex-basis: 20rem;
+        flex-grow: 1;
+        justify-content: flex-end;
+    }
+
+    .kg-bookmark-thumbnail amp-img {
+        max-height: 200px;
+    }
+
+    .kg-bookmark-author {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .kg-bookmark-publisher::before {
+        content: "•";
+        margin: 0 .5em;
+    }
+
+    .kg-width-full.kg-card-hascaption {
+        display: grid;
+        grid-template-columns: inherit;
+    }
+
+    .post-content table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .post-content th {
+        padding: 0.5em 0.8em;
+        text-align: left;
+        font-size: .75em;
+        text-transform: uppercase;
+    }
+
+    .post-content td {
+        padding: 0.4em 0.7em;
+    }
+
+    .post-content tbody tr:nth-child(2n + 1) {
+        background-color: rgba(0,0,0,0.1);
+        padding: 1px;
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td:last-child {
+        box-shadow:
+            inset 1px 0 rgba(0,0,0,0.1),
+            inset -1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:nth-child(2n + 2) td {
+        box-shadow: inset 1px 0 rgba(0,0,0,0.1);
+    }
+
+    .post-content tbody tr:last-child {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+    }
+
+    .page-footer {
+        padding: 60px 5vmin;
+        margin: 60px auto 0;
+        text-align: center;
+        background-color: #f8f8f8;
+    }
+
+    .page-footer h3 {
+        margin: 0.5rem 0 0 0;
+    }
+
+    .page-footer p {
+        max-width: 500px;
+        margin: 1rem auto 1.5rem;
+        font-size: 1.7rem;
+        line-height: 1.5em;
+        color: rgba(0,0,0,0.6)
+    }
+
+    .powered {
+        display: inline-flex;
+        align-items: center;
+        margin: 30px 0 0;
+        padding: 6px 9px 6px 6px;
+        border: rgba(0,0,0,0.1) 1px solid;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: -0.2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        color: #222;
+        text-decoration: none;
+        background: #fff;
+        border-radius: 6px;
+    }
+
+    .powered svg {
+        height: 16px;
+        width: 16px;
+        margin: 0 6px 0 0;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            font-size: 1.6rem;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 2.6rem;
+            line-height: 1.15em;
+        }
+        h2 {
+            font-size: 2rem;
+            line-height: 1.2em;
+        }
+        h3 {
+            font-size: 1.7rem;
+        }
+    }
+    </style>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+
+    
+
+</head>
+
+<body class="amp-template">
+    <header class="page-header">
+        <a href="../../">
+                GMO-Z.com Vietnam Lab Center Technology Blog
+        </a>
+    </header>
+
+    <main class="content" role="main">
+        <article class="post">
+
+            <header class="post-header">
+                <h1 class="post-title">Giới thiệu Gradle Build Tool</h1>
+                <section class="post-meta">
+                    N.C.M -
+                    <time class="post-date" datetime="2016-07-25">25 Jul 2016</time>
+                </section>
+            </header>
+            <figure class="post-image">
+                <amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkdFV2XzRLamNVMUE&amp;export=download" width="600" height="340" layout="responsive"></amp-img>
+            </figure>
+            <section class="post-content">
+
+                <h3 id="gradlelg">Gradle là gì?</h3>
+<p>Trong quá trình phát triển phần mềm, việc tự động hóa quá trình build và quản lý các thư viện rất quan trọng, nhằm tối ưu hóa công đoạn biên dịch, đóng gói; thuận tiện hơn cho việc phát triển phần mềm. Và Gradle (release version 1.0 năm 2012) là 1 trong những công cụ được nhiều người lựa chọn.</p>
+<p>Năm 2000, <strong><a href="https://en.wikipedia.org/wiki/Apache_Ant">Apache Ant</a></strong> ra đời như là một trong những tool đóng gói hiện đại và nhanh chóng được sử dụng trong các dự án sử dụng ngôn ngữ Java. Ant cho phép nhà phát triển mô tả meta-data của dự án cũng như các hoạt động trong quá trình build thông qua bộ cú pháp XML. Tuy nhiên những đoạn mã viết theo tiêu chuẩn của Ant quá dài và phức tạp.</p>
+<p>Năm 2004, <strong><a href="https://en.wikipedia.org/wiki/Apache_Maven">Apache Maven</a></strong> ra đời và đưa ra các cải thiện so với Ant. Bằng việc đưa ra một cấu trúc dự án tiêu chuẩn, Maven cho phép nhà phát triển sử dụng một trong các plugin của mình thay vì phải viết toàn bộ các dòng code mô tả quá trình đóng gói. Ngoài ra Maven còn cho phép tải về các thư viện phụ thuộc thông qua internet, điều này giúp cho việc chia sẻ cũng như quản lý phiên bản trở nên dễ dàng hơn. Đổi lại, nhà phát triển sẽ mất khá nhiều công sức để tùy chỉnh nếu cấu trúc dự án hiện tại không tuân theo Maven Standard Directory Layout. Và việc vẫn sử dụng XML làm cho file POM (Project Object Model) trở nên dài dòng và phức tạp để nắm bắt logic.</p>
+<p><a href="https://gradle.org">Gradle</a> kết hợp các ưu điểm của Ant và Maven đồng thời thêm vào các cải thiện mới và sử dụng <strong>Groovy</strong> trong việc giải quyết bài toán đóng gói.</p>
+<h3 id="1ccuimcagradle">1. Các ưu điểm của Gradle</h3>
+<h4 id="11buildchonhiungnng">1.1 Build cho nhiều ngôn ngữ</h4>
+<p>Gradle hỗ trợ build cho <strong>60 ngôn ngữ lập trình</strong> khác nhau bao gồm Java, Scala, Python, C/C++, Android, iOS.</p>
+<h5 id="javajvmlanguages">Java + JVM languages</h5>
+<p>Được thiết kế  để chạy trên JVM, Gradle hỗ trợ mạnh mẽ cho các dự án viết bằng Java và các ngôn ngữ JVM khác như Scala, Groovy,... với việc hỗ trợ nhiều loại ứng dụng và công cụ phát triển thiết yếu như test frameworks (JUnit, TestNG, Spock), application frameworks (Java EE, Grails, Play!), embedded web servers (Jetty) and code analysis cops (Checkstyle, CodeNarc, FindBugs, JDepend, PMD, JaCoCo, Sonar).</p>
+<h5 id="androidsbuildsystem">Android's build system</h5>
+<p>Tích hợp với Android Studio hỗ trợ quản lý dependency, multi-project. Đồng thời tích hợp các test services phổ biến như AppThwack, TestDroid và Manymo. Ngoài ra, có thể tạo nhiều APK từ 1 module và upload chúng lên Google Play và các app store khác với các phiên bản khác nhau (free, paid,...)</p>
+<h5 id="ccobjectiveccassemblycunit">C/C++, Objective-C/C++, Assembly, CUnit</h5>
+<p>Hỗ trợ compiler, assembler và linker; cho phép phân phối các thư viện, file thực thi với nhiều  loại (debug, release), platforms (x86, x86_64), phiên bản (community, enterprise) khác nhau. Tích hợp GCC, CLANG, XCODE, VISUAL C++ …</p>
+<h5 id="javascriptcssvwebtests">JavaScript, CSS và web tests</h5>
+<p>Hỗ trợ các frontend task: consolidate, minify, compress, code quality, compile, source maps.</p>
+<h4 id="12tchhpcngc">1.2 Tích hợp công cụ</h4>
+<p>Từ các IDE (Integrated Development Environment) đến các CI (Continuous Integration) hay các công cụ deploy, Gradle tích hợp với tất cả mọi thứ mà bạn có thể nghĩ đến. Tham khảo danh sách các tool có thể tích hơp: <a href="https://gradle.org/why/integrates-with-everything/">https://gradle.org/why/integrates-with-everything/</a></p>
+<h4 id="13qunldependencymnhm">1.3 Quản lý dependency mạnh mẽ</h4>
+<h5 id="nhnghangin">Định nghĩa đơn giản</h5>
+<pre><code>repositories {
+    jcenter()
+}
+dependencies {
+    compile project(':api')
+    compile 'org.slf4j:slf4j-api:1.7.10'
+    compile 'com.google.guava:guava:18.0'
+    runtime 'org.slf4j:slf4j-simple:1.7.10'
+    testCompile('junit:junit:4.12') {
+        exclude group: 'org.hamcrest'
+    }
+    testCompile 'org.mockito:mockito-core:1.+'
+}
+</code></pre>
+<h5 id="cthnhntbtkrepositorynocbitn">Có thể nhận từ bất kỳ repository nào được biết đến</h5>
+<p>từ public hay private đến local; pha trộn và kết hợp các loại repository</p>
+<ul>
+<li>Maven repositories
+<ul>
+<li>public (Maven Central, jCenter)</li>
+<li>third-party and in-house (Bintray, Artifactory)</li>
+<li>local Maven repository</li>
+</ul>
+</li>
+<li>Ivy repositories</li>
+<li>Custom &amp; legacy repositories</li>
+<li>Flat files</li>
+</ul>
+<h5 id="giiphpdependencytiu">Giải pháp dependency tối ưu</h5>
+<ul>
+<li>Không bao giờ tải 1 artifact nhiều lần</li>
+<li>Cache</li>
+<li>Xác minh qua checksum</li>
+<li>Track nguồn gốc dependency đảm bảo tính hợp lệ và ngăn chặn lỗi</li>
+<li>...</li>
+</ul>
+<h5 id="giiquytxungt">Giải quyết xung đột.</h5>
+<p>Cho phép publish Artifacts lên Ivy hay Maven repositories.</p>
+<h4 id="14fullyprogrammablebuilds">1.4 Fully Programmable builds</h4>
+<p>Cho phép kiểm soát và điều chỉnh không giới hạn để Gradle phù hợp với nhu cầu sử dụng.</p>
+<h4 id="15vienterprisebuildautomationthgradlenhanhnht">1.5 Với Enterprise Build Automation thì Gradle nhanh nhất</h4>
+<ul>
+<li>incremental build</li>
+<li>build caching</li>
+<li>parallelization drive</li>
+</ul>
+<h4 id="16htrbuildreporting">1.6 Hỗ trợ build reporting</h4>
+<ul>
+<li>Phân tích build giúp thấy được những chỗ cần tối ưu hóa</li>
+<li>Báo cáo cho phép hiểu sâu hơn hiệu quả của build tự động với các module và hiệu năng của nó</li>
+</ul>
+<h3 id="2sosnhvimaven">2. So sánh với Maven</h3>
+<p>Dưới đây là 1 số tính năng nổi bật khi so sánh với Maven. Có thể tham khảo chi tiết thêm tại: <a href="https://gradle.org/maven_vs_gradle/">Gradle vs Maven Feature Comparison</a></p>
+<h4 id="buildscriptvitbnggradlengngnvtrcquandchn">Build script viết bằng Gradle ngắn gọn và trực quan dễ đọc hơn</h4>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkSDRHZldyM1BSWEE&amp;export=download" alt="Gradle vs Maven" width="1338" height="803" layout="responsive"></amp-img></p>
+<h4 id="thigianbuildcagradlenhanhhn">Thời gian build của gradle nhanh hơn</h4>
+<ul>
+<li>Maven
+<ul>
+<li>quá trình build diễn ra lâu do quá trình clean toàn bộ các artifact và sau đó là quá trình đóng gói lại từ đầu.</li>
+<li>các đoạn Unit Test cũng tiêu tốn khá nhiều thời gian</li>
+</ul>
+</li>
+<li>Gradle
+<ul>
+<li>một task build đều được định nghĩa input và output, nên khi có sự thay đổi nhỏ trong source code, Gradle sẽ chỉ thực hiện build lại một phần cần thiết</li>
+<li>Gradle sẽ tự tìm kiếm các task khác lệ thuộc task này và thực hiện quá trình build lại</li>
+<li>Gradle cho phép chạy parallel các đoạn code test nhờ đó rút ngắn thời gian của quá trình build</li>
+<li>Ngoài ra Gradle cho phép thực hiện việc phân phối các đoạn code test qua nhiều machine khác nhau để giảm thiểu thời gian chờ đợi</li>
+</ul>
+</li>
+</ul>
+<p>Và khi gặp lỗi, sẽ không phải chờ đợi quá lâu để build và gặp lỗi, sửa lỗi và build lại</p>
+<ul>
+<li>Maven
+<ul>
+<li>dừng quá trình build ngay khi gặp lỗi</li>
+</ul>
+</li>
+<li>Gradle
+<ul>
+<li>thực thi hết tất cả các task có thể</li>
+<li>tổng hợp toàn bộ các lỗi gặp phải trong một lần đóng gói</li>
+</ul>
+</li>
+</ul>
+<h4 id="gradletngthchviantmaven">Gradle tương thích với Ant, Maven</h4>
+<p>Cho phép nhà phát triển phần mềm không tốn quá nhiều công sức khi không phải chuyển đổi toàn bộ để sử dụng Gradle.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZlBwS1QzaEU2YW8&amp;export=download" alt="Build" width="590" height="218" layout="responsive"></amp-img></p>
+<p>Cộng đồng phát triển sử dụng gradle tăng một cách mạnh mẽ trong những năm gần đây đã đóng góp đáng kể trong việc giúp Gradle liên tục có thêm các cải thiện mới.</p>
+<h3 id="3tobuildscriptcbn">3. Tạo Build Script cơ bản</h3>
+<p>Dưới đây là build script đơn giản giúp tạo file jar và upload lên server test.</p>
+<pre><code>configurations {
+    sshAntTask
+}
+
+dependencies {
+    sshAntTask 'org.apache.ant:ant-jsch:1.9.2'
+}
+
+# Task Tạo file jar
+jar {
+    baseName 'xxx' # Tên file
+
+    doFirst {
+        zip64 = true # Zip type
+    }
+
+    exclude 'META-INF/*.RSA', 'META-INF/*SF', 'META-INF/*.DSA'
+
+　　　　# Main class
+    manifest {
+        attributes 'Main-Class' : xxx 
+    }
+
+　　　　# Tập hợp các dependency phụ thuộc
+    from configuration.compile.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
+}
+
+ant.taskdef {
+    name: 'scp'
+    classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+    classpath: configurations.sshAntTask.asPath
+}
+
+# Task copy file jar tới server test
+# Bằng cách sử dụng ssh scp
+task scpJar() {
+    doLast {
+        file: file("xxx"), # Path file cần copy
+        trust: true, 
+        todir: 'user@server_ip:/home/'  # &lt;user name&gt;@&lt;Server IP&gt;:/Path thư mục đích
+        password: 'xxx' # Mật khẩu
+    }
+}
+</code></pre>
+<p>Kết hợp với IDE, ví dụ với <em>IntelliJ &gt; Run &gt; Edit Configurations</em> để có thể nhanh chóng thực hiện các task trên với 1 vài phím tắt.</p>
+<p><amp-img src="https://drive.google.com/uc?id=0B05rqFCwNCjkZVhQUVJtcFUwQjA&amp;export=download" alt="Shortcut" width="1366" height="728" layout="responsive"></amp-img></p>
+<h3 id="ktlun">Kết luận</h3>
+<p>Gradle là một công cụ mạnh mẽ, có nhiều ưu điểm vượt trội. Hãy thử áp dụng nó trong dự án của bạn!</p>
+<h3 id="thamkho">Tham khảo</h3>
+<ul>
+<li><a href="https://gradle.org/">Gradle Home Page</a></li>
+<li><a href="https://gradle.org/whygradle-build-automation/">#WhyGradle</a></li>
+<li><a href="https://gradle.org/maven_vs_gradle/">Gradle vs Maven Feature Comparison</a></li>
+</ul>
+
+
+            </section>
+
+        </article>
+    </main>
+    <footer class="page-footer">
+        <h3>GMO-Z.com Vietnam Lab Center Technology Blog</h3>
+            <p>Blog chia sẻ kỹ thuật của thành viên công ty GMO-Z.com Vietnam Lab Center</p>
+        <p><a href="../../">Read more posts →</a></p>
+        <a class="powered" href="https://ghost.org" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 156 156"><g fill="none" fill-rule="evenodd"><rect fill="#15212B" width="156" height="156" rx="27"></rect><g transform="translate(36 36)" fill="#F6F8FA"><path d="M0 71.007A4.004 4.004 0 014 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0130 84H4a4 4 0 01-4-4.007v-8.986zM50 71.007A4.004 4.004 0 0154 67h26a4 4 0 014 4.007v8.986A4.004 4.004 0 0180 84H54a4 4 0 01-4-4.007v-8.986z"></path><rect y="34" width="84" height="17" rx="4"></rect><path d="M0 4.007A4.007 4.007 0 014.007 0h41.986A4.003 4.003 0 0150 4.007v8.986A4.007 4.007 0 0145.993 17H4.007A4.003 4.003 0 010 12.993V4.007z"></path><rect x="67" width="17" height="17" rx="4"></rect></g></g></svg> Published with Ghost</a>
+    </footer>
+    
+</body>
